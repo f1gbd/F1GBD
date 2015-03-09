@@ -8,6 +8,8 @@
 
 * [Installation du code binaire de Transcodeur406 dans la carte Arduino UNO](https://github.com/f1gbd/F1GBD/wiki/Installation-du-code-binaire-de-Transcodeur406-dans-la-carte-Arduino-UNO)
 
+![Le Transcodeur406 en test sur un IC-2E](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/Transcodeur406F1GBD.jpg)
+
 ![Trame 406 générée par le Transcodeur406 v1.0 et décodée](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/decodage_trame406.jpg)
 
 ---------------------------------------------------------------------
