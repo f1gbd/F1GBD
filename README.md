@@ -1,6 +1,9 @@
 # ADRASEC 77 - F1GBD
 
-- Transcodeur de Trames v1.0 pour balise 406 (mis à jour le 8 mars 2015)
+Ces informations sont publiées en Open Source pour un usage personnel uniquement, non professionel et non commercial.
+Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
+
+Transcodeur de Trames v1.0 pour balise 406 (mis à jour le 8 mars 2015)
 
 * [SOMMAIRE DES TUTORIELS](https://github.com/f1gbd/F1GBD/wiki)
 
