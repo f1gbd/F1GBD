@@ -593,7 +593,7 @@ void vw_tx_start()
     // Enable the transmitter hardware
     vw_digitalWrite_ptt( true ^ vw_ptt_inverted);
 
-	delay(800);  
+	delay(800);
 	
     // Next tick interrupt will send the first bit
     vw_tx_enabled = true;
@@ -604,7 +604,6 @@ void vw_tx_start()
 void vw_tx_stop()
 {
 	delay(600);
-	
     // Disable the transmitter hardware
     vw_digitalWrite_ptt(false ^ vw_ptt_inverted);
     vw_digitalWrite_tx(false);
