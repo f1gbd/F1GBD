@@ -45,7 +45,7 @@
 	#define vw_digitalWrite_ptt(value) digitalWrite(vw_ptt_pin,(value))
 	
 	// The digital IO pin number of the press to talk, enables the transmitter hardware
-	static uint8_t vw_ptt_pin = 2; //13;	
+	static uint8_t vw_ptt_pin = 3; //13;	
 	
 	// The digital IO pin number of the receiver data
 	static uint8_t vw_rx_pin = 11; //11;
@@ -593,7 +593,7 @@ void vw_tx_start()
     // Enable the transmitter hardware
     vw_digitalWrite_ptt( true ^ vw_ptt_inverted);
 
-	delay(160);  // wait 160 ms before sending data TRAME 406...
+	delay(800);  
 	
     // Next tick interrupt will send the first bit
     vw_tx_enabled = true;
@@ -603,6 +603,8 @@ void vw_tx_start()
 // Stop the transmitter, call when all bits are sent
 void vw_tx_stop()
 {
+	delay(600);
+	
     // Disable the transmitter hardware
     vw_digitalWrite_ptt(false ^ vw_ptt_inverted);
     vw_digitalWrite_tx(false);
@@ -701,7 +703,7 @@ uint8_t vw_send(uint8_t* buf, uint8_t len)
     uint16_t crc = 0xffff;
     uint8_t *p = vw_tx_buf + VW_HEADER_LEN; // start of the message area
     uint8_t count = len + 3; // Added byte count and FCS to get total number of bytes
-
+    
     if (len > VW_MAX_PAYLOAD)
 	return false;
 
@@ -718,7 +720,7 @@ uint8_t vw_send(uint8_t* buf, uint8_t len)
     // Start the low level interrupt handler sending symbols
     vw_tx_start();
 
-    return true;
+    return vw_tx_len;
 }
 
 // Return true if there is a message available

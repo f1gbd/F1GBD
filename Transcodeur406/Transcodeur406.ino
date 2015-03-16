@@ -18,7 +18,6 @@ Ce firmware utilise une version spécialement modifiée, pour cette application 
 
 ******  POUR LE PARAMETRAGE DE LA TRAME406 A ENVOYER MODIFIER LE FICHIER trame406.h  *******
 ATTENTION DANS CETTE VERSION LA POSITION EST ENCODEE EN DUR DANS LE FIRMWARE (Pas de GPS externe)
-Les coordonnées encodées de la balise 406 sont dans cet exemple : lat: 48.47° N long: 3.12° W
 */
 
 #include <VirtualWire.h>     // librairie VirtualWire 1.27 de Mike McCauley
@@ -26,8 +25,8 @@ Les coordonnées encodées de la balise 406 sont dans cet exemple : lat: 48.47°
 #include <LiquidCrystal.h>   // librarie pour l'afficheur LCD
 #include "trame406.h"        // FICHIER DE PARAMETRAGE DE LA TRAME 406 à ENVOYER
 
-#define MISEAJOUR "8 mars 2015"   // date de la dernière mise à jour
-#define VERSION "1.2"             // réference de la version actuelle
+#define MISEAJOUR "  16/03/2015"   // date de la dernière mise à jour
+#define VERSION "v1.3"             // réference de la version actuelle
 
 #define ENABLED                 1
 #define DISABLED                0
@@ -80,6 +79,17 @@ void setup()
 #if TRACE == ENABLED    
     Serial.print("\nPeriode : "); Serial.print(TEMPO,DEC); Serial.println(" sec.");
 #endif 
+    lcd.print("Transcodeur 406");
+    lcd.setCursor(0,1);
+    lcd.print(VERSION);  lcd.print(MISEAJOUR);
+    delay(3000);  // pause 1 secs
+    lcd.clear();    
+    lcd.setCursor(0,0);
+    lcd.print("ADRASEC77 F1GBD");
+    lcd.setCursor(0,1);
+    lcd.print("***************");
+    delay(2000);  // pause 1 secs
+    lcd.clear();    
 
   count=0; // RAZ du compteur
   
