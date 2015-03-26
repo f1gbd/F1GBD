@@ -8,8 +8,8 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 Interface DFT406 pour le KN2C DDF2020T/GPS (mis à jour le 26 mars 2015)
 Cette interface affiche la position GPS du DDF2020 et mémorise l'azimuth moyen du dernier signal radio (balise) reçu sur l'afficheur LCD.
-![Le DFT406 v1.00](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/DF406a.jpg)
-![Le DFT406 v1.00](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/DF406d.jpg)
+![Le DFT406 v1.00](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/DF406b.JPG)
+![Le DFT406 v1.00](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/DF406a.JPG)
 
 Transcodeur de Trames v1.0 pour balise 406 (mis à jour le 8 mars 2015)
 
