@@ -11,6 +11,11 @@ Cette interface affiche la position GPS du DDF2020 et mémorise l'azimuth moyen 
 
 ![Le DFT406 v1.00](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/DF406b.JPG)
 ![Le DFT406 v1.00](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/DF406a.JPG)
+![Le DFT406 v1.00](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/DF406f.JPG)
+
+Schéma de l'interface RS232 du DFT406 pour le DDF2020T/GPS
+
+![Le DFT406 v1.00](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/Interface_DFTv10.jpg)
 
 Transcodeur de Trames v1.0 pour balise 406 (mis à jour le 8 mars 2015)
 
