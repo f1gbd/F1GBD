@@ -3,7 +3,17 @@
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
+![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
+
 * [SOMMAIRE DES TUTORIELS](https://github.com/f1gbd/F1GBD/wiki)
+
+-------------------------------------------------------------
+
+Simulation d'antenne avec le logiciel 4nec2 (mis à jour le 26 juin 2015)
+
+* [Simulations d'antennes avec 4nec2](https://github.com/f1gbd/F1GBD/wiki/Installation-du-simulateur-4nec)
+
+![Demi-dipôle NVIS](https://raw.githubusercontent.com/f1gbd/F1GBD/master/4nec2/images/4nec2_tuto10.jpg)
 
 -------------------------------------------------------------
 
