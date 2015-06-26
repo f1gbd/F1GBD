@@ -1,0 +1,19 @@
+CM Simulation d
+CM Fréquence = 7.076 MHz
+CM par F1GBD (Jean-Louis Naudin)
+CM ADRASEC 77
+CE
+SY frq=7.076	'frequence en MHz
+SY coef=0.1	'Coefficient de hauteur (h=coef * lambda)
+SY lcorr=0.8	'correction de la longueur (en m) pour la résonnance
+SY wr=0.3mm	'Rayon du fil du dipôle en mm
+SY lambda=300/frq	'longueur d'onde
+SY len=(0.5*lambda)-lcorr	'Longueur du demi-dipole en mètre
+SY h=coef*lambda	'Hauteur sol du demi-dipole en mètre
+GW	1	20	0	0	h	len	0	h	wr	'Demi-Dipole
+GE	1
+GN	2	0	0	0	4	0.01
+EK
+EX	6	1	1	0	1	0	0	'Power source to dipole
+FR	0	0	0	0	frq	0
+EN
