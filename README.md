@@ -9,7 +9,8 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 -------------------------------------------------------------
 
-Simulation d'antenne avec le logiciel 4nec2 (mis à jour le 26 juin 2015)
+Simulation d'antenne avec le logiciel 4nec2 (mis à jour le 28 juin 2015)
+LES RADIOCOMMUNICATIONS NVIS
 
 * [Simulation d'un demi-dpôle NVIS avec 4nec2](https://github.com/f1gbd/F1GBD/wiki/Etude-d'un-demi-dip%C3%B4le-utilis%C3%A9-en-mode-NVIS)
 
