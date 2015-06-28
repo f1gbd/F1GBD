@@ -15,7 +15,6 @@ Simulation d'antenne avec le logiciel 4nec2 (mis à jour le 26 juin 2015)
 
 ![Demi-dipôle NVIS](https://raw.githubusercontent.com/f1gbd/F1GBD/master/4nec2/images/4nec2_tuto10.jpg)
 ![La propagation NVIS](https://raw.githubusercontent.com/f1gbd/F1GBD/master/4nec2/images/NVISlayers.jpg)
-source : [http://kv5r.com/ham-radio/nvis-army-fm-24-18/](http://kv5r.com/ham-radio/nvis-army-fm-24-18/)
 
 -------------------------------------------------------------
 
