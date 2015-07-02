@@ -17,7 +17,7 @@ Simulations d'antennes avec le logiciel 4nec2 pour les radiocommunications NVIS 
 
 * [Simulation sur 4nec2 de l'antenne Buddipole sur la bande des 20 m](https://github.com/f1gbd/F1GBD/wiki/Simulation-sur-4nec2-de-l'antenne-Buddipole-sur-la-bande-des-20-m)
 
-![DX Buddipole](https://raw.githubusercontent.com/f1gbd/F1GBD/master/4nec2/images/Buddipole20m4m80f.JPG)
+![Simulation Buddipole sur 4nec2](https://raw.githubusercontent.com/f1gbd/F1GBD/master/4nec2/images/Buddipole20m4m80f.jpg)
 
 * [Simulation d'un demi-dipôle NVIS avec 4nec2](https://github.com/f1gbd/F1GBD/wiki/Etude-d'un-demi-dip%C3%B4le-utilis%C3%A9-en-mode-NVIS)
 
