@@ -11,8 +11,8 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 Simulations d'antennes avec le logiciel 4nec2 pour les radiocommunications NVIS (mis à jour le 3 juillet 2015)
 
-* [Simulation de l'antenne Buddipole 40m en mode NVIS](https://github.com/f1gbd/F1GBD/wiki/Simulation-de-l%27antenne-Buddipole-40m-en-mode-NVIS)
-* * [Simulation de l'antenne Buddipole 40m en mode NVIS pour MMANA](https://github.com/f1gbd/F1GBD/wiki/Simulation-pour-MMANA-de-l'antenne-Buddipole-40m-en-mode-NVIS-(2))
+* [Simulation de l'antenne Buddipole 40m en mode NVIS pour 4nec2](https://github.com/f1gbd/F1GBD/wiki/Simulation-de-l%27antenne-Buddipole-40m-en-mode-NVIS)
+* [Simulation de l'antenne Buddipole 40m en mode NVIS pour MMANA](https://github.com/f1gbd/F1GBD/wiki/Simulation-pour-MMANA-de-l'antenne-Buddipole-40m-en-mode-NVIS-(2))
 
 ![Antenne Buddipole 40m NVIS](https://raw.githubusercontent.com/f1gbd/F1GBD/master/4nec2/images/Buddipole40mNVISe.jpg)
 
