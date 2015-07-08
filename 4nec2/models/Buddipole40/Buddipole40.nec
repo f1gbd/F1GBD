@@ -1,0 +1,33 @@
+CM Simulation du Buddipole (bande 40m) en mode horizontal
+CM Fréquence = 7.076 MHz
+CM monté sur un grand mât de 5m50
+CM par F1GBD (Jean-Louis Naudin)
+CM ADRASEC 77
+CE
+SY frq=7.076	'frequence en MHz
+SY lambda=300/frq	'longueur d'onde
+SY coef=0.130	'Coefficient de hauteur ( ex: 1 = 1 fois la longueur d'onde) coef=0.130 -> 5m50 grand mât
+SY h=coef*lambda	'Hauteur sol du Buddipole en mètre
+SY RedCoil=22.4uH	'Bobine Rouge (tap=Green 10)
+SY BlackCoil=22.4uH	'Bobine Noire (tap=Blue 15)
+SY RedLen=1.66	'Longueur brin téléscopique côté rouge (max len 1.68 m (wip = 6))
+SY BlackLen=1.63	'Longueur brin téléscopique côté noir (max len 1.68 m (wip = 6))
+SY CenterLen=1.44	'Longueur du brin central en mètre
+SY MidLen=CenterLen/2	'Demi-Longueur du brin central
+SY VersaTee=0.08	'Longueur du VersaTee en m
+GW	1	20	MidLen+RedLen	0	h	MidLen	0	h	5mm	'Brin téléscopique
+GW	2	20	MidLen	0	h	VersaTee	0	h	9.5mm	'Partie centrale
+GW	3	20	VersaTee	0	h	-VersaTee	0	h	9.5mm	'Brin téléescopique
+GW	4	20	-VersaTee	0	h	-MidLen	0	h	9.55mm	'Brin téléescopique
+GW	5	20	-MidLen	0	h	-(BlackLen+MidLen)	0	h	5mm	'Brin téléescopique
+GE	1
+LD	5	1	0	0	1390000	'Stainless steel section
+LD	5	3	0	0	58000000	'Copper wire on fiberglass section
+LD	5	5	0	0	1390000	'Stainless steel section
+LD	0	4	20	20	0.01	RedCoil	0	'Bobine rouge
+LD	0	2	1	1	0.01	BlackCoil	0	'Bobine noire
+GN	2	0	0	0	4	0.01
+EK
+EX	6	3	10	0	1	0	0	'Power source to dipole
+FR	0	0	0	0	frq	0
+EN
