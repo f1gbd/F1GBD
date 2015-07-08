@@ -8,8 +8,8 @@ SY frq=7.076	'frequence en MHz
 SY lambda=300/frq	'longueur d'onde
 SY coef=0.130	'Coefficient de hauteur ( ex: 1 = 1 fois la longueur d'onde) coef=0.130 -> 5m50 grand mât
 SY h=coef*lambda	'Hauteur sol du Buddipole en mètre
-SY RedCoil=22.4uH	'Bobine Rouge (tap=Green 10)
-SY BlackCoil=22.4uH	'Bobine Noire (tap=Blue 15)
+SY RedCoil=22.4uH	'Bobine Rouge (pas de tap)
+SY BlackCoil=22.4uH	'Bobine Noire (pas de tap)
 SY RedLen=1.66	'Longueur brin téléscopique côté rouge (max len 1.68 m (wip = 6))
 SY BlackLen=1.63	'Longueur brin téléscopique côté noir (max len 1.68 m (wip = 6))
 SY CenterLen=1.44	'Longueur du brin central en mètre
