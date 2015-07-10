@@ -9,7 +9,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 -------------------------------------------------------------
 
-Simulations d'antennes pour les radiocommunications décamétriques NVIS (mis à jour le 10 juillet 2015)
+Simulations d'antennes pour **les radiocommunications décamétriques NVIS** (mis à jour le 10 juillet 2015)
 
 * [Simulation d'antenne NVIS décamétrique pour véhicule](https://github.com/f1gbd/F1GBD/wiki/Simulation-d'antenne-NVIS-d%C3%A9cam%C3%A9trique-pour-v%C3%A9hicule)
 * [Simulation de l'antenne Buddipole Horizontale sur 40m à 5m50 du sol](https://github.com/f1gbd/F1GBD/wiki/Simulation-de-l'antenne-Buddipole-Horizontale-sur-40m-%C3%A0-5m50-du-sol)
