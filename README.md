@@ -7,7 +7,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 * [SOMMAIRE DES TUTORIELS](https://github.com/f1gbd/F1GBD/wiki)
 
-(mis à jour le 31 juillet 2015)
+mis à jour le 31 juillet 2015
 -------------------------------------------------------------
 
 * [Radiocommunications d'ugence par Ondes De Sol](https://github.com/f1gbd/F1GBD/wiki/Radiocommunications-d'ugence-par-Ondes-De-Sol)
