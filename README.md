@@ -14,6 +14,8 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![Ondes de sol](https://raw.githubusercontent.com/f1gbd/F1GBD/master/RODS/images/rods01.jpg)
 
+* [Configuration de l'antenne pour établir des radiocommunications par ondes de sol](https://github.com/f1gbd/F1GBD/wiki/Configuration-de-l'antenne-pour-%C3%A9tablir-des-radiocommunications-par-ondes-de-sol)
+
 Simulations d'antennes pour **les radiocommunications décamétriques NVIS** 
 
 * [Simulation d'antenne NVIS décamétrique pour véhicule](https://github.com/f1gbd/F1GBD/wiki/Simulation-d'antenne-NVIS-d%C3%A9cam%C3%A9trique-pour-v%C3%A9hicule)
