@@ -1,0 +1,21 @@
+CM Projet GWEN par F1GBD (Jean-Louis Naudin) - ADRASEC 77
+CM Buddistick vertical en mode 80 m avec 2 radians à 90°
+CM Configuration :
+CM - Bobine "Low Band Coil"
+CM - 2 rallonges de 28cm (11')
+CM - 1 brin téléscopique standard (5.5') étiré au max (6 sections)
+CM Description dans le document : "Buddipole in the field" page 131 by Scott Andersen, NE1RDCE
+GW	1	1	0	0	2.4	0	0	2.512	5mm
+GW	2	19	0	0	2.512	0	0	3.072	9.5mm
+GW	3	20	0	0	3.072	0	0	4.752	5mm
+GW	4	49	0	0	2.4	0	10	0.5	1mm
+GW	5	49	0	10	0.5	-10	10	0.5	1mm
+GW	6	49	0	0	2.4	0	-10	0.5	1mm
+GW	7	49	0	-10	0.5	10	-10	0.5	1mm
+GE	1
+LD	0	1	1	1	0	81uH	'Bobine 80m (no tap)
+GN	2	0	0	0	15	0.01
+EK
+EX	0	1	1	0	1	0	0
+FR	0	0	0	0	3.576	0
+EN
