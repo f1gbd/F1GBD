@@ -18,6 +18,8 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 Simulations d'antennes pour **les radiocommunications décamétriques NVIS** 
 
+![La propagation NVIS](https://raw.githubusercontent.com/f1gbd/F1GBD/master/4nec2/images/NVISlayers.jpg)
+
 * [Simulation d'antenne NVIS décamétrique pour véhicule](https://github.com/f1gbd/F1GBD/wiki/Simulation-d'antenne-NVIS-d%C3%A9cam%C3%A9trique-pour-v%C3%A9hicule)
 * [Simulation de l'antenne Buddipole Horizontale sur 40m à 5m50 du sol](https://github.com/f1gbd/F1GBD/wiki/Simulation-de-l'antenne-Buddipole-Horizontale-sur-40m-%C3%A0-5m50-du-sol)
 * [Simulation de l'antenne Buddipole 40m en mode NVIS pour 4nec2](https://github.com/f1gbd/F1GBD/wiki/Simulation-de-l%27antenne-Buddipole-40m-en-mode-NVIS)
@@ -32,7 +34,6 @@ Simulations d'antennes pour **les radiocommunications décamétriques NVIS**
 * [Simulation d'un demi-dipôle NVIS avec 4nec2](https://github.com/f1gbd/F1GBD/wiki/Etude-d'un-demi-dip%C3%B4le-utilis%C3%A9-en-mode-NVIS)
 
 ![Demi-dipôle NVIS](https://raw.githubusercontent.com/f1gbd/F1GBD/master/4nec2/images/4nec2_tuto10.jpg)
-![La propagation NVIS](https://raw.githubusercontent.com/f1gbd/F1GBD/master/4nec2/images/NVISlayers.jpg)
 
 -------------------------------------------------------------
 
