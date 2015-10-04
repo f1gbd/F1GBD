@@ -1,5 +1,5 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 31 juillet 2015
+mis à jour le 4 octobre 2015
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
@@ -12,8 +12,8 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 * [Construction d'une antenne capacitive pour la bande des 80 m](https://github.com/f1gbd/F1GBD/wiki/Construction-d'une-antenne-capacitive-pour-la-bande-des-80-m)
 
-![Ondes de sol](https://raw.githubusercontent.com/f1gbd/F1GBD/master/RODS/acap/images/P1120442.JPG)
-
+L'antenne capacitive 80 m a été présentée sur le stand de l'ADRASEC 77 lors de la Journée Technique FNRASEC organisée par l'ADRASEC 72 (Zone Ouest) du 2 octobre 2015 au Mans.
+![Antenne capacitive 80m](https://raw.githubusercontent.com/f1gbd/F1GBD/master/RODS/acap/images/JTZOAD77a.jpg)
 
 * [Radiocommunications d'ugence par Ondes De Sol](https://github.com/f1gbd/F1GBD/wiki/Radiocommunications-d'ugence-par-Ondes-De-Sol)
 
