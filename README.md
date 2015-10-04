@@ -10,7 +10,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 -------------------------------------------------------------
 
-* [Construction d'une antenne capacitive pour la bande des 80 m](https://github.com/f1gbd/F1GBD/wiki/Construction-de-l'antenne-capacitive-:-montage-de-la-bobine)
+* [Construction d'une antenne capacitive pour la bande des 80 m](https://github.com/f1gbd/F1GBD/wiki/Construction-d'une-antenne-capacitive-pour-la-bande-des-80-m)
 
 ![Ondes de sol](https://raw.githubusercontent.com/f1gbd/F1GBD/master/RODS/acap/images/P1120442.JPG)
 
