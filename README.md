@@ -11,7 +11,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 -------------------------------------------------------------
 
 * [Construction d'une antenne verticale "MonoStick80" pour la bande des 80, 40 et 20 m](https://github.com/f1gbd/F1GBD/wiki/Construction-d'une-antenne-verticale-%22MonoStick80%22-pour-la-bande-des-80,-40-et-20-m)
-![Liste matériel](https://raw.githubusercontent.com/f1gbd/F1GBD/master/RODS/monostick/images/image096.jpg)
+![Liste matériel](https://raw.githubusercontent.com/f1gbd/F1GBD/master/RODS/monostick/images/image106.jpg)
 
 * [Construction d'une antenne capacitive pour la bande des 80 m](https://github.com/f1gbd/F1GBD/wiki/Construction-d'une-antenne-capacitive-pour-la-bande-des-80-m)
 
