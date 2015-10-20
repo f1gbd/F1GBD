@@ -25,6 +25,7 @@ L'antenne capacitive 80 m a été présentée sur le stand de l'ADRASEC 77 lors 
 * [Configuration de l'antenne pour établir des radiocommunications par ondes de sol](https://github.com/f1gbd/F1GBD/wiki/Configuration-de-l'antenne-pour-%C3%A9tablir-des-radiocommunications-par-ondes-de-sol)
 
 * [Réalisation d'une Mallette de Radiocommunications de Terrain (MRT)](https://github.com/f1gbd/F1GBD/wiki/Mallette-de-Radiocommunications-de-Terrain-(MRT))
+![MRT](https://raw.githubusercontent.com/f1gbd/F1GBD/master/RODS/MRT/images/image003.jpg)
 
 Simulations d'antennes pour **les radiocommunications décamétriques NVIS** 
 
