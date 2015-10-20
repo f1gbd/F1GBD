@@ -1,5 +1,5 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 16 octobre 2015
+mis à jour le 20 octobre 2015
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
@@ -23,6 +23,8 @@ L'antenne capacitive 80 m a été présentée sur le stand de l'ADRASEC 77 lors 
 ![Ondes de sol](https://raw.githubusercontent.com/f1gbd/F1GBD/master/RODS/images/rods01.jpg)
 
 * [Configuration de l'antenne pour établir des radiocommunications par ondes de sol](https://github.com/f1gbd/F1GBD/wiki/Configuration-de-l'antenne-pour-%C3%A9tablir-des-radiocommunications-par-ondes-de-sol)
+
+* [Réalisation d'une Mallette de Radiocommunications de Terrain (MRT)](https://github.com/f1gbd/F1GBD/wiki/Mallette-de-Radiocommunications-de-Terrain-(MRT))
 
 Simulations d'antennes pour **les radiocommunications décamétriques NVIS** 
 
