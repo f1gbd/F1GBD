@@ -12,6 +12,8 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 * [FLdigi Tuto : comment envoyer une image en décamétrique avec **FLdigi**?](https://github.com/f1gbd/F1GBD/wiki/FLdigi-Tuto-:-comment-envoyer-une-image-en-d%C3%A9cam%C3%A9trique-%3F)
 
+![FLdigi](https://raw.githubusercontent.com/f1gbd/F1GBD/master/fldigi/images/FldigiSendPict.jpg)
+
 ------------------------------------------------------------------------------------------
 
 * [Construction d'une antenne verticale "MonoStick80" pour la bande des 80, 40 et 20 m](https://github.com/f1gbd/F1GBD/wiki/Construction-d'une-antenne-verticale-%22MonoStick80%22-pour-la-bande-des-80,-40-et-20-m)
