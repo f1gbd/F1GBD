@@ -13,6 +13,9 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 * [FLdigi Tuto : Utilisation et paramétrage de **FLdigi** et **FLmsg**
 ](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoFLdigiFLmsg.pdf)
 
+* [FLdigi Tuto : Utilisation du **mode FSQ**
+](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoFLdigiFSQ.pdf)
+
 * [FLdigi Tuto : comment envoyer une image en décamétrique avec **FLdigi** ?](https://github.com/f1gbd/F1GBD/wiki/FLdigi-Tuto-:-comment-envoyer-une-image-en-d%C3%A9cam%C3%A9trique-%3F)
 
 ![FLdigi](https://raw.githubusercontent.com/f1gbd/F1GBD/master/fldigi/images/FldigiSendPict.jpg)
