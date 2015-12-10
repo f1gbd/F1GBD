@@ -1,5 +1,5 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 12 décembre 2015
+mis à jour le 10 décembre 2015
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
@@ -12,6 +12,9 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 * [FLdigi Tuto : Utilisation et paramétrage de **FLdigi** et **FLmsg**
 ](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoFLdigiFLmsg.pdf)
+
+* [FLdigi Tuto : Création et Utilisation des **MACROs** dans un QSO
+](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoFLdigiMACRO.pdf)
 
 * [FLdigi Tuto : Utilisation du **mode FSQ**
 ](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoFLdigiFSQ.pdf)
