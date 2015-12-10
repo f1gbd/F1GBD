@@ -1,5 +1,5 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 24 novembre 2015
+mis à jour le 12 décembre 2015
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
@@ -9,6 +9,9 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 * [SOMMAIRE DES TUTORIELS](https://github.com/f1gbd/F1GBD/wiki)
 
 -------------------------------------------------------------
+
+* [FLdigi Tuto : Utilisation et paramétrage de **FLdigi** et **FLmsg**](https://github.com/f1gbd/F1GBD/wiki/Mallette-de-Radiocommunications-de-Terrain-(MRT))
+![MRT](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoFLdigiFLmsg.pdf)
 
 * [FLdigi Tuto : comment envoyer une image en décamétrique avec **FLdigi** ?](https://github.com/f1gbd/F1GBD/wiki/FLdigi-Tuto-:-comment-envoyer-une-image-en-d%C3%A9cam%C3%A9trique-%3F)
 
@@ -32,6 +35,9 @@ L'antenne capacitive 80 m a été présentée sur le stand de l'ADRASEC 77 lors 
 
 * [Réalisation d'une Mallette de Radiocommunications de Terrain (MRT)](https://github.com/f1gbd/F1GBD/wiki/Mallette-de-Radiocommunications-de-Terrain-(MRT))
 ![MRT](https://raw.githubusercontent.com/f1gbd/F1GBD/master/RODS/MRT/images/image003.jpg)
+
+* [Manuel d'utilisation et de mise en service de la Mallette de Radiocommunications de Terrain (MRT v2.0)](https://github.com/f1gbd/F1GBD/wiki/Mallette-de-Radiocommunications-de-Terrain-(MRT))
+![MRT](https://github.com/f1gbd/F1GBD/blob/master/doc/UtilisationMalletteMRT2.pdf)
 
 Simulations d'antennes pour **les radiocommunications décamétriques NVIS** 
 
