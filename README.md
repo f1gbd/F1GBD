@@ -1,5 +1,5 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 10 décembre 2015
+mis à jour le 21 décembre 2015
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
@@ -23,6 +23,15 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![FLdigi](https://raw.githubusercontent.com/f1gbd/F1GBD/master/fldigi/images/FldigiSendPict.jpg)
 
+------------------------------------------------------------------------------------------
+* [MultiPSK Tuto : Installation et paramétrage
+](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoMPSKinstall.pdf)
+
+* [MultiPSK Tuto : Faire un QSO en mode **ALE-400**
+](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoMPSKALECQ.pdf)
+
+* [MultiPSK Tuto : Utiliser la messagerie QSP en mode **ALE-400**
+](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoMPSKALEQSP.pdf)
 ------------------------------------------------------------------------------------------
 
 * [Construction d'une antenne verticale "MonoStick80" pour la bande des 80, 40 et 20 m](https://github.com/f1gbd/F1GBD/wiki/Construction-d'une-antenne-verticale-%22MonoStick80%22-pour-la-bande-des-80,-40-et-20-m)
