@@ -1,5 +1,5 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 21 décembre 2015
+mis à jour le 22 décembre 2015
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
@@ -33,6 +33,9 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 * [MultiPSK Tuto : Utiliser la messagerie QSP en mode **ALE-400**
 ](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoMPSKALEQSP.pdf)
+
+* [MultiPSK Tuto : Simulation et **Décodage de Balise 406 (EPIRB-ELT-PLB)**
+](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoMPSKEPIRB.pdf)
 
 ------------------------------------------------------------------------------------------
 
