@@ -1,5 +1,5 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 07 janvier 2016
+mis à jour le 12 janvier 2016
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
@@ -36,6 +36,10 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 * [MultiPSK Tuto : Simulation et **Décodage de Balise 406 (EPIRB-ELT-PLB)**
 ](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoMPSKEPIRB.pdf)
+
+------------------------------------------------------------------------------------------
+* [Utilisation du **Radiogoniomètre directionnel Sniffer mk4** (de VK3YNG)
+](https://github.com/f1gbd/F1GBD/blob/master/doc/UtilisationSniffer4.pdf)
 
 ------------------------------------------------------------------------------------------
 * [RMS Express Tuto : Emails radio via le réseau hybride Winlink 2000
