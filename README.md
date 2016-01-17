@@ -1,5 +1,5 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 12 janvier 2016
+mis à jour le 17 janvier 2016
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
@@ -46,6 +46,9 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 ](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoWinmor.pdf)
 
 ------------------------------------------------------------------------------------------
+
+* [**Construction d'une Antenne Verticale Multibandes pour les bandes de 10 m à 160m**](https://github.com/f1gbd/F1GBD/blob/master/doc/AVMv1.pdf)
+* ![l'Antenne Verticale Multibandes](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/VMA.jpg)
 
 * [Construction d'une antenne verticale "MonoStick80" pour la bande des 80, 40 et 20 m](https://github.com/f1gbd/F1GBD/wiki/Construction-d'une-antenne-verticale-%22MonoStick80%22-pour-la-bande-des-80,-40-et-20-m)
 ![Le Monostick80](https://raw.githubusercontent.com/f1gbd/F1GBD/master/RODS/monostick/images/image001.jpg)
