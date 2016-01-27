@@ -50,8 +50,10 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ------------------------------------------------------------------------------------------
 
-* [**Construction d'une Antenne Verticale Multibandes pour les bandes de 10 m à 160m**](https://github.com/f1gbd/F1GBD/blob/master/doc/AVMv1.pdf)
+* [**Construction d'une Antenne Verticale Multibandes AVM (bandes de 10 m à 160m)**](https://github.com/f1gbd/F1GBD/blob/master/doc/AVMv1.pdf)
 * ![l'Antenne Verticale Multibandes](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/VMA.jpg)
+
+* [Construction d'un socle embase voiture pour l'Antenne Verticale Multibandes (AVM)](https://github.com/f1gbd/F1GBD/blob/master/doc/SocleVoiturepourAVM.pdf)
 
 * [Construction d'une antenne verticale "MonoStick80" pour la bande des 80, 40 et 20 m](https://github.com/f1gbd/F1GBD/wiki/Construction-d'une-antenne-verticale-%22MonoStick80%22-pour-la-bande-des-80,-40-et-20-m)
 ![Le Monostick80](https://raw.githubusercontent.com/f1gbd/F1GBD/master/RODS/monostick/images/image001.jpg)
