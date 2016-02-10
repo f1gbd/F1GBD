@@ -6,7 +6,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**Dernière publication** : [**Initiation aux modes numériques avec JT-65**
+**Dernière publication (10/02/2016)** : [**Initiation aux modes numériques avec JT-65**
 ](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoWSJT-X.pdf)
 
 ------------------------------------------------------------------------------------------
