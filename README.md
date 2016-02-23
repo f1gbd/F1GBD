@@ -1,13 +1,12 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 10 février 2016
+mis à jour le 23 février 2016
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**Dernière publication (10/02/2016)** : [**Initiation aux modes numériques avec JT-65**
-](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoWSJT-X.pdf)
+**Dernière publication (10/02/2016)** : * [**System ACP : Etude d'un système de radiocommunications d'urgence par ondes longitudinales **](https://github.com/f1gbd/F1GBD/blob/master/doc/SystemeACP.pdf)
 
 ------------------------------------------------------------------------------------------
 
@@ -85,6 +84,8 @@ L'antenne capacitive 80 m a été présentée sur le stand de l'ADRASEC 77 lors 
 ![MRT](https://raw.githubusercontent.com/f1gbd/F1GBD/master/RODS/MRT/images/image003.jpg)
 
 * [Manuel d'utilisation et de mise en service de la Mallette de Radiocommunications de Terrain (MRT v2.0)](https://github.com/f1gbd/F1GBD/blob/master/doc/UtilisationMalletteMRT2.pdf)
+
+* [**System ACP : Etude d'un système de radiocommunications d'urgence par ondes longitudinales **](https://github.com/f1gbd/F1GBD/blob/master/doc/SystemeACP.pdf)
 
 Simulations d'antennes pour **les radiocommunications décamétriques NVIS** 
 
