@@ -6,7 +6,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**Dernière publication (10/02/2016)** : * [**System ACP : Etude d'un système de radiocommunications d'urgence par ondes longitudinales **](https://github.com/f1gbd/F1GBD/blob/master/doc/SystemeACP.pdf)
+**Dernière publication (10/02/2016)** : [System ACP : Etude d'un système de radiocommunications d'urgence par ondes longitudinales ](https://github.com/f1gbd/F1GBD/blob/master/doc/SystemeACP.pdf)
 
 ------------------------------------------------------------------------------------------
 
@@ -85,7 +85,7 @@ L'antenne capacitive 80 m a été présentée sur le stand de l'ADRASEC 77 lors 
 
 * [Manuel d'utilisation et de mise en service de la Mallette de Radiocommunications de Terrain (MRT v2.0)](https://github.com/f1gbd/F1GBD/blob/master/doc/UtilisationMalletteMRT2.pdf)
 
-* [**System ACP : Etude d'un système de radiocommunications d'urgence par ondes longitudinales **](https://github.com/f1gbd/F1GBD/blob/master/doc/SystemeACP.pdf)
+* [System ACP : Etude d'un système de radiocommunications d'urgence par ondes longitudinales](https://github.com/f1gbd/F1GBD/blob/master/doc/SystemeACP.pdf)
 
 Simulations d'antennes pour **les radiocommunications décamétriques NVIS** 
 
