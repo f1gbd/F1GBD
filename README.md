@@ -1,12 +1,13 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 23 février 2016
+mis à jour le 22 mars 2016
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**Dernière publication (10/02/2016)** : [System ACP : Etude d'un système de radiocommunications d'urgence par ondes longitudinales ](https://github.com/f1gbd/F1GBD/blob/master/doc/SystemeACP.pdf)
+**Dernière MAJ du 22/03/2016** : [**Mémento de réglages d'EasyPal et de MMSSTV pour une Yaesu FT-857**
+](https://github.com/f1gbd/F1GBD/blob/master/doc/FicheEasyPalMMSSTV.pdf)
 
 ------------------------------------------------------------------------------------------
 
@@ -52,6 +53,10 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 ------------------------------------------------------------------------------------------
 * [Utilisation du **Radiogoniomètre directionnel Sniffer mk4** (de VK3YNG)
 ](https://github.com/f1gbd/F1GBD/blob/master/doc/UtilisationSniffer4.pdf)
+
+------------------------------------------------------------------------------------------
+* [FICHE : **Mémento de réglages d'EasyPal et de MMSSTV pour une Yaesu FT-857**
+](https://github.com/f1gbd/F1GBD/blob/master/doc/FicheEasyPalMMSSTV.pdf)
 
 ------------------------------------------------------------------------------------------
 * [RMS Express Tuto : Emails radio via le réseau hybride Winlink 2000
