@@ -6,7 +6,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**Dernière MAJ du 22/03/2016** : [**Mémento de réglages d'EasyPal et de MMSSTV pour une Yaesu FT-857**
+**Dernière MAJ du 22/03/2016** : [**Mémento de réglages d'EasyPal et de MMSSTV pour un transceiver Yaesu FT-857**
 ](https://github.com/f1gbd/F1GBD/blob/master/doc/FicheEasyPalMMSSTV.pdf)
 
 ------------------------------------------------------------------------------------------
@@ -55,7 +55,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 ](https://github.com/f1gbd/F1GBD/blob/master/doc/UtilisationSniffer4.pdf)
 
 ------------------------------------------------------------------------------------------
-* [FICHE : **Mémento de réglages d'EasyPal et de MMSSTV pour une Yaesu FT-857**
+* [FICHE : **Mémento de réglages d'EasyPal et de MMSSTV pour un transceiver Yaesu FT-857**
 ](https://github.com/f1gbd/F1GBD/blob/master/doc/FicheEasyPalMMSSTV.pdf)
 
 ------------------------------------------------------------------------------------------
