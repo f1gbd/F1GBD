@@ -1,13 +1,13 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 22 mars 2016
+mis à jour le 31 mars 2016
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**Dernière MAJ du 22/03/2016** : [**Mémento de réglages d'EasyPal et de MMSSTV pour un transceiver Yaesu FT-857**
-](https://github.com/f1gbd/F1GBD/blob/master/doc/FicheEasyPalMMSSTV.pdf)
+**Dernière MAJ du 31/03/2016** : [Connexion d'un Signalink USB à un Kenwood TMD-700/710
+](https://github.com/f1gbd/F1GBD/blob/master/doc/FicheTMD700SLNK.pdf)
 
 ------------------------------------------------------------------------------------------
 
@@ -32,6 +32,11 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 * [FLdigi Tuto : comment envoyer une image en décamétrique avec **FLdigi** ?](https://github.com/f1gbd/F1GBD/wiki/FLdigi-Tuto-:-comment-envoyer-une-image-en-d%C3%A9cam%C3%A9trique-%3F)
 
 ![FLdigi](https://raw.githubusercontent.com/f1gbd/F1GBD/master/fldigi/images/FldigiSendPict.jpg)
+
+------------------------------------------------------------------------------------------
+
+* [FICHE Mémento   - Connexion d'un Signalink USB à un Kenwood TMD-700/710
+](https://github.com/f1gbd/F1GBD/blob/master/doc/FicheTMD700SLNK.pdf)
 
 ------------------------------------------------------------------------------------------
 
