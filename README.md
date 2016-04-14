@@ -1,13 +1,13 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 31 mars 2016
+mis à jour le 14 avril 2016
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**Dernière MAJ du 31/03/2016** : [Connexion d'un Signalink USB à un Kenwood TMD-700/710
-](https://github.com/f1gbd/F1GBD/blob/master/doc/FicheTMD700SLNK.pdf)
+**Dernière MAJ du 13/04/2016** : [Radiocommunications numériques par Ondes De Sol (ODS) en HF
+](https://github.com/f1gbd/F1GBD/blob/master/doc/CRmission13042016.pdf)
 
 ------------------------------------------------------------------------------------------
 
@@ -89,6 +89,9 @@ L'antenne capacitive 80 m a été présentée sur le stand de l'ADRASEC 77 lors 
 ![Ondes de sol](https://raw.githubusercontent.com/f1gbd/F1GBD/master/RODS/images/rods01.jpg)
 
 * [Configuration de l'antenne pour établir des radiocommunications par ondes de sol](https://github.com/f1gbd/F1GBD/wiki/Configuration-de-l'antenne-pour-%C3%A9tablir-des-radiocommunications-par-ondes-de-sol)
+
+* [CR Test : Radiocommunications numériques par Ondes De Sol (ODS) en HF
+](https://github.com/f1gbd/F1GBD/blob/master/doc/CRmission13042016.pdf)
 
 * [Réalisation d'une Mallette de Radiocommunications de Terrain (MRT)](https://github.com/f1gbd/F1GBD/wiki/Mallette-de-Radiocommunications-de-Terrain-(MRT))
 ![MRT](https://raw.githubusercontent.com/f1gbd/F1GBD/master/RODS/MRT/images/image003.jpg)
