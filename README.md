@@ -1,13 +1,13 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 14 avril 2016
+mis à jour le 19 avril 2016
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**Dernière MAJ du 13/04/2016** : [Radiocommunications numériques par Ondes De Sol (ODS) en HF
-](https://github.com/f1gbd/F1GBD/blob/master/doc/CRmission13042016.pdf)
+**Dernière MAJ du 19/04/2016** : [Comment Envoyer/Recevoir des messages QSP en ALE400/141A
+](https://github.com/f1gbd/F1GBD/blob/master/doc/FM_ALEQSP.pdf)
 
 ------------------------------------------------------------------------------------------
 
@@ -48,6 +48,9 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 * [MultiPSK Tuto : Utiliser la messagerie QSP en mode **ALE-400**
 ](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoMPSKALEQSP.pdf)
+
+* [Memento : Comment Envoyer/Recevoir des messages QSP en ALE400/141A
+](https://github.com/f1gbd/F1GBD/blob/master/doc/FM_ALEQSP.pdf)
 
 * [MultiPSK Tuto : Simulation et **Décodage de Balise 406 (EPIRB-ELT-PLB)**
 ](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoMPSKEPIRB.pdf)
