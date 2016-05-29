@@ -1,13 +1,13 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 19 avril 2016
+mis à jour le 29 mai 2016
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**Dernière MAJ du 19/04/2016** : [Comment Envoyer/Recevoir des messages QSP en ALE400/141A
-](https://github.com/f1gbd/F1GBD/blob/master/doc/FM_ALEQSP.pdf)
+**Dernière MAJ du 29/04/2016** : [Réseau Palliatif/Supplétif : transfert d'image et de document texte
+](https://github.com/f1gbd/F1GBD/blob/master/doc/CRmission28052016.pdf)
 
 ------------------------------------------------------------------------------------------
 
@@ -69,6 +69,11 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 ------------------------------------------------------------------------------------------
 * [RMS Express Tuto : Emails radio via le réseau hybride Winlink 2000
 ](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoWinmor.pdf)
+
+------------------------------------------------------------------------------------------
+
+* [CR Tests : Réseau Palliatif/Supplétif : transfert d'image et de document texte
+](https://github.com/f1gbd/F1GBD/blob/master/doc/CRmission28052016.pdf)
 
 ------------------------------------------------------------------------------------------
 
