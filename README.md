@@ -6,7 +6,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**Dernière MAJ du 29/04/2016** : [Réseau Palliatif/Supplétif : transfert d'image et de document texte
+**Dernière MAJ du 29/05/2016** : [Réseau Palliatif/Supplétif : transfert d'image et de document texte
 ](https://github.com/f1gbd/F1GBD/blob/master/doc/CRmission28052016.pdf)
 
 ------------------------------------------------------------------------------------------
