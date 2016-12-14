@@ -1,13 +1,12 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 29 mai 2016
+mis à jour le 14 décembre 2016
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**Dernière MAJ du 29/05/2016** : [Réseau Palliatif/Supplétif : transfert d'image et de document texte
-](https://github.com/f1gbd/F1GBD/blob/master/doc/CRmission28052016.pdf)
+**Dernière MAJ du 14/12/2016** : [**Radiocommunications d'ugence par Ondes De Sol**](https://github.com/f1gbd/F1GBD/wiki/Radiocommunications-d'ugence-par-Ondes-De-Sol)
 
 ------------------------------------------------------------------------------------------
 
