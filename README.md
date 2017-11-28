@@ -1,12 +1,12 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 14 décembre 2016
+mis à jour le 28 novembre 2017
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**Dernière MAJ du 14/12/2016** : [**Radiocommunications d'ugence par Ondes De Sol**](https://github.com/f1gbd/F1GBD/wiki/Radiocommunications-d'ugence-par-Ondes-De-Sol)
+**Dernière MAJ du 28/11/2011** : [**Réalisation d'une Antenne à Boucle Magnétique**](https://github.com/f1gbd/F1GBD/blob/master/doc/ABMv1.pdf)
 
 ------------------------------------------------------------------------------------------
 
