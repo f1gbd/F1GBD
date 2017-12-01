@@ -82,7 +82,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 * [Construction d'un socle embase voiture pour l'Antenne Verticale Multibandes (AVM)](https://github.com/f1gbd/F1GBD/blob/master/doc/SocleVoiturepourAVM.pdf)
 
  * [**Réalisation d'une Antenne à Boucle Magnétique ABM v1.0**](https://github.com/f1gbd/F1GBD/blob/master/doc/ABMv1.pdf)
- * ![l'Antenne à Boucle Magnétique](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/ABMv1.jpg)
+ * ![l'Antenne à Boucle Magnétique](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/ABMv1.JPG)
 
 * [Construction d'une antenne verticale "MonoStick80" pour la bande des 80, 40 et 20 m](https://github.com/f1gbd/F1GBD/wiki/Construction-d'une-antenne-verticale-%22MonoStick80%22-pour-la-bande-des-80,-40-et-20-m)
 
