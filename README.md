@@ -85,7 +85,6 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
  * ![l'Antenne à Boucle Magnétique](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/ABMv1.jpg)
 
 * [Construction d'une antenne verticale "MonoStick80" pour la bande des 80, 40 et 20 m](https://github.com/f1gbd/F1GBD/wiki/Construction-d'une-antenne-verticale-%22MonoStick80%22-pour-la-bande-des-80,-40-et-20-m)
-![Le Monostick80](https://raw.githubusercontent.com/f1gbd/F1GBD/master/RODS/monostick/images/image001.jpg)
 
 * [Construction d'une antenne LONG FIL EFWA avec balun pour les bandes de 10 m à 160 m](https://github.com/f1gbd/F1GBD/blob/master/doc/Antenne_Long_Fil_EFWA.pdf)
 
