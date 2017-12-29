@@ -1,12 +1,13 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 01 décembre 2017
+mis à jour le 29 décembre 2017
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**Dernière MAJ du 28/11/2017** : [**Réalisation d'une Antenne à Boucle Magnétique ABM v1.0**](https://github.com/f1gbd/F1GBD/blob/master/doc/ABMv1.pdf)
+**Dernière MAJ du 29/12/2017** : [**Radiocommunications digitale en FT8 sur Raspberry PI 3**](https://github.com/f1gbd/F1GBD/blob/master/doc/Tutoriel WSJtxRPI3.pdf)
+**MAJ du 28/11/2017** : [**Réalisation d'une Antenne à Boucle Magnétique ABM v1.0**](https://github.com/f1gbd/F1GBD/blob/master/doc/ABMv1.pdf)
 
 ------------------------------------------------------------------------------------------
 
@@ -15,7 +16,10 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 ------------------------------------------------------------------------------------------
 
 * [WSJT-X Tuto : **Initiation aux modes numériques** avec JT-65
-](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoWSJT-X.pdf)
+](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoWSJT-X.pdf
+
+[FT8 : **Radiocommunications digitale en FT8 sur Raspberry PI 3**]
+(https://github.com/f1gbd/F1GBD/blob/master/doc/Tutoriel WSJtxRPI3.pdf)
 
 ------------------------------------------------------------------------------------------
 
