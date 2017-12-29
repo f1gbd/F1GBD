@@ -6,7 +6,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**MAJ du 29/12/2017** : [**Radiocommunications digitale en FT8 sur Raspberry PI 3**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoWSJtxRPI3.pdf)
+**MAJ du 29/12/2017** : [**Radiocommunications digitales en FT8 sur Raspberry PI 3**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoWSJtxRPI3.pdf)
 
 **MAJ du 28/11/2017** : [**Réalisation d'une Antenne à Boucle Magnétique ABM v1.0**](https://github.com/f1gbd/F1GBD/blob/master/doc/ABMv1.pdf)
 
