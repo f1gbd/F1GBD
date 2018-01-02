@@ -16,7 +16,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ------------------------------------------------------------------------------------------
 
-* [WSJT-X Tuto : **Initiation aux modes numériques** avec JT-65](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoWSJT-X.pdf
+* [WSJT-X Tuto : **Initiation aux modes numériques** avec JT-65](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoWSJT-X.pdf)
 
 * [FT8 : **Radiocommunications digitales en FT8 sur Raspberry PI 3**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoWSJtxRPI3.pdf)
 
