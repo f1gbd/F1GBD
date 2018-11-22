@@ -1,12 +1,12 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 29 décembre 2017
+mis à jour le 22 novembre 2018
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**MAJ du 29/12/2017** : [**Radiocommunications digitales en FT8 sur Raspberry PI 3**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoWSJtxRPI3.pdf)
+**MAJ du 22/11/2018** : [**Réalisation d'une antenne EFHW pour de la randonnée**](https://github.com/f1gbd/F1GBD/blob/master/doc/EFHWAportable.pdf)
 
 **MAJ du 28/11/2017** : [**Réalisation d'une Antenne à Boucle Magnétique ABM v1.0**](https://github.com/f1gbd/F1GBD/blob/master/doc/ABMv1.pdf)
 
@@ -83,6 +83,8 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 * ![l'Antenne Verticale Multibandes](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/VMA.jpg)
 
 * [Construction d'un socle embase voiture pour l'Antenne Verticale Multibandes (AVM)](https://github.com/f1gbd/F1GBD/blob/master/doc/SocleVoiturepourAVM.pdf)
+
+* [**Réalisation d'une antenne EFHW pour de la randonnée**](https://github.com/f1gbd/F1GBD/blob/master/doc/EFHWAportable.pdf)
 
  * [**Réalisation d'une Antenne à Boucle Magnétique ABM v1.0**](https://github.com/f1gbd/F1GBD/blob/master/doc/ABMv1.pdf)
  * ![l'Antenne à Boucle Magnétique](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/ABMv1.JPG)
