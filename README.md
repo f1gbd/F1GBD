@@ -1,12 +1,12 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 23 novembre 2018
+mis à jour le 30 novembre 2018
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**MAJ du 23/11/2018** : [**Réalisation d'une antenne doublet 1/2 onde en V Inversé pour les EmComm et les randonnées**](https://github.com/f1gbd/F1GBD/blob/master/doc/RasecTenna.pdf)
+**MAJ du 30/11/2018** : [**Réalisation d'une antenne doublet 1/2 onde en V Inversé pour les EmComm et les randonnées**](https://github.com/f1gbd/F1GBD/blob/master/doc/RasecTenna.pdf)
 
 **MAJ du 22/11/2018** : [**Réalisation d'une antenne EFHW pour de la randonnée**](https://github.com/f1gbd/F1GBD/blob/master/doc/EFHWAportable.pdf)
 
