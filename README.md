@@ -1,10 +1,12 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 1 décembre 2018
+mis à jour le 3 décembre 2018
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
+
+**MAJ du 03/12/2018** : [**Synchronisation horaire GPS et QTH locator automatique pour RPI 3**](https://github.com/f1gbd/F1GBD/blob/master/doc/RPI3_GPS.pdf)
 
 **MAJ du 01/12/2018** : [**La RasecTenna v2 une antenne HF en V Inversé pour les EmComm et les randonnées**](https://github.com/f1gbd/F1GBD/blob/master/doc/RasecTenna_V2.pdf)
 
@@ -40,6 +42,8 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 ![FLdigi](https://raw.githubusercontent.com/f1gbd/F1GBD/master/fldigi/images/FldigiSendPict.jpg)
 
 ------------------------------------------------------------------------------------------
+
+* [FICHE Mémento   - Synchronisation horaire GPS et QTH locator automatique pour RPI 3](https://github.com/f1gbd/F1GBD/blob/master/doc/RPI3_GPS.pdf)
 
 * [FICHE Mémento   - Connexion d'un Signalink USB à un Kenwood TMD-700/710
 ](https://github.com/f1gbd/F1GBD/blob/master/doc/FicheTMD700SLNK.pdf)
