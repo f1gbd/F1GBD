@@ -6,7 +6,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**MAJ du 03/12/2018** : [**Synchronisation horaire GPS et QTH locator automatique pour RPI 3**](https://github.com/f1gbd/F1GBD/blob/master/doc/RPI3_GPS.pdf)
+**MAJ du 03/12/2018** : [**Synchronisation horaire GPS et QTH locator automatique pour Raspberry PI 3**](https://github.com/f1gbd/F1GBD/blob/master/doc/RPI3_GPS.pdf)
 
 **MAJ du 01/12/2018** : [**La RasecTenna v2 une antenne HF en V Inversé pour les EmComm et les randonnées**](https://github.com/f1gbd/F1GBD/blob/master/doc/RasecTenna_V2.pdf)
 
