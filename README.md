@@ -1,18 +1,16 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 9 décembre 2018
+mis à jour le 19 janvier 2019
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
+**MAJ du 19/01/2019** : [**TRANSMISSION D'IMAGES SSTV ou HamDRM: Tutoriel QSSTV pour RPI3**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoQSSTV.pdf)
+
 **MAJ du 09/12/2018** : [**La RasecTenna v2 une antenne HF en V Inversé pour les EmComm et les randonnées**](https://github.com/f1gbd/F1GBD/blob/master/doc/RasecTenna_V2.pdf)
 
 **MAJ du 03/12/2018** : [**Synchronisation horaire GPS et QTH locator automatique pour Raspberry PI 3**](https://github.com/f1gbd/F1GBD/blob/master/doc/RPI3_GPS.pdf)
-
-**MAJ du 23/11/2018** : [**Réalisation d'une antenne doublet 1/2 onde en V Inversé pour les EmComm et les randonnées**](https://github.com/f1gbd/F1GBD/blob/master/doc/RasecTenna.pdf)
-
-**MAJ du 22/11/2018** : [**Réalisation d'une antenne EFHW pour de la randonnée**](https://github.com/f1gbd/F1GBD/blob/master/doc/EFHWAportable.pdf)
 
 **MAJ du 28/11/2017** : [**Réalisation d'une Antenne à Boucle Magnétique ABM v1.0**](https://github.com/f1gbd/F1GBD/blob/master/doc/ABMv1.pdf)
 
@@ -75,6 +73,8 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 ------------------------------------------------------------------------------------------
 * [FICHE : **Mémento de réglages d'EasyPal et de MMSSTV pour un transceiver Yaesu FT-857**
 ](https://github.com/f1gbd/F1GBD/blob/master/doc/FicheEasyPalMMSSTV.pdf)
+
+* [**TRANSMISSION D'IMAGES SSTV ou HamDRM: Tutoriel QSSTV pour RPI3**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoQSSTV.pdf)
 
 ------------------------------------------------------------------------------------------
 * [RMS Express Tuto : Emails radio via le réseau hybride Winlink 2000
