@@ -6,7 +6,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**MAJ du 24/01/2019** : [**Faire des QSO en APRS avec ARISS, la Station Spatiale Internationale**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoQSO_ARISS.pdf)
+**MAJ du 24/01/2019** : [**Faire des QSOs en APRS avec ARISS, la Station Spatiale Internationale**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoQSO_ARISS.pdf)
 
 **MAJ du 19/01/2019** : [**TRANSMISSION D'IMAGES SSTV ou HamDRM: Tutoriel QSSTV pour RPI3**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoQSSTV.pdf)
 
@@ -78,7 +78,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 * [**TRANSMISSION D'IMAGES SSTV ou HamDRM: Tutoriel QSSTV pour RPI3**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoQSSTV.pdf)
 
-* [**Faire des QSO en APRS avec ARISS, la Station Spatiale Internationale**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoQSO_ARISS.pdf)
+* [**Faire des QSOs en APRS avec ARISS, la Station Spatiale Internationale**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoQSO_ARISS.pdf)
 ------------------------------------------------------------------------------------------
 * [RMS Express Tuto : Emails radio via le réseau hybride Winlink 2000
 ](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoWinmor.pdf)
