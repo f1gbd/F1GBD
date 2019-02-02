@@ -1,12 +1,12 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 24 janvier 2019
+mis à jour le 02 février 2019
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**MAJ du 24/01/2019** : [**Faire des QSOs en APRS avec ARISS, la Station Spatiale Internationale**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoQSO_ARISS.pdf)
+**MAJ du 02/02/2019** : [**Faire des QSOs en APRS avec ARISS, la Station Spatiale Internationale**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoQSO_ARISS.pdf)
 
 **MAJ du 19/01/2019** : [**TRANSMISSION D'IMAGES SSTV ou HamDRM: Tutoriel QSSTV pour RPI3**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoQSSTV.pdf)
 
