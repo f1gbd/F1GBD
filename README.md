@@ -1,10 +1,12 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 02 février 2019
+mis à jour le 04 février 2019
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
+
+**MAJ du 04/02/2019** : [**Mémo: Paramétrage de WSJT-X en FT8 pour un FT-857 + Signalink USB**](https://github.com/f1gbd/F1GBD/blob/master/doc/Param%C3%A9trageWSJT-X.pdf)
 
 **MAJ du 02/02/2019** : [**Faire des QSOs en APRS avec ARISS, la Station Spatiale Internationale**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoQSO_ARISS.pdf)
 
@@ -23,6 +25,8 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 ------------------------------------------------------------------------------------------
 
 * [WSJT-X Tuto : **Initiation aux modes numériques** avec JT-65](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoWSJT-X.pdf)
+
+* [FICHE Mémento   - Paramétrage de WSJT-X en FT8 pour un FT-857 + Signalink USB**](https://github.com/f1gbd/F1GBD/blob/master/doc/Param%C3%A9trageWSJT-X.pdf)
 
 * [FT8 : **Radiocommunications digitales en FT8 sur Raspberry PI 3**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoWSJtxRPI3.pdf)
 
@@ -45,8 +49,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 * [FICHE Mémento   - Synchronisation horaire GPS et QTH locator automatique pour RPI 3](https://github.com/f1gbd/F1GBD/blob/master/doc/RPI3_GPS.pdf)
 
-* [FICHE Mémento   - Connexion d'un Signalink USB à un Kenwood TMD-700/710
-](https://github.com/f1gbd/F1GBD/blob/master/doc/FicheTMD700SLNK.pdf)
+* [FICHE Mémento   - Connexion d'un Signalink USB à un Kenwood TMD-700/710](https://github.com/f1gbd/F1GBD/blob/master/doc/FicheTMD700SLNK.pdf)
 
 ------------------------------------------------------------------------------------------
 
