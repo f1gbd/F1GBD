@@ -6,7 +6,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**MAJ du 05/03/2019** : [**Recherche de Balises 121.5 Mhz : Utilisation du système TDOA avec le Sniffer 4**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoInstall_TDOA.pdf)
+**MAJ du 05/03/2019** : [**Recherche de Balises 121.5 Mhz : Le système de recherche de balises TDOA**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoInstall_TDOA.pdf)
 
 **MAJ du 02/03/2019** : [**Tutoriel d’installation de la Tourelle de Suivi Satellites ou T2S**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoInstall_T2S.pdf)
 
