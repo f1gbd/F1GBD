@@ -1,10 +1,12 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 05 mars 2019
+mis à jour le 28 mars 2019
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
+
+**MAJ du 28/03/2019** : [**Créer un Digipeater (i-Gate) APRS avec XASTIR sur Raspberry Pi 3**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoInstall_DigiAPRS_XASTIR.pdf)
 
 **MAJ du 05/03/2019** : [**Recherche de Balises 121.5 Mhz : Le système de recherche de balises TDOA**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoInstall_TDOA.pdf)
 
@@ -17,10 +19,6 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 **MAJ du 19/01/2019** : [**TRANSMISSION D'IMAGES SSTV ou HamDRM: Tutoriel QSSTV pour RPI3**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoQSSTV.pdf)
 
 **MAJ du 09/12/2018** : [**La RasecTenna v2 une antenne HF en V Inversé pour les EmComm et les randonnées**](https://github.com/f1gbd/F1GBD/blob/master/doc/RasecTenna_V2.pdf)
-
-**MAJ du 03/12/2018** : [**Synchronisation horaire GPS et QTH locator automatique pour Raspberry PI 3**](https://github.com/f1gbd/F1GBD/blob/master/doc/RPI3_GPS.pdf)
-
-**MAJ du 28/11/2017** : [**Réalisation d'une Antenne à Boucle Magnétique ABM v1.0**](https://github.com/f1gbd/F1GBD/blob/master/doc/ABMv1.pdf)
 
 ------------------------------------------------------------------------------------------
 
@@ -50,6 +48,8 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 ![FLdigi](https://raw.githubusercontent.com/f1gbd/F1GBD/master/fldigi/images/FldigiSendPict.jpg)
 
 ------------------------------------------------------------------------------------------
+
+* [**Créer un Digipeater (i-Gate) APRS avec XASTIR sur Raspberry Pi 3**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoInstall_DigiAPRS_XASTIR.pdf)
 
 * [FICHE Mémento   - Synchronisation horaire GPS et QTH locator automatique pour RPI 3](https://github.com/f1gbd/F1GBD/blob/master/doc/RPI3_GPS.pdf)
 
