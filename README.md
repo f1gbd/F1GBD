@@ -1,10 +1,12 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 28 mars 2019
+mis à jour le 7 juillet 2019
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
+
+**MAJ du 07/07/2019** : [**Station Radio Portable WSJT-X pilotée par un RPI3**](https://github.com/f1gbd/F1GBD/blob/master/doc/StationRadioWSJT-X.pdf)
 
 **MAJ du 28/03/2019** : [**Créer un Digipeater (i-Gate) APRS avec XASTIR sur Raspberry Pi 3**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoInstall_DigiAPRS_XASTIR.pdf)
 
@@ -16,8 +18,6 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 **MAJ du 02/02/2019** : [**Faire des QSOs en APRS avec ARISS, la Station Spatiale Internationale**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoQSO_ARISS.pdf)
 
-**MAJ du 19/01/2019** : [**TRANSMISSION D'IMAGES SSTV ou HamDRM: Tutoriel QSSTV pour RPI3**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoQSSTV.pdf)
-
 **MAJ du 09/12/2018** : [**La RasecTenna v2 une antenne HF en V Inversé pour les EmComm et les randonnées**](https://github.com/f1gbd/F1GBD/blob/master/doc/RasecTenna_V2.pdf)
 
 ------------------------------------------------------------------------------------------
@@ -25,6 +25,8 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 * [SOMMAIRE DES TUTORIELS](https://github.com/f1gbd/F1GBD/wiki)
 
 ------------------------------------------------------------------------------------------
+
+* [**Station Radio Portable WSJT-X pilotée par un RPI3**](https://github.com/f1gbd/F1GBD/blob/master/doc/StationRadioWSJT-X.pdf)
 
 * [WSJT-X Tuto : **Initiation aux modes numériques** avec JT-65](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoWSJT-X.pdf)
 
