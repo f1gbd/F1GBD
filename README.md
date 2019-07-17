@@ -116,7 +116,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 * [**Réalisation d'une antenne EFHW pour de la randonnée**](https://github.com/f1gbd/F1GBD/blob/master/doc/EFHWAportable.pdf)
 
-[**Antenne HF Multi-Bandes type FUCHS**](https://github.com/f1gbd/F1GBD/blob/master/doc/Antenne_FUCHS_F1GBD.pdf)
+* [**Antenne HF Multi-Bandes type FUCHS**](https://github.com/f1gbd/F1GBD/blob/master/doc/Antenne_FUCHS_F1GBD.pdf)
 
 * [**Réalisation d'une Antenne à Boucle Magnétique ABM v1.0**](https://github.com/f1gbd/F1GBD/blob/master/doc/ABMv1.pdf)
  * ![l'Antenne à Boucle Magnétique](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/ABMv1.JPG)
