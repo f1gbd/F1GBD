@@ -1,10 +1,12 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 7 juillet 2019
+mis à jour le 17 juillet 2019
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
+
+**MAJ du 07/07/2019** : [**Antenne HF Multi-Bandes type FUCHS**](https://github.com/f1gbd/F1GBD/blob/master/doc/Antenne_FUCHS_F1GBD.pdf)
 
 **MAJ du 07/07/2019** : [**Station Radio Portable WSJT-X pilotée par un RPI3**](https://github.com/f1gbd/F1GBD/blob/master/doc/StationRadioWSJT-X.pdf)
 
@@ -114,7 +116,9 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 * [**Réalisation d'une antenne EFHW pour de la randonnée**](https://github.com/f1gbd/F1GBD/blob/master/doc/EFHWAportable.pdf)
 
- * [**Réalisation d'une Antenne à Boucle Magnétique ABM v1.0**](https://github.com/f1gbd/F1GBD/blob/master/doc/ABMv1.pdf)
+[**Antenne HF Multi-Bandes type FUCHS**](https://github.com/f1gbd/F1GBD/blob/master/doc/Antenne_FUCHS_F1GBD.pdf)
+
+* [**Réalisation d'une Antenne à Boucle Magnétique ABM v1.0**](https://github.com/f1gbd/F1GBD/blob/master/doc/ABMv1.pdf)
  * ![l'Antenne à Boucle Magnétique](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/ABMv1.JPG)
 
 * [Construction d'une antenne verticale "MonoStick80" pour la bande des 80, 40 et 20 m](https://github.com/f1gbd/F1GBD/wiki/Construction-d'une-antenne-verticale-%22MonoStick80%22-pour-la-bande-des-80,-40-et-20-m)
