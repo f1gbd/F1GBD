@@ -1,14 +1,14 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 17 juillet 2019
+mis à jour le 5 aout 2019
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**MAJ du 07/07/2019** : [**Antenne HF Multi-Bandes type FUCHS**](https://github.com/f1gbd/F1GBD/blob/master/doc/Antenne_FUCHS_F1GBD.pdf)
+**MAJ du 05/08/2019** : [**Station Radio Portable WSJT-X pilotée par un RPI3**](https://github.com/f1gbd/F1GBD/blob/master/doc/StationRadioWSJT-X.pdf)
 
-**MAJ du 07/07/2019** : [**Station Radio Portable WSJT-X pilotée par un RPI3**](https://github.com/f1gbd/F1GBD/blob/master/doc/StationRadioWSJT-X.pdf)
+**MAJ du 07/07/2019** : [**Antenne HF Multi-Bandes type FUCHS**](https://github.com/f1gbd/F1GBD/blob/master/doc/Antenne_FUCHS_F1GBD.pdf)
 
 **MAJ du 28/03/2019** : [**Créer un Digipeater (i-Gate) APRS avec XASTIR sur Raspberry Pi 3**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoInstall_DigiAPRS_XASTIR.pdf)
 
