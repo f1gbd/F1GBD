@@ -1,10 +1,12 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 5 aout 2019
+mis à jour le 1 septembre 2019
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
+
+**MAJ du 01/09/2019** : [**Une antenne HF Multi-bandes compacte et légère pour la randonnée**](https://github.com/f1gbd/F1GBD/blob/master/doc/Antenne_Portable_Rando.pdf)
 
 **MAJ du 05/08/2019** : [**Station Radio Portable WSJT-X pilotée par un RPI3**](https://github.com/f1gbd/F1GBD/blob/master/doc/StationRadioWSJT-X.pdf)
 
@@ -17,8 +19,6 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 **MAJ du 02/03/2019** : [**Tutoriel d’installation de la Tourelle de Suivi Satellites ou T2S**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoInstall_T2S.pdf)
 
 **MAJ du 04/02/2019** : [**Mémo: Paramétrage de WSJT-X en FT8 pour un FT-857 + Signalink USB**](https://github.com/f1gbd/F1GBD/blob/master/doc/Param%C3%A9trageWSJT-X.pdf)
-
-**MAJ du 02/02/2019** : [**Faire des QSOs en APRS avec ARISS, la Station Spatiale Internationale**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoQSO_ARISS.pdf)
 
 **MAJ du 09/12/2018** : [**La RasecTenna v2 une antenne HF en V Inversé pour les EmComm et les randonnées**](https://github.com/f1gbd/F1GBD/blob/master/doc/RasecTenna_V2.pdf)
 
@@ -113,6 +113,8 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 * [**La RasecTenna v2 une antenne HF en V Inversé pour les EmComm et les randonnées**](https://github.com/f1gbd/F1GBD/blob/master/doc/RasecTenna_V2.pdf)
 
 * [**Réalisation d'une antenne doublet 1/2 onde en V Inversé pour les EmComm et les randonnées**](https://github.com/f1gbd/F1GBD/blob/master/doc/RasecTenna.pdf)
+
+* [**Une antenne HF Multi-bandes compacte et légère pour la randonnée**](https://github.com/f1gbd/F1GBD/blob/master/doc/Antenne_Portable_Rando.pdf)
 
 * [**Réalisation d'une antenne EFHW pour de la randonnée**](https://github.com/f1gbd/F1GBD/blob/master/doc/EFHWAportable.pdf)
 
