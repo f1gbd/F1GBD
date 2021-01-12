@@ -1,10 +1,12 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 09 octobre 2019
+mis à jour le 12 janvier 2021
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
+
+**MAJ du 12/01/2021** : [**Transfert d'images ou multimédia en FT8 et/ou PSK**](https://github.com/f1gbd/F1GBD/blob/master/doc/Tuto_ImageControllerEasy_FT8.pdf)
 
 **MAJ du 09/10/2019** : [**Une antenne HF Multi-bandes compacte et légère pour la randonnée**](https://github.com/f1gbd/F1GBD/blob/master/doc/Antenne_Portable_Rando.pdf)
 
@@ -35,6 +37,8 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 * [FICHE Mémento   - Paramétrage de WSJT-X en FT8 pour un FT-857 + Signalink USB**](https://github.com/f1gbd/F1GBD/blob/master/doc/Param%C3%A9trageWSJT-X.pdf)
 
 * [FT8 : **Radiocommunications digitales en FT8 sur Raspberry PI 3**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoWSJtxRPI3.pdf)
+
+* [FT8 : **Transfert d'images ou multimédia en FT8 et/ou PSK**](https://github.com/f1gbd/F1GBD/blob/master/doc/Tuto_ImageControllerEasy_FT8.pdf)
 
 ------------------------------------------------------------------------------------------
 
