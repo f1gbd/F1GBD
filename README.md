@@ -6,7 +6,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**MAJ du 20/10/2024** : [**Xiegu X6100: BuildRoot firmware MOD04 F1GBD**](https://github.com/f1gbd/F1GBD/blob/master/X6100-dev/MEMO_X6100_firmwareMOD.pdf)
+**MAJ du 31/10/2024** : [**Xiegu X6100: BuildRoot firmware v0.26.1 mod06 F1GBD**](https://github.com/f1gbd/F1GBD/blob/master/X6100-dev/MEMO_X6100_firmwareMOD.pdf)
 
 **MAJ du 09/10/2019** : [**Une antenne HF Multi-bandes compacte et légère pour la randonnée**](https://github.com/f1gbd/F1GBD/blob/master/doc/Antenne_Portable_Rando.pdf)
 
