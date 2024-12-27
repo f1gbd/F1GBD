@@ -1,10 +1,12 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 23 novembre 2024
+mis à jour le 27 décembre 2024
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
+
+**MAJ du 27/12/2024** : [**LorA Meshtastic: LoRa-Xfer v1.02 F1GBD**] (https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20lora-xfer.pdf)
 
 **MAJ du 23/11/2024** : [**Xiegu X6100: BuildRoot firmware v0.27.0 mod08.2 F1GBD**](https://github.com/f1gbd/F1GBD/blob/master/X6100-dev/MEMO_X6100_firmwareMOD.pdf)
 
