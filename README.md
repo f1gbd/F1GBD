@@ -6,7 +6,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**MAJ du 27/12/2024** : [**LorA Meshtastic: LoRa-Xfer v1.02 F1GBD**] (https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20lora-xfer.pdf)
+**MAJ du 27/12/2024** : [**Meshtastic: LoRa-Xfer v1.02 F1GBD**] (https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20lora-xfer.pdf)
 
 **MAJ du 23/11/2024** : [**Xiegu X6100: BuildRoot firmware v0.27.0 mod08.2 F1GBD**](https://github.com/f1gbd/F1GBD/blob/master/X6100-dev/MEMO_X6100_firmwareMOD.pdf)
 
