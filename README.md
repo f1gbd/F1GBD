@@ -6,7 +6,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**MAJ du 07/01/2025** : [**Un BBS Meshtastic VarAC: TC2-BBS pour VarAC mod02FR de F1GBD**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20TC2-BBS_VaraAC.pdf)
+**MAJ du 07/01/2025** : [**Un BBS Meshtastic VarAC: TC2-BBS pour VarAC mod02FR de F1GBD**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20TC2-BBS_VarAC.pdf).
 
 **MAJ du 30/12/2024** : [**LoRa Meshtastic: LoRa-Xfer v1.06 béta de F1GBD**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20lora-xfer.pdf)
 
