@@ -1,10 +1,12 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 09 janvier 2025
+mis à jour le 15 janvier 2025
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
+
+**MAJ du 15/01/2025** : [**Transmission de Messages WINLINK vers des stations LoRa/Meshtastic avec le TC2-BBS Winlink mod01FR de F1GBD**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20Transmission%20Winlink%20vers%20Meshtastic.pdf).
 
 **MAJ du 09/01/2025** : [**Un BBS Meshtastic VarAC: TC2-BBS pour VarAC mod06FR de F1GBD**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20TC2-BBS_VarAC.pdf).
 
@@ -17,8 +19,6 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 **MAJ du 05/08/2019** : [**Station Radio Portable WSJT-X pilotée par un RPI3**](https://github.com/f1gbd/F1GBD/blob/master/doc/StationRadioWSJT-X.pdf)
 
 **MAJ du 07/07/2019** : [**Antenne HF Multi-Bandes type FUCHS**](https://github.com/f1gbd/F1GBD/blob/master/doc/Antenne_FUCHS_F1GBD.pdf)
-
-**MAJ du 28/03/2019** : [**Créer un Digipeater (i-Gate) APRS avec XASTIR sur Raspberry Pi 3**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoInstall_DigiAPRS_XASTIR.pdf)
 
 **MAJ du 05/03/2019** : [**Recherche de Balises 121.5 Mhz : Le système de recherche de balises TDOA**](https://github.com/f1gbd/F1GBD/blob/master/doc/TutoInstall_TDOA.pdf)
 
