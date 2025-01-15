@@ -1,5 +1,5 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 07 janvoer 2025
+mis à jour le 07 janvier 2025
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
