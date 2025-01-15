@@ -6,7 +6,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-**MAJ du 15/01/2025** : [**Transmission de Messages WINLINK vers des stations LoRa/Meshtastic avec le TC2-BBS Winlink mod01FR de F1GBD**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20Transmission%20Winlink%20vers%20Meshtastic.pdf).
+**MAJ du 15/01/2025** : [**Transmission de Messages WINLINK vers des stations LoRa/Meshtastic**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20Transmission%20Winlink%20vers%20Meshtastic.pdf).
 
 **MAJ du 09/01/2025** : [**Un BBS Meshtastic VarAC: TC2-BBS pour VarAC mod06FR de F1GBD**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20TC2-BBS_VarAC.pdf).
 
