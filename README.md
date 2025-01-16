@@ -202,7 +202,7 @@ Transcodeur de Trames v1.0 pour balise 406 (mis à jour le 8 mars 2015)
 
 ---------------------------------------------------------------------
 GNU GENERAL PUBLIC LICENSE
-Version 3, 29 June 2007
+Version 3, 29 June 2007 - 2025
 
  Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>
  Everyone is permitted to copy and distribute verbatim copies
