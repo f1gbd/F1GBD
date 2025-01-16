@@ -1,5 +1,5 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 15 janvier 2025
+mis à jour le 16 janvier 2025
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
@@ -7,6 +7,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
 **MAJ du 15/01/2025** : [**Transmission de Messages WINLINK vers des stations LoRa/Meshtastic**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20Transmission%20Winlink%20vers%20Meshtastic.pdf).
+![Antenne capacitive 80m](https://github.com/f1gbd/F1GBD/blob/master/lora/TC2-BBS_Meshtastic_Winlink.jpg)
 
 **MAJ du 09/01/2025** : [**Un BBS Meshtastic VarAC: TC2-BBS pour VarAC mod06FR de F1GBD**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20TC2-BBS_VarAC.pdf).
 
@@ -134,9 +135,6 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 * [Construction d'une antenne LONG FIL EFWA avec balun pour les bandes de 10 m à 160 m](https://github.com/f1gbd/F1GBD/blob/master/doc/Antenne_Long_Fil_EFWA.pdf)
 
 * [Construction d'une antenne capacitive pour la bande des 80 m](https://github.com/f1gbd/F1GBD/wiki/Construction-d'une-antenne-capacitive-pour-la-bande-des-80-m)
-
-L'antenne capacitive 80 m a été présentée sur le stand de l'ADRASEC 77 lors de la Journée Technique FNRASEC organisée par l'ADRASEC 72 (Zone Ouest) du 2 octobre 2015 au Mans.
-![Antenne capacitive 80m](https://raw.githubusercontent.com/f1gbd/F1GBD/master/RODS/acap/images/JTZOAD77a.jpg)
 
 * [Radiocommunications d'ugence par Ondes De Sol](https://github.com/f1gbd/F1GBD/wiki/Radiocommunications-d'ugence-par-Ondes-De-Sol)
 
