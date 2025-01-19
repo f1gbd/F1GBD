@@ -15,6 +15,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 **MAJ du 30/12/2024** : [**LoRa Meshtastic: LoRa-Xfer v1.06 béta de F1GBD**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20lora-xfer.pdf)
 
 ![TinyGS la Station Sol Satellite LoRa](https://github.com/f1gbd/F1GBD/blob/master/lora/TinyGS_F1GBD_station.jpg)
+[F1GBD_TinyGS la Ground Station LoRA SAT AUTONOME SOLAIRE en Live](https://tinygs.com/station/F1GBD_TinyGS@8062286045)
 
 **MAJ du 23/11/2024** : [**Xiegu X6100: BuildRoot firmware v0.27.0 mod08.2 F1GBD**](https://github.com/f1gbd/F1GBD/blob/master/X6100-dev/MEMO_X6100_firmwareMOD.pdf)
 
