@@ -64,7 +64,6 @@
   
   loglevel = 4
 
-
 # The interfaces section defines the physical and virtual
 # interfaces Reticulum will use to communicate on. This
 # section will contain examples for a variety of interface
@@ -84,13 +83,13 @@
   [[Default Interface]]
     type = AutoInterface
     selected_interface_mode = 1
-    interface_enabled = false
+    interface_enabled = true
     name = Default Interface
     configured_bitrate = None
 
   [[TCP KISS Interface]]
     type = TCPClientInterface
-    interface_enabled = false
+    interface_enabled = true
     kiss_framing = True
     target_host = 127.0.0.1
     target_port = 8001
@@ -101,11 +100,11 @@
   [[RNode LoRa Interface]]
     type = RNodeInterface
     interface_enabled = true
-    port = COM9
-    frequency = 867200000
+    port = COM4
+    frequency = 867500000
     bandwidth = 125000
     txpower = 17
-    spreadingfactor = 8
+    spreadingfactor = 9
     codingrate = 5
     id_callsign = F1GBD-10
     id_interval = 600
@@ -115,7 +114,7 @@
 
   [[RNS Testnet BetweenTheBorders]]
     type = TCPClientInterface
-    interface_enabled = false
+    interface_enabled = true
     target_host = reticulum.betweentheborders.com
     target_port = 4242
     name = RNS Testnet BetweenTheBorders
@@ -124,6 +123,6 @@
 
   [[RNS Testnet Amsterdam]]
     type = TCPClientInterface
-    interface_enabled = false
+    interface_enabled = true
     target_host = amsterdam.connect.reticulum.network
     target_port = 4965
