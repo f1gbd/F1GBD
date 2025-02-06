@@ -1,10 +1,13 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 31 janvier 2025
+mis à jour le 06 février 2025
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
+
+![Un transpondeur RNS Hybride sur Raspberry PI4](https://github.com/f1gbd/F1GBD/blob/master/lora/RNS_RaspberryPI4.jpg)
+**MAJ du 06/02/2025** : [**Créer un Transpondeur RNS Hybride avec un Raspberry PI4**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20RASPBERRY%20PI%20-%20Cr%C3%A9er%20un%20Transpondeur%20RETICULUM.pdf).
 
 ![Reticulum/LoRa: Un système de communication Résiliente](https://github.com/f1gbd/F1GBD/blob/master/lora/Reticulum_LoRa.jpg)
 **MAJ du 31/01/2025** : [**Transmission RESILIENTE et ROBUSTE avec Reticulum**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20Une%20Communication%20RESILIENTE%20avec%20Reticulum.pdf).
