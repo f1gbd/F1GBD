@@ -6,10 +6,11 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-![Un transpondeur RNS Hybride sur Raspberry PI4](https://github.com/f1gbd/F1GBD/blob/master/lora/RNS_RaspberryPI4.jpg)
+![TinyGS la Station Sol Satellite LoRa](https://github.com/f1gbd/F1GBD/blob/master/lora/TinyGS_F1GBD_station.jpg)
+[F1GBD_TinyGS la Ground Station LoRA SAT AUTONOME SOLAIRE en Live](https://tinygs.com/station/F1GBD_TinyGS@8062286045)
+
 **MAJ du 06/02/2025** : [**Créer un Transpondeur RNS Hybride avec un Raspberry PI4**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20RASPBERRY%20PI%20-%20Cr%C3%A9er%20un%20Transpondeur%20RETICULUM.pdf).
 
-![Reticulum/LoRa: Un système de communication Résiliente](https://github.com/f1gbd/F1GBD/blob/master/lora/Reticulum_LoRa.jpg)
 **MAJ du 31/01/2025** : [**Transmission RESILIENTE et ROBUSTE avec Reticulum**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20Une%20Communication%20RESILIENTE%20avec%20Reticulum.pdf).
 
 ![Transmission Winlink vers Meshtastic](https://github.com/f1gbd/F1GBD/blob/master/lora/TC2-BBS_Meshtastic_Winlink.jpg)
@@ -22,9 +23,6 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 **MAJ du 21/01/2025** : [**Addon pour RMS Winlink: Le TC2-BBS RMS Winlink/Mestastic**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20TC2-BBS_RMS.pdf).
 
 **MAJ du 30/12/2024** : [**LoRa Meshtastic: LoRa-Xfer v1.06 béta de F1GBD**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20lora-xfer.pdf)
-
-![TinyGS la Station Sol Satellite LoRa](https://github.com/f1gbd/F1GBD/blob/master/lora/TinyGS_F1GBD_station.jpg)
-[F1GBD_TinyGS la Ground Station LoRA SAT AUTONOME SOLAIRE en Live](https://tinygs.com/station/F1GBD_TinyGS@8062286045)
 
 **MAJ du 23/11/2024** : [**Xiegu X6100: BuildRoot firmware v0.27.0 mod08.2 F1GBD**](https://github.com/f1gbd/F1GBD/blob/master/X6100-dev/MEMO_X6100_firmwareMOD.pdf)
 
