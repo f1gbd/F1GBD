@@ -1,17 +1,18 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 06 février 2025
+mis à jour le 21 février 2025
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
+![Transmission Résiliente avec Reticulum](https://github.com/f1gbd/F1GBD/blob/master/lora/RNS_Hybride.jpg)
+**MAJ du 21/01/2025** : [**Transmission RESILIENTE et ROBUSTE avec Reticulum**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20Une%20Communication%20RESILIENTE%20avec%20Reticulum.pdf).
+
 ![TinyGS la Station Sol Satellite LoRa](https://github.com/f1gbd/F1GBD/blob/master/lora/TinyGS_F1GBD_station.jpg)
 [F1GBD_TinyGS la Ground Station LoRA SAT AUTONOME SOLAIRE en Live](https://tinygs.com/station/F1GBD_TinyGS@8062286045)
 
 **MAJ du 06/02/2025** : [**Créer un Transpondeur RNS Hybride avec un Raspberry PI4**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20RASPBERRY%20PI%20-%20Cr%C3%A9er%20un%20Transpondeur%20RETICULUM.pdf).
-
-**MAJ du 31/01/2025** : [**Transmission RESILIENTE et ROBUSTE avec Reticulum**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20Une%20Communication%20RESILIENTE%20avec%20Reticulum.pdf).
 
 ![Transmission Winlink vers Meshtastic](https://github.com/f1gbd/F1GBD/blob/master/lora/TC2-BBS_Meshtastic_Winlink.jpg)
 **MAJ du 15/01/2025** : [**Transmission de Messages WINLINK vers des stations LoRa/Meshtastic**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20Transmission%20Winlink%20vers%20Meshtastic.pdf).
