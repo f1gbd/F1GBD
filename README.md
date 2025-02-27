@@ -1,5 +1,5 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 21 février 2025
+mis à jour le 27 février 2025
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
@@ -8,6 +8,9 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![Transmission Résiliente avec Reticulum](https://github.com/f1gbd/F1GBD/blob/master/lora/RNS_Hybride.jpg)
 **MAJ du 21/02/2025** : [**Transmission RESILIENTE et ROBUSTE avec Reticulum**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20Une%20Communication%20RESILIENTE%20avec%20Reticulum.pdf).
+
+![Communiquer avec Meshtastic via Reticulum](https://github.com/f1gbd/F1GBD/blob/master/lora/Meshtastic_Msg.jpg)
+**MAJ du 27/02/2025** : [**Meshtastic Messenger pour Reticulum**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20Reticulum%20-%20Meshtastic%20Messenger.pdf).
 
 ![TinyGS la Station Sol Satellite LoRa](https://github.com/f1gbd/F1GBD/blob/master/lora/TinyGS_F1GBD_station.jpg)
 [F1GBD_TinyGS la Ground Station LoRA SAT AUTONOME SOLAIRE en Live](https://tinygs.com/station/F1GBD_TinyGS@8062286045)
