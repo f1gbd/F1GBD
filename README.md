@@ -8,7 +8,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![Se préparer à la RESILIENCE avec Reticulum](https://github.com/f1gbd/F1GBD/blob/master/lora/RNode_Reticulum.jpg)
 
-**MAJ du 21/12/2025** : [**TCQ v2.2 (TransCommunication Quantique pour Reticulum) **](https://github.com/f1gbd/F1GBD/blob/master/tcq/MEMO%20-%20TCQv2.2%20-%20TransCommunication%20Quantique%20Reticulum.pdf)
+**MAJ du 21/12/2025** : [**TCQ v2.2 (TransCommunication Quantique pour Reticulum)**](https://github.com/f1gbd/F1GBD/blob/master/tcq/MEMO%20-%20TCQv2.2%20-%20TransCommunication%20Quantique%20Reticulum.pdf)
 
 **MAJ du 01/12/2025** : [**Une passerelle Reticulum RNS pour VARA FM/HF/SAT**](https://github.com/f1gbd/F1GBD/blob/master/lora/%F0%9F%93%8BMEMO%20-%20RNSvaraMULTI_SP%C3%89Cs.pdf)
 
