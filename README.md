@@ -1,5 +1,5 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 01 décembre 2025
+mis à jour le 21 décembre 2025
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
@@ -7,6 +7,9 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
 ![Se préparer à la RESILIENCE avec Reticulum](https://github.com/f1gbd/F1GBD/blob/master/lora/RNode_Reticulum.jpg)
+
+**MAJ du 21/12/2025** : [**TCQ v2.2 (TransCommunication Quantique pour Reticulum)**](https://github.com/f1gbd/F1GBD/blob/master/tcq/MEMO%20-%20TCQv2.2%20-%20TransCommunication%20Quantique%20Reticulum.pdf)
+
 **MAJ du 01/12/2025** : [**Une passerelle Reticulum RNS pour VARA FM/HF/SAT**](https://github.com/f1gbd/F1GBD/blob/master/lora/%F0%9F%93%8BMEMO%20-%20RNSvaraMULTI_SP%C3%89Cs.pdf)
 
 **MAJ du 30/04/2025** : [**Se préparer à la RESILIENCE avec Reticulum**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20Pr%C3%A9parer%20un%20RNode%20Reticulum%20pour%20la%20R%C3%A9silience.pdf)
