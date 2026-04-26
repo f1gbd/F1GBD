@@ -1,0 +1,1094 @@
+{
+  "D:\\IAbrain\\Docs_Adrasec\\FichesREFLEXES\\Fiche_Reflexe_TCQ_HF_EXER.pdf": {
+    "hash": "43088963a12d7d39024c8bd0e37ebd86fc3bce5e879868b9a4f141fc38dbbda1",
+    "chunks": 5,
+    "indexed_at": "2026-04-25T12:44:16.489929",
+    "size": 314998
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\FichesREFLEXES\\Fiche_Reflexe_TCQ_PACKET_EXER.pdf": {
+    "hash": "d06355dafdf7c76118ff91ed28f9359c707cb7fc3a7c718694cf7eed8e6f20e5",
+    "chunks": 3,
+    "indexed_at": "2026-04-25T12:44:17.697281",
+    "size": 346287
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\FichesREFLEXES\\Fiche_Reflexe_TCQ_QO-100_SITREP.pdf": {
+    "hash": "80b5fc625b44f789e2cc724346556a8c20bc1655ae45e9113688df0694bb9b42",
+    "chunks": 3,
+    "indexed_at": "2026-04-25T12:44:18.754580",
+    "size": 445397
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\FichesREFLEXES\\Fiche_Reflexe_TCQ_QO100_METAR.pdf": {
+    "hash": "cbca06bd4e2b232e83a35d4ce42bbd0d55fb0c91dee820dd645efe68a874ea95",
+    "chunks": 3,
+    "indexed_at": "2026-04-25T12:44:19.867115",
+    "size": 377774
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\FichesREFLEXES\\Fiche_Reflexe_TCQ_TRANS_PDF.pdf": {
+    "hash": "1c959fe74df60e848abe4cf934b0a0497ac3d2e468137bcda3d340a807eeb0f6",
+    "chunks": 9,
+    "indexed_at": "2026-04-25T12:44:20.833224",
+    "size": 178779
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MANUEL_SATER_RADIO.pdf": {
+    "hash": "d0a5a7e63d1829bb04f11272a6c08d502de66ba6ee9fe09fbe261276f8e347af",
+    "chunks": 64,
+    "indexed_at": "2026-04-25T12:44:23.433268",
+    "size": 3743621
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - Décodeur COSPAS-SARSAT - 406.pdf": {
+    "hash": "1a9f9896adc8178cede21bcb8377ca49e83a3827989e81b1f214d72badd5abbc",
+    "chunks": 7,
+    "indexed_at": "2026-04-25T12:45:21.478244",
+    "size": 4714258
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - ENVOYER MESSAGE avec un FLmsg et TCQ .pdf": {
+    "hash": "9a0fa4b3e3881d62a3d414076f9df504583c9a74ba863b0a341173c7224bbfa9",
+    "chunks": 9,
+    "indexed_at": "2026-04-25T12:45:22.235225",
+    "size": 1631640
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - Envoyer un Message WINLINK vers RETICULUM.pdf": {
+    "hash": "f2252203ba285e87750c8b9bc1472d8caeac7a5c180d9a8b31cfa4e4170baa6f",
+    "chunks": 4,
+    "indexed_at": "2026-04-25T12:45:23.668777",
+    "size": 1287903
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - EPIRB - CALIBRATION TEST.pdf": {
+    "hash": "095d7a8c5ffcc05cda0cd0900461f6b48dc83c52dc0f9372abfd3018685b97e6",
+    "chunks": 2,
+    "indexed_at": "2026-04-25T12:45:24.452133",
+    "size": 4140510
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - Fiche Technique TCQ v7.pdf": {
+    "hash": "4027a9a02096d96a631d971fc56f52dfe70c74231e1382175177a1b0141e3fa7",
+    "chunks": 4,
+    "indexed_at": "2026-04-25T12:45:25.066640",
+    "size": 5076772
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - Fiche Technique TCQ-APRS-SATER.pdf": {
+    "hash": "2dfe03609b9b55f228634d2d877f50f4bd1c4a78c80ef5fdc0fd43ae4f0b083e",
+    "chunks": 11,
+    "indexed_at": "2026-04-25T12:45:26.013364",
+    "size": 6901953
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - FICHE TECHNIQUE TCQv5.x pour RNS Reticulum.pdf": {
+    "hash": "3b06672f23b81c264901f9abfe2f48dd7dd497bcbbbc67f3b86acd37962a1352",
+    "chunks": 7,
+    "indexed_at": "2026-04-25T12:45:28.041095",
+    "size": 4806305
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - HF QRP SDR Transceiver.pdf": {
+    "hash": "123e4f942553e75405aee13046074addb23212e49daaba5aac1337e6e85c376b",
+    "chunks": 6,
+    "indexed_at": "2026-04-25T12:45:29.267035",
+    "size": 1757791
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - lora-xfer.pdf": {
+    "hash": "d076f694eb65a9a1e037692c975adfeb389944bae139a2bc368bd858bff7b0af",
+    "chunks": 19,
+    "indexed_at": "2026-04-25T12:45:30.192653",
+    "size": 3123344
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - Paramètres Winlink F8KSM.pdf": {
+    "hash": "2d054bdbaa99cc6c6aa672f9d8a080e2ee0d20cc08da82da6d79e35f9143ec3e",
+    "chunks": 9,
+    "indexed_at": "2026-04-25T12:45:33.959132",
+    "size": 2635888
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - Préparer un RNode Reticulum pour la Résilience.pdf": {
+    "hash": "49247dbf15fc88041c5a92e9294b3706777eb385e815a1daad6d4372a2ea7de2",
+    "chunks": 12,
+    "indexed_at": "2026-04-25T12:45:34.838811",
+    "size": 3477372
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - RASPBERRY PI - Créer un Transpondeur RETICULUM.pdf": {
+    "hash": "5f144d4edc4bb0d9819d60cdd1ee16f653b50d592d05bd67844f1b7700eaf370",
+    "chunks": 7,
+    "indexed_at": "2026-04-25T12:45:36.681501",
+    "size": 1716388
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - Reticulum - Formulaires FNRASEC.pdf": {
+    "hash": "86c04f46a70757a23f139a75cac7cd7ccbf4dc076016007d64775b265706da05",
+    "chunks": 6,
+    "indexed_at": "2026-04-25T12:45:38.073126",
+    "size": 1631692
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - Reticulum - Meshtastic Messenger.pdf": {
+    "hash": "d430dca7dbf1063dd3a7e83a8448dbfca5238979bb3dc54df0e706f8b1f10b59",
+    "chunks": 5,
+    "indexed_at": "2026-04-25T12:45:38.926403",
+    "size": 1022418
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - Réglages Yaesu FTX-1.pdf": {
+    "hash": "46aca3570928fcdc51190f78f768b29d8aa883b54539da74d936b48f6e3d3982",
+    "chunks": 4,
+    "indexed_at": "2026-04-25T12:45:39.878182",
+    "size": 1443993
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - Résilience des Communications en Situation de Crise.pdf": {
+    "hash": "49e0925ee8a37a99dea0f5f4be6f9cef993c046f015c1011b384105c806db47c",
+    "chunks": 18,
+    "indexed_at": "2026-04-25T12:45:40.713483",
+    "size": 4199153
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - SATER_SIM3D_Manuel_v31.pdf": {
+    "hash": "fd2067e5735ab182cbcce7c5715eabd2ae31afe21d71f798e9dd01659eb0081e",
+    "chunks": 22,
+    "indexed_at": "2026-04-25T12:45:45.611541",
+    "size": 3629259
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - TC2-BBS_RMS.pdf": {
+    "hash": "0e176d8a0b191770da900cc72bbf85b18b4a2b0e85043c907770c307ca77fe89",
+    "chunks": 11,
+    "indexed_at": "2026-04-25T12:45:50.798633",
+    "size": 2287610
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - TC2-BBS_VarAC.pdf": {
+    "hash": "e91b134e37dfbca74888a34b175e53697c9b0355f3ce42ae068f88abe8271325",
+    "chunks": 22,
+    "indexed_at": "2026-04-25T12:45:53.293246",
+    "size": 3310952
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - TCQ-BBS.pdf": {
+    "hash": "3baba25fd04430cc09aa4b0b5c87a9db49492c76131e8074afbd81129fa03b7d",
+    "chunks": 40,
+    "indexed_at": "2026-04-25T12:45:57.985006",
+    "size": 5404974
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - TCQ-CW_QSO_AUTO.pdf": {
+    "hash": "16253e7c7d3a04fbe85d19dbdc3af903440761c16bc4e76b8799e795ae1d597f",
+    "chunks": 10,
+    "indexed_at": "2026-04-25T12:46:08.491987",
+    "size": 4318981
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - TCQ-Packet_BBS.pdf": {
+    "hash": "b3e2d207ef81eaa72faac87365e824eeb44466f0da9327fdb4be1d3961196e2c",
+    "chunks": 9,
+    "indexed_at": "2026-04-25T12:46:11.115980",
+    "size": 260755
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - TCQ-Packet_Script-MTL.pdf": {
+    "hash": "fcea1d2fa3f2bc3e83aa4e0916442e0940d5e60135fcaf3bc2fec6f77f22e6eb",
+    "chunks": 8,
+    "indexed_at": "2026-04-25T12:46:13.682254",
+    "size": 4277782
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - Transmission Winlink vers Meshtastic.pdf": {
+    "hash": "3a76be4e8631d790bd4822ef10e330dbeec2313b0e201dbd60b34ac8eb293ad7",
+    "chunks": 17,
+    "indexed_at": "2026-04-25T12:46:16.039600",
+    "size": 3532102
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - TutoQSO_ARISS.pdf": {
+    "hash": "193e2d0f50b5b7457e31e0db8ac52f935eaf2da4700941f98d60d86583a834c0",
+    "chunks": 7,
+    "indexed_at": "2026-04-25T12:46:19.803112",
+    "size": 1938087
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - Une Communication RESILIENTE avec Reticulum.pdf": {
+    "hash": "6ea561d5006a91be6c6fd6254867ebc4ca1e59ca5e66f62a598ca9db70bda6e3",
+    "chunks": 18,
+    "indexed_at": "2026-04-25T12:46:21.100909",
+    "size": 3999756
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - VARAchat_v141.pdf": {
+    "hash": "854b9facc26070020be047f7d0c2cd42fe8ef6250ad0af7d36284a0286531689",
+    "chunks": 4,
+    "indexed_at": "2026-04-25T12:46:23.639656",
+    "size": 1213094
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO - Winlink avec un VR N-76_N-7600.pdf": {
+    "hash": "a337c0b7dabe7c9fba9d779c45fafadd301d9803cb8fd9a38a8eaef61e5b52d9",
+    "chunks": 7,
+    "indexed_at": "2026-04-25T12:46:24.716270",
+    "size": 2527083
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO F4JHW_TacticalDeltaLoop.pdf": {
+    "hash": "4ba419835d3b9706d5d7e7c06290f9b1cde686abcb4e39de56c73e9a82b1390f",
+    "chunks": 4,
+    "indexed_at": "2026-04-25T12:46:25.663977",
+    "size": 1766948
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO-Antenne VHF-UHF-CoaxRG58U.pdf": {
+    "hash": "f68bda846bd58507068a03b9f369a54c56fd47826901ad79635da441a68f5f72",
+    "chunks": 5,
+    "indexed_at": "2026-04-25T12:46:26.404357",
+    "size": 2229497
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_ABM40W-F1GBD.pdf": {
+    "hash": "a5be8656553fb724872b18bfeb75a04293ed4b569478bb5ec48566fa02b405b5",
+    "chunks": 4,
+    "indexed_at": "2026-04-25T12:46:27.004942",
+    "size": 1667275
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_Canal_ADRASEC_IMAGE-VIDEO.pdf": {
+    "hash": "4a6f07c0db7361e5937e21a948c9f640f671a263f198f4524d1f4d0cd98a512e",
+    "chunks": 5,
+    "indexed_at": "2026-04-25T12:46:27.822141",
+    "size": 1248127
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_Connexion_et_TEST_WL2K.pdf": {
+    "hash": "7d0fe2258f0facea13c780198b6d400592b81984b216d3300f26026897bc33a3",
+    "chunks": 4,
+    "indexed_at": "2026-04-25T12:46:28.831519",
+    "size": 1180668
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_Email_Radio_avec_VarAC.pdf": {
+    "hash": "371e615de3c0f8f42f8577f099bf549f4cf5a2a2ab2500e87b19ef53d0bbab6f",
+    "chunks": 1,
+    "indexed_at": "2026-04-25T12:46:29.471266",
+    "size": 326235
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_FLdigi-QITfldigi_FT-991A.pdf": {
+    "hash": "41ccd26753af5ca5d8bceb9ec1cf09ac5204fb9c013bb96f70692a90594e6984",
+    "chunks": 3,
+    "indexed_at": "2026-04-25T12:46:30.027465",
+    "size": 976741
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_FLdigi-QITfldigi_X6100.pdf": {
+    "hash": "bf76b2054527c38b4340b1537bc9a3dc16a12f25ae91abb9d413a71b0a8f60be",
+    "chunks": 4,
+    "indexed_at": "2026-04-25T12:46:30.630458",
+    "size": 1488776
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_Fldigi_SCU-17.pdf": {
+    "hash": "48fd43c8ca05b015ee8a274c2caee5b0a3a7f1b812ee216a615990cd7a7823b0",
+    "chunks": 4,
+    "indexed_at": "2026-04-25T12:46:31.185587",
+    "size": 942499
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_J-buddiPole_2m.pdf": {
+    "hash": "5e32ed9f37066b394c0a991dc2e86ea13bec2c2fb45ae7a4b6b05c84e775446d",
+    "chunks": 2,
+    "indexed_at": "2026-04-25T12:46:31.785998",
+    "size": 854605
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_JS8Call_QITjs8_FT-991A.pdf": {
+    "hash": "46180d56aeb8f842e2e544d11aee9b777db0e1fc085f5618bcdc1efaca0aa097",
+    "chunks": 6,
+    "indexed_at": "2026-04-25T12:46:32.321635",
+    "size": 2146512
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_JS8Call_QITjs8_X6100.pdf": {
+    "hash": "96fa16bfc71d854c4b3b3b8ab3f71c257a0a251388bd87afeef1de170e5ef6a4",
+    "chunks": 5,
+    "indexed_at": "2026-04-25T12:46:33.056596",
+    "size": 1486322
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_Mise_en_Station_GreenCube.pdf": {
+    "hash": "fcd134c58ef7f09fdbd6164a47791287ce3ded0b1b02cd01753356adeb6cd665",
+    "chunks": 7,
+    "indexed_at": "2026-04-25T12:46:33.785475",
+    "size": 3485316
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_MRT.pdf": {
+    "hash": "d072a45f008f24dbd015269096233b7dd38a28ccc57f73b58c30ab4e85eacd66",
+    "chunks": 10,
+    "indexed_at": "2026-04-25T12:46:34.573576",
+    "size": 3778722
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_PROTOCOLE_QUANTIQUE.pdf": {
+    "hash": "c687150383a35450671931abf551b42a60f707c93d6056cb992e57c443311254",
+    "chunks": 12,
+    "indexed_at": "2026-04-25T12:46:36.851239",
+    "size": 4446320
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_radioF4JHWportable.pdf": {
+    "hash": "4c0eba4efaa9ed23337a927285bf244a5db38d2fbc8ffc969615210754cf66cf",
+    "chunks": 1,
+    "indexed_at": "2026-04-25T12:46:39.466632",
+    "size": 59546
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_Station_APRS_Pocket_UV-K6.pdf": {
+    "hash": "54db1d5c77e9fa4fb5bc9b36928b9fe58d6f6c940253d5fda71c8b90687b3475",
+    "chunks": 6,
+    "indexed_at": "2026-04-25T12:46:39.974580",
+    "size": 1880763
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_Station_WINLINK_RT95.pdf": {
+    "hash": "8af923024fd8a9718c3fe81812a1e50f23e3885795a4259e416a5375e5b8179c",
+    "chunks": 4,
+    "indexed_at": "2026-04-25T12:46:40.898800",
+    "size": 1233552
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_TEST_RMS_WINLINK_PACKET_F8KSM.pdf": {
+    "hash": "bf2a8e3f441441977accbee5f8bc26e88838019368127df26170c2011fddaf4b",
+    "chunks": 7,
+    "indexed_at": "2026-04-25T12:46:41.910847",
+    "size": 1929408
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_TRANSMISSION_WL2K_VARAFM_P2P.pdf": {
+    "hash": "d5e2ab01cbb18bfe1e976b289677d1876956ff081c8592520a4f89e53e903727",
+    "chunks": 6,
+    "indexed_at": "2026-04-25T12:46:43.128385",
+    "size": 1802634
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_UISS_QITaprs_FT991A.pdf": {
+    "hash": "01a875b546f35a7633d0875e398e715cf6ee57156088f5dcd3719b09963edad6",
+    "chunks": 5,
+    "indexed_at": "2026-04-25T12:46:43.999028",
+    "size": 1456875
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_UtilisationSniffer4.pdf": {
+    "hash": "f3291d7ab901054c307948fb6ea43ca3a6ee59a01cef60ea7057734f50171c54",
+    "chunks": 4,
+    "indexed_at": "2026-04-25T12:46:44.712923",
+    "size": 1110660
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_WINLINK_VIA_TRANSPONDEUR.pdf": {
+    "hash": "087674c893bee9c490650e97afa4cc566971c67e3f4d3394d88d3a11666c3eec",
+    "chunks": 4,
+    "indexed_at": "2026-04-25T12:46:45.988535",
+    "size": 924695
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_WSJT-X_QITft8_X6100.pdf": {
+    "hash": "90b800c5508ed31b3f0c9f03c2949f103eeb49ba51495d9d0145c48c7e08dfce",
+    "chunks": 5,
+    "indexed_at": "2026-04-25T12:46:46.758125",
+    "size": 1812098
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_X6100_firmwareMOD.pdf": {
+    "hash": "ae243cfd09c64e26900aa44f7175313a3da5d17fa1215eda414b64fbb52dbf4c",
+    "chunks": 19,
+    "indexed_at": "2026-04-25T12:46:48.008771",
+    "size": 5258576
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\MEMO_YaesuImageCopy.pdf": {
+    "hash": "b6d0e80af42c5584d2ccd3512bdcbf6e4e045caac5400f5b224cf3f8d26451b8",
+    "chunks": 2,
+    "indexed_at": "2026-04-25T12:46:52.115979",
+    "size": 624799
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Mémo\\📋MEMO - RNSvaraMULTI_SPÉCs.pdf": {
+    "hash": "8cb21d6819119c253d209b7b4a59b1966b9fe79394e88fde6374c8007aa83e0d",
+    "chunks": 14,
+    "indexed_at": "2026-04-25T12:46:53.426281",
+    "size": 4385320
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT01 - QITv3_Digipeater.pdf": {
+    "hash": "ed3f68221a0b0dd5b725d2b1c624cc839171a8215329a4c68f8a997101bf6445",
+    "chunks": 2,
+    "indexed_at": "2026-04-25T12:46:56.804052",
+    "size": 446905
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT02-QITv3_VARA_HF.pdf": {
+    "hash": "fa6fd3c53a62be24d82d5ebeb9563ad22f2ad543030c15a1955a7510637da8e4",
+    "chunks": 4,
+    "indexed_at": "2026-04-25T12:46:57.748471",
+    "size": 970894
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT03 - VARA FM AutoTune.pdf": {
+    "hash": "48e8e3d1c97158da4b0bfda74efb4cbda2179a489ec3c830f934844b7f82a76d",
+    "chunks": 3,
+    "indexed_at": "2026-04-25T12:46:58.549057",
+    "size": 604771
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT04 - QIT Fldigi.pdf": {
+    "hash": "29bc2f8c43dbc75f3627bb65432a757482b6b28a0e4a08a47c8923778e98d0ae",
+    "chunks": 3,
+    "indexed_at": "2026-04-25T12:46:59.361982",
+    "size": 852383
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT05 - QIT31-BALISE-PING.pdf": {
+    "hash": "ef746b2ebc0cfa1f6ed2a592de4c5005cbef00ea055b563e8c69eccc42377c01",
+    "chunks": 2,
+    "indexed_at": "2026-04-25T12:46:59.994583",
+    "size": 416395
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT06 - VarAC.pdf": {
+    "hash": "4f64db216674f04de02906039e2e8d1c817dde0d6e02819984223308e27938ff",
+    "chunks": 8,
+    "indexed_at": "2026-04-25T12:47:00.627719",
+    "size": 1443466
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT07 - QIT32_alpha.pdf": {
+    "hash": "0acad0c217620401c24a7d84773aa9ea0d540c486c1298963b52d8908dd9b7fe",
+    "chunks": 11,
+    "indexed_at": "2026-04-25T12:47:02.742724",
+    "size": 2471602
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT08 - QIT32c_update.pdf": {
+    "hash": "f187ff7de3f4bf60589caf98c32844654e4fbd58bd32a041f5a06eab128629a9",
+    "chunks": 2,
+    "indexed_at": "2026-04-25T12:47:04.839343",
+    "size": 626932
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT09 - QIT32d_MAJ.pdf": {
+    "hash": "763cfc2e9927ab67a9f03cc4d91aaaeca424ce033f5f5001712a2290099235c5",
+    "chunks": 6,
+    "indexed_at": "2026-04-25T12:47:05.582438",
+    "size": 787625
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT10 - QIT_Photos.pdf": {
+    "hash": "9df5c7bb64d2dac0245bd905c64807ba239750307d46812729c5a1a3016f1ba5",
+    "chunks": 5,
+    "indexed_at": "2026-04-25T12:47:07.263484",
+    "size": 1237797
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT100 TCQ - Pour une Communication Résiliente.pdf": {
+    "hash": "251b9cb42cccec8bbaee8d54314462ceca17090428cdceb5d9ba034e21273f65",
+    "chunks": 53,
+    "indexed_at": "2026-04-25T12:47:09.621932",
+    "size": 14692683
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT101 TCQ - Station MORSE CW.pdf": {
+    "hash": "d68f6a690071f691c276203803eba59e67d84f11894f985c93a5ec5eba7928b8",
+    "chunks": 40,
+    "indexed_at": "2026-04-25T12:47:19.218339",
+    "size": 6218125
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT102 Décodeur-Générateur EPIRB COSPAS-SARSAT.pdf": {
+    "hash": "e9137b9f23d44f788d73c16a1b23f2b0bcfaf074d4e7e61e9d2c04e92f09c94a",
+    "chunks": 47,
+    "indexed_at": "2026-04-25T12:47:29.023230",
+    "size": 6685865
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT103 TCQ-BBS_Multimodes.pdf": {
+    "hash": "f75823fbcc35a767cdb7701ad8aee70a2c752d38afd21364c6292f3227c37a16",
+    "chunks": 50,
+    "indexed_at": "2026-04-25T12:47:42.181728",
+    "size": 5485435
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT104 Simulateur_EXERCICE-SATER.pdf": {
+    "hash": "2fbc99a94cec6e059a5ac9816f942dba598ab427f3a886ec975a380a051455ae",
+    "chunks": 40,
+    "indexed_at": "2026-04-25T12:47:56.834341",
+    "size": 3572009
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT105 TCQ -Manuel Module SSTV.pdf": {
+    "hash": "04f0402f82d35f0a4bb04720e2f1f54980314f69187c512de53aa68bf2716173",
+    "chunks": 33,
+    "indexed_at": "2026-04-25T12:48:26.315239",
+    "size": 1795404
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT11 - VarAC via QO-100.pdf": {
+    "hash": "a6ed9cd88013fb6092ef36ecd37509cba9ce323e59efa91d07316d59eb83bf30",
+    "chunks": 10,
+    "indexed_at": "2026-04-25T12:48:36.998308",
+    "size": 2172574
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT11b - TESS-Winlink.pdf": {
+    "hash": "1b7a35c001d8cb7b0c581ad73d7d02675891efb8df9707f81d5367c3e8b16723",
+    "chunks": 6,
+    "indexed_at": "2026-04-25T12:48:39.591739",
+    "size": 1373071
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT12 - VarACmail.pdf": {
+    "hash": "97ec9e889ff5f4bc64138e310bd763802930f774b525a21fdfb2bc76399b4261",
+    "chunks": 6,
+    "indexed_at": "2026-04-25T12:48:40.615029",
+    "size": 910666
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT12b - TESS Mise en Service.pdf": {
+    "hash": "d99fd39627f871851ecf96d1aec13da7bec1320b88d23c9194cad2615cae6e83",
+    "chunks": 2,
+    "indexed_at": "2026-04-25T12:48:42.597177",
+    "size": 681802
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT13 - VarACmail Installation.pdf": {
+    "hash": "08024825cb016c4ae06acdb9216e4f3ccef4c32feba906ceab27323c5e53e5e3",
+    "chunks": 6,
+    "indexed_at": "2026-04-25T12:48:43.401825",
+    "size": 400234
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT13b - Montage POTY sur LNB DXpatrol.pdf": {
+    "hash": "bf6941fb6659edf5287a9b159724392dac673a4995dcfe14d7a73df71250a8bb",
+    "chunks": 5,
+    "indexed_at": "2026-04-25T12:48:45.993208",
+    "size": 1925952
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT14 - KG-STV_ENVOI_IMAGES.pdf": {
+    "hash": "35191d9433d7ddb3b96a8a431853be06d5dc44e74d5566fcb4085aafea905258",
+    "chunks": 6,
+    "indexed_at": "2026-04-25T12:48:47.136783",
+    "size": 827408
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT15 - QO100rximages installation.pdf": {
+    "hash": "32be129cd41ec923526dbf49f7c83166943eea15af4293bbc8c54747eeec53d3",
+    "chunks": 9,
+    "indexed_at": "2026-04-25T12:48:49.333815",
+    "size": 476419
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT16 - VarACimages tuto.pdf": {
+    "hash": "edacdad7a42d4c3f196e3eacb679d19adbee94478f922d0461e027f5b8f2f806",
+    "chunks": 5,
+    "indexed_at": "2026-04-25T12:48:53.192785",
+    "size": 674261
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT17 - Calibration VARA SAT IS0GRB.pdf": {
+    "hash": "6b178145f4773ea95c5242f58c0c17b85348b2bacf4e5983428827ba8ae7fc6b",
+    "chunks": 2,
+    "indexed_at": "2026-04-25T12:48:55.268297",
+    "size": 602225
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT18 - VarAC_CODIS_MA1.pdf": {
+    "hash": "882b2515edf7f290ed65c65a934c4baa874b7898ed245249bf757d90d1043c73",
+    "chunks": 4,
+    "indexed_at": "2026-04-25T12:48:55.984548",
+    "size": 1240470
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT19 - VarACQIT - Email.pdf": {
+    "hash": "a5ee0463e11bfe746bd6dc73398d888d0bb271285edc1d52e936ac0e3bc8838b",
+    "chunks": 7,
+    "indexed_at": "2026-04-25T12:48:56.925184",
+    "size": 929206
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT20 - VarACQIT - Email avec VMAIL.pdf": {
+    "hash": "259f76085cc82eb6aa26c9f68b0e392cd5cb882f53136862489bdd0218df8418",
+    "chunks": 8,
+    "indexed_at": "2026-04-25T12:48:59.516861",
+    "size": 729318
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT21 - VarAC paramétrage FT-857.pdf": {
+    "hash": "4229d1ea02eac41cc6ac2c0e6723dcce215a1f462b380dd333baf292a2b68211",
+    "chunks": 4,
+    "indexed_at": "2026-04-25T12:49:02.937616",
+    "size": 656906
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT22 - VarAC paramétrage FT-857 - SCU17.pdf": {
+    "hash": "1ac35b262db9ee4ad2e51bd4146f387f8674a20469dc3b5ad877b6b9ea79f14a",
+    "chunks": 5,
+    "indexed_at": "2026-04-25T12:49:04.135972",
+    "size": 1239222
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT23 - Réception QO-100 simplement.pdf": {
+    "hash": "d3e3f8484c45c1bfda0f470629e7b0e7e99a9dcbc2b6f40396bd1e625dd7df15",
+    "chunks": 15,
+    "indexed_at": "2026-04-25T12:49:05.438437",
+    "size": 3343409
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT24 - VarACQIT v2.5 - Emails avec IMAGE.pdf": {
+    "hash": "5a1048c2c418c8fa1bc7758c36b9c77022189d67e38f3f76971ac62c249995aa",
+    "chunks": 7,
+    "indexed_at": "2026-04-25T12:49:08.933812",
+    "size": 1175475
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT25 - VarACQIT - IA avec HAL.pdf": {
+    "hash": "e65400a90326a89ad1409425b20758fb0a4391c0412733260e14b215a7074d13",
+    "chunks": 2,
+    "indexed_at": "2026-04-25T12:49:11.319047",
+    "size": 818964
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT26 - Décodage de BALISE 406 SDR.pdf": {
+    "hash": "da8eb16decd76889c5750f01c0a1126fe3fdaa1a1ebd2ef2d54307dc6c0aaae0",
+    "chunks": 11,
+    "indexed_at": "2026-04-25T12:49:12.152954",
+    "size": 3066660
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT26b - Lecture_fichier_son_Balise.pdf": {
+    "hash": "9732cacc69bc85a483174c5962f23b2c544a750ede23f8df4b6767008ef2955e",
+    "chunks": 5,
+    "indexed_at": "2026-04-25T12:49:14.816607",
+    "size": 1105377
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT27 - Transferts IMAGES-FICHIERS via HSM.pdf": {
+    "hash": "b56ed069e64674bcf5735b35bc7d4fb9da0bdc16a3d9df830f9eb89425765dcd",
+    "chunks": 6,
+    "indexed_at": "2026-04-25T12:49:15.725736",
+    "size": 1171563
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT28 - Entrainement Envoi IMAGES.pdf": {
+    "hash": "3c1fbe61d1f3568a837021cf2a9ccbc3990c5dafe7c057f70ca6342d87f7592e",
+    "chunks": 5,
+    "indexed_at": "2026-04-25T12:49:17.819366",
+    "size": 1070724
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT29 - GPS2Time - SynchroHorlogePC.pdf": {
+    "hash": "96e13ce9df45c8f89a8afa2b9165d06296746611dd764eb96340b53c474491fd",
+    "chunks": 4,
+    "indexed_at": "2026-04-25T12:49:19.354736",
+    "size": 421227
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT30 - Envoyer un VarACmail.pdf": {
+    "hash": "59cb5795e124a423d74960d6634d937eeb3117f6baf445f0d7ce7037fa0481e9",
+    "chunks": 9,
+    "indexed_at": "2026-04-25T12:49:20.907718",
+    "size": 1048290
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT30a - VarACQIT BroadCast VFT.pdf": {
+    "hash": "1bc74ea1c5906076cf30769b712ba86fa1be373be616d7e3861f3da745d7bdc0",
+    "chunks": 6,
+    "indexed_at": "2026-04-25T12:49:24.382868",
+    "size": 649444
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT31 - Mallette_QO-100_F1GBD.pdf": {
+    "hash": "997f75a7a38ed23b84606045af148945304c0b84d6ee988fde4d3e8e98fa516d",
+    "chunks": 9,
+    "indexed_at": "2026-04-25T12:49:26.812288",
+    "size": 2398064
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT32 - VarACQIT - Installation et Utilisation.pdf": {
+    "hash": "56e4eae88f9aca408fd2c32ac20897e950f3bf32fd024bdc111b57b67c8746f5",
+    "chunks": 10,
+    "indexed_at": "2026-04-25T12:49:29.971889",
+    "size": 1471560
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT33 - QO-100 setup X6100.pdf": {
+    "hash": "4f2bb405cc74d30028a4d3a4b1a733695a1027ae7ce87f633b07f38f324d4e6c",
+    "chunks": 6,
+    "indexed_at": "2026-04-25T12:49:33.483629",
+    "size": 2212316
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT34 - La PowerBox150.pdf": {
+    "hash": "b61aeeab62d080353c5dbabe6d13d361a01fba9b6dfb2859d3b9f203a292e622",
+    "chunks": 4,
+    "indexed_at": "2026-04-25T12:49:34.290717",
+    "size": 1192868
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT35 - HF setup X6100.pdf": {
+    "hash": "1b817d68eeb25d9a12acadf5eb8b6bf0cc6f972810cda672d47e078b9d8c4e9c",
+    "chunks": 8,
+    "indexed_at": "2026-04-25T12:49:35.214239",
+    "size": 2853760
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT36 - QO-100 TINY.pdf": {
+    "hash": "03f57b1854c42a62e6dad0b95185764a67590e004b3de1eb0be6cfe175254678",
+    "chunks": 8,
+    "indexed_at": "2026-04-25T12:49:36.183623",
+    "size": 2544667
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT37 - Antenne_Yagi_121-144.pdf": {
+    "hash": "fc0d4c71865a39f795baf544c5eb6f8939077d416830d8e76cefa6805f0ed36e",
+    "chunks": 5,
+    "indexed_at": "2026-04-25T12:49:38.346087",
+    "size": 1476881
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT38 - VarACQIT 3.2 - Installation et Utilisation.pdf": {
+    "hash": "d7103a5edc27fea5b9e7ac5785399ec8821a12cdf0c994ef56d0ac08a95492fb",
+    "chunks": 20,
+    "indexed_at": "2026-04-25T12:49:39.434223",
+    "size": 1971483
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT39 - Mise à jour VarACQIT 3.30 - Nouvelle fonctionnalité.pdf": {
+    "hash": "cd414335fc6a13e977b787a7d0fdee130594e4edd06fbbf829e3b0c50ab82a24",
+    "chunks": 6,
+    "indexed_at": "2026-04-25T12:49:46.702787",
+    "size": 668630
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT40 - Mise à jour VarACQIT 4.40 - VIDEOS en P2P.pdf": {
+    "hash": "213a32771a41a95c10f8ada26223624f1bc91943ef08c3c19855d90fd255deb6",
+    "chunks": 7,
+    "indexed_at": "2026-04-25T12:49:49.169021",
+    "size": 1695098
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT41 - VarAC_VarACQIT_pour SAT.pdf": {
+    "hash": "81858cef6f0729cce6a5a990b7a1077a53bfee5b7c41fe13fd527598b4af73e1",
+    "chunks": 11,
+    "indexed_at": "2026-04-25T12:49:51.177635",
+    "size": 2397706
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT42 - RadioMail en ZONE BLANCHE avec VarAC.pdf": {
+    "hash": "851fde1844c0ce6724216049197b80fb0808679028948092a9478efa6d1f7313",
+    "chunks": 11,
+    "indexed_at": "2026-04-25T12:49:53.169794",
+    "size": 1331585
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT43 - VarACQIT_v444.pdf": {
+    "hash": "4f483088774d92e71d9279b0434a28de563c3d5bc825d1ce90580b259d2124dd",
+    "chunks": 7,
+    "indexed_at": "2026-04-25T12:49:58.188051",
+    "size": 1435743
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT44 - VarACQIT_v450.pdf": {
+    "hash": "48f4e806c2523d080d7e6a970b5b412040b4868c99e01867ecaaafc2d9df8154",
+    "chunks": 3,
+    "indexed_at": "2026-04-25T12:50:01.669662",
+    "size": 626502
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT45 -QITft8_v1.pdf": {
+    "hash": "513c8131d1bfae80538a2f58ceffe80eaea8dacd545a875994ab8470f43c21f1",
+    "chunks": 9,
+    "indexed_at": "2026-04-25T12:50:04.132293",
+    "size": 2323886
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT46 -QITfldigi.pdf": {
+    "hash": "90a3c5bb976e4c58d40761136178a129d33cf01ea22db47ae7a215fd7f339c42",
+    "chunks": 7,
+    "indexed_at": "2026-04-25T12:50:06.439612",
+    "size": 1992672
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT47 - QITaprs.pdf": {
+    "hash": "a85240a72b7d54fda57cf95e3e4f0b1c39a115d7cf9ddff8b825377e2b9fc416",
+    "chunks": 9,
+    "indexed_at": "2026-04-25T12:50:08.470106",
+    "size": 2940008
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT48 - SkyTrack_Satellites.pdf": {
+    "hash": "dd4c8ee027d3bedb0acf0b2ab6fc99cd7ffac5343ffff9c80919b3db766e8cc3",
+    "chunks": 11,
+    "indexed_at": "2026-04-25T12:50:11.387249",
+    "size": 1932741
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT49 -QITjs8_v1.pdf": {
+    "hash": "cf5af16e3d98d342a4d2f06a9db86663cf17e6a5bba448ee4f996e1156e4430d",
+    "chunks": 11,
+    "indexed_at": "2026-04-25T12:50:14.338759",
+    "size": 2855360
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT50 - PinPoint-QITaprs.pdf": {
+    "hash": "aa2f1fa580915779fb8d7af9382e5251e79ded2fde6888139b74e8e7cbc32da8",
+    "chunks": 17,
+    "indexed_at": "2026-04-25T12:50:17.934975",
+    "size": 3679969
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT51 - FTM-300DE_IMAGES_VFT.pdf": {
+    "hash": "63b4f14257cd8f9d3ab0fe216a759a2fffd804a247dd182d95d01fac85b1ebfc",
+    "chunks": 15,
+    "indexed_at": "2026-04-25T12:50:23.547578",
+    "size": 4071215
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT52 - FT5De_IMAGES_VFT.pdf": {
+    "hash": "4b8f13fe2b7cae875eeae131777816d8e13e494cc6191a549e19d4af283d9c35",
+    "chunks": 16,
+    "indexed_at": "2026-04-25T12:50:27.776822",
+    "size": 4456889
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT53 - WhatsApp_EMAIL_via_APRS.pdf": {
+    "hash": "a837ab1655dbf5e6c7bfa35b109973e61f0b9d1b40686c05a7ed6ccd8cf8e92d",
+    "chunks": 5,
+    "indexed_at": "2026-04-25T12:50:33.008159",
+    "size": 2039266
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT54 - MMSSTV-YONIQ.pdf": {
+    "hash": "de6bd2ec779c47a817a69719df730a6ec75a86c8b28d9d502fea25212feb6cb3",
+    "chunks": 6,
+    "indexed_at": "2026-04-25T12:50:34.662717",
+    "size": 1631071
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT55 - Cartographie APRS_et_MULTIMEDIAS_en_VFT.pdf": {
+    "hash": "e00f4884728188597a5d4fd4174c874784e1a0d665800830ebedb880d923d956",
+    "chunks": 31,
+    "indexed_at": "2026-04-25T12:50:37.447258",
+    "size": 5596989
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT56 - Transmission Résiliente et Robuste.pdf": {
+    "hash": "a5b45b1676d7dc9c8ab1f0cd7466b01fb308976a2ddcb3c22a3445cbcf5a5322",
+    "chunks": 31,
+    "indexed_at": "2026-04-25T12:50:49.480293",
+    "size": 3270534
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT57 Radio Email Winlink en VHF.pdf": {
+    "hash": "76c914e8ceaa6c109d8514df176cb32e2cefd1c9eff2737f7578061171bfdba0",
+    "chunks": 8,
+    "indexed_at": "2026-04-25T12:51:02.231336",
+    "size": 2305611
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT58 Winlink par TRANSPONDEURPHONIE.pdf": {
+    "hash": "824d4801cccf3a3e3477c101753e64432b8785c63e76ba60fd80813d99533c40",
+    "chunks": 11,
+    "indexed_at": "2026-04-25T12:51:04.939021",
+    "size": 2750587
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT59 CREER un RMS WINLINK VHF.pdf": {
+    "hash": "9fa0b398f8f8c8fc7dd247321ce01b5211c6766b1691d898b39374502371ef04",
+    "chunks": 7,
+    "indexed_at": "2026-04-25T12:51:07.580305",
+    "size": 1737801
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT60 RMS_WINLINK pour TRANSPONDEUR.pdf": {
+    "hash": "bc0a86f1cb403c6c8729801889fa87a4ad6ae62a168e1c4c476b663615ebaf31",
+    "chunks": 9,
+    "indexed_at": "2026-04-25T12:51:10.333498",
+    "size": 2121687
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT61 IMAGES_VFT_avec_WINLINK.pdf": {
+    "hash": "07c613ab94899066e3996119d84861ce8d6fc0e35dff321f73743179910934d5",
+    "chunks": 9,
+    "indexed_at": "2026-04-25T12:51:14.114796",
+    "size": 629463
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT62 - Station_Tactique_Portable_QO-100_V5.pdf": {
+    "hash": "f2a4b7b1da2597bdbd05df28c6f4daf519d354101bc424237011c87288559ee1",
+    "chunks": 9,
+    "indexed_at": "2026-04-25T12:51:18.662906",
+    "size": 4422089
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT63 - WINLINK Formulaires FNRASEC.pdf": {
+    "hash": "8f6fc96043f909dca3ca3b458976291bd3c71d88cb556d5d8a170ae6ec8490cd",
+    "chunks": 11,
+    "indexed_at": "2026-04-25T12:51:22.287449",
+    "size": 2637684
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT64 Messages Winlink via un TRANSPONDEUR PHONIE.pdf": {
+    "hash": "801037369fe35fcb580b70500cfe50a795a4b4726b5cedc915587aeefd508490",
+    "chunks": 11,
+    "indexed_at": "2026-04-25T12:51:27.162650",
+    "size": 3212770
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT65 Une station RESILIENTE HF et Satellite SANS PC.pdf": {
+    "hash": "11b7f9f395622fc6f373f9e0b995cda0a32e2495b59a607d2334cae7d03143a9",
+    "chunks": 27,
+    "indexed_at": "2026-04-25T12:51:33.281813",
+    "size": 10516494
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT66 Une transmission RESILIENTE avec Meshtastic.pdf": {
+    "hash": "a2f5fcb850830c9f4184cd8cc58ba3af92a433c596b5cf402d1619ae3585622b",
+    "chunks": 9,
+    "indexed_at": "2026-04-25T12:51:40.276095",
+    "size": 1654870
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT67 Transmission via le réseau LoRa avec lora-xfer.pdf": {
+    "hash": "82f7e612f782802c4c223a5e1f8bdf1cffea98c1f7ae1aadb66ce6a1273b304d",
+    "chunks": 19,
+    "indexed_at": "2026-04-25T12:51:44.924487",
+    "size": 3452879
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT68 Le TC2BBS Meshtastic - VarAC pour LoRa.pdf": {
+    "hash": "088082ba487cc60e9ae87980e248abf0e6f9fac67d9b3a9f3f283e7dd520b09b",
+    "chunks": 21,
+    "indexed_at": "2026-04-25T12:51:55.121866",
+    "size": 3544717
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT69 Transmission Winlink vers Meshtastic.pdf": {
+    "hash": "9df3d2add62c67adfb9f328799877d271ffd288ca8fb23ace57787a222d669ab",
+    "chunks": 18,
+    "indexed_at": "2026-04-25T12:52:01.773530",
+    "size": 3651523
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT70 Un RMS Winlink vers LoRa Meshtastic.pdf": {
+    "hash": "fb34d134b75206715c3aceef1113ec29466adfee845387f7c5eec225f77a54c7",
+    "chunks": 11,
+    "indexed_at": "2026-04-25T12:52:13.038922",
+    "size": 2373352
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT71 Une Communication RESILIENTE avec Reticulum.pdf": {
+    "hash": "a88e98d66ea46eeda12924ccc194f71576a8a4209234110779adbf2e2defda72",
+    "chunks": 20,
+    "indexed_at": "2026-04-25T12:52:21.385663",
+    "size": 4263857
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT72 Transpondeur Hybride Reticulum - paramétrage.pdf": {
+    "hash": "09f071d1d295ea8fce22a1024dfb29abf60623c38821e05fc2ca645ca463ee94",
+    "chunks": 18,
+    "indexed_at": "2026-04-25T12:52:27.460301",
+    "size": 5421637
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT73 Communication Winlink vers Reticulum.pdf": {
+    "hash": "1692567f4e93ae7179f86c725c7ef39c1a7d240e367e549ec6cb69da324c16a4",
+    "chunks": 5,
+    "indexed_at": "2026-04-25T12:52:35.098334",
+    "size": 1602800
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT74 RMS Winlink vers Reticulum.pdf": {
+    "hash": "baeb907313a480e77c54e030ffb4227de81dc6c32d5c2c9dba8eef6578bfca8a",
+    "chunks": 6,
+    "indexed_at": "2026-04-25T12:52:37.311644",
+    "size": 1338413
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT75 Comment Créer un Node ADRASEC.pdf": {
+    "hash": "fb7ba3d003c13e00ae9ff12a1f60af73d1b7f8934fa61d1d9945349df3a971d7",
+    "chunks": 47,
+    "indexed_at": "2026-04-25T12:52:41.677752",
+    "size": 2524622
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT76 Transmission Winlink V-UHF P2P.pdf": {
+    "hash": "6ed2e7b1e60117f5c08b2692d4aaeaafbfb4c5c9ce7848610109f7defa9a0dce",
+    "chunks": 9,
+    "indexed_at": "2026-04-25T12:52:55.820577",
+    "size": 2449249
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT77 - FTM-300DE_WINLINK.pdf": {
+    "hash": "fade01af6e30c0624421229af03317d5620d77158016215823112a9a1028a48d",
+    "chunks": 8,
+    "indexed_at": "2026-04-25T12:52:58.499319",
+    "size": 2192426
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT78 - Un Transpondeur Tactique Projetable.pdf": {
+    "hash": "e70e03672c9e9eb71a5d7a2362d166ecdea8462b48eaeba339325dc7032ea0c2",
+    "chunks": 7,
+    "indexed_at": "2026-04-25T12:53:04.080710",
+    "size": 2570573
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT79 - Une Station RNS Hybride avec un FT-991A.pdf": {
+    "hash": "ff6fd1c7cec58743290a6d950d2477de4a19b2d7c917a37e1ece8d473da09520",
+    "chunks": 20,
+    "indexed_at": "2026-04-25T12:53:07.512058",
+    "size": 5511028
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT80 - FT-857ND Station Winlink et RNS Hybride.pdf": {
+    "hash": "1f86ad6f02c5a06a71122c3e9df5be6a51adc40922eb4839e43f080d8f04f13d",
+    "chunks": 19,
+    "indexed_at": "2026-04-25T12:53:12.887273",
+    "size": 4877113
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT81 - VARAcontrol pour Reticulum.pdf": {
+    "hash": "d24ebc11f5d5f17ef70eee2947bafe0665ca293b9d8b34b28de824562a369841",
+    "chunks": 6,
+    "indexed_at": "2026-04-25T12:53:18.689765",
+    "size": 1715887
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT82 Flasher un RNode LoRa.pdf": {
+    "hash": "9b608de8e5e075e1d633e0ef293a74cf762654270f4ca0f3feb39c370b5b7e4b",
+    "chunks": 12,
+    "indexed_at": "2026-04-25T12:53:21.833676",
+    "size": 3691387
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT83 Compresser et Transmettre une Vidéo pour Winlink.pdf": {
+    "hash": "6ed10ce08cac40c74e638fb294c1a744fbceec3ea8f952282e658bb2612bce29",
+    "chunks": 7,
+    "indexed_at": "2026-04-25T12:53:25.458863",
+    "size": 1284987
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT84 - Station QO-100 TinyGSFD_v6.pdf": {
+    "hash": "b89086da130ba67f5a4bc4c82a4253696d291f92912b8be97399183d4ddca479",
+    "chunks": 8,
+    "indexed_at": "2026-04-25T12:53:30.664638",
+    "size": 3919420
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT85 - Créer un Digipeater LoRa Reticulum.pdf": {
+    "hash": "77f02754aa2008216a33079e8d02585ad1f89dd6fc4dcddaeea82a9a957d1512",
+    "chunks": 64,
+    "indexed_at": "2026-04-25T12:53:43.830208",
+    "size": 5664209
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT86 - Reticulum_avec_un_TNC.pdf": {
+    "hash": "b8df26753c1b8cd8e3b77f7daa5dcd032fde210c1c2aa5b8941fc844843d8874",
+    "chunks": 13,
+    "indexed_at": "2026-04-25T12:54:06.728195",
+    "size": 2385788
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT87 - Station Winlink UltraPortable avec WoAD.pdf": {
+    "hash": "d3ac06c05bb0f15bea6949cfbf152aae0a2e7b87ca1774aa86cdba56c1f2f7ec",
+    "chunks": 22,
+    "indexed_at": "2026-04-25T12:54:16.178268",
+    "size": 5746648
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT88 - FTX-1_Station_QO-100_TinyGSFD_v7.pdf": {
+    "hash": "6fa0018811253e063c98c0e02c1eb415c2341cf2d4c1cb67f37eab123bbd78cb",
+    "chunks": 15,
+    "indexed_at": "2026-04-25T12:54:23.088841",
+    "size": 7519719
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT89 - FX-4CR_Station_20W_HF_Tactique_v2.12.pdf": {
+    "hash": "2637a118fc70baf8a60915f6072a9ce42fccbcedf71fa71c22464e2ae6f7cb7f",
+    "chunks": 14,
+    "indexed_at": "2026-04-25T12:54:26.238154",
+    "size": 4744133
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT90 - Créer un RMS Winlink Tactique VR N-76.pdf": {
+    "hash": "07ee9f50376c2591fa3622bd161ce341d805d70bfc51336a4edaea4858541104",
+    "chunks": 17,
+    "indexed_at": "2026-04-25T12:54:30.418071",
+    "size": 4672831
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT91 - Créer son RMS Winlink Tactique Projetable.pdf": {
+    "hash": "73479a508fd9999087ee10155f27f93ce8eb446a10e2f356066e4caf501b5b2d",
+    "chunks": 20,
+    "indexed_at": "2026-04-25T12:54:46.655224",
+    "size": 5067885
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT92 - Transmission SSTV en Ultra-Portable N76-N7600.pdf": {
+    "hash": "ed856ee8cd0a5535cb05cb4bfd531f2a67a4c7267008908c9d68103342cb32af",
+    "chunks": 7,
+    "indexed_at": "2026-04-25T12:54:53.575254",
+    "size": 1689225
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT93 QITwinlink pour Winlink Express.pdf": {
+    "hash": "78dbb39e528ed3218756af484ed7c350727a247803c3ee65cca1f2a94854d042",
+    "chunks": 21,
+    "indexed_at": "2026-04-25T12:54:56.365395",
+    "size": 5095367
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT94 Winlink Express avec un VR N76-N7600.pdf": {
+    "hash": "28b058395ea053907e773f5ab6a82425ab7ca15c2c3be546cb5911cd3d39e5f7",
+    "chunks": 9,
+    "indexed_at": "2026-04-25T12:55:01.390515",
+    "size": 2830616
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT95 TAKaprs et TAKtnc pour WinTAK et ATAK.pdf": {
+    "hash": "a47f1f652c6ea5f191c3399cd90524c8878e9c6d42d05ea8b6ae3f966a6d0c5c",
+    "chunks": 13,
+    "indexed_at": "2026-04-25T12:55:03.782328",
+    "size": 2772361
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT96 - RadioTransmissions Tactiques avec RNStnc.pdf": {
+    "hash": "ed6a20b70685e3ba75383d5020705a178f2924ed7ab0dc6a0915cfffd330f103",
+    "chunks": 18,
+    "indexed_at": "2026-04-25T12:55:07.237522",
+    "size": 4856960
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT97 - RADIOGRAMME CRC-TOTP pour Reticulum et Winlink.pdf": {
+    "hash": "21351005829dce1c84b427edf9730510ef3de06a617e4a5bb84eb181f48824f8",
+    "chunks": 12,
+    "indexed_at": "2026-04-25T12:55:09.863440",
+    "size": 2016751
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT98 - RNSvaraMULTI_pour_VARA_FM-HF-SAT.pdf": {
+    "hash": "7dcec887bb39ea0496bce9c315632cb260e26a125de55efa34758736cf64caf4",
+    "chunks": 11,
+    "indexed_at": "2026-04-25T12:55:11.874590",
+    "size": 972560
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\Notes Techniques\\NT99 - TCQ - TransCommunication Quantique pour Reticulum.pdf": {
+    "hash": "f12c1f14e9d0faecbe3308403960cbf8ac7fe60c4fe00e5c6d1f72c05c5d5760",
+    "chunks": 24,
+    "indexed_at": "2026-04-25T12:55:15.222087",
+    "size": 6222935
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\SITREP\\QO-100_EXER_SITREP_HELIOS-26.pdf": {
+    "hash": "a0086e6cccf6901f06e0c16d76b7672b5a23689bc1b2540a85dbbda5c1f59c38",
+    "chunks": 19,
+    "indexed_at": "2026-04-25T12:55:20.828091",
+    "size": 218445
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\SITREP\\SITREP_CRUES_IDF_COMPACT.pdf": {
+    "hash": "fb5f55ba51813b5ef667da5f0bb4aeab7a3f207014486f8f29ac5df833383a74",
+    "chunks": 4,
+    "indexed_at": "2026-04-25T12:55:26.555003",
+    "size": 136999
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\SITREP\\SITREP_CRUES_IDF_EXERCICE.pdf": {
+    "hash": "0278d86f723b8851c0ee882cfc3e983f977f716fae48bf7496629f1e54003a06",
+    "chunks": 5,
+    "indexed_at": "2026-04-25T12:55:27.864454",
+    "size": 361239
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\SITREP\\SITREP_EXERCICE-HELIOS_EMC_S5.pdf": {
+    "hash": "da5f04289b685374387b43e65d7b5aa0aab9ad5749a0ddb34520a665a05f66fd",
+    "chunks": 29,
+    "indexed_at": "2026-04-25T12:55:30.225290",
+    "size": 230020
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\SITREP\\SITREP_EXERCICE-HELIOS_EMC_S5_v2.pdf": {
+    "hash": "019320d7c7d02467f60c545c8210897d8b244f98a2cabc8a279ed1e62bc950af",
+    "chunks": 22,
+    "indexed_at": "2026-04-25T12:55:40.258411",
+    "size": 794479
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\SITREP\\SITREP_GABRIEL26_ADRASEC77.pdf": {
+    "hash": "b73c5d5f574edf73bd98b3e85acd93ca56f6da2b317d57e69323a603c1c5093a",
+    "chunks": 6,
+    "indexed_at": "2026-04-25T12:55:45.967838",
+    "size": 48956
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\SITREP\\SITREP_GABRIEL26_FONTAINEBLEAU.pdf": {
+    "hash": "66ed46e3f238d3cc447eaf14a0afc5de3849c4f974a984ea6c50151c88654d5f",
+    "chunks": 6,
+    "indexed_at": "2026-04-25T12:55:46.983855",
+    "size": 44186
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\SITREP\\SITREP_INCENDIE_FONTAINEBLEAU_EXERCICE.pdf": {
+    "hash": "3b63b2753607d90e52087f1b7d92ea938f3e7531e6570e18e527ad6fe89629ae",
+    "chunks": 14,
+    "indexed_at": "2026-04-25T12:55:47.950955",
+    "size": 466673
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\SITREP\\SITREP_SEISME_AUVERGNE_EXERCICE.pdf": {
+    "hash": "4b421fa97e58b45945023605366b046640f3a954e5b58e0624e24ad51a050a8a",
+    "chunks": 14,
+    "indexed_at": "2026-04-25T12:55:53.310646",
+    "size": 763173
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\SITREP\\SITREP_SEVESO_CHIMERA26.pdf": {
+    "hash": "201a8027621fcf96e5e1b717730ce7739d56935ea3028fc259f746d66e1d289d",
+    "chunks": 22,
+    "indexed_at": "2026-04-25T12:55:59.016446",
+    "size": 470356
+  },
+  "D:\\IAbrain\\Docs_Adrasec\\SITREP\\SITREP_TSUNAMI_NICE_EXERCICE.pdf": {
+    "hash": "6e699439574b0ef368464c907c120fa5c95d1e387bf1ec51ce74ded0036a968a",
+    "chunks": 7,
+    "indexed_at": "2026-04-25T12:56:06.339539",
+    "size": 452330
+  }
+}
