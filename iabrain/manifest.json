@@ -1,7 +1,7 @@
 {
   "name": "IAbrain RAG ADRASEC 77 - Pack officiel",
   "version": "2026.04.26",
-  "build_date": "2026-04-26T10:47:47Z",
+  "build_date": "2026-04-26T11:17:49Z",
   "embedding_model": "nomic-embed-text",
   "embedding_dim": 768,
   "n_chunks": 2092,
@@ -16,13 +16,13 @@
     },
     "records.json": {
       "url": "https://raw.githubusercontent.com/f1gbd/F1GBD/master/iabrain/rag/records.json",
-      "sha256": "200e5ba8a21e83d879900dbbe1c3420f340a78c85bca58a5644858da88611442",
-      "size_bytes": 3041472
+      "sha256": "740b638b8a9e09ba15f846cd9c3e5f81e51d228d30f2eab74215ae8ad41cfd76",
+      "size_bytes": 3026827
     },
     "rag_meta.json": {
       "url": "https://raw.githubusercontent.com/f1gbd/F1GBD/master/iabrain/rag/rag_meta.json",
-      "sha256": "fe14b4fa144c5ee99d6fb023c78410145a676d333175de0c58eceff653514bd3",
-      "size_bytes": 47456
+      "sha256": "453cf043f4cdf375e61a692fb8da0aa62bd84a97ce194dd90ce11931f9766e98",
+      "size_bytes": 46363
     }
   },
   "changelog": []
