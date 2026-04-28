@@ -161,9 +161,7 @@ ollama pull bge-m3              # Reranking RAG (recommandé)
 ### 3️⃣ Installer IAbrain et la base de connaissances
 
 ```powershell
-# Récupérer IAbrain.py et le lancer
-cd C:\IAbrain
-python IAbrain.py
+# Récupérer l'archive du programme IAbrain.7z, la décompresser dans C:\ et lancer C:\IAbrain\IAbrain.exe
 ```
 
 Une fois lancé, dans le menu **Connaissances → 🔄 Mettre à jour la base depuis GitHub** : un clic suffit pour récupérer la base ADRASEC officielle (182 fichiers, 2092 chunks).
