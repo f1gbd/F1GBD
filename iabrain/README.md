@@ -1,6 +1,8 @@
 <div align="center">
 
-# 🧠 IAbrain
+<img src="iabrain-logo.png" alt="IAbrain" width="200">
+
+# IAbrain
 
 ### L'assistant IA local pour les opérateurs ADRASEC
 
