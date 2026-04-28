@@ -39,8 +39,10 @@ Concrètement, c'est un outil qui répond à vos questions opérationnelles, ré
 | 📚 | **Base de connaissances ADRASEC intégrée** | Toutes les notes techniques, MEMO, fiches réflexes et SITREP sont indexés et consultables. IAbrain cite ses sources et indique de quel document provient chaque information. |
 | ⚡ | **Routage automatique entre modèles** | IAbrain choisit automatiquement entre un modèle rapide (questions simples) et un modèle puissant (analyses complexes). Réponses immédiates pour le quotidien, qualité maximale quand c'est nécessaire. |
 | 🎯 | **Reranking RAG intelligent** | Pipeline en 2 étapes (embedding + reranking via bge-m3) pour une pertinence maximale des sources citées. Détection automatique des modèles disponibles. |
+| ⚙️ | **Paramètres RAG exposés** *(v1.33.3+)* | Cinq paramètres avancés (top_k, seuil similarité, recherche hybride, poids lexical, taille contexte) configurables directement dans Options → Paramètres, sans éditer le JSON. |
 | 📝 | **Rédaction de documents structurés** | Génère des SITREP, fiches techniques, procédures et notes en quelques secondes. Bouton dédié pour exporter directement en fichier Markdown réutilisable. |
 | 🔄 | **Mise à jour OTA depuis GitHub** | La base de connaissances ADRASEC se met à jour d'un seul clic depuis ce dépôt officiel. Tous les opérateurs disposent de la même version à jour, vérifiée par signature SHA-256. |
+| 🆕 | **Vérification automatique des MAJ** *(v1.33.5+)* | Au démarrage, IAbrain vérifie discrètement si une nouvelle version est disponible sur GitHub et notifie l'utilisateur dans la zone de chat. Asynchrone, échec silencieux si pas d'Internet, désactivable. |
 | 🔒 | **100% local et confidentiel** | Aucune donnée ne sort de votre machine. Aucune connexion Internet requise après installation. Idéal pour les contextes opérationnels sensibles ou les zones blanches. |
 
 ---
@@ -139,29 +141,52 @@ IAbrain s'adresse à **tous les opérateurs ADRASEC**, quels que soient leur niv
 
 ## 🛠 Comment commencer ?
 
-L'installation se fait en **trois étapes**, documentées dans les manuels dédiés.
+### ⚡ Méthode automatique *(recommandée — Nouveauté v1.33)*
 
-### 1️⃣ Vérifier les prérequis matériels
+Depuis la v1.33, un script PowerShell **fait toute l'installation pour vous** : Ollama, modèles, IAbrain, variables d'environnement, raccourcis bureau et menu Démarrer. Une seule commande à lancer, environ 30 minutes en arrière-plan.
 
-Consultez le document **« Prérequis matériel pour utilisateur ADRASEC »** pour vérifier que votre PC est compatible.
+**1. Téléchargez le script** `Install-IAbrain.ps1` depuis ce dépôt.
+
+**2. Ouvrez PowerShell en mode administrateur** (clic droit → « Exécuter en tant qu'administrateur »).
+
+**3. Lancez le script** :
+
+```powershell
+# Naviguer vers le dossier de téléchargement
+cd $env:USERPROFILE\Downloads
+
+# Autoriser l'exécution du script (cette session uniquement)
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
+
+# Lancer l'installation automatique
+.\Install-IAbrain.ps1
+```
+
+Le script affiche sa progression phase par phase et vous prévient quand l'installation est terminée. Pendant les 25 minutes de téléchargement des modèles, vous pouvez faire autre chose : le script tourne sans surveillance.
+
+> 💡 **Astuce** : la procédure détaillée est dans le **« Guide d'installation IAbrain v1.33.6 »** livré séparément. Il inclut aussi la procédure manuelle pas-à-pas en annexe pour les utilisateurs avancés.
+
+### 🛠 Méthode manuelle *(utilisateurs avancés)*
+
+Si vous préférez maîtriser chaque étape (postes non-Windows, contraintes IT particulières, formation), la méthode manuelle pas-à-pas est documentée en annexe du guide d'installation.
+
+**Vérification rapide des prérequis** :
 
 > **Configuration minimale** : Windows 10/11, Ryzen 5+ ou Intel i5+, 16 Go RAM (32 Go recommandés en dual-channel)
 >
 > **Configuration de référence light** : Mini-PC type Geekom A7Max, Beelink SER8, ou équivalent Ryzen 7000+ avec 32 Go DDR5 dual-channel.
 
-### 2️⃣ Installer Ollama et les modèles
-
-Suivez la **« Procédure d'installation Ollama »** pour installer le moteur d'inférence et les modèles recommandés :
+**Modèles à installer manuellement** :
 
 ```powershell
 # Sur le serveur Ollama (HX99G ou A7Max)
-ollama pull nomic-embed-text    # Embedder RAG (obligatoire)
-ollama pull llama3.2:3b         # Modèle léger (auto-route)
-ollama pull qwen2.5:7b          # Modèle complexe (RAG + analyse)
-ollama pull bge-m3              # Reranking RAG (recommandé)
+ollama pull nomic-embed-text    # Embedder RAG (obligatoire, 274 Mo)
+ollama pull llama3.2:3b         # Modèle léger (auto-route, 2 Go)
+ollama pull qwen2.5:7b          # Modèle complexe (RAG + analyse, 4.7 Go)
+ollama pull bge-m3              # Reranking RAG (recommandé, 1.2 Go)
 ```
 
-### 3️⃣ Installer IAbrain et la base de connaissances
+**Téléchargement direct de l'archive** :
 
 <div align="center">
 
@@ -186,7 +211,13 @@ Une fois téléchargé :
 
 > 💡 **Astuce** : créez un raccourci de `IAbrain.exe` sur votre bureau pour un lancement rapide au quotidien.
 
-Une fois lancé, dans le menu **Connaissances → 🔄 Mettre à jour la base depuis GitHub** : un clic suffit pour récupérer la base ADRASEC officielle (182 fichiers, 2092 chunks).
+### 🚀 Première utilisation
+
+Une fois IAbrain installé et lancé :
+
+1. **Menu Connaissances → 🔄 Mettre à jour la base depuis GitHub** *(récupère les 182 fichiers, 2092 chunks de la base ADRASEC officielle)*
+2. **Options → Paramètres → cocher « Activer le RAG »** *(case en haut de la section « Paramètres RAG »)*
+3. Posez votre première question : **« Parle-moi du logiciel TCQ »**
 
 > ⏱ Comptez environ **30 minutes** pour la première installation, ensuite IAbrain est utilisable au quotidien sans configuration supplémentaire.
 
@@ -196,10 +227,10 @@ Une fois lancé, dans le menu **Connaissances → 🔄 Mettre à jour la base de
 
 Ce dépôt contient également les manuels suivants :
 
-- 📋 **Fiche de présentation** (ce document)
+- 📋 **Fiche de présentation v1.33.6**
+- 📖 **Guide d'installation IAbrain v1.33.6** *(méthode automatique + annexe manuelle)*
+- 📘 **Manuel utilisateur IAbrain v1.33.6** *(complet, 21 pages)*
 - 🔧 **Prérequis matériel utilisateur**
-- ⚡ **Installation light pour mini-PC Ryzen 7000+**
-- 📖 **Manuel utilisateur complet**
 - 🎯 **Procédure d'activation du reranking RAG**
 - 📊 **Synthèse benchmark de modèles**
 
@@ -211,6 +242,7 @@ Ce dépôt contient également les manuels suivants :
 ┌────────────────────────────────────────┐
 │  IAbrain (interface graphique)         │
 │  - Conversation, RAG, export Markdown  │
+│  - Vérification automatique des MAJ    │
 └──────────────┬─────────────────────────┘
                │ HTTP localhost:11434
 ┌──────────────▼─────────────────────────┐
@@ -231,6 +263,24 @@ Ce dépôt contient également les manuels suivants :
 
 ---
 
+## 🆕 Nouveautés v1.33.x
+
+La branche 1.33 apporte plusieurs améliorations majeures, listées chronologiquement :
+
+| Version | Apport principal |
+|---|---|
+| **1.33.0** | Architecture reranking RAG via bge-m3 (qualité des réponses ×2) |
+| 1.33.1 | Hotfix nom du modèle reranker (bge-m3 au lieu de bge-reranker-v2-m3) |
+| 1.33.2 | Filtre embedders dans le sélecteur de modèles |
+| **1.33.3** | Paramètres RAG exposés dans l'UI + min_similarity 0.30 + qwen2.5:7b par défaut |
+| 1.33.4 | Case « Activer le RAG » bien en évidence dans Options → Paramètres |
+| **1.33.5** | Vérification automatique des mises à jour GitHub au démarrage |
+| 1.33.6 | Fenêtres Paramètres et À propos compactes (compatible petits écrans) |
+
+Pour le détail des changements, consultez le [changelog complet sur GitHub Releases](https://github.com/f1gbd/F1GBD/releases).
+
+---
+
 ## 🤝 Communauté
 
 IAbrain est un **projet open développé pour la communauté ADRASEC**, proposé librement aux opérateurs ADRASEC départementales et à la FNRASEC.
@@ -246,7 +296,7 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.33.2 — 2026-04-27**
+**Version 1.33.6 — 2026-04-28**
 
 ---
 
