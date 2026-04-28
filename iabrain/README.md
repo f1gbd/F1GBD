@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="iabrain-logo.png" alt="IAbrain" width="200">
+<img src="IAbrain-logo.png" alt="IAbrain" width="200">
 
 # IAbrain
 
