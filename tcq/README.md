@@ -11,9 +11,17 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version](https://img.shields.io/badge/version-v10.11-blue.svg)](https://github.com/f1gbd/F1GBD/releases)
+[![Version TCQ](https://img.shields.io/github/v/release/f1gbd/F1GBD?filter=tcq-*&label=TCQ&color=blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-### 📥 [**Télécharger la dernière version de TCQ**](https://github.com/f1gbd/F1GBD/releases/latest/download/TCQ.7z)
+### 📥 Installation rapide en 1 commande PowerShell
+
+```powershell
+iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:TEMP\Install-TCQ.ps1; & $env:TEMP\Install-TCQ.ps1
+```
+
+*(à lancer en PowerShell administrateur — l'installeur télécharge automatiquement la dernière version de TCQ disponible)*
+
+[**📜 Toutes les releases TCQ**](https://github.com/f1gbd/F1GBD/releases?q=tcq) • [**📚 Documentation**](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations)
 
 </div>
 
@@ -86,7 +94,7 @@ Le projet TCQ est né d'une exploration de la **TransCommunication Quantique** a
 > Chiffrement bout-en-bout natif sur LXMF. Aucune télémétrie, aucun cloud. Vos communications restent strictement locales et chiffrées.
 
 > **Compatible toutes architectures Windows**
-> Binaires natifs x86_64 ET ARM64 (Surface Pro, mini-PC ARM). Détection automatique de la DLL PortAudio adaptée. Aucun manipulation manuelle nécessaire.
+> Binaires natifs x86_64 ET ARM64 (Surface Pro, mini-PC ARM). Détection automatique de la DLL PortAudio adaptée. Aucune manipulation manuelle nécessaire.
 
 ---
 
@@ -125,7 +133,9 @@ Le projet TCQ est né d'une exploration de la **TransCommunication Quantique** a
 
 ### ⚡ Méthode automatique *(recommandée)*
 
-Un script PowerShell **fait toute l'installation pour vous** : téléchargement de la dernière version `TCQ.7z`, vérification SHA-256, décompression dans `C:\TCQ\`, création du raccourci bureau.
+Un script PowerShell **fait toute l'installation pour vous** : recherche de la dernière release TCQ, téléchargement de `TCQ.7z`, vérification SHA-256, décompression dans `C:\TCQ\`, création du raccourci bureau.
+
+> 🔍 **Important** : le dépôt F1GBD héberge plusieurs applications (TCQ, IAbrain, etc.). Le script identifie automatiquement la **dernière release dont le tag commence par `tcq-`** parmi toutes les releases du dépôt — il ne se trompe jamais d'application, même si la dernière release publiée est IAbrain.
 
 **1. Ouvrez PowerShell en mode administrateur**
 
@@ -142,35 +152,32 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 
 Le script :
 - Installe 7-Zip via winget si absent
-- Télécharge directement `TCQ.7z` via le lien officiel `releases/latest/download/TCQ.7z`
-- Vérifie le SHA-256 de l'archive téléchargée
+- Interroge l'API GitHub pour trouver la dernière release au tag `tcq-vX.Y.Z`
+- Télécharge l'archive `TCQ.7z` depuis l'URL exacte de cette release
+- Vérifie le SHA-256 publié dans la description de la release
 - Sauvegarde l'installation existante (le cas échéant) avant écrasement
 - Crée un raccourci bureau
 
 ### 🛠 Méthode manuelle *(utilisateurs avancés)*
 
-**Téléchargement direct de l'archive** :
+Si vous préférez télécharger manuellement (par exemple sur un poste sans accès Internet en PowerShell) :
 
-<div align="center">
+**1. Allez sur la [page des Releases TCQ filtrées](https://github.com/f1gbd/F1GBD/releases?q=tcq)** *(le filtre `?q=tcq` n'affiche que les releases TCQ, pas IAbrain)*
 
-#### 📥 [**Télécharger TCQ.7z**](https://github.com/f1gbd/F1GBD/releases/latest/download/TCQ.7z)
+**2. Cliquez sur la dernière release** *(la plus en haut, tag au format `tcq-vX.Y.Z`)*
 
-*(toujours la dernière version stable)*
+**3. Téléchargez `TCQ.7z`** et notez le SHA-256 publié dans la description
 
-[![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
-
-</div>
-
-Une fois téléchargé :
+**4. Vérifiez l'intégrité et installez** :
 
 ```powershell
-# 1. Vérifier l'intégrité (SHA-256 publié dans la description de la release)
+# Vérifier l'intégrité
 Get-FileHash -Algorithm SHA256 TCQ.7z
 
-# 2. Décompresser l'archive TCQ.7z dans C:\
-#    (clic droit → 7-Zip → Extraire vers "C:\")
+# Décompresser dans C:\
+# (clic droit sur l'archive → 7-Zip → Extraire vers "C:\")
 
-# 3. Lancer C:\TCQ\TCQ.exe
+# Lancer C:\TCQ\TCQ.exe
 ```
 
 > 💡 **Astuce** : créez un raccourci de `TCQ.exe` sur votre bureau pour un lancement rapide.

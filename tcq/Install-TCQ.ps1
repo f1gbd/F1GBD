@@ -2,15 +2,15 @@
 .SYNOPSIS
     Installation automatique de TCQ — Plateforme de communications radio multi-modes
 .DESCRIPTION
-    Télécharge la dernière version de TCQ.7z depuis GitHub via le lien officiel
-    releases/latest/download/TCQ.7z, vérifie le SHA-256, décompresse l'archive
-    dans C:\TCQ et crée un raccourci sur le bureau.
+    Récupère la dernière release contenant TCQ.7z (en interrogeant l'API GitHub),
+    télécharge l'archive, vérifie le SHA-256, décompresse dans C:\TCQ et crée un
+    raccourci sur le bureau.
 
-    NOTE : GitHub redirige automatiquement releases/latest/download/<asset> vers
-    la dernière release contenant cet asset précis. Le dépôt F1GBD héberge
-    plusieurs applications (TCQ, IAbrain, etc.) — chacune utilise son propre
-    nom d'asset, donc le téléchargement de TCQ.7z trouve toujours la dernière
-    release TCQ, indépendamment des autres applications publiées entre-temps.
+    POURQUOI cette logique : le dépôt F1GBD héberge plusieurs applications (TCQ,
+    IAbrain, etc.). Le lien `releases/latest/download/TCQ.7z` ne fonctionne que
+    si la release marquée "Latest" est une release TCQ — sinon GitHub retourne
+    404. Ce script contourne le problème en listant toutes les releases via
+    l'API GitHub et en sélectionnant la plus récente qui contient TCQ.7z.
 
 .AUTHOR
     Jean-Louis (F1GBD / F4JHW) — ADRASEC 77 — FNRASEC
@@ -26,15 +26,12 @@
 $RepoOwner       = "f1gbd"
 $RepoName        = "F1GBD"
 $ArchiveName     = "TCQ.7z"
+$TagPrefix       = "tcq-"
 $InstallPath     = "C:\TCQ"
 $ExecutableName  = "TCQ.exe"
 $ShortcutName    = "TCQ.lnk"
 $TempPath        = $env:TEMP
-
-# Lien officiel : GitHub redirige automatiquement vers la dernière release contenant TCQ.7z
-$DownloadUrl     = "https://github.com/$RepoOwner/$RepoName/releases/latest/download/$ArchiveName"
-# API GitHub pour récupérer les métadonnées (version, SHA-256 dans le corps de la release)
-$ApiLatestUrl    = "https://api.github.com/repos/$RepoOwner/$RepoName/releases/latest"
+$ApiReleasesUrl  = "https://api.github.com/repos/$RepoOwner/$RepoName/releases?per_page=30"
 
 # =====================================================================
 # Affichage
@@ -84,46 +81,69 @@ function Install-7Zip {
 }
 
 # =====================================================================
-# Récupération de la version et du SHA-256 attendu via API GitHub
-# (lecture seule, juste pour info à l'utilisateur et vérification d'intégrité)
+# Recherche de la dernière release contenant TCQ.7z
+# (PAS de releases/latest qui retourne la release "Latest" globale du dépôt)
 # =====================================================================
-function Get-LatestTCQReleaseInfo {
-    Write-Step "Récupération des informations de la dernière release TCQ..."
+function Get-LatestTCQRelease {
+    Write-Step "Recherche de la dernière release TCQ sur GitHub..."
     try {
         $headers = @{ "User-Agent" = "TCQ-Installer" }
-        # On récupère les 30 dernières releases pour trouver celle qui contient TCQ.7z
-        # (peut ne pas être la "Latest" globale du dépôt si une autre appli a été publiée après)
-        $allReleases = Invoke-RestMethod -Uri "https://api.github.com/repos/$RepoOwner/$RepoName/releases?per_page=30" -Headers $headers -ErrorAction Stop
+        $allReleases = Invoke-RestMethod -Uri $ApiReleasesUrl -Headers $headers -ErrorAction Stop
 
-        $tcqRelease = $allReleases | Where-Object {
-            -not $_.draft -and ($_.assets | Where-Object { $_.name -eq $ArchiveName })
-        } | Select-Object -First 1
-
-        if (-not $tcqRelease) {
-            Write-Host "  (Aucune release TCQ trouvée dans les 30 dernières — utilisation du téléchargement direct sans vérification SHA-256)" -ForegroundColor DarkYellow
-            return $null
+        if (-not $allReleases -or $allReleases.Count -eq 0) {
+            Write-Err "Aucune release trouvée sur le dépôt $RepoOwner/$RepoName."
+            exit 1
         }
 
-        # Extraction du SHA-256 dans le corps de la release (64 caractères hex)
-        $sha256 = $null
-        if ($tcqRelease.body) {
-            $matches = [regex]::Matches($tcqRelease.body, "([a-fA-F0-9]{64})")
-            if ($matches.Count -gt 0) {
-                $sha256 = $matches[0].Value.ToLower()
-            }
+        # Filtre principal : releases non-draft dont le tag commence par "tcq-"
+        # (cohérent avec la convention de nommage : tcq-v10.10.0, tcq-v10.11.0, etc.)
+        $tcqReleases = @($allReleases | Where-Object {
+            (-not $_.draft) -and ($_.tag_name -like "$TagPrefix*")
+        })
+
+        # Fallback : si aucune release préfixée n'est trouvée (ex: anciennes releases v10.x non migrées),
+        # on cherche par nom d'asset TCQ.7z pour assurer la compatibilité ascendante.
+        if ($tcqReleases.Count -eq 0) {
+            Write-Host "  (Aucune release avec préfixe '$TagPrefix' — recherche par nom d'asset...)" -ForegroundColor DarkYellow
+            $tcqReleases = @($allReleases | Where-Object {
+                (-not $_.draft) -and ($_.assets | Where-Object { $_.name -eq $ArchiveName })
+            })
         }
 
-        return [PSCustomObject]@{
-            Tag       = $tcqRelease.tag_name
-            Date      = $tcqRelease.published_at
-            Sha256    = $sha256
-            SizeMB    = [math]::Round(($tcqRelease.assets | Where-Object { $_.name -eq $ArchiveName }).size / 1MB, 1)
+        if ($tcqReleases.Count -eq 0) {
+            Write-Err "Aucune release TCQ trouvée."
+            Write-Host "  Vérifiez sur https://github.com/$RepoOwner/$RepoName/releases" -ForegroundColor Yellow
+            exit 1
         }
+
+        $latestTcq = $tcqReleases[0]
+        Write-Ok "Release TCQ trouvée : $($latestTcq.tag_name) (publiée le $($latestTcq.published_at))"
+        return $latestTcq
     } catch {
-        Write-Host "  (Impossible de contacter l'API GitHub : $($_.Exception.Message))" -ForegroundColor DarkYellow
-        Write-Host "  Le téléchargement direct sera tenté sans vérification SHA-256 préalable." -ForegroundColor DarkYellow
-        return $null
+        Write-Err "Impossible de contacter l'API GitHub : $($_.Exception.Message)"
+        exit 1
     }
+}
+
+function Find-TCQAsset {
+    param($Release)
+    $asset = $Release.assets | Where-Object { $_.name -eq $ArchiveName }
+    if (-not $asset) {
+        Write-Err "Archive '$ArchiveName' introuvable dans la release $($Release.tag_name)."
+        exit 1
+    }
+    return $asset
+}
+
+function Get-ExpectedSha256 {
+    param($Release)
+    $body = $Release.body
+    if (-not $body) { return $null }
+    $matches = [regex]::Matches($body, "([a-fA-F0-9]{64})")
+    if ($matches.Count -gt 0) {
+        return $matches[0].Value.ToLower()
+    }
+    return $null
 }
 
 # =====================================================================
@@ -132,7 +152,6 @@ function Get-LatestTCQReleaseInfo {
 function Download-Archive {
     param([string]$Url, [string]$OutFile)
     Write-Step "Téléchargement de $ArchiveName..."
-    Write-Host "  Source : $Url" -ForegroundColor DarkGray
     try {
         $ProgressPreference = 'SilentlyContinue'
         Invoke-WebRequest -Uri $Url -OutFile $OutFile -UseBasicParsing -ErrorAction Stop
@@ -234,25 +253,23 @@ $sevenZip = Get-7ZipPath
 if (-not $sevenZip) { $sevenZip = Install-7Zip }
 Write-Ok "7-Zip détecté : $sevenZip"
 
-# 2) Infos de la release (version, SHA-256 attendu)
-$releaseInfo = Get-LatestTCQReleaseInfo
-if ($releaseInfo) {
-    Write-Host ""
-    Write-Host "  Version       : $($releaseInfo.Tag)"   -ForegroundColor White
-    Write-Host "  Taille        : $($releaseInfo.SizeMB) Mo" -ForegroundColor White
-    Write-Host "  Date          : $($releaseInfo.Date)" -ForegroundColor White
-    if ($releaseInfo.Sha256) {
-        Write-Host "  SHA-256       : $($releaseInfo.Sha256)" -ForegroundColor DarkGray
-    }
-    Write-Host ""
-}
+# 2) Récupération de la release TCQ (filtrée parmi toutes les releases du dépôt)
+$release      = Get-LatestTCQRelease
+$asset        = Find-TCQAsset -Release $release
+$expectedHash = Get-ExpectedSha256 -Release $release
+$tag          = $release.tag_name
 
-# 3) Téléchargement via le lien direct GitHub (qui redirige vers la dernière release contenant TCQ.7z)
+Write-Host ""
+Write-Host "  Version       : $tag"           -ForegroundColor White
+Write-Host "  Taille        : $([math]::Round($asset.size/1MB,1)) Mo" -ForegroundColor White
+Write-Host "  Date          : $($release.published_at)" -ForegroundColor White
+Write-Host ""
+
+# 3) Téléchargement via l'URL spécifique de cette release (pas releases/latest)
 $archivePath = Join-Path $TempPath $ArchiveName
-Download-Archive -Url $DownloadUrl -OutFile $archivePath
+Download-Archive -Url $asset.browser_download_url -OutFile $archivePath
 
 # 4) Vérification SHA-256
-$expectedHash = if ($releaseInfo) { $releaseInfo.Sha256 } else { $null }
 Verify-Sha256 -FilePath $archivePath -ExpectedHash $expectedHash
 
 # 5) Décompression
@@ -272,10 +289,9 @@ Write-Ok "Terminé."
 # =====================================================================
 # Résumé final
 # =====================================================================
-$installedTag = if ($releaseInfo) { " $($releaseInfo.Tag)" } else { "" }
 Write-Host ""
 Write-Host "=====================================================" -ForegroundColor Green
-Write-Host "  Installation TCQ$installedTag terminée avec succès !" -ForegroundColor Green
+Write-Host "  Installation TCQ $tag terminée avec succès !"        -ForegroundColor Green
 Write-Host "=====================================================" -ForegroundColor Green
 Write-Host ""
 Write-Host "  Dossier   : $InstallPath"               -ForegroundColor White
