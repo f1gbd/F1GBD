@@ -6,7 +6,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-![IAbrain L'assistant IA local pour les opérateurs ADRASEC].(https://github.com/f1gbd/F1GBD/blob/master/iabrain/IAbrain_mainpage.jpg)
+![IAbrain L'assistant IA local pour les opérateurs ADRASEC](https://github.com/f1gbd/F1GBD/blob/master/iabrain/IAbrain_mainpage.jpg)
 
 **MAJ du 28/04/2026** : [**IAbrain L'assistant IA local pour les opérateurs ADRASEC**](https://github.com/f1gbd/F1GBD/tree/master/iabrain)
 
