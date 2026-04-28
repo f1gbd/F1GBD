@@ -15,8 +15,6 @@
 
 ### 📥 [**Télécharger la dernière version de TCQ**](https://github.com/f1gbd/F1GBD/releases/latest/download/TCQ.7z)
 
-> ⚠️ Le dépôt F1GBD héberge plusieurs applications (TCQ, IAbrain, etc.). Le bouton ci-dessus pointe spécifiquement sur `TCQ.7z` ; si la dernière release du dépôt est une release IAbrain, ce lien retournera "404 Not Found". Dans ce cas, parcourez la [**page Releases**](https://github.com/f1gbd/F1GBD/releases) et choisissez la release la plus récente contenant l'asset `TCQ.7z`.
-
 </div>
 
 ---
@@ -127,7 +125,7 @@ Le projet TCQ est né d'une exploration de la **TransCommunication Quantique** a
 
 ### ⚡ Méthode automatique *(recommandée)*
 
-Un script PowerShell **fait toute l'installation pour vous** : téléchargement, vérification SHA-256, décompression dans `C:\TCQ\`, création du raccourci bureau. Le script identifie automatiquement la **bonne release TCQ** parmi toutes les releases du dépôt, ce qui évite toute confusion avec les autres applications hébergées (IAbrain).
+Un script PowerShell **fait toute l'installation pour vous** : téléchargement de la dernière version `TCQ.7z`, vérification SHA-256, décompression dans `C:\TCQ\`, création du raccourci bureau.
 
 **1. Ouvrez PowerShell en mode administrateur**
 
@@ -144,30 +142,36 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 
 Le script :
 - Installe 7-Zip via winget si absent
-- Liste toutes les releases du dépôt et sélectionne la **plus récente contenant `TCQ.7z`**
+- Télécharge directement `TCQ.7z` via le lien officiel `releases/latest/download/TCQ.7z`
 - Vérifie le SHA-256 de l'archive téléchargée
 - Sauvegarde l'installation existante (le cas échéant) avant écrasement
 - Crée un raccourci bureau
 
-> 💡 **Astuce** : si vous installez TCQ après une release IAbrain, l'installeur saute correctement les releases qui ne contiennent pas TCQ.7z et trouve la dernière release TCQ dans l'historique.
-
 ### 🛠 Méthode manuelle *(utilisateurs avancés)*
 
-**1. Allez sur la [page des Releases F1GBD](https://github.com/f1gbd/F1GBD/releases)** et localisez la dernière release dont les assets contiennent `TCQ.7z` (les tags TCQ commencent typiquement par `v10.`).
+**Téléchargement direct de l'archive** :
 
-**2. Téléchargez `TCQ.7z`** et notez le SHA-256 publié dans la description.
+<div align="center">
 
-**3. Vérifiez l'intégrité** :
+#### 📥 [**Télécharger TCQ.7z**](https://github.com/f1gbd/F1GBD/releases/latest/download/TCQ.7z)
+
+*(toujours la dernière version stable)*
+
+[![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
+
+</div>
+
+Une fois téléchargé :
 
 ```powershell
+# 1. Vérifier l'intégrité (SHA-256 publié dans la description de la release)
 Get-FileHash -Algorithm SHA256 TCQ.7z
+
+# 2. Décompresser l'archive TCQ.7z dans C:\
+#    (clic droit → 7-Zip → Extraire vers "C:\")
+
+# 3. Lancer C:\TCQ\TCQ.exe
 ```
-
-Comparez avec le hash de la release.
-
-**4. Décompressez dans `C:\`** (clic droit → 7-Zip → Extraire vers "C:\\")
-
-**5. Lancez `C:\TCQ\TCQ.exe`**
 
 > 💡 **Astuce** : créez un raccourci de `TCQ.exe` sur votre bureau pour un lancement rapide.
 
