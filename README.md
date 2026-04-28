@@ -10,6 +10,10 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 **MAJ du 28/04/2026** : [**IAbrain L'assistant IA local pour les opérateurs ADRASEC**](https://github.com/f1gbd/F1GBD/tree/master/iabrain)
 
+![TCQ - Pour une Communication Résiliente](https://github.com/f1gbd/F1GBD/blob/master/tcq/images/TCQ_Ready.png))
+
+**MAJ du 28/04/2026** : [**TCQ - Pour une Communication Résiliente**](https://github.com/f1gbd/F1GBD/tree/master/tcq)
+
 ![Se préparer à la RESILIENCE avec Reticulum](https://github.com/f1gbd/F1GBD/blob/master/lora/RNode_Reticulum.jpg)
 
 **MAJ du 23/12/2025** : [**TCQ v2.3 (TransCommunication Quantique pour Reticulum)**](https://github.com/f1gbd/F1GBD/blob/master/tcq/MEMO%20-%20TCQv2.2%20-%20TransCommunication%20Quantique%20Reticulum.pdf)
