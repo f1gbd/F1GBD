@@ -1,10 +1,12 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 23 décembre 2025
+mis à jour le 28 avril 2026
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
+
+**MAJ du 28/04/2026** : [**IAbrain L'assistant IA local pour les opérateurs ADRASEC**](https://github.com/f1gbd/F1GBD/tree/master/iabrain)
 
 ![Se préparer à la RESILIENCE avec Reticulum](https://github.com/f1gbd/F1GBD/blob/master/lora/RNode_Reticulum.jpg)
 
