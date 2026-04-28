@@ -8,10 +8,13 @@
 
 *Communications résilientes — Documentation opérationnelle — Rédaction de SITREP*
 
-[![Version](https://img.shields.io/badge/version-1.33.2-blue.svg)](https://github.com/f1gbd/F1GBD/tree/master/iabrain)
+[![Version](https://img.shields.io/github/v/release/f1gbd/F1GBD?label=version&color=blue)](https://github.com/f1gbd/F1GBD/releases/latest)
+[![Téléchargements](https://img.shields.io/github/downloads/f1gbd/F1GBD/total?label=téléchargements&color=brightgreen)](https://github.com/f1gbd/F1GBD/releases)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![100% local](https://img.shields.io/badge/100%25-local-brightgreen.svg)]()
+
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/latest/download/IAbrain.7z)
 
 </div>
 
@@ -160,9 +163,28 @@ ollama pull bge-m3              # Reranking RAG (recommandé)
 
 ### 3️⃣ Installer IAbrain et la base de connaissances
 
+<div align="center">
+
+#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/latest/download/IAbrain.7z)
+
+*(toujours la dernière version stable)*
+
+[![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
+
+</div>
+
+Une fois téléchargé :
+
 ```powershell
-# Récupérer l'archive du programme IAbrain.7z, la décompresser dans C:\ et lancer C:\IAbrain\IAbrain.exe
+# 1. Décompresser l'archive IAbrain.7z dans C:\
+#    (clic droit → 7-Zip → Extraire vers "C:\")
+#
+# 2. Ouvrir l'Explorateur dans C:\IAbrain\
+#
+# 3. Double-cliquer sur IAbrain.exe pour lancer le programme
 ```
+
+> 💡 **Astuce** : créez un raccourci de `IAbrain.exe` sur votre bureau pour un lancement rapide au quotidien.
 
 Une fois lancé, dans le menu **Connaissances → 🔄 Mettre à jour la base depuis GitHub** : un clic suffit pour récupérer la base ADRASEC officielle (182 fichiers, 2092 chunks).
 
