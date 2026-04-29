@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Installation automatique d'IAbrain pour les opérateurs ADRASEC.
 
