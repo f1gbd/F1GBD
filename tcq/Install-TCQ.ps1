@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Installation automatique de TCQ — Plateforme de communications radio multi-modes
 .DESCRIPTION
