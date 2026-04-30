@@ -6,15 +6,35 @@
 
 ### L'assistant IA local pour les opérateurs ADRASEC
 
-*Communications résilientes — Documentation opérationnelle — Rédaction de SITREP*
+*Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — Cartographie interactive*
 
-[![Version](https://img.shields.io/github/v/release/f1gbd/F1GBD?label=version&color=blue)](https://github.com/f1gbd/F1GBD/releases/latest)
+[![Version](https://img.shields.io/badge/version-iabrain--v1.35.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.35.0)
 [![Téléchargements](https://img.shields.io/github/downloads/f1gbd/F1GBD/total?label=téléchargements&color=brightgreen)](https://github.com/f1gbd/F1GBD/releases)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![100% local](https://img.shields.io/badge/100%25-local-brightgreen.svg)]()
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/latest/download/IAbrain.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.35.0/IAbrain.7z)
+
+</div>
+
+---
+
+## 📸 Aperçu
+
+<div align="center">
+
+### Écran principal d'IAbrain
+
+<img src="docs/images/main_screen.png" alt="Écran principal IAbrain" width="900">
+
+*Interface conversationnelle avec routage automatique entre modèles, RAG ADRASEC intégré, support du reranking et thème clair/sombre.*
+
+### Cartographie interactive de la base RAG *(nouveauté v1.35)*
+
+<img src="docs/images/cartographie.png" alt="Cartographie interactive" width="900">
+
+*Visualisation arborescente de la base de connaissances : Base → Cluster thématique → Fichier → Chunk. Force-directed dynamique style Reticulum MeshChat, fonctionne 100% hors-ligne dans le navigateur.*
 
 </div>
 
@@ -37,12 +57,14 @@ Concrètement, c'est un outil qui répond à vos questions opérationnelles, ré
 |:---:|---|---|
 | 💬 | **Conversation en français naturel** | Posez vos questions comme à un collègue expérimenté. IAbrain comprend votre demande, raisonne, et répond de manière structurée. Pas de syntaxe technique à apprendre. |
 | 📚 | **Base de connaissances ADRASEC intégrée** | Toutes les notes techniques, MEMO, fiches réflexes et SITREP sont indexés et consultables. IAbrain cite ses sources et indique de quel document provient chaque information. |
+| 🆕 | **Base RAG personnelle** *(v1.34+)* | En plus de la base ADRASEC officielle (alimentée par OTA), une **seconde base perso** isolée vous permet d'indexer vos propres notes, RETEX et documents locaux. Les deux bases sont fouillées simultanément ; la base perso est **toujours préservée** lors des mises à jour OTA. |
+| 🆕 | **Cartographie interactive de la base** *(v1.35+)* | Visualisation arborescente de la base RAG (Base → Cluster thématique → Fichier → Chunk). Force-directed dynamique style Reticulum MeshChat, embarqué 100% hors-ligne dans un fichier HTML autonome. Recherche temps réel avec auto-expand des branches pertinentes et surlignage des chunks matchant. |
 | ⚡ | **Routage automatique entre modèles** | IAbrain choisit automatiquement entre un modèle rapide (questions simples) et un modèle puissant (analyses complexes). Réponses immédiates pour le quotidien, qualité maximale quand c'est nécessaire. |
 | 🎯 | **Reranking RAG intelligent** | Pipeline en 2 étapes (embedding + reranking via bge-m3) pour une pertinence maximale des sources citées. Détection automatique des modèles disponibles. |
 | ⚙️ | **Paramètres RAG exposés** *(v1.33.3+)* | Cinq paramètres avancés (top_k, seuil similarité, recherche hybride, poids lexical, taille contexte) configurables directement dans Options → Paramètres, sans éditer le JSON. |
 | 📝 | **Rédaction de documents structurés** | Génère des SITREP, fiches techniques, procédures et notes en quelques secondes. Bouton dédié pour exporter directement en fichier Markdown réutilisable. |
-| 🔄 | **Mise à jour OTA depuis GitHub** | La base de connaissances ADRASEC se met à jour d'un seul clic depuis ce dépôt officiel. Tous les opérateurs disposent de la même version à jour, vérifiée par signature SHA-256. |
-| 🆕 | **Vérification automatique des MAJ** *(v1.33.5+)* | Au démarrage, IAbrain vérifie discrètement si une nouvelle version est disponible sur GitHub et notifie l'utilisateur dans la zone de chat. Asynchrone, échec silencieux si pas d'Internet, désactivable. |
+| 🔄 | **Mise à jour OTA depuis GitHub** | La base de connaissances ADRASEC se met à jour d'un seul clic depuis ce dépôt officiel. Tous les opérateurs disposent de la même version à jour, vérifiée par signature SHA-256. La base perso (v1.34+) n'est jamais écrasée. |
+| 🔔 | **Vérification automatique des MAJ** *(v1.33.5+)* | Au démarrage, IAbrain vérifie discrètement si une nouvelle version est disponible sur GitHub et notifie l'utilisateur dans la zone de chat. Asynchrone, échec silencieux si pas d'Internet, désactivable. |
 | 🔒 | **100% local et confidentiel** | Aucune donnée ne sort de votre machine. Aucune connexion Internet requise après installation. Idéal pour les contextes opérationnels sensibles ou les zones blanches. |
 
 ---
@@ -112,6 +134,20 @@ Voici quelques exemples de ce que vous pouvez demander à IAbrain au quotidien.
 
 « Donne-moi les indicatifs FNRASEC pour les liaisons inter-départementales. »
 ```
+
+### 🌐 Exploration de la base RAG *(v1.35+)*
+
+```
+Menu : Connaissances → 🌐 Cartographie interactive de la base…
+```
+
+Ouvre la cartographie dans votre navigateur. **Au démarrage** : vue d'ensemble en 5-8 clusters thématiques (VARA, TCQ, SATER, ADRASEC, etc.) auto-détectés par k-means.
+
+**Cliquez sur un cluster** pour voir ses fichiers, **cliquez sur un fichier** pour voir ses extraits, **cliquez sur un extrait** pour afficher son contenu intégral dans le panneau latéral.
+
+**Saisissez une requête** dans la barre de recherche (ex. « VARA HF Winlink ») : l'arbre se déplie automatiquement pour révéler les chunks pertinents, qui sont surlignés en rouge vif.
+
+> 💡 Idéal pour préparer un exercice : visualisez d'un coup d'œil tout ce que la base sait sur un thème donné.
 
 ---
 
@@ -190,9 +226,9 @@ ollama pull bge-m3              # Reranking RAG (recommandé, 1.2 Go)
 
 <div align="center">
 
-#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/latest/download/IAbrain.7z)
+#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.35.0/IAbrain.7z)
 
-*(toujours la dernière version stable)*
+*(version `iabrain-v1.35.0` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
 
 [![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
 
@@ -227,9 +263,9 @@ Une fois IAbrain installé et lancé :
 
 Ce dépôt contient également les manuels suivants :
 
-- 📋 **Fiche de présentation v1.33.6**
-- 📖 **Guide d'installation IAbrain v1.33.6** *(méthode automatique + annexe manuelle)*
-- 📘 **Manuel utilisateur IAbrain v1.33.6** *(complet, 21 pages)*
+- 📋 **Fiche de présentation v1.35**
+- 📖 **Guide d'installation IAbrain v1.35** *(méthode automatique + annexe manuelle)*
+- 📘 **Manuel utilisateur IAbrain v1.35** *(complet, incluant la cartographie interactive)*
 - 🔧 **Prérequis matériel utilisateur**
 - 🎯 **Procédure d'activation du reranking RAG**
 - 📊 **Synthèse benchmark de modèles**
@@ -243,6 +279,7 @@ Ce dépôt contient également les manuels suivants :
 │  IAbrain (interface graphique)         │
 │  - Conversation, RAG, export Markdown  │
 │  - Vérification automatique des MAJ    │
+│  - Cartographie interactive (v1.35+)   │
 └──────────────┬─────────────────────────┘
                │ HTTP localhost:11434
 ┌──────────────▼─────────────────────────┐
@@ -254,18 +291,59 @@ Ce dépôt contient également les manuels suivants :
 └────────────────────────────────────────┘
 
 ┌────────────────────────────────────────┐
-│  Base RAG ADRASEC (locale)             │
-│  - 182 fichiers indexés                │
-│  - 2092 chunks vectorisés              │
-│  - Mise à jour OTA depuis GitHub       │
+│  Bases RAG (locales, double-base v1.34)│
+│  ┌──────────────────────────────────┐  │
+│  │ Base principale ADRASEC          │  │
+│  │  - 182 fichiers indexés          │  │
+│  │  - 2092 chunks vectorisés        │  │
+│  │  - Mise à jour OTA depuis GitHub │  │
+│  └──────────────────────────────────┘  │
+│  ┌──────────────────────────────────┐  │
+│  │ Base perso (jamais écrasée)      │  │
+│  │  - Vos notes, RETEX, ajouts      │  │
+│  │  - Indexation à la demande       │  │
+│  └──────────────────────────────────┘  │
 └────────────────────────────────────────┘
 ```
 
 ---
 
-## 🆕 Nouveautés v1.33.x
+## 🆕 Évolution récente — v1.33 → v1.35
 
-La branche 1.33 apporte plusieurs améliorations majeures, listées chronologiquement :
+Les versions récentes ont apporté plusieurs améliorations majeures, du RAG hybride à la cartographie hiérarchique.
+
+### 🌐 v1.35.0 — Cartographie interactive de la base RAG
+
+Visualisation arborescente de la base de connaissances qui s'ouvre dans le navigateur. Quatre niveaux d'exploration :
+
+```
+⭐ Base RAG
+└── 🟪 Cluster thématique  (k-means, 5-8 selon la taille)
+    └── 📄 Fichier         (rond bleu = principale, losange orange = perso)
+        └── 🟢 Chunk         (extrait de texte)
+```
+
+- **Force-directed dynamique** via vis-network (la même bibliothèque qu'utilise Reticulum MeshChat). Drag, zoom, animation physique.
+- **Mode 100% hors-ligne** : `vis-network.min.js` (~700 Ko) embarqué inline dans le HTML généré. Le fichier final fait ~700 Ko et fonctionne sans aucune connexion Internet — le HTML peut être copié sur clé USB ou envoyé par mail.
+- **Recherche locale temps réel** dans la barre du haut : auto-déplie les branches contenant des matches, surlignage rouge des chunks pertinents.
+- **Breadcrumb dynamique** : `📚 Base RAG › 📂 Cluster › 📄 Fichier`. Permet de remonter d'un clic.
+- **Clic-droit** sur un nœud déplié pour le replier (lui et tous ses descendants).
+- **Pas de dépendance Python supplémentaire** : tout le calcul (PCA, k-means, labels TF-IDF) est en pur NumPy, pas de matplotlib ni scikit-learn.
+
+### 📂 v1.34.0 — Base RAG personnelle
+
+Architecture double-base qui sépare strictement la documentation officielle ADRASEC de vos ajouts perso :
+
+| Base | Origine | Mise à jour |
+|---|---|---|
+| **Principale ADRASEC** | OTA GitHub officiel | Écrasée à chaque OTA |
+| **Perso** | Vos `Indexer un fichier`, vos notes | **Jamais écrasée par l'OTA** |
+
+Les deux bases sont fouillées simultanément à chaque requête RAG. Dans la cartographie v1.35, les chunks perso apparaissent en losanges orange — d'un coup d'œil vous voyez où vos notes s'intègrent thématiquement par rapport à la base officielle.
+
+Cas d'usage typiques : vos RETEX d'exercice locaux, vos fiches techniques personnelles, des copies de mails opérationnels, des PV de réunion ADRASEC départementaux.
+
+### 🔧 v1.33.x — Reranking RAG, paramètres exposés, MAJ auto
 
 | Version | Apport principal |
 |---|---|
@@ -277,7 +355,7 @@ La branche 1.33 apporte plusieurs améliorations majeures, listées chronologiqu
 | **1.33.5** | Vérification automatique des mises à jour GitHub au démarrage |
 | 1.33.6 | Fenêtres Paramètres et À propos compactes (compatible petits écrans) |
 
-Pour le détail des changements, consultez le [changelog complet sur GitHub Releases](https://github.com/f1gbd/F1GBD/releases).
+Pour le détail de tous les changements, consultez le [changelog complet sur GitHub Releases](https://github.com/f1gbd/F1GBD/releases).
 
 ---
 
@@ -296,7 +374,7 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.33.6 — 2026-04-28**
+**Version 1.35.0 — 2026-04-30**
 
 ---
 
