@@ -8,13 +8,13 @@
 
 *Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — Cartographie interactive — Corrections manuelles*
 
-[![Version](https://img.shields.io/badge/version-iabrain--v1.36.1-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.36.1)
+[![Version](https://img.shields.io/badge/version-iabrain--v1.36.2-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.36.2)
 [![Téléchargements](https://img.shields.io/github/downloads/f1gbd/F1GBD/total?label=téléchargements&color=brightgreen)](https://github.com/f1gbd/F1GBD/releases)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![100% local](https://img.shields.io/badge/100%25-local-brightgreen.svg)]()
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.36.1/IAbrain.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.36.2/IAbrain.7z)
 
 </div>
 
@@ -246,9 +246,9 @@ ollama pull bge-m3              # Reranking RAG (recommandé, 1.2 Go)
 
 <div align="center">
 
-#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.36.1/IAbrain.7z)
+#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.36.2/IAbrain.7z)
 
-*(version `iabrain-v1.36.1` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
+*(version `iabrain-v1.36.2` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
 
 [![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
 
@@ -347,6 +347,7 @@ Le système de corrections manuelles permet à l'opérateur de **corriger les er
 |---|---|
 | **1.36.0** | Architecture initiale du système de corrections (clic-droit, dialog, fenêtre de gestion, export/import ZIP) + hotfix migration config OTA |
 | **1.36.1** | **Fix critique** : pré-injection prioritaire des corrections, format dense pour l'embedding (sim 0.65 → 0.85), bouton « Réindexer toutes », console terminale cachée, prompt anti-bégaiement |
+| **1.36.2** | **Fix qualité** : seuil de pertinence des corrections augmenté de 0.30 à 0.55 (évite les injections hors-sujet), instruction de prompt nuancée, paramètre `rag_correction_min_similarity` configurable |
 
 ### 🌐 v1.35.0 — Cartographie interactive de la base RAG
 
@@ -410,7 +411,7 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.36.1 — 2026-05-01**
+**Version 1.36.2 — 2026-05-01**
 
 ---
 
