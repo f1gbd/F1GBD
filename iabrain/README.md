@@ -34,7 +34,7 @@
 
 <img src="docs/images/cartographie.png" alt="Cartographie interactive" width="900">
 
-*Visualisation arborescente de la base de connaissances : Base → Cluster thématique → Fichier → Chunk. Force-directed dynamique style Reticulum MeshChat, fonctionne 100% hors-ligne dans le navigateur.*
+*Visualisation arborescente de la base de connaissances : Base → Cluster thématique → Fichier → Chunk, fonctionne 100% hors-ligne.*
 
 </div>
 
