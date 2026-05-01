@@ -9,7 +9,7 @@
 *Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — Cartographie interactive — Corrections manuelles*
 
 [![Version](https://img.shields.io/badge/version-iabrain--v1.36.2-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.36.2)
-[![Téléchargements](https://img.shields.io/github/downloads/f1gbd/F1GBD/total?label=téléchargements&color=brightgreen&cacheSeconds=3600)](https://github.com/f1gbd/F1GBD/releases)
+[![Téléchargements](https://img.shields.io/badge/téléchargements-26%2B-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![100% local](https://img.shields.io/badge/100%25-local-brightgreen.svg)]()
