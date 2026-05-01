@@ -6,15 +6,15 @@
 
 ### L'assistant IA local pour les opérateurs ADRASEC
 
-*Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — Cartographie interactive*
+*Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — Cartographie interactive — Corrections manuelles*
 
-[![Version](https://img.shields.io/badge/version-iabrain--v1.35.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.35.0)
+[![Version](https://img.shields.io/badge/version-iabrain--v1.36.1-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.36.1)
 [![Téléchargements](https://img.shields.io/github/downloads/f1gbd/F1GBD/total?label=téléchargements&color=brightgreen)](https://github.com/f1gbd/F1GBD/releases)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![100% local](https://img.shields.io/badge/100%25-local-brightgreen.svg)]()
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.35.0/IAbrain.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.36.1/IAbrain.7z)
 
 </div>
 
@@ -28,9 +28,9 @@
 
 <img src="docs/images/main_screen.png" alt="Écran principal IAbrain" width="900">
 
-*Interface conversationnelle avec routage automatique entre modèles, RAG ADRASEC intégré, support du reranking et thème clair/sombre.*
+*Interface conversationnelle avec routage automatique entre modèles, RAG ADRASEC intégré, support du reranking, corrections manuelles et thème clair/sombre.*
 
-### Cartographie interactive de la base RAG *(nouveauté v1.35)*
+### Cartographie interactive de la base RAG *(v1.35)*
 
 <img src="docs/images/cartographie.png" alt="Cartographie interactive" width="900">
 
@@ -57,8 +57,9 @@ Concrètement, c'est un outil qui répond à vos questions opérationnelles, ré
 |:---:|---|---|
 | 💬 | **Conversation en français naturel** | Posez vos questions comme à un collègue expérimenté. IAbrain comprend votre demande, raisonne, et répond de manière structurée. Pas de syntaxe technique à apprendre. |
 | 📚 | **Base de connaissances ADRASEC intégrée** | Toutes les notes techniques, MEMO, fiches réflexes et SITREP sont indexés et consultables. IAbrain cite ses sources et indique de quel document provient chaque information. |
-| 🆕 | **Base RAG personnelle** *(v1.34+)* | En plus de la base ADRASEC officielle (alimentée par OTA), une **seconde base perso** isolée vous permet d'indexer vos propres notes, RETEX et documents locaux. Les deux bases sont fouillées simultanément ; la base perso est **toujours préservée** lors des mises à jour OTA. |
-| 🆕 | **Cartographie interactive de la base** *(v1.35+)* | Visualisation arborescente de la base RAG (Base → Cluster thématique → Fichier → Chunk). Force-directed dynamique style Reticulum MeshChat, embarqué 100% hors-ligne dans un fichier HTML autonome. Recherche temps réel avec auto-expand des branches pertinentes et surlignage des chunks matchant. |
+| 📂 | **Base RAG personnelle** *(v1.34+)* | En plus de la base ADRASEC officielle (alimentée par OTA), une **seconde base perso** isolée vous permet d'indexer vos propres notes, RETEX et documents locaux. Les deux bases sont fouillées simultanément ; la base perso est **toujours préservée** lors des mises à jour OTA. |
+| 🌐 | **Cartographie interactive de la base** *(v1.35+)* | Visualisation arborescente de la base RAG (Base → Cluster thématique → Fichier → Chunk). Force-directed dynamique style Reticulum MeshChat, embarqué 100% hors-ligne dans un fichier HTML autonome. Recherche temps réel avec auto-expand des branches pertinentes et surlignage des chunks matchant. |
+| 🆕 | **Corrections manuelles intégrées** *(v1.36+)* | Quand IAbrain produit une réponse imprécise ou incorrecte, **clic-droit → « 📢 Corriger cette réponse »** suffit. Votre correction est indexée dans la base perso et **automatiquement appliquée aux questions similaires futures, en priorité absolue**. Format Markdown versionable, partageable entre opérateurs via export/import ZIP. |
 | ⚡ | **Routage automatique entre modèles** | IAbrain choisit automatiquement entre un modèle rapide (questions simples) et un modèle puissant (analyses complexes). Réponses immédiates pour le quotidien, qualité maximale quand c'est nécessaire. |
 | 🎯 | **Reranking RAG intelligent** | Pipeline en 2 étapes (embedding + reranking via bge-m3) pour une pertinence maximale des sources citées. Détection automatique des modèles disponibles. |
 | ⚙️ | **Paramètres RAG exposés** *(v1.33.3+)* | Cinq paramètres avancés (top_k, seuil similarité, recherche hybride, poids lexical, taille contexte) configurables directement dans Options → Paramètres, sans éditer le JSON. |
@@ -73,6 +74,9 @@ Concrètement, c'est un outil qui répond à vos questions opérationnelles, ré
 
 > **Gain de temps massif**
 > Une question qui demandait 10 minutes de recherche dans les notes techniques obtient une réponse en 10 secondes.
+
+> **Apprentissage continu de l'IA** *(v1.36+)*
+> Quand IAbrain se trompe sur une fréquence, un acronyme ou une procédure locale, vous le corrigez en deux clics. La correction est appliquée pour toujours, et elle peut être partagée avec toute votre section ADRASEC via un fichier ZIP.
 
 > **Montée en compétence accélérée**
 > Les nouveaux opérateurs accèdent immédiatement au savoir-faire consolidé de l'ADRASEC. Plus besoin d'attendre une formation pour savoir configurer un mode radio.
@@ -149,6 +153,21 @@ Ouvre la cartographie dans votre navigateur. **Au démarrage** : vue d'ensemble 
 
 > 💡 Idéal pour préparer un exercice : visualisez d'un coup d'œil tout ce que la base sait sur un thème donné.
 
+### 📢 Corrections manuelles *(v1.36+)*
+
+```
+1. Posez votre question : « Quelle est la fréquence VHF ADRASEC en Île-de-France ? »
+2. IAbrain répond, mais vous remarquez qu'il manque la fréquence du transpondeur F5ZYI
+3. Clic-droit sur la réponse → « 📢 Corriger cette réponse… »
+4. Saisissez la bonne réponse : « 145.4375 MHz CTCSS 77.0 Hz et 430.4375 MHz pour le transpondeur F5ZYI ADRASEC 77 IDF »
+5. Validez. La correction est immédiatement indexée.
+6. Reposez la même question : IAbrain donne désormais la réponse correcte avec attribution explicite (« Selon une correction validée par F1GBD… »)
+```
+
+Toutes vos corrections sont consultables et gérables dans `Connaissances → 📢 Gérer les corrections manuelles…`. Vous pouvez les exporter en ZIP pour les partager avec votre section, ou en importer venant d'autres opérateurs.
+
+> 💡 Particulièrement utile pour les **valeurs spécifiques à votre département** (fréquences locales, indicatifs, procédures internes) que la base officielle ADRASEC ne peut pas connaître.
+
 ---
 
 ## 📊 Le quotidien d'un opérateur, avant et avec IAbrain
@@ -157,6 +176,7 @@ Ouvre la cartographie dans votre navigateur. **Au démarrage** : vue d'ensemble 
 |---|---|
 | **Recherche d'une procédure dans 30 PDF :** feuilleter les notes techniques, ouvrir plusieurs documents, lire en diagonale.<br>⏱ *Durée : 5 à 15 minutes.* | **Question en langage naturel :** « Comment configurer TCQ-BBS pour HELIOS ? »<br>⏱ *Réponse synthétique en 10 secondes avec les sources citées.* |
 | **Rédaction d'un SITREP type :** partir d'une feuille blanche ou copier-coller un ancien.<br>⏱ *Durée : 30 à 60 minutes.* | **Demande à IAbrain :** « Rédige un SITREP pour exercice X »<br>⏱ *Document structuré généré en 30 secondes, à éditer puis exporter en .md.* |
+| **L'IA se trompe sur une fréquence locale :** rien à faire, elle continuera à donner la mauvaise réponse à chaque question. | **Clic-droit → « Corriger cette réponse »** *(v1.36+)*<br>La correction est appliquée pour toujours, partageable avec votre section. |
 | **Connaissance dispersée :** chaque opérateur a ses propres notes, niveaux d'expertise hétérogènes. | **Base de connaissances commune** mise à jour depuis GitHub d'un seul clic.<br>Tous les opérateurs au même niveau. |
 | **Dépendance Internet et services cloud :** risque opérationnel en zone blanche ou pendant un incident électrique. | **100% local, hors ligne, confidentiel.** Fonctionne en exercice ou opération réelle sans aucune connexion externe. |
 
@@ -226,9 +246,9 @@ ollama pull bge-m3              # Reranking RAG (recommandé, 1.2 Go)
 
 <div align="center">
 
-#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.35.0/IAbrain.7z)
+#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.36.1/IAbrain.7z)
 
-*(version `iabrain-v1.35.0` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
+*(version `iabrain-v1.36.1` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
 
 [![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
 
@@ -263,9 +283,9 @@ Une fois IAbrain installé et lancé :
 
 Ce dépôt contient également les manuels suivants :
 
-- 📋 **Fiche de présentation v1.35**
-- 📖 **Guide d'installation IAbrain v1.35** *(méthode automatique + annexe manuelle)*
-- 📘 **Manuel utilisateur IAbrain v1.35** *(complet, incluant la cartographie interactive)*
+- 📋 **Fiche de présentation v1.36**
+- 📖 **Guide d'installation IAbrain v1.36** *(méthode automatique + annexe manuelle)*
+- 📘 **Manuel utilisateur IAbrain v1.36** *(complet, incluant la cartographie interactive et les corrections manuelles)*
 - 🔧 **Prérequis matériel utilisateur**
 - 🎯 **Procédure d'activation du reranking RAG**
 - 📊 **Synthèse benchmark de modèles**
@@ -280,6 +300,7 @@ Ce dépôt contient également les manuels suivants :
 │  - Conversation, RAG, export Markdown  │
 │  - Vérification automatique des MAJ    │
 │  - Cartographie interactive (v1.35+)   │
+│  - Corrections manuelles (v1.36+)      │
 └──────────────┬─────────────────────────┘
                │ HTTP localhost:11434
 ┌──────────────▼─────────────────────────┐
@@ -302,15 +323,30 @@ Ce dépôt contient également les manuels suivants :
 │  │ Base perso (jamais écrasée)      │  │
 │  │  - Vos notes, RETEX, ajouts      │  │
 │  │  - Indexation à la demande       │  │
+│  │  - Corrections manuelles (v1.36+)│  │
 │  └──────────────────────────────────┘  │
 └────────────────────────────────────────┘
 ```
 
 ---
 
-## 🆕 Évolution récente — v1.33 → v1.35
+## 🆕 Évolution récente — v1.33 → v1.36
 
-Les versions récentes ont apporté plusieurs améliorations majeures, du RAG hybride à la cartographie hiérarchique.
+Les versions récentes ont apporté plusieurs améliorations majeures, du RAG hybride aux corrections manuelles.
+
+### 📢 v1.36.x — Corrections manuelles intégrées
+
+Le système de corrections manuelles permet à l'opérateur de **corriger les erreurs ou imprécisions du LLM** directement depuis le chat. Chaque correction est :
+
+- Stockée en fichier Markdown versionable dans `IAbrain_rag_db_perso/corrections/`
+- Indexée dans la base perso avec un format dense optimisé pour l'embedding
+- **Pré-injectée prioritairement** dans le contexte RAG des requêtes futures (priorité absolue, indépendamment du seuil de similarité et du reranking)
+- Partageable entre opérateurs via export/import ZIP
+
+| Version | Apport principal |
+|---|---|
+| **1.36.0** | Architecture initiale du système de corrections (clic-droit, dialog, fenêtre de gestion, export/import ZIP) + hotfix migration config OTA |
+| **1.36.1** | **Fix critique** : pré-injection prioritaire des corrections, format dense pour l'embedding (sim 0.65 → 0.85), bouton « Réindexer toutes », console terminale cachée, prompt anti-bégaiement |
 
 ### 🌐 v1.35.0 — Cartographie interactive de la base RAG
 
@@ -337,7 +373,7 @@ Architecture double-base qui sépare strictement la documentation officielle ADR
 | Base | Origine | Mise à jour |
 |---|---|---|
 | **Principale ADRASEC** | OTA GitHub officiel | Écrasée à chaque OTA |
-| **Perso** | Vos `Indexer un fichier`, vos notes | **Jamais écrasée par l'OTA** |
+| **Perso** | Vos `Indexer un fichier`, vos notes, vos corrections (v1.36+) | **Jamais écrasée par l'OTA** |
 
 Les deux bases sont fouillées simultanément à chaque requête RAG. Dans la cartographie v1.35, les chunks perso apparaissent en losanges orange — d'un coup d'œil vous voyez où vos notes s'intègrent thématiquement par rapport à la base officielle.
 
@@ -374,7 +410,7 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.35.0 — 2026-04-30**
+**Version 1.36.1 — 2026-05-01**
 
 ---
 
