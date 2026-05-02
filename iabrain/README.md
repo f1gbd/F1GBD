@@ -342,9 +342,6 @@ Cohérent avec le préfixe ⚙ utilisé pour les macros Action.
 
 > ⚠ **Cas non recommandés** — le mode cloud n'est **pas adapté** aux opérations sensibles, aux SITREP confidentiels, aux questions relatives à la sécurité civile en cours d'incident. Le mode local pur reste la configuration de référence pour l'opérationnel ADRASEC.
 
-### Tarification
-
-Ollama Turbo est un service **payant** (~$20/mois pour le plan de base en 2026, voir https://ollama.com/pricing pour les détails à jour). Plans avec sessions limitées et quotas hebdomadaires.
 
 ---
 
