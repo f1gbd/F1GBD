@@ -8,13 +8,13 @@
 
 *Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — Cartographie interactive — Corrections manuelles — Macros et actions natives — Connectivité Ollama Cloud*
 
-[![Version](https://img.shields.io/badge/version-iabrain--v1.38.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.38.0)
+[![Version](https://img.shields.io/badge/version-iabrain--v1.38.3-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.38.3)
 [![Téléchargements](https://img.shields.io/badge/téléchargements-70%2B-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![100% local](https://img.shields.io/badge/local%20%2F%20cloud-hybride-brightgreen.svg)]()
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.38.0/IAbrain.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.38.3/IAbrain.7z)
 
 </div>
 
@@ -70,7 +70,7 @@ Concrètement, c'est un outil qui répond à vos questions opérationnelles, ré
 | 🎯 | **Reranking RAG intelligent** | Pipeline en 2 étapes (embedding + reranking via bge-m3) pour une pertinence maximale des sources citées. Détection automatique des modèles disponibles. |
 | ⚙️ | **Paramètres RAG exposés** *(v1.33.3+)* | Cinq paramètres avancés (top_k, seuil similarité, recherche hybride, poids lexical, taille contexte) configurables directement dans Options → Paramètres, sans éditer le JSON. |
 | 📊 | **`num_ctx` adaptatif** *(v1.37.4+)* | IAbrain augmente automatiquement la fenêtre de contexte Ollama (4096 → 8192 → 16384 → 32768) quand le prompt enrichi par le RAG dépasserait 40% de la taille configurée. Évite les réponses tronquées sur les requêtes longues. |
-| 📝 | **Rédaction de documents structurés** | Génère des SITREP, fiches techniques, procédures et notes en quelques secondes. Bouton dédié pour exporter directement en fichier Markdown réutilisable. |
+| 📝 | **Rédaction de documents structurés** | Génère des SITREP, fiches techniques, procédures et notes en quelques secondes. Bouton « 💾 Enregistrer » dédié pour exporter directement en **Markdown** (réutilisable, archivable) ou **RTF** *(v1.38.3+, ouvrable directement dans Word, WordPad, LibreOffice — idéal pour échanges avec les autorités)*. |
 | 🔄 | **Mise à jour OTA depuis GitHub** | La base de connaissances ADRASEC se met à jour d'un seul clic depuis ce dépôt officiel. Tous les opérateurs disposent de la même version à jour, vérifiée par signature SHA-256. La base perso (v1.34+) n'est jamais écrasée. |
 | 🔔 | **Vérification automatique des MAJ** *(v1.33.5+)* | Au démarrage, IAbrain vérifie discrètement si une nouvelle version est disponible sur GitHub et notifie l'utilisateur dans la zone de chat. Asynchrone, échec silencieux si pas d'Internet, désactivable. |
 | 🔒 | **100% local et confidentiel** | Aucune donnée ne sort de votre machine. Aucune connexion Internet requise après installation. Idéal pour les contextes opérationnels sensibles ou les zones blanches. |
@@ -342,6 +342,9 @@ Cohérent avec le préfixe ⚙ utilisé pour les macros Action.
 
 > ⚠ **Cas non recommandés** — le mode cloud n'est **pas adapté** aux opérations sensibles, aux SITREP confidentiels, aux questions relatives à la sécurité civile en cours d'incident. Le mode local pur reste la configuration de référence pour l'opérationnel ADRASEC.
 
+### Tarification
+
+Ollama Turbo est un service **payant** (~$20/mois pour le plan de base en 2026, voir https://ollama.com/pricing pour les détails à jour). Plans avec sessions limitées et quotas hebdomadaires.
 
 ---
 
@@ -423,9 +426,9 @@ ollama pull bge-m3              # Reranking RAG (recommandé, 1.2 Go)
 
 <div align="center">
 
-#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.38.0/IAbrain.7z)
+#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.38.3/IAbrain.7z)
 
-*(version `iabrain-v1.38.0` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
+*(version `iabrain-v1.38.3` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
 
 [![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
 
@@ -539,11 +542,14 @@ Les versions récentes ont apporté plusieurs améliorations majeures, du RAG hy
 
 ### ☁ v1.38.x — Connectivité Ollama Cloud
 
-La v1.38.0 ouvre IAbrain aux **modèles XL hébergés** (gpt-oss:120b, deepseek-v3.1:671b…) sans avoir à les exécuter localement, tout en préservant la confidentialité de la base RAG.
+La v1.38.0 ouvre IAbrain aux **modèles XL hébergés** (gpt-oss:120b, deepseek-v3.1:671b, mistral-large-3:675b…) sans avoir à les exécuter localement, tout en préservant la confidentialité de la base RAG. Validée en production avec `mistral-large-3:675b` sur des questions complexes (boson de Higgs, téléportation quantique avec RAG perso).
 
 | Version | Apport principal |
 |---|---|
 | **1.38.0** | Module `IAbrain_cloud.py` (~470 lignes), section UI dans Options → Paramètres, deux modes (direct / proxy local), résolution API key via `OLLAMA_API_KEY` ou `IAbrain.json`, préfixe ☁ dans le sélecteur de modèles, bouton de test de la connexion, avertissement de confidentialité automatique, embedder RAG strictement local |
+| 1.38.1 | Hotfix : strip systématique du préfixe ☁ + cache `_known_cloud_names` côté `OllamaClient` (source de vérité au-dessus de l'heuristique) + heuristique élargie (qwen3.5, qwen3.6, qwen4, glm-4.7, glm-5, deepseek-v4, kimi-) |
+| 1.38.2 | Hotfix : sanitisation conditionnelle de `num_predict` pour le cloud direct (Ollama Cloud rejette `-1`, plafonne à 16384, contrairement au local) |
+| **1.38.3** | **UX : bouton « 💾 Enregistrer » global avec choix Markdown OU RTF (nouveau `_markdown_to_rtf()` ASCII-safe), suppression des boutons par bloc de code, fenêtre d'édition de macro élargie (720×740, minsize 680×600), option « Corriger cette réponse » accessible sur tous les éléments Markdown** |
 
 ### ⚙️ v1.37.x — Macros, rendu Markdown, actions natives, encodage
 
@@ -638,7 +644,7 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.38.0 — 2026-05-02**
+**Version 1.38.3 — 2026-05-02**
 
 ---
 
