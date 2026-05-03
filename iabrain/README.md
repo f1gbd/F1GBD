@@ -6,15 +6,15 @@
 
 ### L'assistant IA local pour les opérateurs ADRASEC
 
-*Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — Cartographie interactive — Corrections manuelles — Macros et actions natives — Connectivité Ollama Cloud*
+*Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — Cartographie interactive — Corrections manuelles — Macros et actions natives — Connectivité Ollama Cloud — Mémoire conversationnelle — Profil opérateur*
 
-[![Version](https://img.shields.io/badge/version-iabrain--v1.38.3-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.38.3)
-[![Téléchargements](https://img.shields.io/badge/téléchargements-70%2B-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases)
+[![Version](https://img.shields.io/badge/version-iabrain--v1.40.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.40.0)
+[![Téléchargements](https://img.shields.io/badge/téléchargements-100%2B-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![100% local](https://img.shields.io/badge/local%20%2F%20cloud-hybride-brightgreen.svg)]()
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.38.3/IAbrain.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.40.0/IAbrain.7z)
 
 </div>
 
@@ -66,6 +66,8 @@ Concrètement, c'est un outil qui répond à vos questions opérationnelles, ré
 | 📝 | **Rendu Markdown complet dans le chat** *(v1.37+)* | Les réponses de l'IA sont rendues visuellement : titres, gras, italique, tableaux pipe-style avec colonnes alignées, citations, listes, **cases à cocher** (`- [ ]`/`- [x]`), liens cliquables, séparateurs, code inline et blocs de code. |
 | 🌍 | **Détection auto d'encodage à l'import** *(v1.37.8+)* | Détecte automatiquement UTF-8, UTF-8 BOM, UTF-16, CP1252 (Windows-1252 français), ISO-8859-15 et ISO-8859-1. Les CSV exportés depuis Excel français sont enfin lus correctement, sans `◇` à la place des accents. |
 | ☁ | **Connectivité Ollama Cloud** *(v1.38.0+)* | Accès aux grands modèles XL hébergés (gpt-oss:20b, gpt-oss:120b, deepseek-v3.1:671b…) sans avoir à les exécuter localement. Idéal pour démos sur petites machines, tests ponctuels, formations. Deux modes : direct (appel ollama.com) ou proxy local (via `ollama signin`). L'embedder RAG reste **toujours local** pour préserver la confidentialité de la base. |
+| 🧠 | **Mémoire conversationnelle persistante** *(v1.39.0+)* | IAbrain apprend des conversations au fil de l'usage. Quand l'utilisateur dit « **Souviens-toi** » ou « **Rappelle-toi** » (ou clique sur le bouton « 🧠 Se souvenir » sous une réponse), la conversation est sauvegardée dans la base RAG perso et indexée automatiquement. Les futures questions bénéficient de cette mémoire enrichie. Reprise de conversation possible via le menu dédié. *(v1.39.1+)* : édition avant mémorisation pour garantir la qualité de la base. |
+| 👤 | **Profil opérateur déclaratif** *(v1.40.0+)* | IAbrain peut connaître qui est l'opérateur dès le premier mot : indicatif, département ADRASEC, niveau d'expertise, spécialités radio, préférences de format. Permet l'accueil personnalisé (« Bonjour F1GBD, je suis IAbrain. Nous sommes le 3 mai 2026 et il est 08h30 ») et l'adaptation des réponses au niveau déclaré (débutant pédagogique vs expert direct). Édité via Options → Profil opérateur, opt-in, strictement local. |
 | ⚡ | **Routage automatique entre modèles** | IAbrain choisit automatiquement entre un modèle rapide (questions simples) et un modèle puissant (analyses complexes). Réponses immédiates pour le quotidien, qualité maximale quand c'est nécessaire. |
 | 🎯 | **Reranking RAG intelligent** | Pipeline en 2 étapes (embedding + reranking via bge-m3) pour une pertinence maximale des sources citées. Détection automatique des modèles disponibles. |
 | ⚙️ | **Paramètres RAG exposés** *(v1.33.3+)* | Cinq paramètres avancés (top_k, seuil similarité, recherche hybride, poids lexical, taille contexte) configurables directement dans Options → Paramètres, sans éditer le JSON. |
@@ -342,9 +344,121 @@ Cohérent avec le préfixe ⚙ utilisé pour les macros Action.
 
 > ⚠ **Cas non recommandés** — le mode cloud n'est **pas adapté** aux opérations sensibles, aux SITREP confidentiels, aux questions relatives à la sécurité civile en cours d'incident. Le mode local pur reste la configuration de référence pour l'opérationnel ADRASEC.
 
-### Tarification
 
-Ollama Turbo est un service **payant** (~$20/mois pour le plan de base en 2026, voir https://ollama.com/pricing pour les détails à jour). Plans avec sessions limitées et quotas hebdomadaires.
+---
+
+## 🧠 Mémoire conversationnelle persistante *(v1.39.0+)*
+
+Depuis la v1.39.0, IAbrain peut **apprendre des conversations** au fil de l'usage. Quand une conversation contient une information importante (procédure, fréquence, indicatif, retour d'expérience), l'opérateur peut demander à IAbrain de s'en souvenir. Cette mémoire **enrichit automatiquement la base RAG perso** et devient consultable lors des futures questions.
+
+C'est une évolution architecturale : IAbrain passe d'un assistant *stateless* à un **compagnon qui s'enrichit au fil des exercices** ADRASEC.
+
+### Trois façons de mémoriser
+
+| Méthode | Quand l'utiliser |
+|---|---|
+| 🎤 **Mots-clés naturels** : « Souviens-toi », « Rappelle-toi », « Retiens », « Mémorise », « N'oublie pas » | Pendant la conversation, sans interruption |
+| 🟢 **Bouton « 🧠 Se souvenir »** sous une réponse | Décision après-coup qu'une réponse mérite d'être mémorisée |
+| 📋 **Menu Conversations → Mémoriser la conversation courante** | Mémorisation rétrospective avec confirmation |
+
+### Architecture
+
+```
+IAbrain_rag_db_perso/
+├── corrections/                              ← v1.36+
+└── memories/                                 ← NOUVEAU v1.39.0
+    └── 2026-05-03_05h25_le-boson-de-higgs.md
+        → Indexé dans la base RAG perso (consultable par futures questions)
+
+IAbrain_conversations/                        ← NOUVEAU v1.39.0
+└── 2026-05-03_05h25_le-boson-de-higgs.json
+        → Permet de reprendre la conversation plus tard
+```
+
+### Nouveau menu « 💬 Conversations »
+
+| Item | Action |
+|---|---|
+| ✨ **Nouvelle conversation** *(Ctrl+N)* | Propose d'archiver l'actuelle puis vide le contexte |
+| 📂 **Reprendre une conversation…** | Browser de toutes les conversations archivées, double-clic pour reprendre |
+| 🧠 **Mémoriser la conversation courante…** | Mémorisation rétrospective |
+| 🗂 **Ouvrir le dossier des conversations** | Ouvre `IAbrain_conversations/` dans l'explorateur |
+
+### Garde-fous architecturaux
+
+> 🔒 **L'embedder reste TOUJOURS local** — la mémoire conversationnelle ne quitte jamais la machine, même quand IAbrain utilise un modèle Ollama Cloud (v1.38+). Cohérent avec la philosophie ADRASEC : la base de connaissances reste locale et confidentielle.
+
+> ⚠ **Pas de mémorisation silencieuse** — chaque mémorisation est confirmée par un message dans le chat avec le chemin du fichier créé. L'opérateur sait toujours ce qui a été ajouté.
+
+> 🗑 **Suppression manuelle possible** — les fichiers `.md` et `.json` sont accessibles via le menu Conversations → Ouvrir le dossier. Suppression = oubli garanti à la prochaine réindexation.
+
+> 📝 **Traçabilité** — chaque mémoire contient son indicatif d'auteur, sa date, le modèle utilisé. Pas d'effet « boîte noire ».
+
+---
+
+## 👤 Profil opérateur déclaratif *(v1.40.0+)*
+
+À partir de la v1.40.0, IAbrain peut **connaître qui est l'opérateur** dès le premier mot de la conversation. Le profil est édité explicitement par l'utilisateur (pas généré automatiquement) et reste strictement local.
+
+### Pourquoi un profil ?
+
+- **Convivialité** : accueil personnalisé au démarrage (« Bonjour F1GBD, je suis IAbrain. Nous sommes le 3 mai 2026 et il est 08h30 »)
+- **Pertinence** : le modèle adapte son ton et sa profondeur au niveau déclaré (débutant pédagogique vs expert direct)
+- **Cohérence** : approche **déclarative** (l'opérateur décide) plutôt que **observée** (où le système devine), respectueuse de l'autonomie ADRASEC
+
+### Champs du profil
+
+| Champ | Description |
+|---|---|
+| Indicatif | Validé contre un pattern radio standard (F1GBD, K1ABC, DL5XYZ, F1GBD/P, …) |
+| Prénom | Optionnel, pour adresse personnalisée |
+| Département ADRASEC | Numéro (« 77 ») ou nom (« Seine-et-Marne ») |
+| Niveau d'expertise | `debutant` / `intermediaire` / `expert` |
+| Spécialités radio | Multi-sélection parmi 16 suggérées (HF, VHF/UHF, VARA HF/FM, Reticulum/LXMF, TCQ, ARDOP, SDR, satellite, SOTA/POTA, antennes portables, FlmSG/Winlink, etc.) |
+| Préférence de format | `concise` / `detailed` / `technical` / `balanced` |
+| Notes personnelles | Texte libre (max 500 chars) |
+
+### Architecture
+
+Le profil est sauvegardé dans `IAbrain_profile.json` (à côté d'`IAbrain.json`) puis :
+
+1. **Chargé au démarrage** dans `self.operator_profile`
+2. **Injecté en tête du système prompt** à chaque conversation (préambule ~150-200 tokens)
+3. **Affiché comme accueil** sur l'écran de démarrage entre le titre et le logo
+
+```
+┌─────────────────────────────────────────────────────┐
+│       IAbrain v1.40.0                                │
+│  Assistant IA local pour ADRASEC — by F1GBD          │
+│                                                       │
+│  Bonjour Jean-Louis, je suis IAbrain.                │
+│  Nous sommes le 3 mai 2026 et il est 08h30.          │
+│                                                       │
+│              [logo IAbrain]                          │
+└─────────────────────────────────────────────────────┘
+```
+
+### Garde-fous
+
+> 🔒 **Strictement local** — le profil ne quitte jamais la machine, **même en mode cloud Ollama (v1.38+)**. Il est juste prepended au système prompt local. Aucune donnée personnelle ne fuit.
+
+> ⚙ **Opt-in explicite** — la fonctionnalité est désactivée par défaut. L'opérateur doit aller dans Options → Profil opérateur, remplir les champs, et cocher « Activer le profil ».
+
+> 🔄 **Modification à chaud** — pas besoin de redémarrer IAbrain. Les changements s'appliquent dès la prochaine conversation. Un aperçu temps réel dans le dialog d'édition montre exactement ce qui sera injecté.
+
+> 🚫 **Désactivation conservatrice** — un bouton « Désactiver le profil » désactive sans effacer les données. Réactivation possible plus tard.
+
+### Différence avec les `userMemories`
+
+Le profil opérateur d'IAbrain est volontairement différent du système `userMemories` automatique d'autres assistants :
+
+| Aspect | userMemories (auto) | Profil opérateur (IAbrain) |
+|---|---|---|
+| Source | Observée automatiquement | Déclarée par l'opérateur |
+| Mise à jour | Algorithmes opaques | L'opérateur via menu Options |
+| Contenu | Résumé conceptuel généré | Métadonnées structurées |
+| Réversibilité | Édition possible mais opaque | Modification/désactivation immédiates |
+| Adapté à ADRASEC | Variable | Oui (chaque opérateur maîtrise ses données) |
 
 ---
 
@@ -359,6 +473,7 @@ Ollama Turbo est un service **payant** (~$20/mois pour le plan de base en 2026, 
 | **Connaissance dispersée :** chaque opérateur a ses propres notes, niveaux d'expertise hétérogènes. | **Base de connaissances commune** mise à jour depuis GitHub d'un seul clic.<br>Tous les opérateurs au même niveau. |
 | **Dépendance Internet et services cloud :** risque opérationnel en zone blanche ou pendant un incident électrique. | **100% local, hors ligne, confidentiel.** Fonctionne en exercice ou opération réelle sans aucune connexion externe. |
 | **Démo / formation sur laptop entrée de gamme :** impossible de faire tourner un modèle 70B+ pour montrer la qualité maximale. | **Mode cloud activable** *(v1.38+)* : sélectionner `☁ gpt-oss:120b` dans la liste, et exploiter un modèle XL hébergé sans contrainte matérielle.<br>La base ADRASEC reste sur la machine. |
+| **Information apprise en exercice perdue à la prochaine session :** une consigne dictée à l'oral, un retour d'expérience, une procédure spécifique à un exercice — tout repart de zéro à chaque fois. | **« Souviens-toi de cette procédure »** *(v1.39+)*<br>IAbrain mémorise la conversation dans la base perso. La connaissance s'enrichit naturellement au fil des exercices. |
 
 ---
 
@@ -400,7 +515,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 
 Le script affiche sa progression phase par phase et vous prévient quand l'installation est terminée. Pendant les 25 minutes de téléchargement des modèles, vous pouvez faire autre chose : le script tourne sans surveillance.
 
-> 💡 **Astuce** : la procédure détaillée est dans le **« Guide d'installation IAbrain v1.38 »** livré séparément. Il inclut aussi la procédure manuelle pas-à-pas en annexe pour les utilisateurs avancés.
+> 💡 **Astuce** : la procédure détaillée est dans le **« Guide d'installation IAbrain v1.40 »** livré séparément. Il inclut aussi la procédure manuelle pas-à-pas en annexe pour les utilisateurs avancés.
 
 ### 🛠 Méthode manuelle *(utilisateurs avancés)*
 
@@ -426,9 +541,9 @@ ollama pull bge-m3              # Reranking RAG (recommandé, 1.2 Go)
 
 <div align="center">
 
-#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.38.3/IAbrain.7z)
+#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.40.0/IAbrain.7z)
 
-*(version `iabrain-v1.38.3` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
+*(version `iabrain-v1.40.0` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
 
 [![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
 
@@ -464,9 +579,9 @@ Une fois IAbrain installé et lancé :
 
 Ce dépôt contient également les manuels suivants :
 
-- 📋 **Fiche de présentation v1.38**
-- 📖 **Guide d'installation IAbrain v1.38** *(méthode automatique + annexe manuelle)*
-- 📘 **Manuel utilisateur IAbrain v1.38** *(complet, incluant la cartographie interactive, les corrections manuelles, les macros/actions natives, et la connectivité Ollama Cloud)*
+- 📋 **Fiche de présentation v1.40**
+- 📖 **Guide d'installation IAbrain v1.40** *(méthode automatique + annexe manuelle)*
+- 📘 **Manuel utilisateur IAbrain v1.40** *(complet, incluant la cartographie interactive, les corrections manuelles, les macros/actions natives, la connectivité Ollama Cloud, la mémoire conversationnelle, et le profil opérateur)*
 - 🔧 **Prérequis matériel utilisateur**
 - 🎯 **Procédure d'activation du reranking RAG**
 - 📊 **Synthèse benchmark de modèles**
@@ -513,10 +628,26 @@ Ce dépôt contient également les manuels suivants :
 │  │  - Vos notes, RETEX, ajouts      │  │
 │  │  - Indexation à la demande       │  │
 │  │  - Corrections manuelles (v1.36+)│  │
+│  │  - Mémoires conv. (v1.39+)       │  │
 │  └──────────────────────────────────┘  │
 │  🔒 Confidentialité : ne sortent       │
 │     JAMAIS de la machine, même en      │
 │     mode cloud (l'embedder est local)  │
+└────────────────────────────────────────┘
+
+┌────────────────────────────────────────┐
+│  Mémoire conversationnelle (v1.39+)    │
+│  ┌──────────────────────────────────┐  │
+│  │ IAbrain_memory.py                │  │
+│  │  - detect_memory_trigger()       │  │
+│  │  - save_memory_file()            │  │
+│  │  - save_conversation_archive()   │  │
+│  │  - load_conversation_archive()   │  │
+│  └──────────────────────────────────┘  │
+│  Stockage :                            │
+│  - perso/memories/*.md (indexé RAG)    │
+│  - IAbrain_conversations/*.json        │
+│    (reprise possible)                  │
 └────────────────────────────────────────┘
 
 ┌────────────────────────────────────────┐
@@ -536,9 +667,25 @@ Ce dépôt contient également les manuels suivants :
 
 ---
 
-## 🆕 Évolution récente — v1.33 → v1.38
+## 🆕 Évolution récente — v1.33 → v1.40
 
-Les versions récentes ont apporté plusieurs améliorations majeures, du RAG hybride aux corrections manuelles, en passant par la cartographie, les macros utilisateur et la connectivité cloud.
+Les versions récentes ont apporté plusieurs améliorations majeures, du RAG hybride aux corrections manuelles, en passant par la cartographie, les macros utilisateur, la connectivité cloud, la mémoire conversationnelle et désormais le profil opérateur.
+
+### 👤 v1.40.x — Profil opérateur déclaratif + édition avant mémorisation
+
+La v1.40.0 personnalise l'expérience opérateur tout en améliorant la qualité de la mémoire conversationnelle introduite en v1.39.
+
+| Version | Apport principal |
+|---|---|
+| **1.40.0** | Module `IAbrain_profile.py` (~430 lignes), profil opérateur éditable via Options → Profil opérateur (indicatif, prénom, département ADRASEC, niveau d'expertise, spécialités, format préféré, notes), greeting personnalisé au démarrage (« Bonjour F1GBD, nous sommes le 3 mai 2026 et il est 08h30 »), injection en tête du prompt système pour adapter ton et profondeur au niveau déclaré. **Inclut aussi la fonctionnalité v1.39.1** : éditeur de mémorisation (relecture/correction de la question + réponse avant gravure dans la base RAG perso), évite de propager les coquilles de l'IA dans la base. |
+
+### 🧠 v1.39.x — Mémoire conversationnelle persistante
+
+La v1.39.0 ferme la boucle d'apprentissage : IAbrain peut désormais **mémoriser des conversations** dans sa base perso, en plus des corrections manuelles ponctuelles introduites en v1.36.
+
+| Version | Apport principal |
+|---|---|
+| **1.39.0** | Module `IAbrain_memory.py` (~470 lignes), détection auto des mots-clés (« Souviens-toi », « Rappelle-toi », etc.), bouton « 🧠 Se souvenir » à côté de « 💾 Enregistrer », nouveau menu « 💬 Conversations » (nouvelle / reprendre / mémoriser / ouvrir dossier), nouveau menu « 🗺 Cartographie Base » de premier niveau, raccourci `Ctrl+N`, archivage `.json` pour reprise + indexation `.md` automatique dans la base perso |
 
 ### ☁ v1.38.x — Connectivité Ollama Cloud
 
@@ -644,7 +791,7 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.38.3 — 2026-05-02**
+**Version 1.40.0 — 2026-05-03**
 
 ---
 
