@@ -1,10 +1,13 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 28 avril 2026
+mis à jour le 04 mai 2026
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
+
+![SATERsim un SIMULATEUR de recherche SATER pour les opérateurs ADRASEC](https://github.com/f1gbd/F1GBD/blob/master/satersim/Doc/images/au_signal.png)
+**MAJ du 04/05/2026** : [**SATERsim un SIMULATEUR de recherche SATER pour les opérateurs ADRASEC**](https://github.com/f1gbd/F1GBD/tree/master/satersim)
 
 ![IAbrain L'assistant IA local pour les opérateurs ADRASEC](https://github.com/f1gbd/F1GBD/blob/master/iabrain/IAbrain_mainpage.jpg)
 **MAJ du 28/04/2026** : [**IAbrain L'assistant IA local pour les opérateurs ADRASEC**](https://github.com/f1gbd/F1GBD/tree/master/iabrain)
