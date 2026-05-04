@@ -6,15 +6,15 @@
 
 ### L'assistant IA local pour les opérateurs ADRASEC
 
-*Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — Cartographie interactive — Corrections manuelles — Macros et actions natives — Connectivité Ollama Cloud — Mémoire conversationnelle — Profil opérateur*
+*Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — Cartographie interactive — Corrections manuelles — Macros et actions natives — Connectivité Ollama Cloud — Mémoire conversationnelle — Profil opérateur — Variables de session — Pipeline SATER complet*
 
-[![Version](https://img.shields.io/badge/version-iabrain--v1.40.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.40.0)
+[![Version](https://img.shields.io/badge/version-iabrain--v1.40.3-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.40.3)
 [![Téléchargements](https://img.shields.io/badge/téléchargements-100%2B-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![100% local](https://img.shields.io/badge/local%20%2F%20cloud-hybride-brightgreen.svg)]()
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.40.0/IAbrain.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.40.3/IAbrain.7z)
 
 </div>
 
@@ -63,6 +63,9 @@ Concrètement, c'est un outil qui répond à vos questions opérationnelles, ré
 | 📢 | **Corrections manuelles intégrées** *(v1.36+)* | Quand IAbrain produit une réponse imprécise ou incorrecte, **clic-droit → « 📢 Corriger cette réponse »** suffit. Votre correction est indexée dans la base perso et **automatiquement appliquée aux questions similaires futures, en priorité absolue**. Format Markdown versionable, partageable entre opérateurs via export/import ZIP. |
 | 🆕 | **Macros utilisateur** *(v1.37+)* | 8 boutons configurables au-dessus de la liste des fichiers pour automatiser vos tâches récurrentes. Deux types : **🤖 Macro LLM** (envoie un prompt à l'IA, avec méta-langage `{{lastfile}}`, `{{date}}`, `{{call}}`...) et **⚙️ Macro Action** (exécute une fonction native déterministe, sans LLM). |
 | ⚙️ | **5 actions natives livrées** *(v1.37.7+)* | `csv_to_markdown` (conversion CSV ↔ tableaux Markdown), `extract_callsigns` (extrait F1XYZ/TM/TK/TO/FW), `extract_frequencies` (Hz/kHz/MHz/GHz par bande), `anonymize` (téléphones/emails/adresses), `file_stats` (statistiques fichiers). 100% offline, instantané, déterministe, zéro hallucination. |
+| 📤 | **Import/Export de macros** *(v1.40.1+)* | Deux nouveaux boutons **📥 Importer une Macro** et **📤 Exporter la Macro** dans le dialogue d'édition. Format `.iabmacro` (JSON UTF-8 versionable) qui permet de partager des macros entre opérateurs ADRASEC. Idéal pour distribuer des macros standardisées dans une section, archiver des versions de travail, ou récupérer une macro depuis un autre poste. |
+| 🔖 | **Variables de session persistantes** *(v1.40.2+)* | Permet de **chaîner des macros** : une macro LLM produit un bloc structuré `###IABRAIN_VARS###` qu'IAbrain capture silencieusement, puis ces variables sont substituables dans tout prompt suivant via la syntaxe `{LAT}`, `{LON}`, etc. Persistance disque entre sessions. Indicateur cliquable « 🔖 Vars (n) » dans la barre du haut pour inspecter/éditer/effacer manuellement. Cas d'usage typique : analyse SATER en deux temps (calcul de position via LLM + génération de carte OSM via macro action). |
+| 🎯 | **Pipeline SATER complet** *(v1.40.3+)* | Action native `osm_balise_map` qui lit les variables de session **LAT**, **LON**, **RAYON_M** et génère un **vrai PNG OpenStreetMap** centré sur la balise ELT avec marqueur, cercle d'incertitude CEP 95 et cartouche complet (position DMS + décimal + horodatage). **Image affichée directement dans le chat IAbrain** + sauvegardée dans `IAbrain_sater_maps/` pour archivage opérationnel. Combinée à la macro SATER LOC, elle ferme la boucle d'analyse SATER en deux clics : du CSV de relèvements TCQ à la carte exploitable. |
 | 📝 | **Rendu Markdown complet dans le chat** *(v1.37+)* | Les réponses de l'IA sont rendues visuellement : titres, gras, italique, tableaux pipe-style avec colonnes alignées, citations, listes, **cases à cocher** (`- [ ]`/`- [x]`), liens cliquables, séparateurs, code inline et blocs de code. |
 | 🌍 | **Détection auto d'encodage à l'import** *(v1.37.8+)* | Détecte automatiquement UTF-8, UTF-8 BOM, UTF-16, CP1252 (Windows-1252 français), ISO-8859-15 et ISO-8859-1. Les CSV exportés depuis Excel français sont enfin lus correctement, sans `◇` à la place des accents. |
 | ☁ | **Connectivité Ollama Cloud** *(v1.38.0+)* | Accès aux grands modèles XL hébergés (gpt-oss:20b, gpt-oss:120b, deepseek-v3.1:671b…) sans avoir à les exécuter localement. Idéal pour démos sur petites machines, tests ponctuels, formations. Deux modes : direct (appel ollama.com) ou proxy local (via `ollama signin`). L'embedder RAG reste **toujours local** pour préserver la confidentialité de la base. |
@@ -89,6 +92,12 @@ Concrètement, c'est un outil qui répond à vos questions opérationnelles, ré
 
 > **Automatisation des tâches répétitives** *(v1.37+)*
 > Configurez un bouton macro pour vos cas d'usage récurrents : « Résume ce SITREP en 5 puces », « Extrait tous les indicatifs de ce log », « Anonymise ce rapport avant diffusion ». Un clic suffit.
+
+> **Chaînage de macros pour pipelines opérationnels** *(v1.40.2+)*
+> Une macro qui calcule (par exemple, une localisation de balise ELT par triangulation à partir d'un CSV de relèvements TCQ) peut désormais transmettre son résultat à la macro suivante via des **variables de session**. Plus besoin de copier-coller manuellement les coordonnées entre étapes : `{LAT}`, `{LON}`, `{RAYON_M}` sont substituées automatiquement. Et puisque les variables persistent entre sessions, vous retrouvez vos derniers calculs au démarrage suivant.
+
+> **Partage de macros entre opérateurs** *(v1.40.1+)*
+> Les macros utilisateur sont désormais exportables au format `.iabmacro` et réimportables sur un autre poste. Idéal pour distribuer des macros validées au sein d'une section ADRASEC, ou pour archiver une macro de travail avant modification.
 
 > **Démos et formations sur petites machines** *(v1.38+)*
 > Lancez IAbrain sur un laptop entrée de gamme ou une tablette, et exploitez les modèles XL (gpt-oss:120b, deepseek-v3.1:671b…) hébergés par Ollama Cloud pour montrer le meilleur de ce qu'IAbrain peut faire. La base ADRASEC reste sur votre machine ; seul le LLM tourne dans le cloud.
@@ -168,6 +177,77 @@ D'autres actions disponibles via clic-droit sur un bouton de macro vide :
 - 📻 **Extraire les fréquences** classées par bande (HF/VHF/UHF/SHF)
 - 🔒 **Anonymiser** un rapport (téléphones, emails, adresses postales → balises `<TELEPHONE>`, etc.)
 - 📈 **Statistiques** sur les fichiers importés
+
+### 🎯 Pipeline SATER : localisation de balise ELT en deux clics *(v1.40.2 + v1.40.3)*
+
+Le pipeline SATER complet d'IAbrain combine la **macro LLM `SATER LOC`** (calcul de la position par triangulation, v1.40.2) et l'**action native `SATER MAP PNG`** (génération de carte OSM, v1.40.3) pour passer du CSV de relèvements goniométriques à la carte exploitable en quelques secondes.
+
+#### Étape 1 — Macro LLM `SATER LOC` (analyse + capture)
+
+```
+1. Importer le CSV de relèvements (Indicatif ; Lat ; Lon ; Azimut ; Date_Heure)
+   exporté par la cartographie TCQ.
+2. Cliquer sur la macro « 🎯 SATER LOC ».
+3. IAbrain calcule la triangulation pondérée (moindres carrés sur les LOB,
+   rejet des outliers, ellipse d'erreur), produit un SITREP au format ADRASEC,
+   et capture silencieusement les variables suivantes :
+       LAT=48.429167
+       LON=3.291944
+       RAYON_M=280
+       INDICATIF_BALISE=BALISE ELT
+       SITREP_TS=2026-05-04 13:42
+4. L'indicateur en haut à droite affiche : 🔖 Vars (5) : LAT, LON, RAYON_M, +2
+```
+
+#### Étape 2 — Action native `SATER MAP PNG` (carte automatique)
+
+```
+1. Cliquer sur la macro « 🗺 SATER MAP PNG ».
+2. IAbrain :
+   - lit les variables de session capturées à l'étape 1
+   - télécharge les tuiles OpenStreetMap centrées sur la balise
+   - dessine le marqueur, le cercle d'incertitude CEP 95
+   - ajoute le cartouche (position DMS + décimal + horodatage)
+   - sauvegarde le PNG dans IAbrain_sater_maps/
+   - affiche l'image directement dans le chat
+3. La réponse contient également des liens cliquables vers OSM, Géoportail
+   et Google Maps en complément.
+```
+
+**Exemple de carte produite par la macro `SATER MAP PNG`** (rendu réel sur la balise du CSV de test, position 48°25'45"N 003°17'31"E, rayon CEP 95 ± 280 m) :
+
+<div align="center">
+
+<img src="docs/images/sater_map_png_exemple.png" alt="Exemple de carte SATER MAP PNG" width="800">
+
+*Marqueur rouge SAR, cercle d'incertitude CEP 95 (280 m de rayon), cartouche avec position DMS et décimale, horodatage du calcul, attribution OpenStreetMap et échelle.*
+
+</div>
+
+#### Bénéfice opérationnel
+
+Avant la v1.40.3, l'opérateur devait :
+
+1. Calculer manuellement la triangulation (calculatrice ou tableur)
+2. Recopier les coordonnées dans un service cartographique web
+3. Capturer une copie d'écran pour le SITREP
+4. Sauvegarder le tout à part
+
+**Avec le pipeline SATER complet, ces 4 étapes manuelles deviennent 2 clics**. Le PNG est immédiatement utilisable dans un SITREP, un mail à la chaîne de commandement, ou comme support de débrief d'exercice. Et puisque les variables persistent sur disque, on peut reprendre l'analyse plusieurs jours plus tard sans rien retaper.
+
+> 💡 **Variantes possibles** : avec le système de variables de session, on peut intercaler entre `SATER LOC` et `SATER MAP PNG` un message de chat libre du type « *Reformule le SITREP pour la chaîne préfectorale en 4 lignes* », ou un appel à une macro tierce qui exploite `{LAT}`, `{LON}`, `{INDICATIF_BALISE}` pour générer un fichier KML, un point APRS, un message Winlink, etc.
+
+### 📤 Partager une macro entre opérateurs *(v1.40.1+)*
+
+```
+1. Clic-droit sur le bouton macro à partager → ouvre l'éditeur
+2. Cliquer sur « 📤 Exporter la Macro » → fichier .iabmacro généré
+3. Transmettre le fichier au collègue (mail, clé USB, partage ADRASEC)
+4. Côté destinataire : clic-droit sur un bouton vide → « 📥 Importer une Macro »
+5. Sélectionner le fichier reçu, vérifier le contenu, cliquer sur Enregistrer
+```
+
+Le format `.iabmacro` est un simple JSON UTF-8 versionable, lisible et auditable. Idéal pour distribuer des macros validées dans une section, ou versionner ses propres macros via un dossier Git/Synology/Dropbox.
 
 ### 🌐 Exploration de la base RAG *(v1.35+)*
 
@@ -272,6 +352,216 @@ Au premier lancement, le bouton **Macro 1** est déjà pré-programmé comme **`
 Le préfixe **⚙** différencie visuellement les macros Action des macros LLM dans la barre.
 
 > 💡 Pour configurer une macro : **clic-droit** sur un bouton vide → choisir le type (LLM ou Action) → renseigner les paramètres → Enregistrer.
+
+### 📤 Import/Export de macros *(v1.40.1+)*
+
+Le dialogue d'édition d'une macro contient deux nouveaux boutons :
+
+| Bouton | Effet |
+|---|---|
+| **📥 Importer une Macro** | Ouvre un sélecteur de fichier `.iabmacro`, charge la macro dans les widgets de l'éditeur sans sauvegarder. L'opérateur peut relire/ajuster avant de cliquer sur Enregistrer pour valider. Demande confirmation si le slot n'est pas vide. |
+| **📤 Exporter la Macro** | Exporte la macro telle qu'affichée dans le dialogue (même non sauvegardée), au format `.iabmacro`. Le nom de fichier proposé inclut le label de la macro et un horodatage. |
+
+**Format `.iabmacro`** — JSON UTF-8 indenté, versionable :
+
+```json
+{
+  "iabrain_macro_version": 1,
+  "exported_at": "2026-05-04T13:10:00",
+  "exported_by": "IAbrain 1.40.2",
+  "macro": {
+    "label": "🎯 Localiser balise SATER",
+    "prompt": "Tu es un assistant SATER...",
+    "rag_disabled": true,
+    "type": "llm",
+    "action": ""
+  }
+}
+```
+
+Le slot d'origine n'est **pas** sauvegardé dans le fichier — c'est volontaire : à l'import, l'opérateur choisit dans quel slot de destination la macro sera placée.
+
+> 💡 **Cas d'usage typiques** : distribuer une macro standardisée à toute une section ADRASEC, archiver une macro de travail avant de la modifier, transférer ses macros vers un nouveau poste, partager une macro de démonstration en formation.
+
+---
+
+## 🔖 Variables de session persistantes *(v1.40.2+)*
+
+Depuis la v1.40.2, IAbrain peut **chaîner des macros** via un mécanisme de variables capturées automatiquement depuis les réponses du LLM, puis substituables dans les prompts suivants. C'est l'aboutissement naturel du système de macros : ce qu'une macro calcule peut nourrir la macro suivante sans intervention manuelle.
+
+### Principe de fonctionnement
+
+1. **Une macro LLM produit un bloc structuré** à la fin de sa réponse :
+
+```
+###IABRAIN_VARS###
+LAT=48.429167
+LON=3.291944
+RAYON_M=280
+###END_IABRAIN_VARS###
+```
+
+2. **IAbrain capture silencieusement le bloc** : extraction des paires `KEY=VALUE`, suppression du bloc dans le chat (l'opérateur ne le voit pas), sauvegarde sur disque. Une notification système discrète confirme : « 🔖 3 variable(s) capturée(s) : LAT, LON, RAYON_M ».
+
+3. **Les variables sont substituables dans tout prompt suivant** via la syntaxe `{NOM}` :
+
+```
+Avant envoi : « Génère une carte centrée sur {LAT}, {LON} rayon {RAYON_M}m »
+Après substitution : « Génère une carte centrée sur 48.429167, 3.291944 rayon 280m »
+```
+
+La substitution est active aussi bien dans les prompts de macro que dans le chat libre.
+
+### Indicateur cliquable et dialogue d'inspection
+
+Un nouvel indicateur s'affiche en haut à droite, à côté du badge `📚 RAG` :
+
+```
+🔖 Vars : 0                          (aucune variable définie)
+🔖 Vars (3) : LAT, LON, RAYON_M      (jusqu'à 3 noms affichés)
+🔖 Vars (8) : LAT, LON, RAYON_M, +5  (au-delà de 3, compteur)
+🔖 Vars : —                          (module indisponible)
+```
+
+**Un clic ouvre le dialogue « Variables de session »** qui permet :
+
+- de visualiser toutes les variables actuelles (Treeview Nom | Valeur tronquée)
+- d'éditer manuellement une valeur (ex : corriger une coordonnée)
+- de supprimer une variable individuellement
+- d'effacer toutes les variables d'un coup (bouton « 🧹 Tout effacer »)
+
+### Conventions et règles
+
+| Aspect | Règle |
+|---|---|
+| Nommage | `[A-Z][A-Z0-9_]*` (SHOUTING_SNAKE_CASE). Ex : `LAT`, `LON`, `RAYON_M`, `INDICATIF_BALISE`. Les autres formats sont rejetés silencieusement. |
+| Échappement | `{{NOM}}` produit le littéral `{NOM}` dans le prompt envoyé (utile pour expliquer la syntaxe à l'IA). |
+| Variable inconnue | `{INCONNUE}` est laissée telle quelle + warning système (ne casse pas le prompt). |
+| Capacité | 64 variables max par session, 4 ko par valeur. |
+| Persistance | Disque : `IAbrain_session_vars.json` à côté d'`IAbrain.json`. Restauré au démarrage. |
+| Portée | Globale au programme, partagée entre toutes les conversations (≠ profil opérateur qui est statique). |
+
+### Cas d'usage SATER : localisation de balise ELT
+
+C'est l'usage prototype de la fonctionnalité, en deux étapes :
+
+**Étape 1** — macro LLM `🎯 Localiser balise SATER` :
+
+Le prompt programmé demande à l'IA d'analyser un CSV de relèvements goniométriques (export TCQ) et de produire un SITREP. À la fin du prompt, une instruction explicite demande :
+
+```
+À LA TOUTE FIN de ta réponse, ajoute un bloc structuré sur 3 lignes
+strictement conforme à ce format, sans texte autour, sans backticks :
+
+###IABRAIN_VARS###
+LAT=xx.xxxxxx
+LON=x.xxxxxx
+RAYON_M=xxx
+###END_IABRAIN_VARS###
+```
+
+**Étape 2** — chat libre ou macro 2 utilisant les variables :
+
+```
+« Génère une carte OSM PNG centrée sur {LAT}, {LON} avec un cercle
+  d'incertitude de {RAYON_M}m. Joins l'image au chat. »
+```
+
+Le chaînage permet ainsi de séparer proprement le **calcul** (étape LLM, qualité de raisonnement) de l'**action** (étape déterministe, génération de carte). Et puisque les variables persistent sur disque, on peut reprendre l'analyse plusieurs jours plus tard.
+
+### Garde-fous
+
+> 🔇 **Capture silencieuse** — le bloc `###IABRAIN_VARS###` n'apparaît jamais dans l'export du chat ni dans la mémoire conversationnelle. Seule l'information utile (le SITREP, les coordonnées en DMS) est conservée pour l'opérateur.
+
+> 🔒 **100% local** — les variables de session ne quittent jamais la machine, même en mode cloud Ollama (v1.38+). Elles sont traitées côté IAbrain avant tout envoi au LLM (substitution) et après réception (extraction).
+
+> ✏ **Édition manuelle possible** — le dialogue Variables de session permet de corriger une valeur capturée incorrectement, ou de définir manuellement une variable pour l'utiliser dans un prompt sans passer par une macro LLM.
+
+> 🧹 **Effacement à la demande** — bouton « 🧹 Tout effacer » dans le dialogue. Aucune purge automatique : c'est l'opérateur qui décide quand recommencer une session.
+
+---
+
+## 🗺 Action native `SATER MAP PNG` *(v1.40.3+)*
+
+Action native qui exploite les variables de session capturées par la macro `SATER LOC` pour générer automatiquement une **carte OpenStreetMap PNG** centrée sur la balise ELT, avec marqueur, cercle d'incertitude et cartouche complet. C'est l'aboutissement du pipeline SATER initié en v1.40.2.
+
+### Variables consommées
+
+L'action lit les variables de session définies par la macro précédente (ou par l'opérateur via le dialogue 🔖 Vars) :
+
+| Variable | Obligatoire | Format | Rôle |
+|---|---|---|---|
+| `LAT` | ✅ Oui | Décimal WGS84 (ex. `48.429167`) | Latitude du centre de la carte |
+| `LON` | ✅ Oui | Décimal WGS84 (ex. `3.291944`) | Longitude du centre de la carte |
+| `RAYON_M` | Optionnelle | Entier en mètres (ex. `280`) | Rayon CEP 95 du cercle d'incertitude. Si absent ou `N/A`, pas de cercle dessiné. |
+| `INDICATIF_BALISE` | Optionnelle | Texte libre | Étiquette du marqueur. Défaut : `BALISE ELT`. |
+| `SITREP_TS` | Optionnelle | Texte libre | Horodatage affiché en sous-titre. |
+
+### Sortie produite
+
+L'action retourne dans le chat IAbrain un bloc Markdown structuré :
+
+1. **Tableau récapitulatif** (indicatif, lat/lon décimal, rayon, fichier généré)
+2. **Image PNG affichée inline** dans le chat (rendu Markdown automatique)
+3. **Liens cliquables** vers OSM, Géoportail IGN, Google Maps en complément
+4. **Chemin absolu** du fichier PNG sauvegardé pour archivage
+
+### Exemple de carte générée
+
+Position de la balise du CSV de test ADRASEC 77 (48°25'45"N 003°17'31"E, rayon CEP 95 ± 280 m) :
+
+<div align="center">
+
+<img src="docs/images/sater_map_png_exemple.png" alt="Exemple de carte SATER MAP PNG" width="800">
+
+</div>
+
+Éléments visuels du rendu :
+
+- **Marqueur rouge SAR** centré sur la position calculée, avec étiquette de l'indicatif balise sur fond blanc
+- **Cercle d'incertitude CEP 95 %** (contour rouge), avec un cercle interne au tiers du rayon pour repère de centrage
+- **Cartouche** en bas à gauche : position en DMS (`48°25'45.00"N 003°17'31.00"E`), position décimale (`48.429167, 3.291944`), incertitude (`± 280 m (CEP 95 %)`), horodatage du calcul, attribution OpenStreetMap
+- **Échelle** en bas à droite (calibrée selon le zoom auto)
+- **Titre** avec l'indicatif balise et la date de calcul
+- **Auto-zoom intelligent** : le niveau de zoom OSM est choisi automatiquement pour que le cercle d'incertitude occupe environ 1/4 de la largeur de carte (zoom 12-17 selon le rayon)
+
+### Fichiers et stockage
+
+```
+IAbrain/
+├── IAbrain.exe
+└── IAbrain_sater_maps/                                    ← créé automatiquement
+    ├── balise_BALISE_ELT_20260504_134205.png             ← naming auto avec horodatage
+    ├── balise_F-OBJZ_20260504_141532.png
+    └── ...
+```
+
+Format de nom : `balise_<INDICATIF>_<YYYYMMDD_HHMMSS>.png`. Les caractères spéciaux de l'indicatif sont nettoyés (slashes, espaces, accents → `_`). 
+
+**Personnalisation du dossier de sortie** : définir la variable d'environnement `IABRAIN_SATER_OUTPUT_DIR` pour rediriger les PNG vers un autre dossier (utile pour des partages réseau ou des archives par exercice).
+
+### Macro prête à importer
+
+Pour utiliser l'action, importer la macro **`SATER MAP PNG`** livrée avec IAbrain v1.40.3 :
+
+```
+1. Clic-droit sur un bouton macro vide → ouvre l'éditeur de macro
+2. Cliquer sur « 📥 Importer une Macro »
+3. Sélectionner le fichier IAbrain_macro_SATER_MAP_PNG_v1403.iabmacro
+4. Cliquer sur « Enregistrer »
+```
+
+La macro est de type **Action**, action `osm_balise_map`, sans dépendance au LLM. Exécution **instantanée** côté Python (3-10 s pour le téléchargement des tuiles OSM selon la connexion).
+
+### Garde-fous
+
+> 🌐 **Connexion Internet requise** — les tuiles OSM viennent de `tile.openstreetmap.org`. En zone blanche, l'action retourne un message d'erreur clair listant les causes fréquentes (pas d'Internet, pare-feu, quota).
+
+> 🔒 **Coordonnées non envoyées au LLM** — l'action est purement locale Python : pas de prompt, pas de tokens, pas de RAG. Seules les coordonnées vont vers le serveur de tuiles OSM (qui ne permet pas de remonter à un opérateur particulier — pas de cookies, pas d'auth).
+
+> ⚠ **Validation des entrées** — si `LAT`/`LON` sont absentes, non numériques ou hors plage, l'action retourne un message Markdown explicite plutôt que de planter. Idem si le module `osm_balise_png` ou les paquets `staticmap`/`Pillow` sont absents.
+
+> 📋 **Conformité OSM Tile Usage Policy** — IAbrain identifie ses requêtes avec un User-Agent dédié `IAbrain/1.40 (ADRASEC SATER tool; F1GBD)` conforme à la [politique d'usage des tuiles OSM](https://operations.osmfoundation.org/policies/tiles/). Pour un usage opérationnel ADRASEC (quelques cartes par exercice), l'usage est conforme. Pour un usage très intensif, basculer vers un serveur de tuiles dédié.
 
 ---
 
@@ -428,11 +718,11 @@ Le profil est sauvegardé dans `IAbrain_profile.json` (à côté d'`IAbrain.json
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│       IAbrain v1.40.0                                │
+│       IAbrain v1.40.3                                │
 │  Assistant IA local pour ADRASEC — by F1GBD          │
 │                                                       │
 │  Bonjour Jean-Louis, je suis IAbrain.                │
-│  Nous sommes le 3 mai 2026 et il est 08h30.          │
+│  Nous sommes le 4 mai 2026 et il est 08h30.          │
 │                                                       │
 │              [logo IAbrain]                          │
 └─────────────────────────────────────────────────────┘
@@ -474,6 +764,7 @@ Le profil opérateur d'IAbrain est volontairement différent du système `userMe
 | **Dépendance Internet et services cloud :** risque opérationnel en zone blanche ou pendant un incident électrique. | **100% local, hors ligne, confidentiel.** Fonctionne en exercice ou opération réelle sans aucune connexion externe. |
 | **Démo / formation sur laptop entrée de gamme :** impossible de faire tourner un modèle 70B+ pour montrer la qualité maximale. | **Mode cloud activable** *(v1.38+)* : sélectionner `☁ gpt-oss:120b` dans la liste, et exploiter un modèle XL hébergé sans contrainte matérielle.<br>La base ADRASEC reste sur la machine. |
 | **Information apprise en exercice perdue à la prochaine session :** une consigne dictée à l'oral, un retour d'expérience, une procédure spécifique à un exercice — tout repart de zéro à chaque fois. | **« Souviens-toi de cette procédure »** *(v1.39+)*<br>IAbrain mémorise la conversation dans la base perso. La connaissance s'enrichit naturellement au fil des exercices. |
+| **Pipeline d'analyse SATER manuel :** calculer la triangulation à la main, recopier les coordonnées dans une carte web, capturer une copie d'écran pour le SITREP, sauvegarder le résultat à part. Erreurs de saisie possibles entre étapes.<br>⏱ *Durée : 5-10 minutes par balise.* | **Pipeline complet en deux clics** *(v1.40.2 + v1.40.3)*<br>Macro `SATER LOC` → variables de session → action native `SATER MAP PNG`. La triangulation est calculée par le LLM, les coordonnées sont capturées automatiquement, et la carte OSM PNG est générée et affichée directement dans le chat avec marqueur, cercle d'incertitude et cartouche prêts pour le SITREP.<br>⏱ *Durée : ~30 secondes, zéro erreur de transcription, zéro copie d'écran.* |
 
 ---
 
@@ -541,9 +832,9 @@ ollama pull bge-m3              # Reranking RAG (recommandé, 1.2 Go)
 
 <div align="center">
 
-#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.40.0/IAbrain.7z)
+#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.40.3/IAbrain.7z)
 
-*(version `iabrain-v1.40.0` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
+*(version `iabrain-v1.40.3` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
 
 [![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
 
@@ -581,7 +872,7 @@ Ce dépôt contient également les manuels suivants :
 
 - 📋 **Fiche de présentation v1.40**
 - 📖 **Guide d'installation IAbrain v1.40** *(méthode automatique + annexe manuelle)*
-- 📘 **Manuel utilisateur IAbrain v1.40** *(complet, incluant la cartographie interactive, les corrections manuelles, les macros/actions natives, la connectivité Ollama Cloud, la mémoire conversationnelle, et le profil opérateur)*
+- 📘 **Manuel utilisateur IAbrain v1.40** *(complet, incluant la cartographie interactive, les corrections manuelles, les macros/actions natives, l'import/export de macros, les variables de session, le pipeline SATER complet, la connectivité Ollama Cloud, la mémoire conversationnelle, et le profil opérateur)*
 - 🔧 **Prérequis matériel utilisateur**
 - 🎯 **Procédure d'activation du reranking RAG**
 - 📊 **Synthèse benchmark de modèles**
@@ -663,6 +954,61 @@ Ce dépôt contient également les manuels suivants :
 │  │  Instantané, déterministe        │  │
 │  └──────────────────────────────────┘  │
 └────────────────────────────────────────┘
+
+┌────────────────────────────────────────┐
+│  Variables de session (v1.40.2+)       │
+│  ┌──────────────────────────────────┐  │
+│  │ IAbrain_session_vars.py          │  │
+│  │  - extract_vars_block()          │  │
+│  │  - substitute_vars()             │  │
+│  │  - SessionVarsManager            │  │
+│  │    (set/get/save/load)           │  │
+│  │  Hooks dans IAbrainApp :         │  │
+│  │  - capture après _finalize_stream│  │
+│  │  - subst. dans send_message +    │  │
+│  │    _exec_macro_impl              │  │
+│  │  Stockage :                      │  │
+│  │  - IAbrain_session_vars.json     │  │
+│  │  Persistance entre sessions      │  │
+│  │  Sans dépendance Tk, testable    │  │
+│  └──────────────────────────────────┘  │
+└────────────────────────────────────────┘
+
+┌────────────────────────────────────────┐
+│  Macros — Import/Export (v1.40.1+)     │
+│  ┌──────────────────────────────────┐  │
+│  │ Format .iabmacro (JSON UTF-8)    │  │
+│  │  - iabrain_macro_version: 1      │  │
+│  │  - exported_at, exported_by      │  │
+│  │  - macro {label, prompt, type,   │  │
+│  │    rag_disabled, action}         │  │
+│  │  Boutons 📥📤 dans l'éditeur     │  │
+│  │  Validation de version à l'import│  │
+│  └──────────────────────────────────┘  │
+└────────────────────────────────────────┘
+
+┌────────────────────────────────────────┐
+│  Plugin Actions SATER (v1.40.3+)       │
+│  ┌──────────────────────────────────┐  │
+│  │ IAbrain_actions_sater.py         │  │
+│  │  - osm_balise_map                │  │
+│  │    (lit LAT/LON/RAYON_M depuis   │  │
+│  │     session_vars, génère PNG OSM)│  │
+│  │  Plugin séparé de IAbrain_actions│  │
+│  │  même API list_actions/execute   │  │
+│  │  Routage automatique côté        │  │
+│  │  IAbrain._exec_macro_action      │  │
+│  └──────────────────────────────────┘  │
+│  ┌──────────────────────────────────┐  │
+│  │ osm_balise_png.py                │  │
+│  │  (compilé dans le PYZ via spec)  │  │
+│  │  - generate_osm_png()            │  │
+│  │  - Auto-zoom, marqueur, cercle,  │  │
+│  │    cartouche, attribution OSM    │  │
+│  │  Dépendances : staticmap, Pillow │  │
+│  └──────────────────────────────────┘  │
+│  Stockage : IAbrain_sater_maps/*.png   │
+└────────────────────────────────────────┘
 ```
 
 ---
@@ -671,13 +1017,16 @@ Ce dépôt contient également les manuels suivants :
 
 Les versions récentes ont apporté plusieurs améliorations majeures, du RAG hybride aux corrections manuelles, en passant par la cartographie, les macros utilisateur, la connectivité cloud, la mémoire conversationnelle et désormais le profil opérateur.
 
-### 👤 v1.40.x — Profil opérateur déclaratif + édition avant mémorisation
+### 👤 v1.40.x — Profil opérateur, partage de macros, variables de session, pipeline SATER
 
-La v1.40.0 personnalise l'expérience opérateur tout en améliorant la qualité de la mémoire conversationnelle introduite en v1.39.
+La série v1.40 personnalise l'expérience opérateur, ouvre le partage de macros entre opérateurs ADRASEC, permet le chaînage de macros via des variables capturées automatiquement, et boucle le pipeline SATER complet (analyse + cartographie OSM en deux clics).
 
 | Version | Apport principal |
 |---|---|
 | **1.40.0** | Module `IAbrain_profile.py` (~430 lignes), profil opérateur éditable via Options → Profil opérateur (indicatif, prénom, département ADRASEC, niveau d'expertise, spécialités, format préféré, notes), greeting personnalisé au démarrage (« Bonjour F1GBD, nous sommes le 3 mai 2026 et il est 08h30 »), injection en tête du prompt système pour adapter ton et profondeur au niveau déclaré. **Inclut aussi la fonctionnalité v1.39.1** : éditeur de mémorisation (relecture/correction de la question + réponse avant gravure dans la base RAG perso), évite de propager les coquilles de l'IA dans la base. |
+| **1.40.1** | **Import/Export de macros au format `.iabmacro`** : deux nouveaux boutons « 📥 Importer une Macro » et « 📤 Exporter la Macro » dans le dialogue d'édition. Format JSON UTF-8 versionable (champs `iabrain_macro_version`, `exported_at`, `exported_by`, `macro`). Permet de partager des macros standardisées au sein d'une section ADRASEC, archiver des versions de travail, ou récupérer une macro depuis un autre poste. Validation de version à l'import, demande de confirmation avant écrasement, l'enregistrement effectif est différé jusqu'au clic sur « Enregistrer » pour permettre la relecture. |
+| **1.40.2** | **Variables de session persistantes** : nouveau module `IAbrain_session_vars.py` (~360 lignes, sans dépendance Tk, 14 tests unitaires). Capture silencieuse des blocs `###IABRAIN_VARS###` produits par les macros LLM, substitution automatique de `{NOM}` dans les prompts suivants (macro ou chat libre), persistance disque dans `IAbrain_session_vars.json`, indicateur cliquable « 🔖 Vars (n) » dans la barre du haut, dialogue d'inspection/édition manuelle (Treeview, ajout/modif/suppression). Validation des noms (`[A-Z][A-Z0-9_]*`), échappement `{{NOM}}`, capacité 64 vars × 4 ko. Ouvre la voie aux pipelines opérationnels chaînés. |
+| **1.40.3** | **Pipeline SATER complet** : nouveau module plugin `IAbrain_actions_sater.py` (~340 lignes) avec l'action native `osm_balise_map` qui lit les variables de session (`LAT`, `LON`, `RAYON_M`, `INDICATIF_BALISE`, `SITREP_TS`) et génère un PNG OpenStreetMap centré sur la balise (marqueur, cercle CEP 95, cartouche de légende), affiché directement dans le chat IAbrain et archivé dans `IAbrain_sater_maps/`. L'utilitaire `osm_balise_png.py` est compilé dans le PYZ pour une distribution tout-en-un (un seul exécutable, aucun fichier .py séparé à distribuer). Routage automatique des actions entre le module standard `IAbrain_actions` et le plugin SATER ; le combobox d'édition liste les actions des deux modules. Macro pré-configurée `IAbrain_macro_SATER_MAP_PNG_v1403.iabmacro` livrée pour import direct. |
 
 ### 🧠 v1.39.x — Mémoire conversationnelle persistante
 
@@ -791,7 +1140,7 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.40.0 — 2026-05-03**
+**Version 1.40.3 — 2026-05-04**
 
 ---
 

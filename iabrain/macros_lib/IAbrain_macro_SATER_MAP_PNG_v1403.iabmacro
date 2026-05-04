@@ -1,0 +1,12 @@
+{
+  "iabrain_macro_version": 1,
+  "exported_at": "2026-05-04T16:30:00",
+  "exported_by": "IAbrain 1.40.3",
+  "macro": {
+    "label": "🗺 SATER MAP PNG",
+    "prompt": "",
+    "rag_disabled": false,
+    "type": "action",
+    "action": "osm_balise_map"
+  }
+}
