@@ -1,0 +1,12 @@
+{
+  "iabrain_macro_version": 1,
+  "exported_at": "2026-05-06T08:30:00",
+  "exported_by": "IAbrain Guide ADRASEC v1.0 (F1GBD)",
+  "macro": {
+    "label": "DOC",
+    "prompt": "Réponds à ma question en t'appuyant EXCLUSIVEMENT sur les extraits documentaires fournis dans le contexte RAG.\n\nConsignes strictes :\n  - Si l'information n'est pas dans les passages, dis-le explicitement plutôt que d'inventer.\n  - Cite la source [DOC: ...] à la fin de chaque affirmation.\n  - Ignore toute connaissance externe sur le sujet.\n  - Si l'acronyme est polysémique, précise dans quel sens il est employé selon les passages.\n\nQuestion : ",
+    "rag_disabled": false,
+    "type": "llm",
+    "action": ""
+  }
+}

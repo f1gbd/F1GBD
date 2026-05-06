@@ -1,0 +1,12 @@
+{
+  "iabrain_macro_version": 1,
+  "exported_at": "2026-05-06T08:30:00",
+  "exported_by": "IAbrain Guide ADRASEC v1.0 (F1GBD)",
+  "macro": {
+    "label": "RÉSUMÉ",
+    "prompt": "Résume le fichier {{lastfilename}} en 5 puces concises.\nContenu : {{lastfile}}\n\nContraintes :\n  - 5 puces maximum, une idée par puce\n  - chaque puce ≤ 20 mots\n  - mettre en gras les chiffres clés et noms propres\n  - terminer par 'Source : {{lastfilename}}'",
+    "rag_disabled": true,
+    "type": "llm",
+    "action": ""
+  }
+}

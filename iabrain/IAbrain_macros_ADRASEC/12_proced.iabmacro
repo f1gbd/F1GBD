@@ -1,0 +1,12 @@
+{
+  "iabrain_macro_version": 1,
+  "exported_at": "2026-05-06T08:30:00",
+  "exported_by": "IAbrain Guide ADRASEC v1.0 (F1GBD)",
+  "macro": {
+    "label": "PROCÉD",
+    "prompt": "Tu es opérateur ADRASEC expérimenté ([indicatif]).\nÀ partir des passages RAG fournis, rédige la procédure pour :\n\n[Question/sujet à compléter]\n\nFormat imposé :\n  - Étapes numérotées, 8 étapes maximum\n  - Chaque étape commence par un verbe d'action\n  - Mentionner les valeurs exactes (port, baudrate, fréquence)\n  - Si une valeur n'est pas dans les passages, indiquer [À PRÉCISER]\n  - Pas de blabla introductif, attaquer directement à l'étape 1.",
+    "rag_disabled": false,
+    "type": "llm",
+    "action": ""
+  }
+}

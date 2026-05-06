@@ -1,0 +1,12 @@
+{
+  "iabrain_macro_version": 1,
+  "exported_at": "2026-05-06T08:30:00",
+  "exported_by": "IAbrain Guide ADRASEC v1.0 (F1GBD)",
+  "macro": {
+    "label": "VOC",
+    "prompt": "À partir des passages RAG ADRASEC, donne la définition du terme ou acronyme suivant tel qu'il est employé dans la documentation ADRASEC :\n\n[terme à compléter]\n\nFormat :\n  - Définition (≤ 3 lignes)\n  - Contexte d'emploi typique (≤ 2 lignes)\n  - Source [DOC: ...]\n  - Si plusieurs sens existent, les lister numérotés.\n  - Ignorer toute autre signification possible hors contexte ADRASEC.",
+    "rag_disabled": false,
+    "type": "llm",
+    "action": ""
+  }
+}

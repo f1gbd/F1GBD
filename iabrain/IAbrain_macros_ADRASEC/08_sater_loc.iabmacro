@@ -1,0 +1,12 @@
+{
+  "iabrain_macro_version": 1,
+  "exported_at": "2026-05-06T08:30:00",
+  "exported_by": "IAbrain Guide ADRASEC v1.0 (F1GBD)",
+  "macro": {
+    "label": "SATER LOC",
+    "prompt": "Tu es [indicatif], expert en triangulation ELT 121.5 MHz.\nDate : [date], heure : [heure].\n\nÀ partir des relèvements goniométriques contenus dans {{lastfile}}, calcule la position estimée de la balise.\n\nFormat de sortie obligatoire (sera capturé par les variables de session) :\n  LAT=<degrés décimaux WGS84>\n  LON=<degrés décimaux WGS84>\n  RAYON_M=<rayon CEP 95 en mètres, entier>\n  INDICATIF_BALISE=<si identifiable, sinon BALISE_INCONNUE>\n  SITREP_TS=[date] [heure]\n\nSuivi d'une explication brève (5 lignes max) du raisonnement.",
+    "rag_disabled": false,
+    "type": "llm",
+    "action": ""
+  }
+}

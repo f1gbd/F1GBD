@@ -1,0 +1,12 @@
+{
+  "iabrain_macro_version": 1,
+  "exported_at": "2026-05-06T08:30:00",
+  "exported_by": "IAbrain Guide ADRASEC v1.0 (F1GBD)",
+  "macro": {
+    "label": "STATS",
+    "prompt": "",
+    "rag_disabled": true,
+    "type": "action",
+    "action": "file_stats"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "iabrain_macro_version": 1,
+  "exported_at": "2026-05-06T08:30:00",
+  "exported_by": "IAbrain Guide ADRASEC v1.0 (F1GBD)",
+  "macro": {
+    "label": "RETEX",
+    "prompt": "À partir des données du fichier {{lastfile}} ([date] – [indicatif]), produis un RETEX en 5 sections numérotées :\n  1. RAPPEL DES OBJECTIFS\n  2. FAITS MARQUANTS (chronologie datée)\n  3. POINTS FORTS\n  4. AXES DE PROGRÈS\n  5. RECOMMANDATIONS (numérotées, actionnables)\n\nTon factuel, citation des passages RAG, longueur cible 1 page A4.",
+    "rag_disabled": false,
+    "type": "llm",
+    "action": ""
+  }
+}

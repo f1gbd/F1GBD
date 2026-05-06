@@ -1,0 +1,12 @@
+{
+  "iabrain_macro_version": 1,
+  "exported_at": "2026-05-06T08:30:00",
+  "exported_by": "IAbrain Guide ADRASEC v1.0 (F1GBD)",
+  "macro": {
+    "label": "VARA",
+    "prompt": "Tu es expert en communications digitales radio amateur.\nÀ partir des passages RAG ADRASEC, donne la procédure de configuration de VARA pour la situation que je vais décrire ci-dessous.\n\nFormat imposé :\n  - Variante (HF/FM/SAT), bande passante, mode (BBS/Winlink/P2P)\n  - 8 étapes numérotées maximum\n  - Chaque étape : action + valeur exacte (port COM, baudrate, niveau audio)\n  - Indiquer [À VÉRIFIER] pour les valeurs absentes des passages\n\nSituation : ",
+    "rag_disabled": false,
+    "type": "llm",
+    "action": ""
+  }
+}

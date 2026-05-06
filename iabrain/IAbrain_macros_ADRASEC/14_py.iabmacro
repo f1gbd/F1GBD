@@ -1,0 +1,12 @@
+{
+  "iabrain_macro_version": 1,
+  "exported_at": "2026-05-06T08:30:00",
+  "exported_by": "IAbrain Guide ADRASEC v1.0 (F1GBD)",
+  "macro": {
+    "label": "PY",
+    "prompt": "Tu es développeur Python expert en radio amateur (AGWPE, KISS, AX.25, APRS, VARA, pyserial).\n\nÉcris un script Python pour la tâche que je vais décrire ci-dessous.\n\nContraintes :\n  - Python 3.11+\n  - Bibliothèques standard + pyserial autorisées\n  - Une fonction main(), code commenté en français\n  - Gestion propre du Ctrl+C (KeyboardInterrupt)\n  - Logger via print() au format '[HH:MM:SS] message'\n\nFournis uniquement le code encadré ```python ... ```, sans explications.\n\nTâche : ",
+    "rag_disabled": true,
+    "type": "llm",
+    "action": ""
+  }
+}

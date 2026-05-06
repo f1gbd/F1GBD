@@ -1,0 +1,12 @@
+{
+  "iabrain_macro_version": 1,
+  "exported_at": "2026-05-06T08:30:00",
+  "exported_by": "IAbrain Guide ADRASEC v1.0 (F1GBD)",
+  "macro": {
+    "label": "TRAD EN",
+    "prompt": "Traduis le texte suivant en anglais technique radio amateur (terminologie ITU/ARRL).\nConserve les indicatifs, fréquences, et abréviations Q (QRZ, QTH, etc.) telles quelles.\nRestitue la traduction sans préambule, suivie d'un bref glossaire des termes techniques traduits.\n\nTexte source ([indicatif], [date]) :\n{{lastfile}}",
+    "rag_disabled": true,
+    "type": "llm",
+    "action": ""
+  }
+}

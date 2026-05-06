@@ -1,0 +1,12 @@
+{
+  "iabrain_macro_version": 1,
+  "exported_at": "2026-05-06T08:30:00",
+  "exported_by": "IAbrain Guide ADRASEC v1.0 (F1GBD)",
+  "macro": {
+    "label": "COMPAR",
+    "prompt": "Compare les deux documents fournis en table à 3 colonnes :\n  | Critère | {{lastfilename}} | (autre fichier) |\n\nDocument A : {{lastfile}}\n\n(Le document B doit être importé et nommé dans le second slot. Adapter en {{file:nom_doc_b}} si nécessaire.)\n\nCritères : objet, date, données chiffrées, recommandations, décisions.\nSynthèse finale en 3 lignes après le tableau.",
+    "rag_disabled": true,
+    "type": "llm",
+    "action": ""
+  }
+}

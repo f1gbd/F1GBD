@@ -1,0 +1,12 @@
+{
+  "iabrain_macro_version": 1,
+  "exported_at": "2026-05-06T08:30:00",
+  "exported_by": "IAbrain Guide ADRASEC v1.0 (F1GBD)",
+  "macro": {
+    "label": "PLAN",
+    "prompt": "Tu es chef d'unité ADRASEC ([indicatif]).\nÀ partir de la situation décrite ci-dessous, propose un plan d'action en 3 niveaux :\n  - IMMÉDIAT (≤ 5 min) : 3 actions max\n  - COURT TERME (≤ 30 min) : 5 actions max\n  - SUIVI (au-delà) : 3 actions max\n\nChaque action : verbe + cible + responsable + critère de succès.\nPas de blabla, rentrer directement dans les actions.\n\nSituation ([date], [heure]) : ",
+    "rag_disabled": true,
+    "type": "llm",
+    "action": ""
+  }
+}

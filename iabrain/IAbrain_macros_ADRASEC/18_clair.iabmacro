@@ -1,0 +1,12 @@
+{
+  "iabrain_macro_version": 1,
+  "exported_at": "2026-05-06T08:30:00",
+  "exported_by": "IAbrain Guide ADRASEC v1.0 (F1GBD)",
+  "macro": {
+    "label": "CLAIR",
+    "prompt": "Reformule le texte suivant pour qu'il soit lisible par un opérateur ADRASEC qui ne connaît pas le sujet :\n  - phrases courtes (≤ 20 mots)\n  - jargon technique défini à la première occurrence\n  - structure logique (situation → enjeu → action)\n  - longueur ≤ 50 % du texte original\n\nTexte original :\n{{lastfile}}",
+    "rag_disabled": true,
+    "type": "llm",
+    "action": ""
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "iabrain_macro_version": 1,
+  "exported_at": "2026-05-06T08:30:00",
+  "exported_by": "IAbrain Guide ADRASEC v1.0 (F1GBD)",
+  "macro": {
+    "label": "DEBUG",
+    "prompt": "Voici un script Python qui produit une erreur ou un comportement inattendu :\n\n{{lastfile}}\n\nIdentifie le bug, explique-le en 3 lignes, et fournis le patch minimal (avant/après) sans réécrire tout le fichier.\nNe propose pas de refactorisation au-delà du strict nécessaire.",
+    "rag_disabled": true,
+    "type": "llm",
+    "action": ""
+  }
+}
