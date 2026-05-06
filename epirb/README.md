@@ -8,13 +8,13 @@
 
 *Décodage EPIRB/ELT/PLB — SDR Direct RTL-SDR — Démodulation FM IQ — Audio Live / Fichier WAV / Hex — Carte OSM avec relèvements goniométriques — Triangulation vectorisée — Thème clair/sombre — Export CSV*
 
-[![Version](https://img.shields.io/badge/version-epirb--5.2.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/epirb-5.2.0)
+[![Version](https://img.shields.io/badge/version-epirb--v5.2.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/epirb-v5.2.0)
 [![Téléchargements](https://img.shields.io/badge/téléchargements-actifs-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases?q=epirb)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![Mission](https://img.shields.io/badge/mission-COSPAS--SARSAT-orange.svg)]()
 
-### 📥 [**Télécharger la dernière version stable (5.2.0)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-5.2.0/EPIRBdecoder.7z)
+### 📥 [**Télécharger la dernière version stable (v5.2.0)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.2.0/EPIRBdecoder.7z)
 
 </div>
 
@@ -86,9 +86,9 @@ Saisie manuelle d'une trame hexadécimale (28 ou 36 caractères) pour décodage 
 
 <div align="center">
 
-#### 📥 [**Télécharger EPIRBdecoder.7z (5.2.0)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-5.2.0/EPIRBdecoder.7z)
+#### 📥 [**Télécharger EPIRBdecoder.7z (v5.2.0)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.2.0/EPIRBdecoder.7z)
 
-*(version `epirb-5.2.0` — voir [toutes les releases EPIRB Decoder](https://github.com/f1gbd/F1GBD/releases?q=epirb) pour les versions précédentes)*
+*(version `epirb-v5.2.0` — voir [toutes les releases EPIRB Decoder](https://github.com/f1gbd/F1GBD/releases?q=epirb) pour les versions précédentes)*
 
 [![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
 
@@ -222,7 +222,7 @@ Format : `latitude, longitude [azimut] [force du signal]` — la virgule décima
 
 | Version | Apport principal |
 |---|---|
-| **5.2.0** | **Version courante** — Carte plein écran, collage rapide Google Maps, force du signal dans les relevés, panneau relevés optimisé |
+| **v5.2.0** | **Version courante** — Carte plein écran, collage rapide Google Maps, force du signal dans les relevés, panneau relevés optimisé |
 | v5.0 | SDR Direct RTL-SDR natif, démodulation FM IQ, détection burst hybride, carte OSM avec relèvements goniométriques vectorisés, thème clair/sombre, GPS NMEA |
 | v4.0 | Palette SAR Tactical Dark, préchargement tuiles OSM, labels INDICATIF/N sur les relèvements |
 | v3.x | Carte OSM intégrée, relèvements goniométriques, export CSV |
