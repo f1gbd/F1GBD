@@ -1,0 +1,12 @@
+{
+  "iabrain_macro_version": 1,
+  "exported_at": "2026-05-07T06:50:30",
+  "exported_by": "IAbrain 1.40.7",
+  "macro": {
+    "label": "SOE DECODE",
+    "prompt": "",
+    "rag_disabled": false,
+    "type": "action",
+    "action": "soe_decode"
+  }
+}

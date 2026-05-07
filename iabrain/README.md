@@ -6,15 +6,15 @@
 
 ### L'assistant IA local pour les opérateurs ADRASEC
 
-*Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — Cartographie interactive — Corrections manuelles — Macros et actions natives — Connectivité Ollama Cloud — Mémoire conversationnelle — Profil opérateur — Variables de session — Pipeline SATER complet*
+*Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — Cartographie interactive — Corrections manuelles — Macros et actions natives — Connectivité Ollama Cloud — Mémoire conversationnelle — Profil opérateur — Variables de session — Pipeline SATER complet — Plugins externes extensibles*
 
-[![Version](https://img.shields.io/badge/version-iabrain--v1.40.3-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.40.3)
-[![Téléchargements](https://img.shields.io/badge/téléchargements-100%2B-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases)
+[![Version](https://img.shields.io/badge/version-iabrain--v1.40.7-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.40.7)
+[![Téléchargements](https://img.shields.io/badge/téléchargements-200%2B-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![100% local](https://img.shields.io/badge/local%20%2F%20cloud-hybride-brightgreen.svg)]()
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.40.3/IAbrain.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.40.7/IAbrain.7z)
 
 </div>
 
@@ -66,6 +66,7 @@ Concrètement, c'est un outil qui répond à vos questions opérationnelles, ré
 | 📤 | **Import/Export de macros** *(v1.40.1+)* | Deux nouveaux boutons **📥 Importer une Macro** et **📤 Exporter la Macro** dans le dialogue d'édition. Format `.iabmacro` (JSON UTF-8 versionable) qui permet de partager des macros entre opérateurs ADRASEC. Idéal pour distribuer des macros standardisées dans une section, archiver des versions de travail, ou récupérer une macro depuis un autre poste. |
 | 🔖 | **Variables de session persistantes** *(v1.40.2+)* | Permet de **chaîner des macros** : une macro LLM produit un bloc structuré `###IABRAIN_VARS###` qu'IAbrain capture silencieusement, puis ces variables sont substituables dans tout prompt suivant via la syntaxe `{LAT}`, `{LON}`, etc. Persistance disque entre sessions. Indicateur cliquable « 🔖 Vars (n) » dans la barre du haut pour inspecter/éditer/effacer manuellement. Cas d'usage typique : analyse SATER en deux temps (calcul de position via LLM + génération de carte OSM via macro action). |
 | 🎯 | **Pipeline SATER complet** *(v1.40.3+)* | Action native `osm_balise_map` qui lit les variables de session **LAT**, **LON**, **RAYON_M** et génère un **vrai PNG OpenStreetMap** centré sur la balise ELT avec marqueur, cercle d'incertitude CEP 95 et cartouche complet (position DMS + décimal + horodatage). **Image affichée directement dans le chat IAbrain** + sauvegardée dans `IAbrain_sater_maps/` pour archivage opérationnel. Combinée à la macro SATER LOC, elle ferme la boucle d'analyse SATER en deux clics : du CSV de relèvements TCQ à la carte exploitable. |
+| 🔌 | **Plugins externes extensibles** *(v1.40.7+)* | Les utilisateurs et formateurs peuvent ajouter leurs propres **actions natives** sans recompiler IAbrain. Les fichiers `IAbrain_actions_*.py` déposés dans le dossier `plugins/` à côté de l'exécutable sont chargés automatiquement au démarrage. Contrat d'interface simple (3 fonctions : `is_action`, `execute_action`, `list_actions`). Les actions des plugins apparaissent dans le sélecteur de macro Action et bénéficient du même mécanisme d'écriture/lecture des variables de session que les actions intégrées. **Plugin SOE livré** : chiffrement par double transposition colonnaire historique (méthode SOE 1942) avec actions `soe_encode` et `soe_decode`. |
 | 📝 | **Rendu Markdown complet dans le chat** *(v1.37+)* | Les réponses de l'IA sont rendues visuellement : titres, gras, italique, tableaux pipe-style avec colonnes alignées, citations, listes, **cases à cocher** (`- [ ]`/`- [x]`), liens cliquables, séparateurs, code inline et blocs de code. |
 | 🌍 | **Détection auto d'encodage à l'import** *(v1.37.8+)* | Détecte automatiquement UTF-8, UTF-8 BOM, UTF-16, CP1252 (Windows-1252 français), ISO-8859-15 et ISO-8859-1. Les CSV exportés depuis Excel français sont enfin lus correctement, sans `◇` à la place des accents. |
 | ☁ | **Connectivité Ollama Cloud** *(v1.38.0+)* | Accès aux grands modèles XL hébergés (gpt-oss:20b, gpt-oss:120b, deepseek-v3.1:671b…) sans avoir à les exécuter localement. Idéal pour démos sur petites machines, tests ponctuels, formations. Deux modes : direct (appel ollama.com) ou proxy local (via `ollama signin`). L'embedder RAG reste **toujours local** pour préserver la confidentialité de la base. |
@@ -565,6 +566,89 @@ La macro est de type **Action**, action `osm_balise_map`, sans dépendance au LL
 
 ---
 
+## 🔌 Plugins externes extensibles *(v1.40.7+)*
+
+Depuis la v1.40.7, IAbrain ouvre son système d'actions natives à des **plugins externes** déposés dans un dossier `plugins/` à côté de l'exécutable. Ce mécanisme permet aux utilisateurs et formateurs ADRASEC d'ajouter des fonctionnalités propres à leur section ou à leurs exercices, **sans recompiler IAbrain**.
+
+### Principe de fonctionnement
+
+Au démarrage, IAbrain scanne le dossier `plugins/` et charge tous les fichiers nommés selon le motif `IAbrain_actions_*.py`. Chaque plugin chargé est annoncé dans le journal système :
+
+```
+✅ Plugin IAbrain_actions_soe.py chargé (2 action(s))
+```
+
+Les actions exposées par les plugins externes apparaissent ensuite dans le sélecteur d'action lors de la configuration d'une macro de type **⚙️ Action** (clic-droit sur un bouton macro → Action native à exécuter), aux côtés des actions intégrées (`csv_to_markdown`, `osm_balise_map`, etc.).
+
+### Contrat d'interface
+
+Un plugin est un simple fichier Python qui expose **trois fonctions** :
+
+```python
+def is_action(action_id: str) -> bool:
+    """Retourne True si action_id est gérée par ce plugin."""
+
+def list_actions() -> list[tuple[str, str]]:
+    """Retourne les paires (id, libellé) à afficher dans le sélecteur."""
+
+def execute_action(action_id, imported_files=(), options=None):
+    """Exécute l'action et retourne (markdown, warnings)."""
+```
+
+Les variables de session sont accessibles via `options["session_vars"]` (lecture) et `options["session_vars_manager"]` (écriture). Cela permet aux plugins de **chaîner leurs résultats** : un plugin peut produire une variable consommée ensuite par une macro ou un autre plugin.
+
+### Plugin livré : `IAbrain_actions_soe.py` — Chiffrement SOE 1942
+
+IAbrain v1.40.7 livre un plugin de **chiffrement par double transposition colonnaire** historique, méthode utilisée par les agents du **Special Operations Executive** britannique pendant la Seconde Guerre mondiale. Deux actions sont exposées :
+
+| Action | Libellé sélecteur | Variables lues | Variables écrites |
+|---|---|---|---|
+| `soe_encode` | *SOE — Coder (double transposition)* | `CLE1`, `CLE2`, `MESSAGE` | `CRYPTO` |
+| `soe_decode` | *SOE — Décoder (double transposition)* | `CLE1`, `CLE2`, `CRYPTO` | `MESSAGE_DECODE` |
+
+#### Chaîne d'utilisation pour exercice ADRASEC
+
+1. **Saisir les variables** dans la zone de saisie (3 lignes en batch ou en plusieurs envois) :
+   ```
+   /set CLE1=RIENNESERTDECOURIR
+   /set CLE2=ILFAUTPARTIRAPOINT
+   /set MESSAGE=CONFIRME OPERATION TERRAIN HECTOR A PARTIR DU JEUDI NEUF MARS STOP FIN
+   ```
+   L'indicateur `🔖 Vars (3)` s'affiche en haut à droite.
+
+2. **Cliquer sur `SOE COD`** (configurée sur l'action `soe_encode`).
+   → Le cryptogramme est calculé instantanément, affiché en groupes de 5, et **stocké automatiquement** dans la variable `{CRYPTO}`. Indicateur : `🔖 Vars (4)`.
+
+3. **Cliquer sur `SOE DECODE`** (configurée sur `soe_decode`).
+   → Le message clair est restitué dans la variable `{MESSAGE_DECODE}`. Indicateur : `🔖 Vars (5)`.
+
+Toute la chaîne s'exécute en moins d'une seconde, **sans LLM, sans tokens, sans Internet**, et le résultat est **strictement déterministe**.
+
+#### Pourquoi pas un LLM pour cela ?
+
+La double transposition colonnaire est un **algorithme de permutation de séquence**. Les LLM, même 32B paramètres, ne sont **pas fiables** sur cette classe de tâche : ils intervertissent des rangs alphabétiques, sautent des étapes, ou tronquent leurs sorties à mi-chemin. Une macro Action déterministe garantit qu'**un message chiffré par un opérateur sera toujours décodable par un autre** — propriété indispensable pour les exercices opérationnels.
+
+### Sécurité
+
+Le code des plugins s'exécute avec les mêmes droits qu'IAbrain. **N'installez que des plugins de sources fiables** : plugins officiels, plugins développés par votre équipe ADRASEC, plugins partagés au sein de la communauté après revue de code.
+
+Pour désactiver temporairement un plugin sans le supprimer, le renommer suffit :
+
+```
+plugins/IAbrain_actions_soe.py  →  plugins/IAbrain_actions_soe.py.disabled
+```
+
+### Documentation complète
+
+Le dossier `plugins/` livré avec IAbrain contient un **README.md détaillé** avec :
+
+- Le contrat d'interface complet et un squelette de plugin commenté
+- Les contraintes de dépendances Python (stdlib uniquement recommandé)
+- La table de diagnostic pour résoudre les erreurs de chargement
+- Les bonnes pratiques de sécurité
+
+---
+
 ## ☁ Connectivité Ollama Cloud *(v1.38.0+)*
 
 Depuis la v1.38.0, IAbrain peut accéder aux **grands modèles XL** hébergés par [Ollama Cloud (Turbo)](https://ollama.com/turbo) sans avoir à les exécuter localement. Cela ouvre l'usage d'IAbrain à des cas où le matériel local ne permet pas de faire tourner un modèle 70B+ : démos sur tablette, formations sur laptop entrée de gamme, tests ponctuels de modèles XL avant achat de matériel.
@@ -1017,9 +1101,9 @@ Ce dépôt contient également les manuels suivants :
 
 Les versions récentes ont apporté plusieurs améliorations majeures, du RAG hybride aux corrections manuelles, en passant par la cartographie, les macros utilisateur, la connectivité cloud, la mémoire conversationnelle et désormais le profil opérateur.
 
-### 👤 v1.40.x — Profil opérateur, partage de macros, variables de session, pipeline SATER
+### 👤 v1.40.x — Profil opérateur, partage de macros, variables de session, pipeline SATER, plugins externes
 
-La série v1.40 personnalise l'expérience opérateur, ouvre le partage de macros entre opérateurs ADRASEC, permet le chaînage de macros via des variables capturées automatiquement, et boucle le pipeline SATER complet (analyse + cartographie OSM en deux clics).
+La série v1.40 personnalise l'expérience opérateur, ouvre le partage de macros entre opérateurs ADRASEC, permet le chaînage de macros via des variables capturées automatiquement, boucle le pipeline SATER complet (analyse + cartographie OSM en deux clics), et **ouvre IAbrain à des plugins externes** déposés dans un dossier `plugins/` pour ajouter des actions natives sans recompilation.
 
 | Version | Apport principal |
 |---|---|
@@ -1027,6 +1111,7 @@ La série v1.40 personnalise l'expérience opérateur, ouvre le partage de macro
 | **1.40.1** | **Import/Export de macros au format `.iabmacro`** : deux nouveaux boutons « 📥 Importer une Macro » et « 📤 Exporter la Macro » dans le dialogue d'édition. Format JSON UTF-8 versionable (champs `iabrain_macro_version`, `exported_at`, `exported_by`, `macro`). Permet de partager des macros standardisées au sein d'une section ADRASEC, archiver des versions de travail, ou récupérer une macro depuis un autre poste. Validation de version à l'import, demande de confirmation avant écrasement, l'enregistrement effectif est différé jusqu'au clic sur « Enregistrer » pour permettre la relecture. |
 | **1.40.2** | **Variables de session persistantes** : nouveau module `IAbrain_session_vars.py` (~360 lignes, sans dépendance Tk, 14 tests unitaires). Capture silencieuse des blocs `###IABRAIN_VARS###` produits par les macros LLM, substitution automatique de `{NOM}` dans les prompts suivants (macro ou chat libre), persistance disque dans `IAbrain_session_vars.json`, indicateur cliquable « 🔖 Vars (n) » dans la barre du haut, dialogue d'inspection/édition manuelle (Treeview, ajout/modif/suppression). Validation des noms (`[A-Z][A-Z0-9_]*`), échappement `{{NOM}}`, capacité 64 vars × 4 ko. Ouvre la voie aux pipelines opérationnels chaînés. |
 | **1.40.3** | **Pipeline SATER complet** : nouveau module plugin `IAbrain_actions_sater.py` (~340 lignes) avec l'action native `osm_balise_map` qui lit les variables de session (`LAT`, `LON`, `RAYON_M`, `INDICATIF_BALISE`, `SITREP_TS`) et génère un PNG OpenStreetMap centré sur la balise (marqueur, cercle CEP 95, cartouche de légende), affiché directement dans le chat IAbrain et archivé dans `IAbrain_sater_maps/`. L'utilitaire `osm_balise_png.py` est compilé dans le PYZ pour une distribution tout-en-un (un seul exécutable, aucun fichier .py séparé à distribuer). Routage automatique des actions entre le module standard `IAbrain_actions` et le plugin SATER ; le combobox d'édition liste les actions des deux modules. Macro pré-configurée `IAbrain_macro_SATER_MAP_PNG_v1403.iabmacro` livrée pour import direct. |
+| **1.40.7** | **Plugins externes extensibles** : nouveau système de chargement automatique de plugins Python depuis un dossier `plugins/` à côté de l'exécutable. Tous les fichiers `IAbrain_actions_*.py` y sont scannés au démarrage et chargés s'ils respectent le contrat d'interface (`is_action`, `execute_action`, `list_actions`). Les actions exposées apparaissent dans le sélecteur de macro Action, à côté des actions intégrées. Robustesse renforcée : capture d'exception par plugin (un plugin cassé ne bloque ni les autres ni l'application), validation de l'interface, diagnostic affiché au démarrage dans le journal système. **Exposition du `session_vars_manager`** dans `options` permettant aux actions d'**écrire** des variables de session (pas seulement de les lire), avec rafraîchissement automatique de l'indicateur 🔖 Vars et persistance disque après chaque action. **Plugin livré : `IAbrain_actions_soe.py`** — chiffrement SOE 1942 par double transposition colonnaire, deux actions `soe_encode` et `soe_decode` qui utilisent `CLE1`/`CLE2`/`MESSAGE`/`CRYPTO`/`MESSAGE_DECODE`. Chaîne complète COD → DECODE entièrement automatique sans copie/colle manuelle. README dédié dans `plugins/README.md` documentant le contrat d'interface, les contraintes, la sécurité et le diagnostic. |
 
 ### 🧠 v1.39.x — Mémoire conversationnelle persistante
 
@@ -1140,7 +1225,7 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.40.3 — 2026-05-04**
+**Version 1.40.7 — 2026-05-07**
 
 ---
 
