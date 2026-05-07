@@ -1,0 +1,12 @@
+créé un programme en python "IAbrain.py" v1.00 avec une interface gui pro pour interroger ollama un serveur en mode offline (sans cloud) conncecté dans le réseau local.
+- par défaut le LLM est qwen3coder:30b
+- le choix du LLM est paramétrable
+- il est possible d'envoyer des commandes à Ollama pour lister, charger ou effacer un LLM
+- le contexte de la discussion doit être sauvegarder en fin d'utilisation
+- le choix et les paramètres sont enregistrés dans un fichier IAbrain.json chargé à l'ouverture et mis à jour à la fermeture,
+- il est possible d'importer des fichiers utilisables par le LLM pour traitement,
+- il est possible d'exporter en fichier texte les réponses du chat LLM 
+- le dialogue se fait en mode chat comme avec l'interface Claude.
+- si la réponse du LLM est un programme source, il doit pouvoir être exporté séparément
+- on peut choisir le thème d'affichage "Light" ou "Dark"
+
