@@ -6,15 +6,15 @@
 
 ### L'assistant IA local pour les opérateurs ADRASEC
 
-*Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — Cartographie interactive — Corrections manuelles — Macros et actions natives — Connectivité Ollama Cloud — Mémoire conversationnelle — Profil opérateur — Variables de session — Pipeline SATER complet — Plugins externes extensibles*
+*Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — Cartographie interactive — Corrections manuelles — Macros et actions natives — Connectivité Ollama Cloud — Mémoire conversationnelle — Profil opérateur — Variables de session — Pipeline SATER complet — Plugins externes extensibles — Auto-exécution de macros par le LLM*
 
-[![Version](https://img.shields.io/badge/version-iabrain--v1.40.7-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.40.7)
+[![Version](https://img.shields.io/badge/version-iabrain--v1.41.1-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.41.1)
 [![Téléchargements](https://img.shields.io/badge/téléchargements-200%2B-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![100% local](https://img.shields.io/badge/local%20%2F%20cloud-hybride-brightgreen.svg)]()
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.40.7/IAbrain.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.41.1/IAbrain.7z)
 
 </div>
 
@@ -67,6 +67,7 @@ Concrètement, c'est un outil qui répond à vos questions opérationnelles, ré
 | 🔖 | **Variables de session persistantes** *(v1.40.2+)* | Permet de **chaîner des macros** : une macro LLM produit un bloc structuré `###IABRAIN_VARS###` qu'IAbrain capture silencieusement, puis ces variables sont substituables dans tout prompt suivant via la syntaxe `{LAT}`, `{LON}`, etc. Persistance disque entre sessions. Indicateur cliquable « 🔖 Vars (n) » dans la barre du haut pour inspecter/éditer/effacer manuellement. Cas d'usage typique : analyse SATER en deux temps (calcul de position via LLM + génération de carte OSM via macro action). |
 | 🎯 | **Pipeline SATER complet** *(v1.40.3+)* | Action native `osm_balise_map` qui lit les variables de session **LAT**, **LON**, **RAYON_M** et génère un **vrai PNG OpenStreetMap** centré sur la balise ELT avec marqueur, cercle d'incertitude CEP 95 et cartouche complet (position DMS + décimal + horodatage). **Image affichée directement dans le chat IAbrain** + sauvegardée dans `IAbrain_sater_maps/` pour archivage opérationnel. Combinée à la macro SATER LOC, elle ferme la boucle d'analyse SATER en deux clics : du CSV de relèvements TCQ à la carte exploitable. |
 | 🔌 | **Plugins externes extensibles** *(v1.40.7+)* | Les utilisateurs et formateurs peuvent ajouter leurs propres **actions natives** sans recompiler IAbrain. Les fichiers `IAbrain_actions_*.py` déposés dans le dossier `plugins/` à côté de l'exécutable sont chargés automatiquement au démarrage. Contrat d'interface simple (3 fonctions : `is_action`, `execute_action`, `list_actions`). Les actions des plugins apparaissent dans le sélecteur de macro Action et bénéficient du même mécanisme d'écriture/lecture des variables de session que les actions intégrées. **Plugin SOE livré** : chiffrement par double transposition colonnaire historique (méthode SOE 1942) avec actions `soe_encode` et `soe_decode`. |
+| 🚀 | **Auto-exécution de macros par le LLM** *(v1.41.0+)* | Le LLM peut **déclencher automatiquement une macro Action en fin de réponse** via le bloc `###IABRAIN_RUN_MACRO###`. Une simple phrase comme *« donne-moi la position de la Tour Eiffel et affiche-la avec SATER MAP PN »* suffit : IAbrain détecte automatiquement la macro mentionnée, instruit le LLM via un sur-prompt système ciblé, capture les variables de session produites et lance la macro Action sans aucun clic. Garde-fous anti-prompt-injection multiples (préférence opt-in, mot-clé d'intention requis, une seule auto-exec par réponse, filtrage des macros LLM). Transforme IAbrain en véritable assistant orchestrateur. |
 | 📝 | **Rendu Markdown complet dans le chat** *(v1.37+)* | Les réponses de l'IA sont rendues visuellement : titres, gras, italique, tableaux pipe-style avec colonnes alignées, citations, listes, **cases à cocher** (`- [ ]`/`- [x]`), liens cliquables, séparateurs, code inline et blocs de code. |
 | 🌍 | **Détection auto d'encodage à l'import** *(v1.37.8+)* | Détecte automatiquement UTF-8, UTF-8 BOM, UTF-16, CP1252 (Windows-1252 français), ISO-8859-15 et ISO-8859-1. Les CSV exportés depuis Excel français sont enfin lus correctement, sans `◇` à la place des accents. |
 | ☁ | **Connectivité Ollama Cloud** *(v1.38.0+)* | Accès aux grands modèles XL hébergés (gpt-oss:20b, gpt-oss:120b, deepseek-v3.1:671b…) sans avoir à les exécuter localement. Idéal pour démos sur petites machines, tests ponctuels, formations. Deux modes : direct (appel ollama.com) ou proxy local (via `ollama signin`). L'embedder RAG reste **toujours local** pour préserver la confidentialité de la base. |
@@ -237,6 +238,38 @@ Avant la v1.40.3, l'opérateur devait :
 **Avec le pipeline SATER complet, ces 4 étapes manuelles deviennent 2 clics**. Le PNG est immédiatement utilisable dans un SITREP, un mail à la chaîne de commandement, ou comme support de débrief d'exercice. Et puisque les variables persistent sur disque, on peut reprendre l'analyse plusieurs jours plus tard sans rien retaper.
 
 > 💡 **Variantes possibles** : avec le système de variables de session, on peut intercaler entre `SATER LOC` et `SATER MAP PNG` un message de chat libre du type « *Reformule le SITREP pour la chaîne préfectorale en 4 lignes* », ou un appel à une macro tierce qui exploite `{LAT}`, `{LON}`, `{INDICATIF_BALISE}` pour générer un fichier KML, un point APRS, un message Winlink, etc.
+
+### 🚀 Auto-exécution conversationnelle *(v1.41.1+)*
+
+Depuis la v1.41.x, IAbrain peut **déclencher des macros Action sans aucun clic**. Une simple phrase tapée dans le chat suffit :
+
+```
+👤 Vous
+donne-moi la position de la Tour Eiffel et affiche-la avec SATER MAP PN
+
+— ℹ Système
+🔍 Macro Action détectée dans votre prompt — instructions
+   d'auto-exécution injectées au LLM.
+
+🤖 qwen2.5:7b
+La Tour Eiffel se trouve à Paris.
+[blocs IABRAIN_VARS et IABRAIN_RUN_MACRO masqués automatiquement]
+Carte affichée.
+
+— 🔖 5 variable(s) capturée(s) : INDICATIF_BALISE, LAT, LON, RAYON_M, SITREP_TS
+— 🔄 Auto-exécution de la macro « 🗺 SATER MAP PN »
+— ⚙️ Macro Action exécutée : « 🗺 SATER MAP PN »
+[CARTE OSM affichée avec marqueur Tour Eiffel + cercle 100 m]
+```
+
+L'opérateur ne clique sur **aucun bouton macro** : il appuie simplement sur **Entrée**. IAbrain détecte que sa requête contient à la fois un mot-clé d'intention (*affiche*) et le nom d'une macro Action existante (*SATER MAP PN*), enrichit silencieusement le prompt système pour instruire le LLM à produire les variables nécessaires et un bloc `###IABRAIN_RUN_MACRO###`, puis exécute automatiquement la macro Action en fin de réponse.
+
+**Cas d'usage typiques** :
+- *« exécute SOE COD avec les clés que je t'ai données »* → chiffrement automatique d'un message
+- *« affiche-moi les bilans de la dernière permanence avec CSV To MD »* → conversion automatique
+- *« montre-moi sur la carte avec SATER MAP PN »* (avec variables déjà en session) → affichage direct
+
+Cette fonctionnalité est désactivée par défaut (sécurité) et activable dans **Paramètres > Auto-exécution macros**. Voir la [section dédiée plus bas](#-auto-exécution-de-macros-par-le-llm-v1410-) pour le détail des garde-fous anti-prompt-injection.
 
 ### 📤 Partager une macro entre opérateurs *(v1.40.1+)*
 
@@ -649,6 +682,165 @@ Le dossier `plugins/` livré avec IAbrain contient un **README.md détaillé** a
 
 ---
 
+## 🚀 Auto-exécution de macros par le LLM *(v1.41.0+)*
+
+Depuis la v1.41.0, IAbrain peut **déclencher automatiquement une macro Action** quand le LLM en exprime le besoin en fin de réponse. Cette fonctionnalité transforme IAbrain en assistant orchestrateur : l'opérateur formule une demande en langage naturel, le LLM produit les variables nécessaires, IAbrain capture ces variables et lance la macro Action correspondante — **le tout sans aucun clic supplémentaire**.
+
+### Principe de fonctionnement
+
+Le mécanisme repose sur un nouveau **bloc structuré** que le LLM peut produire en fin de réponse :
+
+```
+###IABRAIN_RUN_MACRO###
+SATER MAP PN
+###END_IABRAIN_RUN_MACRO###
+```
+
+Quand IAbrain détecte ce bloc :
+
+1. **Il vérifie les garde-fous de sécurité** (préférence activée, mot-clé d'intention dans le prompt utilisateur, label de macro existant)
+2. **Il masque le bloc** de l'affichage du chat (comme pour `###IABRAIN_VARS###`)
+3. **Il déclenche l'exécution** de la macro Action correspondante exactement comme si l'opérateur avait cliqué sur le bouton
+
+Combiné aux variables de session, le LLM produit dans la même réponse à la fois les valeurs (`LAT`, `LON`, `RAYON_M`...) et l'instruction d'exécution. IAbrain enchaîne capture des variables → auto-exécution → affichage du résultat.
+
+### Deux modes de déclenchement
+
+#### Mode A — Macro LLM dédiée (la plus stricte)
+
+L'opérateur clique sur une macro LLM spécialisée (par exemple `SATER POI` livrée dans `plugins/`) dont le prompt système instruit le LLM à produire systématiquement les blocs structurés. C'est la méthode **la plus fiable** pour déclencher automatiquement une chaîne complexe.
+
+```
+[Clic sur SATER POI] + texte « Tour Eiffel »
+   ↓ prompt système strict injecté
+   ↓ LLM produit IABRAIN_VARS + IABRAIN_RUN_MACRO
+   ↓ IAbrain capture + auto-exécute SATER MAP PN
+[CARTE affichée]
+```
+
+#### Mode B — Détection automatique dans un prompt direct *(v1.41.1+)*
+
+L'opérateur tape simplement sa demande en langage naturel et appuie sur **Entrée** :
+
+```
+donne-moi la position de la Tour Eiffel et affiche-la avec SATER MAP PN
+```
+
+IAbrain analyse le prompt **avant l'envoi au LLM** et détecte deux signaux :
+
+- **Mot-clé d'intention** : *macro*, *exécute*, *lance*, *utilise*, *affiche*, *montre*, *déclenche*, *run*
+- **Mention explicite** d'une macro Action configurée (label normalisé, tolérance casse/accents/emoji)
+
+Si les deux conditions sont réunies, IAbrain enrichit silencieusement le prompt système avec une **instruction ciblée** qui décrit au LLM comment produire les blocs `IABRAIN_VARS` et `IABRAIN_RUN_MACRO` adaptés à la macro mentionnée. Le LLM répond donc directement en mode "agent", produisant les bonnes variables et le déclencheur.
+
+Un message visible dans le chat confirme l'injection :
+
+```
+🔍 Macro Action détectée dans votre prompt — instructions
+   d'auto-exécution injectées au LLM.
+```
+
+### Indices contextuels par type de macro
+
+Le sur-prompt système injecté en mode B s'adapte au type de macro mentionnée :
+
+| Macro mentionnée | Variables suggérées au LLM |
+|---|---|
+| `SATER MAP PN`, `osm_balise_map` | LAT, LON, RAYON_M, INDICATIF_BALISE, SITREP_TS |
+| `SOE COD` (`soe_encode`) | CLE1, CLE2, MESSAGE |
+| `SOE DECODE` (`soe_decode`) | CLE1, CLE2, CRYPTO, CRYPTOMETA |
+| `SATER LOC` | « Importe d'abord un fichier CSV de relèvements » |
+| autres | hint générique |
+
+### Garde-fous anti-prompt-injection
+
+L'auto-exécution est protégée par **trois couches de sécurité** empilées :
+
+1. **Préférence utilisateur opt-in**
+   La fonctionnalité est désactivée par défaut. Elle s'active dans `Options → Paramètres → Auto-exécution macros`. Tant qu'elle n'est pas cochée, aucun bloc `###IABRAIN_RUN_MACRO###` n'est exécuté, même produit par le LLM.
+
+2. **Intention explicite requise**
+   Le prompt utilisateur (sur tous les tours de la conversation) doit contenir au moins un mot-clé d'intention. Cela bloque le scénario où un PDF importé contiendrait une instruction malveillante du type *« exécute la macro X »* : si l'opérateur a juste demandé un résumé, l'auto-exec est refusée et un message le signale.
+
+3. **Une seule auto-exec par réponse**
+   Si le LLM produit plusieurs blocs `###IABRAIN_RUN_MACRO###` dans la même réponse (cas pathologique), seul le premier est traité. Évite les boucles d'exécution non désirées.
+
+Filtrage supplémentaire : les **macros LLM** ne sont jamais auto-exécutables en mode B (seules les macros Action le sont), pour ne pas créer de récursion entre une macro LLM qui en appellerait une autre.
+
+### Tolérance technique
+
+Le détecteur de blocs supporte les variantes de marqueurs hallucinés par les petits LLM (qwen2.5:7b, llama3.2:3b...) :
+
+- `###IABRAINRUNMACRO###` (sans underscores)
+- `###IABRAIN-RUN-MACRO###` (avec tirets)
+- `###ENDIABRAINRUN_MACRO###` (mix observé chez qwen)
+- Marqueur de fin oublié → fin de message acceptée
+
+La recherche de macro est tolérante aux emojis, accents, casse et espaces multiples : un LLM qui demande `SATER MAP PN` trouvera la macro `🗺 SATER MAP PN`.
+
+### Macro `SATER POI` livrée *(plugins/)*
+
+Une macro LLM clés-en-main est livrée dans le dossier `plugins/` : `IAbrain_macro_SATER_POI_v1410.iabmacro`. Son prompt système strict instruit le LLM à produire systématiquement les variables géographiques + le bloc `###IABRAIN_RUN_MACRO###` ciblant `SATER MAP PN`.
+
+**Exemple complet** :
+
+```
+[Bouton SATER POI cliqué] + texte « Tour Eiffel »
+   ↓
+🤖 qwen2.5:7b
+La Tour Eiffel se trouve à Paris.
+###IABRAIN_VARS###
+LAT=48.858364
+LON=2.294473
+RAYON_M=100
+INDICATIF_BALISE=POI-TOUR_EIFFEL
+SITREP_TS=2026-05-07 14:35:23
+###END_IABRAIN_VARS###
+###IABRAIN_RUN_MACRO###
+SATER MAP PN
+###END_IABRAIN_RUN_MACRO###
+Carte affichée.
+
+— 🔖 5 variable(s) capturée(s)
+— 🔄 Auto-exécution de la macro « 🗺 SATER MAP PN »
+[CARTE OSM affichée]
+```
+
+### Architecture technique
+
+L'auto-exécution est implémentée dans un module séparé `IAbrain_macro_runner.py` (compilé dans le PYZ de l'exécutable). Quatre hooks minimaux sont ajoutés à `IAbrain.py` :
+
+1. **Import paresseux** du module runner au démarrage
+2. **Initialisation** d'un orchestrateur `MacroAutoRunner` après chargement de la config
+3. **Hook après réception** de la réponse LLM (juste après `_capture_session_vars_from_response`)
+4. **Injection conditionnelle** d'un sur-prompt système avant l'envoi au LLM (mode B)
+
+Cette architecture permet :
+- **Rollback trivial** : supprimer le `.py` du runner désactive complètement la fonctionnalité (mode dégradé silencieux)
+- **Tests indépendants** : 24 tests automatisés (`test_macro_runner.py`) qui valident la logique sans lancer IAbrain
+- **Évolutivité** : ajout futur d'autres orchestrations (chaînage de macros, pipelines multi-étapes...)
+
+### Fichier de tests automatisés
+
+Le dossier `plugins/` contient `test_macro_runner.py` qui valide en environnement isolé toute la chaîne :
+
+```
+> python plugins/test_macro_runner.py
+====================================================
+  Tests automatisés - Runner d'auto-exécution v1.41.0
+====================================================
+  OK Détection - bloc simple
+  OK Détection - marqueurs sans underscores
+  ...
+  OK Sécurité - bloque la prompt injection via document
+----------------------------------------------------
+  OK : 24/24 tests reussis
+```
+
+Idéal pour valider une nouvelle release ou diagnostiquer un problème en production.
+
+---
+
 ## ☁ Connectivité Ollama Cloud *(v1.38.0+)*
 
 Depuis la v1.38.0, IAbrain peut accéder aux **grands modèles XL** hébergés par [Ollama Cloud (Turbo)](https://ollama.com/turbo) sans avoir à les exécuter localement. Cela ouvre l'usage d'IAbrain à des cas où le matériel local ne permet pas de faire tourner un modèle 70B+ : démos sur tablette, formations sur laptop entrée de gamme, tests ponctuels de modèles XL avant achat de matériel.
@@ -916,9 +1108,9 @@ ollama pull bge-m3              # Reranking RAG (recommandé, 1.2 Go)
 
 <div align="center">
 
-#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.40.3/IAbrain.7z)
+#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.41.1/IAbrain.7z)
 
-*(version `iabrain-v1.40.3` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
+*(version `iabrain-v1.41.1` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
 
 [![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
 
@@ -1097,9 +1289,18 @@ Ce dépôt contient également les manuels suivants :
 
 ---
 
-## 🆕 Évolution récente — v1.33 → v1.40
+## 🆕 Évolution récente — v1.33 → v1.41
 
-Les versions récentes ont apporté plusieurs améliorations majeures, du RAG hybride aux corrections manuelles, en passant par la cartographie, les macros utilisateur, la connectivité cloud, la mémoire conversationnelle et désormais le profil opérateur.
+Les versions récentes ont apporté plusieurs améliorations majeures, du RAG hybride aux corrections manuelles, en passant par la cartographie, les macros utilisateur, la connectivité cloud, la mémoire conversationnelle, le profil opérateur et désormais l'auto-exécution de macros par le LLM.
+
+### 🚀 v1.41.x — Auto-exécution de macros depuis le LLM
+
+La série v1.41 transforme IAbrain en **assistant orchestrateur** : l'opérateur formule sa demande en langage naturel, le LLM produit les variables et un déclencheur d'exécution, IAbrain enchaîne automatiquement les étapes pour livrer le résultat opérationnel attendu.
+
+| Version | Apport principal |
+|---|---|
+| **1.41.0** | Nouveau module `IAbrain_macro_runner.py` (~330 lignes, sans dépendance externe, 24 tests unitaires) qui détecte le bloc `###IABRAIN_RUN_MACRO###` produit par le LLM en fin de réponse et déclenche automatiquement l'exécution de la macro Action correspondante. Compilé dans le PYZ via `hiddenimports`, pas distribué séparément. **Trois garde-fous anti-prompt-injection empilés** : préférence utilisateur opt-in (`auto_run_macros` dans Paramètres, désactivée par défaut), mot-clé d'intention requis dans le prompt utilisateur (*macro/exécute/lance/utilise/affiche/montre/déclenche/run*), une seule auto-exec par réponse. **Tolérance technique** aux marqueurs hallucinés par les petits LLM (sans underscores, avec tirets, marqueur de fin oublié). Recherche de macro par label tolérante (insensible aux emojis, accents, casse, espaces multiples). Architecture modulaire permettant un rollback trivial (suppression du `.py` du runner désactive complètement la fonctionnalité en mode dégradé silencieux). Plugin de démo `IAbrain_actions_demo_poi.py` + macro LLM clés-en-main `IAbrain_macro_SATER_POI_v1410.iabmacro` livrée dans `plugins/`. |
+| **1.41.1** | **Détection automatique d'intention dans le prompt direct** : l'opérateur n'a plus besoin de cliquer sur une macro LLM dédiée, il peut taper directement *« donne-moi la position de la Tour Eiffel et affiche-la avec SATER MAP PN »* et appuyer sur Entrée. IAbrain détecte la mention d'une macro Action existante + un mot-clé d'intention, et **injecte un sur-prompt système ciblé** avec des hints contextuels adaptés au type de macro (variables géographiques pour SATER MAP, clés/message pour SOE, etc.). Le LLM produit alors directement les blocs `IABRAIN_VARS` et `IABRAIN_RUN_MACRO` adéquats. Un message visible confirme l'injection. La détection d'intention parcourt **tous les messages utilisateur** de la conversation (pas seulement le dernier), pour gérer correctement les conversations multi-tours où l'intention initiale n'est pas dans la dernière question. Filtrage automatique des macros de type LLM (seules les macros Action sont auto-exécutables). Test grandeur nature validé sur Tour Eiffel avec qwen2.5:7b en local. |
 
 ### 👤 v1.40.x — Profil opérateur, partage de macros, variables de session, pipeline SATER, plugins externes
 
@@ -1225,7 +1426,7 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.40.7 — 2026-05-07**
+**Version 1.41.1 — 2026-05-07**
 
 ---
 
