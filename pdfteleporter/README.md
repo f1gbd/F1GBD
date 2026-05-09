@@ -238,8 +238,8 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 
 ## 📄 Documentation associée
 
-- 📘 **[Manuel utilisateur (MEMO - PDFteleporter_MANUEL.pdf)](https://github.com/f1gbd/F1GBD/blob/master/pdfteleporter/doc/PDFteleporter_FICHE_PRESENTATION.pdf)** — Guide pas-à-pas d'utilisation, niveaux de qualité, dépannage, intégration TCQ et Winlink
-- 📋 **[Fiche de présentation (PDFteleporter_FICHE_PRESENTATION.pdf)](doc\PDFteleporter_FICHE_PRESENTATION.pdf)** — Synthèse opérationnelle 1 page pour briefings ADRASEC
+- 📘 **[Manuel utilisateur (MEMO - PDFteleporter_MANUEL.pdf)](doc/MEMO - PDFteleporter_MANUEL.pdf)** — Guide pas-à-pas d'utilisation, niveaux de qualité, dépannage, intégration TCQ et Winlink
+- 📋 **[Fiche de présentation (PDFteleporter_FICHE_PRESENTATION.pdf)](doc/PDFteleporter_FICHE_PRESENTATION.pdf)** — Synthèse opérationnelle 1 page pour briefings ADRASEC
 
 ---
 
