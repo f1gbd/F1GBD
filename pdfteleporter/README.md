@@ -68,7 +68,7 @@ L'archive `.psdi` est conçue pour les **modes radio TCQ** (TNC Packet, VARA HF/
 | 🌐 | **Compatible TCQ et Winlink Express** | Le format `.psdi` est consommable directement par les modes radio TCQ (TNC Packet, VARA HF/FM/SAT) et par Winlink Express en pièce jointe. Aucun format propriétaire, aucune dépendance externe. |
 | 🔒 | **100% local et confidentiel** | Aucune donnée ne sort de la machine. Aucune connexion Internet requise. Idéal pour les contextes opérationnels sensibles, les zones blanches ou les exercices en autonomie totale. |
 | 🖥 | **Interface DPI-aware Windows 10/11** | Adaptation automatique aux écrans haute résolution. Thème sombre cohérent avec TCQ, console Windows masquée au démarrage. |
-| 🐍 | **Source Python ouvert** | Application Tkinter d'environ 1000 lignes lisibles et adaptables. La logique de compression est isolée dans `pdf_trans.py` (bibliothèque déjà utilisée par TCQ pour la transmission de PDF en radiogramme). |
+
 
 ---
 
