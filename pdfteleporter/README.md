@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="PDFteleporter_logo.png" alt="PDF Teleporter" width="200">
+<img src="doc\images\PDFteleporter_logo.png" alt="PDF Teleporter" width="200">
 
 # PDF Teleporter
 
@@ -26,13 +26,13 @@
 
 ### Écran principal de PDF Teleporter
 
-<img src="docs/images/main_screen.png" alt="Écran principal PDF Teleporter" width="900">
+<img src="doc\images\main_screen.png" alt="Écran principal PDF Teleporter" width="900">
 
 *Interface double panneau : compression PDF → .psdi à gauche, recomposition .psdi → PDF à droite, journal opérationnel en bas. Thème sombre dérivé de TCQ.*
 
 ### Fenêtre Winlink Express intégrée
 
-<img src="docs/images/winlink_dialog.png" alt="Préparation Winlink" width="600">
+<img src="doc/images/winlink_dialog.png" alt="Préparation Winlink" width="600">
 
 *Procédure d'envoi pas-à-pas, alerte automatique si le fichier dépasse la limite Winlink de 120 Ko, ouverture directe du dossier d'archives.*
 
@@ -159,56 +159,33 @@ L'archive `.psdi` est conçue pour les **modes radio TCQ** (TNC Packet, VARA HF/
 
 ### Méthode 1 — Téléchargement direct depuis GitHub *(recommandé)*
 
-1. **Téléchargez les fichiers Python** depuis le dépôt :
+1. **Téléchargez l'archive d'installation** depuis le dépôt :
 
    👉 **[https://github.com/f1gbd/F1GBD/tree/master/pdfteleporter](https://github.com/f1gbd/F1GBD/tree/master/pdfteleporter)**
 
-   Récupérez :
-   - `PDFteleporter.py` — l'application principale
-   - `pdf_trans.py` — la bibliothèque de compression (à placer dans le **même dossier**)
 
-2. **Installez les dépendances Python** (Python 3.10+ recommandé) :
-
-   ```bash
-   pip install pymupdf Pillow
-   ```
-
-   *Sous Linux moderne (Ubuntu 24, Debian 13…) :*
-
-   ```bash
-   pip install pymupdf Pillow --break-system-packages
-   ```
 
 3. **Lancez l'application** :
 
    ```bash
-   python PDFteleporter.py
+   c:\PDFteleporter\PDFteleporter.exe
    ```
 
-### Méthode 2 — Cloner le dépôt complet
 
-```bash
-git clone https://github.com/f1gbd/F1GBD.git
-cd F1GBD/pdfteleporter
-pip install pymupdf Pillow
-python PDFteleporter.py
-```
 
 ### Méthode 3 — Utilisateurs TCQ
 
-Si vous utilisez déjà **TCQ** (le multi-mode radio Python de F1GBD), `pdf_trans.py` est probablement déjà présent dans votre installation. Il vous suffit de récupérer `PDFteleporter.py` et de le placer **dans le même répertoire que `pdf_trans.py`**.
+Si vous utilisez déjà **TCQ** (le multi-mode radio Python de F1GBD), est déjà présent et **directement intégré dans TCQ**, il suffit de cliquer sur le bouton **PDF** dans le mode **VARA Modem** ou **TNC Packet**.
 
 ### Configuration matérielle minimale
 
 | Composant | Minimum | Recommandé |
 |---|---|---|
 | **OS** | Windows 10 (1909+) | Windows 11 |
-| **Python** | 3.10 | 3.11 / 3.12 |
 | **RAM** | 2 Go libres | 4 Go libres |
 | **Disque** | 50 Mo | 100 Mo |
 | **Écran** | 1024×768 | 1366×768+ (DPI scaling supporté) |
 
-L'application fonctionne aussi sous **Linux** (testée Ubuntu 22/24) et **macOS** (Tkinter requis), bien que l'optimisation cible Windows.
 
 ---
 
@@ -218,7 +195,7 @@ Le format `.psdi` (PDF Structured Data Interchange) est une archive binaire comp
 
 ```
 ┌──────────────────────────────────────────┐
-│  Signature « PSDI »  (4 octets)         │
+│  Signature « PSDI »  (4 octets)          │
 │  Version  (1 = struct, 2 = image)        │
 │  Checksum CRC32                          │
 │  Bloc texte compressé LZMA               │
@@ -233,21 +210,12 @@ Le format `.psdi` (PDF Structured Data Interchange) est une archive binaire comp
 - **LZMA** sur le texte : ratio de compression maximal pour le contenu textuel
 - **JPEG optimisé** sur les images : qualité ajustée selon le préréglage choisi
 
-Le format est documenté et stable. Il est consommable par tout outil utilisant `pdf_trans.py`, notamment **TCQ** dans son module radiogramme PDF.
+Le **PDFteleporter** est en version stable. Il est intégré dans **TCQ** dans son module **VARA modem** et **TNC Packet** 
 
 ---
 
-## 🔧 Dépendances
 
-| Dépendance | Rôle | Version |
-|---|---|---|
-| **Python** | Runtime | 3.10+ |
-| **PyMuPDF** *(fitz)* | Extraction texte/images du PDF source, recomposition du PDF cible | 1.23+ |
-| **Pillow** *(PIL)* | Compression JPEG, manipulation d'images | 10+ |
-| **Tkinter** | Interface graphique | inclus avec Python |
-| **pdf_trans.py** | Bibliothèque locale de compression `.psdi` | fournie |
-
-Aucune dépendance Internet, aucun service externe, aucune télémétrie.
+**Aucune dépendance Internet, aucun service externe**.
 
 ---
 
@@ -263,8 +231,8 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 
 ## 📄 Documentation associée
 
-- 📘 **[Manuel utilisateur (MANUEL.md)](MANUEL.md)** — Guide pas-à-pas d'utilisation, niveaux de qualité, dépannage, intégration TCQ et Winlink
-- 📋 **[Fiche de présentation (FICHE.md)](FICHE.md)** — Synthèse opérationnelle 1 page pour briefings ADRASEC
+- 📘 **[Manuel utilisateur (MANUEL.pdf)](MANUEL.pdf)** — Guide pas-à-pas d'utilisation, niveaux de qualité, dépannage, intégration TCQ et Winlink
+- 📋 **[Fiche de présentation (FICHE.pdf)](FICHE.pdf)** — Synthèse opérationnelle 1 page pour briefings ADRASEC
 
 ---
 
@@ -275,7 +243,7 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis Naudin (F1GBD)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.0.0 — Mars 2026**
+**Version 1.0.0 — Mai 2026**
 
 ---
 
