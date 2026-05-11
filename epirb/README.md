@@ -8,13 +8,13 @@
 
 *Décodage EPIRB/ELT/PLB — SDR Direct RTL-SDR — Démodulation FM IQ — Audio Live / Fichier WAV / Hex — Carte OSM avec relèvements goniométriques — MGRS — Triangulation vectorisée — Thème clair/sombre — Export CSV*
 
-[![Version](https://img.shields.io/badge/version-epirb--v5.3.1-blue)](https://github.com/f1gbd/F1GBD/releases/tag/epirb-v5.3.1)
+[![Version](https://img.shields.io/badge/version-epirb--v5.3.2-blue)](https://github.com/f1gbd/F1GBD/releases/tag/epirb-v5.3.2)
 [![Téléchargements](https://img.shields.io/badge/téléchargements-actifs-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases?q=epirb)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![Mission](https://img.shields.io/badge/mission-COSPAS--SARSAT-orange.svg)]()
 
-### 📥 [**Télécharger la dernière version stable (v5.3.1)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.3.1/EPIRBdecoder.7z)
+### 📥 [**Télécharger la dernière version stable (v5.3.2)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.3.2/EPIRBdecoder.7z)
 
 </div>
 
@@ -45,6 +45,7 @@ L'outil est destiné à la **formation des opérateurs ADRASEC**, aux **exercice
 | 🔲 | **Coordonnées MGRS** | Conversion bidirectionnelle lat/lon ↔ MGRS (Military Grid Reference System, ex: `31U DQ 52482 11717`). Mise à jour automatique dans les deux sens. Conversion WGS84 autonome intégrée, sans dépendance externe. |
 | 📌 | **Zone par défaut** | Sauvegarde de la zone d'affichage courante de la carte (position et zoom) dans `decoder_setup.json`. Au redémarrage, la carte s'ouvre directement sur la dernière zone sauvegardée. Activable/désactivable par un bouton bascule. |
 | 🛰 | **GPS NMEA** | Support GPS via port série (NMEA 0183). Mise à jour automatique de la position opérateur sur la carte avec intervalle configurable. |
+| 📍 | **Position GPS → Relevé** | Bouton « Position GPS » apparaissant dès qu'un fix GPS est valide. Un clic place le marqueur de pré-positionnement aux coordonnées GPS et pré-remplit le formulaire : il ne reste qu'à saisir l'azimut et cliquer Ajouter. |
 | 📊 | **Décodage complet COSPAS-SARSAT** | Trames courtes (112 bits) et longues (144 bits). Protocoles : Maritime MMSI, Aviation OACI 24 bits, Serial, National, Test, ELT-DT. BCH-1 et BCH-2 pour la validation. Position en DD°MM'SS" avec résolution fine. |
 | 🎨 | **Thème clair / sombre** | Palette SAR Tactical Dark par défaut (optimisée pour le terrain de nuit). Bascule en un clic vers le thème clair. Tous les paramètres sauvegardés automatiquement. |
 | 📤 | **Export / Import CSV** | Export des relèvements en CSV (point-virgule) avec indicatif, coordonnées DMS et décimales, azimut, signal et horodatage. Import CSV pour reprise de session ou échange inter-opérateurs. |
@@ -89,9 +90,9 @@ Saisie manuelle d'une trame hexadécimale (28 ou 36 caractères) pour décodage 
 
 <div align="center">
 
-#### 📥 [**Télécharger EPIRBdecoder.7z (v5.3.1)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.3.1/EPIRBdecoder.7z)
+#### 📥 [**Télécharger EPIRBdecoder.7z (v5.3.2)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.3.2/EPIRBdecoder.7z)
 
-*(version `epirb-v5.3.1` — voir [toutes les releases EPIRB Decoder](https://github.com/f1gbd/F1GBD/releases?q=epirb) pour les versions précédentes)*
+*(version `epirb-v5.3.2` — voir [toutes les releases EPIRB Decoder](https://github.com/f1gbd/F1GBD/releases?q=epirb) pour les versions précédentes)*
 
 [![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
 
@@ -192,12 +193,14 @@ Format : `latitude, longitude [azimut] [force du signal]` — la virgule décima
 
 ```
 1. Ouvrir l'onglet Carte, activer le mode plein écran (⛶)
-2. Chaque opérateur sur le terrain communique par radio :
+2. Si un GPS est connecté, activer le GPS NMEA (port COM)
+3. Chaque opérateur sur le terrain communique par radio :
    son indicatif, ses coordonnées GPS, et l'azimut du relèvement
-3. Le coordinateur saisit chaque relèvement via le collage rapide :
-   « 48,554, 2,631 045 fort »  → clic Ajouter
-4. Les vecteurs convergent visuellement vers la position de la balise
-5. Export CSV en fin d'exercice pour le rapport
+4. Le coordinateur saisit chaque relèvement :
+   - Via le bouton « 📍 Position GPS » si le GPS est actif (pré-remplit les coordonnées)
+   - Ou via le collage rapide : « 48,554, 2,631 045 fort » → clic Ajouter
+5. Les vecteurs convergent visuellement vers la position de la balise
+6. Export CSV en fin d'exercice pour le rapport
 ```
 
 ### 🔍 Analyse post-exercice
@@ -228,7 +231,8 @@ Format : `latitude, longitude [azimut] [force du signal]` — la virgule décima
 
 | Version | Apport principal |
 |---|---|
-| **v5.3.1** | **Version courante** — Zone d'affichage carte sauvegardée au redémarrage (📌 Sauver zone) |
+| **v5.3.2** | **Version courante** — Bouton « Position GPS » pour créer un relevé directement depuis le fix GPS |
+| v5.3.1 | Zone d'affichage carte sauvegardée au redémarrage (📌 Sauver zone) |
 | v5.3.0 | Coordonnées MGRS bidirectionnel, pré-positionnement visuel au clic droit, aide carte sur une ligne |
 | v5.2.x | Carte plein écran, collage rapide Google Maps, force du signal dans les relevés, panneau relevés optimisé |
 | v5.0 | SDR Direct RTL-SDR natif, démodulation FM IQ, détection burst hybride, carte OSM avec relèvements goniométriques vectorisés, thème clair/sombre, GPS NMEA |
@@ -249,17 +253,18 @@ Pour le détail de tous les changements, consultez le [changelog complet sur Git
 │  - 4 onglets d'entrée : Fichier / Audio Live / Hex / SDR     │
 │  - 2 onglets de sortie : Résultats / Carte OSM               │
 │  - Thème SAR Tactical Dark / Clair                           │
-└──────┬──────────┬─────────────┬───────────┬──────────────────┘
-       │          │             │           │
+└──────┬──────────┬───────────────┬─────────────┬──────────────┘
+       │          │               │             │
 ┌──────▼──────┐ ┌─▼───────────┐ ┌─▼─────────┐ ┌─▼──────────────┐
 │ SDR Direct  │ │ Audio Live  │ │ Fichier   │ │ Carte OSM      │
 │             │ │             │ │ WAV/M4A   │ │                │
 │ RTL-SDR IQ  │ │ PyAudio     │ │ FFmpeg    │ │ Tuiles OSM     │
 │ Démod FM    │ │ Capture     │ │ Conversion│ │ Relevés gonio  │
 │ Burst IQ    │ │ Continue    │ │ Décodage  │ │ Vecteurs 80 km │
-│ 406 MHz     │ │             │ │           │ │ MGRS WGS84    │
+│ 406 MHz     │ │             │ │           │ │ MGRS WGS84     │
 │ scipy/numpy │ │             │ │           │ │ Plein écran    │
 │ scipy/numpy │ │             │ │           │ │ GPS NMEA       │
+└──────┬──────┘ └──────┬──────┘ └─────┬─────┘ └────────────────┘
        │               │              │
        └───────────────┴──────────────┘
                        │
@@ -300,7 +305,7 @@ Toute contribution, retour d'exercice ou proposition d'amélioration est bienven
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 5.3.1 — Mai 2026**
+**Version 5.3.2 — Mai 2026**
 
 ---
 
