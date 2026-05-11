@@ -1,3 +1,0 @@
-Je veux que tu produise en DOCx un GUIDE de REDACTION DE PROMPTS pour IAbrain avec des conseils rédactionnels pour obtenir les réponses les plus pertinentes. 
-Ce guide doit aussi conseiller le choix du modèle LLM pour ollama (disponibles en mode local pur  (LLM local + RAG) ou en hybride (llm cloud + RAG)) le plus adapté en fonction du contexte de la conversation (documentation, technique, général, ...)
-Ajoute une procédure d'optimisation des prompts récurrents ainsi qu'une listes de MACRO d'exemple que l'on pourrait ajouter dans les boutons d'IAbrain qui utilisent des variables du métalangage
