@@ -6,15 +6,15 @@
 
 ### L'assistant IA local pour les opérateurs ADRASEC
 
-*Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — Cartographie interactive — Corrections manuelles — Macros et actions natives — Connectivité Ollama Cloud — Mémoire conversationnelle — Profil opérateur — Variables de session — Pipeline SATER complet — Plugins externes extensibles — Auto-exécution de macros par le LLM*
+*Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — SITREP PDF auto-rempli — Cartographie interactive — Corrections manuelles — Macros et actions natives — Connectivité Ollama Cloud — Mémoire conversationnelle — Profil opérateur — Variables de session — Pipeline SATER complet — Plugins externes extensibles — Auto-exécution de macros par le LLM*
 
-[![Version](https://img.shields.io/badge/version-iabrain--v1.41.1-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.41.1)
+[![Version](https://img.shields.io/badge/version-iabrain--v1.41.2-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.41.2)
 [![Téléchargements](https://img.shields.io/badge/téléchargements-200%2B-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![100% local](https://img.shields.io/badge/local%20%2F%20cloud-hybride-brightgreen.svg)]()
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.41.1/IAbrain.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.41.2/IAbrain.7z)
 
 </div>
 
@@ -63,6 +63,7 @@ Concrètement, c'est un outil qui répond à vos questions opérationnelles, ré
 | 📢 | **Corrections manuelles intégrées** *(v1.36+)* | Quand IAbrain produit une réponse imprécise ou incorrecte, **clic-droit → « 📢 Corriger cette réponse »** suffit. Votre correction est indexée dans la base perso et **automatiquement appliquée aux questions similaires futures, en priorité absolue**. Format Markdown versionable, partageable entre opérateurs via export/import ZIP. |
 | 🆕 | **Macros utilisateur** *(v1.37+)* | 8 boutons configurables au-dessus de la liste des fichiers pour automatiser vos tâches récurrentes. Deux types : **🤖 Macro LLM** (envoie un prompt à l'IA, avec méta-langage `{{lastfile}}`, `{{date}}`, `{{call}}`...) et **⚙️ Macro Action** (exécute une fonction native déterministe, sans LLM). |
 | ⚙️ | **5 actions natives livrées** *(v1.37.7+)* | `csv_to_markdown` (conversion CSV ↔ tableaux Markdown), `extract_callsigns` (extrait F1XYZ/TM/TK/TO/FW), `extract_frequencies` (Hz/kHz/MHz/GHz par bande), `anonymize` (téléphones/emails/adresses), `file_stats` (statistiques fichiers). 100% offline, instantané, déterministe, zéro hallucination. |
+| 📋 | **SITREP PDF auto-rempli** *(v1.41.2+)* | Nouveau plugin `IAbrain_actions_sitrep.py` qui remplit **automatiquement** le formulaire AcroForm `SITREP_ADRASEC.pdf` (33 champs texte + 9 listes déroulantes + 15 cases à cocher) à partir d'un scénario importé, d'un brouillon d'opérateur, ou de la variable de session `SITREP_TEXT`. Ollama (modèle local) extrait les champs structurés en JSON, validation stricte contre les valeurs autorisées du formulaire (avec tolérance casse/accents), fallback heuristique par mots-clés FR si Ollama est HS. Sortie nommée `SITREP_<COMMUNE>_<YYYYMMDD-HHMM>.pdf` dans le répertoire de travail. **Macro 2 « SITREP PDF » pré-câblée** dans les configurations vierges. Compatible TCQ → VARA FM/HF/SAT → COD préfecture. |
 | 📤 | **Import/Export de macros** *(v1.40.1+)* | Deux nouveaux boutons **📥 Importer une Macro** et **📤 Exporter la Macro** dans le dialogue d'édition. Format `.iabmacro` (JSON UTF-8 versionable) qui permet de partager des macros entre opérateurs ADRASEC. Idéal pour distribuer des macros standardisées dans une section, archiver des versions de travail, ou récupérer une macro depuis un autre poste. |
 | 🔖 | **Variables de session persistantes** *(v1.40.2+)* | Permet de **chaîner des macros** : une macro LLM produit un bloc structuré `###IABRAIN_VARS###` qu'IAbrain capture silencieusement, puis ces variables sont substituables dans tout prompt suivant via la syntaxe `{LAT}`, `{LON}`, etc. Persistance disque entre sessions. Indicateur cliquable « 🔖 Vars (n) » dans la barre du haut pour inspecter/éditer/effacer manuellement. Cas d'usage typique : analyse SATER en deux temps (calcul de position via LLM + génération de carte OSM via macro action). |
 | 🎯 | **Pipeline SATER complet** *(v1.40.3+)* | Action native `osm_balise_map` qui lit les variables de session **LAT**, **LON**, **RAYON_M** et génère un **vrai PNG OpenStreetMap** centré sur la balise ELT avec marqueur, cercle d'incertitude CEP 95 et cartouche complet (position DMS + décimal + horodatage). **Image affichée directement dans le chat IAbrain** + sauvegardée dans `IAbrain_sater_maps/` pour archivage opérationnel. Combinée à la macro SATER LOC, elle ferme la boucle d'analyse SATER en deux clics : du CSV de relèvements TCQ à la carte exploitable. |
@@ -179,6 +180,19 @@ D'autres actions disponibles via clic-droit sur un bouton de macro vide :
 - 📻 **Extraire les fréquences** classées par bande (HF/VHF/UHF/SHF)
 - 🔒 **Anonymiser** un rapport (téléphones, emails, adresses postales → balises `<TELEPHONE>`, etc.)
 - 📈 **Statistiques** sur les fichiers importés
+
+### 📋 SITREP PDF auto-rempli en un clic *(v1.41.2+)*
+
+```
+1. Importer un scénario d'exercice ou un brouillon d'opérateur (ex: prompt_HELIOS-NOIR.txt)
+2. Cliquer sur le bouton 📋 SITREP PDF (pré-installé en macro 2)
+3. Le formulaire AcroForm SITREP_ADRASEC.pdf est rempli automatiquement (en-tête,
+   localisation, autorité, cases à cocher, demande de moyens, PCC) — sortie nommée
+   SITREP_<COMMUNE>_<YYYYMMDD-HHMM>.pdf dans le répertoire de travail.
+4. Vérifier dans Acrobat, signer la zone AUTORITE DEMANDEUSE, transmettre via TCQ.
+```
+
+Ollama extrait les champs en JSON validé champ par champ contre les listes autorisées du formulaire (priorités, gravités, types de besoins...). Tolérance casse/accents incluse. Si Ollama est arrêté, l'action coche tout de même les bonnes cases par mots-clés FR et pré-remplit l'en-tête à partir du profil opérateur — le SITREP reste exploitable.
 
 ### 🎯 Pipeline SATER : localisation de balise ELT en deux clics *(v1.40.2 + v1.40.3)*
 
@@ -375,13 +389,21 @@ Pas de LLM, pas de prompt, pas de tokens. Une fonction Python interne d'IAbrain 
 | 🔒 **anonymize** | Téléphones FR, emails, adresses postales (rue/avenue/...), code postal+ville → `<TELEPHONE>`, `<EMAIL>`, etc. |
 | 📈 **file_stats** | Taille, lignes, mots, caractères. Total multi-fichiers. |
 
-### 🎁 Macro pré-installée : `⚙ CSV To MD` *(v1.37.8+)*
+### 🎁 Macros pré-installées : `⚙ CSV To MD` *(v1.37.8+)* et `📋 SITREP PDF` *(v1.41.2+)*
 
-Au premier lancement, le bouton **Macro 1** est déjà pré-programmé comme **`⚙ CSV To MD`** (action `csv_to_markdown`). Vous pouvez l'utiliser immédiatement :
+Au premier lancement, deux boutons sont déjà pré-programmés :
+
+**Macro 1 — `⚙ CSV To MD`** (action `csv_to_markdown`) :
 
 1. **Importer un fichier CSV** (bilan opérationnel, log d'exercice, export Excel...)
 2. **Cliquer sur `⚙ CSV To MD`** dans la barre des macros
 3. **Conversion instantanée** en tableaux Markdown structurés, rendus visuellement dans le chat
+
+**Macro 2 — `📋 SITREP PDF`** (action `fill_sitrep_adrasec`, *v1.41.2+*) :
+
+1. **Importer un scénario** (`prompt_HELIOS-NOIR.txt`, brouillon d'opérateur, RETEX...) ou poser `SITREP_TEXT` via `!set`
+2. **Cliquer sur `📋 SITREP PDF`** dans la barre des macros
+3. **Le formulaire AcroForm est rempli automatiquement** : Ollama extrait les champs en JSON validé, le PDF est écrit dans le CWD sous le nom `SITREP_<COMMUNE>_<YYYYMMDD-HHMM>.pdf` et un récapitulatif Markdown est affiché dans le chat. Plus qu'à signer et transmettre via TCQ.
 
 Le préfixe **⚙** différencie visuellement les macros Action des macros LLM dans la barre.
 
@@ -596,6 +618,95 @@ La macro est de type **Action**, action `osm_balise_map`, sans dépendance au LL
 > ⚠ **Validation des entrées** — si `LAT`/`LON` sont absentes, non numériques ou hors plage, l'action retourne un message Markdown explicite plutôt que de planter. Idem si le module `osm_balise_png` ou les paquets `staticmap`/`Pillow` sont absents.
 
 > 📋 **Conformité OSM Tile Usage Policy** — IAbrain identifie ses requêtes avec un User-Agent dédié `IAbrain/1.40 (ADRASEC SATER tool; F1GBD)` conforme à la [politique d'usage des tuiles OSM](https://operations.osmfoundation.org/policies/tiles/). Pour un usage opérationnel ADRASEC (quelques cartes par exercice), l'usage est conforme. Pour un usage très intensif, basculer vers un serveur de tuiles dédié.
+
+---
+
+## 📋 Action native `SITREP PDF` *(v1.41.2+)*
+
+Nouveau plugin `IAbrain_actions_sitrep.py` livré dans `plugins/` qui remplit **automatiquement** le formulaire AcroForm `SITREP_ADRASEC.pdf` (33 champs texte + 9 listes déroulantes + 15 cases à cocher, soit 85 champs au total) à partir d'un scénario d'exercice, d'un brouillon d'opérateur, ou d'un prompt direct.
+
+Conçu pour boucler la chaîne **rédaction → formulaire officiel → transmission TCQ** en un seul clic, sans recopie manuelle des champs depuis un message brouillon vers un SITREP PDF saisissable.
+
+### Principe de fonctionnement
+
+L'action `fill_sitrep_adrasec` :
+
+1. **Localise le PDF template** `SITREP_ADRASEC.pdf` (variable de session `SITREP_TEMPLATE`, ou CWD, ou à côté de l'exécutable, ou parent de `plugins/`).
+2. **Récupère le texte source** : variable de session `SITREP_TEXT` en priorité, sinon dernier fichier importé.
+3. **Appelle Ollama local** (modèle `model_simple` puis `model` de la config) avec un prompt d'extraction structurée qui demande un **JSON strict** respectant le schéma SITREP.
+4. **Valide chaque champ** contre les listes autorisées du PDF (priorités `ROUTINE/PRIORITAIRE/URGENT/FLASH`, gravités `FAIBLE/MODEREE/ELEVEE/CRITIQUE`, modes TCQ `VARA HF/FM/SAT/PACKET/ARDOP/LXMF`, types de besoin `EAU POTABLE/VIVRES/CARBURANT/...`, etc.). Tolérance casse + accents : `"Élevée"` → `ELEVEE`, `"vara fm"` → `VARA FM`.
+5. **Écrit le PDF rempli** dans le CWD sous le nom `SITREP_<COMMUNE>_<YYYYMMDD-HHMM>.pdf` (en préservant l'AcroForm d'origine et en activant `/NeedAppearances` pour la régénération des glyphes).
+6. **Renvoie un récapitulatif Markdown** dans le chat IAbrain avec le chemin du PDF, le tableau des champs renseignés, la liste des cases cochées et les éventuels warnings.
+
+### Variables de session reconnues (lecture)
+
+| Variable           | Effet                                                        |
+|--------------------|--------------------------------------------------------------|
+| `CALL` / `INDICATIF` | Indicatif opérateur (sinon défaut depuis le profil)        |
+| `ADRASEC`          | ADRASEC concernée (ex: `"ADRASEC 77"`)                       |
+| `SITREP_TEXT`      | Texte source prioritaire (override fichier importé)          |
+| `SITREP_TEMPLATE`  | Chemin custom vers le PDF template                           |
+| `SITREP_REEL`      | `1` / `true` / `oui` → type `REEL - REEL - REEL` au lieu d'`EXERCICE`     |
+
+### Variables de session écrites (chaînage de macros)
+
+| Variable           | Contenu                                                       |
+|--------------------|---------------------------------------------------------------|
+| `SITREP_LAST_PDF`  | Chemin absolu du dernier PDF généré                           |
+| `SITREP_LAST_DTG`  | DTG du dernier SITREP                                         |
+
+### Sortie produite
+
+Un PDF AcroForm conforme à `SITREP_ADRASEC.pdf v1.1 (F1GBD / mai 2026)`, ouvrable dans Acrobat Reader / Foxit / Edge / Firefox. Le fichier est nommé `SITREP_<COMMUNE>_<YYYYMMDD-HHMM>.pdf` (commune extraite et normalisée en MAJUSCULES, caractères non-alphanumériques remplacés par `_`).
+
+Si la commune n'est pas extraite, le préfixe est `SITREP_SITE_...`.
+
+### Robustesse — quatre niveaux de fallback
+
+1. **LLM disponible + JSON propre** → tous les champs validés sont écrits.
+2. **LLM disponible + JSON entouré de texte** → le bloc `{...}` est extrait automatiquement, warning émis dans le chat, traitement normal.
+3. **LLM indisponible** → bascule heuristique : 12 mots-clés FR (`coupure électrique`, `gsm`, `ehpad`, `pénurie carburant`, `routes bloquées`, ...) cochent automatiquement les bonnes cases ; la gravité est inférée du nombre de cases (≥7 → CRITIQUE, ≥4 → ELEVEE, ≥1 → MODEREE).
+4. **Aucun texte source disponible** → l'en-tête seul est pré-rempli (DTG actuelle, indicatif depuis le profil, ADRASEC, type EXERCICE par défaut, signature opérateur `INDICATIF - HH:MM`), le reste reste vierge pour saisie manuelle.
+
+### Macro pré-installée
+
+Au premier lancement d'IAbrain v1.41.2, le bouton **Macro 2** est déjà pré-câblé sur l'action `fill_sitrep_adrasec` avec le label **`📋 SITREP PDF`**.
+
+Sur une configuration existante, il suffit de :
+
+```
+1. Clic-droit sur un bouton macro vide → ouvre l'éditeur de macro
+2. Sélectionner le type Action
+3. Choisir « SITREP ADRASEC → PDF rempli » dans la liste déroulante
+4. Cliquer sur « Enregistrer »
+```
+
+### Cas d'usage typique — exercice HÉLIOS-NOIR
+
+```
+1. !set CALL = F1GBD
+2. !set ADRASEC = ADRASEC 77
+3. Importer prompt_HELIOS-NOIR.txt (scénario blackout/canicule)
+4. Cliquer sur 📋 SITREP PDF
+   → Ollama extrait : commune MELUN, CP 77000, priorité FLASH, gravité
+     CRITIQUE, tendance EN DEGRADATION, 4 demandes de moyens P1/P2
+     (eau potable, groupes électrogènes, médical, évacuation EHPAD),
+     10 cases cochées
+   → SITREP_MELUN_20300511-1400.pdf généré dans le CWD
+5. Ouvrir le PDF, signer AUTORITE DEMANDEUSE, transmettre via TCQ → VARA FM
+```
+
+### Garde-fous
+
+> 🔒 **PDF source jamais modifié** — l'action lit le template, le clone via `pypdf`, écrit le résultat dans un nouveau fichier horodaté.
+
+> ✅ **Validation stricte** — toute valeur de dropdown hors-liste est rejetée avec warning explicite ; le champ garde sa valeur par défaut. Aucune chance de produire un PDF avec une priorité `URGENTISSIMO` ou une gravité `WTF` inventée par le LLM.
+
+> 🛡 **Champs inventés ignorés** — si le LLM rajoute des clés JSON hors-schéma (`champ_invente`, `note_perso`...), elles sont silencieusement filtrées plutôt que d'écraser le PDF.
+
+> 📜 **Tableau de demandes capé à 7 lignes** — le formulaire en accepte 7 ; au-delà, warning émis et lignes surnuméraires ignorées (en pratique on met les P1 en premier, les autres tombent rarement).
+
+> 🇫🇷 **Heuristique 100% offline** — même sans Ollama, l'action reste utilisable : les cases sont cochées par mots-clés FR, l'en-tête est rempli depuis le profil et la DTG courante. Compatible mode dégradé en exercice avec ordinateur faible.
 
 ---
 
@@ -1108,9 +1219,9 @@ ollama pull bge-m3              # Reranking RAG (recommandé, 1.2 Go)
 
 <div align="center">
 
-#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.41.1/IAbrain.7z)
+#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.41.2/IAbrain.7z)
 
-*(version `iabrain-v1.41.1` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
+*(version `iabrain-v1.41.2` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
 
 [![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
 
@@ -1136,7 +1247,8 @@ Une fois IAbrain installé et lancé :
 1. **Menu Connaissances → 🔄 Mettre à jour la base depuis GitHub** *(récupère les 182 fichiers, 2092 chunks de la base ADRASEC officielle)*
 2. **Options → Paramètres → cocher « Activer le RAG »** *(case en haut de la section « Paramètres RAG »)*
 3. Posez votre première question : **« Parle-moi du logiciel TCQ »**
-4. Pour tester les actions natives : **importer un CSV → cliquer sur `⚙ CSV To MD`** (macro pré-installée)
+4. Pour tester les actions natives : **importer un CSV → cliquer sur `⚙ CSV To MD`** (macro 1 pré-installée)
+5. Pour tester le SITREP automatique *(v1.41.2+)* : **importer un scénario d'exercice → cliquer sur `📋 SITREP PDF`** (macro 2 pré-installée) — le PDF AcroForm `SITREP_ADRASEC.pdf` doit être présent dans le dossier d'IAbrain
 
 > ⏱ Comptez environ **30 minutes** pour la première installation, ensuite IAbrain est utilisable au quotidien sans configuration supplémentaire.
 
@@ -1291,16 +1403,17 @@ Ce dépôt contient également les manuels suivants :
 
 ## 🆕 Évolution récente — v1.33 → v1.41
 
-Les versions récentes ont apporté plusieurs améliorations majeures, du RAG hybride aux corrections manuelles, en passant par la cartographie, les macros utilisateur, la connectivité cloud, la mémoire conversationnelle, le profil opérateur et désormais l'auto-exécution de macros par le LLM.
+Les versions récentes ont apporté plusieurs améliorations majeures, du RAG hybride aux corrections manuelles, en passant par la cartographie, les macros utilisateur, la connectivité cloud, la mémoire conversationnelle, le profil opérateur, l'auto-exécution de macros par le LLM, et désormais le remplissage automatique du SITREP PDF officiel ADRASEC.
 
-### 🚀 v1.41.x — Auto-exécution de macros depuis le LLM
+### 🚀 v1.41.x — Auto-exécution de macros depuis le LLM et SITREP PDF auto-rempli
 
-La série v1.41 transforme IAbrain en **assistant orchestrateur** : l'opérateur formule sa demande en langage naturel, le LLM produit les variables et un déclencheur d'exécution, IAbrain enchaîne automatiquement les étapes pour livrer le résultat opérationnel attendu.
+La série v1.41 transforme IAbrain en **assistant orchestrateur** : l'opérateur formule sa demande en langage naturel, le LLM produit les variables et un déclencheur d'exécution, IAbrain enchaîne automatiquement les étapes pour livrer le résultat opérationnel attendu. La v1.41.2 ajoute le **remplissage automatique du SITREP PDF officiel ADRASEC** en bouclant la chaîne rédaction → formulaire AcroForm → transmission TCQ en un seul clic.
 
 | Version | Apport principal |
 |---|---|
 | **1.41.0** | Nouveau module `IAbrain_macro_runner.py` (~330 lignes, sans dépendance externe, 24 tests unitaires) qui détecte le bloc `###IABRAIN_RUN_MACRO###` produit par le LLM en fin de réponse et déclenche automatiquement l'exécution de la macro Action correspondante. Compilé dans le PYZ via `hiddenimports`, pas distribué séparément. **Trois garde-fous anti-prompt-injection empilés** : préférence utilisateur opt-in (`auto_run_macros` dans Paramètres, désactivée par défaut), mot-clé d'intention requis dans le prompt utilisateur (*macro/exécute/lance/utilise/affiche/montre/déclenche/run*), une seule auto-exec par réponse. **Tolérance technique** aux marqueurs hallucinés par les petits LLM (sans underscores, avec tirets, marqueur de fin oublié). Recherche de macro par label tolérante (insensible aux emojis, accents, casse, espaces multiples). Architecture modulaire permettant un rollback trivial (suppression du `.py` du runner désactive complètement la fonctionnalité en mode dégradé silencieux). Plugin de démo `IAbrain_actions_demo_poi.py` + macro LLM clés-en-main `IAbrain_macro_SATER_POI_v1410.iabmacro` livrée dans `plugins/`. |
 | **1.41.1** | **Détection automatique d'intention dans le prompt direct** : l'opérateur n'a plus besoin de cliquer sur une macro LLM dédiée, il peut taper directement *« donne-moi la position de la Tour Eiffel et affiche-la avec SATER MAP PN »* et appuyer sur Entrée. IAbrain détecte la mention d'une macro Action existante + un mot-clé d'intention, et **injecte un sur-prompt système ciblé** avec des hints contextuels adaptés au type de macro (variables géographiques pour SATER MAP, clés/message pour SOE, etc.). Le LLM produit alors directement les blocs `IABRAIN_VARS` et `IABRAIN_RUN_MACRO` adéquats. Un message visible confirme l'injection. La détection d'intention parcourt **tous les messages utilisateur** de la conversation (pas seulement le dernier), pour gérer correctement les conversations multi-tours où l'intention initiale n'est pas dans la dernière question. Filtrage automatique des macros de type LLM (seules les macros Action sont auto-exécutables). Test grandeur nature validé sur Tour Eiffel avec qwen2.5:7b en local. |
+| **1.41.2** | **Remplissage automatique du SITREP PDF ADRASEC** : nouveau plugin `IAbrain_actions_sitrep.py` (~1100 lignes) exposant l'action `fill_sitrep_adrasec` qui remplit l'AcroForm `SITREP_ADRASEC.pdf` (33 champs texte + 9 listes déroulantes + 15 cases à cocher) à partir d'un scénario importé ou de la variable `SITREP_TEXT`. Ollama local extrait les champs en JSON strict avec format imposé (`"format": "json"` côté Ollama), **validation champ par champ** contre les valeurs autorisées du formulaire (tolérance casse + accents pour les dropdowns), **quatre niveaux de fallback** (LLM OK, JSON entouré de texte, LLM HS avec heuristique mots-clés FR, aucune source). Le PDF source n'est jamais modifié (lecture + clone + écriture séparée). Sortie nommée `SITREP_<COMMUNE>_<YYYYMMDD-HHMM>.pdf` dans le CWD, écriture des variables `SITREP_LAST_PDF` et `SITREP_LAST_DTG` pour chaînage avec d'autres macros. **Macro 2 « 📋 SITREP PDF » pré-câblée** dans `DEFAULT_CONFIG` (configurations vierges uniquement, les configs existantes ne sont jamais écrasées). Compatible workflow TCQ → VARA FM/HF/SAT → COD préfecture. Testé sur le scénario HÉLIOS-NOIR (blackout/canicule extrême) avec 73 / 85 champs renseignés automatiquement et 10 cases cochées. |
 
 ### 👤 v1.40.x — Profil opérateur, partage de macros, variables de session, pipeline SATER, plugins externes
 
@@ -1426,7 +1539,7 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.41.1 — 2026-05-07**
+**Version 1.41.2 — 2026-05-11**
 
 ---
 
