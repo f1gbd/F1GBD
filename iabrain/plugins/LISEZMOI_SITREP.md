@@ -39,9 +39,7 @@ scénario, brouillon ou prompt direct.
 ### Mode 2 — Via variable de session
 
 ```
-/set SITREP_TEXT = Coupure totale à Melun depuis 14h, 3 décès EHPAD,
-distribution d'eau en cours stade municipal. Demande 20 m3 d'eau
-P1 immédiat et 2 groupes électrogènes.
+/set SITREP_TEXT = Coupure totale à Melun depuis 14h, 3 décès EHPAD, distribution d'eau en cours stade municipal. Demande 20 m3 d'eau. P1 immédiat et 2 groupes électrogènes.
 ```
 
 Puis cliquer sur la macro SITREP PDF. Le contenu de `SITREP_TEXT` est
