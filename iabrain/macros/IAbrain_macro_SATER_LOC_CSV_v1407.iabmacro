@@ -1,0 +1,12 @@
+{
+  "iabrain_macro_version": 1,
+  "exported_at": "2026-05-07T09:02:57",
+  "exported_by": "IAbrain 1.40.7",
+  "macro": {
+    "label": "SATER LOC CSV",
+    "prompt": "",
+    "rag_disabled": false,
+    "type": "action",
+    "action": "sater_loc_from_csv"
+  }
+}

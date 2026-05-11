@@ -1,0 +1,20 @@
+/set CALL=F1GBD
+/set ADRASEC=ADRASEC 77
+----------------------------------------------------------- PROMPT vvvvvvvvvv --------
+Tu es opérateur radio ADRASEC en exercice HELIOS-NOIR-2030. Produis SEULEMENT et dans cet ordre exact, RIEN D'AUTRE :
+
+## 📖 Histoire — HELIOS-NOIR-2030
+[60 mots maximum sur canicule août 2030, AMOC, arrêt centrales nucléaires, blackout Seine-et-Marne, mobilisation ADRASEC 77]
+
+## 📻 SITREP radio
+[3 lignes phonie format ADRASEC]
+
+###IABRAIN_VARS###
+SITREP_TEXT = Commune sinistrée : BEAUX-SUR-MARNE, code postal 77105. ADRASEC 77. DTG SITREP : 11/08/2030 14:25. PCS activé OUI depuis 05/08/2030 06:30. DE : F1GBD/PCO BEAUX-SUR-MARNE. À : COD 77 PREFECTURE. Mode TCQ VARA FM. Fréquence 145.275 MHz. Relais F5ZYI VHF 145.4375 UHF 430.4375 CTCSS 77 Hz. Autorité MAIRE DUBOIS Marie, Maire de BEAUX-SUR-MARNE. Population impactée 55000 dont 8500 vulnérables. Coupure électrique totale depuis J+6. GSM Internet HS. Coupure eau potable. Pénurie carburant. Transports publics arrêtés. Climatisation HS EHPAD Les Lilas 4 décès. Évacuations sanitaires en cours. Routes bloquées 2 axes. 5 PDE actifs. PCC ouvert en mairie. Gravité CRITIQUE tendance EN DEGRADATION. Demandes 1. EVACUATION 15 PERS IMMEDIAT P1 EHPAD Les Lilas. 2. EAU POTABLE 30 M3 <3H P1 Place de la Mairie. 3. GROUPE ELECTROGENE 3 UNITE <6H P1 EHPAD Les Lilas. 4. MEDICAL 2 PALETTE <24H P2 Salle des fêtes BEAUX-SUR-MARNE. 5. VIVRES 500 KG J+1 P3 Place de la Mairie. PCC Mairie de BEAUX-SUR-MARNE salle du conseil. GPS 48.9606N 002.8786E. Accès RESTREINT axes endommagés. Contact Adj. MARTIN 09 12 34 56 78.
+###END_IABRAIN_VARS###
+
+###IABRAIN_RUN_MACRO###
+SITREP PDF
+###END_IABRAIN_RUN_MACRO###
+
+RÈGLE ABSOLUE : recopie les 3 blocs ###...### EXACTEMENT comme ci-dessus, sans modifier UN SEUL caractère du SITREP_TEXT.
