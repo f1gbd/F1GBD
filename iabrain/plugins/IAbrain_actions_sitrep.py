@@ -61,7 +61,7 @@ from pathlib import Path
 from typing import Any, Iterable, List, Optional, Sequence, Tuple
 
 
-__version__ = "1.1.6"
+__version__ = "1.1.7"
 
 # ---------------------------------------------------------------------------
 # Identifiant et catalogue des actions
@@ -170,8 +170,10 @@ CHECKBOX_KEYWORDS: dict[str, Tuple[str, ...]] = {
         "recharge electrique", "recharge électrique",
     ),
     "chk_transp": (
-        "transports publics", "trains", "rer", "transilien", "métro", "metro",
+        "transports publics", "transport public", "transports ", "transport ",
+        "trains", "rer", "transilien", "métro", "metro",
         "bus arrêtés", "bus arretes", "circulation ferroviaire",
+        "sncf",
     ),
     "chk_clim": (
         "climatisation", "climatiseurs", "clim hs", "climatiseur hs",
@@ -203,10 +205,59 @@ CHECKBOX_KEYWORDS: dict[str, Tuple[str, ...]] = {
     ),
 }
 
+# Marqueurs de négation contextuelle. Si l'un d'eux apparaît dans une
+# fenêtre de N caractères AVANT un mot-clé positif, le mot-clé est IGNORÉ.
+# v1.1.7 — cas observé F1GBD VILLANGIS 11/05 17:33 : « Pas de coupure
+# électrique » faisait cocher chk_elec ; « Pas de victimes » faisait
+# cocher chk_victimes ; etc. L'heuristique sans contexte est trop naïve.
+_NEGATION_MARKERS: Tuple[str, ...] = (
+    "pas de", "pas d'", "sans ", "aucun ", "aucune ", "aucuns ", "aucunes ",
+    "non ", "ni ", "absence de", "absence d'",
+    # Adverbes/expressions positifs qui INFIRMENT le mot-clé négatif
+    "fonctionn",   # fonctionnel, fonctionnelle, fonctionnement
+    "normalement", "normalité", "normal,", "normale,",
+    "intact", "intacte", "indemne",
+    "stable", "préservé", "préservée", "preserve",
+    "rétabli", "retabli", "rétablie", "retablie",
+    "service normal",
+)
 
-# ---------------------------------------------------------------------------
-# Exécution de l'action
-# ---------------------------------------------------------------------------
+# Taille de la fenêtre de contexte (en caractères) regardée avant un
+# mot-clé pour détecter une négation. 40 caractères couvrent les tournures
+# usuelles : "Pas de coupure électrique générale" (33 car), "Eau potable
+# distribuée normalement" — le mot "normalement" arrive APRÈS donc on
+# regarde aussi 20 car APRÈS pour ces cas.
+_NEGATION_WINDOW_BEFORE = 40
+_NEGATION_WINDOW_AFTER = 30
+
+
+def _keyword_is_negated(text_low: str, kw: str, kw_pos: int) -> bool:
+    """Retourne True si le mot-clé `kw` à la position `kw_pos` est NIÉ par
+    son contexte immédiat. Détecte :
+    - négation classique avant : "Pas de", "Sans", "Aucun"
+    - adverbe positif après : "distribué normalement", "fonctionnels"
+    """
+    # Fenêtre AVANT le mot-clé
+    start = max(0, kw_pos - _NEGATION_WINDOW_BEFORE)
+    before = text_low[start:kw_pos]
+    for neg in _NEGATION_MARKERS:
+        if neg in before:
+            return True
+
+    # Fenêtre APRÈS le mot-clé (pour "X fonctionnel", "X distribué normalement")
+    end_kw = kw_pos + len(kw)
+    after = text_low[end_kw:end_kw + _NEGATION_WINDOW_AFTER]
+    # On cherche les adverbes positifs (sans le "pas de" classique qui
+    # serait probablement pour la phrase suivante)
+    for pos_adv in ("normalement", "fonctionn", "intact", "indemne",
+                    "rétabli", "retabli", "service normal", "stable"):
+        if pos_adv in after:
+            return True
+
+    return False
+
+
+
 
 def execute_action(action_id: str,
                    imported_files: Sequence[Tuple[str, str]] = (),
@@ -342,6 +393,49 @@ def execute_action(action_id: str,
             f"{', '.join(added_by_heuristic)}"
         )
     checked = [c for c in checked if c in CHECKBOX_FIELDS]
+
+    # v1.1.7 : FILTRE NÉGATION sur la liste finale. Si le source_text dit
+    # explicitement "Pas de coupure électrique", on retire chk_elec même
+    # si le LLM ou l'heuristique l'avaient cochée par erreur. Cas observé
+    # VILLANGIS 11/05 17:33 : chk_elec/chk_eau/chk_transp/chk_victimes
+    # cochées à tort sur un SITREP qui ne mentionne ces sujets qu'en
+    # négatif (« Pas de coupure électrique », « Eau potable distribuée
+    # normalement », « Transports SNCF fonctionnels », « Pas de victimes »).
+    if source_text and checked:
+        text_low = source_text.lower()
+        rejected_by_negation = []
+        kept = []
+        for chk in checked:
+            keywords = CHECKBOX_KEYWORDS.get(chk, ())
+            # Pour chaque mot-clé associé à cette case, on regarde si AU
+            # MOINS UNE occurrence n'est PAS niée. Si toutes sont niées,
+            # on retire la case.
+            any_positive = False
+            any_found = False
+            for kw in keywords:
+                search_from = 0
+                while True:
+                    p = text_low.find(kw, search_from)
+                    if p == -1:
+                        break
+                    any_found = True
+                    if not _keyword_is_negated(text_low, kw, p):
+                        any_positive = True
+                        break
+                    search_from = p + len(kw)
+                if any_positive:
+                    break
+            if any_found and not any_positive:
+                # Aucune occurrence positive → la case est niée → on rejette
+                rejected_by_negation.append(chk)
+            else:
+                kept.append(chk)
+        if rejected_by_negation:
+            warnings.append(
+                f"Cases rejetées (négation détectée dans source) : "
+                f"{', '.join(rejected_by_negation)}"
+            )
+        checked = kept
 
     # --- Étape 6 : remplir le PDF -------------------------------------------
     try:
@@ -1524,14 +1618,38 @@ def _extract_heuristic(source_text: str, session_vars: dict) -> dict:
 
 
 def _infer_checkboxes_from_text(text: str) -> List[str]:
-    """Retourne la liste des cases à cocher déduites du texte par mots-clés."""
+    """Retourne la liste des cases à cocher déduites du texte par mots-clés.
+
+    v1.1.7 : applique un filtre de NÉGATION CONTEXTUELLE. Un mot-clé qui
+    apparaît dans un contexte négatif (« Pas de coupure électrique »,
+    « Eau potable distribuée normalement », « Transports SNCF fonctionnels »,
+    « Pas de victimes signalées ») est IGNORÉ. Indispensable pour les
+    scénarios où l'opérateur DÉCRIT explicitement ce qui n'est PAS impacté
+    (cas GABRIEL-30 VILLANGIS observé chez F1GBD 11/05 17:33).
+    """
     text_low = text.lower()
     hits = []
     for chk_name, keywords in CHECKBOX_KEYWORDS.items():
         for kw in keywords:
-            if kw in text_low:
+            pos = text_low.find(kw)
+            if pos == -1:
+                continue
+            # Vérifie chaque occurrence (le mot-clé peut apparaître plusieurs
+            # fois — il faut au moins UNE occurrence non-niée pour cocher)
+            occurrences_negated = []
+            search_from = 0
+            while True:
+                p = text_low.find(kw, search_from)
+                if p == -1:
+                    break
+                occurrences_negated.append(_keyword_is_negated(text_low, kw, p))
+                search_from = p + len(kw)
+            # Si toutes les occurrences sont niées → on ne coche pas
+            if occurrences_negated and not all(occurrences_negated):
                 hits.append(chk_name)
                 break
+            # Si toutes niées, on continue à essayer les autres mots-clés
+            # de la même case (peut-être un autre n'est pas nié)
     return hits
 
 
@@ -1679,15 +1797,16 @@ def _validate_and_clamp(data: dict, warnings: List[str]) -> dict:
             if cleaned_nom and cleaned_nom != v:
                 cleaned["nom_autorite"] = cleaned_nom
 
-    # 4. sig_operateur : si on voit "F1GBD | ADRASEC : ADRASEC 77 - HH:MM",
+    # 4. sig_operateur : si on voit "F1GBD | ADRASEC : ADRASEC 77 - HH:MM"
+    #    ou "F1GBD | ADRASEC 77 - HH:MM" (v1.1.7 observé chez VILLANGIS),
     #    nettoyer en "F1GBD - HH:MM". Le LLM (rarement) injecte la chaîne
     #    complète si on lui a donné un placeholder pollué.
     if "sig_operateur" in cleaned:
         v = cleaned["sig_operateur"]
-        # Pattern : "<indicatif> [| ADRASEC : ADRASEC XX]? - HH:MM"
+        # Pattern : "<indicatif> [| ADRASEC [: ADRASEC]? XX]? - HH:MM"
         m = re.match(
             r"^\s*([A-Z]{1,2}\d[A-Z]{2,4})"
-            r"(?:\s*\|\s*ADRASEC\s*:\s*ADRASEC\s+\d+)?"
+            r"(?:\s*\|\s*ADRASEC\s*:?\s*(?:ADRASEC\s+)?\d+)?"
             r"\s*[-–]\s*(\d{1,2}[:h]\d{2})\s*$",
             v, re.IGNORECASE,
         )
