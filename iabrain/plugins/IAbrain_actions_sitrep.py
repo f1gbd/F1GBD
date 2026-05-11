@@ -61,7 +61,7 @@ from pathlib import Path
 from typing import Any, Iterable, List, Optional, Sequence, Tuple
 
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 # ---------------------------------------------------------------------------
 # Identifiant et catalogue des actions
@@ -315,9 +315,23 @@ def execute_action(action_id: str,
     except Exception as e:
         warnings.append(f"NeedAppearances non posé : {e}")
 
-    # Écrire les valeurs des champs texte + dropdown
-    str_values = {k: str(v) for k, v in data.items()
-                  if v is not None and v != "" and not k.startswith("_")}
+    # Écrire les valeurs des champs texte + dropdown.
+    # v1.1.0 : pour les champs multi-lignes (description), on convertit les
+    # sauts de ligne LF/CRLF en CR (PDF spec 1.7 §12.7.4.3). Certains lecteurs
+    # PDF (Foxit notamment) affichent les LF comme des espaces, alors que CR
+    # est le séparateur canonique pour les champs texte multi-lignes.
+    str_values = {}
+    for k, v in data.items():
+        if v is None or v == "" or k.startswith("_"):
+            continue
+        s = str(v)
+        # Champs notoirement multi-lignes : description, et tout champ qui
+        # contient déjà un saut de ligne dans la valeur extraite.
+        if "\n" in s or "\r" in s:
+            # Normalise CRLF puis LF vers CR (séparateur PDF canonique)
+            s = s.replace("\r\n", "\r").replace("\n", "\r")
+        str_values[k] = s
+
     if str_values:
         try:
             for page in writer.pages:
@@ -474,6 +488,11 @@ def _extract_via_llm(source_text: str, session_vars: dict,
                      warnings: List[str]) -> dict:
     """Interroge Ollama local pour extraire un JSON SITREP structuré.
 
+    v1.1.0 : utilise les structured outputs Ollama 0.5+ (JSON Schema strict)
+    pour forcer le modèle à produire TOUS les champs attendus, et non pas
+    juste un champ ``description`` fourre-tout. Fallback automatique sur
+    ``"format": "json"`` si Ollama est trop ancien ou si la requête échoue.
+
     Lève _LLMUnavailable si pas de serveur ou pas de réponse exploitable.
     """
     try:
@@ -505,37 +524,28 @@ def _extract_via_llm(source_text: str, session_vars: dict,
         )
         prompt = prompt[:12000] + "\n... [troncature]"
 
-    try:
-        resp = requests.post(
-            f"{base_url}/api/generate",
-            json={
-                "model": model,
-                "prompt": prompt,
-                "stream": False,
-                "format": "json",  # Ollama force la sortie JSON
-                "options": {
-                    "temperature": 0.1,  # déterministe pour l'extraction
-                    "num_ctx": 8192,
-                },
-            },
-            timeout=120.0,
-        )
-    except requests.RequestException as e:
-        raise _LLMUnavailable(f"Erreur réseau Ollama : {e}") from e
-
-    if resp.status_code != 200:
-        raise _LLMUnavailable(
-            f"Ollama HTTP {resp.status_code} : {resp.text[:200]}"
-        )
-
-    try:
-        body = resp.json()
-        raw_text = body.get("response", "").strip()
-    except Exception as e:
-        raise _LLMUnavailable(f"Réponse Ollama illisible : {e}") from e
+    # v1.1.0 : tentative #1 avec JSON Schema structured outputs (Ollama 0.5+).
+    # Le schéma force le modèle à produire TOUTES les clés du SITREP, ce qui
+    # évite le comportement « tout dans description » observé en v1.0.0 sur
+    # les petits modèles (qwen2.5:7b, llama3.2:3b).
+    schema_format = _build_sitrep_json_schema()
+    raw_text = _call_ollama(
+        base_url, model, prompt, schema_format, warnings,
+        attempt_label="structured outputs"
+    )
 
     if not raw_text:
-        raise _LLMUnavailable("Ollama a renvoyé une réponse vide")
+        # Tentative #2 : fallback sur "format": "json" classique
+        warnings.append(
+            "Structured outputs indisponibles — fallback sur format=json"
+        )
+        raw_text = _call_ollama(
+            base_url, model, prompt, "json", warnings,
+            attempt_label="format json simple"
+        )
+
+    if not raw_text:
+        raise _LLMUnavailable("Ollama a renvoyé une réponse vide (2 tentatives)")
 
     # Parser le JSON (avec garde-fou : extraire un bloc JSON si le modèle a
     # ajouté des commentaires)
@@ -545,13 +555,308 @@ def _extract_via_llm(source_text: str, session_vars: dict,
             f"JSON renvoyé non-dictionnaire : {type(data).__name__}"
         )
 
+    # v1.1.0 : filet de sécurité — si le LLM a quand même mis tout dans
+    # ``description``, on essaie d'extraire les champs principaux par regex.
+    data = _rescue_from_stuffed_description(data, warnings)
+
     # Convertir le tableau de "demandes" en lignes type_X/qte_X/unite_X/...
     data = _unpack_demandes(data, warnings)
     return data
 
 
+def _call_ollama(base_url: str, model: str, prompt: str,
+                 fmt, warnings: List[str], attempt_label: str) -> str:
+    """Effectue UN appel à Ollama /api/generate avec gestion d'erreur souple.
+
+    Retourne le texte de réponse, ou "" si échec (sans lever).
+    """
+    try:
+        import requests
+    except ImportError:
+        return ""
+    try:
+        resp = requests.post(
+            f"{base_url}/api/generate",
+            json={
+                "model": model,
+                "prompt": prompt,
+                "stream": False,
+                "format": fmt,
+                "options": {
+                    "temperature": 0.1,
+                    "num_ctx": 8192,
+                },
+            },
+            timeout=120.0,
+        )
+    except requests.RequestException as e:
+        warnings.append(f"Ollama erreur réseau ({attempt_label}) : {e}")
+        return ""
+
+    if resp.status_code != 200:
+        # Ollama < 0.5 ne reconnaît pas un schéma JSON comme valeur de
+        # "format" et renvoie HTTP 400. C'est attendu, on bascule.
+        warnings.append(
+            f"Ollama HTTP {resp.status_code} ({attempt_label}) : "
+            f"{resp.text[:200]}"
+        )
+        return ""
+
+    try:
+        body = resp.json()
+        return body.get("response", "").strip()
+    except Exception as e:
+        warnings.append(f"Réponse Ollama illisible ({attempt_label}) : {e}")
+        return ""
+
+
+# JSON Schema des champs SITREP, utilisé par Ollama 0.5+ structured outputs.
+# Chaque champ est marqué `required` pour forcer le modèle à le produire
+# (au pire avec une valeur vide), ce qui évite le piège « tout dans
+# description ».
+
+def _build_sitrep_json_schema() -> dict:
+    """Construit le JSON Schema strict pour Ollama structured outputs."""
+    # Énums des dropdowns directement intégrés au schéma — Ollama va les
+    # respecter strictement.
+    return {
+        "type": "object",
+        "properties": {
+            "type_operation": {
+                "type": "string",
+                "enum": list(CHOICE_FIELDS["type_operation"]),
+            },
+            "priorite": {
+                "type": "string",
+                "enum": list(CHOICE_FIELDS["priorite"]),
+            },
+            "mode_tcq": {
+                "type": "string",
+                "enum": list(CHOICE_FIELDS["mode_tcq"]),
+            },
+            "adrasec_concernee": {
+                "type": "string",
+                "enum": list(CHOICE_FIELDS["adrasec_concernee"]),
+            },
+            "pcs_active": {
+                "type": "string",
+                "enum": list(CHOICE_FIELDS["pcs_active"]),
+            },
+            "autorite": {
+                "type": "string",
+                "enum": list(CHOICE_FIELDS["autorite"]),
+            },
+            "gravite": {
+                "type": "string",
+                "enum": list(CHOICE_FIELDS["gravite"]),
+            },
+            "tendance": {
+                "type": "string",
+                "enum": list(CHOICE_FIELDS["tendance"]),
+            },
+            "acces": {
+                "type": "string",
+                "enum": list(CHOICE_FIELDS["acces"]),
+            },
+            "msg_num": {"type": "string"},
+            "dtg": {"type": "string"},
+            "de_station": {"type": "string"},
+            "a_station": {"type": "string"},
+            "frequence": {"type": "string"},
+            "indicatif_op": {"type": "string"},
+            "commune": {"type": "string"},
+            "cp": {"type": "string"},
+            "dtg_pcs": {"type": "string"},
+            "nom_autorite": {"type": "string"},
+            "fonction_autorite": {"type": "string"},
+            "pop_impactee": {"type": "string"},
+            "pop_vulnerable": {"type": "string"},
+            "description": {"type": "string"},
+            "demandes": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "enum": list(TYPE_OPTIONS),
+                        },
+                        "qte": {"type": "string"},
+                        "unite": {
+                            "type": "string",
+                            "enum": list(UNITE_OPTIONS),
+                        },
+                        "delai": {
+                            "type": "string",
+                            "enum": list(DELAI_OPTIONS),
+                        },
+                        "prio": {
+                            "type": "string",
+                            "enum": list(PRIO_OPTIONS),
+                        },
+                        "lieu": {"type": "string"},
+                    },
+                    "required": ["type", "qte", "unite", "delai", "prio", "lieu"],
+                },
+            },
+            "lieu_pcc": {"type": "string"},
+            "gps": {"type": "string"},
+            "contact_terrain": {"type": "string"},
+            "checkboxes": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "enum": list(CHECKBOX_FIELDS),
+                },
+            },
+            "sig_operateur": {"type": "string"},
+        },
+        # On force le modèle à produire TOUTES les clés principales.
+        # Sans ça, qwen2.5:7b a tendance à ne renvoyer que "description"
+        # avec tout dedans (bug observé en v1.0.0 sur Jean-Louis).
+        "required": [
+            "type_operation", "priorite", "mode_tcq", "adrasec_concernee",
+            "pcs_active", "autorite", "gravite", "tendance", "acces",
+            "msg_num", "dtg", "de_station", "a_station", "frequence",
+            "indicatif_op", "commune", "cp", "dtg_pcs", "nom_autorite",
+            "fonction_autorite", "pop_impactee", "pop_vulnerable",
+            "description", "demandes", "lieu_pcc", "gps", "contact_terrain",
+            "checkboxes", "sig_operateur",
+        ],
+    }
+
+
+# ---------------------------------------------------------------------------
+# Filet de sécurité : extraire des champs depuis une description fourre-tout
+# ---------------------------------------------------------------------------
+
+def _rescue_from_stuffed_description(data: dict,
+                                     warnings: List[str]) -> dict:
+    """Si le LLM a tout entassé dans `description`, on tente une extraction
+    regex sur les champs principaux qui sont restés vides.
+
+    Sans effet si les champs sont déjà remplis (priorité à ce que le LLM
+    a produit en propre).
+    """
+    desc = (data.get("description") or "").strip()
+    if not desc or len(desc) < 200:
+        # Description normale, pas de "stuffing" — on ne touche à rien.
+        return data
+
+    # Compte combien de champs principaux sont vides : si la majorité est
+    # vide ET que description est longue (> 200 char), c'est un cas de
+    # stuffing à secourir.
+    main_keys = ("commune", "cp", "frequence", "de_station", "a_station",
+                 "indicatif_op", "nom_autorite", "lieu_pcc", "gps",
+                 "contact_terrain", "pop_impactee", "pop_vulnerable")
+    empty_count = sum(
+        1 for k in main_keys if not (data.get(k) or "").strip()
+    )
+    if empty_count < len(main_keys) // 2:
+        # Moins de la moitié des champs principaux sont vides → cas normal.
+        return data
+
+    warnings.append(
+        f"Description suspecte (longue + {empty_count} champs principaux "
+        f"vides) — extraction regex de secours activée"
+    )
+
+    # Heuristiques regex (insensibles à la casse, accents, ponctuation lâche)
+    rescued = 0
+
+    # Code postal : 5 chiffres consécutifs (premier match)
+    if not (data.get("cp") or "").strip():
+        m = re.search(r"\b(\d{5})\b", desc)
+        if m:
+            data["cp"] = m.group(1)
+            rescued += 1
+
+    # Fréquence : <chiffres>.<chiffres> MHz (premier match)
+    if not (data.get("frequence") or "").strip():
+        m = re.search(r"\b(\d{2,4}[.,]\d{1,4})\s*M?Hz?\b", desc, re.IGNORECASE)
+        if m:
+            data["frequence"] = m.group(1).replace(",", ".")
+            rescued += 1
+
+    # Coordonnées GPS : XX.XXXX° N <espace> X.XXXX° E
+    if not (data.get("gps") or "").strip():
+        m = re.search(
+            r"(\d{1,2}[.,]\d{2,6})\s*[°ºo]?\s*[NS][,;\s]+(\d{1,3}[.,]\d{2,6})\s*[°ºo]?\s*[EWO]",
+            desc, re.IGNORECASE,
+        )
+        if m:
+            data["gps"] = f"{m.group(1)}N / {m.group(2)}E".replace(",", ".")
+            rescued += 1
+
+    # Indicatif radio : F<chiffre><1-4 lettres> (ex: F1GBD, F4JHW, TM77SAR)
+    if not (data.get("indicatif_op") or "").strip():
+        m = re.search(r"\b(F[0-9][A-Z]{2,4}|T[MK][0-9]{1,3}[A-Z]{0,4})\b", desc)
+        if m:
+            data["indicatif_op"] = m.group(1)
+            rescued += 1
+
+    # Téléphone FR : exclusivement 0X XX XX XX XX où X démarre par 1-7
+    # (les fixes commencent 01-05, mobiles 06-07, certaines pro 08-09).
+    # On force le 0 initial pour ne pas matcher les dates "2026-05-11 14:09".
+    if not (data.get("contact_terrain") or "").strip():
+        m = re.search(
+            r"\b(0[1-9])[\s.\-]?(\d{2})[\s.\-]?(\d{2})[\s.\-]?(\d{2})[\s.\-]?(\d{2})\b",
+            desc,
+        )
+        if m:
+            data["contact_terrain"] = " ".join(m.groups())
+            rescued += 1
+
+    # Population impactée et vulnérables : nombres suivis du mot habitants
+    if not (data.get("pop_impactee") or "").strip():
+        m = re.search(
+            r"\b(\d{4,7})\s*HABITANTS?\b", desc, re.IGNORECASE,
+        )
+        if m:
+            data["pop_impactee"] = m.group(1)
+            rescued += 1
+    if not (data.get("pop_vulnerable") or "").strip():
+        m = re.search(
+            r"\b(\d{3,6})\s*(?:PERSONNES?\s+)?VULN[EÉ]RABLES?\b",
+            desc, re.IGNORECASE,
+        )
+        if m:
+            data["pop_vulnerable"] = m.group(1)
+            rescued += 1
+
+    # Commune : pattern "MAIRE DE <COMMUNE>" ou "Mairie de <Commune>" ou
+    # "à <COMMUNE>" en MAJUSCULES.
+    if not (data.get("commune") or "").strip():
+        m = re.search(
+            r"(?:MAIRE\s+DE|MAIRIE\s+DE|PCO\s+|à\s+)\s*([A-ZÉÈÊÀÔÎÛÇ][A-Za-zÉÈÊÀÔÎÛÇéèêàôîûç\-]+(?:\s[A-Z][A-Za-z\-]+)?)",
+            desc,
+        )
+        if m:
+            commune = m.group(1).strip()
+            # Filtre les mots-collés (ex: "MEAUX (77300)")
+            commune = re.split(r"[\(\)]", commune)[0].strip()
+            if len(commune) >= 3:
+                data["commune"] = commune.upper()
+                rescued += 1
+
+    if rescued:
+        warnings.append(
+            f"Filet de sécurité regex : {rescued} champ(s) extrait(s) "
+            "depuis description"
+        )
+
+    return data
+
+
+
 def _build_extraction_prompt(source_text: str, session_vars: dict) -> str:
-    """Construit le prompt d'extraction. Format JSON strict imposé."""
+    """Construit le prompt d'extraction. Format JSON strict imposé.
+
+    v1.1.0 : prompt one-shot avec exemple complet rempli pour empêcher
+    le LLM de mettre tout dans `description`. Avec Ollama 0.5+ et le
+    JSON Schema strict, ce prompt sert de "amorce" pour montrer le
+    format attendu.
+    """
     call = (session_vars.get("CALL") or session_vars.get("INDICATIF")
             or "F1GBD").strip()
     adr = (session_vars.get("ADRASEC") or "ADRASEC 77").strip()
@@ -560,85 +865,89 @@ def _build_extraction_prompt(source_text: str, session_vars: dict) -> str:
     choices_doc = []
     for fld, opts in CHOICE_FIELDS.items():
         if fld.startswith(("type_", "unite_", "delai_", "prio_")):
-            continue  # injecté plus bas une seule fois pour les 7 lignes
+            continue
         choices_doc.append(f'  "{fld}": {list(opts)},')
 
-    schema = """{
+    # Exemple complet (one-shot) — c'est la technique la plus efficace
+    # pour éviter le pattern "tout dans description" sur les petits modèles.
+    example = '''{
   "type_operation": "EXERCICE - EXERCICE - EXERCICE",
-  "priorite": "<ROUTINE|PRIORITAIRE|URGENT|FLASH>",
-  "mode_tcq": "<VARA HF|VARA FM|VARA SAT|PACKET|ARDOP|LXMF>",
-  "adrasec_concernee": "<ADRASEC 77|75|78|91|92|93|94|95|AUTRE>",
-  "pcs_active": "<OUI|NON|EN COURS>",
-  "autorite": "<MAIRE|ADJOINT|DGS|PREFECTURE|SDIS|SAMU|GENDARMERIE|AUTRE>",
-  "gravite": "<FAIBLE|MODEREE|ELEVEE|CRITIQUE>",
-  "tendance": "<STABLE|EN DEGRADATION|EN AMELIORATION>",
-  "acces": "<LIBRE|RESTREINT|4x4 UNIQUEMENT|HELIPORTE|INACCESSIBLE>",
-  "msg_num": "<numéro court ex: 001>",
-  "dtg": "<JJ/MM/AAAA HH:MM>",
-  "de_station": "<station émettrice ex: F1GBD/PCO MELUN>",
-  "a_station": "<destinataire ex: COD 77 PREFECTURE>",
-  "frequence": "<MHz ex: 144.575>",
-  "indicatif_op": "<indicatif radio ex: F1GBD>",
-  "commune": "<nom de commune>",
-  "cp": "<code postal>",
-  "dtg_pcs": "<JJ/MM/AAAA HH:MM si PCS activé, sinon vide>",
-  "nom_autorite": "<NOM Prénom>",
-  "fonction_autorite": "<intitulé exact>",
-  "pop_impactee": "<entier ex: 180000>",
-  "pop_vulnerable": "<entier ex: 27000>",
-  "description": "<3 à 8 phrases courtes, une par ligne (séparées par \\n)>",
+  "priorite": "URGENT",
+  "mode_tcq": "VARA FM",
+  "adrasec_concernee": "ADRASEC 77",
+  "pcs_active": "OUI",
+  "autorite": "MAIRE",
+  "gravite": "ELEVEE",
+  "tendance": "EN DEGRADATION",
+  "acces": "RESTREINT",
+  "msg_num": "001",
+  "dtg": "11/05/2026 14:25",
+  "de_station": "F1GBD/PCO MEAUX",
+  "a_station": "COD 77 PREFECTURE",
+  "frequence": "145.275",
+  "indicatif_op": "F1GBD",
+  "commune": "MEAUX",
+  "cp": "77100",
+  "dtg_pcs": "05/05/2026 06:30",
+  "nom_autorite": "DUPONT Jean",
+  "fonction_autorite": "Maire de Meaux",
+  "pop_impactee": "55000",
+  "pop_vulnerable": "8000",
+  "description": "Blackout J+6 suite effondrement AMOC.\\nEHPAD Les Tilleuls: 3 deces.\\nRelais F5ZYI VHF 145.4375 CTCSS 77Hz.\\nDistribution eau 4 PDE actifs.",
   "demandes": [
-    {
-      "type": "<--- ou EAU POTABLE|VIVRES|CARBURANT|GROUPE ELECTROGENE|MEDICAL|EVACUATION|HEBERGEMENT|TRANSMISSIONS|PERSONNEL|AUTRE>",
-      "qte": "<nombre>",
-      "unite": "<--- ou L|M3|KG|UNITE|PALETTE|PERS.|LIT>",
-      "delai": "<--- ou IMMEDIAT|< 1H|< 3H|< 6H|< 24H|J+1>",
-      "prio": "<--- ou P1|P2|P3|P4>",
-      "lieu": "<lieu de livraison>"
-    }
+    {"type": "EAU POTABLE", "qte": "20", "unite": "M3", "delai": "< 3H", "prio": "P1", "lieu": "Stade municipal Meaux"},
+    {"type": "GROUPE ELECTROGENE", "qte": "2", "unite": "UNITE", "delai": "< 6H", "prio": "P1", "lieu": "EHPAD Les Tilleuls"}
   ],
-  "lieu_pcc": "<lieu du PCC>",
-  "gps": "<coord GPS facultatif>",
-  "contact_terrain": "<NOM / téléphone>",
-  "checkboxes": [
-    "chk_elec", "chk_gsm", "chk_eau", "chk_carb", "chk_transp", "chk_clim",
-    "chk_feu", "chk_evac", "chk_victimes", "chk_routes", "chk_pde", "chk_pcc"
-  ],
-  "sig_operateur": "<indicatif + heure TX ex: F1GBD - 14:00>"
-}"""
+  "lieu_pcc": "Mairie de Meaux, salle conseil",
+  "gps": "48.9606N / 002.8786E",
+  "contact_terrain": "Adj. MARTIN 06 12 34 56 78",
+  "checkboxes": ["chk_elec", "chk_gsm", "chk_eau", "chk_clim", "chk_pcc"],
+  "sig_operateur": "F1GBD - 14:25"
+}'''
 
     prompt = f"""Tu es un assistant d'extraction structurée pour ADRASEC / FNRASEC.
-Tu lis un scénario d'exercice ou un brouillon d'opérateur radio et tu remplis
-un formulaire SITREP au format JSON STRICT.
+Tu lis le SITREP brut ci-dessous et tu remplis le JSON correspondant.
 
-RÈGLES IMPÉRATIVES :
+⚠️ RÈGLE LA PLUS IMPORTANTE — ANTI-STUFFING :
+NE METS PAS TOUT LE CONTENU DANS LE CHAMP "description". Au contraire :
+EXTRAIS chaque information dans son champ dédié :
+- La commune va dans "commune", PAS dans description
+- Le code postal va dans "cp", PAS dans description
+- La fréquence va dans "frequence", PAS dans description
+- Les coordonnées GPS vont dans "gps", PAS dans description
+- Le contact terrain va dans "contact_terrain", PAS dans description
+- Les demandes vont dans le tableau "demandes", PAS dans description
+- Etc.
+
+Le champ "description" est UNIQUEMENT pour 3-5 phrases de contexte qui
+ne rentrent dans aucun autre champ (ex: relais utilisé, contraintes
+météo, ETA renforts).
+
+AUTRES RÈGLES :
 1. Réponds UNIQUEMENT en JSON valide, rien d'autre (pas de texte hors JSON).
-2. Pour chaque champ "<choix>" : utilise EXACTEMENT une des valeurs listées
-   entre < et >. Toute valeur hors liste sera rejetée.
-3. Si une information est absente du texte source, mets "" (chaîne vide)
-   pour les textes et "---" pour les listes déroulantes des demandes.
-4. "demandes" peut contenir 0 à 7 entrées. Mets les besoins les plus urgents
-   en premier (P1 avant P2 avant P3 avant P4).
-5. "checkboxes" ne contient que les codes des cases EFFECTIVEMENT applicables
-   (coupures réellement constatées dans le texte). Ne coche rien par défaut.
-6. Pour les exercices ADRASEC, "type_operation" doit rester
-   "EXERCICE - EXERCICE - EXERCICE" sauf mention explicite "REEL".
+2. Pour chaque champ <choix> : utilise EXACTEMENT une des valeurs listées.
+   Toute valeur hors liste sera rejetée.
+3. Si une information est absente du texte source, mets "" (chaîne vide).
+4. "demandes" peut contenir 0 à 7 entrées. P1 en premier, puis P2, P3, P4.
+5. "checkboxes" ne contient que les codes des cases APPLICABLES.
+6. "type_operation" reste "EXERCICE - EXERCICE - EXERCICE" sauf mention "REEL".
 7. Indicatif opérateur par défaut : {call} | ADRASEC : {adr}.
-8. La "description" doit faire MAXIMUM 8 lignes courtes, une par ligne,
-   séparées par \\n. Phrases sans pronom personnel, style SITREP militaire.
 
-SCHÉMA JSON ATTENDU :
-{schema}
+EXEMPLE COMPLET DE RÉPONSE ATTENDUE (étudie bien la répartition des
+informations entre les différents champs — c'est ce qu'on attend de toi) :
 
-VALEURS AUTORISÉES SUPPLÉMENTAIRES (rappel) :
+{example}
+
+VALEURS AUTORISÉES (rappel) :
 {chr(10).join(choices_doc)}
 
-TEXTE SOURCE À ANALYSER :
+TEXTE SOURCE À EXTRAIRE — répartis les informations dans les bons champs :
 \"\"\"
 {source_text}
 \"\"\"
 
-Réponds maintenant en JSON valide UNIQUEMENT.
+Maintenant produis le JSON conforme au schéma, en répartissant
+correctement chaque information dans son champ dédié.
 """
     return prompt
 
