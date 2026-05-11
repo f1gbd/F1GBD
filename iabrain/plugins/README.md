@@ -1,6 +1,6 @@
 # IAbrain — Dossier `plugins/`
 
-Ce dossier contient les **plugins externes d'actions natives** d'IAbrain, chargés automatiquement au démarrage à partir de la version **v1.40.7**.
+Ce dossier contient les **plugins externes d'actions natives** d'IAbrain, chargés automatiquement au démarrage à partir de la version **v1.40.7**, et enrichis au fil des versions ultérieures (SITREP PDF en v1.41.2).
 
 Un plugin est un simple fichier Python qui ajoute des actions natives à IAbrain (chiffrement, conversion, calcul, génération de cartes…) sans modification ni recompilation de l'exécutable.
 
@@ -24,7 +24,14 @@ Les actions exposées par les plugins apparaissent ensuite dans le **sélecteur 
 
 ---
 
-## 📦 Plugins livrés avec IAbrain v1.40.7
+## 📦 Plugins livrés avec IAbrain
+
+| Plugin | Livré en | Actions | Détail |
+|---|---|---|---|
+| `IAbrain_actions_soe.py` | v1.40.7 | `soe_encode`, `soe_decode` | Chiffrement SOE 1942 (double transposition colonnaire) |
+| `IAbrain_actions_sitrep.py` | **v1.41.2** | `fill_sitrep_adrasec` | Remplissage automatique du SITREP PDF ADRASEC (AcroForm v1.1) |
+
+---
 
 ### `IAbrain_actions_soe.py` — Chiffrement SOE 1942
 
@@ -66,6 +73,72 @@ Toute la chaîne s'exécute **instantanément, sans LLM, sans tokens, sans Inter
 #### Pourquoi ne pas utiliser un LLM pour ça ?
 
 La double transposition colonnaire est un **algorithme de permutation de séquence**. Les LLM, même 32B, ne sont **pas fiables** sur cette classe de tâche : ils intervertissent des rangs, sautent des étapes, ou tronquent leurs sorties. Une macro Action déterministe garantit qu'**un message chiffré par un opérateur sera toujours décodable par un autre** — propriété indispensable en cadre opérationnel ADRASEC/FNRASEC.
+
+---
+
+### `IAbrain_actions_sitrep.py` — Remplissage automatique du SITREP PDF ADRASEC *(v1.41.2)*
+
+Remplit automatiquement le formulaire AcroForm officiel **`SITREP_ADRASEC.pdf`** (v1.1, F1GBD / mai 2026) à partir d'un scénario d'exercice importé, d'un brouillon d'opérateur, ou d'un prompt direct. Cible **85 champs** : 33 zones de texte, 9 listes déroulantes, 15 cases à cocher et 28 cellules du tableau « demande de moyens » (7 lignes × 4 colonnes Type/Qté/Unité/Délai/Prio + Lieu).
+
+Une action :
+
+| Action | Variables lues | Variables écrites |
+|---|---|---|
+| **`fill_sitrep_adrasec`** — *SITREP ADRASEC → PDF rempli* | `SITREP_TEXT`, `SITREP_TEMPLATE`, `CALL`, `INDICATIF`, `ADRASEC`, `SITREP_REEL` | `SITREP_LAST_PDF`, `SITREP_LAST_DTG` |
+
+#### Principe de fonctionnement
+
+1. **Localise** le PDF template `SITREP_ADRASEC.pdf` (variable de session `SITREP_TEMPLATE` → CWD → à côté de l'exécutable → dossier parent de `plugins/`).
+2. **Récupère** le texte source : variable de session `SITREP_TEXT` en priorité, sinon dernier fichier importé.
+3. **Appelle Ollama local** (modèle `model_simple` puis `model` de la config) avec un prompt d'extraction structurée qui demande un **JSON strict** conforme au schéma SITREP.
+4. **Valide** chaque champ contre les listes autorisées du PDF (priorités, gravités, modes TCQ, types de besoin, …). Tolérance casse + accents : `"Élevée"` → `ELEVEE`, `"vara fm"` → `VARA FM`.
+5. **Écrit** le PDF rempli dans le CWD sous le nom `SITREP_<COMMUNE>_<YYYYMMDD-HHMM>.pdf` (l'AcroForm d'origine est préservé, `/NeedAppearances` est activé pour la régénération des glyphes).
+6. **Renvoie** un récapitulatif Markdown dans le chat IAbrain (chemin du PDF, tableau des champs renseignés, cases cochées, warnings).
+
+#### Quatre niveaux de robustesse
+
+1. **LLM disponible + JSON propre** → tous les champs validés sont écrits.
+2. **JSON entouré de texte** → bloc `{...}` extrait automatiquement, warning émis.
+3. **LLM indisponible** → bascule heuristique : 12 mots-clés FR (`coupure électrique`, `gsm`, `ehpad`, `pénurie carburant`, …) cochent les bonnes cases ; gravité inférée du nombre de cases.
+4. **Aucune source** → en-tête seul pré-rempli (DTG, indicatif, ADRASEC, type EXERCICE, signature), reste vierge pour saisie manuelle.
+
+#### Dépendances
+
+Le plugin requiert le module Python **`pypdf`** (lecture et écriture d'AcroForm). Ce package est bundlé dans la distribution officielle d'IAbrain v1.41.2+. En mode développement, installer avec :
+
+```bash
+pip install pypdf
+```
+
+#### Chaîne d'utilisation type pour exercice ADRASEC
+
+1. **Configurer les variables** dans la zone de saisie :
+   ```
+   /set CALL=F1GBD
+   /set ADRASEC=ADRASEC 77
+   ```
+
+2. **Importer un scénario** (`prompt_HELIOS-NOIR.txt`, brouillon d'opérateur, RETEX, …) via le bouton *Importer un fichier*. L'indicateur `🔖 Vars (2)` est visible en haut.
+
+3. **Cliquer sur la macro `📋 SITREP PDF`** (action `fill_sitrep_adrasec`, pré-câblée sur Macro 2 en v1.41.2+).
+   → Ollama extrait les champs en JSON, validation stricte champ par champ, PDF rempli généré dans le CWD. Le récapitulatif Markdown s'affiche, les variables `SITREP_LAST_PDF` et `SITREP_LAST_DTG` sont posées (indicateur `🔖 Vars (4)`).
+
+4. **Ouvrir le PDF**, signer la zone *AUTORITE DEMANDEUSE*, transmettre via TCQ → VARA FM/HF/SAT → COD préfecture.
+
+#### Pourquoi un PDF rempli plutôt qu'un texte Markdown ?
+
+Le formulaire `SITREP_ADRASEC.pdf` est le **support officiel FNRASEC** transmis aux autorités (préfecture, COD, mairies). Sa structure AcroForm est conçue pour être **lisible mécaniquement** (extraction des champs côté COD pour main courante, archivage horodaté, parseur automatique). Un texte libre — même bien structuré en Markdown — perd cette propriété et nécessite une saisie manuelle côté destinataire.
+
+Le plugin garantit aussi que **les valeurs des dropdowns sont conformes** à la nomenclature FNRASEC (priorités `ROUTINE/PRIORITAIRE/URGENT/FLASH`, gravités `FAIBLE/MODEREE/ELEVEE/CRITIQUE`, modes TCQ `VARA HF/FM/SAT/PACKET/ARDOP/LXMF`) — un LLM produisant directement le PDF inventerait régulièrement des valeurs hors-liste qui seraient silencieusement rejetées côté Acrobat.
+
+#### Documentation détaillée
+
+Voir le fichier dédié **[`LISEZMOI_SITREP.md`](LISEZMOI_SITREP.md)** dans ce même dossier pour :
+
+- L'ordre de recherche du PDF template (4 emplacements testés)
+- La liste complète des variables de session lues / écrites
+- La procédure de mise à jour si le formulaire FNRASEC évolue
+- Les exemples des trois modes d'utilisation (scénario importé, variable de session, en-tête seul)
 
 ---
 
@@ -113,7 +186,7 @@ def execute_action(action_id, imported_files=(), options=None):
 ### Contraintes
 
 - **Nom de fichier** : doit commencer par `IAbrain_actions_` et finir par `.py`.
-- **Aucune dépendance non-stdlib** : seuls les modules standards Python sont garantis disponibles dans la distribution PyInstaller. Si votre plugin nécessite `numpy`, `requests`, `pillow`, etc., ces packages doivent être présents dans l'environnement Python utilisateur ou bundlés à part.
+- **Dépendances** : les modules de la bibliothèque standard Python sont toujours disponibles. Les modules tiers bundlés dans la distribution PyInstaller (à jour pour IAbrain v1.41.2+) incluent : `requests`, `numpy`, `Pillow`, `staticmap`, `pypdf`. Si votre plugin nécessite une autre dépendance non listée (`opencv`, `pandas`, …), elle doit être présente dans l'environnement Python utilisateur ou bundlée à part — sinon le plugin se chargera mais échouera au premier appel d'action avec un `ModuleNotFoundError`.
 - **Imports relatifs** : si votre plugin importe ses propres sous-modules placés dans ce même dossier, le chargement les trouvera (le dossier `plugins/` est ajouté à `sys.path` au démarrage).
 - **Robustesse** : capturez vos exceptions internes et retournez plutôt un markdown d'erreur explicite. Une exception non gérée empêchera votre action de produire un résultat exploitable, mais ne crashera pas IAbrain.
 
@@ -173,9 +246,11 @@ Erreurs typiques :
 ## 🔗 Liens utiles
 
 - [README principal d'IAbrain](../README.md)
-- [Changelog v1.40.x](../README.md#-évolution-récente---v133--v140)
+- [Changelog v1.40.x — Plugins externes](../README.md#-évolution-récente---v133--v140)
+- [Changelog v1.41.x — Auto-exécution macros et SITREP PDF](../README.md#-v141x--auto-exécution-de-macros-depuis-le-llm-et-sitrep-pdf-auto-rempli)
 - [Documentation des macros et actions natives](../README.md#-macros-et-actions-natives-v137)
+- [Documentation détaillée du plugin SITREP](LISEZMOI_SITREP.md)
 
 ---
 
-*Documentation à jour pour IAbrain v1.40.7 — Système de plugins externes.*
+*Documentation à jour pour IAbrain v1.41.2 — Système de plugins externes (v1.40.7+), plugin SITREP PDF (v1.41.2+).*

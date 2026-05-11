@@ -401,7 +401,7 @@ Au premier lancement, deux boutons sont déjà pré-programmés :
 
 **Macro 2 — `📋 SITREP PDF`** (action `fill_sitrep_adrasec`, *v1.41.2+*) :
 
-1. **Importer un scénario** (`prompt_HELIOS-NOIR.txt`, brouillon d'opérateur, RETEX...) ou poser `SITREP_TEXT` via `!set`
+1. **Importer un scénario** (`prompt_HELIOS-NOIR.txt`, brouillon d'opérateur, RETEX...) ou poser `SITREP_TEXT` via `/set`
 2. **Cliquer sur `📋 SITREP PDF`** dans la barre des macros
 3. **Le formulaire AcroForm est rempli automatiquement** : Ollama extrait les champs en JSON validé, le PDF est écrit dans le CWD sous le nom `SITREP_<COMMUNE>_<YYYYMMDD-HHMM>.pdf` et un récapitulatif Markdown est affiché dans le chat. Plus qu'à signer et transmettre via TCQ.
 
@@ -684,8 +684,8 @@ Sur une configuration existante, il suffit de :
 ### Cas d'usage typique — exercice HÉLIOS-NOIR
 
 ```
-1. !set CALL = F1GBD
-2. !set ADRASEC = ADRASEC 77
+1. /set CALL = F1GBD
+2. /set ADRASEC = ADRASEC 77
 3. Importer prompt_HELIOS-NOIR.txt (scénario blackout/canicule)
 4. Cliquer sur 📋 SITREP PDF
    → Ollama extrait : commune MELUN, CP 77000, priorité FLASH, gravité
