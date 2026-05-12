@@ -6,15 +6,15 @@
 
 ### Décodeur de balises de détresse COSPAS-SARSAT 406 MHz pour la formation et les opérations ADRASEC
 
-*Décodage EPIRB/ELT/PLB — SDR Direct RTL-SDR — Démodulation FM IQ — Audio Live / Fichier WAV / Hex — Carte OSM avec relèvements goniométriques — MGRS — Triangulation vectorisée — Thème clair/sombre — Export CSV*
+*Décodage EPIRB/ELT/PLB — SDR Direct RTL-SDR — Démodulation FM IQ — Audio Live / Fichier WAV / Hex — Carte OSM avec relèvements goniométriques — Triangulation ELT — SITREP PDF — MGRS — Thème clair/sombre — Export CSV*
 
-[![Version](https://img.shields.io/badge/version-epirb--v5.3.2-blue)](https://github.com/f1gbd/F1GBD/releases/tag/epirb-v5.3.2)
+[![Version](https://img.shields.io/badge/version-epirb--v5.4.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/epirb-v5.4.0)
 [![Téléchargements](https://img.shields.io/badge/téléchargements-actifs-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases?q=epirb)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![Mission](https://img.shields.io/badge/mission-COSPAS--SARSAT-orange.svg)]()
 
-### 📥 [**Télécharger la dernière version stable (v5.3.2)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.3.2/EPIRBdecoder.7z)
+### 📥 [**Télécharger la dernière version stable (v5.4.0)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.4.0/EPIRBdecoder.7z)
 
 </div>
 
@@ -44,6 +44,8 @@ L'outil est destiné à la **formation des opérateurs ADRASEC**, aux **exercice
 | 🎯 | **Pré-positionnement visuel** | Marqueur temporaire noir sur la carte au clic droit, permettant de vérifier visuellement la position avant de confirmer le relèvement. Effacé automatiquement au relèvement suivant ou à la confirmation. |
 | 🔲 | **Coordonnées MGRS** | Conversion bidirectionnelle lat/lon ↔ MGRS (Military Grid Reference System, ex: `31U DQ 52482 11717`). Mise à jour automatique dans les deux sens. Conversion WGS84 autonome intégrée, sans dépendance externe. |
 | 📌 | **Zone par défaut** | Sauvegarde de la zone d'affichage courante de la carte (position et zoom) dans `decoder_setup.json`. Au redémarrage, la carte s'ouvre directement sur la dernière zone sauvegardée. Activable/désactivable par un bouton bascule. |
+| 🎯 | **Triangulation ELT** | Localisation de la balise ELT par triangulation par moindres carrés avec rejet itératif des outliers (MAD). Affichage du marqueur BALISE et du cercle d'incertitude CEP 95% sur la carte. Cartouche avec position DMS, décimale, MGRS et horodatage. |
+| 📋 | **SITREP SATER** | Génération d'un rapport de situation SATER complet : données balise 406 décodée, main courante des relevés ELT, résultat de triangulation. Export en texte ou en PDF professionnel type Sécurité Civile avec logo ADRASEC, tableaux formatés et capture carte OSM. |
 | 🛰 | **GPS NMEA** | Support GPS via port série (NMEA 0183). Mise à jour automatique de la position opérateur sur la carte avec intervalle configurable. |
 | 📍 | **Position GPS → Relevé** | Bouton « Position GPS » apparaissant dès qu'un fix GPS est valide. Un clic place le marqueur de pré-positionnement aux coordonnées GPS et pré-remplit le formulaire : il ne reste qu'à saisir l'azimut et cliquer Ajouter. |
 | 📊 | **Décodage complet COSPAS-SARSAT** | Trames courtes (112 bits) et longues (144 bits). Protocoles : Maritime MMSI, Aviation OACI 24 bits, Serial, National, Test, ELT-DT. BCH-1 et BCH-2 pour la validation. Position en DD°MM'SS" avec résolution fine. |
@@ -90,9 +92,9 @@ Saisie manuelle d'une trame hexadécimale (28 ou 36 caractères) pour décodage 
 
 <div align="center">
 
-#### 📥 [**Télécharger EPIRBdecoder.7z (v5.3.2)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.3.2/EPIRBdecoder.7z)
+#### 📥 [**Télécharger EPIRBdecoder.7z (v5.4.0)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.4.0/EPIRBdecoder.7z)
 
-*(version `epirb-v5.3.2` — voir [toutes les releases EPIRB Decoder](https://github.com/f1gbd/F1GBD/releases?q=epirb) pour les versions précédentes)*
+*(version `epirb-v5.4.0` — voir [toutes les releases EPIRB Decoder](https://github.com/f1gbd/F1GBD/releases?q=epirb) pour les versions précédentes)*
 
 [![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
 
@@ -161,6 +163,8 @@ La carte OSM intégrée permet de visualiser en temps réel la position de la ba
 - **Coordonnées MGRS** : champ MGRS synchronisé avec les coordonnées lat/lon (conversion bidirectionnelle WGS84)
 - **Préchargement** : télécharger les tuiles à l'avance pour une utilisation hors-ligne en exercice terrain
 - **Zone par défaut** : bouton 📌 pour sauvegarder la position/zoom courants et retrouver la même vue au prochain lancement
+- **Triangulation ELT** : bouton 🎯 Balise ELT — triangulation par moindres carrés avec rejet MAD des outliers, cercle CEP 95% affiché sur la carte
+- **SITREP SATER** : bouton 📋 SITREP — rapport de situation complet exportable en texte ou PDF professionnel (logo ADRASEC, tableaux, capture carte OSM)
 - **Export/Import CSV** : sauvegarde et reprise des relevés entre sessions
 
 ### Format de collage rapide
@@ -199,8 +203,10 @@ Format : `latitude, longitude [azimut] [force du signal]` — la virgule décima
 4. Le coordinateur saisit chaque relèvement :
    - Via le bouton « 📍 Position GPS » si le GPS est actif (pré-remplit les coordonnées)
    - Ou via le collage rapide : « 48,554, 2,631 045 fort » → clic Ajouter
-5. Les vecteurs convergent visuellement vers la position de la balise
-6. Export CSV en fin d'exercice pour le rapport
+5. Cliquer sur « 🎯 Balise ELT » pour trianguler la position estimée
+6. Le cercle CEP 95% s'affiche sur la carte avec le marqueur BALISE
+7. Cliquer sur « 📋 SITREP » pour générer le rapport de situation
+8. Exporter en PDF professionnel avec logo ADRASEC et capture carte
 ```
 
 ### 🔍 Analyse post-exercice
@@ -231,9 +237,8 @@ Format : `latitude, longitude [azimut] [force du signal]` — la virgule décima
 
 | Version | Apport principal |
 |---|---|
-| **v5.3.2** | **Version courante** — Bouton « Position GPS » pour créer un relevé directement depuis le fix GPS |
-| v5.3.1 | Zone d'affichage carte sauvegardée au redémarrage (📌 Sauver zone) |
-| v5.3.0 | Coordonnées MGRS bidirectionnel, pré-positionnement visuel au clic droit, aide carte sur une ligne |
+| **v5.4.0** | **Version courante** — Triangulation ELT par moindres carrés avec CEP 95%, SITREP SATER PDF professionnel avec logo ADRASEC et capture carte, bouton Position GPS → Relevé |
+| v5.3.x | Coordonnées MGRS, pré-positionnement visuel, zone carte sauvegardée, bouton Position GPS |
 | v5.2.x | Carte plein écran, collage rapide Google Maps, force du signal dans les relevés, panneau relevés optimisé |
 | v5.0 | SDR Direct RTL-SDR natif, démodulation FM IQ, détection burst hybride, carte OSM avec relèvements goniométriques vectorisés, thème clair/sombre, GPS NMEA |
 | v4.0 | Palette SAR Tactical Dark, préchargement tuiles OSM, labels INDICATIF/N sur les relèvements |
@@ -262,7 +267,8 @@ Pour le détail de tous les changements, consultez le [changelog complet sur Git
 │ Démod FM    │ │ Capture     │ │ Conversion│ │ Relevés gonio  │
 │ Burst IQ    │ │ Continue    │ │ Décodage  │ │ Vecteurs 80 km │
 │ 406 MHz     │ │             │ │           │ │ MGRS WGS84     │
-│ scipy/numpy │ │             │ │           │ │ Plein écran    │
+│ scipy/numpy │ │             │ │           │ │ Triangulation  │
+│             │ │             │ │           │ │ SITREP PDF     │
 │ scipy/numpy │ │             │ │           │ │ GPS NMEA       │
 └──────┬──────┘ └──────┬──────┘ └─────┬─────┘ └────────────────┘
        │               │              │
@@ -305,7 +311,7 @@ Toute contribution, retour d'exercice ou proposition d'amélioration est bienven
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 5.3.2 — Mai 2026**
+**Version 5.4.0 — Mai 2026**
 
 ---
 
