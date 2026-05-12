@@ -27,6 +27,16 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 
 ---
 
+## 🆕 Quoi de neuf en v10.12.0
+
+> **Correctif important — Transfert PDF radio** — Cette version intègre le correctif `pdf_trans` v1.0.1 qui élimine un bug de recomposition (« fond noir ») affectant les PDF produits par **Microsoft : Print To PDF** et **Microsoft Word LTSC**. Les SITREP et formulaires opérationnels issus de ces chaînes Microsoft (très répandus dans les préfectures et services de l'État) apparaissaient avec un fond complètement noir et un texte invisible après transmission radio.
+>
+> **Action recommandée** : tous les opérateurs ADRASEC utilisant TCQ pour le transfert PDF doivent passer à la v10.12.0. Les archives `.psdi` produites par les versions antérieures restent **lisibles** avec la v10.12.0 (compatibilité ascendante totale du format).
+>
+> **Pas de changement d'API** : si vous développez des intégrations avec TCQ, aucune adaptation n'est nécessaire. La version de `pdf_trans` est désormais affichée dans le log au démarrage pour faciliter le diagnostic en exercice.
+
+---
+
 ## 🎯 Qu'est-ce que TCQ ?
 
 **TCQ** (TransCommunication Quantique) est une plateforme intégrée de communications radio numériques qui réunit dans une seule application Windows tous les modes utilisés en exercice et en intervention réelle par les opérateurs ADRASEC :
@@ -43,8 +53,8 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 Conçu pour les opérations ADRASEC et les exercices de sécurité civile, TCQ privilégie la **robustesse**, la **tolérance aux ruptures de liaison** et la **simplicité d'utilisation sur le terrain**. Le binaire est autonome (PyInstaller) — **aucune installation Python requise**.
 
 <p align="center">
-  <img src="images/TCQ_main_interface.png" alt="Interface principale TCQ v10.11" width="800"/>
-  <br><i>Interface principale de TCQ v10.11</i>
+  <img src="images/TCQ_main_interface.png" alt="Interface principale TCQ v10.12" width="800"/>
+  <br><i>Interface principale de TCQ v10.12</i>
 </p>
 
 ---
@@ -72,7 +82,7 @@ Le projet TCQ est né d'une exploration de la **TransCommunication Quantique** a
 
 À partir de la version 10.x, TCQ s'est étoffé pour devenir une **plateforme opérationnelle multi-modes** intégrant tous les outils nécessaires aux communications d'urgence ADRASEC, tout en conservant le module quantique éducatif (`qsim_lib`, `qit_lib`) comme couche pédagogique au-dessus de la messagerie LXMF.
 
-> 💡 La présente documentation couvre le **programme TCQ v10.11** (plateforme opérationnelle). Les fondements conceptuels et le mémo TCQ Quantique original sont documentés dans le dossier [TCQ Documentations](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations).
+> 💡 La présente documentation couvre le **programme TCQ v10.12** (plateforme opérationnelle). Les fondements conceptuels et le mémo TCQ Quantique original sont documentés dans le dossier [TCQ Documentations](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations).
 
 ---
 
@@ -196,6 +206,32 @@ Au premier démarrage :
 
 ---
 
+## 🆕 Nouveautés v10.12.0
+
+### Module PDF radio — Correctif fond noir
+
+- 🛡 **Intégration de `pdf_trans` v1.0.1** qui corrige le bug de recomposition « fond noir » sur les PDF produits par **Microsoft : Print To PDF** et **Microsoft Word LTSC**
+- 🛡 La bibliothèque itère désormais sur les sous-items individuels des paths vectoriels au lieu d'utiliser leur bounding box global — finis les gros rectangles noirs pleine page lors de la recomposition
+- 🛡 Garde-fou supplémentaire : tout rectangle quasi-pleine-page de luminance < 0,3 est ignoré (un fond de page opérationnel ADRASEC n'est jamais noir plein)
+- 🔄 **Compatibilité ascendante totale** : les archives `.psdi` produites par les versions antérieures restent lisibles avec la v10.12.0
+- 📡 Le correctif s'applique automatiquement à tous les transferts PDF via **VARA HF/FM/SAT**, **TNC Packet** et **TCQ-BBS**
+
+### Logging amélioré
+
+- 📋 La version de `pdf_trans` chargée est désormais affichée dans le log au démarrage de TCQ, ce qui facilite le diagnostic en exercice ADRASEC :
+  ```
+  INFO: Bibliothèque pdf_trans v1.0.1 chargée avec succès - TRANSFERT PDF disponible
+  ```
+- 🩺 Vérification rapide qu'un poste est bien à jour avant un exercice : un coup d'œil au log suffit
+
+### Compatibilité
+
+- ✅ Aucun changement d'API publique de `pdf_trans` : les intégrations tierces continuent de fonctionner sans modification
+- ✅ Cohérence avec **PDFteleporter v1.0.1** qui partage la même bibliothèque
+- ✅ Les opérateurs disposant de PDFteleporter en application autonome bénéficient du même correctif
+
+---
+
 ## 🆕 Nouveautés v10.11
 
 ### Module SSTV (refonte majeure)
@@ -274,9 +310,9 @@ L'ensemble de la documentation TCQ (manuels, mémos techniques, notes techniques
 │  - GUI Tkinter, multi-onglets                    │
 │  - DSP audio NumPy/SciPy/PortAudio               │
 │  - Cryptographie Reticulum native                │
-└─┬─────────┬──────────┬───────────┬──────────┬────┘
-  │         │          │           │          │
-  │         │          │           │          │
+└─┬─────────┬───────────┬───────────┬───────────┬──┘
+  │         │           │           │           │
+  │         │           │           │           │
 ┌─▼──────┐ ┌▼────────┐ ┌▼────────┐ ┌▼────────┐ ┌▼─────┐
 │ LXMF / │ │ VARA    │ │ TNC     │ │ MeshCore│ │ SSTV │
 │ Reticu │ │ HF/FM/  │ │ Packet  │ │  LoRa   │ │  CW  │
@@ -398,7 +434,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v10.11 — 2026-04-28**
+**Version v10.12.0 — 2026-05-12**
 
 ---
 
