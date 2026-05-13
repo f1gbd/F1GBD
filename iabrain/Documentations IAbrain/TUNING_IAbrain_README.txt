@@ -3,7 +3,7 @@
   OPTIMISATION D'UN SERVEUR OLLAMA LOCAL SUR MINI-PC AMD RYZEN
 
   Kit de diffusion ADRASEC 77 / FNRASEC
-  Version 3.0 — Mai 2026
+  Version 4.1 — Mai 2026
   Auteur : F1GBD / ADRASEC 77 / Seine-et-Marne
 
 ===============================================================================
@@ -15,7 +15,7 @@ CONTENU DE L'ARCHIVE
 Ce kit contient trois fichiers :
 
   1. README.txt                          Le présent fichier (à lire en premier)
-  2. todo_ollama_adrasec_v3.docx         Document technique complet, 16 pages
+  2. todo_ollama_adrasec_v4_1.docx       Document technique complet, 15 pages
   3. Configure-OllamaAMD.ps1             Script PowerShell d'installation auto
 
 
@@ -50,6 +50,25 @@ Vulkan pour utiliser l'iGPU, ce qui apporte :
   - Multiplication par 6 de la vitesse de traitement de prompt (prompt eval)
   - Libération du CPU pour les autres logiciels (TCQ, VARA HF, etc.)
   - Aucun achat de matériel nécessaire
+
+
+AVERTISSEMENT IMPORTANT POUR LES UTILISATEURS DE RYZEN 5000U (VEGA 7/8)
+----------------------------------------------------------------------
+
+Lire la SECTION 9 du document v4 AVANT toute modification BIOS.
+
+Sur les APU AMD Vega 7/8 (Ryzen 5000U), l'allocation manuelle de
+VRAM dédiée dans le BIOS (UMA_SPECIFIED) DÉGRADE les performances
+LLM de 28% par rapport au mode Auto. Ce résultat contre-intuitif
+a été validé par benchmark sur le LX15 Pro.
+
+  RECOMMANDATION : laisser le BIOS en mode "Auto" sur Vega 7/8.
+  L'optimisation se fait uniquement par logiciel (Vulkan + variables
+  d'environnement Ollama).
+
+Sur les architectures plus récentes (RDNA 2/3/3.5), la modification
+BIOS peut être bénéfique, mais TOUJOURS benchmarker avant et après
+pour mesurer l'impact réel.
 
 
 DÉMARRAGE RAPIDE (5 minutes)
@@ -108,9 +127,9 @@ DOCUMENTATION DÉTAILLÉE
 Pour une compréhension complète et le déploiement sur un poste de
 production, lire le document :
 
-    todo_ollama_adrasec_v3.docx
+    todo_ollama_adrasec_v4_1.docx
 
-Ce document de 16 pages couvre :
+Ce document de 15 pages couvre :
 
   - Choix du matériel selon l'architecture iGPU AMD (Vega, RDNA2, RDNA3)
   - Diagnostic initial
@@ -119,8 +138,13 @@ Ce document de 16 pages couvre :
   - Méthode script .ps1 autonome (recommandée)
   - Vérification du fonctionnement
   - Résultats de benchmark mesurés sur deux configurations réelles
+  - SECTION 9 — Allocation BIOS de VRAM dédiée :
+    retour d'expérience détaillé sur APU Vega 8 avec recommandations
+    différenciées par architecture iGPU
   - Résolution des erreurs d'allocation mémoire (par paliers)
-  - Choix du modèle LLM selon l'usage
+  - SECTION 11 — Choix du modèle LLM avec benchmarks IAbrain (NOUVEAU v4.1) :
+    comparatif de 3 modèles (Nemo 12B / Qwen 7B / Llama 3B) sur LX15 Pro,
+    avec mesures eval rate, analyse qualité, et stratégie multi-modèles
   - Mise à jour et maintenance d'Ollama
   - To-do list récapitulative
   - Conseils de déploiement et de sécurité
@@ -244,7 +268,8 @@ SOLUTION : Effectuer un rollback vers la version précédente
 PERFORMANCES ATTENDUES (À TITRE INDICATIF)
 ------------------------------------------
 
-Mistral Nemo 12B (Q4_K_M, contexte 8192) après optimisation :
+Mistral Nemo 12B (Q4_K_M, contexte 8192) après optimisation, mesurées
+en CLI (ollama run --verbose) :
 
   Ryzen 5000U + Vega 7/8 + DDR4-3200 :
     - eval rate         : 6 à 8 tokens/s
@@ -265,7 +290,13 @@ Mistral Nemo 12B (Q4_K_M, contexte 8192) après optimisation :
     - prompt eval rate  : 150 à 250 tokens/s
 
 Note : ces valeurs sont indicatives, mesurées en mai 2026 avec Ollama 0.23.
-Les versions ultérieures d'Ollama améliorent régulièrement les performances.
+En usage réel via IAbrain ou autre interface graphique, prévoir un
+overhead de 15 à 30 % (voir document section 11.5).
+
+PERFORMANCES MULTI-MODÈLES VIA IABRAIN SUR LX15 PRO (Vega 8) :
+  - mistral-nemo:12b : 3,9 tokens/s  (★★★★ qualité)
+  - qwen2.5:7b       : 7,8 tokens/s  (★★★★★ qualité, RECOMMANDÉ)
+  - llama3.2:3b      : 16,9 tokens/s (★★ qualité, erreurs techniques)
 
 
 COMPATIBILITÉ ET LIMITES
@@ -357,7 +388,17 @@ HISTORIQUE DES VERSIONS
   v2.0 (mai 2026)  Ajout LX15 Pro (Vega 8), comparatif iGPU,
                    résolution erreurs allocation, choix matériel
   v3.0 (mai 2026)  Ajout script .ps1 autonome, section mise à jour
-                   et maintenance, ce README d'accompagnement
+                   et maintenance, README d'accompagnement
+  v4.0 (mai 2026)  Ajout section 9 "Allocation BIOS de VRAM dédiée" :
+                   retour d'expérience sur APU Vega 8 démontrant que
+                   l'allocation manuelle dégrade les performances de 28%
+                   sur cette architecture. Recommandations différenciées.
+  v4.1 (mai 2026)  Ajout section 11 enrichie avec benchmarks IAbrain
+                   sur LX15 Pro (3 modèles testés : Nemo 12B, Qwen 7B,
+                   Llama 3B). Stratégie multi-modèles recommandée.
+                   Avertissement sur les modèles ≤ 3B (hallucinations
+                   techniques). Section 11.5 sur l'overhead CLI vs
+                   interface graphique (-15 à -30% en usage réel).
 
 
 CONTACT ET RETOURS D'EXPÉRIENCE
