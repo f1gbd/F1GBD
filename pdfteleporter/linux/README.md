@@ -30,7 +30,6 @@ La version **Linux** de PDF Teleporter est destinée aux opérateurs ADRASEC qui
 - 🔋 Disposent d'un **laptop léger** ou d'un mini-PC pour leurs sorties terrain
 - 🔒 Privilégient **l'indépendance vis-à-vis de Microsoft** pour leurs documents sensibles ADRASEC
 - 🎓 Préparent des **VM Linux** de formation pour leur section départementale
-- 🛠 Souhaitent un **environnement de développement** pour adapter ou étudier le code
 
 **100 % des fonctionnalités** de la version Windows sont disponibles sous Linux : c'est exactement la même application, recompilée pour Linux.
 
