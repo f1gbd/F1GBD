@@ -58,12 +58,12 @@ PDFteleporter-1.0.1-linux-x86_64.tar.gz       (59 Mo compressé / 146 Mo extrait
 
 ### Étape 1 — Télécharger
 
-👉 **[PDFteleporter-1.0.1-linux-x86_64.tar.gz](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v1.0.1/PDFteleporter-1.0.1-linux-x86_64.tar.gz)** (~59 Mo)
+👉 **[PDFteleporter-1.0.1-linux-x86_64.tar.gz](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.1/PDFteleporter-1.0.1-linux-x86_64.tar.gz)** (~59 Mo)
 
 Ou en ligne de commande :
 
 ```bash
-wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v1.0.1/PDFteleporter-1.0.1-linux-x86_64.tar.gz
+wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.1/PDFteleporter-1.0.1-linux-x86_64.tar.gz
 ```
 
 ### Étape 2 — Extraire
