@@ -14,7 +14,7 @@
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![100% local](https://img.shields.io/badge/100%25-hors--ligne-brightgreen.svg)]()
 
-### 🐧 [**Télécharger la dernière version Linux**](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v1.0.1/PDFteleporter-1.0.1-linux-x86_64.tar.gz)
+### 🐧 [**Télécharger la dernière version Linux**](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.1/PDFteleporter-1.0.1-linux-x86_64.tar.gz)
 
 *Version Windows disponible dans le [dossier parent](https://github.com/f1gbd/F1GBD/tree/master/pdfteleporter)*
 
@@ -124,7 +124,6 @@ sudo ./install.sh --uninstall --system    # mode système
 | **Debian** | 12 (Bookworm) / 13 (Trixie) | ✅ Fonctionne |
 | **Linux Mint** | 21.x / 22.x | ✅ Fonctionne |
 | **Fedora** | 39 / 40 / 41 | ✅ Fonctionne |
-| **Raspberry Pi OS** (Bookworm aarch64) | — | ⚠ Voir section ARM64 ci-dessous |
 
 ### Dépendances système
 
@@ -144,37 +143,7 @@ En pratique, sur un poste avec un environnement de bureau (GNOME, KDE, XFCE, Cin
 
 ---
 
-## 🥧 Raspberry Pi (ARM64)
 
-Cette archive est compilée pour **x86_64** (Intel/AMD 64 bits). Pour un Raspberry Pi 4 ou 5 sous Raspberry Pi OS aarch64, il y a deux options :
-
-### Option 1 — Depuis les sources Python *(la plus simple, ~5 minutes)*
-
-```bash
-sudo apt install python3 python3-tk python3-pip
-pip install pymupdf Pillow --break-system-packages
-
-git clone https://github.com/f1gbd/F1GBD.git
-cd F1GBD/pdfteleporter
-python3 PDFteleporter.py
-```
-
-PDFteleporter tourne **parfaitement** sur Raspberry Pi 4 / 5 avec écran 7" — testé en condition de station portable ADRASEC.
-
-### Option 2 — Compiler un binaire ARM64 dédié
-
-Sur un Raspberry Pi avec `pyinstaller` :
-
-```bash
-sudo apt install python3 python3-tk python3-pip
-pip install pyinstaller pymupdf Pillow --break-system-packages
-git clone https://github.com/f1gbd/F1GBD.git
-cd F1GBD/pdfteleporter
-pyinstaller PDFteleporter.spec --clean --noconfirm
-# Le binaire ARM64 est dans dist/PDFteleporter/
-```
-
-> 💡 Un build ARM64 officiel `PDFteleporter-1.0.1-linux-aarch64.tar.gz` pourra être ajouté dans une prochaine release si la demande existe.
 
 ---
 
@@ -274,29 +243,6 @@ Vous utilisez une version antérieure à 1.0.1. Téléchargez la dernière versi
 
 ---
 
-## 🧰 Compilation depuis les sources
-
-Pour compiler votre propre binaire Linux (utile pour ARM64 ou pour adapter le code) :
-
-```bash
-# Prérequis
-sudo apt install python3 python3-tk python3-pip
-pip install pyinstaller pymupdf Pillow --break-system-packages
-
-# Récupérer les sources
-git clone https://github.com/f1gbd/F1GBD.git
-cd F1GBD/pdfteleporter
-
-# Compiler avec PyInstaller (le .spec est fourni)
-pyinstaller PDFteleporter.spec --clean --noconfirm
-
-# Le binaire compilé est dans dist/PDFteleporter/
-./dist/PDFteleporter/PDFteleporter
-```
-
-Le fichier `PDFteleporter.spec` est inclus dans le dépôt et configure proprement les `excludes` (datasets, torch, etc.) pour éviter les builds inutilement gros.
-
----
 
 ## 📚 Documentation associée
 
