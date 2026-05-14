@@ -6,15 +6,16 @@
 
 ### L'assistant IA local pour les opérateurs ADRASEC
 
-*Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — SITREP PDF auto-rempli — Cartographie interactive — Corrections manuelles — Macros et actions natives — Connectivité Ollama Cloud — Mémoire conversationnelle — Profil opérateur — Variables de session — Pipeline SATER complet — Plugins externes extensibles — Auto-exécution de macros par le LLM — Exécution non-bloquante avec feedback live*
+*Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — SITREP PDF auto-rempli — Cartographie interactive — Corrections manuelles — Macros et actions natives — Connectivité Ollama Cloud — Mémoire conversationnelle — Profil opérateur — Variables de session — Pipeline SATER complet — Plugins externes extensibles — Auto-exécution de macros par le LLM — Exécution non-bloquante avec feedback live — **Interface vocale STT/TTS pour usage mains libres et accessibilité***
 
-[![Version](https://img.shields.io/badge/version-iabrain--v1.41.4-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.41.4)
+[![Version](https://img.shields.io/badge/version-iabrain--v1.42.3-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.42.3)
 [![Téléchargements](https://img.shields.io/badge/téléchargements-200%2B-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![100% local](https://img.shields.io/badge/local%20%2F%20cloud-hybride-brightgreen.svg)]()
+[![Accessibilité](https://img.shields.io/badge/accessibilité-voix%20%F0%9F%8E%A4%20%F0%9F%94%8A-purple.svg)]()
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.41.4/IAbrain.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.42.3/IAbrain.7z)
 
 </div>
 
@@ -57,6 +58,7 @@ Concrètement, c'est un outil qui répond à vos questions opérationnelles, ré
 | Icône | Fonctionnalité | Description |
 |:---:|---|---|
 | 💬 | **Conversation en français naturel** | Posez vos questions comme à un collègue expérimenté. IAbrain comprend votre demande, raisonne, et répond de manière structurée. Pas de syntaxe technique à apprendre. |
+| 🎤🔊 | **Interface vocale STT + TTS** *(v1.42+)* | **Reconnaissance vocale mains libres** (Vosk offline) avec wake-word « ordinateur », et **synthèse vocale** des réponses (SAPI5 Hortense + cascade pyttsx3/PowerShell). La voix lit la réponse au fil de la génération, paragraphe par paragraphe (streaming TTS — la lecture commence dès le premier paragraphe). **Trois modes STT configurables** : activé / sujets génériques uniquement (recommandé — les questions ADRASEC techniques sont injectées pour relecture avant envoi) / désactivé. **Pré-correction phonétique automatique** du vocabulaire radio (VARA, TCQ, ADRASEC, QO-100, AX.25…) avec **apprentissage progressif des corrections** de l'opérateur (dictionnaire personnel persistant). **Accessibilité** : utilisable par les opérateurs malvoyants/non-voyants, et en mission de terrain sans clavier (mains occupées, gants épais, équipement de protection). Confidentialité : 100 % local, aucun audio ne sort de la machine. |
 | 📚 | **Base de connaissances ADRASEC intégrée** | Toutes les notes techniques, MEMO, fiches réflexes et SITREP sont indexés et consultables. IAbrain cite ses sources et indique de quel document provient chaque information. |
 | 📂 | **Base RAG personnelle** *(v1.34+)* | En plus de la base ADRASEC officielle (alimentée par OTA), une **seconde base perso** isolée vous permet d'indexer vos propres notes, RETEX et documents locaux. Les deux bases sont fouillées simultanément ; la base perso est **toujours préservée** lors des mises à jour OTA. |
 | 🌐 | **Cartographie interactive de la base** *(v1.35+)* | Visualisation arborescente de la base RAG (Base → Cluster thématique → Fichier → Chunk). Force-directed dynamique style Reticulum MeshChat, embarqué 100% hors-ligne dans un fichier HTML autonome. Recherche temps réel avec auto-expand des branches pertinentes et surlignage des chunks matchant. |
@@ -1108,13 +1110,13 @@ Le profil est sauvegardé dans `IAbrain_profile.json` (à côté d'`IAbrain.json
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│       IAbrain v1.40.3                                │
-│  Assistant IA local pour ADRASEC — by F1GBD          │
-│                                                       │
-│  Bonjour Jean-Louis, je suis IAbrain.                │
-│  Nous sommes le 4 mai 2026 et il est 08h30.          │
-│                                                       │
-│              [logo IAbrain]                          │
+│       IAbrain v1.40.3                               │
+│  Assistant IA local pour ADRASEC — by F1GBD         │
+│                                                     │
+│  Bonjour Jean-Louis, je suis IAbrain.               │
+│  Nous sommes le 4 mai 2026 et il est 08h30.         │
+│                                                     │
+│              [logo IAbrain]                         │
 └─────────────────────────────────────────────────────┘
 ```
 
@@ -1222,9 +1224,9 @@ ollama pull bge-m3              # Reranking RAG (recommandé, 1.2 Go)
 
 <div align="center">
 
-#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.41.4/IAbrain.7z)
+#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.42.3/IAbrain.7z)
 
-*(version `iabrain-v1.41.4` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
+*(version `iabrain-v1.42.3` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
 
 [![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
 
@@ -1373,7 +1375,7 @@ Ce dépôt contient également les manuels suivants :
 │  │  - exported_at, exported_by      │  │
 │  │  - macro {label, prompt, type,   │  │
 │  │    rag_disabled, action}         │  │
-│  │  Boutons 📥📤 dans l'éditeur     │  │
+│  │  Boutons 📥📤 dans l'éditeur    │  │
 │  │  Validation de version à l'import│  │
 │  └──────────────────────────────────┘  │
 └────────────────────────────────────────┘
@@ -1404,9 +1406,52 @@ Ce dépôt contient également les manuels suivants :
 
 ---
 
-## 🆕 Évolution récente — v1.33 → v1.41
+## 🆕 Évolution récente — v1.33 → v1.42
 
-Les versions récentes ont apporté plusieurs améliorations majeures, du RAG hybride aux corrections manuelles, en passant par la cartographie, les macros utilisateur, la connectivité cloud, la mémoire conversationnelle, le profil opérateur, l'auto-exécution de macros par le LLM, le remplissage automatique du SITREP PDF officiel ADRASEC, l'exécution non-bloquante des macros Action avec feedback de progression en direct, et désormais la **détection de négation contextuelle** dans le plugin SITREP pour éviter les faux positifs sur les cases à cocher.
+Les versions récentes ont apporté plusieurs améliorations majeures, du RAG hybride aux corrections manuelles, en passant par la cartographie, les macros utilisateur, la connectivité cloud, la mémoire conversationnelle, le profil opérateur, l'auto-exécution de macros par le LLM, le remplissage automatique du SITREP PDF officiel ADRASEC, l'exécution non-bloquante des macros Action avec feedback de progression en direct, la détection de négation contextuelle dans le plugin SITREP, et désormais **l'interface vocale complète (reconnaissance + synthèse) avec apprentissage des corrections de l'opérateur**.
+
+### 🎤🔊 v1.42.x — Interface vocale : reconnaissance et synthèse pour usage mains libres et accessibilité
+
+La série v1.42 ajoute à IAbrain une **interface vocale bidirectionnelle** : **STT** (reconnaissance vocale par Vosk, 100 % offline) pour poser ses questions à voix haute via le mot d'éveil « **ordinateur** », et **TTS** (synthèse vocale via SAPI5 Hortense + cascade pyttsx3/PowerShell) pour entendre les réponses lues à voix haute, **paragraphe par paragraphe au fil de la génération** (streaming TTS). Le tout sans aucun envoi audio à un service externe.
+
+**Pourquoi c'est une vraie avancée opérationnelle :**
+
+- **♿ Accessibilité concrète pour les opérateurs malvoyants et non-voyants.** Un opérateur qui ne peut pas lire l'écran peut désormais poser ses questions à voix haute et entendre les réponses, sans dépendre d'un lecteur d'écran tiers. La diction est adaptée au domaine radio (« SATÈRE » au lieu de « S-A-T-E-R », « Q.O. cent » pour QO-100, « mégahertz » au lieu de « MHz », ADRASEC, NVIS, AX.25 prononcés correctement, etc.). C'est une **vraie ouverture du métier d'opérateur ADRASEC** à des bénévoles qui en étaient jusqu'ici exclus de fait par la barrière visuelle de l'interface IAbrain et de ses bases documentaires.
+
+- **🥾 Mains libres en mission de terrain.** En exercice ou en opération réelle, un opérateur dont les mains sont occupées (PMR/talkie en main, antenne directive à orienter, casque, gants épais d'intervention, gants stériles, gilet haute visibilité) peut interroger IAbrain sans toucher au clavier. Utile aussi avec un casque-micro USB déporté quand le PC est en sacoche, en véhicule, sous la pluie, ou monté en rack dans un véhicule TM ADRASEC.
+
+- **🚗 PC sans clavier accessible.** Le PC peut rester fermé dans un sac, monté en rack, posé sur la lunette arrière d'un véhicule ou hors d'atteinte (au sommet d'un mât pour la connectivité, dans un local technique fermé) : tant que le micro est branché et fonctionnel, IAbrain reste pleinement opérationnel. Plus besoin d'avoir le PC à portée des mains.
+
+- **🔇 Salle d'opération calme.** La TTS permet à un opérateur de poste de continuer à recevoir l'information IAbrain pendant qu'il rédige un PV ou un SITREP au clavier, sans avoir à lire deux écrans simultanément.
+
+- **🔒 Confidentialité absolue.** Vosk fonctionne **100 % en local**, aucun audio ne sort de la machine — contrairement aux dictées Windows ou Google qui transitent par le cloud. Cohérent avec la doctrine ADRASEC de souveraineté des données opérationnelles.
+
+**Trois modes STT configurables** dans **Options → 🎤 Voix** :
+
+| Mode | Comportement |
+|---|---|
+| **Activé** | Toutes les questions vocales sont envoyées au LLM. Mode classique. |
+| **Sujets génériques uniquement** *(recommandé, défaut)* | Les questions vocales **sans vocabulaire technique** (heure, météo, traduction, calcul, conseil général…) sont envoyées directement au LLM. Les questions contenant du **vocabulaire ADRASEC** (VARA, TCQ, AX.25, QO-100, ADRASEC, SATER, FM, NVIS…) sont **injectées dans la zone de saisie pour relecture** — Vosk ne connaît pas ces acronymes spécialisés et les transcrit phonétiquement, donc on demande à l'opérateur de valider ou corriger avant envoi. **Protège contre les hallucinations LLM** déclenchées par des transcriptions incohérentes. |
+| **Désactivé** | STT complètement désactivé. Seule la synthèse vocale (lecture des réponses) reste active. Utile pour les opérateurs qui veulent écouter sans parler (ex. en salle d'opération calme). |
+
+**Pré-correction phonétique automatique** : un dictionnaire de ~60 correspondances corrige les confusions Vosk les plus fréquentes (`varese` → `VARA`, `qui sécu` → `TCQ`, `pays de paix` → `P2P`, `abrasique` → `ADRASEC`, `quo cent` → `QO-100`, `farah` → `VARA`…). Le contexte radio est exigé pour les corrections ambiguës (`femme` ne devient `FM` que dans une phrase qui parle déjà de radio, pas dans « j'ai parlé à ma femme »).
+
+**Apprentissage progressif des corrections de l'opérateur** : quand l'opérateur corrige manuellement une transcription vocale avant l'envoi, IAbrain mémorise la correspondance dans `IAbrain_voice_corrections.json` (fichier JSON local et lisible). Au bout de 2-3 observations répétées de la même correction, elle est activée automatiquement et appliquée aux futures transcriptions. Gestion via **Options → 🎤 Voix → Gérer les corrections apprises…** (visualisation, activation/désactivation manuelle, suppression, ajout manuel d'une paire source/cible). Le dictionnaire personnalisé s'adapte au micro, à l'accent et à l'environnement acoustique de chaque opérateur — un effet d'apprentissage durable au fil des sessions.
+
+**Streaming TTS par paragraphes** : la lecture vocale commence dès que le **premier paragraphe** de la réponse est généré (typiquement après 3-5 s), pas au bout des 30-60 s de génération complète. La voix Hortense enchaîne les paragraphes au fur et à mesure pendant que le LLM continue à produire la suite. Les **blocs de code** et **tableaux Markdown** sont automatiquement omis de la lecture (illisibles vocalement, l'opérateur les lit visuellement à l'écran). Le bouton **■ Stop** annule immédiatement la génération **ET** la voix.
+
+| Version | Apport principal |
+|---|---|
+| **1.42.0** | Nouveau module `IAbrain_voice.py` regroupant **STT Vosk** (modèle français small 41 Mo ou full 1.6 Go au choix, à placer dans `./models/vosk-fr/` à côté de l'exe), **TTS multi-backend** SAPI5/pyttsx3/PowerShell en cascade automatique, et un **filtrage Markdown dédié au TTS** avec corrections de diction radio amateur (SATER → SATÈRE, QO-100 → Q.O. cent, MHz → mégahertz, ADRASEC, NVIS, AX.25, etc.). Wake-word « ordinateur » (choix validé après tests Vosk-fr — les néologismes type « IAbrain » sont transcrits aléatoirement, le mot français standard est reconnu à 100 %). Boutons 🎤 / 🔊 / 🔇 dans la barre latérale, raccourcis F2 (toggle écoute) et F3 (interrompre lecture). Trois patches de robustesse Windows : fix COM `CO_E_NOTINITIALIZED` (SAPI5 réinitialisé dans le worker thread, pas dans `__init__`), chargement Vosk asynchrone avec feedback de progression visible dans le chat (le modèle full prend 10-30 s à charger), gestion du device micro pour cohabiter avec TCQ/VARA. |
+| **1.42.1** | **Trois modes STT configurables** (Activé / Sujets génériques uniquement / Désactivé). Nouvelle fonction `looks_adrasec()` qui détecte si un texte contient du vocabulaire ADRASEC (50+ termes : acronymes corrigés, variantes phonétiques résiduelles, termes radio génériques, codes Q, sigles SAR, références NT*). En mode « Sujets génériques uniquement », les commandes vocales techniques sont **injectées dans la zone de saisie** pour relecture/correction avant envoi au LLM — protection critique contre les **hallucinations LLM** déclenchées par des transcriptions incohérentes (cas observé : `comment configurer farah et FM t sécu` → `llama3.2:3b` répondait sur des « activités illégales et nuisibles » faute de comprendre la question). Sélecteur radio dans Options → Voix, sauvegarde dans `IAbrain.json`. |
+| **1.42.2** | **Apprentissage des corrections vocales** (`VoiceLearner`). Quand l'opérateur corrige manuellement une transcription Vosk avant envoi, IAbrain compare le texte capturé et le texte envoyé via `difflib.SequenceMatcher`, en extrait les paires (source phonétique → cible canonique) qui passent **plusieurs filtres anti-bruit** : taille max 3 mots de chaque côté, rapport de longueur entre 0.3× et 2.5×, **cible obligatoirement composée d'un acronyme/terme radio canonique** (sinon rejet pour éviter d'apprendre des reformulations sémantiques type *« explique-moi »* → *« donne-moi »*), seuil d'activation à 3 observations pour les mots isolés et 2 pour les groupes multi-mots. Persistance dans `IAbrain_voice_corrections.json`. Toutes les corrections apprises sont **contextuelles** : elles ne s'appliquent qu'en présence de vocabulaire radio dans la phrase (protège les conversations normales du quotidien). **UI de gestion complète** : Options → Voix → Gérer les corrections apprises… (Treeview avec colonnes Source / Cible / Observations / Applications / État, boutons Activer-Désactiver / Forcer activation / Supprimer / Ajouter manuellement). Capacité 500 entrées max avec éviction LRU. |
+| **1.42.3** | **Streaming TTS par paragraphes** (nouvelle classe `StreamingTTS`). Au lieu d'attendre la fin complète de la génération LLM pour démarrer la lecture (latence 10-60 s), le streamer accumule les tokens dans un buffer et détecte les frontières de paragraphes (`\n\n`) au fil de l'eau. Dès qu'un paragraphe est complet, il est nettoyé (filtrage Markdown via `clean_text_for_tts` existant) et poussé dans la file TTS. La lecture commence dès le premier paragraphe (~3-5 s après le début de la génération). **Blocs de code Markdown complètement omis** du flux TTS (la voix saute, l'opérateur lit visuellement), **tableaux Markdown sautés** (illisibles vocalement). Sécurité contre les paragraphes interminables : coupe forcée au-delà de 800 caractères au dernier `. ` ou espace. Le bouton **■ Stop** annule immédiatement la génération LLM **ET** vide la file TTS — la voix s'arrête nette. API publique : `streaming_start()`, `streaming_feed(chunk)`, `streaming_flush()`, `streaming_cancel()`. |
+
+**Téléchargement du modèle Vosk français** (à faire une fois sur chaque poste cible) :
+
+1. Télécharger `vosk-model-fr-0.22` (full, 1.6 Go) ou `vosk-model-small-fr-0.22` (41 Mo) depuis https://alphacephei.com/vosk/models/
+2. Décompresser dans `models/vosk-fr/` à côté de `IAbrain.exe`
+3. Au premier clic sur 🎤, le chargement prend 10-30 s pour le modèle full (visible dans le chat)
 
 ### 🚀 v1.41.x — Auto-exécution de macros, SITREP PDF, exécution non-bloquante, détection de négations
 
@@ -1544,7 +1589,7 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.41.4 — 2026-05-11**
+**Version 1.42.3 — 2026-05-14**
 
 ---
 
