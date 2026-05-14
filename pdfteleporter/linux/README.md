@@ -8,7 +8,7 @@
 
 *Compression structurée — Transmission TNC Packet & VARA — Recomposition fidèle — Compatibilité Winlink Express — 5 niveaux de qualité — Mode rendu image — Estimation temps de transfert — Validation CRC — 100% hors-ligne*
 
-[![Version](https://img.shields.io/badge/version-pdfteleporter--v1.0.1-blue)](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-v1.0.1)
+[![Version](https://img.shields.io/badge/version-pdfteleporter--linux--v1.0.1-blue)](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-linux-v1.0.1)
 [![Plateforme](https://img.shields.io/badge/plateforme-Linux%20x86__64-orange.svg)]()
 [![Distros](https://img.shields.io/badge/testé-Ubuntu%20%7C%20Debian%20%7C%20Mint%20%7C%20Fedora-success.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
@@ -155,12 +155,12 @@ sha256sum PDFteleporter-1.0.1-linux-x86_64.tar.gz
 ```
 
 Comparez avec la valeur publiée sur :
-👉 https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-v1.0.1
+👉 https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-linux-v1.0.1
 
 Ou via le fichier `.sha256` joint à la release :
 
 ```bash
-wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v1.0.1/PDFteleporter-1.0.1-linux-x86_64.tar.gz.sha256
+wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.1/PDFteleporter-1.0.1-linux-x86_64.tar.gz.sha256
 sha256sum -c PDFteleporter-1.0.1-linux-x86_64.tar.gz.sha256
 ```
 
