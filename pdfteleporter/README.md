@@ -8,25 +8,25 @@
 
 *Compression structurée — Transmission TNC Packet & VARA — Recomposition fidèle — Compatibilité Winlink Express — 5 niveaux de qualité — Mode rendu image — Estimation temps de transfert — Validation CRC — 100% hors-ligne*
 
-[![Version](https://img.shields.io/badge/version-pdfteleporter--v1.0.1-blue)](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-v1.0.1)
+[![Version](https://img.shields.io/badge/version-pdfteleporter--v1.0.2-blue)](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-v1.0.2)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![100% local](https://img.shields.io/badge/100%25-hors--ligne-brightgreen.svg)]()
 [![Format](https://img.shields.io/badge/archive-.psdi-orange.svg)]()
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v1.0.1/PDFteleporter.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v1.0.2/PDFteleporter.7z)
 
 </div>
 
 ---
 
-## 🆕 Quoi de neuf en v1.0.1
+## 🆕 Quoi de neuf en v1.0.2
 
-> **Correctif important** — Cette version corrige un bug critique de recomposition (« fond noir ») qui affectait les PDF générés par **Microsoft : Print To PDF** et **Microsoft Word LTSC**. Les SITREP et formulaires opérationnels issus de ces producteurs (très fréquents dans les préfectures et services de l'État) apparaissaient avec un fond complètement noir et un texte invisible après recomposition.
+> **Correctif de rendu** — Cette version corrige un bug visuel important de la recomposition structurée : les textes des cellules de tableaux (Bilan humain, Moyens engagés, Activité de secours…) **débordaient** des cellules colorées, et les paragraphes courants étaient légèrement plus larges qu'à l'original. La cause : un bounding box élargi au-delà de la cellule d'origine et une fonte par défaut (Helvetica) plus large que la fonte source typique (Calibri).
 >
-> **Action recommandée** : tous les opérateurs ADRASEC doivent passer à la v1.0.1. Les archives `.psdi` produites par les versions antérieures restent **lisibles** avec la v1.0.1 (compatibilité ascendante totale du format).
+> **Action recommandée** : passez à la v1.0.2 si vous transmettez des SITREP, formulaires COD/SIDPC, ou tout document contenant des tableaux à cellules étroites. Les archives `.psdi` produites par les versions antérieures restent **entièrement lisibles** avec la v1.0.2 (et bénéficient même automatiquement du fix de rendu, puisque le problème était côté recomposition).
 >
-> Détails techniques : `pdf_trans.py` v1.0.1 itère désormais sur les sous-items individuels d'un path vectoriel multi-segments au lieu d'utiliser son bounding box global. Le correctif s'applique aussi à **TCQ v10.12.0** qui utilise la même bibliothèque pour les transferts PDF radio.
+> Détails techniques : `pdf_trans.py` v1.0.2 respecte désormais strictement le bbox d'origine des lignes de texte (plus d'étirement jusqu'au bord de la page) et conserve la famille de fonte d'origine (sans-serif/serif/monospace) dans l'archive pour un rendu plus fidèle. Compatibilité ascendante totale avec les `.psdi` v1.0.0 et v1.0.1.
 
 ---
 
@@ -73,7 +73,8 @@ L'archive `.psdi` est conçue pour les **modes radio TCQ** (TNC Packet, VARA HF/
 | 🎨 | **Deux modes d'extraction** | **Structuré** (texte + images repositionnées, idéal pour la plupart des documents) ou **Rendu image** (chaque page est aplatie en JPEG, utile pour les PDF complexes ou scannés). |
 | ⏱ | **Estimation du temps de transfert** | Avant de lancer la compression, PDF Teleporter calcule la taille finale de l'archive, le nombre de fragments TNC nécessaires, et estime le temps d'envoi pour chaque mode radio (Packet 1200/9600, VARA HF/FM/SAT). Plus de mauvaises surprises en exercice. |
 | ✅ | **Validation CRC à l'ouverture** | Quand un fichier `.psdi` est sélectionné pour recomposition, la signature, la version et le checksum sont vérifiés automatiquement. L'opérateur sait immédiatement si l'archive reçue est intègre ou si elle a été corrompue pendant le transfert radio. |
-| 🛡 | **Compatibilité Microsoft Print To PDF / Word LTSC** *(nouveau v1.0.1)* | Les PDF issus de la chaîne Microsoft (préfectures, services de l'État, formulaires SIDPC/COD) sont désormais recomposés correctement, sans artefact de fond noir, grâce au traitement des paths vectoriels multi-segments. |
+| 🛡 | **Compatibilité Microsoft Print To PDF / Word LTSC** *(v1.0.1)* | Les PDF issus de la chaîne Microsoft (préfectures, services de l'État, formulaires SIDPC/COD) sont désormais recomposés correctement, sans artefact de fond noir, grâce au traitement des paths vectoriels multi-segments. |
+| 📐 | **Rendu fidèle des tableaux** *(nouveau v1.0.2)* | Les libellés des cellules colorées (Bilan humain, Moyens engagés, Activité de sécurité…) ne débordent plus de leurs cellules à la recomposition. La famille de fonte d'origine est conservée pour préserver la métrique exacte du document. |
 | 📧 | **Bouton « Préparer pour Winlink »** | Après compression, un clic prépare le `.psdi` pour Winlink Express : copie automatique dans `Documents/PDFteleporter/`, alerte si la taille dépasse la limite Winlink de 120 Ko, instructions pas-à-pas pour la procédure d'envoi (New Message → Attachment → VARA HF/FM/Packet/Telnet). |
 | 📋 | **Journal opérationnel intégré** | Toutes les opérations (sélection, compression, recomposition, erreurs, ratios) sont horodatées et journalisées en bas de l'écran avec un code couleur (info/succès/avertissement/erreur). Idéal pour le débriefing d'exercice. |
 | 🌐 | **Compatible TCQ et Winlink Express** | Le format `.psdi` est consommable directement par les modes radio TCQ (TNC Packet, VARA HF/FM/SAT) et par Winlink Express en pièce jointe. Aucun format propriétaire, aucune dépendance externe. |
@@ -172,7 +173,7 @@ L'archive `.psdi` est conçue pour les **modes radio TCQ** (TNC Packet, VARA HF/
 
 1. **Téléchargez l'archive** depuis la dernière release GitHub :
 
-   👉 **[PDFteleporter.7z (dernière version)](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v1.0.1/PDFteleporter.7z)**
+   👉 **[PDFteleporter.7z (dernière version)](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v1.0.2/PDFteleporter.7z)**
 
    Lien permanent vers la version la plus récente :
    👉 **[https://github.com/f1gbd/F1GBD/releases/latest](https://github.com/f1gbd/F1GBD/releases/latest)**
@@ -195,15 +196,15 @@ Get-FileHash -Algorithm SHA256 PDFteleporter.7z
 
 Comparez la valeur affichée avec celle indiquée dans la release.
 
-### Méthode 3 — Mise à jour depuis la v1.0.0
+### Méthode 3 — Mise à jour depuis une version antérieure
 
-Si vous utilisez déjà PDF Teleporter v1.0.0, désinstallation simple : remplacez le contenu de `C:\PDFteleporter\` par celui de la nouvelle archive. Aucune configuration n'est conservée hors du dossier d'installation, et le format `.psdi` est compatible — les archives produites en v1.0.0 restent lisibles en v1.0.1.
+Si vous utilisez déjà PDF Teleporter v1.0.0 ou v1.0.1, désinstallation simple : remplacez le contenu de `C:\PDFteleporter\` par celui de la nouvelle archive. Aucune configuration n'est conservée hors du dossier d'installation, et le format `.psdi` est entièrement compatible — toutes les archives `.psdi` produites par les versions précédentes restent lisibles en v1.0.2.
 
 ### Méthode 4 — Utilisateurs TCQ
 
 Si vous utilisez déjà **TCQ** (le multi-mode radio Python de F1GBD), PDF Teleporter est **directement intégré dans TCQ**. Il suffit de cliquer sur le bouton **PDF** dans le mode **VARA Modem** ou **TNC Packet** — pas besoin d'installer PDF Teleporter séparément.
 
-> 📌 Le correctif fond noir de la v1.0.1 est également intégré dans **TCQ v10.12.0**. Si vous utilisez TCQ pour les transferts PDF radio, mettez à jour TCQ pour bénéficier de la correction.
+> 📌 Les correctifs de pdf_trans (fond noir v1.0.1 + débordement de texte v1.0.2) sont également intégrés dans les versions correspondantes de **TCQ**. Mettez à jour TCQ pour bénéficier des corrections lors de vos transferts PDF radio.
 
 ### Configuration matérielle minimale
 
@@ -245,12 +246,20 @@ Le format `.psdi` (PDF Structured Data Interchange) est une archive binaire comp
 
 ## 📝 Historique des versions
 
+### v1.0.2 — Mai 2026
+
+- 📐 **Correctif débordement de texte** dans la recomposition structurée. Les libellés des cellules de tableaux (Bilan humain, Moyens engagés, Activité de sécurité…) ne sortent plus de leurs cellules colorées. `pdf_trans.py` v1.0.2 respecte désormais strictement le bounding box d'origine des lignes de texte au lieu de l'étirer jusqu'au bord de la page.
+- 🔤 **Conservation de la famille de fonte d'origine** (sans-serif / serif / monospace) dans l'archive `.psdi`, pour un rendu plus fidèle à l'aspect du document source. Surcoût négligeable (~10 octets par span).
+- 🔄 Compatibilité ascendante totale : les `.psdi` produits par les versions v1.0.0 et v1.0.1 restent lisibles, et bénéficient même automatiquement du fix de rendu côté recomposition.
+- 🐧 Linux : aucun changement spécifique requis — le correctif est entièrement dans `pdf_trans.py`.
+
 ### v1.0.1 — Mai 2026
 
 - 🛡 **Correctif « fond noir »** sur la recomposition des PDF produits par Microsoft Print To PDF et Microsoft Word LTSC. La bibliothèque `pdf_trans.py` itère désormais sur les sous-items individuels des paths vectoriels au lieu d'utiliser leur bounding box global, ce qui éliminait les gros rectangles noirs pleine page lors de la recomposition.
 - 🛡 Garde-fou supplémentaire : tout rectangle quasi-pleine-page de luminance < 0,3 est ignoré (un vrai fond de page opérationnel ADRASEC n'est jamais noir plein).
 - 🔄 Compatibilité ascendante totale : les archives `.psdi` produites par la v1.0.0 restent lisibles.
 - 📡 Correctif également propagé dans **TCQ v10.12.0** (transferts PDF radio via VARA HF/FM/SAT et TNC Packet).
+- 🐧 Côté Linux : correctif spécifique pour l'ouverture du PDF recomposé via `xdg-open` (environnement `LD_LIBRARY_PATH` propre, nécessaire pour les binaires PyInstaller).
 
 ### v1.0.0 — Mars 2026
 
@@ -283,7 +292,7 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis Naudin (F1GBD)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.0.1 — Mai 2026**
+**Version 1.0.2 — Mai 2026**
 
 ---
 
