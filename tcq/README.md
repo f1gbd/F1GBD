@@ -11,9 +11,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v10.12.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/tcq-v10.12.0)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v10.13.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/tcq-v10.13.0)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v10.12.0/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v10.13.0/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -29,13 +29,13 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 
 ---
 
-## 🆕 Quoi de neuf en v10.12.0
+## 🆕 Quoi de neuf en v10.13.0
 
-> **Correctif important — Transfert PDF radio** — Cette version intègre le correctif `pdf_trans` v1.0.1 qui élimine un bug de recomposition (« fond noir ») affectant les PDF produits par **Microsoft : Print To PDF** et **Microsoft Word LTSC**. Les SITREP et formulaires opérationnels issus de ces chaînes Microsoft (très répandus dans les préfectures et services de l'État) apparaissaient avec un fond complètement noir et un texte invisible après transmission radio.
+> **Correctif rendu PDF radio** — Cette version intègre le correctif `pdf_trans` v1.0.2 qui élimine le **débordement des textes hors des cellules de tableaux** lors de la recomposition structurée (Bilan humain, Moyens engagés, Activité de secours…). C'est une amélioration importante pour les SITREP et formulaires COD/SIDPC reçus par radio dont la mise en page contient des tableaux à cellules étroites.
 >
-> **Action recommandée** : tous les opérateurs ADRASEC utilisant TCQ pour le transfert PDF doivent passer à la v10.12.0. Les archives `.psdi` produites par les versions antérieures restent **lisibles** avec la v10.12.0 (compatibilité ascendante totale du format).
+> **Action recommandée** : tous les opérateurs ADRASEC utilisant TCQ pour les transferts PDF radio devraient passer à la v10.13.0. Les archives `.psdi` produites par les versions antérieures (toutes incluses) restent **entièrement lisibles** avec la v10.13.0 et bénéficient même automatiquement du fix de rendu côté recomposition.
 >
-> **Pas de changement d'API** : si vous développez des intégrations avec TCQ, aucune adaptation n'est nécessaire. La version de `pdf_trans` est désormais affichée dans le log au démarrage pour faciliter le diagnostic en exercice.
+> **Pas de changement d'API** : aucune adaptation nécessaire pour les intégrations existantes. La version `pdf_trans v1.0.2` est affichée au démarrage dans le log TCQ pour faciliter le diagnostic en exercice.
 
 ---
 
@@ -55,8 +55,8 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 Conçu pour les opérations ADRASEC et les exercices de sécurité civile, TCQ privilégie la **robustesse**, la **tolérance aux ruptures de liaison** et la **simplicité d'utilisation sur le terrain**. Le binaire est autonome (PyInstaller) — **aucune installation Python requise**.
 
 <p align="center">
-  <img src="images/TCQ_main_interface.png" alt="Interface principale TCQ v10.12" width="800"/>
-  <br><i>Interface principale de TCQ v10.12</i>
+  <img src="images/TCQ_main_interface.png" alt="Interface principale TCQ v10.13" width="800"/>
+  <br><i>Interface principale de TCQ v10.13</i>
 </p>
 
 ---
@@ -84,7 +84,7 @@ Le projet TCQ est né d'une exploration de la **TransCommunication Quantique** a
 
 À partir de la version 10.x, TCQ s'est étoffé pour devenir une **plateforme opérationnelle multi-modes** intégrant tous les outils nécessaires aux communications d'urgence ADRASEC, tout en conservant le module quantique éducatif (`qsim_lib`, `qit_lib`) comme couche pédagogique au-dessus de la messagerie LXMF.
 
-> 💡 La présente documentation couvre le **programme TCQ v10.12** (plateforme opérationnelle). Les fondements conceptuels et le mémo TCQ Quantique original sont documentés dans le dossier [TCQ Documentations](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations).
+> 💡 La présente documentation couvre le **programme TCQ v10.13** (plateforme opérationnelle). Les fondements conceptuels et le mémo TCQ Quantique original sont documentés dans le dossier [TCQ Documentations](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations).
 
 ---
 
@@ -208,6 +208,32 @@ Au premier démarrage :
 
 ---
 
+## 🆕 Nouveautés v10.13.0
+
+### Module PDF radio — Correctif rendu des tableaux
+
+- 📐 **Intégration de `pdf_trans` v1.0.2** qui corrige le débordement des libellés hors des cellules de tableaux lors de la recomposition structurée (Bilan humain, Moyens engagés, Activité de secours…)
+- 📐 La bibliothèque respecte désormais strictement le bounding box d'origine des lignes de texte (plus d'étirement jusqu'au bord de la page)
+- 🔤 **Conservation de la famille de fonte d'origine** (sans-serif / serif / monospace) dans l'archive `.psdi` pour un rendu plus fidèle à l'aspect du document source
+- 🔄 **Compatibilité ascendante totale** : toutes les archives `.psdi` produites antérieurement (v1.0.0 et v1.0.1 de pdf_trans) restent lisibles avec la v10.13.0 et bénéficient même automatiquement du fix de rendu côté recomposition
+- 📡 Le correctif s'applique automatiquement à tous les transferts PDF via **VARA HF/FM/SAT**, **TNC Packet** et **TCQ-BBS**
+
+### Logging au démarrage
+
+- 📋 Le log au démarrage indique désormais `pdf_trans v1.0.2` :
+  ```
+  INFO: Bibliothèque pdf_trans v1.0.2 chargée avec succès - TRANSFERT PDF disponible
+  ```
+- 🩺 Permet à un opérateur ADRASEC de vérifier en un coup d'œil avant un exercice que son poste embarque bien la version corrigée
+
+### Compatibilité
+
+- ✅ Aucun changement d'API publique de `pdf_trans` : les intégrations tierces continuent de fonctionner sans modification
+- ✅ Cohérence avec **PDFteleporter v1.0.2** qui partage la même bibliothèque
+- ✅ Les opérateurs disposant de PDFteleporter en application autonome bénéficient du même correctif
+
+---
+
 ## 🆕 Nouveautés v10.12.0
 
 ### Module PDF radio — Correctif fond noir
@@ -255,7 +281,7 @@ Au premier démarrage :
 
 - ✅ Protection des transferts PDF/image/fichier (suspension idle/timeout)
 - ✅ Système de transmission PDF radio (LZMA + fragmentation TNC, frame unique VARA)
-- ✅ Application autonome **PDFteleporter.py**
+- ✅ Application intégrée **PDFteleporter**
 
 ### Module BBS
 
@@ -436,7 +462,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v10.12.0 — 2026-05-12**
+**Version v10.13.0 — 2026-05-15**
 
 ---
 
