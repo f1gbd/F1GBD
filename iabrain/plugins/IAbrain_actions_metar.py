@@ -31,7 +31,7 @@ import urllib.request
 import urllib.error
 from typing import Any, List, Optional, Sequence, Tuple
 
-__version__ = "1.2.0"
+__version__ = "1.2.1"
 
 # ---------------------------------------------------------------------------
 # 1. Identifiants des actions exposées
@@ -1068,11 +1068,28 @@ def _action_metar_vocal(session_vars: dict, options: Any
 # ---------------------------------------------------------------------------
 
 def is_action(action_id: str) -> bool:
+    """Retourne True si action_id est géré par CE plugin.
+
+    v1.2.1 — Correction du bug de cohabitation avec d'autres plugins :
+    le plugin METAR ne revendique plus que ses identifiants explicites
+    (metar_fetch, metar_vocal, metar_LFXX) et refuse tout préfixe d'un
+    autre plugin (taf_, notam_, sigmet_, etc.). Empêche que `taf_LFPM`
+    soit intercepté par METAR à cause d'un suffixe `_LFPM` reconnu.
+    """
     aid = (action_id or "").strip()
+    if not aid:
+        return False
+    # Actions explicitement déclarées par list_actions() : OK
     if aid in _ACTIONS_GENERIQUES:
         return True
     if aid in _ACTIONS_OACI:
         return True
+    # Tolérance v1.0 : un action_id 'metar_XXXX' inconnu mais bien
+    # préfixé peut quand même être traité si XXXX est un OACI valide.
+    # Mais on REFUSE toute chaîne ne commençant pas par 'metar_' pour
+    # ne pas voler les actions d'autres plugins (taf_, etc.).
+    if not aid.lower().startswith(_ACTION_PREFIX):
+        return False
     if _extraire_oaci_depuis_action_id(aid):
         return True
     return False
@@ -1126,8 +1143,13 @@ def execute_action(action_id: str,
     try:
         if aid == ACTION_METAR_VOCAL:
             return _action_metar_vocal(session_vars, options)
-        if aid == ACTION_METAR_FETCH or aid in _ACTIONS_OACI \
-                or _extraire_oaci_depuis_action_id(aid):
+        if aid == ACTION_METAR_FETCH or aid in _ACTIONS_OACI:
+            return _action_metar_fetch(aid, session_vars, options)
+        # Tolérance v1.0 : metar_XXXX avec XXXX un OACI valide.
+        # ATTENTION : on EXIGE le préfixe 'metar_' pour ne pas
+        # intercepter taf_LFPM, notam_LFPM, etc. (bug v1.2.0).
+        if aid.lower().startswith(_ACTION_PREFIX) and \
+                _extraire_oaci_depuis_action_id(aid):
             return _action_metar_fetch(aid, session_vars, options)
     except Exception as e:
         return (
@@ -1266,6 +1288,45 @@ def _autotest() -> int:
     for aid, label, desc in quelques:
         print(f"    {aid:14s} → \"{label}\"")
     print("    OK")
+
+    # Test 11 (v1.2.1) : ne revendique PAS les actions d'autres plugins
+    print("[11] v1.2.1 — Cohabitation avec plugin TAF (bug critique)")
+    err11 = 0
+    cas_autres_plugins = [
+        "taf_LFPM",     # plugin TAF : doit être refusé même si LFPM est OACI
+        "taf_LFPG",
+        "taf_fetch",
+        "notam_LFPG",   # hypothétique futur plugin
+        "sigmet_LFFF",
+    ]
+    for aid in cas_autres_plugins:
+        if is_action(aid):
+            print(f"    ÉCHEC : is_action('{aid}') = True (devrait être False)")
+            err11 += 1
+        # Vérifier aussi execute_action : doit retourner "Action inconnue"
+        md, _ = execute_action(aid, options={})
+        if "inconnue" not in md.lower():
+            print(f"    ÉCHEC : execute_action('{aid}') a traité l'action")
+            err11 += 1
+    if err11 == 0:
+        print(f"    OK : {len(cas_autres_plugins)} actions d'autres plugins "
+              f"correctement refusées")
+    erreurs += err11
+
+    # Test 12 (v1.2.1) : continue à accepter ses propres actions
+    print("[12] v1.2.1 — Actions propres acceptées (régression)")
+    err12 = 0
+    cas_propres = [
+        "metar_fetch", "metar_vocal",
+        "metar_LFPM", "metar_LFPG", "metar_LFBO",
+    ]
+    for aid in cas_propres:
+        if not is_action(aid):
+            print(f"    ÉCHEC : is_action('{aid}') = False (devrait être True)")
+            err12 += 1
+    if err12 == 0:
+        print(f"    OK : {len(cas_propres)} actions propres acceptées")
+    erreurs += err12
 
     print(f"\n=== {'TOUS LES TESTS PASSENT' if not erreurs else f'{erreurs} ÉCHEC(S)'} ===")
     return 0 if not erreurs else 1
