@@ -24,7 +24,7 @@
 
 ## 🆕 Quoi de neuf en v1.0.2
 
-> **Correctif de rendu** — Cette version intègre `pdf_trans.py` v1.0.2 qui corrige le **débordement des textes hors des cellules de tableaux** lors de la recomposition structurée (Bilan humain, Moyens engagés, Activité de secours…). La famille de fonte d'origine est désormais conservée dans l'archive pour un rendu plus fidèle.
+> **Correctif de rendu** — Cette version intègre `pdf_trans` v1.0.2 qui corrige le **débordement des textes hors des cellules de tableaux** lors de la recomposition structurée (Bilan humain, Moyens engagés, Activité de secours…). La famille de fonte d'origine est désormais conservée dans l'archive pour un rendu plus fidèle.
 >
 > **Action recommandée** : mettez à jour si vous transmettez des SITREP, formulaires COD/SIDPC ou tout document contenant des tableaux à cellules étroites. Les archives `.psdi` produites par les versions antérieures (v1.0.0 et v1.0.1) restent **entièrement lisibles** et bénéficient automatiquement du fix de rendu.
 >
