@@ -243,7 +243,7 @@ L'interface Linux est **strictement identique** à la version Windows : même th
 
 <div align="center">
 
-<img src="../docs/images/main_screen.png" alt="IAbrain sous Linux" width="900">
+<img src="docs/images/IAbrain_Linux.png" alt="IAbrain sous Linux" width="900">
 
 *IAbrain v1.42.1 tournant nativement sous Linux — interface identique à Windows*
 
