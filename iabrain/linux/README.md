@@ -8,13 +8,13 @@
 
 *LLM local Ollama — Base RAG ADRASEC + base perso — Macros et actions natives — Cartographie interactive — Mémoire conversationnelle — Profil opérateur — Variables de session — Pipeline SATER complet — SITREP PDF auto-rempli — Plugins externes — Auto-exécution de macros par le LLM — 100 % local et confidentiel*
 
-[![Version](https://img.shields.io/badge/version-iabrain--linux--v1.42.1-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-linux-v1.42.1)
+[![Version](https://img.shields.io/badge/version-iabrain--linux--v1.42.2-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-linux-v1.42.2)
 [![Plateforme](https://img.shields.io/badge/plateforme-Linux%20x86__64-orange.svg)]()
 [![Distros](https://img.shields.io/badge/cible-Ubuntu%2024.04%2B%20%7C%20Debian%2012%2B-success.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![100% local](https://img.shields.io/badge/100%25-hors--ligne-brightgreen.svg)]()
 
-### 🐧 [**Télécharger la dernière version Linux**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-linux-v1.42.1/IAbrain-1.42.1-linux-x86_64.tar.gz)
+### 🐧 [**Télécharger la dernière version Linux**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-linux-v1.42.2/IAbrain-1.42.2-linux-x86_64.tar.gz)
 
 *Version Windows disponible dans le [dossier parent](https://github.com/f1gbd/F1GBD/tree/master/iabrain)*
 
@@ -22,13 +22,13 @@
 
 ---
 
-## 🆕 Quoi de neuf en v1.42.1
+## 🆕 Quoi de neuf en v1.42.2
 
 > **Correctif important du module RAG** — Cette version corrige un bug bloquant de la v1.42 initiale qui empêchait l'initialisation du moteur RAG sous Linux avec le message *« cannot load module more than once per process »*. La cause : NumPy 2.x embarqué dans le binaire PyInstaller refuse son chargement multiple (mécanisme de sécurité introduit dans NumPy 2.0). La correction passe par un downgrade vers NumPy 1.26.4, qui n'a pas cette restriction.
 >
-> **Ajout des extracteurs PDF / DOCX** — La v1.42.1 embarque désormais explicitement `pypdf` et `python-docx`, indispensables pour l'indexation des PDF et DOCX de la base de connaissances ADRASEC. Sans ces modules, la création du RAG échouait silencieusement sur les fichiers non-texte.
+> **Ajout des extracteurs PDF / DOCX** — La v1.42.2 embarque désormais explicitement `pypdf` et `python-docx`, indispensables pour l'indexation des PDF et DOCX de la base de connaissances ADRASEC. Sans ces modules, la création du RAG échouait silencieusement sur les fichiers non-texte.
 >
-> **Action recommandée** : si vous avez installé la v1.42 et rencontré l'erreur RAG, désinstallez-la (`./install.sh --uninstall`) avant d'installer la v1.42.1.
+> **Action recommandée** : si vous avez installé la v1.42 et rencontré l'erreur RAG, désinstallez-la (`./install.sh --uninstall`) avant d'installer la v1.42.2.
 >
 > **Pas de changement sur les autres fonctionnalités** — conversation LLM Ollama, macros, actions natives, pipeline SATER, SITREP PDF, mémoire conversationnelle, profil opérateur, plugins externes, auto-exécution de macros : tout reste identique à la v1.42.
 
@@ -38,7 +38,7 @@
 
 | Version | Date | Changements |
 |---|---|---|
-| **v1.42.1** | Mai 2026 | 🛠 Correctif RAG : downgrade NumPy 2.x → 1.26.4, ajout pypdf + python-docx |
+| **v1.42.2** | Mai 2026 | 🛠 Correctif RAG|
 | v1.42 | Mai 2026 | 🐧 Première édition Linux d'IAbrain (sous forme de binaire PyInstaller autonome) |
 
 ---
@@ -72,8 +72,8 @@ La version **Linux** d'IAbrain est destinée aux opérateurs ADRASEC qui :
 ## 📦 Ce que contient l'archive
 
 ```
-IAbrain-1.42.1-linux-x86_64.tar.gz       (~52 Mo compressé / ~134 Mo extrait)
-└── IAbrain-1.42.1-linux-x86_64/
+IAbrain-1.42.2-linux-x86_64.tar.gz       (~52 Mo compressé / ~134 Mo extrait)
+└── IAbrain-1.42.2-linux-x86_64/
     ├── bin/                    Binaire PyInstaller autonome
     │   ├── IAbrain             Exécutable ELF 64-bit (7.6 Mo, stripped)
     │   └── _internal/          Python 3.12 + NumPy 1.26 + requests + Pillow + staticmap + pypdf + python-docx + Tkinter
@@ -91,21 +91,21 @@ IAbrain-1.42.1-linux-x86_64.tar.gz       (~52 Mo compressé / ~134 Mo extrait)
 
 ### Étape 1 — Télécharger
 
-👉 **[IAbrain-1.42.1-linux-x86_64.tar.gz](https://github.com/f1gbd/F1GBD/releases/download/iabrain-linux-v1.42.1/IAbrain-1.42.1-linux-x86_64.tar.gz)** (~52 Mo)
+👉 **[IAbrain-1.42.2-linux-x86_64.tar.gz](https://github.com/f1gbd/F1GBD/releases/download/iabrain-linux-v1.42.2/IAbrain-1.42.2-linux-x86_64.tar.gz)** (~52 Mo)
 
 Ou en ligne de commande :
 
 ```bash
-wget https://github.com/f1gbd/F1GBD/releases/download/iabrain-linux-v1.42.1/IAbrain-1.42.1-linux-x86_64.tar.gz
-wget https://github.com/f1gbd/F1GBD/releases/download/iabrain-linux-v1.42.1/IAbrain-1.42.1-linux-x86_64.tar.gz.sha256
-sha256sum -c IAbrain-1.42.1-linux-x86_64.tar.gz.sha256
+wget https://github.com/f1gbd/F1GBD/releases/download/iabrain-linux-v1.42.2/IAbrain-1.42.2-linux-x86_64.tar.gz
+wget https://github.com/f1gbd/F1GBD/releases/download/iabrain-linux-v1.42.2/IAbrain-1.42.2-linux-x86_64.tar.gz.sha256
+sha256sum -c IAbrain-1.42.2-linux-x86_64.tar.gz.sha256
 ```
 
 ### Étape 2 — Extraire
 
 ```bash
-tar xzf IAbrain-1.42.1-linux-x86_64.tar.gz
-cd IAbrain-1.42.1-linux-x86_64
+tar xzf IAbrain-1.42.2-linux-x86_64.tar.gz
+cd IAbrain-1.42.2-linux-x86_64
 ```
 
 ### Étape 3 — Installer (au choix selon votre besoin)
@@ -206,7 +206,7 @@ L'URL du serveur Ollama est configurée par défaut à `http://192.168.1.250:114
 
 L'interface vocale STT/TTS, présente dans la version Windows, est **désactivée** dans cette première édition Linux. Les composants Windows utilisés (Vosk via Python, SAPI5 via pywin32, pyttsx3) ne sont pas compatibles tels quels avec l'écosystème audio Linux (PulseAudio/PipeWire/ALSA).
 
-Un backend **Piper TTS** (offline, neuronal, voix française naturelle `fr_FR-siwis-medium`) couplé à **Vosk Linux natif** pour le STT est prévu pour une version ultérieure. Concrètement, dans cette v1.42.1-linux :
+Un backend **Piper TTS** (offline, neuronal, voix française naturelle `fr_FR-siwis-medium`) couplé à **Vosk Linux natif** pour le STT est prévu pour une version ultérieure. Concrètement, dans cette v1.42.2-linux :
 
 - Les boutons 🎤 🔊 🔇 sous le bouton **Envoyer** restent visibles mais sans effet (cohérence visuelle avec la version Windows)
 - Les raccourcis clavier `F2` (écoute) et `F3` (interrompre TTS) sont sans effet
@@ -222,17 +222,17 @@ Un backend **Piper TTS** (offline, neuronal, voix française naturelle `fr_FR-si
 Le SHA-256 de l'archive est publié sur la page de release GitHub :
 
 ```bash
-sha256sum IAbrain-1.42.1-linux-x86_64.tar.gz
+sha256sum IAbrain-1.42.2-linux-x86_64.tar.gz
 ```
 
 Comparez avec la valeur publiée sur :
-👉 https://github.com/f1gbd/F1GBD/releases/tag/iabrain-linux-v1.42.1
+👉 https://github.com/f1gbd/F1GBD/releases/tag/iabrain-linux-v1.42.2
 
 Ou via le fichier `.sha256` joint à la release :
 
 ```bash
-wget https://github.com/f1gbd/F1GBD/releases/download/iabrain-linux-v1.42.1/IAbrain-1.42.1-linux-x86_64.tar.gz.sha256
-sha256sum -c IAbrain-1.42.1-linux-x86_64.tar.gz.sha256
+wget https://github.com/f1gbd/F1GBD/releases/download/iabrain-linux-v1.42.2/IAbrain-1.42.2-linux-x86_64.tar.gz.sha256
+sha256sum -c IAbrain-1.42.2-linux-x86_64.tar.gz.sha256
 ```
 
 ---
@@ -245,7 +245,7 @@ L'interface Linux est **strictement identique** à la version Windows : même th
 
 <img src="docs/images/IAbrain_Linux.png" alt="IAbrain sous Linux" width="900">
 
-*IAbrain v1.42.1 tournant nativement sous Linux — interface identique à Windows*
+*IAbrain v1.42.2 tournant nativement sous Linux — interface identique à Windows*
 
 </div>
 
@@ -346,20 +346,20 @@ C'est le comportement attendu sous Linux dans cette version (voir section *Inter
 
 ### « Impossible de charger le module RAG : cannot load module more than once per process »
 
-C'est un bug spécifique à la v1.42 initiale, **corrigé en v1.42.1**. Si vous voyez cette erreur, vous utilisez l'ancienne version. Téléchargez la v1.42.1 ou plus récente :
+C'est un bug spécifique à la v1.42 initiale, **corrigé en v1.42.2**. Si vous voyez cette erreur, vous utilisez l'ancienne version. Téléchargez la v1.42.2 ou plus récente :
 
 ```bash
 ~/.local/share/IAbrain/install.sh --uninstall    # désinstaller v1.42
-# puis installer v1.42.1 :
-tar xzf IAbrain-1.42.1-linux-x86_64.tar.gz
-cd IAbrain-1.42.1-linux-x86_64 && ./install.sh
+# puis installer v1.42.2 :
+tar xzf IAbrain-1.42.2-linux-x86_64.tar.gz
+cd IAbrain-1.42.2-linux-x86_64 && ./install.sh
 ```
 
 Vos données utilisateur (`~/IAbrain/`) sont préservées entre les versions.
 
 ### Le RAG indexe les .txt mais pas les .pdf ou .docx
 
-Vous utilisez une version antérieure à 1.42.1. La v1.42.1 embarque les modules `pypdf` et `python-docx` nécessaires à l'extraction de texte depuis les PDF et DOCX. Mettez à jour vers la dernière version.
+Vous utilisez une version antérieure à 1.42.2. La v1.42.2 embarque les modules `pypdf` et `python-docx` nécessaires à l'extraction de texte depuis les PDF et DOCX. Mettez à jour vers la dernière version.
 
 ---
 
@@ -396,7 +396,7 @@ Toute contribution, retour d'expérience et proposition d'amélioration sont bie
 **Jean-Louis Naudin (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.42.1 Linux — Mai 2026**
+**Version 1.42.2 Linux — Mai 2026**
 
 ---
 
