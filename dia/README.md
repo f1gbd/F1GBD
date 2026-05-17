@@ -51,7 +51,6 @@ Tout tourne **localement** par défaut (modèles Ollama auto-hébergés), avec u
 
 ---
 <img src="images/d-ia_main_screen.jpg" alt="d-IA main screen" width="1024">
----
 
 ## 📋 Pré-requis
 
@@ -85,27 +84,12 @@ Sans GPU, ça marche aussi mais chaque tour prend 30-60 s au lieu de 5-10 s.
 
 ## 🚀 Installation
 
-### Option 1 — Binaire compilé (recommandé)
-
 1. Télécharger [`d-IA.7z`](https://github.com/f1gbd/F1GBD/releases/latest) depuis la page Releases
 2. Décompresser dans un dossier de votre choix
 3. Lancer `d-IA.exe`
 4. Cliquer sur **⚙ Paramètres IA…** pour configurer les deux IA
 5. Cliquer sur **▶ Démarrer**
 
-### Option 2 — Depuis les sources Python
-
-```powershell
-# Cloner ou télécharger le repo
-git clone https://github.com/f1gbd/F1GBD.git
-cd F1GBD\dia
-
-# Installer les dépendances
-pip install ollama pillow pyttsx3 pywin32
-
-# Lancer
-python d-IA.py
-```
 
 ---
 
@@ -153,61 +137,6 @@ Par défaut, **pyttsx3/SAPI5 ne voit que les voix « Desktop »** de Windows (ty
 5. Redémarrer d-IA : les nouvelles voix apparaissent dans les combobox
 
 **L'opération est réversible** : bouton « Restaurer » qui retire uniquement les copies, sans toucher aux voix Desktop d'origine.
-
----
-
-## 🔧 Compilation depuis les sources
-
-### Build PyInstaller
-
-```powershell
-# Installer les outils de build
-pip install pyinstaller pillow pyttsx3 pywin32 ollama
-
-# Compiler avec le fichier .spec fourni
-pyinstaller --clean d-IA.spec
-```
-
-Sortie : `dist/d-IA/d-IA.exe` + dossier `_internal/` + ressources.
-
-### Création de l'archive .7z
-
-```powershell
-# 7-Zip doit être installé (https://www.7-zip.org)
-cd dist
-& "C:\Program Files\7-Zip\7z.exe" a d-IA.7z d-IA/
-```
-
-### Publication d'une release GitHub
-
-```powershell
-# Pré-requis : gh CLI authentifié (gh auth login)
-.\Publish-dIARelease.ps1 -Version "1.0.0"
-```
-
-Le script s'occupe automatiquement de :
-- Vérifier les pré-requis (gh CLI, authentification, archive présente)
-- Calculer le SHA-256 de l'archive
-- Créer le tag `dia-v1.0.0` avec convention de préfixe monorepo
-- Uploader l'archive
-- Générer une description Markdown avec lien de téléchargement et empreinte d'intégrité
-- Gérer le statut « Latest » du dépôt (préserve les autres projets du monorepo par défaut)
-
----
-
-## 📂 Structure du projet
-
-```
-dia/
-├── d-IA.py                       # Application principale
-├── d-IA.spec                     # Recette PyInstaller
-├── Publish-dIARelease.ps1        # Script de publication GitHub Release
-├── README.md                     # Ce fichier
-├── images/
-│   ├── d-ia_logo.jpg             # Logo (utilisé dans la GUI et l'À propos)
-│   └── d-ia_logo.ico             # Icône Windows (barre des tâches, exe)
-└── d-ia_setup.json               # (généré au premier lancement)
-```
 
 ---
 
