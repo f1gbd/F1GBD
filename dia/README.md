@@ -50,6 +50,8 @@ Tout tourne **localement** par défaut (modèles Ollama auto-hébergés), avec u
 | ⚙️ | **Fenêtre Paramètres IA modale** | Trois onglets : configuration **IA 1 - Investigateur** (host local + cloud + clé API + modèle), configuration **IA 2 - Analyste** (idem), et **Synthèse vocale** (activation TTS, choix des voix, débit, déblocage OneCore). |
 
 ---
+<img src="images/d-ia_main_screen.jpg" alt="d-IA main screen" width="1024">
+---
 
 ## 📋 Pré-requis
 
