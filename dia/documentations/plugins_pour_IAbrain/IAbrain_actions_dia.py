@@ -4,8 +4,8 @@
   IAbrain_actions_dia.py - Plugin IAbrain pour d-IA v1.1
 ============================================================================
   Auteur     : Jean-Louis (F1GBD) - ADRASEC 77 / FNRASEC
-  Version    : 1.0 (Mai 2026)
-  IAbrain    : v1.40.7+ requis (systeme de plugins externes)
+  Version    : 1.0.1 (Mai 2026) - fix contrat list_actions (3 elements)
+  IAbrain    : v1.40.7+ requis (systeme de plugins externes), teste v1.42.x
   d-IA       : v1.1+ requis (mode ADRASEC enrichi avec rag_adrasec.json)
 
 Objet
@@ -47,11 +47,14 @@ from pathlib import Path
 
 
 # ----------------------------------------------------------------------------
-# Contrat d'interface IAbrain v1.40.7+
+# Contrat d'interface IAbrain v1.40.7+ / v1.42+
 # ----------------------------------------------------------------------------
 # Trois fonctions obligatoires :
-#   - list_actions() -> list[tuple[str, str]]
-#       Retourne la liste des actions exposees : (action_id, libelle)
+#   - list_actions() -> list[tuple[str, str, str]]
+#       Retourne la liste des actions exposees : (action_id, libelle, description)
+#       IMPORTANT : 3 elements par tuple (et non 2), sinon IAbrain plante
+#       avec "not enough values to unpack (expected 3, got 2)" lors de
+#       l'ouverture de l'editeur de macro.
 #   - is_action(action_id: str) -> bool
 #       True si ce plugin gere cette action
 #   - execute_action(action_id, imported_files, options=None)
@@ -60,20 +63,50 @@ from pathlib import Path
 # ----------------------------------------------------------------------------
 
 ACTIONS = [
-    ("dia_lister",
-     "d-IA — Lister les fiches du rag_adrasec.json"),
-    ("dia_convertir",
-     "d-IA — Convertir TOUTES les fiches en Markdown (pour /index)"),
-    ("dia_par_domaine",
-     "d-IA — Convertir les fiches d'un domaine (SATER, NVIS, ...)"),
-    ("dia_haute_conf",
-     "d-IA — Convertir uniquement les fiches a haute confiance"),
+    (
+        "dia_lister",
+        "d-IA — Lister les fiches du rag_adrasec.json",
+        "Affiche un recapitulatif du fichier rag_adrasec.json produit "
+        "par d-IA en mode ADRASEC enrichi : nombre total de fiches, "
+        "repartition par domaine (SATER, NVIS, OPERATIONNEL...) et "
+        "par niveau de confiance (haute/moyenne/basse), liste detaillee "
+        "avec titres et tags. Utile pour decouvrir le contenu de la base "
+        "avant conversion.",
+    ),
+    (
+        "dia_convertir",
+        "d-IA — Convertir TOUTES les fiches en Markdown (pour /index)",
+        "Convertit toutes les fiches du rag_adrasec.json en Markdown "
+        "structure, pret a copier dans un .md et indexer dans IAbrain "
+        "via la commande /index. Chaque fiche est formattee avec son "
+        "bandeau de metadonnees (domaine, tags, confiance, date) en "
+        "tete, optimisant le chunking semantique du RAG d'IAbrain.",
+    ),
+    (
+        "dia_par_domaine",
+        "d-IA — Convertir les fiches d'un domaine (SATER, NVIS, ...)",
+        "Convertit en Markdown uniquement les fiches d'un domaine "
+        "specifique. Le domaine cible est lu dans la variable de "
+        "session DIA_DOMAINE. Pour l'utiliser, faire d'abord "
+        "/set DIA_DOMAINE=SATER puis lancer la macro. Domaines "
+        "courants : SATER, NVIS, HF_NVIS, OPERATIONNEL, TECHNIQUE.",
+    ),
+    (
+        "dia_haute_conf",
+        "d-IA — Convertir uniquement les fiches a haute confiance",
+        "Genere un Markdown ne contenant que les fiches que le LLM "
+        "moderateur a notees a haute confiance. Recommande pour "
+        "constituer une base RAG personnelle ADRASEC fiable, en "
+        "ecartant les fiches moyennes ou basses qui pourraient contenir "
+        "des inexactitudes du LLM.",
+    ),
 ]
 
 
 def list_actions():
     """Liste les actions exposees par ce plugin.
 
+    Retourne une liste de tuples (action_id, libelle, description).
     Affichee dans le dialogue de configuration des macros Action d'IAbrain.
     """
     return list(ACTIONS)
@@ -81,7 +114,7 @@ def list_actions():
 
 def is_action(action_id):
     """Indique si ce plugin gere l'action demandee."""
-    return action_id in {aid for aid, _label in ACTIONS}
+    return action_id in {aid for aid, _label, _desc in ACTIONS}
 
 
 def execute_action(action_id, imported_files, options=None):
@@ -515,7 +548,7 @@ def _demander_domaine(fiches, options):
 if __name__ == "__main__":
     print("=== Plugin IAbrain d-IA — Auto-test ===\n")
     print(f"Actions exposees : {len(ACTIONS)}")
-    for aid, label in ACTIONS:
+    for aid, label, _desc in ACTIONS:
         print(f"  - {aid:20s} : {label}")
     print()
     print("Pour tester en conditions reelles :")
