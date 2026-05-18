@@ -11,9 +11,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v10.13.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/tcq-v10.13.0)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v10.14.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/tcq-v10.14.0)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v10.13.0/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v10.14.0/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -29,11 +29,11 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 
 ---
 
-## 🆕 Quoi de neuf en v10.13.0
+## 🆕 Quoi de neuf en v10.14.0
 
-> **Correctif rendu PDF radio** — Cette version intègre le correctif `pdf_trans` v1.0.2 qui élimine le **débordement des textes hors des cellules de tableaux** lors de la recomposition structurée (Bilan humain, Moyens engagés, Activité de secours…). C'est une amélioration importante pour les SITREP et formulaires COD/SIDPC reçus par radio dont la mise en page contient des tableaux à cellules étroites.
+> **Correctif rendu PDF radio** — Cette version intègre le correctif `pdf_trans` v1.0.3 qui élimine le **débordement des textes hors des cellules de tableaux** lors de la recomposition structurée (Bilan humain, Moyens engagés, Activité de secours…). C'est une amélioration importante pour les SITREP et formulaires COD/SIDPC reçus par radio dont la mise en page contient des tableaux à cellules étroites.
 >
-> **Action recommandée** : tous les opérateurs ADRASEC utilisant TCQ pour les transferts PDF radio devraient passer à la v10.13.0. Les archives `.psdi` produites par les versions antérieures (toutes incluses) restent **entièrement lisibles** avec la v10.13.0 et bénéficient même automatiquement du fix de rendu côté recomposition.
+> **Action recommandée** : tous les opérateurs ADRASEC utilisant TCQ pour les transferts PDF radio devraient passer à la v10.14.0. Les archives `.psdi` produites par les versions antérieures (toutes incluses) restent **entièrement lisibles** avec la v10.14.0 et bénéficient même automatiquement du fix de rendu côté recomposition.
 >
 > **Pas de changement d'API** : aucune adaptation nécessaire pour les intégrations existantes. La version `pdf_trans v1.0.2` est affichée au démarrage dans le log TCQ pour faciliter le diagnostic en exercice.
 
@@ -208,14 +208,14 @@ Au premier démarrage :
 
 ---
 
-## 🆕 Nouveautés v10.13.0
+## 🆕 Nouveautés v10.14.0
 
 ### Module PDF radio — Correctif rendu des tableaux
 
 - 📐 **Intégration de `pdf_trans` v1.0.2** qui corrige le débordement des libellés hors des cellules de tableaux lors de la recomposition structurée (Bilan humain, Moyens engagés, Activité de secours…)
 - 📐 La bibliothèque respecte désormais strictement le bounding box d'origine des lignes de texte (plus d'étirement jusqu'au bord de la page)
 - 🔤 **Conservation de la famille de fonte d'origine** (sans-serif / serif / monospace) dans l'archive `.psdi` pour un rendu plus fidèle à l'aspect du document source
-- 🔄 **Compatibilité ascendante totale** : toutes les archives `.psdi` produites antérieurement (v1.0.0 et v1.0.1 de pdf_trans) restent lisibles avec la v10.13.0 et bénéficient même automatiquement du fix de rendu côté recomposition
+- 🔄 **Compatibilité ascendante totale** : toutes les archives `.psdi` produites antérieurement (v1.0.0 et v1.0.1 de pdf_trans) restent lisibles avec la v10.14.0 et bénéficient même automatiquement du fix de rendu côté recomposition
 - 📡 Le correctif s'applique automatiquement à tous les transferts PDF via **VARA HF/FM/SAT**, **TNC Packet** et **TCQ-BBS**
 
 ### Logging au démarrage
@@ -462,7 +462,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v10.13.0 — 2026-05-15**
+**Version v10.14.0 — 2026-05-15**
 
 ---
 
