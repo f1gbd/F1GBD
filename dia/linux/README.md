@@ -32,6 +32,9 @@ Cette version Linux est la **transposition fidèle** de la version Windows, à u
 - 🎙️ **Génération de matière première** pour podcasts radioamateurs (export RTF/Markdown)
 - 📚 **Auto-enrichissement de base RAG** : extraction automatique de fiches techniques (v1.1)
 
+<div align="center">
+  <img src="../images/d-IA_linux_screen.png" alt="d-IA Linux screee" width="2048">
+</div>
 ---
 
 ## ⭐ Fonctionnalités principales
