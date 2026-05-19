@@ -1,34 +1,44 @@
 <div align="center">
 
-<img src="https://github.com/f1gbd/F1GBD/blob/master/epirb/doc/images/EPIRBdecoder_logo.jpg?raw=true" alt="EPIRB Decoder" width="220">
+<img src="https://github.com/f1gbd/F1GBD/blob/master/epirb/doc/images/EPIRBdecoder_logo.jpg?raw=true" alt="EPIRB Suite" width="220">
 
-# EPIRB 406 MHz Decoder
+# EPIRB 406 MHz Suite
 
-### Décodeur de balises de détresse COSPAS-SARSAT 406 MHz pour la formation et les opérations ADRASEC
+### Suite complète de décodage et génération de balises de détresse COSPAS-SARSAT 406 MHz pour la formation et les opérations ADRASEC
 
-*Décodage EPIRB/ELT/PLB — SDR Direct RTL-SDR — Démodulation FM IQ — Audio Live / Fichier WAV / Hex — Carte OSM avec relèvements goniométriques — Triangulation ELT — SITREP PDF — MGRS — Thème clair/sombre — Export CSV*
+*Décodage EPIRB/ELT/PLB — Génération de trames d'exercice — SDR Direct RTL-SDR — Démodulation FM IQ — Audio Live / Fichier WAV / Hex — Carte OSM avec relèvements goniométriques — Triangulation ELT — SITREP PDF — MGRS — Thème clair/sombre — Export CSV*
 
-[![Version](https://img.shields.io/badge/version-epirb--v5.4.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/epirb-v5.4.0)
+[![Decoder](https://img.shields.io/badge/decoder-v5.4.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/epirb-v5.4.0)
+[![Generator](https://img.shields.io/badge/generator-v3.6-blue)](https://github.com/f1gbd/F1GBD/releases?q=epirb)
 [![Téléchargements](https://img.shields.io/badge/téléchargements-actifs-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases?q=epirb)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![Mission](https://img.shields.io/badge/mission-COSPAS--SARSAT-orange.svg)]()
 
-### 📥 [**Télécharger la dernière version stable (v5.4.0)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.4.0/EPIRBdecoder.7z)
+### 📥 [**Télécharger la dernière version stable (EPIRB Suite)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.4.0/EPIRBdecoder.7z)
 
 </div>
 
 ---
 
-## 🎯 Qu'est-ce que EPIRB 406 MHz Decoder ?
+## 🎯 Qu'est-ce que la suite EPIRB 406 MHz ?
 
-**EPIRB Decoder** est un **décodeur complet de balises de détresse 406 MHz** (EPIRB, ELT, PLB) conforme au système **COSPAS-SARSAT**. Il permet de recevoir, décoder et analyser les trames numériques émises par les balises de détresse maritimes et aéronautiques, directement depuis un dongle **RTL-SDR**, un fichier audio WAV, une entrée micro live ou une trame hexadécimale.
+La **EPIRB 406 MHz Suite** regroupe **deux outils complémentaires** pour la formation, les exercices et les opérations ADRASEC sur les balises de détresse COSPAS-SARSAT :
 
-L'outil est destiné à la **formation des opérateurs ADRASEC**, aux **exercices de décodage 406 MHz**, et aux **opérations réelles** de recherche et sauvetage dans le cadre COSPAS-SARSAT.
+| Outil | Rôle |
+|---|---|
+| 📡 **EPIRB Decoder** (v5.4) | Décodeur complet de trames 406 MHz — RTL-SDR, Audio Live, fichier WAV, Hex direct, carte OSM avec triangulation, SITREP PDF |
+| 🛰 **EPIRB Generator** (v3.6) | Générateur de trames d'exercice 406 MHz — émission audio directe, PTT série, signal Manchester 400 bauds conforme COSPAS-SARSAT T.001 |
+
+Les deux outils forment un **couple intégré** : le générateur produit des trames d'exercice qui sont décodées par le décodeur, validant ainsi la chaîne complète et permettant des scénarios de formation réalistes sans dépendre de balises matérielles.
+
+L'ensemble est destiné à la **formation des opérateurs ADRASEC**, aux **exercices de décodage 406 MHz**, et aux **opérations réelles** de recherche et sauvetage dans le cadre COSPAS-SARSAT.
 
 ---
 
 ## ⭐ Fonctionnalités principales
+
+### 📡 EPIRB Decoder v5.4
 
 | Icône | Fonctionnalité | Description |
 |:---:|---|---|
@@ -53,9 +63,52 @@ L'outil est destiné à la **formation des opérateurs ADRASEC**, aux **exercice
 | 📤 | **Export / Import CSV** | Export des relèvements en CSV (point-virgule) avec indicatif, coordonnées DMS et décimales, azimut, signal et horodatage. Import CSV pour reprise de session ou échange inter-opérateurs. |
 | 📝 | **Journal de décodage** | Export du journal complet de la session (trames décodées, horodatages, paramètres) vers un fichier texte. |
 
+### 🛰 EPIRB Generator v3.6
+
+| Icône | Fonctionnalité | Description |
+|:---:|---|---|
+| 🎛 | **Génération de trames 144 bits** | Construction complète d'une trame COSPAS-SARSAT T.001 : sync DETR/EXER, format long, code pays MID, protocole, identification, position GPS, codes d'urgence, BCH-1 et BCH-2 calculés automatiquement. |
+| 📻 | **Encodage Manchester 400 bauds** | Signal biphase-L (Manchester) en bande de base à 400 bauds, échantillonné 48 kHz 16 bits mono. Manchester carré pur (v3.6) — spectre fidèle à une vraie balise 406 MHz. |
+| 🌍 | **Base pays MID intégrée** | Plus de 25 codes pays MID (UIT-R M.585) intégrés : France (227, 228), Royaume-Uni, Allemagne, Italie, Espagne, États-Unis, Canada, Australie, Japon, etc. |
+| 📡 | **Émission audio directe** | Transmission temps réel via PyAudio sur carte son ou interface CAT/Audio (Yaesu SCU-17, Digirig Mobile, etc.). Compatible avec tout émetteur radio amateur en mode FM Packet. |
+| 🎚 | **PTT série multimode** | RTS, DTR ou CAT série dédié. Support de 16 transceivers HF/VHF/UHF : Yaesu (FT-817/818, FT-991, FT-710, FT-DX10/101, FTX-1...), Icom (IC-7300, IC-7100, IC-9700, IC-705...), Kenwood, Elecraft, FlexRadio, Xiegu. |
+| 💾 | **Export WAV** | Génération de fichiers WAV PCM 48 kHz 16 bits mono — exploitable par tout décodeur 406 MHz, archivable pour exercices ou formation. |
+| 🔄 | **Test aller-retour** | Boucle automatique de validation : génération → WAV → décodage via EPIRB Decoder → comparaison des paramètres. Validation immédiate de la conformité de la trame. |
+| 🎯 | **Mode EXER ADRASEC** | Émission cyclique automatique conforme aux exercices SATER (cycle 50 s, sync SELFTEST). Activation/désactivation en un clic. |
+| 🎵 | **Signal de calibration** | Tonalité continue 1 kHz pour réglage du niveau audio entre PC et émetteur. Indispensable avant tout exercice. |
+| 📐 | **Conversion DMS ↔ décimal** | Saisie de position en degrés-minutes-secondes ou décimal, conversion bidirectionnelle automatique. |
+| 🎨 | **Thème clair / sombre** | Palette SAR Tactical Dark cohérente avec le décodeur. Préférence persistante dans `generator_setup.json`. |
+
 ---
 
-## 🚀 Modes de réception
+## ✅ Chaîne radio validée terrain (mai 2026)
+
+Une **chaîne radio complète a été validée en émission/réception réelles** sur 434,275 MHz (fréquence de test ADRASEC) et permet le décodage parfait des trames d'exercice avec BCH-1 et BCH-2 conformes :
+
+```
+PC ──USB──▶ Yaesu SCU-17 ──audio/PTT──▶ FT-817ND (mode PKT, 434.275 MHz)
+                                              │
+                                              ▼
+                                       Antenne 70 cm
+                                              │
+                                              ▼
+PC ◀──USB── Digirig Mobile ◀──audio── FT-5DE (mode FM, 12.5 kHz)
+```
+
+| Étape | Équipement | Configuration |
+|---|---|---|
+| **1. Source logicielle** | EPIRB Generator v3.6 | Trame test : 227 (France), protocole 14 (Std Loc. RLS), ID 0425A4 |
+| **2. Interface TX** | Yaesu SCU-17 | Carte son USB + PTT série CAT (Yaesu FT-817 dans `generator_setup.json`) |
+| **3. Émetteur** | Yaesu FT-817ND | **Mode PKT** (Packet FM), 434,275 MHz, 0,5-5 W, entrée audio DATA arrière |
+| **4. Récepteur** | Yaesu FT-5DE | Mode FM standard, 12,5 kHz, sortie audio jack 3,5 mm |
+| **5. Interface RX** | Digirig Mobile | Carte son USB miniature, câble dédié Yaesu FT-5 |
+| **6. Décodeur** | EPIRB Decoder v5.4 | Mode **Audio Live** (entrée USB Audio Codec) — décodage immédiat |
+
+> ⚠ **Configurations à éviter** : Le mode FM standard sur l'entrée MIC du FT-817ND introduit du pre-emphasis incompatible avec le Manchester. Le mode DIG (SSB Data) utilise un filtre IF trop étroit (~2,4 kHz). Le décodage Audio Live à partir d'un récepteur FM physique calibré reste la solution la plus robuste pour la formation et les exercices.
+
+---
+
+## 🚀 Modes de réception (Decoder)
 
 ### 📡 SDR Direct — RTL-SDR natif
 
@@ -75,6 +128,7 @@ Capture directe depuis la carte son. Brancher la sortie audio d'un récepteur an
 - Sélection du périphérique d'entrée
 - Seuil de sensibilité ajustable
 - Décodage continu en temps réel
+- **Mode recommandé** pour la chaîne validée FT-5DE + Digirig
 
 ### 📁 Fichier Audio
 
@@ -86,15 +140,35 @@ Saisie manuelle d'une trame hexadécimale (28 ou 36 caractères) pour décodage 
 
 ---
 
+## 🚀 Modes de transmission (Generator)
+
+### 🎵 Export WAV
+
+Génération d'un fichier WAV PCM 48 kHz 16 bits exploitable par tout décodeur 406 MHz. Idéal pour préparer un kit pédagogique de trames test.
+
+### 📡 Transmission audio directe
+
+Envoi du signal audio en temps réel via PyAudio vers la carte son sélectionnée (généralement la sortie USB de la SCU-17 ou du Digirig). Combiné au PTT série pour piloter automatiquement l'émetteur.
+
+### 🔄 Test aller-retour avec le décodeur
+
+Bouton dédié qui lance automatiquement la chaîne : génération → WAV → EPIRB Decoder en mode fichier → comparaison résultats. Validation immédiate de la conformité de la trame.
+
+### 🎯 Mode EXER ADRASEC
+
+Émission cyclique automatique sur cycle de 50 secondes, conforme aux protocoles d'exercice FNRASEC. La trame utilise systématiquement le pattern SELFTEST (EXER) pour signaler son caractère d'exercice.
+
+---
+
 ## 🛠 Comment commencer ?
 
 ### 📥 Téléchargement direct de l'archive
 
 <div align="center">
 
-#### 📥 [**Télécharger EPIRBdecoder.7z (v5.4.0)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.4.0/EPIRBdecoder.7z)
+#### 📥 [**Télécharger EPIRBdecoder.7z (Suite complète)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.4.0/EPIRBdecoder.7z)
 
-*(version `epirb-v5.4.0` — voir [toutes les releases EPIRB Decoder](https://github.com/f1gbd/F1GBD/releases?q=epirb) pour les versions précédentes)*
+*(archive contenant Decoder v5.4.0 + Generator v3.6 — voir [toutes les releases EPIRB](https://github.com/f1gbd/F1GBD/releases?q=epirb) pour les versions précédentes)*
 
 [![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
 
@@ -108,18 +182,21 @@ Saisie manuelle d'une trame hexadécimale (28 ou 36 caractères) pour décodage 
 #
 #    Vous obtenez l'arborescence suivante :
 #    EPIRBdecoder\
-#       ├── _internal\           (dépendances PyInstaller)
-#       ├── osm_tiles_cache\     (cache des tuiles OSM, créé au 1er usage)
-#       └── EPIRB-decoder.exe    ← exécutable principal
+#       ├── _internal\              (dépendances PyInstaller)
+#       ├── osm_tiles_cache\        (cache des tuiles OSM, créé au 1er usage)
+#       ├── EPIRB-decoder.exe       ← décodeur principal
+#       └── EPIRB-generator.exe     ← générateur compagnon
 #
-# 2. Double-cliquer sur EPIRB-decoder.exe pour lancer le décodeur
+# 2. Double-cliquer sur EPIRB-decoder.exe ou EPIRB-generator.exe pour lancer
 ```
 
-> 💡 **Aucune installation système requise** : pas d'admin, pas de modification du registre, pas de variable d'environnement. Le décodeur est entièrement autonome dans son dossier.
+> 💡 **Aucune installation système requise** : pas d'admin, pas de modification du registre, pas de variable d'environnement. La suite est entièrement autonome dans son dossier.
 
 > 💡 **Pour le mode SDR Direct** : installer les drivers WinUSB pour le dongle RTL-SDR via [Zadig](https://zadig.akeo.ie/). Le dongle RTL-SDR V3 ou V4 doit apparaître dans Zadig avec le driver WinUSB sélectionné.
 
-### ⚙ Configuration matérielle pour le mode SDR Direct
+### ⚙ Configuration matérielle
+
+#### Pour le mode SDR Direct (Decoder)
 
 | Composant | Description |
 |---|---|
@@ -127,6 +204,16 @@ Saisie manuelle d'une trame hexadécimale (28 ou 36 caractères) pour décodage 
 | **Driver** | WinUSB installé via Zadig |
 | **Antenne** | Antenne adaptée 406 MHz (dipôle, Yagi, ou antenne large bande) |
 | **Câble** | SMA vers l'antenne, USB vers le PC |
+
+#### Pour la chaîne radio Generator → Decoder (validée terrain)
+
+| Composant | Description |
+|---|---|
+| **Émetteur TX** | Yaesu FT-817ND (mode PKT recommandé) ou tout TX FM Packet équivalent |
+| **Interface TX** | Yaesu SCU-17 ou interface équivalente (USB Audio + PTT série) |
+| **Récepteur RX** | Yaesu FT-5DE (mode FM standard) ou tout RX FM 12,5 kHz |
+| **Interface RX** | Digirig Mobile avec câble dédié Yaesu FT-5 |
+| **Fréquence** | 434,275 MHz (test ADRASEC/FNRASEC) — JAMAIS 406,025 MHz opérationnel |
 
 ---
 
@@ -181,22 +268,26 @@ Format : `latitude, longitude [azimut] [force du signal]` — la virgule décima
 
 ## 💼 Cas d'usage
 
-### 🎓 Formation ADRASEC au décodage 406 MHz
+### 🎓 Formation ADRASEC au décodage 406 MHz (avec le Generator)
 
 ```
-1. Lancer EPIRB Decoder, sélectionner l'onglet SDR Direct
-2. Connecter le dongle RTL-SDR avec antenne 406 MHz
-3. Cliquer sur Connecter — le VU-mètre s'active
-4. Activer une balise d'exercice ADRASEC (434.275 MHz)
-5. Observer le décodage automatique : burst IQ détecté → trame décodée
-6. Analyser les champs : type, protocole, MMSI/OACI, position
-7. Basculer sur l'onglet Carte pour visualiser la position
+1. Lancer EPIRB Generator, configurer la trame d'exercice :
+   - Pays 227 (France), protocole Std Loc. RLS (14)
+   - ID balise (ex : 0425A4), position fictive
+   - Cocher le mode EXER (sync SELFTEST)
+2. Lancer EPIRB Decoder en mode Audio Live (entrée Digirig)
+3. Mettre le FT-817ND en mode PKT sur 434,275 MHz
+4. Mettre le FT-5DE en mode FM sur 434,275 MHz
+5. Cliquer « Transmettre » dans le Generator
+6. Observer le décodage instantané dans le Decoder :
+   burst détecté → trame décodée → carte mise à jour
+7. Analyser les champs avec les stagiaires : type, protocole, position, BCH
 ```
 
 ### 📡 Exercice de triangulation goniométrique
 
 ```
-1. Ouvrir l'onglet Carte, activer le mode plein écran (⛶)
+1. Ouvrir l'onglet Carte du Decoder, activer le mode plein écran (⛶)
 2. Si un GPS est connecté, activer le GPS NMEA (port COM)
 3. Chaque opérateur sur le terrain communique par radio :
    son indicatif, ses coordonnées GPS, et l'azimut du relèvement
@@ -207,6 +298,18 @@ Format : `latitude, longitude [azimut] [force du signal]` — la virgule décima
 6. Le cercle CEP 95% s'affiche sur la carte avec le marqueur BALISE
 7. Cliquer sur « 📋 SITREP » pour générer le rapport de situation
 8. Exporter en PDF professionnel avec logo ADRASEC et capture carte
+```
+
+### 🔄 Validation de chaîne radio avant exercice
+
+```
+1. Lancer le Generator, mode EXER actif
+2. Lancer le Decoder en Audio Live (Digirig)
+3. Vérifier l'arrivée propre du signal de calibration 1 kHz
+   (VU-mètre dans la zone Optimal/verte)
+4. Émettre une trame de test, vérifier décodage BCH-1 OK, BCH-2 OK
+5. Si OK : chaîne validée, exercice peut commencer
+6. Si KO : vérifier mode TX (PKT), niveau audio, fréquence, antennes
 ```
 
 ### 🔍 Analyse post-exercice
@@ -227,13 +330,17 @@ Format : `latitude, longitude [azimut] [force du signal]` — la virgule décima
 | **Système** | Windows 10 64 bits | Windows 11 |
 | **Processeur** | Intel i3 / Ryzen 3 | Intel i5 / Ryzen 5 ou plus |
 | **RAM** | 4 Go | 8 Go |
-| **Espace disque** | 150 Mo | 300 Mo (avec tuiles préchargées) |
-| **RTL-SDR** | RTL-SDR V3 (R820T) | RTL-SDR V4 (R828D) |
+| **Espace disque** | 200 Mo | 400 Mo (avec tuiles préchargées) |
+| **RTL-SDR (Decoder)** | RTL-SDR V3 (R820T) | RTL-SDR V4 (R828D) |
+| **Interface TX (Generator)** | Câble USB-série + PTT | Yaesu SCU-17 ou équivalent |
+| **Interface RX (Decoder Audio)** | Carte son PC | Digirig Mobile ou équivalent |
 | **Internet** | Requis pour la carte OSM | Mode hors-ligne possible après préchargement |
 
 ---
 
 ## 🆕 Versions récentes
+
+### 📡 EPIRB Decoder
 
 | Version | Apport principal |
 |---|---|
@@ -246,6 +353,14 @@ Format : `latitude, longitude [azimut] [force du signal]` — la virgule décima
 | v2.x | Audio Live, décodage continu temps réel |
 | v1.x | Décodage fichier WAV, protocoles COSPAS-SARSAT de base |
 
+### 🛰 EPIRB Generator
+
+| Version | Apport principal |
+|---|---|
+| **v3.6** | **Version courante** — Suppression du filtre passe-bas en bande de base, Manchester carré pur fidèle au signal d'une vraie balise 406, marge de décodage maximale en chaîne FM Packet |
+| v3.5 | Filtre passe-bas 1200 Hz Butterworth ordre 4, contenu spectral élargi |
+| v3.4 | Version initiale GUI Pro, palette SAR Tactical Dark, support 16 transceivers CAT, mode EXER ADRASEC |
+
 Pour le détail de tous les changements, consultez le [changelog complet sur GitHub Releases](https://github.com/f1gbd/F1GBD/releases?q=epirb).
 
 ---
@@ -253,52 +368,80 @@ Pour le détail de tous les changements, consultez le [changelog complet sur Git
 ## 🌐 Architecture technique
 
 ```
-┌──────────────────────────────────────────────────────────────┐
-│  EPIRB 406 MHz Decoder (interface Tkinter)                   │
-│  - 4 onglets d'entrée : Fichier / Audio Live / Hex / SDR     │
-│  - 2 onglets de sortie : Résultats / Carte OSM               │
-│  - Thème SAR Tactical Dark / Clair                           │
-└──────┬──────────┬───────────────┬─────────────┬──────────────┘
-       │          │               │             │
-┌──────▼──────┐ ┌─▼───────────┐ ┌─▼─────────┐ ┌─▼──────────────┐
-│ SDR Direct  │ │ Audio Live  │ │ Fichier   │ │ Carte OSM      │
-│             │ │             │ │ WAV/M4A   │ │                │
-│ RTL-SDR IQ  │ │ PyAudio     │ │ FFmpeg    │ │ Tuiles OSM     │
-│ Démod FM    │ │ Capture     │ │ Conversion│ │ Relevés gonio  │
-│ Burst IQ    │ │ Continue    │ │ Décodage  │ │ Vecteurs 80 km │
-│ 406 MHz     │ │             │ │           │ │ MGRS WGS84     │
-│ scipy/numpy │ │             │ │           │ │ Triangulation  │
-│             │ │             │ │           │ │ SITREP PDF     │
-│ scipy/numpy │ │             │ │           │ │ GPS NMEA       │
-└──────┬──────┘ └──────┬──────┘ └─────┬─────┘ └────────────────┘
-       │               │              │
-       └───────────────┴──────────────┘
-                       │
-              ┌────────▼─────────┐
-              │ Décodeur biphase │
-              │ Manchester       │
-              │                  │
-              │ BCH(82,61) t=3   │
-              │ BCH-2 validation │
-              │ Protocole C/S    │
-              │ T.001            │
-              └────────┬─────────┘
-                       │
-              ┌────────▼─────────┐
-              │ Affichage        │
-              │                  │
-              │ Type / Protocole │
-              │ MMSI / OACI      │
-              │ Position GPS     │
-              │ Carte OSM        │
-              └──────────────────┘
+┌──────────────────────────────────────────────────────────────────────┐
+│                    EPIRB 406 MHz Suite                               │
+│                                                                      │
+│  ┌────────────────────────────┐  ┌────────────────────────────────┐  │
+│  │  EPIRB Generator v3.6      │  │  EPIRB Decoder v5.4            │  │
+│  │  (interface Tkinter)       │  │  (interface Tkinter)           │  │
+│  │                            │  │                                │  │
+│  │  - Construction trame 144  │  │  - 4 onglets d'entrée :        │  │
+│  │  - Encodage Manchester     │  │    Fichier / Audio Live /      │  │
+│  │  - Export WAV / TX direct  │  │    Hex / SDR Direct            │  │
+│  │  - PTT RTS/DTR/CAT         │  │  - 2 onglets de sortie :       │  │
+│  │  - Mode EXER ADRASEC       │  │    Résultats / Carte OSM       │  │
+│  └────────────┬───────────────┘  └────────┬───────────────────────┘  │
+└───────────────┼──────────────────────────┼──────────────────────────┘
+                │                          │
+                ▼                          ▼
+┌──────────────────────────┐  ┌──────────────────────────────────────┐
+│  Émetteur radio amateur  │  │  Décodage multi-mode                 │
+│                          │  │                                      │
+│  - SCU-17 / Digirig      │  │  - SDR Direct (RTL-SDR IQ)           │
+│  - FT-817ND (PKT)        │  │  - Audio Live (PyAudio)              │
+│  - 434,275 MHz           │  │  - Fichier WAV/M4A (FFmpeg)          │
+│  - 5 W max               │  │  - Hex Direct (saisie)               │
+└─────────────┬────────────┘  └──────────────┬───────────────────────┘
+              │                              │
+              ▼                              │
+        Onde radio 70 cm                     │
+              │                              │
+              ▼                              │
+┌──────────────────────────┐                 │
+│  Récepteur radio amateur │                 │
+│                          │                 │
+│  - FT-5DE (mode FM)      │                 │
+│  - Digirig Mobile        │─────────────────┘
+│  - Audio USB             │
+└──────────────────────────┘
+                                             │
+                                             ▼
+                              ┌──────────────────────────────┐
+                              │ Décodeur biphase Manchester  │
+                              │                              │
+                              │ BCH(82,61) t=3               │
+                              │ BCH-2 validation             │
+                              │ Protocole COSPAS-SARSAT      │
+                              │ T.001                        │
+                              └──────────────┬───────────────┘
+                                             │
+                                             ▼
+                              ┌──────────────────────────────┐
+                              │ Affichage                    │
+                              │                              │
+                              │ Type / Protocole             │
+                              │ MMSI / OACI                  │
+                              │ Position GPS                 │
+                              │ Carte OSM + Triangulation    │
+                              │ SITREP PDF ADRASEC           │
+                              └──────────────────────────────┘
 ```
+
+---
+
+## 📜 Mention légale
+
+La suite EPIRB 406 MHz est destinée à la **formation et aux exercices ADRASEC** dans le cadre des activités de la FNRASEC.
+
+**Toute émission radioélectrique sur 406,025 MHz (fréquence opérationnelle COSPAS-SARSAT) est strictement interdite.** Les transmissions de test du Generator doivent s'effectuer sur charge fictive ou sur les fréquences amateurs autorisées (434,275 MHz typiquement), exclusivement avec le pattern de synchronisation SELFTEST (EXER).
+
+La responsabilité de l'usage opérationnel incombe à l'opérateur radio amateur titulaire de la licence.
 
 ---
 
 ## 🤝 Communauté
 
-EPIRB 406 MHz Decoder est un **projet développé pour la communauté ADRASEC**, proposé librement aux opérateurs ADRASEC départementales et à la FNRASEC dans le cadre des missions de décodage **COSPAS-SARSAT 406 MHz**.
+EPIRB 406 MHz Suite est un **projet développé pour la communauté ADRASEC**, proposé librement aux opérateurs ADRASEC départementales et à la FNRASEC dans le cadre des missions de décodage **COSPAS-SARSAT 406 MHz**.
 
 Toute contribution, retour d'exercice ou proposition d'amélioration est bienvenue via les *Issues* du dépôt GitHub.
 
@@ -311,13 +454,13 @@ Toute contribution, retour d'exercice ou proposition d'amélioration est bienven
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 5.4.0 — Mai 2026**
+**EPIRB Decoder v5.4.0 + EPIRB Generator v3.6 — Mai 2026**
 
 ---
 
 *Pour toute question, contactez votre référent ADRASEC départemental.*
 
-📡 **EPIRB 406 MHz Decoder** — *Le décodage COSPAS-SARSAT au service de la sécurité civile*
+📡 **EPIRB 406 MHz Suite** — *Le décodage et la génération COSPAS-SARSAT au service de la sécurité civile*
 
 🔗 [https://github.com/f1gbd/F1GBD/tree/master/epirb](https://github.com/f1gbd/F1GBD/tree/master/epirb)
 
