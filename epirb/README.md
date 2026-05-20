@@ -8,14 +8,14 @@
 
 *Décodage EPIRB/ELT/PLB — Génération de trames d'exercice — SDR Direct RTL-SDR — Démodulation FM IQ — Audio Live / Fichier WAV / Hex — Carte OSM avec relèvements goniométriques — Triangulation ELT — SITREP PDF — MGRS — Thème clair/sombre — Export CSV*
 
-[![Decoder](https://img.shields.io/badge/decoder-v5.4.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/epirb-v5.4.0)
+[![Decoder](https://img.shields.io/badge/decoder-v5.5.0-blue)](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.5.0/EPIRBdecoder.7z)
 [![Generator](https://img.shields.io/badge/generator-v3.6-blue)](https://github.com/f1gbd/F1GBD/releases?q=epirb)
 [![Téléchargements](https://img.shields.io/badge/téléchargements-actifs-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases?q=epirb)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![Mission](https://img.shields.io/badge/mission-COSPAS--SARSAT-orange.svg)]()
 
-### 📥 [**Télécharger la dernière version stable (EPIRB Suite)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.4.0/EPIRBdecoder.7z)
+### 📥 [**Télécharger la dernière version stable (EPIRB Suite)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.5.0/EPIRBdecoder.7z)
 
 </div>
 
