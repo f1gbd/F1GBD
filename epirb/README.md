@@ -38,7 +38,7 @@ L'ensemble est destiné à la **formation des opérateurs ADRASEC**, aux **exerc
 
 ## ⭐ Fonctionnalités principales
 
-### 📡 EPIRB Decoder v5.4
+### 📡 EPIRB Decoder v5.5.1
 
 | Icône | Fonctionnalité | Description |
 |:---:|---|---|
