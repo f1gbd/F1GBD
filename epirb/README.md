@@ -2,8 +2,6 @@
 
 <img src="https://github.com/f1gbd/F1GBD/blob/master/epirb/doc/images/EPIRBdecoder_logo.jpg?raw=true" alt="EPIRB Suite" width="220">
 
-# EPIRB 406 MHz Suite
-
 ### Suite complète de décodage et génération de balises de détresse COSPAS-SARSAT 406 MHz pour la formation et les opérations ADRASEC
 
 *Décodage EPIRB/ELT/PLB — Génération de trames d'exercice — SDR Direct RTL-SDR — Démodulation FM IQ — Audio Live / Fichier WAV / Hex — Carte OSM avec relèvements goniométriques — Triangulation ELT — SITREP PDF — MGRS — Thème clair/sombre — Export CSV*
