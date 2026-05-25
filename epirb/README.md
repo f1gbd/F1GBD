@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://github.com/f1gbd/F1GBD/blob/master/epirb/doc/images/EPIRBdecoder_logo.jpg?raw=true" alt="EPIRB Suite" width="220">
+<img src="https://github.com/f1gbd/F1GBD/blob/master/epirb/doc/images/EPIRBdecoder_logo.jpg?raw=true" alt="EPIRB Suite" width="400">
 
 ### Suite complète de décodage et génération de balises de détresse COSPAS-SARSAT 406 MHz pour la formation et les opérations ADRASEC
 
