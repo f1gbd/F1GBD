@@ -16,7 +16,7 @@
 [![Modérateur](https://img.shields.io/badge/mode-mod%C3%A9rateur%20conversationnel-teal.svg)]()
 [![RAG](https://img.shields.io/badge/mode-ADRASEC%20enrichi-orange.svg)]()
 
-### 📥 [**Télécharger la dernière version (v1.2.0)**](https://github.com/f1gbd/F1GBD/releases/latest)
+### 📥 [**Télécharger la dernière version (v1.2.0)**](https://github.com/f1gbd/F1GBD/releases/download/dia-v1.2.0/d-IA.7z)
 
 </div>
 
