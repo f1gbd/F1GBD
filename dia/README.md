@@ -2,8 +2,6 @@
 
 <img src="images/d-ia_logo.jpg" alt="d-IA" width="300">
 
-# d-IA
-
 ### Dialogue autonome entre deux IA, arbitré par un troisième — un outil d'aide à la recherche par IA
 
 *Conversation scientifique guidée — Investigateur & Analyste — **Modérateur conversationnel qui fait converger le dialogue vers une solution (v1.2)** — Presets de sujet importables/exportables (v1.2) — Mode ADRASEC enrichi (modérateur RAG) — Ollama local & cloud — Mémoire glissante — Détection de dérive linguistique — Synthèse vocale SAPI5 deux voix — Synchronisation dialogue/voix — Export JSON / Markdown / RTF — Thèmes secondaires guidés — Configuration persistante*
