@@ -99,7 +99,7 @@ texte). Touchez **Stop** pour interrompre, et **Voix** pour activer ou
 couper la lecture vocale.
 
 <div>
-  <img src="images/dia_android_conversation.jpg" alt="d-IA Android conversation" width="640">
+  <img src="images/dia_android_conversation.jpg" alt="d-IA Android conversation" width="320">
 </div>
 
 ---
