@@ -1,11 +1,11 @@
 
 <div align="center">
-  # d-IA Light — Application Android
   <img src="images/d-ia_logo.jpg" alt="d-IA Logo" width="200">
 </div>
 **Dialogue autonome entre intelligences artificielles**
 *par F1GBD — ADRASEC 77 / FNRASEC*
 
+# d-IA Light — Application Android
 d-IA Light est la version Android de **d-IA**, un système où plusieurs IA
 dialoguent entre elles de façon autonome sur un sujet donné. Trois rôles
 collaborent : un **Investigateur** qui questionne et explore, un **Analyste**
