@@ -139,5 +139,7 @@ téléphone. Aucune donnée n'est transmise à des tiers.
 
 ---
 
+[*MANUEL Utilisateur complet de d-IA Light Android*](https://github.com/f1gbd/F1GBD/blob/master/dia/android/documentation/MEMO%20-%20Manuel_d-IA_Light_Android.pdf)
+
 *d-IA Light — Outil de démonstration et de formation pour l'ADRASEC.*
 *73 de F1GBD.*
