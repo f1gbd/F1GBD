@@ -1,5 +1,5 @@
 
-<div align="center">
+<div>
   <img src="images/d-ia_logo.jpg" alt="d-IA Logo" width="200">
 </div>
 
