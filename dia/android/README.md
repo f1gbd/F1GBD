@@ -1,6 +1,6 @@
 
 <div>
-  <img src="images/d-ia_logo.jpg" alt="d-IA Logo" width="200">
+  <img src="images/d-ia_logo.jpg" alt="d-IA Logo" width="320">
 </div>
 
 **Dialogue autonome entre intelligences artificielles**
@@ -16,6 +16,10 @@ discussion vers une synthèse. Les échanges peuvent être lus à voix haute.
 L'application fonctionne en **client léger** : elle se connecte à un serveur
 **Ollama Cloud** qui exécute les modèles de langage. Le téléphone ne fait
 qu'orchestrer le dialogue et l'afficher.
+
+<div>
+  <img src="images/dia_android_mainscreen.jpg" alt="d-IA Android main screen" width="640">
+</div>
 
 ---
 
@@ -73,6 +77,10 @@ L'application a besoin d'une **clé API Ollama Cloud** pour fonctionner
 Créez un compte sur **[ollama.com](https://ollama.com)**, puis générez une
 clé d'accès dans **Settings → Keys**.
 
+<div>
+  <img src="images/dia_android_setup.jpg" alt="d-IA android setup" width="640">
+</div>
+
 ### 2. Configurer l'application
 
 À la première ouverture, touchez **Paramètres** et renseignez :
@@ -89,6 +97,10 @@ De retour sur l'écran principal, touchez **Démarrer**. Les trois IA
 commencent à dialoguer sur le sujet affiché (modifiable dans le champ de
 texte). Touchez **Stop** pour interrompre, et **Voix** pour activer ou
 couper la lecture vocale.
+
+<div>
+  <img src="images/dia_android_conversation.jpg" alt="d-IA Android conversation" width="640">
+</div>
 
 ---
 

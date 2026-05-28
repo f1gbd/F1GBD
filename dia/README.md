@@ -418,6 +418,12 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 - Support Ollama local et cloud
 
 ---
+### NOUVEAU d-IA lite Pour ANDROID
+<div>
+  <img src="images/dia_android_mainscreen.jpg" alt="d-IA Android main screen" width="640">
+</div>
+[*d-IA Light Android*](https://github.com/f1gbd/F1GBD/tree/master/dia)
+---
 
 <div align="center">
 
