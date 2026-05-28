@@ -2,6 +2,7 @@
 <div align="center">
   <img src="images/d-ia_logo.jpg" alt="d-IA Logo" width="200">
 </div>
+<align="center">
 **Dialogue autonome entre intelligences artificielles**
 *par F1GBD — ADRASEC 77 / FNRASEC*
 
