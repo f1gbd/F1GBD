@@ -18,7 +18,7 @@ L'application fonctionne en **client léger** : elle se connecte à un serveur
 qu'orchestrer le dialogue et l'afficher.
 
 <div>
-  <img src="images/dia_android_mainscreen.jpg" alt="d-IA Android main screen" width="640">
+  <img src="images/dia_android_mainscreen.jpg" alt="d-IA Android main screen" width="320">
 </div>
 
 ---
@@ -78,7 +78,7 @@ Créez un compte sur **[ollama.com](https://ollama.com)**, puis générez une
 clé d'accès dans **Settings → Keys**.
 
 <div>
-  <img src="images/dia_android_setup.jpg" alt="d-IA android setup" width="640">
+  <img src="images/dia_android_setup.jpg" alt="d-IA android setup" width="320">
 </div>
 
 ### 2. Configurer l'application
@@ -99,7 +99,7 @@ texte). Touchez **Stop** pour interrompre, et **Voix** pour activer ou
 couper la lecture vocale.
 
 <div>
-  <img src="images/dia_android_conversation.jpg" alt="d-IA Android conversation" width="640">
+  <img src="images/dia_android_conversation.jpg" alt="d-IA Android conversation" width="320">
 </div>
 
 ---
