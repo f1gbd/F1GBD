@@ -1,5 +1,7 @@
 # d-IA Light — Application Android
-
+<div align="center">
+  <img src="images/d-ia_logo.jpg" alt="d-IA Logo" width="200">
+</div>
 **Dialogue autonome entre intelligences artificielles**
 *par F1GBD — ADRASEC 77 / FNRASEC*
 
@@ -20,7 +22,7 @@ qu'orchestrer le dialogue et l'afficher.
 L'application est distribuée sous forme de fichier **APK** (installation
 directe, hors Google Play).
 
-➡️ **[Télécharger la dernière version Android](https://github.com/f1gbd/F1GBD/releases?q=dia-android&expanded=true)**
+➡️ **[Télécharger la dernière version Android](https://github.com/f1gbd/F1GBD/releases/download/dia-android-v1.2.0/d-IA-Light.apk)**
 
 > Le dépôt `f1gbd/F1GBD` héberge plusieurs projets (TCQ, IAbrain,
 > EPIRBdecoder, d-IA Windows…). Les versions **Android de d-IA** portent
