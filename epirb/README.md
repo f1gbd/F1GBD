@@ -285,7 +285,7 @@ Chaque relevé est diffusé sur le réseau **APRS-IS** sous deux formes complém
 - Une **trame objet APRS positionnée** (format standard) qui apparaît sur **aprs.fi** et chez toutes les stations APRS classiques.
 
 
-<img src="https://github.com/f1gbd/F1GBD/blob/master/epirb/saterfinder/images/EPIRBdecoder_SATERfinder_partage.jpeg)?raw=true" alt="EPIRBdecoder partage" width="1024">
+<img src="https://github.com/f1gbd/F1GBD/blob/master/epirb/saterfinder/images/EPIRBdecoder_SATERfinder_partage.jpeg?raw=true" alt="EPIRBdecoder partage" width="1024">
 
 ### Configuration
 
