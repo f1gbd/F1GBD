@@ -269,6 +269,8 @@ Le champ « 📋 Collage rapide » accepte un copié-collé direct depuis Google
 
 Format : `latitude, longitude [azimut] [force du signal]` — la virgule décimale française (`,`) et le point (`.`) sont tous deux acceptés.
 
+<img src="https://github.com/f1gbd/F1GBD/blob/master/epirb/doc/images/EPIRBdecoder_v56.jpg?raw=true" alt="EPIRBdécoder carte" width="400">
+
 ---
 
 ## 📡 APRS-IS — partage temps réel avec SATERfinder Android (v5.6.0)
