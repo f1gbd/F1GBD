@@ -259,6 +259,10 @@ La carte OSM intégrée permet de visualiser en temps réel la position de la ba
 - **SITREP SATER** : bouton 📋 SITREP — rapport de situation complet exportable en texte ou PDF professionnel (logo ADRASEC, tableaux, capture carte OSM)
 - **Export/Import CSV** : sauvegarde et reprise des relevés entre sessions
 
+<div>
+  <img src="doc/images/EPIRBdecoder_estimpos.jpg" alt="SATERfinder triangulation ELT" width="1024">
+</div>
+
 ### Format de collage rapide
 
 Le champ « 📋 Collage rapide » accepte un copié-collé direct depuis Google Maps :
