@@ -134,7 +134,11 @@ Le statut passe à *« Connecté APRS-IS en tant que … »*. Vous pouvez alors 
 > seule fonctionne sans authentification.
 
 <div>
-  <img src="images/saterfinder_android_aprs.jpg" alt="SATERfinder triangulation ELT" width="320">
+  <img src="images/EPIRBdecoder_v56.jpg" alt="SATERfinder triangulation ELT" width="320">
+</div>
+
+<div>
+  <img src="images/EPIRBdecoder_SATERfinder_partage.jpeg" alt="SATERfinder triangulation ELT" width="320">
 </div>
 
 ---
