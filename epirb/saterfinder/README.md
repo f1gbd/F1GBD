@@ -138,7 +138,7 @@ Le statut passe à *« Connecté APRS-IS en tant que … »*. Vous pouvez alors 
 </div>
 
 <div>
-  <img src="images/EPIRBdecoder_SATERfinder_partage.jpeg" alt="SATERfinder triangulation ELT" width="1024">
+  <img src="../doc/images/EPIRBdecoder_estimpos.jpg" alt="SATERfinder triangulation ELT" width="1024">
 </div>
 
 ---
