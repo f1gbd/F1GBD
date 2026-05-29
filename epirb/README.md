@@ -269,7 +269,7 @@ Le champ « 📋 Collage rapide » accepte un copié-collé direct depuis Google
 
 Format : `latitude, longitude [azimut] [force du signal]` — la virgule décimale française (`,`) et le point (`.`) sont tous deux acceptés.
 
-<img src="https://github.com/f1gbd/F1GBD/blob/master/epirb/doc/images/EPIRBdecoder_v56.jpg?raw=true" alt="EPIRBdécoder carte" width="400">
+<img src="https://github.com/f1gbd/F1GBD/blob/master/epirb/doc/images/EPIRBdecoder_v56.jpg?raw=true" alt="EPIRBdecoder carte" width="800">
 
 ---
 
@@ -283,6 +283,9 @@ Chaque relevé est diffusé sur le réseau **APRS-IS** sous deux formes complém
 
 - Un **message APRS auto-descriptif** de préfixe `EPIRB-GONIO` contenant tous les paramètres (indicatif, lat, lon, azimut, signal, horodatage). Ce format propriétaire est reconnu et automatiquement ajouté à la carte par toute station EPIRBdecoder ou SATERfinder connectée à APRS-IS.
 - Une **trame objet APRS positionnée** (format standard) qui apparaît sur **aprs.fi** et chez toutes les stations APRS classiques.
+
+
+<img src="[https://github.com/f1gbd/F1GBD/blob/master/epirb/doc/images/EPIRBdecoder_v56.jpg](https://github.com/f1gbd/F1GBD/blob/master/epirb/saterfinder/images/EPIRBdecoder_SATERfinder_partage.jpeg)?raw=true" alt="EPIRBdecoder partage" width="800">
 
 ### Configuration
 
