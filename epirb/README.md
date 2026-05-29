@@ -4,16 +4,21 @@
 
 ### Suite complète de décodage et génération de balises de détresse COSPAS-SARSAT 406 MHz pour la formation et les opérations ADRASEC
 
-*Décodage EPIRB/ELT/PLB — Génération de trames d'exercice — SDR Direct RTL-SDR — Démodulation FM IQ — Audio Live / Fichier WAV / Hex — Carte OSM avec relèvements goniométriques — Triangulation ELT — SITREP PDF — MGRS — Thème clair/sombre — Export CSV*
+*Décodage EPIRB/ELT/PLB — Génération de trames d'exercice — SDR Direct RTL-SDR — Démodulation FM IQ — Audio Live / Fichier WAV / Hex — Carte OSM avec relèvements goniométriques — Triangulation ELT — **APRS-IS (compatible SATERfinder Android)** — SITREP PDF — MGRS — Thème clair/sombre — Export CSV*
 
-[![Decoder](https://img.shields.io/badge/decoder-v5.5.1-blue)](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.5.1/EPIRBdecoder.7z)
+[![Decoder](https://img.shields.io/badge/decoder-v5.6.0-blue)](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.6.0/EPIRBdecoder.7z)
 [![Generator](https://img.shields.io/badge/generator-v3.6.1-blue)](https://github.com/f1gbd/F1GBD/releases?q=epirb)
+[![SATERfinder](https://img.shields.io/badge/SATERfinder_Android-v1.0-orange?logo=android)](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder)
 [![Téléchargements](https://img.shields.io/badge/téléchargements-actifs-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases?q=epirb)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![Mission](https://img.shields.io/badge/mission-COSPAS--SARSAT-orange.svg)]()
 
-### 📥 [**Télécharger la dernière version stable (EPIRB Suite)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.5.1/EPIRBdecoder.7z)
+### 🆕 v5.6.0 — Intégration APRS-IS et compatibilité SATERfinder Android
+
+Les relèvements goniométriques d'EPIRBdecoder sont désormais **partagés en temps réel** via APRS-IS avec les équipes terrain équipées de [SATERfinder Android](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder). Le PCS voit apparaître automatiquement sur sa carte les relevés émis par chaque équipe ; la triangulation collective devient immédiate.
+
+### 📥 [**Télécharger EPIRB Suite v5.6.0 (Windows)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.6.0/EPIRBdecoder.7z) · [**SATERfinder Android v1.0 (APK)**](https://github.com/f1gbd/F1GBD/releases?q=saterfinder-android)
 
 </div>
 
@@ -21,14 +26,15 @@
 
 ## 🎯 Qu'est-ce que la suite EPIRB 406 MHz ?
 
-La **EPIRB 406 MHz Suite** regroupe **deux outils complémentaires** pour la formation, les exercices et les opérations ADRASEC sur les balises de détresse COSPAS-SARSAT :
+La **EPIRB 406 MHz Suite** regroupe désormais **trois outils complémentaires** (deux Windows + une appli Android compagnon) pour la formation, les exercices et les opérations ADRASEC sur les balises de détresse COSPAS-SARSAT :
 
-| Outil | Rôle |
-|---|---|
-| 📡 **EPIRB Decoder** (v5.5.1) | Décodeur complet de trames 406 MHz — RTL-SDR, Audio Live, fichier WAV, Hex direct, carte OSM avec triangulation, SITREP PDF |
-| 🛰 **EPIRB Generator** (v3.6.1) | Générateur de trames d'exercice 406 MHz — émission audio directe, PTT série, signal Manchester 400 bauds conforme COSPAS-SARSAT T.001 |
+| Outil | Plateforme | Rôle |
+|---|---|---|
+| 📡 **EPIRB Decoder** (v5.6.0) | Windows 10/11 | Décodeur complet de trames 406 MHz — RTL-SDR, Audio Live, fichier WAV, Hex direct, carte OSM avec triangulation, SITREP PDF, **APRS-IS** (v5.6.0) |
+| 🛰 **EPIRB Generator** (v3.6.1) | Windows 10/11 | Générateur de trames d'exercice 406 MHz — émission audio directe, PTT série, signal Manchester 400 bauds conforme COSPAS-SARSAT T.001 |
+| 📱 **SATERfinder** (v1.0) | Android 7+ | Application terrain de relevés goniométriques pour équipes mobiles — carte OSM, GPS interne, triangulation ELT, **partage APRS-IS** avec EPIRBdecoder PC |
 
-Les deux outils forment un **couple intégré** : le générateur produit des trames d'exercice qui sont décodées par le décodeur, validant ainsi la chaîne complète et permettant des scénarios de formation réalistes sans dépendre de balises matérielles.
+Les trois outils forment un **écosystème intégré** : le générateur produit des trames d'exercice décodées par EPIRBdecoder, les équipes terrain équipées de SATERfinder émettent leurs relèvements vers le PCS via APRS-IS, et la triangulation collective converge en temps réel sur la carte du chef de mission. Cela permet des scénarios de formation et des opérations réelles complets, sans dépendre de balises matérielles.
 
 L'ensemble est destiné à la **formation des opérateurs ADRASEC**, aux **exercices de décodage 406 MHz**, et aux **opérations réelles** de recherche et sauvetage dans le cadre COSPAS-SARSAT.
 
@@ -36,7 +42,7 @@ L'ensemble est destiné à la **formation des opérateurs ADRASEC**, aux **exerc
 
 ## ⭐ Fonctionnalités principales
 
-### 📡 EPIRB Decoder v5.5.1
+### 📡 EPIRB Decoder v5.6.0
 
 | Icône | Fonctionnalité | Description |
 |:---:|---|---|
@@ -56,6 +62,7 @@ L'ensemble est destiné à la **formation des opérateurs ADRASEC**, aux **exerc
 | 📋 | **SITREP SATER** | Génération d'un rapport de situation SATER complet : données balise 406 décodée, main courante des relevés ELT, résultat de triangulation. Export en texte ou en PDF professionnel type Sécurité Civile avec logo ADRASEC, tableaux formatés et capture carte OSM. |
 | 🛰 | **GPS NMEA** | Support GPS via port série (NMEA 0183). Mise à jour automatique de la position opérateur sur la carte avec intervalle configurable. |
 | 📍 | **Position GPS → Relevé** | Bouton « Position GPS » apparaissant dès qu'un fix GPS est valide. Un clic place le marqueur de pré-positionnement aux coordonnées GPS et pré-remplit le formulaire : il ne reste qu'à saisir l'azimut et cliquer Ajouter. |
+| 📡 | **APRS-IS — partage des relevés** (v5.6.0) | Connexion à un serveur APRS-IS (`euro.aprs2.net` par défaut) pour échanger les relèvements goniométriques en temps réel avec les autres stations équipées de **SATERfinder Android** ou d'EPIRBdecoder PC. Émission sous deux formes (message texte auto-descriptif `EPIRB-GONIO` + trame objet positionnée visible sur aprs.fi), réception automatique avec ajout sur la carte. Mode émission automatique pour relayer chaque nouveau relevé. |
 | 📊 | **Décodage complet COSPAS-SARSAT** | Trames courtes (112 bits) et longues (144 bits). Protocoles : Maritime MMSI, Aviation OACI 24 bits, Serial, National, Test, ELT-DT. BCH-1 et BCH-2 pour la validation. Position en DD°MM'SS" avec résolution fine. |
 | 🎨 | **Thème clair / sombre** | Palette SAR Tactical Dark par défaut (optimisée pour le terrain de nuit). Bascule en un clic vers le thème clair. Tous les paramètres sauvegardés automatiquement. |
 | 📤 | **Export / Import CSV** | Export des relèvements en CSV (point-virgule) avec indicatif, coordonnées DMS et décimales, azimut, signal et horodatage. Import CSV pour reprise de session ou échange inter-opérateurs. |
@@ -100,7 +107,7 @@ PC ◀──USB── Digirig Mobile ◀──audio── FT-5DE (mode FM, 12.5 
 | **3. Émetteur** | Yaesu FT-817ND | **Mode PKT** (Packet FM), 434,275 MHz, 0,5-5 W, entrée audio DATA arrière |
 | **4. Récepteur** | Yaesu FT-5DE | Mode FM standard, 12,5 kHz, sortie audio jack 3,5 mm |
 | **5. Interface RX** | Digirig Mobile | Carte son USB miniature, câble dédié Yaesu FT-5 |
-| **6. Décodeur** | EPIRB Decoder v5.5.1 | Mode **Audio Live** (entrée USB Audio Codec) — décodage immédiat |
+| **6. Décodeur** | EPIRB Decoder v5.6.0 | Mode **Audio Live** (entrée USB Audio Codec) — décodage immédiat |
 
 > ⚠ **Configurations à éviter** : Le mode FM standard sur l'entrée MIC du FT-817ND introduit du pre-emphasis incompatible avec le Manchester. Le mode DIG (SSB Data) utilise un filtre IF trop étroit (~2,4 kHz). Le décodage Audio Live à partir d'un récepteur FM physique calibré reste la solution la plus robuste pour la formation et les exercices.
 
@@ -164,9 +171,9 @@ Bouton dédié qui lance automatiquement la chaîne : génération → WAV → E
 
 <div align="center">
 
-#### 📥 [**Télécharger EPIRBdecoder.7z (Suite complète)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.4.0/EPIRBdecoder.7z)
+#### 📥 [**Télécharger EPIRBdecoder.7z (Suite complète)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.6.0/EPIRBdecoder.7z)
 
-*(archive contenant Decoder v5.5.1 + Generator v3.6.1 — voir [toutes les releases EPIRB](https://github.com/f1gbd/F1GBD/releases?q=epirb) pour les versions précédentes)*
+*(archive contenant Decoder v5.6.0 + Generator v3.6.1 — voir [toutes les releases EPIRB](https://github.com/f1gbd/F1GBD/releases?q=epirb) pour les versions précédentes)*
 
 [![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
 
@@ -264,6 +271,41 @@ Format : `latitude, longitude [azimut] [force du signal]` — la virgule décima
 
 ---
 
+## 📡 APRS-IS — partage temps réel avec SATERfinder Android (v5.6.0)
+
+Depuis la **v5.6.0**, l'onglet Carte d'EPIRBdecoder intègre un client **APRS-IS** qui permet d'échanger les relèvements goniométriques avec les opérateurs terrain équipés de l'application Android **[SATERfinder](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder)** (et entre stations EPIRBdecoder).
+
+### Principe
+
+Chaque relevé est diffusé sur le réseau **APRS-IS** sous deux formes complémentaires :
+
+- Un **message APRS auto-descriptif** de préfixe `EPIRB-GONIO` contenant tous les paramètres (indicatif, lat, lon, azimut, signal, horodatage). Ce format propriétaire est reconnu et automatiquement ajouté à la carte par toute station EPIRBdecoder ou SATERfinder connectée à APRS-IS.
+- Une **trame objet APRS positionnée** (format standard) qui apparaît sur **aprs.fi** et chez toutes les stations APRS classiques.
+
+### Configuration
+
+Dans l'onglet **Carte**, sous la ligne GPS, la section *APRS-IS* permet de saisir :
+
+| Champ | Description |
+|---|---|
+| **Indicatif** | Indicatif amateur utilisé pour l'authentification APRS-IS |
+| **Passcode** | Code numérique amateur (bouton **Calc** pour calcul automatique) |
+| **Serveur** | `euro.aprs2.net` par défaut, port `14580` |
+| **Émission auto** | Si coché, chaque nouveau relevé ajouté est automatiquement diffusé |
+| **Envoyer relevé sélectionné** | Diffuse manuellement le relevé sélectionné dans la liste |
+
+Le bouton **Se connecter** établit la liaison ; le statut sous le panneau confirme l'authentification (`Connecté APRS-IS en tant que ...`) puis chaque émission et réception. Tous ces paramètres sont mémorisés dans **`decoder_setup.json`** et restaurés au prochain lancement.
+
+### Cas d'usage opérationnel ADRASEC
+
+- **Chef de mission au PCS** : équipe son PC avec EPIRBdecoder, se connecte à APRS-IS et reçoit en temps réel sur sa carte tous les relèvements émis par les équipes terrain via leur smartphone.
+- **Équipes goniométrie terrain** : utilisent **SATERfinder Android** sur smartphone, prennent le relèvement à l'antenne Yagi, l'envoient en un geste sur APRS-IS — il apparaît immédiatement au PCS.
+- **Triangulation collective** : dès que plusieurs équipes ont émis leur relèvement, le PCS lance la **Triangulation ELT** (bouton dédié) qui calcule la position estimée et le cercle CEP95 à partir de l'ensemble des azimuts reçus.
+
+> Le passcode APRS-IS n'est nécessaire que pour **émettre**. La réception seule fonctionne avec un passcode `-1` (lecture seule), utile pour un poste d'observation passif.
+
+---
+
 ## 💼 Cas d'usage
 
 ### 🎓 Formation ADRASEC au décodage 406 MHz (avec le Generator)
@@ -342,7 +384,8 @@ Format : `latitude, longitude [azimut] [force du signal]` — la virgule décima
 
 | Version | Apport principal |
 |---|---|
-| **v5.5.1** | **Version courante** — Triangulation ELT par moindres carrés avec CEP 95%, SITREP SATER PDF professionnel avec logo ADRASEC et capture carte, bouton Position GPS → Relevé |
+| **v5.6.0** | **Version courante** — Intégration **APRS-IS** dans l'onglet Carte : connexion à `euro.aprs2.net`, émission et réception de relèvements goniométriques en temps réel avec les autres stations EPIRBdecoder et avec l'application Android compagnon **SATERfinder**. Protocole `EPIRB-GONIO` partagé. Sauvegarde indicatif / passcode / serveur dans `decoder_setup.json`. Émission automatique optionnelle de chaque nouveau relevé. |
+| v5.5.1 | Triangulation ELT par moindres carrés avec CEP 95%, SITREP SATER PDF professionnel avec logo ADRASEC et capture carte, bouton Position GPS → Relevé |
 | v5.3.x | Coordonnées MGRS, pré-positionnement visuel, zone carte sauvegardée, bouton Position GPS |
 | v5.2.x | Carte plein écran, collage rapide Google Maps, force du signal dans les relevés, panneau relevés optimisé |
 | v5.0 | SDR Direct RTL-SDR natif, démodulation FM IQ, détection burst hybride, carte OSM avec relèvements goniométriques vectorisés, thème clair/sombre, GPS NMEA |
@@ -452,7 +495,7 @@ Toute contribution, retour d'exercice ou proposition d'amélioration est bienven
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**EPIRB Decoder v5.5.1 + EPIRB Generator v3.6.1 — Mai 2026**
+**EPIRB Decoder v5.6.0 + EPIRB Generator v3.6.1 — Mai 2026**
 
 ---
 
