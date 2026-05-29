@@ -31,7 +31,7 @@ d'EPIRBdecoder pour l'échange APRS-IS.
 L'application est distribuée sous forme de fichier **APK** (installation
 directe, hors Google Play).
 
-➡️ **[Télécharger la dernière version Android](https://github.com/f1gbd/F1GBD/releases?q=saterfinder-android&expanded=true)**
+➡️ **[Télécharger la dernière version Android](https://github.com/f1gbd/F1GBD/releases/download/saterfinder-android-v1.0.0/SATERfinder.apk)**
 
 > Le dépôt `f1gbd/F1GBD` héberge plusieurs projets (TCQ, IAbrain, d-IA,
 > EPIRBdecoder…). Les versions **Android de SATERfinder** portent toutes
