@@ -18,7 +18,7 @@
 
 Les relèvements goniométriques d'EPIRBdecoder sont désormais **partagés en temps réel** via APRS-IS avec les équipes terrain équipées de [SATERfinder Android](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder). Le PCS voit apparaître automatiquement sur sa carte les relevés émis par chaque équipe ; la triangulation collective devient immédiate.
 
-### 📥 [**Télécharger EPIRB Suite v5.6.0 (Windows)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.6.0/EPIRBdecoder.7z) · [**SATERfinder Android v1.0 (APK)**](https://github.com/f1gbd/F1GBD/releases?q=saterfinder-android)
+### 📥 [**Télécharger EPIRB Suite v5.6.0 (Windows)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.6.0/EPIRBdecoder.7z) · [**SATERfinder Android v1.0 (APK)**](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder)
 
 </div>
 
