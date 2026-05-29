@@ -54,9 +54,8 @@ Comme l'application ne provient pas du Google Play Store, Android demande
 une autorisation pour l'installer. C'est normal pour une application
 distribuée directement.
 
-1. **Téléchargez** le fichier `SATERfinder.apk` sur votre téléphone (depuis
-   la [section *Releases*](https://github.com/f1gbd/F1GBD/releases?q=saterfinder-android&expanded=true)
-   filtrée sur `saterfinder-android-`).
+1. **Téléchargez** le fichier `SATERfinder.apk` sur votre téléphone [**SATERfinder v1.0.0**](https://github.com/f1gbd/F1GBD/releases/download/saterfinder-android-v1.0.0/SATERfinder.apk)
+  
 2. **Ouvrez** le fichier téléchargé (via la notification de téléchargement
    ou un gestionnaire de fichiers).
 3. Android affichera un avertissement *« sources inconnues »* : autorisez
