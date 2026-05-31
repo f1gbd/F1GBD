@@ -6,14 +6,14 @@
 
 ### La plateforme de communications radio multi-modes pour les opérateurs ADRASEC
 
-*LXMF/Reticulum — VARA HF/FM/SAT — Packet AX.25 — MeshCore LoRa — SSTV — CW/Morse — BBS — PDF Radio*
+*LXMF/Reticulum — VARA HF/FM/SAT — Packet AX.25 — MeshCore LoRa — SSTV — CW/Morse — BBS — PDF Radio — Gonio SATER / APRS-IS*
 
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v10.15.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/tcq-v10.15.0)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v11.0.1-blue)](https://github.com/f1gbd/F1GBD/releases/tag/tcq-v11.0.1)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v10.15.0/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v11.0.1/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -29,13 +29,13 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 
 ---
 
-## 🆕 Quoi de neuf en v10.15.0
+## 🆕 Quoi de neuf en v11.0.1
 
-> **Correctif rendu PDF radio** — Cette version intègre le correctif `pdf_trans` v1.0.3 qui élimine le **débordement des textes hors des cellules de tableaux** lors de la recomposition structurée (Bilan humain, Moyens engagés, Activité de secours…). C'est une amélioration importante pour les SITREP et formulaires COD/SIDPC reçus par radio dont la mise en page contient des tableaux à cellules étroites.
+> **🛰️ Recherche de balises en réseau** — TCQ partage désormais ses **relèvements goniométriques** en temps réel avec l'**EPIRBdecoder v5.6** et l'application Android **SATERfinder**, via le protocole commun `EPIRB-GONIO`. La fenêtre **CARTE** du mode TNC Packet reçoit une **connexion APRS-IS** complète : partage bidirectionnel des relevés, **affichage des stations APRS** reçues via APRS-IS, calcul de la **position présumée de la balise ELT** par triangulation, et import/export CSV interopérable avec l'EPIRBdecoder.
 >
-> **Action recommandée** : tous les opérateurs ADRASEC utilisant TCQ pour les transferts PDF radio devraient passer à la v10.15.0. Les archives `.psdi` produites par les versions antérieures (toutes incluses) restent **entièrement lisibles** avec la v10.15.0 et bénéficient même automatiquement du fix de rendu côté recomposition.
+> **🎙️ Correctif PTT CAT Icom IC-9700** — En VARA HF/SAT, le pilotage du PTT en CAT (CI-V) fonctionne désormais correctement sur les postes Icom à port USB natif (IC-9700, IC-705, IC-7300…) : les lignes RTS/DTR ne sont plus forcées, le PTT est commandé en CI-V pur comme sous Winlink. Voir le [**paramétrage CAT IC-9700**](#paramétrage-cat-spécifique-à-lic-9700-vara-hf--sat) détaillé plus bas.
 >
-> **Pas de changement d'API** : aucune adaptation nécessaire pour les intégrations existantes. La version `pdf_trans v1.0.2` est affichée au démarrage dans le log TCQ pour faciliter le diagnostic en exercice.
+> **Action recommandée** : les ADRASEC menant des recherches SATER/SARSAT gagnent à passer à la v11.0.1 pour mutualiser les relevés entre postes PC (TCQ, EPIRBdecoder) et terrain (SATERfinder Android) sur un même fil APRS-IS.
 
 ---
 
@@ -73,7 +73,7 @@ Conçu pour les opérations ADRASEC et les exercices de sécurité civile, TCQ p
 | 🎵 | **CW / Morse** | Décodeur DSP avec seuillage adaptatif et clustering K-means. **QSObrain** pour QSO CW entièrement autonomes (CSMA, WPM adaptatif, anti-self-CQ). |
 | 📬 | **BBS Multi-modes** | Bulletin Board System sur TNC Packet et MeshCore avec compteur paquets, réassemblage automatique, persistance SQLite. |
 | 📄 | **PDF Radio** | Transmission de documents (SITREP, MEMO) avec compression LZMA, fragmentation adaptative, CRC par fragment, ACK et reprise sélective. |
-| 🛰️ | **APRS / SATER** | Module dédié à la recherche de balises et au tracking sur fréquences APRS satellite. |
+| 🛰️ | **Gonio SATER / APRS-IS** | Carte des relèvements goniométriques avec **partage bidirectionnel APRS-IS** (protocole `EPIRB-GONIO` commun à l'EPIRBdecoder v5.6 et SATERfinder Android), **triangulation ELT** (CEP 95 %), affichage des stations APRS reçues via APRS-IS, et import/export CSV interopérable. |
 | 🔐 | **100% local** | Aucune télémétrie, aucune connexion externe non sollicitée. Toutes les communications restent sous le contrôle de l'opérateur. |
 
 ---
@@ -205,6 +205,71 @@ Au premier démarrage :
 5. Sélectionnez un mode dans la barre d'onglets et commencez à émettre/recevoir
 
 > ⏱ Comptez **5 minutes** pour la première configuration, ensuite TCQ est utilisable au quotidien sans réglage supplémentaire.
+
+---
+
+## 🆕 Nouveautés v11.0.0 / v11.0.1
+
+### 🛰️ Partage des relèvements goniométriques APRS-IS — interopérable EPIRBdecoder v5.6 & SATERfinder Android *(v11.0.0)*
+
+La fenêtre **CARTE** du mode **TNC Packet** intègre désormais un bandeau **APRS-IS** complet, identique au client APRS-IS de l'**EPIRBdecoder v5.6** et de l'application Android **SATERfinder**. TCQ utilise exactement le même protocole `EPIRB-GONIO`, ce qui permet à toutes ces stations de **partager leurs relèvements en temps réel** pendant une recherche SATER / COSPAS-SARSAT — postes PC (TCQ, EPIRBdecoder) et équipes terrain (SATERfinder Android) sur un même fil APRS-IS.
+
+- 📡 **Connexion APRS-IS** : indicatif + passcode (bouton *Calc* de calcul automatique), serveur/port (`euro.aprs2.net:14580` par défaut), bouton *Se connecter / Se déconnecter*.
+- 🔁 **Partage BIDIRECTIONNEL des relevés** au format `EPIRB-GONIO` : les relèvements émis par TCQ sont reçus et tracés par l'EPIRBdecoder et SATERfinder, et **réciproquement** — la carte de TCQ affiche en direct les relevés des autres équipes.
+- ⚙️ Case **« Partage auto »** (émission automatique d'un relevé dès sa saisie ou modification) + bouton **« 📤 Émettre relevé »** pour pousser manuellement le relevé sélectionné.
+- 📶 **Force du signal** (fort / moyen / faible / nul) ajoutée au dialogue de relevé d'azimut — transmise sur APRS-IS et exportée en CSV.
+- 🎯 Bouton **« BALISE ELT »** : calcul de la **position présumée de la balise** par triangulation des relèvements (moindres carrés + rejet d'aberrants MAD), avec tracé du marqueur et du **cercle de probabilité CEP 95 %** sur la carte. Algorithme identique à celui de l'EPIRBdecoder v5.6.
+- 💾 **Import / export CSV des relevés compatibles EPIRBdecoder v5.6** : un fichier produit par TCQ se relit dans l'EPIRBdecoder (et inversement), avec indicatif, position, azimut, force du signal et horodatage.
+
+### 📍 Affichage des stations APRS reçues via APRS-IS *(v11.0.0)*
+
+- 🗺️ Case **« Stations APRS-IS »** : lorsqu'elle est activée, les stations APRS reçues via APRS-IS sont **affichées sur la carte** en plus des relevés goniométriques.
+- 🎚️ Filtre de portée automatique autour de votre position (`r/lat/lon/100 km`) pour ne charger que le trafic local pertinent en exercice.
+
+> ℹ️ Le module APRS-IS s'appuie sur le fichier compagnon **`aprs_client.py`** — strictement identique à celui de l'EPIRBdecoder v5.6 — embarqué automatiquement dans le binaire TCQ.
+>
+> ⚠️ **Anti-écho strict par SSID** : si l'EPIRBdecoder (PC) et TCQ tournent sous le **même indicatif sans SSID**, ils ne verront pas mutuellement leurs relevés. En exercice, utilisez des SSID distincts (ex. `F1GBD` au PCS et `F1GBD-7` pour la passerelle APRS-IS).
+
+### 🎙️ Pilotage PTT CAT — correctif Icom IC-9700 *(v11.0.1)*
+
+En mode **VARA HF / SAT**, le PTT peut être commandé en **CAT (CI-V)**. La v11.0.1 corrige un comportement qui empêchait le passage en émission sur les postes Icom à port USB natif (IC-9700, IC-705, IC-7300…) :
+
+- 🔧 **RTS et DTR ne sont plus forcés à ON** par défaut en mode CAT. Le PTT est piloté uniquement par la commande CI-V — comportement identique à Winlink. Forcer ces lignes pouvait entrer en conflit avec un réglage *USB SEND* mappé sur RTS/DTR et **bloquer l'émission**.
+- 🧰 Nouvelle option **« Forcer RTS/DTR à ON en mode CAT »** (TCQconfig → onglet VARA → *Commandes CAT*) à n'activer **que** pour les interfaces série héritées qui s'alimentent sur ces lignes (CT-17, montages maison).
+
+#### Paramétrage CAT spécifique à l'IC-9700 (VARA HF / SAT)
+
+**Trame PTT CI-V de l'IC-9700** (adresse `A2h`, contrôleur `E0h`, commande CI-V `1C 00`) :
+
+| Action | Trame CI-V envoyée |
+|---|---|
+| PTT ON (émission) | `FE FE A2 E0 1C 00 01 FD` |
+| PTT OFF (réception) | `FE FE A2 E0 1C 00 00 FD` |
+
+**Côté TCQ** — TCQconfig → onglet *VARA* → *Contrôle PTT série (HF/SAT)* :
+
+| Paramètre | Valeur pour l'IC-9700 |
+|---|---|
+| Activer contrôle PTT | ✅ coché |
+| Mode PTT | **CAT (commandes série)** |
+| Modèle radio | **Icom IC-9700** *(remplit automatiquement les trames CI-V ci-dessus)* |
+| Port COM | le port série *CI-V* de l'IC-9700 (cordon USB unique) |
+| Baudrate | **identique** au réglage *CI-V USB Baud Rate* du poste (souvent **19200** ou **115200**) |
+| Forcer RTS/DTR à ON en mode CAT | ⬜ **décoché** |
+
+**Côté IC-9700** — MENU » SET » Connectors » CI-V :
+
+- *CI-V USB Port* = **Unlink from [REMOTE]** (sinon les commandes CI-V du port USB ne pilotent pas le poste)
+- *CI-V Address* = **A2h** (valeur par défaut attendue par TCQ)
+- *USB SEND* (SET » Connectors » USB SEND/Keying) = **OFF** lorsque le PTT est piloté en CI-V — évite un PTT matériel parasite sur RTS/DTR
+
+**Côté VARA HF / SAT** : régler le PTT de VARA pour qu'il **délègue la commande au programme externe** (TCQ). VARA émet alors `PTT ON` / `PTT OFF` sur son canal de commande, et TCQ envoie la trame CI-V correspondante.
+
+> ✅ Avec ce paramétrage, l'IC-9700 passe en émission sur commande CI-V exactement comme avec Winlink. Pour les interfaces RS-232 sur prise [REMOTE] (CT-17), cocher au contraire *Forcer RTS/DTR à ON en mode CAT*.
+
+### 📦 Compilation
+
+- 🧩 Le module **`aprs_client.py`** est déclaré en *hidden import* dans `TCQ.spec` (import conditionnel `try/except`) afin d'être systématiquement embarqué dans le binaire PyInstaller.
 
 ---
 
@@ -462,7 +527,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v10.15.0 — 2026-05-15**
+**Version v11.0.1 — 2026-05-31**
 
 ---
 
