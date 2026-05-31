@@ -6,7 +6,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
-![SATERfinder: Relèvement cartographique pour les Recherches SATER pour les opérateurs ADRASEC](https://github.com/f1gbd/F1GBD/blob/master/epirb/saterfinder/images/SATERfinder_logo.jpg)
+![SATERfinder: Relèvement cartographique pour les Recherches SATER pour les opérateurs ADRASEC](https://github.com/f1gbd/F1GBD/blob/master/epirb/saterfinder/images/SATERfinder_title.jpg)
 
 **MAJ du 29/05/2026** : [**SATERfinder: Relèvement cartographique pour les Recherches SATER**](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder)
 
