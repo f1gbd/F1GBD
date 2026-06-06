@@ -267,10 +267,6 @@ En mode **VARA HF / SAT**, le PTT peut être commandé en **CAT (CI-V)**. La v11
 
 > ✅ Avec ce paramétrage, l'IC-9700 passe en émission sur commande CI-V exactement comme avec Winlink. Pour les interfaces RS-232 sur prise [REMOTE] (CT-17), cocher au contraire *Forcer RTS/DTR à ON en mode CAT*.
 
-### 📦 Compilation
-
-- 🧩 Le module **`aprs_client.py`** est déclaré en *hidden import* dans `TCQ.spec` (import conditionnel `try/except`) afin d'être systématiquement embarqué dans le binaire PyInstaller.
-
 ---
 
 ## 🆕 Nouveautés v10.15.0
@@ -285,7 +281,7 @@ En mode **VARA HF / SAT**, le PTT peut être commandé en **CAT (CI-V)**. La v11
 
 ### Logging au démarrage
 
-- 📋 Le log au démarrage indique désormais `pdf_trans v1.0.2` :
+- 📋 Le log au démarrage indique désormais `pdf_trans v1.0.5` :
   ```
   INFO: Bibliothèque pdf_trans v1.0.2 chargée avec succès - TRANSFERT PDF disponible
   ```
@@ -294,7 +290,7 @@ En mode **VARA HF / SAT**, le PTT peut être commandé en **CAT (CI-V)**. La v11
 ### Compatibilité
 
 - ✅ Aucun changement d'API publique de `pdf_trans` : les intégrations tierces continuent de fonctionner sans modification
-- ✅ Cohérence avec **PDFteleporter v1.0.2** qui partage la même bibliothèque
+- ✅ Cohérence avec **PDFteleporter v1.0.5** qui partage la même bibliothèque
 - ✅ Les opérateurs disposant de PDFteleporter en application autonome bénéficient du même correctif
 
 ---
@@ -320,7 +316,7 @@ En mode **VARA HF / SAT**, le PTT peut être commandé en **CAT (CI-V)**. La v11
 ### Compatibilité
 
 - ✅ Aucun changement d'API publique de `pdf_trans` : les intégrations tierces continuent de fonctionner sans modification
-- ✅ Cohérence avec **PDFteleporter v1.0.1** qui partage la même bibliothèque
+- ✅ Cohérence avec **PDFteleporter v1.0.5** qui partage la même bibliothèque
 - ✅ Les opérateurs disposant de PDFteleporter en application autonome bénéficient du même correctif
 
 ---
