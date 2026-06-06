@@ -4,17 +4,18 @@
 
 ### Dialogue autonome entre deux IA, arbitré par un troisième — un outil d'aide à la recherche par IA
 
-*Conversation scientifique guidée — Investigateur & Analyste — **Modérateur conversationnel qui fait converger le dialogue vers une solution (v1.2)** — Presets de sujet importables/exportables (v1.2) — Mode ADRASEC enrichi (modérateur RAG) — Ollama local & cloud — Mémoire glissante — Détection de dérive linguistique — Synthèse vocale SAPI5 deux voix — Synchronisation dialogue/voix — Export JSON / Markdown / RTF — Thèmes secondaires guidés — Configuration persistante*
+*Conversation scientifique guidée — Investigateur & Analyste — **Enrichissement par le web de l'Investigateur — DuckDuckGo / SearXNG (v1.3)** — **Auto-export des fiches vers IAbrain (v1.3)** — **Modérateur conversationnel qui fait converger le dialogue vers une solution (v1.2)** — Presets de sujet importables/exportables (v1.2) — Mode ADRASEC enrichi (modérateur RAG) — Ollama local & cloud — Mémoire glissante — Détection de dérive linguistique — Synthèse vocale SAPI5 deux voix — Synchronisation dialogue/voix — Export JSON / Markdown / RTF — Thèmes secondaires guidés — Configuration persistante*
 
-[![Version](https://img.shields.io/badge/version-dia--v1.2.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/dia-v1.2.0)
+[![Version](https://img.shields.io/badge/version-dia--v1.3.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/dia-v1.3.0)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![Local / Cloud](https://img.shields.io/badge/Ollama-local%20%2F%20cloud-brightgreen.svg)]()
 [![Accessibilité](https://img.shields.io/badge/accessibilit%C3%A9-voix%20SAPI5-purple.svg)]()
 [![Modérateur](https://img.shields.io/badge/mode-mod%C3%A9rateur%20conversationnel-teal.svg)]()
 [![RAG](https://img.shields.io/badge/mode-ADRASEC%20enrichi-orange.svg)]()
+[![Web](https://img.shields.io/badge/v1.3-enrichissement%20web-blue.svg)]()
 
-### 📥 [**Télécharger la dernière version (v1.2.0)**](https://github.com/f1gbd/F1GBD/releases/download/dia-v1.2.0/d-IA.7z)
+### 📥 [**Télécharger la dernière version (v1.3.0)**](https://github.com/f1gbd/F1GBD/releases/download/dia-v1.3.0/d-IA.7z)
 
 </div>
 
@@ -36,6 +37,43 @@ Tout tourne **localement** par défaut (modèles Ollama auto-hébergés), avec u
 
 ---
 
+## 🆕 Nouveautés v1.3 — Enrichissement par le web & auto-export IAbrain
+
+La **v1.3** ferme la boucle de l'aide à la recherche : l'Investigateur peut désormais **aller chercher des sources réelles sur le web** pour étayer le dialogue, et les fiches produites peuvent être **poussées automatiquement vers IAbrain** au fil de l'eau.
+
+### 🔎 Enrichissement par le web (l'Investigateur va chercher des sources)
+
+Avant son tour, le LLM1 (Investigateur) peut interroger le web et recevoir 2-3 extraits qu'il **synthétise en français, avec esprit critique**, pour nourrir sa relance. Deux fournisseurs interchangeables :
+
+- **DuckDuckGo** *(par défaut, aucune installation)* — `urllib` seul, aucune dépendance, aucune clé API, rien à héberger.
+- **SearXNG** *(souverain)* — interroge une instance auto-hébergée via son API JSON, pour garder la maîtrise totale des requêtes (idéal pour des sujets d'exercice sensibles).
+
+La recherche est **throttlée** (1 requête tous les N tours d'Investigateur), **dédupliquée par thème** (on ne relance que lorsque le planificateur change de thème), et surtout à **repli hors-ligne** : si elle échoue ou est désactivée, le dialogue se déroule exactement comme avant. d-IA reste donc utilisable en scénario blackout — la recherche est simplement inerte.
+
+```
+[Analyste répond] → l'Investigateur interroge le web (thème actif)
+        ↓ 2-3 extraits sourcés (titre + lien + résumé)
+[Investigateur] synthétise en français, cite, reste critique → relance argumentée
+```
+
+> 💡 La recherche web suppose une connexion Internet : c'est un outil de **préparation / formation**, pas de terrain en blackout.
+
+### ♻️ Auto-export des fiches vers IAbrain (au fil de l'eau)
+
+Quand le modérateur RAG extrait une fiche, d-IA peut l'**écrire immédiatement en Markdown** dans le dossier source d'IAbrain, prête à être indexée — sans passer par un export manuel. d-IA détecte automatiquement l'emplacement d'IAbrain (`rag_perso_sources`).
+
+**Garde-fou opérationnel** : les fiches sont déposées dans une **zone de staging `_a_valider/`**, *jamais* directement dans la base de confiance. Une **relecture humaine** valide avant exploitation en exercice. C'est la différence entre un outil de veille pratique et une base sur laquelle un opérateur s'appuierait en intervention.
+
+```
+d-IA (dialogue enrichi par le web) → modérateur extrait une fiche sourcée
+        ↓ auto-export .md
+IAbrain/rag_perso_sources/_a_valider/<DOMAINE>/<fiche>.md
+        ↓ relecture + validation humaine
+IAbrain /index ou /reindex → interrogeable en langage naturel
+```
+
+---
+
 ## ⭐ Fonctionnalités principales
 
 | Icône | Fonctionnalité | Description |
@@ -44,6 +82,8 @@ Tout tourne **localement** par défaut (modèles Ollama auto-hébergés), avec u
 | 🆕 | **Modérateur conversationnel (v1.2)** | Un 3ᵉ LLM **intervient directement dans le dialogue** tous les K tours : bilan de ce qui est acquis, point bloquant restant, et **consigne de convergence précise** (chiffre à établir, hypothèse à trancher, verdict à formuler). Son intervention est réinjectée dans le contexte des deux IA, ce qui crée la rétroaction qui **fait aboutir la recherche**. |
 | 📋 | **Presets de sujet (v1.2)** | Boutons **Importer / Exporter un preset** : un sujet de recherche complet (sujet principal + thèmes secondaires + objectif de convergence + réglages) se charge en un clic, se sauvegarde au format `.diapreset.json` et **se partage** entre opérateurs. Le format texte est aussi accepté à l'import. |
 | 🗂️ | **Modérateur RAG (mode ADRASEC enrichi)** | **v1.1** : un LLM observe le dialogue en arrière-plan et extrait des fiches structurées (JSON) tous les N échanges. Capitalisation automatique dans `rag_adrasec.json`, réutilisable pour exercices, RETEX, ou indexation dans IAbrain. **Compatible avec le modérateur conversationnel** : l'un parle, l'autre fiche. |
+| 🔎 | **Enrichissement par le web (v1.3)** | L'**Investigateur** interroge le web avant son tour et reçoit 2-3 extraits qu'il synthétise en français avec esprit critique. Deux fournisseurs : **DuckDuckGo** (sans installation) ou **SearXNG** (auto-hébergé, souverain). Recherche throttlée, dédupliquée par thème, et à **repli hors-ligne** (inerte si pas de réseau ou désactivée). |
+| ♻️ | **Auto-export vers IAbrain (v1.3)** | Les fiches du modérateur RAG sont écrites en Markdown directement dans le dossier source d'IAbrain, **au fil de l'eau**, dans une zone de **staging `_a_valider/`** (jamais dans la base de confiance). Relecture humaine puis `/index`. Détection automatique de l'emplacement d'IAbrain. |
 | 🌐 | **Ollama local OU cloud, par LLM** | Chaque IA (y compris le modérateur) peut être configurée indépendamment : LLM1 sur un serveur local LAN, LLM2 sur Ollama Cloud, modérateur ailleurs encore. Mixage possible : petit modèle local pose les questions, gros modèle cloud arbitre. |
 | 📚 | **Thèmes secondaires guidés** | L'utilisateur définit un sujet principal (fil rouge) + une liste de thèmes secondaires. Le moteur fait défiler les thèmes tous les N tours, garantissant une progression de la conversation sans dérive thématique — et, avec le modérateur, une trajectoire vers la conclusion. |
 | 🧠 | **Mémoire à fenêtre glissante** | Les N derniers échanges sont passés intégralement aux LLM ; les plus anciens sont condensés en un **résumé glissant** régénéré périodiquement. Évite l'explosion du contexte au-delà de 20-30 tours. |
@@ -195,11 +235,12 @@ Les fiches générées par d-IA sont **directement consommables par le système 
 ### Le scénario complet
 
 ```
-1. d-IA génère des fiches lors d'un dialogue (arbitré par le modérateur)
+1. d-IA génère des fiches lors d'un dialogue (arbitré par le modérateur,
+   et désormais enrichi par des sources web — v1.3)
         ↓
-2. Export Markdown au format IAbrain-friendly
+2. Export Markdown (manuel) OU auto-export au fil de l'eau vers le staging IAbrain (v1.3)
         ↓
-3. /index dans IAbrain
+3. Relecture / validation humaine (zone _a_valider/), puis /index dans IAbrain
         ↓
 4. Vous interrogez IAbrain en langage naturel sur vos sujets ADRASEC
 ```
@@ -231,9 +272,17 @@ Les fiches générées par d-IA sont **directement consommables par le système 
 
 Ouvrir `rag_adrasec.json` avec un éditeur (Notepad++, VS Code) pour corriger, supprimer, enrichir ou fusionner des fiches. Le format JSON est documenté en commentaire en début de fichier et reste lisible à l'œil.
 
-#### Méthode 3 — Sync automatisée (à venir)
+#### Méthode 3 — Auto-export au fil de l'eau (v1.3, recommandée pour capitaliser vite)
 
-Une version future de d-IA proposera **l'indexation directe** dans IAbrain via API à la fin de chaque dialogue.
+Dans **Paramètres IA → Mode ADRASEC → Auto-export vers IAbrain**, cochez **« Pousser les fiches vers IAbrain au fil de l'eau »**. À chaque fiche extraite par le modérateur RAG, d-IA écrit aussitôt le `.md` correspondant dans :
+
+```
+<IAbrain>/rag_perso_sources/_a_valider/<DOMAINE>/<fiche>.md
+```
+
+d-IA détecte automatiquement l'emplacement d'IAbrain (à défaut, un dossier `IAbrain_rag_perso/_a_valider/` est créé à côté de `d-IA.exe`). Un `_INDEX.md` est régénéré par domaine.
+
+> ⚠️ **Zone de staging `_a_valider/` volontaire** : les fiches sont auto-générées (et parfois issues du web). Elles passent par un **sas de relecture humaine** avant d'entrer dans la base de confiance d'IAbrain. Après validation, déplacez-les et lancez `/index` (ou `/reindex`). Ne jamais exposer une fiche non relue en exercice opérationnel.
 
 ### Capitalisation départementale
 
@@ -248,6 +297,7 @@ Le fichier `rag_adrasec.json` est **portable** (un seul fichier JSON), **version
 - **Windows 10 ou 11** (le TTS SAPI5 et le binaire pyttsx3 sont Windows-only)
 - **Ollama** installé localement : <https://ollama.com/download>
   - ou compte **Ollama Cloud** avec clé API : <https://ollama.com/settings/keys>
+- *(v1.3, optionnel)* **Recherche web** pour enrichir l'Investigateur : **DuckDuckGo** ne demande **aucune installation** (juste une connexion Internet) ; **SearXNG** nécessite une instance auto-hébergée avec le format JSON activé.
 - **Au moins deux modèles** téléchargés via Ollama (trois si vous utilisez le modérateur conversationnel et/ou RAG) :
 
   ```powershell
@@ -297,6 +347,8 @@ Sans GPU, ça marche aussi mais chaque tour prend 30-60 s au lieu de 5-10 s.
    - **Onglet Mode ADRASEC** :
      - *(v1.2)* Section **Modérateur conversationnel** : cocher « Activer », choisir la fréquence K (6 tours par défaut), la température (0.4), et éventuellement un objectif de convergence
      - *(v1.1)* Section **Mode ADRASEC enrichi** : cocher pour activer l'extraction RAG (facultatif, cumulable)
+     - *(v1.3)* Section **Auto-export vers IAbrain** : cocher pour pousser les fiches vers le staging IAbrain `_a_valider/` au fil de l'eau
+   - **Colonne de gauche → Recherche web - Investigateur** *(v1.3, optionnel)* : cocher « Activer la recherche web », choisir le fournisseur (`duckduckgo` sans installation, ou `searxng`), la fréquence et le nombre de résultats
    - **Onglet Synthèse vocale** : *(optionnel)* cocher « Activer la lecture vocale », choisir une voix pour chaque IA, tester
 2. **Fermer** la fenêtre Paramètres
 3. **Saisir un sujet principal** + une liste de **thèmes secondaires** (un par ligne) — ou **importer un preset**
@@ -354,6 +406,9 @@ Oui, c'est l'objet de la v1.2. Le modérateur impose une trajectoire et exige un
 **Comment réutiliser un sujet de recherche d'une fois sur l'autre ?**
 Utilisez les **presets** (v1.2). « Exporter le sujet courant » produit un `.diapreset.json` que vous rechargez via « Importer un preset ». Le fichier transporte le sujet, les thèmes, l'objectif de convergence et les réglages.
 
+**La recherche web ne renvoie aucune source (« Aucune source exploitable »).**
+Avec **DuckDuckGo** : vérifiez la connexion Internet ; en cas d'usage soutenu DDG peut limiter le débit (on retombe alors sur le repli hors-ligne, sans gravité). Avec **SearXNG** : le format JSON doit être activé dans `settings.yml` (`search: formats: [html, json]`) et le `limiter` désactivé, sinon l'instance renvoie 403. Dans tous les cas, le dialogue se poursuit normalement sans source.
+
 **Erreur Ollama « failed to allocate compute pp buffers ».**
 Votre VRAM est saturée. Solutions : (1) cocher « Mode éco VRAM » ; (2) réduire `num_ctx` à 2048 ou 4096 ; (3) utiliser des modèles plus petits ; (4) basculer un des LLM sur Ollama Cloud ; (5) basculer le modérateur sur Ollama Cloud.
 
@@ -364,7 +419,7 @@ C'est Qwen 2.5 qui dérive vers sa langue dominante. d-IA détecte et régénèr
 Il faut **redémarrer d-IA** après l'activation (la liste est lue au lancement). Si elles n'apparaissent toujours pas, vérifier dans regedit que `HKLM\SOFTWARE\Microsoft\Speech\Voices\Tokens` contient bien les nouvelles voix.
 
 **Les fiches générées par d-IA peuvent-elles être réimportées dans IAbrain ?**
-Oui, c'est le cas d'usage principal du mode RAG. Voir la section [Intégration avec IAbrain](#-intégration-avec-iabrain). La méthode actuelle est manuelle (export JSON → Markdown → `/index`). Une sync automatisée est prévue.
+Oui, c'est le cas d'usage principal du mode RAG. Voir la section [Intégration avec IAbrain](#-intégration-avec-iabrain). **Depuis la v1.3**, d-IA peut **pousser les fiches automatiquement** vers le dossier source d'IAbrain (zone de staging `_a_valider/`) au fil de l'eau ; il reste l'export manuel et l'édition du JSON pour les cas particuliers.
 
 ---
 
@@ -386,6 +441,15 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 ---
 
 ## 📜 Historique des versions
+
+### v1.3 — Juin 2026 — Enrichissement par le web & auto-export IAbrain
+
+- ➕ **Enrichissement par le web de l'Investigateur** : le LLM1 interroge le web avant son tour et synthétise 2-3 sources en français
+- ➕ Deux fournisseurs interchangeables : **DuckDuckGo** (sans installation, `urllib` seul) et **SearXNG** (auto-hébergé, souverain)
+- ➕ Recherche **throttlée** (1 / N tours), **dédupliquée par thème**, à **repli hors-ligne** (inerte sans réseau ou désactivée)
+- ➕ **Auto-export des fiches vers IAbrain** au fil de l'eau, dans une zone de **staging `_a_valider/`** (relecture humaine avant exploitation)
+- ➕ Détection automatique de l'emplacement d'IAbrain ; régénération de l'`_INDEX.md` par domaine
+- ➕ Persistance des nouveaux paramètres dans `d-ia_setup.json` et transport dans les presets `.diapreset.json`
 
 ### v1.2 — Mai 2026 — Modérateur conversationnel & presets : l'aide à la recherche dirigée
 
@@ -433,12 +497,12 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis (F1GBD)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.2 — 2026**
+**Version 1.3 — 2026**
 
 ---
 
 *Pour toute question, contactez votre référent ADRASEC départemental.*
 
-🤖 **d-IA v1.2** — *Deux IA cherchent, un troisième arbitre et fait converger. Vos sujets de recherche aboutissent à une solution.*
+🤖 **d-IA v1.3** — *Deux IA cherchent — l'une puise désormais dans le web —, un troisième arbitre et fait converger, et les fiches alimentent IAbrain.*
 
 </div>
