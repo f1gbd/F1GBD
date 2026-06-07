@@ -6,16 +6,16 @@
 
 ### L'assistant IA local pour les opérateurs ADRASEC
 
-*Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — SITREP PDF auto-rempli — Cartographie interactive — Corrections manuelles — Macros et actions natives — Connectivité Ollama Cloud — Mémoire conversationnelle — Profil opérateur — Variables de session — Pipeline SATER complet — Plugins externes extensibles — Auto-exécution de macros par le LLM — Exécution non-bloquante avec feedback live — **Interface vocale STT/TTS pour usage mains libres et accessibilité***
+*Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — SITREP PDF auto-rempli — SITREP SATER PDF — Cartographie interactive — Carte de position géocodée IGN — Corrections manuelles — 24 macros colorées et partageables — Actions natives — Connectivité Ollama Cloud — Mémoire conversationnelle — Profil opérateur — Variables de session — Pipeline SATER complet — Plugins externes extensibles — Auto-exécution de macros par le LLM — Exécution non-bloquante avec feedback live — **Interface vocale STT/TTS pour usage mains libres et accessibilité***
 
-[![Version](https://img.shields.io/badge/version-iabrain--v1.42.14-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.42.14)
+[![Version](https://img.shields.io/badge/version-iabrain--v1.43.00-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.43.00)
 [![Téléchargements](https://img.shields.io/badge/téléchargements-200%2B-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![100% local](https://img.shields.io/badge/local%20%2F%20cloud-hybride-brightgreen.svg)]()
 [![Accessibilité](https://img.shields.io/badge/accessibilité-voix%20%F0%9F%8E%A4%20%F0%9F%94%8A-purple.svg)]()
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.42.14/IAbrain.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.43.00/IAbrain.7z)
 
 </div>
 
@@ -63,8 +63,11 @@ Concrètement, c'est un outil qui répond à vos questions opérationnelles, ré
 | 📂 | **Base RAG personnelle** *(v1.34+)* | En plus de la base ADRASEC officielle (alimentée par OTA), une **seconde base perso** isolée vous permet d'indexer vos propres notes, RETEX et documents locaux. Les deux bases sont fouillées simultanément ; la base perso est **toujours préservée** lors des mises à jour OTA. |
 | 🌐 | **Cartographie interactive de la base** *(v1.35+)* | Visualisation arborescente de la base RAG (Base → Cluster thématique → Fichier → Chunk). Force-directed dynamique style Reticulum MeshChat, embarqué 100% hors-ligne dans un fichier HTML autonome. Recherche temps réel avec auto-expand des branches pertinentes et surlignage des chunks matchant. |
 | 📢 | **Corrections manuelles intégrées** *(v1.36+)* | Quand IAbrain produit une réponse imprécise ou incorrecte, **clic-droit → « 📢 Corriger cette réponse »** suffit. Votre correction est indexée dans la base perso et **automatiquement appliquée aux questions similaires futures, en priorité absolue**. Format Markdown versionable, partageable entre opérateurs via export/import ZIP. |
-| 🆕 | **Macros utilisateur** *(v1.37+)* | 8 boutons configurables au-dessus de la liste des fichiers pour automatiser vos tâches récurrentes. Deux types : **🤖 Macro LLM** (envoie un prompt à l'IA, avec méta-langage `{{lastfile}}`, `{{date}}`, `{{call}}`...) et **⚙️ Macro Action** (exécute une fonction native déterministe, sans LLM). |
-| ⚙️ | **5 actions natives livrées** *(v1.37.7+)* | `csv_to_markdown` (conversion CSV ↔ tableaux Markdown), `extract_callsigns` (extrait F1XYZ/TM/TK/TO/FW), `extract_frequencies` (Hz/kHz/MHz/GHz par bande), `anonymize` (téléphones/emails/adresses), `file_stats` (statistiques fichiers). 100% offline, instantané, déterministe, zéro hallucination. |
+| 🆕 | **Macros utilisateur** *(v1.37+, étendu v1.43)* | **24 boutons** configurables (6 rangées de 4) au-dessus de la liste des fichiers pour automatiser vos tâches récurrentes. Deux types : **🤖 Macro LLM** (envoie un prompt à l'IA, avec méta-langage `{{lastfile}}`, `{{date}}`, `{{call}}`...) et **⚙️ Macro Action** (exécute une fonction native déterministe, sans LLM). *(v1.43)* **Couleur de fond personnalisable par bouton** pour repérer les familles d'un coup d'œil, et **définitions stockées dans un fichier dédié et partageable `IAbrain_macros.json`** (chargé au démarrage, dissocié de la configuration générale). |
+| 🎨 | **24 macros colorées et partageables** *(v1.43)* | La barre passe de 8 à **24 emplacements** (6 × 4). Chaque bouton reçoit une **couleur** (familles : vert = chaîne SATER, rouge = livrable, orange = position connue, cyan = météo aéro, gris = chiffrement, bleu = d-IA). Les macros vivent désormais dans **`IAbrain_macros.json`** : on distribue tout un jeu en un fichier, ou une macro à l'unité (format `.iabmacro`, couleur comprise). |
+| 🛰 | **SITREP SATER (PDF) — action native** *(v1.43)* | Action `sitrep_sater` qui génère un **SITREP au format PDF** à la charte Sécurité Civile (en-tête, **main courante** des relevés goniométriques, **bloc triangulation** position + DMS + **MGRS** + CEP + RMS, et **carte** de la zone). Lit les variables de session posées par la chaîne SATER et relit les relevés depuis le fichier importé (à défaut, recherche sur disque). Ferme la chaîne `SATER LOC CSV → SATER MAP PNG → SITREP SATER` en trois clics. |
+| 📍 | **POS OSM — carte d'un point connu** *(v1.43)* | Action `osm_poi_map` qui affiche la position **exacte** d'un objet **connu** (monument, adresse, POI) avec un marqueur précis et **sans cercle d'incertitude** — à la différence de `SATER MAP PNG`, réservé à une balise estimée. Position obtenue par **géocodage officiel français IGN (Géoplateforme)**, repli automatique **Nominatim (OSM)**, puis coordonnées fournies. Réglages : `GEOCODE_SOURCE` (`ign`/`osm`), `GEOCODE=off`. Carte affichée dans le chat + PNG archivé dans `IAbrain_pos_maps/`. |
+| ⚙️ | **7 actions natives livrées** *(v1.37.7+, étendu v1.43)* | `csv_to_markdown` (conversion CSV ↔ tableaux Markdown), `extract_callsigns` (extrait F1XYZ/TM/TK/TO/FW), `extract_frequencies` (Hz/kHz/MHz/GHz par bande), `anonymize` (téléphones/emails/adresses), `file_stats` (statistiques fichiers), **`sitrep_sater` (SITREP SATER PDF — v1.43)**, **`osm_poi_map` (POS OSM, géocodage IGN — v1.43)**. 100% offline pour la plupart, déterministe, zéro hallucination. |
 | 📋 | **SITREP PDF auto-rempli** *(v1.41.2+)* | Nouveau plugin `IAbrain_actions_sitrep.py` qui remplit **automatiquement** le formulaire AcroForm `SITREP_ADRASEC.pdf` (33 champs texte + 9 listes déroulantes + 15 cases à cocher) à partir d'un scénario importé, d'un brouillon d'opérateur, ou de la variable de session `SITREP_TEXT`. Ollama (modèle local) extrait les champs structurés en JSON, validation stricte contre les valeurs autorisées du formulaire (avec tolérance casse/accents), fallback heuristique par mots-clés FR si Ollama est HS. Sortie nommée `SITREP_<COMMUNE>_<YYYYMMDD-HHMM>.pdf` dans le répertoire de travail. **Macro 2 « SITREP PDF » pré-câblée** dans les configurations vierges. Compatible TCQ → VARA FM/HF/SAT → COD préfecture. **Plugin durci en v1.1.7** (v1.41.4) avec structured outputs JSON Schema Ollama 0.5+, filet anti-hallucination strict (rejet des valeurs absentes du SITREP_TEXT), décodage des `\n` littéraux, fusion cases LLM + heuristique, nettoyage des pollutions d'indicatif/fréquence/nom autorité, et **détection de négation contextuelle** (« Pas de coupure électrique », « Eau distribuée normalement », « Transports fonctionnels » → cases correspondantes correctement NON cochées). |
 | ⏳ | **Exécution non-bloquante avec feedback live** *(v1.41.3+)* | Les macros Action (plugins `IAbrain_actions_*`) tournent désormais dans un **worker thread Python** au lieu de bloquer le main thread Tkinter. Plus aucun freeze Windows pendant les extractions LLM longues (60-150 s sur qwen2.5:14b en local). **Spinner ⏳/⌛ animé dans la barre de titre** pendant l'exécution, fenêtre cliquable et scrollable, possibilité de continuer à lire la conversation en attendant. Nouveau **callback `options["log"]`** que les plugins peuvent utiliser pour publier des messages de progression en temps réel dans le chat (`🔍 SITREP : initialisation…`, `🧠 SITREP : extraction par LLM en cours… patientez`, `📄 SITREP : écriture du PDF rempli…`, etc.). Bénéfice transverse pour tous les plugins externes : SOE, SATER, SITREP. Rétro-compatible : les plugins anciens ignorant `options["log"]` continuent de fonctionner sans modification. |
 | 📤 | **Import/Export de macros** *(v1.40.1+)* | Deux nouveaux boutons **📥 Importer une Macro** et **📤 Exporter la Macro** dans le dialogue d'édition. Format `.iabmacro` (JSON UTF-8 versionable) qui permet de partager des macros entre opérateurs ADRASEC. Idéal pour distribuer des macros standardisées dans une section, archiver des versions de travail, ou récupérer une macro depuis un autre poste. |
@@ -102,8 +105,11 @@ Concrètement, c'est un outil qui répond à vos questions opérationnelles, ré
 > **Chaînage de macros pour pipelines opérationnels** *(v1.40.2+)*
 > Une macro qui calcule (par exemple, une localisation de balise ELT par triangulation à partir d'un CSV de relèvements TCQ) peut désormais transmettre son résultat à la macro suivante via des **variables de session**. Plus besoin de copier-coller manuellement les coordonnées entre étapes : `{LAT}`, `{LON}`, `{RAYON_M}` sont substituées automatiquement. Et puisque les variables persistent entre sessions, vous retrouvez vos derniers calculs au démarrage suivant.
 
-> **Partage de macros entre opérateurs** *(v1.40.1+)*
-> Les macros utilisateur sont désormais exportables au format `.iabmacro` et réimportables sur un autre poste. Idéal pour distribuer des macros validées au sein d'une section ADRASEC, ou pour archiver une macro de travail avant modification.
+> **Chaîne SATER de bout en bout, jusqu'au PDF** *(v1.43)*
+> Du CSV de relèvements à la transmission : `SATER LOC CSV` triangule la position, `SATER MAP PNG` produit la carte avec cercle d'incertitude, et `SITREP SATER` génère le **compte-rendu PDF** à la charte Sécurité Civile (main courante + triangulation + carte). Trois clics, un livrable prêt à passer en QO-100 / VARA ou par courriel. Pour un point **certain** (et non une balise), `POS OSM` affiche la position géocodée **IGN** sans cercle d'incertitude.
+
+> **Partage de macros entre opérateurs** *(v1.40.1+, étendu v1.43)*
+> Les macros utilisateur sont exportables au format `.iabmacro` (couleur comprise depuis v1.43) et réimportables sur un autre poste. *(v1.43)* Tout le jeu de macros vit désormais dans un fichier dédié **`IAbrain_macros.json`** : il suffit de le distribuer à côté d'IAbrain pour livrer une barre préinstallée identique à toute une section ADRASEC. Idéal pour standardiser, ou pour archiver une macro de travail avant modification.
 
 > **Démos et formations sur petites machines** *(v1.38+)*
 > Lancez IAbrain sur un laptop entrée de gamme ou une tablette, et exploitez les modèles XL (gpt-oss:120b, deepseek-v3.1:671b…) hébergés par Ollama Cloud pour montrer le meilleur de ce qu'IAbrain peut faire. La base ADRASEC reste sur votre machine ; seul le LLM tourne dans le cloud.
@@ -352,7 +358,7 @@ Particulièrement utile pour :
 
 ## 🆕 Macros et actions natives *(v1.37+)*
 
-IAbrain dispose d'une **barre de 8 boutons macros** dans le panneau latéral, configurables individuellement. Chaque bouton peut être l'un des deux types :
+IAbrain dispose d'une **barre de 24 boutons macros** (6 rangées de 4) dans le panneau latéral, configurables individuellement. *(v1.43)* Chaque bouton peut recevoir une **couleur de fond personnalisée** (pour regrouper visuellement les familles), et l'ensemble des macros est stocké dans un fichier dédié et partageable **`IAbrain_macros.json`**. Chaque bouton peut être l'un des deux types :
 
 ### 🤖 Macros LLM — envoient un prompt à l'IA
 
@@ -382,7 +388,7 @@ Option **🚫 Désactiver le RAG pour cette macro** *(v1.37.6+)* : recommandée 
 
 Pas de LLM, pas de prompt, pas de tokens. Une fonction Python interne d'IAbrain est appelée directement avec les fichiers importés. Résultat **instantané, 100% déterministe, 0 hallucination, fonctionne offline**.
 
-5 actions natives livrées en v1.37.7+ :
+7 actions natives livrées (5 dès v1.37.7+, 2 ajoutées en v1.43) :
 
 | Action | Description |
 |---|---|
@@ -391,6 +397,8 @@ Pas de LLM, pas de prompt, pas de tokens. Une fonction Python interne d'IAbrain 
 | 📻 **extract_frequencies** | Hz, kHz, MHz, GHz (formats `145.4375 MHz` ou `145,4375 MHz`). Classement par bande HF/VHF/UHF/SHF. |
 | 🔒 **anonymize** | Téléphones FR, emails, adresses postales (rue/avenue/...), code postal+ville → `<TELEPHONE>`, `<EMAIL>`, etc. |
 | 📈 **file_stats** | Taille, lignes, mots, caractères. Total multi-fichiers. |
+| 🛰 **sitrep_sater** *(v1.43)* | Génère un **SITREP SATER au format PDF** (charte Sécurité Civile) : main courante des relevés, bloc triangulation (position, DMS, MGRS, CEP, RMS) et carte. Consomme les variables de session SATER ; relit les relevés du fichier importé. Nécessite `reportlab`. |
+| 📍 **osm_poi_map** *(v1.43)* | **POS OSM** — carte OpenStreetMap d'un point **connu**, marqueur précis **sans cercle d'incertitude**. Géocodage **IGN (Géoplateforme)**, repli Nominatim. Variables : `LAT`/`LON`, `POI_NOM`, `ZOOM` ; réglages `GEOCODE_SOURCE`, `GEOCODE=off`. Nécessite `Pillow`. |
 
 ### 🎁 Macros pré-installées : `⚙ CSV To MD` *(v1.37.8+)* et `📋 SITREP PDF` *(v1.41.2+)*
 
@@ -410,7 +418,22 @@ Au premier lancement, deux boutons sont déjà pré-programmés :
 
 Le préfixe **⚙** différencie visuellement les macros Action des macros LLM dans la barre.
 
-> 💡 Pour configurer une macro : **clic-droit** sur un bouton vide → choisir le type (LLM ou Action) → renseigner les paramètres → Enregistrer.
+> 💡 Pour configurer une macro : **clic-droit** sur un bouton vide → choisir le type (LLM ou Action) → renseigner les paramètres → choisir une **couleur** *(v1.43)* → Enregistrer.
+
+### 🆕 Nouveautés macros v1.43
+
+**24 boutons, 6 rangées de 4.** La barre passe de 8 à 24 emplacements pour regrouper davantage d'outils sans changer d'écran.
+
+**Couleur par bouton.** Chaque macro peut recevoir une couleur de fond (clic-droit → sélecteur de couleur). Convention du jeu préinstallé : vert = chaîne SATER (traitement), rouge = livrable SATER, orange = position connue, gris = chiffrement SOE, cyan = météo aéronautique, bleu = d-IA.
+
+**Fichier de macros dédié et partageable.** Les définitions ne sont plus mêlées à `IAbrain.json` : elles vivent dans **`IAbrain_macros.json`**, chargé au démarrage. Migration automatique au premier lancement (les anciennes macros de `IAbrain.json` sont reprises puis le fichier dédié est écrit). Distribuer ce fichier à côté d'IAbrain suffit à livrer une barre préinstallée identique à toute une section.
+
+**Deux nouvelles actions natives :**
+
+- **`📍 POS OSM` (`osm_poi_map`)** — carte OpenStreetMap d'un point **connu** (monument, adresse, POI) avec marqueur précis et **sans cercle d'incertitude**, contrairement à `SATER MAP PNG`. La position vient du **géocodage officiel français IGN (Géoplateforme)**, avec repli automatique sur Nominatim (OSM) puis sur les coordonnées fournies. La source réellement utilisée est indiquée dans le résultat. Variables : `LAT`/`LON`, `POI_NOM`, `ZOOM` ; réglages `GEOCODE_SOURCE` (`ign`/`osm`) et `GEOCODE=off`. Carte affichée dans le chat, PNG archivé dans `IAbrain_pos_maps/`. Exemple : *« Affiche la position de la Tour Eiffel avec la macro POS OSM »*.
+- **`🛰 SITREP SATER` (`sitrep_sater`)** — **SITREP au format PDF** à la charte Sécurité Civile reprenant l'en-tête, la **main courante** des relevés goniométriques, le **bloc triangulation** (position décimale + DMS, **MGRS**, rayon CEP, RMS) et la **carte** de la zone. Lit les variables de session posées par `SATER LOC CSV` et relit les relevés depuis le fichier importé (à défaut, recherche sur disque). Enregistré dans `IAbrain_sitreps/`. Nécessite `reportlab`.
+
+Ensemble, elles complètent la **chaîne SATER** : `SATER LOC CSV` (triangulation) → `SATER MAP PNG` (carte balise + cercle) → `SITREP SATER` (compte-rendu PDF).
 
 ### 📤 Import/Export de macros *(v1.40.1+)*
 
@@ -1224,9 +1247,9 @@ ollama pull bge-m3              # Reranking RAG (recommandé, 1.2 Go)
 
 <div align="center">
 
-#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.42.14/IAbrain.7z)
+#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.43.00/IAbrain.7z)
 
-*(version `iabrain-v1.42.14` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
+*(version `iabrain-v1.43.00` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
 
 [![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
 
@@ -1335,7 +1358,7 @@ Ce dépôt contient également les manuels suivants :
 └────────────────────────────────────────┘
 
 ┌────────────────────────────────────────┐
-│  Actions natives (v1.37.7+)            │
+│  Actions natives (v1.37.7+ / v1.43)    │
 │  ┌──────────────────────────────────┐  │
 │  │ IAbrain_actions.py               │  │
 │  │  - csv_to_markdown               │  │
@@ -1343,6 +1366,8 @@ Ce dépôt contient également les manuels suivants :
 │  │  - extract_frequencies           │  │
 │  │  - anonymize                     │  │
 │  │  - file_stats                    │  │
+│  │  - sitrep_sater                  │  │
+│  │  - osm_poi_map                   │  │
 │  │  Pas de LLM, pas d'Ollama        │  │
 │  │  Instantané, déterministe        │  │
 │  └──────────────────────────────────┘  │
@@ -1406,9 +1431,22 @@ Ce dépôt contient également les manuels suivants :
 
 ---
 
-## 🆕 Évolution récente — v1.33 → v1.42
+## 🆕 Évolution récente — v1.33 → v1.43
 
-Les versions récentes ont apporté plusieurs améliorations majeures, du RAG hybride aux corrections manuelles, en passant par la cartographie, les macros utilisateur, la connectivité cloud, la mémoire conversationnelle, le profil opérateur, l'auto-exécution de macros par le LLM, le remplissage automatique du SITREP PDF officiel ADRASEC, l'exécution non-bloquante des macros Action avec feedback de progression en direct, la détection de négation contextuelle dans le plugin SITREP, et désormais **l'interface vocale complète (reconnaissance + synthèse) avec apprentissage des corrections de l'opérateur**.
+Les versions récentes ont apporté plusieurs améliorations majeures, du RAG hybride aux corrections manuelles, en passant par la cartographie, les macros utilisateur, la connectivité cloud, la mémoire conversationnelle, le profil opérateur, l'auto-exécution de macros par le LLM, le remplissage automatique du SITREP PDF officiel ADRASEC, l'exécution non-bloquante des macros Action avec feedback de progression en direct, la détection de négation contextuelle dans le plugin SITREP, l'interface vocale complète (reconnaissance + synthèse) avec apprentissage des corrections de l'opérateur, et désormais **une barre de 24 macros colorées et partageables, complétée par les actions natives POS OSM (carte géocodée IGN) et SITREP SATER (compte-rendu PDF)**.
+
+### 🆕 v1.43.x — 24 macros colorées et partageables, POS OSM, SITREP SATER PDF
+
+La série v1.43 fait de la **barre de macros** un véritable outil de section. La barre passe de **8 à 24 boutons** (6 rangées de 4), chaque bouton peut recevoir une **couleur de fond** pour distinguer les familles d'un coup d'œil, et l'ensemble des définitions migre dans un **fichier dédié et partageable `IAbrain_macros.json`** : distribuer ce fichier à côté d'IAbrain suffit à livrer une barre préinstallée identique à toute une équipe. L'export/import à l'unité (`.iabmacro`) conserve désormais la couleur.
+
+Côté terrain, deux **nouvelles actions natives** complètent la chaîne SATER et la cartographie :
+
+- **`📍 POS OSM` (`osm_poi_map`)** affiche la position **exacte** d'un point **connu** (monument, adresse, POI) sur une carte OpenStreetMap, **sans cercle d'incertitude** — à la différence de `SATER MAP PNG`, réservé à une balise estimée. La position provient du **géocodage officiel français IGN (Géoplateforme)**, avec repli automatique sur Nominatim (OSM) puis sur les coordonnées fournies ; la source utilisée est indiquée dans le résultat. Carte affichée dans le chat et archivée dans `IAbrain_pos_maps/`.
+- **`🛰 SITREP SATER` (`sitrep_sater`)** génère un **SITREP au format PDF** à la charte Sécurité Civile (en-tête, main courante des relevés goniométriques, bloc triangulation position + DMS + **MGRS** + CEP + RMS, et carte de zone). Il referme la chaîne `SATER LOC CSV → SATER MAP PNG → SITREP SATER` en trois clics, du CSV de relèvements au livrable prêt à transmettre.
+
+| Version | Apport principal |
+|---|---|
+| **1.43.00** | **Barre de macros étendue à 24 boutons (6 × 4)** avec **couleur de fond personnalisable par bouton** (préfixe ⚙ conservé pour les macros Action). **Macros déplacées dans un fichier dédié et partageable `IAbrain_macros.json`** (chargé au démarrage, migration automatique depuis `IAbrain.json` au premier lancement), export/import `.iabmacro` couleur comprise. **Nouvelle action native `osm_poi_map` (« POS OSM »)** : carte OSM d'un point connu, marqueur précis sans cercle, **géocodage IGN (Géoplateforme)** avec repli Nominatim, réglages `GEOCODE_SOURCE`/`GEOCODE=off`, sortie dans `IAbrain_pos_maps/`. **Nouvelle action native `sitrep_sater` (« SITREP SATER »)** : SITREP PDF (main courante + triangulation MGRS/CEP/RMS + carte), sortie dans `IAbrain_sitreps/`, nécessite `reportlab`. La chaîne SATER complète passe ainsi du relevé CSV au compte-rendu PDF. |
 
 ### 🎤🔊 v1.42.x — Interface vocale : reconnaissance et synthèse pour usage mains libres et accessibilité
 
@@ -1609,7 +1647,7 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.42.14 — 2026-05-14**
+**Version 1.43.00 — 2026-06-07**
 
 ---
 
