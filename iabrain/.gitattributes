@@ -1,0 +1,3 @@
+manifest.json -text
+rag/*.npy -text
+rag/*.json -text

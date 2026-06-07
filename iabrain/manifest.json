@@ -1,28 +1,28 @@
 {
   "name": "IAbrain RAG ADRASEC 77 - Pack officiel",
-  "version": "2026.04.26",
-  "build_date": "2026-04-26T11:17:49Z",
+  "version": "2026.06.07",
+  "build_date": "2026-06-07T15:54:20Z",
   "embedding_model": "nomic-embed-text",
   "embedding_dim": 768,
-  "n_chunks": 2092,
-  "n_files": 182,
+  "n_chunks": 3751,
+  "n_files": 206,
   "iabrain_min_version": "1.32",
-  "description": "Base RAG Adrasec pour IAbrain",
+  "description": "IAbrain - Base ADRASEC - Source F1GBD",
   "files": {
     "vectors.npy": {
       "url": "https://raw.githubusercontent.com/f1gbd/F1GBD/master/iabrain/rag/vectors.npy",
-      "sha256": "cedc7ffb00e73be34df3a8c9e2a1856931693fa69fc47776657608d41a3daba4",
-      "size_bytes": 6426752
+      "sha256": "08d9e87d979a9bed262891c05fe55855536d685da9300fd5bd2fb4b2bbeb2cde",
+      "size_bytes": 11523200
     },
     "records.json": {
       "url": "https://raw.githubusercontent.com/f1gbd/F1GBD/master/iabrain/rag/records.json",
-      "sha256": "740b638b8a9e09ba15f846cd9c3e5f81e51d228d30f2eab74215ae8ad41cfd76",
-      "size_bytes": 3026827
+      "sha256": "499f0c92b078fdb76e05195c122af7f5fa0d388e376fd2c938830f336d678e4f",
+      "size_bytes": 6383237
     },
     "rag_meta.json": {
       "url": "https://raw.githubusercontent.com/f1gbd/F1GBD/master/iabrain/rag/rag_meta.json",
-      "sha256": "453cf043f4cdf375e61a692fb8da0aa62bd84a97ce194dd90ce11931f9766e98",
-      "size_bytes": 46363
+      "sha256": "3664728a3dc2774fe659aefc8f0d6f4e4b1e4e89f267b868fd906cb1339a038f",
+      "size_bytes": 53488
     }
   },
   "changelog": []
