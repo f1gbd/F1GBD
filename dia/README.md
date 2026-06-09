@@ -4,18 +4,19 @@
 
 ### Dialogue autonome entre deux IA, arbitré par un troisième — un outil d'aide à la recherche par IA
 
-*Conversation scientifique guidée — Investigateur & Analyste — **Enrichissement par le web de l'Investigateur — DuckDuckGo / SearXNG (v1.3)** — **Auto-export des fiches vers IAbrain (v1.3)** — **Modérateur conversationnel qui fait converger le dialogue vers une solution (v1.2)** — Presets de sujet importables/exportables (v1.2) — Mode ADRASEC enrichi (modérateur RAG) — Ollama local & cloud — Mémoire glissante — Détection de dérive linguistique — Synthèse vocale SAPI5 deux voix — Synchronisation dialogue/voix — Export JSON / Markdown / RTF — Thèmes secondaires guidés — Configuration persistante*
+*Conversation scientifique guidée — Investigateur & Analyste — **Curseur Créativité / innovation 0–100 % qui fait proposer de nouveaux concepts (v1.5)** — **Rendu Markdown du dialogue + synthèse vocale assainie (v1.4)** — **Enrichissement par le web de l'Investigateur — DuckDuckGo / SearXNG (v1.3)** — **Auto-export des fiches vers IAbrain (v1.3)** — **Modérateur conversationnel qui fait converger le dialogue vers une solution (v1.2)** — Presets de sujet importables/exportables (v1.2) — Mode ADRASEC enrichi (modérateur RAG) — Ollama local & cloud — Mémoire glissante — Détection de dérive linguistique — Synthèse vocale SAPI5 deux voix — Synchronisation dialogue/voix — Export JSON / Markdown / RTF — Thèmes secondaires guidés — Configuration persistante*
 
-[![Version](https://img.shields.io/badge/version-dia--v1.4.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/dia-v1.4.0)
+[![Version](https://img.shields.io/badge/version-dia--v1.5.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/dia-v1.5.0)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![Local / Cloud](https://img.shields.io/badge/Ollama-local%20%2F%20cloud-brightgreen.svg)]()
 [![Accessibilité](https://img.shields.io/badge/accessibilit%C3%A9-voix%20SAPI5-purple.svg)]()
+[![Créativité](https://img.shields.io/badge/v1.5-cr%C3%A9ativit%C3%A9%20pilotable-ff7a59.svg)]()
 [![Modérateur](https://img.shields.io/badge/mode-mod%C3%A9rateur%20conversationnel-teal.svg)]()
 [![RAG](https://img.shields.io/badge/mode-ADRASEC%20enrichi-orange.svg)]()
 [![Web](https://img.shields.io/badge/v1.3-enrichissement%20web-blue.svg)]()
 
-### 📥 [**Télécharger la dernière version (v1.4.0)**](https://github.com/f1gbd/F1GBD/releases/download/dia-v1.4.0/d-IA.7z)
+### 📥 [**Télécharger la dernière version (v1.5.0)**](https://github.com/f1gbd/F1GBD/releases/download/dia-v1.5.0/d-IA.7z)
 
 </div>
 
@@ -34,6 +35,49 @@ Le résultat n'est plus seulement une conversation évolutive : c'est une **dém
 Tout tourne **localement** par défaut (modèles Ollama auto-hébergés), avec une option **cloud** (gpt-oss:120b, deepseek-v3.1:671b, kimi-k2…) si on souhaite faire dialoguer, arbitrer ou modérer avec des modèles XL hébergés.
 
 > 💡 **La différence clé de la v1.2** : jusqu'ici, deux IA pouvaient explorer un sujet sans jamais conclure. Désormais, un modérateur garde le cap et **force la convergence vers une solution** — d-IA devient un véritable assistant de recherche, pas seulement un générateur de dialogue.
+
+---
+
+## 🆕 Nouveautés v1.5 — Créativité & innovation pilotables
+
+La **v1.5** ajoute un **curseur unique « Créativité / innovation » (0–100 %)** qui pousse d-IA à **proposer de nouveaux concepts** à partir de la requête initiale — sans jamais sacrifier la rigueur indispensable à un usage ADRASEC.
+
+### 🎚️ Deux leviers dans un seul réglage
+
+- **Échantillonnage** : boost *additif* de la `température` et du `top_p`, **par-dessus** les températures par-LLM existantes (qui restent le réglage fin de base). À **0 %**, le comportement est **strictement inchangé**.
+- **Prompts** : une **directive d'innovation graduée ET adaptée au rôle** est injectée dans le dialogue :
+  - 🔬 **Investigateur** — reste un questionneur : **au plus une** piste concise, puis sa question (il ne développe pas).
+  - 🧠 **Analyste** — c'est le **moteur à concepts** : il développe **1 à 3 pistes** au niveau élevé, avec évaluation critique.
+  - 🆕 **Modérateur** — pousse à rendre une piste **concrète et chiffrée** (il fait converger, il ne multiplie pas les idées).
+
+Chaque idée nouvelle est préfixée **`PISTE INNOVANTE :`**, **explicitement signalée comme exploratoire**, puis **évaluée de façon critique** (faisabilité, ordres de grandeur, conditions de validité).
+
+> 🛡️ **Garde-fou ADRASEC** : une spéculation n'est **jamais** présentée comme un fait. La créativité propose des concepts *à explorer* ; elle n'invente pas de certitudes. C'est ce qui rend le mode utilisable en préparation d'exercice, où la fiabilité prime.
+
+### 📈 Budget de tokens adaptatif (anti-troncature)
+
+Plus la créativité est élevée, plus les réponses sont riches. d-IA **augmente automatiquement `num_predict`** pour les tours de dialogue, afin que les réponses multi-concepts **ne soient plus coupées en plein milieu**. Le modérateur, lui, conserve un budget court (sa vocation est de converger).
+
+```
+Créativité 0 %   → directive vide, échantillonnage et budget inchangés (mode strict)
+Créativité 50 %  → +température/+top_p modérés, num_predict ≈ ×1,75, 1 piste développée
+Créativité 100 % → forte divergence, num_predict ≈ ×2,5 (plafonné), 1–3 pistes + évaluation
+```
+
+> 💡 À **0 %**, d-IA se comporte exactement comme en v1.4 : strict et opérationnel. Le curseur est dans **colonne de gauche → Paramètres avancés → « Créativité / innovation (%) »**.
+
+### 🖥️ Ergonomie — fenêtres défilantes (petits écrans)
+
+- La **fenêtre Paramètres IA** (tous les onglets) est désormais **défilante** : plus rien n'est coupé en bas, même sur un écran de portable.
+- La **colonne de configuration** (sujet, thèmes, paramètres avancés, recherche web) est **défilante** elle aussi ; les boutons **Démarrer / Pause / Arrêter** restent **fixes en haut**, toujours visibles. Les zones de texte (sujet, thèmes) conservent leur propre défilement.
+
+---
+
+## 🆕 Nouveautés v1.4 — Rendu Markdown du dialogue & voix assainie
+
+- 🖋️ **Rendu Markdown** dans la zone de conversation : **gras**, *italique*, `code` et blocs de code, titres, citations, listes (à puces et numérotées), liens et barré sont désormais **interprétés et affichés proprement** — fini les `**`, `#` ou `\` bruts à l'écran.
+- 🎤 **Synthèse vocale assainie** : le nettoyage TTS retire intégralement les artefacts Markdown **avant lecture**, si bien que SAPI5 **ne prononce plus** les caractères de balisage (notamment l'antislash `\` et les séquences `***`). Le `snake_case` technique (ex. `IAbrain_rag`) est **préservé** à la lecture.
+- ⚙️ Implémentation **sans dépendance externe** (parseur Markdown maison), compatible autonomie hors-ligne et PyInstaller `--onedir`.
 
 ---
 
@@ -78,6 +122,8 @@ IAbrain /index ou /reindex → interrogeable en langage naturel
 
 | Icône | Fonctionnalité | Description |
 |:---:|---|---|
+| ✨ | **Créativité / innovation pilotable (v1.5)** | Un curseur **0–100 %** qui fait **proposer de nouveaux concepts** à partir de la requête initiale : boost *additif* de température/top_p **et** directive d'innovation **adaptée au rôle** (Investigateur bref, Analyste moteur à concepts, Modérateur qui chiffre). Pistes préfixées `PISTE INNOVANTE :`, signalées exploratoires et évaluées. **Budget de tokens auto-ajusté** (anti-troncature). À **0 %** : comportement opérationnel strict, identique à la v1.4. |
+| 🖋️ | **Rendu Markdown + voix assainie (v1.4)** | Le dialogue affiche le **Markdown interprété** (gras, listes, code, titres, citations…) au lieu des balises brutes. La synthèse vocale **retire ces balises avant lecture** (plus de `\` ni `***` prononcés par SAPI5), tout en préservant le `snake_case`. Parseur maison, sans dépendance. |
 | 🤖 | **Deux LLM aux rôles asymétriques** | LLM1 (Investigateur) doit terminer chaque tour par une question ouverte. LLM2 (Analyste) doit introduire un élément nouveau dans chaque réponse (analogie, contre-exemple, chiffre…). Ces contraintes empêchent les boucles stériles et donnent un vrai rythme de dialogue. |
 | 🆕 | **Modérateur conversationnel (v1.2)** | Un 3ᵉ LLM **intervient directement dans le dialogue** tous les K tours : bilan de ce qui est acquis, point bloquant restant, et **consigne de convergence précise** (chiffre à établir, hypothèse à trancher, verdict à formuler). Son intervention est réinjectée dans le contexte des deux IA, ce qui crée la rétroaction qui **fait aboutir la recherche**. |
 | 📋 | **Presets de sujet (v1.2)** | Boutons **Importer / Exporter un preset** : un sujet de recherche complet (sujet principal + thèmes secondaires + objectif de convergence + réglages) se charge en un clic, se sauvegarde au format `.diapreset.json` et **se partage** entre opérateurs. Le format texte est aussi accepté à l'import. |
@@ -348,6 +394,7 @@ Sans GPU, ça marche aussi mais chaque tour prend 30-60 s au lieu de 5-10 s.
      - *(v1.2)* Section **Modérateur conversationnel** : cocher « Activer », choisir la fréquence K (6 tours par défaut), la température (0.4), et éventuellement un objectif de convergence
      - *(v1.1)* Section **Mode ADRASEC enrichi** : cocher pour activer l'extraction RAG (facultatif, cumulable)
      - *(v1.3)* Section **Auto-export vers IAbrain** : cocher pour pousser les fiches vers le staging IAbrain `_a_valider/` au fil de l'eau
+   - **Colonne de gauche → Paramètres avancés → Créativité / innovation (%)** *(v1.5, optionnel)* : régler le curseur (0 % = strict/opérationnel ; plus on monte, plus d-IA propose de concepts inédits — pistes `PISTE INNOVANTE :` côté Analyste). Laisser à 0 % pour un dialogue purement factuel.
    - **Colonne de gauche → Recherche web - Investigateur** *(v1.3, optionnel)* : cocher « Activer la recherche web », choisir le fournisseur (`duckduckgo` sans installation, ou `searxng`), la fréquence et le nombre de résultats
    - **Onglet Synthèse vocale** : *(optionnel)* cocher « Activer la lecture vocale », choisir une voix pour chaque IA, tester
 2. **Fermer** la fenêtre Paramètres
@@ -442,6 +489,24 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 
 ## 📜 Historique des versions
 
+### v1.5 — Juin 2026 — Créativité & innovation pilotables
+
+- ➕ **Curseur Créativité / innovation (0–100 %)** : pousse d-IA à proposer de nouveaux concepts à partir de la requête initiale
+- ➕ Double levier : boost **additif** de température/top_p **+** directive d'innovation **graduée et adaptée au rôle** (Investigateur bref / Analyste moteur à concepts / Modérateur convergence)
+- ➕ Pistes préfixées **`PISTE INNOVANTE :`**, signalées exploratoires et évaluées de façon critique — **garde-fou ADRASEC** : jamais présentées comme des faits
+- ➕ **Budget `num_predict` adaptatif** : les réponses riches en concepts ne sont plus tronquées ; le modérateur conserve un budget court
+- ➕ Réglage **persisté** dans `d-ia_setup.json` et **transporté** par les presets `.diapreset.json`
+- 🛠️ **Fenêtre Paramètres IA défilante** (onglets) — plus rien de coupé en bas sur petit écran ; boutons d'action maintenus visibles
+- 🛠️ **Colonne de configuration défilante** (sujet / thèmes / paramètres avancés / recherche web), boutons Démarrer / Pause / Arrêter fixes en haut
+- ✅ À **0 %** de créativité : comportement strictement identique à la v1.4
+
+### v1.4 — Juin 2026 — Rendu Markdown du dialogue & voix assainie
+
+- ➕ **Rendu Markdown** de la conversation : gras, italique, code et blocs de code, titres, citations, listes (puces et numérotées), liens, barré et règles horizontales **interprétés** (plus de balises brutes à l'écran)
+- ➕ **Nettoyage TTS renforcé** : les artefacts Markdown (antislash `\`, `***`, `` ` ``, `#`, `>`, `|`…) ne sont **plus prononcés** par SAPI5
+- ➕ `snake_case` technique **préservé** à la lecture vocale (ex. `IAbrain_rag`)
+- ⚙️ Implémentation **sans dépendance externe** (parseur Markdown maison), compatible PyInstaller `--onedir`
+
 ### v1.3 — Juin 2026 — Enrichissement par le web & auto-export IAbrain
 
 - ➕ **Enrichissement par le web de l'Investigateur** : le LLM1 interroge le web avant son tour et synthétise 2-3 sources en français
@@ -497,12 +562,12 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis (F1GBD)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.3 — 2026**
+**Version 1.5 — 2026**
 
 ---
 
 *Pour toute question, contactez votre référent ADRASEC départemental.*
 
-🤖 **d-IA v1.3** — *Deux IA cherchent — l'une puise désormais dans le web —, un troisième arbitre et fait converger, et les fiches alimentent IAbrain.*
+🤖 **d-IA v1.5** — *Deux IA cherchent — l'une puise dans le web, l'autre invente sur commande —, un troisième arbitre et fait converger, et les fiches alimentent IAbrain.*
 
 </div>
