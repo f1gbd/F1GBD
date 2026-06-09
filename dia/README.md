@@ -6,7 +6,7 @@
 
 *Conversation scientifique guidée — Investigateur & Analyste — **Enrichissement par le web de l'Investigateur — DuckDuckGo / SearXNG (v1.3)** — **Auto-export des fiches vers IAbrain (v1.3)** — **Modérateur conversationnel qui fait converger le dialogue vers une solution (v1.2)** — Presets de sujet importables/exportables (v1.2) — Mode ADRASEC enrichi (modérateur RAG) — Ollama local & cloud — Mémoire glissante — Détection de dérive linguistique — Synthèse vocale SAPI5 deux voix — Synchronisation dialogue/voix — Export JSON / Markdown / RTF — Thèmes secondaires guidés — Configuration persistante*
 
-[![Version](https://img.shields.io/badge/version-dia--v1.3.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/dia-v1.3.0)
+[![Version](https://img.shields.io/badge/version-dia--v1.4.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/dia-v1.4.0)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![Local / Cloud](https://img.shields.io/badge/Ollama-local%20%2F%20cloud-brightgreen.svg)]()
@@ -15,7 +15,7 @@
 [![RAG](https://img.shields.io/badge/mode-ADRASEC%20enrichi-orange.svg)]()
 [![Web](https://img.shields.io/badge/v1.3-enrichissement%20web-blue.svg)]()
 
-### 📥 [**Télécharger la dernière version (v1.3.0)**](https://github.com/f1gbd/F1GBD/releases/download/dia-v1.3.0/d-IA.7z)
+### 📥 [**Télécharger la dernière version (v1.4.0)**](https://github.com/f1gbd/F1GBD/releases/download/dia-v1.4.0/d-IA.7z)
 
 </div>
 
