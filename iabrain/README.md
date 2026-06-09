@@ -53,6 +53,12 @@ Concrètement, c'est un outil qui répond à vos questions opérationnelles, ré
 
 ---
 
+### Création d'un serveur dédié IA pour la gestion des Connaissances
+
+<img src="docs/images/IAbrain_server.jpg" alt="Serveur dédié IA" width="900">
+
+[**Création d'un Serveur IAbrain pour la gestion des connaissances qui fonctionne 100% hors-ligne.**](https://github.com/f1gbd/F1GBD/blob/master/iabrain/Documentations%20IAbrain/IAbrain_Fiche_Presentation.pdf)
+
 ## ⭐ Fonctionnalités principales
 
 | Icône | Fonctionnalité | Description |
