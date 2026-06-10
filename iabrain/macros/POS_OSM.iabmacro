@@ -1,0 +1,13 @@
+{
+  "iabrain_macro_version": 1,
+  "exported_at": "2026-06-07T09:50:00",
+  "exported_by": "IAbrain 1.43.00",
+  "macro": {
+    "label": "POS OSM",
+    "prompt": "",
+    "rag_disabled": true,
+    "type": "action",
+    "action": "osm_poi_map",
+    "bgcolor": "#1565c0"
+  }
+}

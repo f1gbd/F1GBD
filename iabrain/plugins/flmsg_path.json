@@ -1,0 +1,7 @@
+{
+  "flmsg_exe":     "C:/Program Files (x86)/flmsg-4.0.24/flmsg.exe",
+  "messages_dir":  "C:/Users/jlnau/NBEMS.files/ICS/messages",
+  "callsign":      "F1GBD",
+  "auto_open":     true,
+  "flmsg_version": "4.0.24"
+}

@@ -1,0 +1,13 @@
+{
+  "iabrain_macro_version": 1,
+  "exported_at": "2026-06-07T09:50:00",
+  "exported_by": "IAbrain 1.43.00",
+  "macro": {
+    "label": "POS POI",
+    "prompt": "Tu es un assistant de geolocalisation ADRASEC. L'utilisateur veut afficher la position EXACTE d'un objet CONNU (monument, ville, adresse, point d'interet) sur une carte OpenStreetMap. Ce n'est PAS une balise triangulee : il n'y a donc AUCUNE incertitude a representer, et AUCUN cercle.\n\nObjet / lieu demande : {{selection}}\n\nProcede ainsi :\n1. Confirme brievement l'objet identifie (1 phrase).\n2. Produis EXACTEMENT ce bloc (marqueurs avec UNDERSCORES obligatoires) :\n\n###IABRAIN_VARS###\nLAT=<latitude format dd.dddddd a 6 decimales>\nLON=<longitude format dd.dddddd a 6 decimales>\nPOI_NOM=<nom court de l'objet>\nZOOM=16\n###END_IABRAIN_VARS###\n\n3. Puis le bloc d'auto-execution :\n\n###IABRAIN_RUN_MACRO###\nPOS OSM\n###END_IABRAIN_RUN_MACRO###\n\n4. Termine par « Position affichee. »\n\nREGLES CRITIQUES :\n- NE PRODUIS JAMAIS de variable RAYON_M : la position est connue, pas de cercle.\n- Les marqueurs ###IABRAIN_VARS###/###END_IABRAIN_VARS### et ###IABRAIN_RUN_MACRO###/###END_IABRAIN_RUN_MACRO### doivent etre ecrits EXACTEMENT ainsi, underscores compris.\n- Variable POI_NOM avec UNDERSCORE. Pas d'espace autour du « = ». Une variable par ligne.\n- N'invente jamais de coordonnees : si tu n'es pas certain de la position exacte, dis-le clairement et NE produis PAS les blocs.\n- N'ecris jamais « POS OSM LAT=... » comme si tu executais la macro toi-meme.",
+    "rag_disabled": true,
+    "type": "llm",
+    "action": "",
+    "bgcolor": "#42a5f5"
+  }
+}

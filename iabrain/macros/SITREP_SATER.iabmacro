@@ -1,0 +1,13 @@
+{
+  "iabrain_macro_version": 1,
+  "exported_at": "2026-06-07T09:30:00",
+  "exported_by": "IAbrain 1.43.00",
+  "macro": {
+    "label": "SITREP SATER",
+    "prompt": "",
+    "rag_disabled": true,
+    "type": "action",
+    "action": "sitrep_sater",
+    "bgcolor": "#c62828"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "iabrain_macro_version": 1,
+  "exported_at": "2026-05-15T12:00:00",
+  "exported_by": "IAbrain SITREP style selector v1.0 (llm)",
+  "macro": {
+    "label": "SITREP LLM",
+    "prompt": "Macro de selection de style pour le SITREP meteo.\n\nTu DOIS repondre UNIQUEMENT par les deux blocs ci-dessous, sans aucun autre texte avant ou apres, sans introduction, sans conclusion.\n\nSelection du style : llm (reformulation Ollama avec fallback verbeux).\n\n###IABRAIN_VARS###\nSITREP_GEN_STYLE=llm\n###END_IABRAIN_VARS###\n\n###IABRAIN_RUN_MACRO###\nSITREP MÉTÉO\n###END_IABRAIN_RUN_MACRO###\n\nNote : la macro cible \"SITREP MÉTÉO\" doit etre la macro Action qui appelle le plugin sitrep_generique_meteo. Si elle s'appelle autrement chez l'utilisateur (par exemple \"POINT METEO\" ou \"SITREP GEN METEO\"), il suffit de modifier le label dans le bloc IABRAIN_RUN_MACRO ci-dessus.",
+    "rag_disabled": true,
+    "type": "llm"
+  }
+}
