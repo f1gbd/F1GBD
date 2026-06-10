@@ -34,6 +34,12 @@ Le résultat n'est plus seulement une conversation évolutive : c'est une **dém
 
 Tout tourne **localement** par défaut (modèles Ollama auto-hébergés), avec une option **cloud** (gpt-oss:120b, deepseek-v3.1:671b, kimi-k2…) si on souhaite faire dialoguer, arbitrer ou modérer avec des modèles XL hébergés.
 
+### Création d'un serveur dédié IA pour la gestion des Connaissances
+
+<img src="images/IAbrain_M1A-server.jpeg" alt="Serveur dédié IA" width="800">
+
+[**Créer son Serveur IAbrain pour la gestion des connaissances et qui fonctionne 100% hors-ligne.**](https://github.com/f1gbd/F1GBD/blob/master/iabrain/Documentations%20IAbrain/MEMO%20-%20Cr%C3%A9er_un_Serveur_IA_M1A_IAbrain.pdf)
+
 > 💡 **La différence clé de la v1.2** : jusqu'ici, deux IA pouvaient explorer un sujet sans jamais conclure. Désormais, un modérateur garde le cap et **force la convergence vers une solution** — d-IA devient un véritable assistant de recherche, pas seulement un générateur de dialogue.
 
 ---
