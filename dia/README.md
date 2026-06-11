@@ -4,19 +4,20 @@
 
 ### Dialogue autonome entre deux IA, arbitré par un troisième — un outil d'aide à la recherche par IA
 
-*Conversation scientifique guidée — Investigateur & Analyste — **Curseur Créativité / innovation 0–100 % qui fait proposer de nouveaux concepts (v1.5)** — **Rendu Markdown du dialogue + synthèse vocale assainie (v1.4)** — **Enrichissement par le web de l'Investigateur — DuckDuckGo / SearXNG (v1.3)** — **Auto-export des fiches vers IAbrain (v1.3)** — **Modérateur conversationnel qui fait converger le dialogue vers une solution (v1.2)** — Presets de sujet importables/exportables (v1.2) — Mode ADRASEC enrichi (modérateur RAG) — Ollama local & cloud — Mémoire glissante — Détection de dérive linguistique — Synthèse vocale SAPI5 deux voix — Synchronisation dialogue/voix — Export JSON / Markdown / RTF — Thèmes secondaires guidés — Configuration persistante*
+*Conversation scientifique guidée — Investigateur & Analyste — **Mode Jeu de Rôle / Simulation — narrateur · joueur · injecteur d'événements, rôles personnalisables par preset (v1.7)** — **Curseur Créativité / innovation 0–100 % qui fait proposer de nouveaux concepts (v1.5)** — **Rendu Markdown du dialogue + synthèse vocale assainie (v1.4)** — **Enrichissement par le web de l'Investigateur — DuckDuckGo / SearXNG (v1.3)** — **Auto-export des fiches vers IAbrain (v1.3)** — **Modérateur conversationnel qui fait converger le dialogue vers une solution (v1.2)** — Presets de sujet importables/exportables (v1.2) — Mode ADRASEC enrichi (modérateur RAG) — Ollama local & cloud — Mémoire glissante — Détection de dérive linguistique — Synthèse vocale SAPI5 deux voix — Synchronisation dialogue/voix — Export JSON / Markdown / RTF — Thèmes secondaires guidés — Configuration persistante*
 
-[![Version](https://img.shields.io/badge/version-dia--v1.5.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/dia-v1.5.0)
+[![Version](https://img.shields.io/badge/version-dia--v1.7.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/dia-v1.7.0)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![Local / Cloud](https://img.shields.io/badge/Ollama-local%20%2F%20cloud-brightgreen.svg)]()
 [![Accessibilité](https://img.shields.io/badge/accessibilit%C3%A9-voix%20SAPI5-purple.svg)]()
 [![Créativité](https://img.shields.io/badge/v1.5-cr%C3%A9ativit%C3%A9%20pilotable-ff7a59.svg)]()
+[![Jeu de Rôle](https://img.shields.io/badge/v1.7-mode%20jeu%20de%20r%C3%B4le-9b59b6.svg)]()
 [![Modérateur](https://img.shields.io/badge/mode-mod%C3%A9rateur%20conversationnel-teal.svg)]()
 [![RAG](https://img.shields.io/badge/mode-ADRASEC%20enrichi-orange.svg)]()
 [![Web](https://img.shields.io/badge/v1.3-enrichissement%20web-blue.svg)]()
 
-### 📥 [**Télécharger la dernière version (v1.5.0)**](https://github.com/f1gbd/F1GBD/releases/download/dia-v1.5.0/d-IA.7z)
+### 📥 [**Télécharger la dernière version (v1.7.0)**](https://github.com/f1gbd/F1GBD/releases/download/dia-v1.7.0/d-IA.7z)
 
 </div>
 
@@ -41,6 +42,47 @@ Tout tourne **localement** par défaut (modèles Ollama auto-hébergés), avec u
 [**Créer son Serveur IAbrain pour la gestion des connaissances et qui fonctionne 100% hors-ligne.**](https://github.com/f1gbd/F1GBD/blob/master/iabrain/Documentations%20IAbrain/MEMO%20-%20Cr%C3%A9er_un_Serveur_IA_M1A_IAbrain.pdf)
 
 > 💡 **La différence clé de la v1.2** : jusqu'ici, deux IA pouvaient explorer un sujet sans jamais conclure. Désormais, un modérateur garde le cap et **force la convergence vers une solution** — d-IA devient un véritable assistant de recherche, pas seulement un générateur de dialogue.
+
+---
+
+## 🆕 Nouveautés v1.7 — Mode Jeu de Rôle & Simulation
+
+La **v1.7** ajoute un **mode Jeu de Rôle** optionnel qui détourne le trio de LLM en **fiction interactive** ou en **simulation d'exercice**. C'est une bascule **opt-in** : décochée, d-IA se comporte exactement comme avant (prompts vérifiés identiques à la v1.5).
+
+### 🎭 Trois rôles, une boucle déjà connue
+
+Le mode réaffecte les LLM et **réutilise la boucle du modérateur conversationnel** : **LLM1 anime et ouvre**, **LLM2 réagit**, et le **LLM3 devient un injecteur d'événements** qui lance une péripétie tous les K tours au lieu d'arbitrer. Son intervention est réinjectée dans le contexte des deux autres rôles.
+
+| LLM | Rôle générique | Exemple fiction | Exemple simulation ADRASEC |
+|-----|----------------|-----------------|----------------------------|
+| **LLM1** | anime / ouvre / structure | Maître du Jeu, narrateur | **COD** (centralise, alloue les moyens) |
+| **LLM2** | réagit / agit | Joueur, protagoniste | **Opérateur ADRASEC** de terrain (SITREP) |
+| **LLM3** | injecte les événements | imprévus, retournements | **Injecteur de crise** (panne, évacuation, feu…) |
+
+### 🧩 Rôles personnalisables par preset
+
+Sans profil, des **rôles de fiction** par défaut s'appliquent (Maître du Jeu / Joueur / Injecteur). Un preset `.diapreset.json` peut fournir une clé **`jdr_profil`** définissant l'**identité (persona)** et le **libellé** de chaque rôle — on rejoue alors n'importe quel cadre. Le **SUJET** porte le scénario, les **thèmes** les séquences (actes), et l'**objectif de convergence** la consigne d'injection.
+
+### 🏷️ Le libellé d'action s'adapte au mode
+
+Quand le curseur Créativité (v1.5) est au-dessus de zéro, les LLM préfixent leurs propositions audacieuses. **Ce préfixe change selon le mode :**
+
+| Mode | Préfixe injecté |
+|------|-----------------|
+| Recherche (mode JdR décoché) | `PISTE INNOVANTE :` — signalée exploratoire et évaluée de façon critique (garde-fou ADRASEC) |
+| Simulation ADRASEC (`jdr_profil` avec `"contexte": "adrasec"`) | `DEMANDE POUR ACTION :` — l'opérateur formule ses demandes au COD, dans un cadre opérationnel réaliste |
+| Jeu de rôle pur (fiction, par défaut) | `ACTION :` — **aucun cadrage ADRASEC**, libre de dériver en pure fiction |
+
+> En jeu de rôle pur, aucune mention d'ADRASEC n'est injectée dans les prompts : la consigne se contente de rester cohérente avec l'univers et le ton du récit.
+
+### 📦 Deux presets fournis
+
+- **`jdr_cristaux_quantiques_auvergne`** — fiction (cristaux quantiques intriqués, premier contact).
+- **`sim_helios_noir_26`** — **simulation ADRASEC** calée sur l'exercice HÉLIOS NOIR 26 (black-out caniculaire) : **LLM1 = COD**, **LLM2 = opérateur du PCO de Nangeville**, **LLM3 = injecteur de crise**.
+
+> 💡 Pour obtenir l'événementiel, activer **aussi** le modérateur conversationnel : en mode JdR il n'arbitre plus, **il injecte**. En fiction, couper le RAG et la recherche web et monter la créativité.
+
+> ⚠️ **Usage pédagogique** : en simulation, le COD et l'opérateur sont *joués par des LLM* ; leurs SITREP sont des **supports d'entraînement** pour faire réagir les stagiaires, **pas des modèles normatifs** à recopier.
 
 ---
 
@@ -128,7 +170,8 @@ IAbrain /index ou /reindex → interrogeable en langage naturel
 
 | Icône | Fonctionnalité | Description |
 |:---:|---|---|
-| ✨ | **Créativité / innovation pilotable (v1.5)** | Un curseur **0–100 %** qui fait **proposer de nouveaux concepts** à partir de la requête initiale : boost *additif* de température/top_p **et** directive d'innovation **adaptée au rôle** (Investigateur bref, Analyste moteur à concepts, Modérateur qui chiffre). Pistes préfixées `PISTE INNOVANTE :`, signalées exploratoires et évaluées. **Budget de tokens auto-ajusté** (anti-troncature). À **0 %** : comportement opérationnel strict, identique à la v1.4. |
+| 🎭 | **Mode Jeu de Rôle / Simulation (v1.7)** | Bascule **opt-in** qui détourne le trio de LLM : **LLM1 anime/ouvre**, **LLM2 réagit**, **LLM3 injecte un événement** tous les K tours (au lieu d'arbitrer). Sans preset, rôles de **fiction** (Maître du Jeu / Joueur / Injecteur) ; un preset peut définir des **rôles personnalisés** via `jdr_profil` — ex. **simulation ADRASEC** (COD / opérateur de terrain / injecteur de crise, scénario HÉLIOS NOIR). Réutilise le modérateur conversationnel comme injecteur. Décochée : comportement strictement identique à la v1.5. |
+| ✨ | **Créativité / innovation pilotable (v1.5)** | Un curseur **0–100 %** qui fait **proposer de nouveaux concepts** à partir de la requête initiale : boost *additif* de température/top_p **et** directive d'innovation **adaptée au rôle** (Investigateur bref, Analyste moteur à concepts, Modérateur qui chiffre). Pistes préfixées `PISTE INNOVANTE :` (qui devient `ACTION :` en jeu de rôle pur ou `DEMANDE POUR ACTION :` en simulation ADRASEC, v1.7), signalées exploratoires et évaluées. **Budget de tokens auto-ajusté** (anti-troncature). À **0 %** : comportement opérationnel strict, identique à la v1.4. |
 | 🖋️ | **Rendu Markdown + voix assainie (v1.4)** | Le dialogue affiche le **Markdown interprété** (gras, listes, code, titres, citations…) au lieu des balises brutes. La synthèse vocale **retire ces balises avant lecture** (plus de `\` ni `***` prononcés par SAPI5), tout en préservant le `snake_case`. Parseur maison, sans dépendance. |
 | 🤖 | **Deux LLM aux rôles asymétriques** | LLM1 (Investigateur) doit terminer chaque tour par une question ouverte. LLM2 (Analyste) doit introduire un élément nouveau dans chaque réponse (analogie, contre-exemple, chiffre…). Ces contraintes empêchent les boucles stériles et donnent un vrai rythme de dialogue. |
 | 🆕 | **Modérateur conversationnel (v1.2)** | Un 3ᵉ LLM **intervient directement dans le dialogue** tous les K tours : bilan de ce qui est acquis, point bloquant restant, et **consigne de convergence précise** (chiffre à établir, hypothèse à trancher, verdict à formuler). Son intervention est réinjectée dans le contexte des deux IA, ce qui crée la rétroaction qui **fait aboutir la recherche**. |
@@ -145,7 +188,7 @@ IAbrain /index ou /reindex → interrogeable en langage naturel
 | ✏️ | **Configuration persistante** | Tous les paramètres (hosts, modèles, clés API offusquées en base64, sujet, thèmes, objectif de convergence, fréquence du modérateur, voix, températures…) sont sauvés dans `d-ia_setup.json` à côté de l'exécutable, et rechargés au démarrage. |
 | 📤 | **Export multi-format** | Bouton « Exporter la conversation » : **JSON** (données structurées pour retraitement / RETEX), **Markdown** (fichier `.md` lisible, parfait pour Notion/Obsidian/GitHub), **RTF** (couleurs LLM1 bleu, LLM2 violet et **Modérateur vert**, ouvre directement dans Word / LibreOffice). |
 | 🎨 | **Interface tricolore** | Zone de conversation avec messages **bleus pour LLM1**, **mauves pour LLM2** et **verts pour le Modérateur (v1.2)**. Lisibilité optimale, distinction immédiate des trois rôles. Méta-messages en gris italique. |
-| ⚙️ | **Fenêtre Paramètres IA modale** | Onglets : **IA 1 - Investigateur**, **IA 2 - Analyste**, **IA 3 - Modérateur**, **Mode ADRASEC** (activation du modérateur conversationnel et du RAG), **Synthèse vocale**. |
+| ⚙️ | **Fenêtre Paramètres IA modale** | Onglets : **IA 1 - Investigateur**, **IA 2 - Analyste**, **IA 3 - Modérateur**, **Mode ADRASEC** (activation du **mode Jeu de Rôle**, du modérateur conversationnel et du RAG), **Synthèse vocale**. |
 
 ---
 <img src="images/d-ia_main_screen.jpg" alt="d-IA main screen" width="1024">
@@ -474,6 +517,18 @@ Il faut **redémarrer d-IA** après l'activation (la liste est lue au lancement)
 **Les fiches générées par d-IA peuvent-elles être réimportées dans IAbrain ?**
 Oui, c'est le cas d'usage principal du mode RAG. Voir la section [Intégration avec IAbrain](#-intégration-avec-iabrain). **Depuis la v1.3**, d-IA peut **pousser les fiches automatiquement** vers le dossier source d'IAbrain (zone de staging `_a_valider/`) au fil de l'eau ; il reste l'export manuel et l'édition du JSON pour les cas particuliers.
 
+**À quoi sert le « mode Jeu de Rôle » et casse-t-il l'usage recherche habituel ?**
+Non. C'est une bascule **optionnelle** (onglet Mode ADRASEC). Décochée, d-IA fonctionne exactement comme avant. Cochée, elle réaffecte les trois LLM : LLM1 anime, LLM2 réagit, et le modérateur conversationnel devient un **injecteur d'événements**. Elle sert à jouer des scénarios de fiction ou à **simuler un exercice ADRASEC** (COD ↔ opérateur de terrain, avec injection d'aléas).
+
+**Comment définir des rôles précis (par ex. COD / opérateur) au lieu des rôles de fiction ?**
+Via un preset `.diapreset.json` portant une clé `jdr_profil` : `persona1/2/3` (l'identité et le comportement de chaque LLM) et `label1/2/3` (les libellés affichés). Sans `jdr_profil`, les rôles de fiction par défaut s'appliquent. Le preset `sim_helios_noir_26` fourni en donne un exemple complet.
+
+**En mode JdR, l'injecteur d'événements ne se déclenche pas.**
+Il réutilise le **modérateur conversationnel** : il faut donc cocher *aussi* « Activer le modérateur conversationnel » (onglet Mode ADRASEC) et configurer l'onglet **IA 3**. L'injection survient ensuite tous les K tours.
+
+**Pourquoi importer un sujet de recherche décoche-t-il le mode Jeu de Rôle ?**
+Parce que l'état JdR voyage dans le preset. Un `.diapreset.json` qui contient le champ `mode_jdr` l'impose (activé ou non) et charge son `jdr_profil` ; un sujet de recherche — ou un preset `.txt` qui ne porte pas ce champ — est traité comme **non-JdR** : d-IA décoche alors le mode Jeu de Rôle et réinitialise les rôles, pour ne pas hériter d'une session précédente (ex. les personas d'un scénario ADRASEC joué juste avant). Pour rejouer un scénario en JdR, importez sa version `.diapreset.json` (qui transporte `mode_jdr` et le `jdr_profil`), ou recochez la case manuellement.
+
 ---
 
 ## 🤝 Communauté
@@ -484,6 +539,8 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 
 **Idées d'usage** :
 - **Aide à la recherche dirigée** : poser un problème scientifique ouvert et laisser le trio Investigateur/Analyste/Modérateur converger vers une solution chiffrée
+- **Simulation d'exercice ADRASEC (v1.7)** : rejouer un scénario de crise (ex. HÉLIOS NOIR) avec LLM1 = COD, LLM2 = opérateur de terrain et LLM3 = injecteur d'aléas, pour entraîner au trafic et au traitement de l'événementiel
+- **Jeu de rôle / fiction pédagogique (v1.7)** : narration interactive à deux voix avec injecteur d'événements, rôles personnalisables par preset
 - Préparation aux examens radioamateurs (un LLM joue le candidat, l'autre l'examinateur, le modérateur recadre et extrait des fiches de révision)
 - Génération de RETEX d'exercices fictifs pour la doc ADRASEC, capitalisés automatiquement
 - Exploration pédagogique de la propagation HF, NVIS, satellite, communications quantiques…
@@ -494,6 +551,15 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 ---
 
 ## 📜 Historique des versions
+
+### v1.7 — Juin 2026 — Mode Jeu de Rôle & Simulation
+
+- ➕ **Mode Jeu de Rôle (opt-in)** : réaffecte les trois LLM — LLM1 anime/ouvre, LLM2 réagit, LLM3 devient **injecteur d'événements** (réutilise le modérateur conversationnel)
+- ➕ **Rôles personnalisables par preset** (`jdr_profil`) : persona + libellé par LLM ; sans profil, rôles de **fiction** par défaut
+- ➕ Deux presets fournis : **`jdr_cristaux_quantiques_auvergne`** (fiction) et **`sim_helios_noir_26`** (**simulation ADRASEC**, scénario HÉLIOS NOIR 26)
+- ➕ Re-libellé des rôles dans l'affichage, le bandeau et les exports ; `mode_jdr` et `jdr_profil` **persistés** et **transportés par les presets**
+- ➕ **Libellé d'action contextuel** : le préfixe de créativité devient « ACTION » (jeu de rôle pur) ou « DEMANDE POUR ACTION » (simulation ADRASEC) en mode JdR ; « PISTE INNOVANTE » reste en mode recherche
+- ✅ Bascule **décochée** : comportement strictement identique à la v1.5 (prompts vérifiés byte-identiques)
 
 ### v1.5 — Juin 2026 — Créativité & innovation pilotables
 
@@ -568,12 +634,12 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis (F1GBD)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.5 — 2026**
+**Version 1.7 — 2026**
 
 ---
 
 *Pour toute question, contactez votre référent ADRASEC départemental.*
 
-🤖 **d-IA v1.5** — *Deux IA cherchent — l'une puise dans le web, l'autre invente sur commande —, un troisième arbitre et fait converger, et les fiches alimentent IAbrain.*
+🤖 **d-IA v1.7** — *Deux IA cherchent — l'une puise dans le web, l'autre invente sur commande —, un troisième arbitre et fait converger, et les fiches alimentent IAbrain. Et en mode Jeu de Rôle, le trio rejoue un scénario — fiction ou exercice ADRASEC — animé par un injecteur d'événements.*
 
 </div>
