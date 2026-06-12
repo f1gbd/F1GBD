@@ -8,15 +8,27 @@
 
 *Compression structurée — Transmission TNC Packet & VARA — Recomposition fidèle — Compatibilité Winlink Express — 5 niveaux de qualité — Mode rendu image — Estimation temps de transfert — Validation CRC — 100% hors-ligne*
 
-[![Version](https://img.shields.io/badge/version-pdfteleporter--v1.0.5-blue)](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-v1.0.5)
+[![Version](https://img.shields.io/badge/version-pdfteleporter--v1.0.6-blue)](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-v1.0.6)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![100% local](https://img.shields.io/badge/100%25-hors--ligne-brightgreen.svg)]()
 [![Format](https://img.shields.io/badge/archive-.psdi-orange.svg)]()
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v1.0.5/PDFteleporter.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v1.0.6/PDFteleporter.7z)
 
 </div>
+
+---
+
+## 🆕 Quoi de neuf en v1.0.6
+
+> **Correctif majeur — PDF scannés et documents tournés** — Les arrêtés préfectoraux et autres documents **scannés** ou portant une **rotation de page** (`/Rotate`) ressortaient **basculés de 90° sur fond noir** après recomposition. C'était le cas typique d'un arrêté de la DDT scanné puis transmis par radio.
+>
+> **Cause** — Le mode `Structuré` extrait texte et images dans le repère **non tourné** de la page puis recompose une page neuve **sans rotation** : sur un document tourné, les éléments atterrissaient de travers. De plus, la couche « encre » des scans (image-masque quasi noire appliquée en transparence sur un fond blanc) était repeinte en **opaque**, d'où le **fond noir**.
+>
+> **Solution** — `pdf_to_archive()` **détecte automatiquement** les documents scannés ou tournés et bascule **tout seul** vers le mode `Rendu image`, qui s'appuie sur `get_pixmap()` — lequel respecte nativement la rotation **et** compose correctement les masques. Plus aucune manipulation côté opérateur : on garde la qualité choisie (`Low`, `Medium`…), seul le mode d'extraction est corrigé en interne. Les **vrais PDF texte natifs non tournés** continuent d'utiliser le mode `Structuré`, plus compact.
+>
+> **Action recommandée** : passez à la v1.0.6 si vous transmettez des **PDF scannés** (arrêtés préfectoraux, documents numérisés, fax). La détection est silencieuse et la raison de la bascule (`rotation` ou `scan`) est consignée dans le journal opérationnel.
 
 ---
 
@@ -72,7 +84,8 @@ L'archive `.psdi` est conçue pour les **modes radio TCQ** (TNC Packet, VARA HF/
 | 📦 | **Compression structurée PDF → .psdi** | Le texte, les tableaux et les images sont extraits du PDF source puis compressés individuellement avec le meilleur algorithme pour chaque type de contenu (LZMA pour le texte, JPEG optimisé pour les images). Le ratio typique est de 5 à 25% de la taille originale selon la qualité choisie. |
 | 📬 | **Recomposition fidèle .psdi → PDF** | Le PDF reconstruit côté réception conserve la mise en page, les tableaux, les images et le texte de l'original. Aucune intervention manuelle nécessaire — un clic suffit. |
 | ⚡ | **5 niveaux de qualité** | `Ultra Low` (~5%, urgence Packet 1200), `Low` (~10%, Packet 9600 / VARA HF lent), `Medium` (~20%, VARA HF/FM standard), `High` (~25%, VARA FM rapide bonne qualité), `Sans image` (texte seul, transfert ultra-rapide). Chaque niveau est calibré pour un mode radio précis. |
-| 🎨 | **Deux modes d'extraction** | **Structuré** (texte + images repositionnées, idéal pour la plupart des documents) ou **Rendu image** (chaque page est aplatie en JPEG, utile pour les PDF complexes ou scannés). |
+| 🎨 | **Deux modes d'extraction** | **Structuré** (texte + images repositionnées, idéal pour la plupart des documents) ou **Rendu image** (chaque page est aplatie en JPEG, utile pour les PDF complexes ou scannés). Depuis la v1.0.6, le mode image est **sélectionné automatiquement** quand le document le requiert. |
+| 🔄 | **Auto-bascule pour PDF scannés / tournés** *(nouveau v1.0.6)* | Les documents scannés ou avec une rotation de page (`/Rotate`) — arrêtés préfectoraux numérisés notamment — sont détectés automatiquement et traités en mode `Rendu image`, qui respecte la rotation et compose correctement les couches d'encre. Fini la recomposition basculée de 90° sur fond noir. La raison de la bascule est journalisée. |
 | ⏱ | **Estimation du temps de transfert** | Avant de lancer la compression, PDF Teleporter calcule la taille finale de l'archive, le nombre de fragments TNC nécessaires, et estime le temps d'envoi pour chaque mode radio (Packet 1200/9600, VARA HF/FM/SAT). Plus de mauvaises surprises en exercice. |
 | ✅ | **Validation CRC à l'ouverture** | Quand un fichier `.psdi` est sélectionné pour recomposition, la signature, la version et le checksum sont vérifiés automatiquement. L'opérateur sait immédiatement si l'archive reçue est intègre ou si elle a été corrompue pendant le transfert radio. |
 | 🛡 | **Compatibilité Microsoft Print To PDF / Word LTSC** *(v1.0.1)* | Les PDF issus de la chaîne Microsoft (préfectures, services de l'État, formulaires SIDPC/COD) sont désormais recomposés correctement, sans artefact de fond noir, grâce au traitement des paths vectoriels multi-segments. |
@@ -176,7 +189,7 @@ L'archive `.psdi` est conçue pour les **modes radio TCQ** (TNC Packet, VARA HF/
 
 1. **Téléchargez l'archive** depuis la dernière release GitHub :
 
-   👉 **[PDFteleporter.7z (dernière version)](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v1.0.5/PDFteleporter.7z)**
+   👉 **[PDFteleporter.7z (dernière version)](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v1.0.6/PDFteleporter.7z)**
 
    Lien permanent vers la version la plus récente :
    👉 **[https://github.com/f1gbd/F1GBD/releases/latest](https://github.com/f1gbd/F1GBD/releases/latest)**
@@ -201,13 +214,13 @@ Comparez la valeur affichée avec celle indiquée dans la release.
 
 ### Méthode 3 — Mise à jour depuis une version antérieure
 
-Si vous utilisez déjà PDF Teleporter v1.0.0, v1.0.1 ou v1.0.2, désinstallation simple : remplacez le contenu de `C:\PDFteleporter\` par celui de la nouvelle archive. Aucune configuration n'est conservée hors du dossier d'installation, et le format `.psdi` est entièrement compatible — toutes les archives `.psdi` produites par les versions précédentes restent lisibles en v1.0.5.
+Si vous utilisez déjà PDF Teleporter v1.0.0, v1.0.1 ou v1.0.2, désinstallation simple : remplacez le contenu de `C:\PDFteleporter\` par celui de la nouvelle archive. Aucune configuration n'est conservée hors du dossier d'installation, et le format `.psdi` est entièrement compatible — toutes les archives `.psdi` produites par les versions précédentes restent lisibles en v1.0.6.
 
 ### Méthode 4 — Utilisateurs TCQ
 
 Si vous utilisez déjà **TCQ** (le multi-mode radio Python de F1GBD), PDF Teleporter est **directement intégré dans TCQ**. Il suffit de cliquer sur le bouton **PDF** dans le mode **VARA Modem** ou **TNC Packet** — pas besoin d'installer PDF Teleporter séparément.
 
-> 📌 Les correctifs de pdf_trans (fond noir v1.0.1 + débordement de texte v1.0.2 + ligatures LibreOffice et marge Excel v1.0.5) sont également intégrés dans les versions correspondantes de **TCQ**. Mettez à jour TCQ pour bénéficier des corrections lors de vos transferts PDF radio.
+> 📌 Les correctifs de pdf_trans (fond noir Microsoft v1.0.1 + débordement de texte v1.0.2 + ligatures LibreOffice et marge Excel v1.0.5 + auto-bascule PDF scannés/tournés v1.0.6) sont également intégrés dans les versions correspondantes de **TCQ**. Mettez à jour TCQ pour bénéficier des corrections lors de vos transferts PDF radio.
 
 ### Configuration matérielle minimale
 
@@ -248,6 +261,13 @@ Le format `.psdi` (PDF Structured Data Interchange) est une archive binaire comp
 ---
 
 ## 📝 Historique des versions
+
+### v1.0.6 — Juin 2026
+
+- 🔄 **Auto-bascule en mode Rendu image pour les PDF scannés et tournés.** Les documents portant une rotation de page (`/Rotate != 0`) ou essentiellement scannés (texte extractible négligeable + forte couverture image) étaient recomposés **basculés de 90° sur fond noir** en mode Structuré. Deux causes cumulées : la rotation de page n'était pas propagée à la recomposition, et les images-masques (couche d'encre quasi noire des scans, appliquée en transparence) étaient repeintes en opaque. `pdf_to_archive()` détecte désormais ces documents via le nouveau helper `_detect_optimal_mode()` et route automatiquement vers le mode image, qui repose sur `get_pixmap()` (rotation respectée, masques composés correctement).
+- 🎯 **Détection ciblée, sans faux positifs** : seuls les documents tournés (raison `rotation`) ou scannés (raison `scan`) basculent. Les vrais PDF texte natifs non tournés conservent le mode Structuré, plus compact. Le mode `Sans image` (texte seul, choisi sciemment) et le mode image explicite ne sont jamais modifiés. La raison de la bascule est exposée dans `info["auto_mode_switch"]` et journalisée.
+- 🔄 Compatibilité ascendante totale : les `.psdi` produits par toutes les versions antérieures restent lisibles.
+- 🐧 Linux : aucun changement spécifique requis — le correctif est entièrement dans `pdf_trans.py`.
 
 ### v1.0.5 — Mai 2026
 
@@ -302,7 +322,7 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis Naudin (F1GBD)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.0.5 — Mai 2026**
+**Version 1.0.6 — Juin 2026**
 
 ---
 
