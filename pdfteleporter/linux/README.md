@@ -8,13 +8,13 @@
 
 *Compression structurée — Transmission TNC Packet & VARA — Recomposition fidèle — Compatibilité Winlink Express — 5 niveaux de qualité — Mode rendu image — Estimation temps de transfert — Validation CRC — 100% hors-ligne*
 
-[![Version](https://img.shields.io/badge/version-pdfteleporter--linux--v1.0.4-blue)](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-linux-v1.0.4)
+[![Version](https://img.shields.io/badge/version-pdfteleporter--linux--v1.0.5-blue)](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-linux-v1.0.5)
 [![Plateforme](https://img.shields.io/badge/plateforme-Linux%20x86__64-orange.svg)]()
 [![Distros](https://img.shields.io/badge/testé-Ubuntu%20%7C%20Debian%20%7C%20Mint%20%7C%20Fedora-success.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![100% local](https://img.shields.io/badge/100%25-hors--ligne-brightgreen.svg)]()
 
-### 🐧 [**Télécharger la dernière version Linux**](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.4/PDFteleporter-1.0.4-linux-x86_64.tar.gz)
+### 🐧 [**Télécharger la dernière version Linux**](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.5/PDFteleporter-1.0.5-linux-x86_64.tar.gz)
 
 *Version Windows disponible dans le [dossier parent](https://github.com/f1gbd/F1GBD/tree/master/pdfteleporter)*
 
@@ -22,17 +22,17 @@
 
 ---
 
-## 🆕 Quoi de neuf en v1.0.4
+## 🆕 Quoi de neuf en v1.0.5
 
-> **Deux correctifs majeurs pour les PDF non-Microsoft** — Cette version intègre `pdf_trans` v1.0.4 qui résout deux problèmes spécifiques rencontrés sur les PDF produits par **LibreOffice** et par **Excel à très petites fontes** :
+> **Deux correctifs majeurs pour les PDF non-Microsoft** — Cette version intègre `pdf_trans` v1.0.5 qui résout deux problèmes spécifiques rencontrés sur les PDF produits par **LibreOffice** et par **Excel à très petites fontes** :
 >
-> **1) Caractères accentués corrompus dans les PDF LibreOffice** — Les mots contenant les ligatures `ti` ou `tt` (Situation, quitté, Éducation, nationale, lutte, routier, pollution…) apparaissaient avec un caractère de remplacement `�` après recomposition. Cause : LibreOffice utilise des glyphes Unicode non standard (Ɵ U+019F, Ʃ U+01A9) dans ses CIDFonts que PyMuPDF convertit en `U+FFFD`. La v1.0.4 décompose ces ligatures et restaure les mots français corrects via une heuristique contextuelle (`ti` par défaut, `tt` devant é/è/ê ou après `lu-`).
+> **1) Caractères accentués corrompus dans les PDF LibreOffice** — Les mots contenant les ligatures `ti` ou `tt` (Situation, quitté, Éducation, nationale, lutte, routier, pollution…) apparaissaient avec un caractère de remplacement `�` après recomposition. Cause : LibreOffice utilise des glyphes Unicode non standard (Ɵ U+019F, Ʃ U+01A9) dans ses CIDFonts que PyMuPDF convertit en `U+FFFD`. La v1.0.5 décompose ces ligatures et restaure les mots français corrects via une heuristique contextuelle (`ti` par défaut, `tt` devant é/è/ê ou après `lu-`).
 >
-> **2) Débordement persistant sur PDF Excel à fontes ~4 pt** — Les bbox optimisés au pixel près d'Excel ne laissent pas de place à la marge interne par défaut de l'engine HTML PyMuPDF. La v1.0.4 ajoute une compensation horizontale de 0.5 pt et un mécanisme d'auto-réduction de police (`scale_low=0.5`) pour faire tenir le texte sans le tronquer.
+> **2) Débordement persistant sur PDF Excel à fontes ~4 pt** — Les bbox optimisés au pixel près d'Excel ne laissent pas de place à la marge interne par défaut de l'engine HTML PyMuPDF. La v1.0.5 ajoute une compensation horizontale de 0.5 pt et un mécanisme d'auto-réduction de police (`scale_low=0.5`) pour faire tenir le texte sans le tronquer.
 >
 > **Action recommandée** : mettez à jour si vous transmettez des SITREP produits par LibreOffice (Linux, Mac) ou des tableaux denses Excel. Les archives `.psdi` produites par les versions antérieures (v1.0.0, v1.0.1, v1.0.2) restent **entièrement lisibles** et bénéficient automatiquement des deux fix côté recomposition.
 >
-> **Linux** : aucun changement spécifique côté Linux par rapport à v1.0.2 — les deux correctifs sont entièrement dans `pdf_trans.py`. Le binaire Linux v1.0.4 est compilé avec les nouvelles sources.
+> **Linux** : aucun changement spécifique côté Linux par rapport à v1.0.2 — les deux correctifs sont entièrement dans `pdf_trans.py`. Le binaire Linux v1.0.5 est compilé avec les nouvelles sources.
 
 ---
 
@@ -52,8 +52,8 @@ La version **Linux** de PDF Teleporter est destinée aux opérateurs ADRASEC qui
 ## 📦 Ce que contient l'archive
 
 ```
-PDFteleporter-1.0.4-linux-x86_64.tar.gz       (59 Mo compressé / 146 Mo extrait)
-└── PDFteleporter-1.0.4-linux-x86_64/
+PDFteleporter-1.0.5-linux-x86_64.tar.gz       (59 Mo compressé / 146 Mo extrait)
+└── PDFteleporter-1.0.5-linux-x86_64/
     ├── bin/                    Binaire PyInstaller autonome
     │   ├── PDFteleporter       Exécutable ELF 64-bit
     │   └── _internal/          Python 3.12 + PyMuPDF + Pillow + Tkinter
@@ -71,19 +71,19 @@ PDFteleporter-1.0.4-linux-x86_64.tar.gz       (59 Mo compressé / 146 Mo extrait
 
 ### Étape 1 — Télécharger
 
-👉 **[PDFteleporter-1.0.4-linux-x86_64.tar.gz](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.4/PDFteleporter-1.0.4-linux-x86_64.tar.gz)** (~59 Mo)
+👉 **[PDFteleporter-1.0.5-linux-x86_64.tar.gz](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.5/PDFteleporter-1.0.5-linux-x86_64.tar.gz)** (~59 Mo)
 
 Ou en ligne de commande :
 
 ```bash
-wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.4/PDFteleporter-1.0.4-linux-x86_64.tar.gz
+wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.5/PDFteleporter-1.0.5-linux-x86_64.tar.gz
 ```
 
 ### Étape 2 — Extraire
 
 ```bash
-tar xzf PDFteleporter-1.0.4-linux-x86_64.tar.gz
-cd PDFteleporter-1.0.4-linux-x86_64
+tar xzf PDFteleporter-1.0.5-linux-x86_64.tar.gz
+cd PDFteleporter-1.0.5-linux-x86_64
 ```
 
 ### Étape 3 — Installer (au choix selon votre besoin)
@@ -165,17 +165,17 @@ En pratique, sur un poste avec un environnement de bureau (GNOME, KDE, XFCE, Cin
 Le SHA-256 de l'archive est publié sur la page de release GitHub :
 
 ```bash
-sha256sum PDFteleporter-1.0.4-linux-x86_64.tar.gz
+sha256sum PDFteleporter-1.0.5-linux-x86_64.tar.gz
 ```
 
 Comparez avec la valeur publiée sur :
-👉 https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-linux-v1.0.4
+👉 https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-linux-v1.0.5
 
 Ou via le fichier `.sha256` joint à la release :
 
 ```bash
-wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.4/PDFteleporter-1.0.4-linux-x86_64.tar.gz.sha256
-sha256sum -c PDFteleporter-1.0.4-linux-x86_64.tar.gz.sha256
+wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.5/PDFteleporter-1.0.5-linux-x86_64.tar.gz.sha256
+sha256sum -c PDFteleporter-1.0.5-linux-x86_64.tar.gz.sha256
 ```
 
 ---
@@ -188,7 +188,7 @@ L'interface Linux est **strictement identique** à la version Windows : même th
 
 <img src="../doc/images/pdfteleporter_linux.png" alt="PDFteleporter sous Linux" width="900">
 
-*PDFteleporter v1.0.4 tournant nativement sous Linux — interface identique à Windows*
+*PDFteleporter v1.0.5 tournant nativement sous Linux — interface identique à Windows*
 
 </div>
 
@@ -208,7 +208,7 @@ Identiques à la version Windows :
 | ✅ | **Validation CRC** automatique à l'ouverture |
 | 🛡 | **Compatibilité Microsoft Print To PDF / Word LTSC** (correctif fond noir v1.0.1) |
 | 📐 | **Rendu fidèle des tableaux** *(v1.0.2)* — les libellés ne débordent plus des cellules colorées (Bilan humain, Moyens engagés…) |
-| 🌍 | **Compatibilité LibreOffice et Excel densifié** *(nouveau v1.0.4)* — les caractères accentués des PDF LibreOffice (Situation, Éducation, lutte…) sont restaurés correctement et les tableaux Excel à très petites fontes (~4 pt) ne débordent plus de leurs cellules |
+| 🌍 | **Compatibilité LibreOffice et Excel densifié** *(nouveau v1.0.5)* — les caractères accentués des PDF LibreOffice (Situation, Éducation, lutte…) sont restaurés correctement et les tableaux Excel à très petites fontes (~4 pt) ne débordent plus de leurs cellules |
 | 📧 | **Bouton « Préparer pour Winlink »** avec procédure adaptée à Linux |
 | 📋 | **Journal opérationnel** horodaté avec code couleur |
 | 🌐 | **Compatible TCQ et Winlink Express** — format `.psdi` partagé |
@@ -254,19 +254,19 @@ Puis déconnectez et reconnectez votre session.
 
 ### Le PDF recomposé apparaît avec un fond noir
 
-Vous utilisez une version antérieure à 1.0.1. Téléchargez la dernière version — la v1.0.1 a introduit le correctif pour les PDF générés par Microsoft Print To PDF et Microsoft Word LTSC (la v1.0.4 le conserve).
+Vous utilisez une version antérieure à 1.0.1. Téléchargez la dernière version — la v1.0.1 a introduit le correctif pour les PDF générés par Microsoft Print To PDF et Microsoft Word LTSC (la v1.0.5 le conserve).
 
 ### Les textes débordent des cellules de tableaux à la recomposition
 
-Vous utilisez une version antérieure à 1.0.2. Téléchargez la dernière version — la v1.0.2 a introduit le correctif du débordement des libellés dans les cellules colorées (Bilan humain, Moyens engagés, Activité de secours…). Les archives `.psdi` produites par les versions antérieures sont automatiquement rendues correctement par la v1.0.4.
+Vous utilisez une version antérieure à 1.0.2. Téléchargez la dernière version — la v1.0.2 a introduit le correctif du débordement des libellés dans les cellules colorées (Bilan humain, Moyens engagés, Activité de secours…). Les archives `.psdi` produites par les versions antérieures sont automatiquement rendues correctement par la v1.0.5.
 
 ### Les textes débordent encore sur les PDF Excel à très petites fontes
 
-Spécifique aux PDF Excel à fontes ~4 pt avec des cellules optimisées au pixel près. La v1.0.4 ajoute une compensation de la marge interne de l'engine HTML PyMuPDF (élargissement de 0.5 pt de chaque côté du bbox) et un mécanisme d'auto-réduction de la taille de police (`scale_low=0.5`) pour faire tenir le texte sans le tronquer.
+Spécifique aux PDF Excel à fontes ~4 pt avec des cellules optimisées au pixel près. La v1.0.5 ajoute une compensation de la marge interne de l'engine HTML PyMuPDF (élargissement de 0.5 pt de chaque côté du bbox) et un mécanisme d'auto-réduction de la taille de police (`scale_low=0.5`) pour faire tenir le texte sans le tronquer.
 
 ### Caractères accentués corrompus (Situa�on, qui�é, Éduca�on, lu�e…)
 
-Spécifique aux PDF générés par **LibreOffice** qui utilise des glyphes de ligature non standard (Ɵ pour `ti`, Ʃ pour `tt`) que PyMuPDF convertit en `U+FFFD` (caractère de remplacement). La v1.0.4 décompose automatiquement ces ligatures et restaure les mots français corrects (Situation, quitté, Éducation, lutte, routier, pollution…) via une heuristique contextuelle.
+Spécifique aux PDF générés par **LibreOffice** qui utilise des glyphes de ligature non standard (Ɵ pour `ti`, Ʃ pour `tt`) que PyMuPDF convertit en `U+FFFD` (caractère de remplacement). La v1.0.5 décompose automatiquement ces ligatures et restaure les mots français corrects (Situation, quitté, Éducation, lutte, routier, pollution…) via une heuristique contextuelle.
 
 ---
 
@@ -303,7 +303,7 @@ Toute contribution, retour d'expérience et proposition d'amélioration sont bie
 **Jean-Louis Naudin (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.0.4 Linux — Mai 2026**
+**Version 1.0.5 Linux — Juin 2026**
 
 ---
 
