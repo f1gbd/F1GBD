@@ -8,13 +8,13 @@
 
 *Compression structurée — Transmission TNC Packet & VARA — Recomposition fidèle — Compatibilité Winlink Express — 5 niveaux de qualité — Mode rendu image — Estimation temps de transfert — Validation CRC — 100% hors-ligne*
 
-[![Version](https://img.shields.io/badge/version-pdfteleporter--linux--v1.0.6-blue)](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-linux-v1.0.6)
+[![Version](https://img.shields.io/badge/version-pdfteleporter--linux--v1.0.7-blue)](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-linux-v1.0.7)
 [![Plateforme](https://img.shields.io/badge/plateforme-Linux%20x86__64-orange.svg)]()
 [![Distros](https://img.shields.io/badge/testé-Ubuntu%20%7C%20Debian%20%7C%20Mint%20%7C%20Fedora-success.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![100% local](https://img.shields.io/badge/100%25-hors--ligne-brightgreen.svg)]()
 
-### 🐧 [**Télécharger la dernière version Linux**](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.6/PDFteleporter-1.0.6-linux-x86_64.tar.gz)
+### 🐧 [**Télécharger la dernière version Linux**](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.7/PDFteleporter-1.0.7-linux-x86_64.tar.gz)
 
 *Version Windows disponible dans le [dossier parent](https://github.com/f1gbd/F1GBD/tree/master/pdfteleporter)*
 
@@ -22,15 +22,15 @@
 
 ---
 
-## 🆕 Quoi de neuf en v1.0.6
+## 🆕 Quoi de neuf en v1.0.7
 
-> **Amélioration du tracé géométrique des cases à cocher AcroForm** — Cette version intègre `pdf_trans` v1.0.6 qui affine le rendu des coches sur les PDF formulaires (SITREP ADRASEC, fiches COD/SIDPC, etc.) :
+> **Amélioration du tracé géométrique des cases à cocher AcroForm** — Cette version intègre `pdf_trans` v1.0.7 qui affine le rendu des coches sur les PDF formulaires (SITREP ADRASEC, fiches COD/SIDPC, etc.) :
 >
-> La v1.0.5 avait introduit la préservation de l'état coché/non coché des cases (`AcroForm /AP /N` widget — qui disparaissait auparavant car ni `get_text` ni `get_drawings` ne l'extraient). La v1.0.6 affine le tracé du V de la coche en passant de `draw_line` à `draw_polyline`, ce qui donne un V net même sur les très petites tailles de case et évite l'effet « deux traits qui ne se touchent pas » sur les coches inférieures à 8 pt.
+> La v1.0.5 avait introduit la préservation de l'état coché/non coché des cases (`AcroForm /AP /N` widget — qui disparaissait auparavant car ni `get_text` ni `get_drawings` ne l'extraient). La v1.0.7 affine le tracé du V de la coche en passant de `draw_line` à `draw_polyline`, ce qui donne un V net même sur les très petites tailles de case et évite l'effet « deux traits qui ne se touchent pas » sur les coches inférieures à 8 pt.
 >
 > **Action recommandée** : mettez à jour si vous transmettez des SITREP ou formulaires opérationnels remplis avec des cases à cocher. Les archives `.psdi` produites par les versions antérieures restent **entièrement lisibles** et bénéficient automatiquement de l'amélioration côté recomposition.
 >
-> **Linux** : aucun changement spécifique côté Linux. Le correctif est entièrement dans `pdf_trans.py`. Le binaire Linux v1.0.6 est compilé avec les nouvelles sources.
+> **Linux** : aucun changement spécifique côté Linux. Le correctif est entièrement dans `pdf_trans.py`. Le binaire Linux v1.0.7 est compilé avec les nouvelles sources.
 
 ---
 
@@ -50,8 +50,8 @@ La version **Linux** de PDF Teleporter est destinée aux opérateurs ADRASEC qui
 ## 📦 Ce que contient l'archive
 
 ```
-PDFteleporter-1.0.6-linux-x86_64.tar.gz       (59 Mo compressé / 146 Mo extrait)
-└── PDFteleporter-1.0.6-linux-x86_64/
+PDFteleporter-1.0.7-linux-x86_64.tar.gz       (59 Mo compressé / 146 Mo extrait)
+└── PDFteleporter-1.0.7-linux-x86_64/
     ├── bin/                    Binaire PyInstaller autonome
     │   ├── PDFteleporter       Exécutable ELF 64-bit
     │   └── _internal/          Python 3.12 + PyMuPDF + Pillow + Tkinter
@@ -69,19 +69,19 @@ PDFteleporter-1.0.6-linux-x86_64.tar.gz       (59 Mo compressé / 146 Mo extrait
 
 ### Étape 1 — Télécharger
 
-👉 **[PDFteleporter-1.0.6-linux-x86_64.tar.gz](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.6/PDFteleporter-1.0.6-linux-x86_64.tar.gz)** (~59 Mo)
+👉 **[PDFteleporter-1.0.7-linux-x86_64.tar.gz](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.7/PDFteleporter-1.0.7-linux-x86_64.tar.gz)** (~59 Mo)
 
 Ou en ligne de commande :
 
 ```bash
-wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.6/PDFteleporter-1.0.6-linux-x86_64.tar.gz
+wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.7/PDFteleporter-1.0.7-linux-x86_64.tar.gz
 ```
 
 ### Étape 2 — Extraire
 
 ```bash
-tar xzf PDFteleporter-1.0.6-linux-x86_64.tar.gz
-cd PDFteleporter-1.0.6-linux-x86_64
+tar xzf PDFteleporter-1.0.7-linux-x86_64.tar.gz
+cd PDFteleporter-1.0.7-linux-x86_64
 ```
 
 ### Étape 3 — Installer (au choix selon votre besoin)
@@ -163,17 +163,17 @@ En pratique, sur un poste avec un environnement de bureau (GNOME, KDE, XFCE, Cin
 Le SHA-256 de l'archive est publié sur la page de release GitHub :
 
 ```bash
-sha256sum PDFteleporter-1.0.6-linux-x86_64.tar.gz
+sha256sum PDFteleporter-1.0.7-linux-x86_64.tar.gz
 ```
 
 Comparez avec la valeur publiée sur :
-👉 https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-linux-v1.0.6
+👉 https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-linux-v1.0.7
 
 Ou via le fichier `.sha256` joint à la release :
 
 ```bash
-wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.6/PDFteleporter-1.0.6-linux-x86_64.tar.gz.sha256
-sha256sum -c PDFteleporter-1.0.6-linux-x86_64.tar.gz.sha256
+wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.7/PDFteleporter-1.0.7-linux-x86_64.tar.gz.sha256
+sha256sum -c PDFteleporter-1.0.7-linux-x86_64.tar.gz.sha256
 ```
 
 ---
@@ -186,7 +186,7 @@ L'interface Linux est **strictement identique** à la version Windows : même th
 
 <img src="../doc/images/pdfteleporter_linux.png" alt="PDFteleporter sous Linux" width="900">
 
-*PDFteleporter v1.0.6 tournant nativement sous Linux — interface identique à Windows*
+*PDFteleporter v1.0.7 tournant nativement sous Linux — interface identique à Windows*
 
 </div>
 
@@ -207,7 +207,7 @@ Identiques à la version Windows :
 | 🛡 | **Compatibilité Microsoft Print To PDF / Word LTSC** (correctif fond noir v1.0.1) |
 | 📐 | **Rendu fidèle des tableaux** *(v1.0.2)* — les libellés ne débordent plus des cellules colorées (Bilan humain, Moyens engagés…) |
 | 🌍 | **Compatibilité LibreOffice et Excel densifié** *(v1.0.5)* — les caractères accentués des PDF LibreOffice (Situation, Éducation, lutte…) sont restaurés correctement et les tableaux Excel à très petites fontes (~4 pt) ne débordent plus de leurs cellules |
-| ☑️ | **Cases à cocher AcroForm préservées** *(nouveau v1.0.6)* — l'état coché/non coché des cases à cocher et boutons radio des formulaires (SITREP ADRASEC, fiches COD/SIDPC remplies) survit désormais à la recomposition, avec un tracé géométrique du V net même sur les très petites cases |
+| ☑️ | **Cases à cocher AcroForm préservées** *(nouveau v1.0.7)* — l'état coché/non coché des cases à cocher et boutons radio des formulaires (SITREP ADRASEC, fiches COD/SIDPC remplies) survit désormais à la recomposition, avec un tracé géométrique du V net même sur les très petites cases |
 | 📧 | **Bouton « Préparer pour Winlink »** avec procédure adaptée à Linux |
 | 📋 | **Journal opérationnel** horodaté avec code couleur |
 | 🌐 | **Compatible TCQ et Winlink Express** — format `.psdi` partagé |
@@ -253,23 +253,23 @@ Puis déconnectez et reconnectez votre session.
 
 ### Le PDF recomposé apparaît avec un fond noir
 
-Vous utilisez une version antérieure à 1.0.1. Téléchargez la dernière version — la v1.0.1 a introduit le correctif pour les PDF générés par Microsoft Print To PDF et Microsoft Word LTSC (la v1.0.6 le conserve).
+Vous utilisez une version antérieure à 1.0.1. Téléchargez la dernière version — la v1.0.1 a introduit le correctif pour les PDF générés par Microsoft Print To PDF et Microsoft Word LTSC (la v1.0.7 le conserve).
 
 ### Les textes débordent des cellules de tableaux à la recomposition
 
-Vous utilisez une version antérieure à 1.0.2. Téléchargez la dernière version — la v1.0.2 a introduit le correctif du débordement des libellés dans les cellules colorées (Bilan humain, Moyens engagés, Activité de secours…). Les archives `.psdi` produites par les versions antérieures sont automatiquement rendues correctement par la v1.0.6.
+Vous utilisez une version antérieure à 1.0.2. Téléchargez la dernière version — la v1.0.2 a introduit le correctif du débordement des libellés dans les cellules colorées (Bilan humain, Moyens engagés, Activité de secours…). Les archives `.psdi` produites par les versions antérieures sont automatiquement rendues correctement par la v1.0.7.
 
 ### Les textes débordent encore sur les PDF Excel à très petites fontes
 
-Spécifique aux PDF Excel à fontes ~4 pt avec des cellules optimisées au pixel près. La v1.0.5 (et v1.0.6) ajoute une compensation de la marge interne de l'engine HTML PyMuPDF (élargissement de 0.5 pt de chaque côté du bbox) et un mécanisme d'auto-réduction de la taille de police (`scale_low=0.5`) pour faire tenir le texte sans le tronquer.
+Spécifique aux PDF Excel à fontes ~4 pt avec des cellules optimisées au pixel près. La v1.0.5 (et v1.0.7) ajoute une compensation de la marge interne de l'engine HTML PyMuPDF (élargissement de 0.5 pt de chaque côté du bbox) et un mécanisme d'auto-réduction de la taille de police (`scale_low=0.5`) pour faire tenir le texte sans le tronquer.
 
 ### Caractères accentués corrompus (Situa�on, qui�é, Éduca�on, lu�e…)
 
-Spécifique aux PDF générés par **LibreOffice** qui utilise des glyphes de ligature non standard (Ɵ pour `ti`, Ʃ pour `tt`) que PyMuPDF convertit en `U+FFFD` (caractère de remplacement). La v1.0.5 (et v1.0.6) décompose automatiquement ces ligatures et restaure les mots français corrects (Situation, quitté, Éducation, lutte, routier, pollution…) via une heuristique contextuelle.
+Spécifique aux PDF générés par **LibreOffice** qui utilise des glyphes de ligature non standard (Ɵ pour `ti`, Ʃ pour `tt`) que PyMuPDF convertit en `U+FFFD` (caractère de remplacement). La v1.0.5 (et v1.0.7) décompose automatiquement ces ligatures et restaure les mots français corrects (Situation, quitté, Éducation, lutte, routier, pollution…) via une heuristique contextuelle.
 
 ### Les cases à cocher des formulaires (AcroForm) disparaissent à la recomposition
 
-Spécifique aux PDF formulaires opérationnels remplis (SITREP ADRASEC, fiches COD/SIDPC, BRM Winlink…). Vous utilisez une version antérieure à 1.0.5 : l'état coché/non coché vit dans l'apparence `/AP /N` du widget que ni `get_text` ni `get_drawings` n'extraient. La v1.0.5 a introduit la conservation de la position des cases cochées dans le manifeste (clé `ck`) et le redessin vectoriel à la recomposition. La v1.0.6 affine le tracé géométrique du V (`draw_polyline` à la place de `draw_line`) pour un rendu net même sur les très petites cases.
+Spécifique aux PDF formulaires opérationnels remplis (SITREP ADRASEC, fiches COD/SIDPC, BRM Winlink…). Vous utilisez une version antérieure à 1.0.5 : l'état coché/non coché vit dans l'apparence `/AP /N` du widget que ni `get_text` ni `get_drawings` n'extraient. La v1.0.5 a introduit la conservation de la position des cases cochées dans le manifeste (clé `ck`) et le redessin vectoriel à la recomposition. La v1.0.7 affine le tracé géométrique du V (`draw_polyline` à la place de `draw_line`) pour un rendu net même sur les très petites cases.
 
 ---
 
@@ -306,7 +306,7 @@ Toute contribution, retour d'expérience et proposition d'amélioration sont bie
 **Jean-Louis Naudin (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.0.6 Linux — Juin 2026**
+**Version 1.0.7 Linux — Juin 2026**
 
 ---
 
