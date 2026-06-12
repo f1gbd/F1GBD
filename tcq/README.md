@@ -11,9 +11,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v11.0.1-blue)](https://github.com/f1gbd/F1GBD/releases/tag/tcq-v11.0.1)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v11.1.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/tcq-v11.1.0)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v11.0.1/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v11.1.0/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -26,6 +26,18 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 [**📜 Toutes les releases TCQ**](https://github.com/f1gbd/F1GBD/releases?q=tcq) • [**📚 Documentation**](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations)
 
 </div>
+
+---
+
+## 🆕 Quoi de neuf en v11.1.0
+
+> **📄 Transferts PDF radio plus robustes — `pdf_trans` v1.0.6** — TCQ embarque la dernière bibliothèque de compression PDF, qui corrige deux cas fréquents en exercice ADRASEC :
+>
+> **🔄 PDF scannés ou tournés** (arrêtés préfectoraux numérisés, fax, documents avec rotation de page…) : ils ressortaient **basculés à 90° sur fond noir** après recomposition. TCQ **détecte désormais automatiquement** ces documents et bascule en mode rendu image — rotation respectée, couches d'encre correctement composées — sans aucune manipulation côté opérateur.
+>
+> **📊 Cadres et couleurs de tableau** (SITREP, bilans opérationnels zonaux, niveaux de vigilance…) : les grilles et fonds de cellule tracés en segments de ligne disparaissaient à la recomposition, **surtout côté Linux**. Ils sont à nouveau **restitués fidèlement**.
+>
+> **Action recommandée** : passez à la v11.1.0 si vous transmettez des arrêtés scannés ou des tableaux/SITREP colorés par radio. Le format `.psdi` reste **100% compatible** avec les versions précédentes.
 
 ---
 
@@ -72,7 +84,7 @@ Conçu pour les opérations ADRASEC et les exercices de sécurité civile, TCQ p
 | 🖼️ | **SSTV temps réel** | Décodeur porté de slowrx — Scottie (S1/S2/SDX), Martin (M1/M2), Robot (36/72), PD (50→240). Waterfall + visualiseur plein écran + bouton Resync. |
 | 🎵 | **CW / Morse** | Décodeur DSP avec seuillage adaptatif et clustering K-means. **QSObrain** pour QSO CW entièrement autonomes (CSMA, WPM adaptatif, anti-self-CQ). |
 | 📬 | **BBS Multi-modes** | Bulletin Board System sur TNC Packet et MeshCore avec compteur paquets, réassemblage automatique, persistance SQLite. |
-| 📄 | **PDF Radio** | Transmission de documents (SITREP, MEMO) avec compression LZMA, fragmentation adaptative, CRC par fragment, ACK et reprise sélective. |
+| 📄 | **PDF Radio** | Transmission de documents (SITREP, MEMO) avec compression LZMA, fragmentation adaptative, CRC par fragment, ACK et reprise sélective. Recomposition fidèle : cadres et couleurs de tableaux préservés, PDF scannés ou tournés gérés automatiquement (`pdf_trans` v1.0.6). |
 | 🛰️ | **Gonio SATER / APRS-IS** | Carte des relèvements goniométriques avec **partage bidirectionnel APRS-IS** (protocole `EPIRB-GONIO` commun à l'EPIRBdecoder v5.6 et SATERfinder Android), **triangulation ELT** (CEP 95 %), affichage des stations APRS reçues via APRS-IS, et import/export CSV interopérable. |
 | 🔐 | **100% local** | Aucune télémétrie, aucune connexion externe non sollicitée. Toutes les communications restent sous le contrôle de l'opérateur. |
 
@@ -266,6 +278,32 @@ En mode **VARA HF / SAT**, le PTT peut être commandé en **CAT (CI-V)**. La v11
 **Côté VARA HF / SAT** : régler le PTT de VARA pour qu'il **délègue la commande au programme externe** (TCQ). VARA émet alors `PTT ON` / `PTT OFF` sur son canal de commande, et TCQ envoie la trame CI-V correspondante.
 
 > ✅ Avec ce paramétrage, l'IC-9700 passe en émission sur commande CI-V exactement comme avec Winlink. Pour les interfaces RS-232 sur prise [REMOTE] (CT-17), cocher au contraire *Forcer RTS/DTR à ON en mode CAT*.
+
+---
+
+## 🆕 Nouveautés v11.1.0
+
+### Module PDF radio — PDF scannés/tournés + cadres et couleurs de tableaux
+
+- 🔄 **Intégration de `pdf_trans` v1.0.6 — auto-bascule en mode rendu image** pour les PDF scannés ou portant une rotation de page (`/Rotate`). Le mode structuré ignorait la rotation à la recomposition et aplatissait les images-masques (couche d'encre des scans) en opaque, d'où une page **basculée à 90° sur fond noir** — typiquement les arrêtés préfectoraux numérisés. `pdf_to_archive()` détecte désormais ces documents et les traite via `get_pixmap()`, qui respecte nativement la rotation **et** compose correctement les masques.
+- 📊 **Cadres et couleurs de tableau restaurés.** Les grilles et fonds de cellule tracés en **segments de ligne** (LibreOffice, et selon la version de MuPDF embarquée — d'où une différence de comportement observée entre Windows et Linux) étaient ignorés par l'extraction structurée, qui ne conservait que les rectangles `re`. L'extraction reconstruit désormais les rectangles **aussi à partir des lignes** : SITREP, bilans opérationnels zonaux et niveaux de vigilance retrouvent leur grille et leurs couleurs de cellule.
+- 🎯 **Détection ciblée, sans faux positif** : seuls les documents tournés (raison `rotation`) ou scannés (raison `scan`) basculent en mode image ; les vrais PDF texte natifs non tournés conservent le mode structuré, plus compact. La raison de la bascule est journalisée.
+- 🔄 **Compatibilité ascendante totale** : toutes les archives `.psdi` produites antérieurement restent lisibles avec la v11.1.0 et bénéficient même automatiquement des corrections côté recomposition.
+- 📡 Le correctif s'applique automatiquement à tous les transferts PDF via **VARA HF/FM/SAT**, **TNC Packet** et **TCQ-BBS**.
+
+### Logging au démarrage
+
+- 📋 Le log au démarrage indique désormais `pdf_trans v1.0.6` :
+  ```
+  INFO: Bibliothèque pdf_trans v1.0.6 chargée avec succès - TRANSFERT PDF disponible
+  ```
+- 🩺 Permet à un opérateur ADRASEC de vérifier en un coup d'œil avant un exercice que son poste embarque bien la version corrigée.
+
+### Compatibilité
+
+- ✅ Aucun changement d'API publique de `pdf_trans` : les intégrations tierces continuent de fonctionner sans modification
+- ✅ Cohérence avec **PDFteleporter v1.0.6** qui partage la même bibliothèque
+- ✅ Les opérateurs disposant de PDFteleporter en application autonome bénéficient des mêmes correctifs
 
 ---
 
@@ -523,7 +561,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v11.0.1 — 2026-05-31**
+**Version v11.1.0 — 2026-06-12**
 
 ---
 
