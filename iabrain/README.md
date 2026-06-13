@@ -52,6 +52,8 @@
 Concrètement, c'est un outil qui répond à vos questions opérationnelles, rédige des documents administratifs ou techniques, vous aide à configurer un poste radio, à comprendre un protocole, à réviser pour un examen ou un exercice, et qui automatise les transformations de fichiers — tout cela depuis votre laptop, en quelques secondes, et **sans qu'aucune information ne quitte votre machine**.
 
 ---
+### Vibe Coding en Python avec IAbrain (fonctionne en mode LOCAL)
+<img src="docs/images/IAbrain_vibecoding.png" alt="Vibe Coding avec IAbrain" width="800">
 
 ### Création d'un serveur dédié IA pour la gestion des Connaissances
 
