@@ -53,7 +53,7 @@ Concrètement, c'est un outil qui répond à vos questions opérationnelles, ré
 
 ---
 ### Vibe Coding en Python avec IAbrain (fonctionne en mode LOCAL)
-<img src="docs/images/IAbrain_vibecoding.png" alt="Vibe Coding avec IAbrain" width="800">
+<img src="docs/images/IAbrain_vibecoding.png" alt="Vibe Coding avec IAbrain" width="900">
 
 ### Création d'un serveur dédié IA pour la gestion des Connaissances
 
