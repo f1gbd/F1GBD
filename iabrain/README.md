@@ -6,16 +6,16 @@
 
 ### L'assistant IA local pour les opérateurs ADRASEC
 
-*Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — SITREP PDF auto-rempli — SITREP SATER PDF — Cartographie interactive — Carte de position géocodée IGN — Corrections manuelles — 24 macros colorées et partageables — Actions natives — Connectivité Ollama Cloud — Mémoire conversationnelle — Profil opérateur — Variables de session — Pipeline SATER complet — Plugins externes extensibles — Auto-exécution de macros par le LLM — Exécution non-bloquante avec feedback live — **Interface vocale STT/TTS pour usage mains libres et accessibilité***
+*Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — SITREP PDF auto-rempli — SITREP SATER PDF — Cartographie interactive — Carte de position géocodée IGN — Corrections manuelles — 24 macros colorées et partageables — Actions natives — Connectivité Ollama Cloud — Mémoire conversationnelle — Profil opérateur — Variables de session — Pipeline SATER complet — Plugins externes extensibles — Auto-exécution de macros par le LLM — Exécution non-bloquante avec feedback live — Interface vocale STT/TTS pour usage mains libres et accessibilité — **Vibe Coding Python (panneau de code exportable, gestion automatique du contexte)** — **Avatar IAbrain animé***
 
-[![Version](https://img.shields.io/badge/version-iabrain--v1.43.00-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.43.00)
+[![Version](https://img.shields.io/badge/version-iabrain--v1.45.04-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.45.04)
 [![Téléchargements](https://img.shields.io/badge/téléchargements-200%2B-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![100% local](https://img.shields.io/badge/local%20%2F%20cloud-hybride-brightgreen.svg)]()
 [![Accessibilité](https://img.shields.io/badge/accessibilité-voix%20%F0%9F%8E%A4%20%F0%9F%94%8A-purple.svg)]()
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.43.00/IAbrain.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.45.04/IAbrain.7z)
 
 </div>
 
@@ -64,6 +64,8 @@ Concrètement, c'est un outil qui répond à vos questions opérationnelles, ré
 | Icône | Fonctionnalité | Description |
 |:---:|---|---|
 | 💬 | **Conversation en français naturel** | Posez vos questions comme à un collègue expérimenté. IAbrain comprend votre demande, raisonne, et répond de manière structurée. Pas de syntaxe technique à apprendre. |
+| 💻 | **Vibe Coding Python amélioré** *(v1.45)* | Génération et itération de code en langage naturel, pensées pour les outils Python de l'écosystème ADRASEC. Chaque bloc de code s'affiche dans un **panneau dédié** avec bouton **💾 Exporter** (sauvegarde du bloc seul, extension devinée), bouton **📋 Copier**, et **ascenseur** automatique pour les longs programmes. **Ré-indentation automatique** des blocs mal alignés par le modèle (fini les `IndentationError` à l'export). **Gestion automatique de la fenêtre de contexte** (`num_ctx` ajusté pour réserver la place de la réponse, historique compris) et **détection de troncature** : si Ollama coupe la génération par manque de place, IAbrain le signale clairement au lieu de laisser croire à une réponse complète. **Bouton « ⟳ Recharger »** pour réinitialiser à froid un modèle figé, et **alerte de décalage de version Ollama** entre poste local et serveur (cause classique d'échecs de chargement de modèle). |
+| 👤 | **Avatar IAbrain animé** *(v1.44)* | Une **fenêtre flottante d'avatar** qui visualise l'activité de l'IA en temps réel. Trois rendus au choix — **Essaim** (nuée de particules), **Neurones** (réseau pulsant) et **Core** (noyau central) — qui réagissent aux phases du pipeline : réflexion, traitement du prompt, écriture de la réponse, repos. L'avatar « parle » au fil des tokens et reflète aussi l'état vocal (TTS) quand l'interface vocale est active. Purement visuel, 100 % local, désactivable. |
 | 🎤🔊 | **Interface vocale STT + TTS** *(v1.42+)* | **Reconnaissance vocale mains libres** (Vosk offline) avec wake-word « ordinateur », et **synthèse vocale** des réponses. **Trois modes STT configurables** : activé / sujets génériques uniquement (recommandé — les questions ADRASEC techniques sont injectées pour relecture avant envoi) / désactivé. **Pré-correction phonétique automatique** du vocabulaire radio (VARA, TCQ, ADRASEC, QO-100, AX.25…) avec **apprentissage progressif des corrections** de l'opérateur (dictionnaire personnel persistant). **Bips d'accessibilité** *(v1.42.14)* pour les utilisateurs non-voyants : un bip court signale le début de la génération LLM, un double bip ascendant annonce l'imminence de la lecture TTS, un bip grave signale une erreur. **Lecture intégrale** des réponses sans troncature avec annonce vocale de la durée pour les longues réponses (« Réponse longue, environ 2 minutes de lecture. Appuyez sur F3 pour interrompre. »). **Accessibilité** : utilisable par les opérateurs malvoyants/non-voyants, et en mission de terrain sans clavier (mains occupées, gants épais, équipement de protection). Confidentialité : 100 % local, aucun audio ne sort de la machine. |
 | 📚 | **Base de connaissances ADRASEC intégrée** | Toutes les notes techniques, MEMO, fiches réflexes et SITREP sont indexés et consultables. IAbrain cite ses sources et indique de quel document provient chaque information. |
 | 📂 | **Base RAG personnelle** *(v1.34+)* | En plus de la base ADRASEC officielle (alimentée par OTA), une **seconde base perso** isolée vous permet d'indexer vos propres notes, RETEX et documents locaux. Les deux bases sont fouillées simultanément ; la base perso est **toujours préservée** lors des mises à jour OTA. |
@@ -359,6 +361,55 @@ Particulièrement utile pour :
 - 📊 **Comparaisons qualitatives** : poser la même question à qwen2.5:7b local vs gpt-oss:120b cloud pour évaluer l'écart
 
 > 🔒 **Confidentialité préservée** : la base RAG ADRASEC, vos corrections manuelles et l'embedder restent **strictement locaux**. Seul le prompt de chat (et le contenu des fichiers que vous importez intentionnellement) transite vers ollama.com en mode cloud direct. Un avertissement explicite est posté dans le chat à chaque activation.
+
+---
+
+## 💻 Vibe Coding Python amélioré *(v1.45)*
+
+IAbrain n'est pas qu'un assistant documentaire : c'est aussi un **atelier de code conversationnel** pour développer et faire évoluer les outils Python de l'écosystème ADRASEC (TCQ, EPIRBdecoder, PDFteleporter, plugins, scripts d'exercice…) en langage naturel, 100 % en local. La série v1.45 a fiabilisé cette « vibe coding » de bout en bout.
+
+### 🪟 Panneau de code dédié
+
+Chaque bloc de code produit par le modèle s'affiche désormais dans une **fenêtre dédiée** embarquée dans le chat, et non plus en texte brut :
+
+- **💾 Exporter** — sauvegarde **ce bloc seul** sur disque, avec extension devinée d'après le langage (`.py`, `.ps1`, `.json`, `.sh`…).
+- **📋 Copier** — copie le code dans le presse-papiers, avec retour visuel « ✓ Copié ».
+- **Ascenseur automatique** — les longs programmes deviennent scrollables (vertical au-delà de ~20 lignes, horizontal pour les lignes très longues) au lieu d'étirer le chat à l'infini.
+
+### 🧹 Ré-indentation automatique
+
+Certains modèles (mistral-nemo, ministral…) indentent par erreur l'intégralité d'un bloc ```` ```python ````, ce qui rend le code **non exécutable** (`IndentationError: unexpected indent`). IAbrain retire désormais automatiquement l'indentation **commune** parasite (via `textwrap.dedent`), à l'affichage **comme à l'export**, tout en préservant l'indentation relative interne. Le code exporté est directement exécutable.
+
+### 🧠 Gestion automatique de la fenêtre de contexte
+
+Les générations de code sont longues. IAbrain dimensionne maintenant `num_ctx` en comptant **tout le contexte réellement envoyé** (système + **historique de conversation** + message courant) et en réservant explicitement de la place pour la réponse. Fini les réponses **coupées en plein mot** parce que le modèle atteignait la fenêtre de contexte. Sur les échanges courts, `num_ctx` reste à sa valeur de base pour préserver les performances.
+
+### ⚠ Détection de troncature
+
+Si Ollama arrête malgré tout une génération par manque de place (`done_reason == "length"`), IAbrain affiche un avertissement explicite — **« ⚠ Réponse possiblement tronquée — augmentez num_ctx »** — au lieu de laisser la réponse passer pour complète.
+
+### ⟳ Robustesse multi-nœuds
+
+- **Bouton « ⟳ Recharger »** dans la barre du haut : décharge (`keep_alive=0`) puis recharge **à froid** le modèle courant côté serveur Ollama, pour débloquer en un clic un runner figé (HTTP 500 « process has terminated » / « Failed to load CLIP model ») sans aller-retour cloud→local.
+- **Alerte de décalage de version Ollama** : si la version d'Ollama du poste local diffère de celle du serveur distant, IAbrain le signale. C'est une cause classique d'un modèle qui se charge sur un nœud mais échoue sur un autre (« unknown projector type ») — utile pour garder un parc ADRASEC homogène.
+
+---
+
+## 👤 Avatar IAbrain *(v1.44)*
+
+IAbrain dispose d'une **fenêtre flottante d'avatar** qui donne une présence visuelle à l'IA et matérialise son activité en temps réel — pratique en démo, en formation, ou simplement pour voir d'un coup d'œil que le modèle « travaille ».
+
+### 🎨 Trois rendus au choix
+
+- **Essaim** — une nuée de particules lumineuses qui se densifie et s'agite selon l'activité.
+- **Neurones** — un réseau de nœuds pulsant au rythme du traitement.
+- **Core** — un noyau central animé, sobre et lisible.
+
+### 🔄 Réactif au pipeline
+
+L'avatar reflète les phases de l'IA : **réflexion** (traitement du prompt), **écriture** de la réponse (il « parle » au fil des tokens générés), puis **repos**. Quand l'interface vocale est active, il reflète aussi l'état **TTS** (lecture en cours).
+
+Purement visuel, 100 % local, ouvrable/refermable à volonté — il n'ajoute aucune dépendance réseau et peut rester fermé sans rien changer au fonctionnement.
 
 ---
 
@@ -1253,9 +1304,9 @@ ollama pull bge-m3              # Reranking RAG (recommandé, 1.2 Go)
 
 <div align="center">
 
-#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.43.00/IAbrain.7z)
+#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.45.04/IAbrain.7z)
 
-*(version `iabrain-v1.43.00` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
+*(version `iabrain-v1.45.04` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
 
 [![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
 
@@ -1313,6 +1364,8 @@ Ce dépôt contient également les manuels suivants :
 │  - Macros LLM + Action (v1.37+)        │
 │  - Rendu Markdown complet (v1.37+)     │
 │  - Connectivité Ollama Cloud (v1.38+)  │
+│  - Avatar IAbrain animé (v1.44+)       │
+│  - Vibe Coding Python (v1.45+)         │
 └──────┬─────────────────────────┬───────┘
        │                         │
        │ HTTP localhost:11434    │ HTTPS ollama.com (cloud direct)
@@ -1437,9 +1490,29 @@ Ce dépôt contient également les manuels suivants :
 
 ---
 
-## 🆕 Évolution récente — v1.33 → v1.43
+## 🆕 Évolution récente — v1.33 → v1.45
 
-Les versions récentes ont apporté plusieurs améliorations majeures, du RAG hybride aux corrections manuelles, en passant par la cartographie, les macros utilisateur, la connectivité cloud, la mémoire conversationnelle, le profil opérateur, l'auto-exécution de macros par le LLM, le remplissage automatique du SITREP PDF officiel ADRASEC, l'exécution non-bloquante des macros Action avec feedback de progression en direct, la détection de négation contextuelle dans le plugin SITREP, l'interface vocale complète (reconnaissance + synthèse) avec apprentissage des corrections de l'opérateur, et désormais **une barre de 24 macros colorées et partageables, complétée par les actions natives POS OSM (carte géocodée IGN) et SITREP SATER (compte-rendu PDF)**.
+Les versions récentes ont apporté plusieurs améliorations majeures, du RAG hybride aux corrections manuelles, en passant par la cartographie, les macros utilisateur, la connectivité cloud, la mémoire conversationnelle, le profil opérateur, l'auto-exécution de macros par le LLM, le remplissage automatique du SITREP PDF officiel ADRASEC, l'exécution non-bloquante des macros Action avec feedback de progression en direct, la détection de négation contextuelle dans le plugin SITREP, l'interface vocale complète (reconnaissance + synthèse) avec apprentissage des corrections de l'opérateur, une barre de 24 macros colorées et partageables complétée par les actions natives POS OSM (carte géocodée IGN) et SITREP SATER (compte-rendu PDF), un **avatar IAbrain animé**, et désormais un **« vibe coding » Python fiabilisé** (panneau de code exportable, ré-indentation automatique, gestion automatique du contexte et détection de troncature).
+
+### 💻 v1.45.x — Vibe Coding Python : panneau de code, ré-indentation, contexte automatique
+
+La série v1.45 fait d'IAbrain un véritable atelier de code Python local. Les blocs de code s'affichent dans un **panneau dédié** doté de boutons **💾 Exporter** et **📋 Copier** et d'un **ascenseur** pour les longs programmes. L'**indentation parasite** que certains modèles ajoutent à tout un bloc est retirée automatiquement (fini les `IndentationError` à l'export). Surtout, la **fenêtre de contexte** est désormais dimensionnée en tenant compte de **tout** le prompt envoyé (système + historique + message), avec une réserve de sortie : les longues générations de code ne sont plus **coupées en plein mot**. Si une troncature survient malgré tout, elle est **signalée explicitement** (`done_reason == "length"`). S'ajoutent un **bouton « ⟳ Recharger »** (rechargement à froid d'un modèle figé côté serveur) et une **alerte de décalage de version Ollama** entre poste local et serveur.
+
+| Version | Apport principal |
+|---|---|
+| **1.45.04** | **Détection de troncature** : lorsque Ollama renvoie `done_reason == "length"`, IAbrain affiche « ⚠ Réponse possiblement tronquée — augmentez num_ctx » au lieu de laisser la réponse passer pour complète. |
+| **1.45.03** | **Correctif fenêtre de contexte** : l'estimation de taille du prompt compte désormais l'**historique de conversation** (auparavant ignoré) et l'auto-augmentation de `num_ctx` réserve explicitement de la place pour la réponse — fin des réponses de code coupées en plein mot. |
+| **1.45.02** | **Alerte de décalage de version Ollama** entre le poste local et le serveur distant (cause classique d'un modèle qui se charge d'un côté mais échoue de l'autre, « unknown projector type »). |
+| **1.45.01** | **Ré-indentation automatique** des blocs de code (`textwrap.dedent`) à l'affichage et à l'export. **Bouton « ⟳ Recharger »** : déchargement `keep_alive=0` + rechargement à froid du modèle courant pour débloquer un runner Ollama figé. |
+| **1.45.00** | **Panneau de code dédié** dans le chat : bouton **💾 Exporter** (par bloc, extension devinée), bouton **📋 Copier**, et **ascenseur** vertical/horizontal automatique pour les longs blocs. |
+
+### 👤 v1.44.x — Avatar IAbrain animé
+
+La série v1.44 ajoute une **fenêtre flottante d'avatar** qui visualise l'activité de l'IA en temps réel, avec trois rendus au choix (**Essaim**, **Neurones**, **Core**) réagissant aux phases du pipeline (réflexion, écriture de la réponse, repos) et à l'état vocal. Purement visuel, 100 % local, désactivable.
+
+| Version | Apport principal |
+|---|---|
+| **1.44.00** | **Avatar IAbrain en fenêtre flottante** (Essaim / Neurones / Core) réagissant au pipeline de génération et à l'état TTS. |
 
 ### 🆕 v1.43.x — 24 macros colorées et partageables, POS OSM, SITREP SATER PDF
 
@@ -1653,7 +1726,7 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.43.00 — 2026-06-07**
+**Version 1.45.04 — 2026-06-13**
 
 ---
 
