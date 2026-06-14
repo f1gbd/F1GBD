@@ -4,20 +4,21 @@
 
 ### Dialogue autonome entre deux IA, arbitré par un troisième — un outil d'aide à la recherche par IA
 
-*Conversation scientifique guidée — Investigateur & Analyste — **Mode Jeu de Rôle / Simulation — narrateur · joueur · injecteur d'événements, rôles personnalisables par preset (v1.7)** — **Curseur Créativité / innovation 0–100 % qui fait proposer de nouveaux concepts (v1.5)** — **Rendu Markdown du dialogue + synthèse vocale assainie (v1.4)** — **Enrichissement par le web de l'Investigateur — DuckDuckGo / SearXNG (v1.3)** — **Auto-export des fiches vers IAbrain (v1.3)** — **Modérateur conversationnel qui fait converger le dialogue vers une solution (v1.2)** — Presets de sujet importables/exportables (v1.2) — Mode ADRASEC enrichi (modérateur RAG) — Ollama local & cloud — Mémoire glissante — Détection de dérive linguistique — Synthèse vocale SAPI5 deux voix — Synchronisation dialogue/voix — Export JSON / Markdown / RTF — Thèmes secondaires guidés — Configuration persistante*
+*Conversation scientifique guidée — Investigateur & Analyste — **Mode CHAT — l'opérateur (ou la protagoniste) joué en direct par un humain dans le scénario (v1.8)** — **Mode Jeu de Rôle / Simulation — narrateur · joueur · injecteur d'événements, rôles personnalisables par preset (v1.7)** — **Curseur Créativité / innovation 0–100 % qui fait proposer de nouveaux concepts (v1.5)** — **Rendu Markdown du dialogue + synthèse vocale assainie (v1.4)** — **Enrichissement par le web de l'Investigateur — DuckDuckGo / SearXNG (v1.3)** — **Auto-export des fiches vers IAbrain (v1.3)** — **Modérateur conversationnel qui fait converger le dialogue vers une solution (v1.2)** — Presets de sujet importables/exportables (v1.2) — Mode ADRASEC enrichi (modérateur RAG) — Ollama local & cloud — Mémoire glissante — Détection de dérive linguistique — Synthèse vocale SAPI5 deux voix — Synchronisation dialogue/voix — Export JSON / Markdown / RTF — Thèmes secondaires guidés — Configuration persistante*
 
-[![Version](https://img.shields.io/badge/version-dia--v1.7.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/dia-v1.7.0)
+[![Version](https://img.shields.io/badge/version-dia--v1.8.1-blue)](https://github.com/f1gbd/F1GBD/releases/tag/dia-v1.8.1)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![Local / Cloud](https://img.shields.io/badge/Ollama-local%20%2F%20cloud-brightgreen.svg)]()
 [![Accessibilité](https://img.shields.io/badge/accessibilit%C3%A9-voix%20SAPI5-purple.svg)]()
 [![Créativité](https://img.shields.io/badge/v1.5-cr%C3%A9ativit%C3%A9%20pilotable-ff7a59.svg)]()
 [![Jeu de Rôle](https://img.shields.io/badge/v1.7-mode%20jeu%20de%20r%C3%B4le-9b59b6.svg)]()
+[![Mode CHAT](https://img.shields.io/badge/v1.8-mode%20CHAT%20op%C3%A9rateur%20r%C3%A9el-7a2e8a.svg)]()
 [![Modérateur](https://img.shields.io/badge/mode-mod%C3%A9rateur%20conversationnel-teal.svg)]()
 [![RAG](https://img.shields.io/badge/mode-ADRASEC%20enrichi-orange.svg)]()
 [![Web](https://img.shields.io/badge/v1.3-enrichissement%20web-blue.svg)]()
 
-### 📥 [**Télécharger la dernière version (v1.7.0)**](https://github.com/f1gbd/F1GBD/releases/download/dia-v1.7.0/d-IA.7z)
+### 📥 [**Télécharger la dernière version (v1.8.1)**](https://github.com/f1gbd/F1GBD/releases/download/dia-v1.8.1/d-IA.7z)
 
 </div>
 
@@ -42,6 +43,34 @@ Tout tourne **localement** par défaut (modèles Ollama auto-hébergés), avec u
 [**Créer son Serveur IAbrain pour la gestion des connaissances et qui fonctionne 100% hors-ligne.**](https://github.com/f1gbd/F1GBD/blob/master/iabrain/Documentations%20IAbrain/MEMO%20-%20Cr%C3%A9er_un_Serveur_IA_M1A_IAbrain.pdf)
 
 > 💡 **La différence clé de la v1.2** : jusqu'ici, deux IA pouvaient explorer un sujet sans jamais conclure. Désormais, un modérateur garde le cap et **force la convergence vers une solution** — d-IA devient un véritable assistant de recherche, pas seulement un générateur de dialogue.
+
+---
+
+## 🆕 Nouveautés v1.8 — Mode CHAT : l'opérateur devient acteur réel du scénario
+
+La **v1.8** introduit le **Mode CHAT** : au lieu de regarder deux (ou trois) LLM jouer entre eux, **vous prenez le clavier**. Une bascule **opt-in** (colonne de gauche) vous laisse **incarner le LLM2 (Analyste)** — c'est-à-dire, en simulation de Jeu de Rôle, l'**opérateur ADRASEC de terrain** ou la **protagoniste** du récit.
+
+### 🎙️ Vous jouez, les autres rôles restent automatiques
+
+Quand le mode CHAT est actif, le tour du LLM2 **n'est plus généré par un modèle**. À chaque fois que c'est à vous de jouer, une **zone de saisie s'ouvre sous la conversation** et le dialogue **attend votre message** (raccourci **Ctrl+Entrée** pour l'envoyer, pratique pour les SITREP multi-lignes). Pendant ce temps :
+
+- 🟦 le **LLM1** (COD / Maître du Jeu) vous **répond** ;
+- 🟩 le **LLM3** (injecteur) continue de **lancer ses événements** tous les K tours.
+
+On obtient une **vraie interactivité** : un entraînement de **trafic radio** où vous dialoguez avec un COD simulé et réagissez aux aléas injectés (panne, évacuation, feu…), ou une **partie de jeu de rôle** où vous incarnez le personnage face à un Maître du Jeu et au hasard.
+
+| | Sans Mode CHAT | **Avec Mode CHAT (v1.8)** |
+|---|---|---|
+| Le LLM2 (opérateur / protagoniste) | joué par un modèle | **joué par vous, en direct** |
+| LLM1 (COD / MJ) | automatique | automatique (vous répond) |
+| LLM3 (injecteur) | automatique | automatique (injecte les aléas) |
+| Usage | démonstration, capitalisation | **entraînement actif, immersion** |
+
+> 💡 Le message que vous tapez **n'est jamais lu par la synthèse vocale** (vous l'avez écrit) et apparaît étiqueté **« (vous) »** dans le fil et les exports. Le réglage est **persisté** et **transportable par les presets** (clé `chat_humain_actif`). Quand vous jouez le LLM2, ce dernier n'a même pas besoin d'un modèle ni d'une connexion cloud. Décoché : comportement strictement identique à la v1.7.
+
+### 🧯 Fiabilité (v1.8.1) — fini les messages coupés en plein mot
+
+Un correctif élimine la **troncature** des réponses du LLM1 (et du LLM2 en mode auto). Le modèle imitait parfois le format du contexte et se mettait à **rejouer le tour d'un autre interlocuteur**, produisant une fausse transcription qui dépassait le budget de tokens : d-IA ajoute désormais des **séquences d'arrêt** (un seul tour de parole par appel). Et si une réponse longue bute malgré tout sur `num_predict`, d-IA **détecte la coupure et relance proprement la suite** (recollage à la dernière phrase complète, **plus de coupure en plein mot**).
 
 ---
 
@@ -75,10 +104,13 @@ Quand le curseur Créativité (v1.5) est au-dessus de zéro, les LLM préfixent 
 
 > En jeu de rôle pur, aucune mention d'ADRASEC n'est injectée dans les prompts : la consigne se contente de rester cohérente avec l'univers et le ton du récit.
 
-### 📦 Deux presets fournis
+### 📦 Scénarios livrés en preset
 
-- **`jdr_cristaux_quantiques_auvergne`** — fiction (cristaux quantiques intriqués, premier contact).
-- **`sim_helios_noir_26`** — **simulation ADRASEC** calée sur l'exercice HÉLIOS NOIR 26 (black-out caniculaire) : **LLM1 = COD**, **LLM2 = opérateur du PCO de Nangeville**, **LLM3 = injecteur de crise**.
+Trois sujets prêts à l'emploi sont fournis — **deux scénarios « joués »** (mode Jeu de Rôle, jouables en Mode CHAT) et **un sujet de recherche** :
+
+- 🚨 **`sim_helios_noir_26`** — **simulation ADRASEC**, exercice **HÉLIOS NOIR 26** (black-out électrique total sur canicule extrême). Le réseau radio ADRASEC est le seul lien entre les mairies isolées et le COD. Cinq séquences (J+1 → J+10), de la bascule des communications à la crise sanitaire. **LLM1 = COD** de Vaubourg-sur-Brèze, **LLM2 = opérateur du PCO de Nangeville**, **LLM3 = injecteur de crise** (panne de groupe électrogène, évacuation, départ de feu, rupture de carburant…). En **Mode CHAT**, vous tenez l'opérateur du PCO et vous entraînez au trafic formaté (SITREP, demandes de moyens chiffrées, accusés de réception).
+- 🛰️ **`jdr_premier_contact_qo100`** — **jeu de rôle réaliste**. Sur le transpondeur du satellite géostationnaire amateur **QO-100**, une opératrice capte une séquence de code dont la signature Doppler trahit une origine **non terrestre** : une tentative de premier contact. Huit actes mènent de la séquence étrange au décodage puis à la réponse, **dans le respect de la physique radio** (délai à la vitesse de la lumière, Doppler, bande passante réelle). **LLM1 = Maître du Jeu**, **LLM2 = Dr Léa Vasseur** (ingénieure traitement du signal et radioamateur), **LLM3 = injecteur d'événements**. En **Mode CHAT**, vous incarnez le Dr Vasseur.
+- 🔬 **« Communication par ondes gravitationnelles »** — **sujet de recherche** (hors JdR) : sept thèmes ordonnés mènent le trio Investigateur / Analyste / Modérateur de la faisabilité brute jusqu'au verdict chiffré.
 
 > 💡 Pour obtenir l'événementiel, activer **aussi** le modérateur conversationnel : en mode JdR il n'arbitre plus, **il injecte**. En fiction, couper le RAG et la recherche web et monter la créativité.
 
@@ -170,6 +202,7 @@ IAbrain /index ou /reindex → interrogeable en langage naturel
 
 | Icône | Fonctionnalité | Description |
 |:---:|---|---|
+| 🎙️ | **Mode CHAT — opérateur acteur réel (v1.8)** | Bascule **opt-in** : **vous jouez le LLM2** (Analyste = opérateur ADRASEC de terrain ou protagoniste du récit). À votre tour, une **zone de saisie** s'ouvre sous la conversation et le dialogue attend votre message (Ctrl+Entrée pour envoyer). Le **LLM1** (COD / Maître du Jeu) répond, le **LLM3** injecte les événements : vraie interactivité pour l'entraînement au trafic radio ou le jeu de rôle. Message étiqueté **« (vous) »**, jamais lu par le TTS. Persisté et transporté par les presets (`chat_humain_actif`). |
 | 🎭 | **Mode Jeu de Rôle / Simulation (v1.7)** | Bascule **opt-in** qui détourne le trio de LLM : **LLM1 anime/ouvre**, **LLM2 réagit**, **LLM3 injecte un événement** tous les K tours (au lieu d'arbitrer). Sans preset, rôles de **fiction** (Maître du Jeu / Joueur / Injecteur) ; un preset peut définir des **rôles personnalisés** via `jdr_profil` — ex. **simulation ADRASEC** (COD / opérateur de terrain / injecteur de crise, scénario HÉLIOS NOIR). Réutilise le modérateur conversationnel comme injecteur. Décochée : comportement strictement identique à la v1.5. |
 | ✨ | **Créativité / innovation pilotable (v1.5)** | Un curseur **0–100 %** qui fait **proposer de nouveaux concepts** à partir de la requête initiale : boost *additif* de température/top_p **et** directive d'innovation **adaptée au rôle** (Investigateur bref, Analyste moteur à concepts, Modérateur qui chiffre). Pistes préfixées `PISTE INNOVANTE :` (qui devient `ACTION :` en jeu de rôle pur ou `DEMANDE POUR ACTION :` en simulation ADRASEC, v1.7), signalées exploratoires et évaluées. **Budget de tokens auto-ajusté** (anti-troncature). À **0 %** : comportement opérationnel strict, identique à la v1.4. |
 | 🖋️ | **Rendu Markdown + voix assainie (v1.4)** | Le dialogue affiche le **Markdown interprété** (gras, listes, code, titres, citations…) au lieu des balises brutes. La synthèse vocale **retire ces balises avant lecture** (plus de `\` ni `***` prononcés par SAPI5), tout en préservant le `snake_case`. Parseur maison, sans dépendance. |
@@ -517,6 +550,9 @@ Il faut **redémarrer d-IA** après l'activation (la liste est lue au lancement)
 **Les fiches générées par d-IA peuvent-elles être réimportées dans IAbrain ?**
 Oui, c'est le cas d'usage principal du mode RAG. Voir la section [Intégration avec IAbrain](#-intégration-avec-iabrain). **Depuis la v1.3**, d-IA peut **pousser les fiches automatiquement** vers le dossier source d'IAbrain (zone de staging `_a_valider/`) au fil de l'eau ; il reste l'export manuel et l'édition du JSON pour les cas particuliers.
 
+**Comment jouer moi-même l'opérateur (ou le personnage) au lieu de regarder les IA dialoguer ?**
+Cochez **Mode CHAT** (colonne de gauche). Vous prenez alors la place du **LLM2** : à votre tour, une zone de saisie s'ouvre sous la conversation, vous tapez votre message et l'envoyez (bouton **Envoyer** ou **Ctrl+Entrée**). Le LLM1 (COD / Maître du Jeu) vous répond et le LLM3 continue d'injecter des événements. Idéal pour s'entraîner au trafic ADRASEC face à un COD simulé (preset HÉLIOS NOIR 26) ou pour jouer un personnage (preset « Premier contact QO-100 »). Votre message n'est pas lu par la synthèse vocale et s'affiche étiqueté « (vous) ». Décochez le mode pour revenir au dialogue 100 % automatique.
+
 **À quoi sert le « mode Jeu de Rôle » et casse-t-il l'usage recherche habituel ?**
 Non. C'est une bascule **optionnelle** (onglet Mode ADRASEC). Décochée, d-IA fonctionne exactement comme avant. Cochée, elle réaffecte les trois LLM : LLM1 anime, LLM2 réagit, et le modérateur conversationnel devient un **injecteur d'événements**. Elle sert à jouer des scénarios de fiction ou à **simuler un exercice ADRASEC** (COD ↔ opérateur de terrain, avec injection d'aléas).
 
@@ -551,6 +587,21 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 ---
 
 ## 📜 Historique des versions
+
+### v1.8.1 — Juin 2026 — Fiabilité : fin des messages tronqués
+
+- 🛠️ **Séquences d'arrêt** empêchant un rôle de **rejouer le tour d'un autre interlocuteur** (le modèle imitait le format `[INVESTIGATEUR]`/`[ANALYSTE]` du contexte et partait en fausse transcription → dépassement de `num_predict`)
+- 🛠️ **Relance automatique sur troncature** : détection de `done_reason == "length"` et reprise de la suite (jusqu'à 2 fois), avec **recollage propre à la dernière phrase complète** — **plus de coupure en plein mot**
+- 🛠️ Nettoyage d'un éventuel **préfixe de rôle** ajouté par le modèle en tête de message
+
+### v1.8 — Juin 2026 — Mode CHAT : l'opérateur acteur réel
+
+- ➕ **Mode CHAT (opt-in)** : l'utilisateur **joue lui-même le LLM2** (Analyste = opérateur ADRASEC de terrain / protagoniste JdR) ; à son tour, une **zone de saisie** s'ouvre sous la conversation et le moteur attend son message
+- ➕ Les autres rôles restent **automatiques** : LLM1 (COD / Maître du Jeu) répond, LLM3 (injecteur) lance ses événements tous les K tours
+- ➕ Message humain **jamais lu par la synthèse vocale**, étiqueté **« (vous) »** dans le fil et les exports ; raccourci **Ctrl+Entrée** pour envoyer
+- ➕ Réglage **persisté** (`chat_humain_actif`) et **transporté par les presets** ; validation assouplie (le LLM2 joué par l'humain n'a besoin ni de modèle ni de cloud)
+- ➕ Nouveau preset de scénario joué : **« Premier contact QO-100 »** (jeu de rôle réaliste, premier contact radio)
+- ✅ Bascule **décochée** : comportement strictement identique à la v1.7
 
 ### v1.7 — Juin 2026 — Mode Jeu de Rôle & Simulation
 
@@ -634,12 +685,12 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis (F1GBD)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.7 — 2026**
+**Version 1.8.1 — 2026**
 
 ---
 
 *Pour toute question, contactez votre référent ADRASEC départemental.*
 
-🤖 **d-IA v1.7** — *Deux IA cherchent — l'une puise dans le web, l'autre invente sur commande —, un troisième arbitre et fait converger, et les fiches alimentent IAbrain. Et en mode Jeu de Rôle, le trio rejoue un scénario — fiction ou exercice ADRASEC — animé par un injecteur d'événements.*
+🤖 **d-IA v1.8.1** — *Deux IA cherchent — l'une puise dans le web, l'autre invente sur commande —, un troisième arbitre et fait converger, et les fiches alimentent IAbrain. En mode Jeu de Rôle, le trio rejoue un scénario — fiction ou exercice ADRASEC — animé par un injecteur d'événements. Et en **Mode CHAT**, c'est **vous** qui tenez l'opérateur de terrain, en direct, dans le scénario.*
 
 </div>
