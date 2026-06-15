@@ -66,6 +66,8 @@ On obtient une **vraie interactivité** : un entraînement de **trafic radio** o
 | LLM3 (injecteur) | automatique | automatique (injecte les aléas) |
 | Usage | démonstration, capitalisation | **entraînement actif, immersion** |
 
+<img src="images/d-IA_3LLM.png" alt="Dialogue a 3 LLM" width="800">
+
 > 💡 Le message que vous tapez **n'est jamais lu par la synthèse vocale** (vous l'avez écrit) et apparaît étiqueté **« (vous) »** dans le fil et les exports. Le réglage est **persisté** et **transportable par les presets** (clé `chat_humain_actif`). Quand vous jouez le LLM2, ce dernier n'a même pas besoin d'un modèle ni d'une connexion cloud. Décoché : comportement strictement identique à la v1.7.
 
 ### 🧯 Fiabilité (v1.8.1) — fini les messages coupés en plein mot
