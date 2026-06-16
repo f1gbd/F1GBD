@@ -4,9 +4,9 @@
 
 ### Dialogue autonome entre deux IA, arbitré par un troisième — un outil d'aide à la recherche par IA
 
-*Conversation scientifique guidée — Investigateur & Analyste — **Mode CHAT — l'opérateur (ou la protagoniste) joué en direct par un humain dans le scénario (v1.8)** — **Mode Jeu de Rôle / Simulation — narrateur · joueur · injecteur d'événements, rôles personnalisables par preset (v1.7)** — **Curseur Créativité / innovation 0–100 % qui fait proposer de nouveaux concepts (v1.5)** — **Rendu Markdown du dialogue + synthèse vocale assainie (v1.4)** — **Enrichissement par le web de l'Investigateur — DuckDuckGo / SearXNG (v1.3)** — **Auto-export des fiches vers IAbrain (v1.3)** — **Modérateur conversationnel qui fait converger le dialogue vers une solution (v1.2)** — Presets de sujet importables/exportables (v1.2) — Mode ADRASEC enrichi (modérateur RAG) — Ollama local & cloud — Mémoire glissante — Détection de dérive linguistique — Synthèse vocale SAPI5 deux voix — Synchronisation dialogue/voix — Export JSON / Markdown / RTF — Thèmes secondaires guidés — Configuration persistante*
+*Conversation scientifique guidée — Investigateur & Analyste — **Génération de preset depuis un PDF — SCENARIO/SITREP → preset auto / JDR / Vibe Research (v1.9)** — **Question directe au LLM1 (v1.9)** — **Mode CHAT — l'opérateur (ou la protagoniste) joué en direct par un humain dans le scénario (v1.8)** — **Mode Jeu de Rôle / Simulation — narrateur · joueur · injecteur d'événements, rôles personnalisables par preset (v1.7)** — **Curseur Créativité / innovation 0–100 % qui fait proposer de nouveaux concepts (v1.5)** — **Rendu Markdown du dialogue + synthèse vocale assainie (v1.4)** — **Enrichissement par le web de l'Investigateur — DuckDuckGo / SearXNG (v1.3)** — **Auto-export des fiches vers IAbrain (v1.3)** — **Modérateur conversationnel qui fait converger le dialogue vers une solution (v1.2)** — Presets de sujet importables/exportables (v1.2) — Mode ADRASEC enrichi (modérateur RAG) — Ollama local & cloud — Mémoire glissante — Détection de dérive linguistique — Synthèse vocale SAPI5 deux voix — Synchronisation dialogue/voix — Export JSON / Markdown / RTF — Thèmes secondaires guidés — Configuration persistante*
 
-[![Version](https://img.shields.io/badge/version-dia--v1.8.1-blue)](https://github.com/f1gbd/F1GBD/releases/tag/dia-v1.8.1)
+[![Version](https://img.shields.io/badge/version-dia--v1.9.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/dia-v1.9.0)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![Local / Cloud](https://img.shields.io/badge/Ollama-local%20%2F%20cloud-brightgreen.svg)]()
@@ -14,11 +14,12 @@
 [![Créativité](https://img.shields.io/badge/v1.5-cr%C3%A9ativit%C3%A9%20pilotable-ff7a59.svg)]()
 [![Jeu de Rôle](https://img.shields.io/badge/v1.7-mode%20jeu%20de%20r%C3%B4le-9b59b6.svg)]()
 [![Mode CHAT](https://img.shields.io/badge/v1.8-mode%20CHAT%20op%C3%A9rateur%20r%C3%A9el-7a2e8a.svg)]()
+[![PDF vers preset](https://img.shields.io/badge/v1.9-preset%20depuis%20PDF-2ea44f.svg)]()
 [![Modérateur](https://img.shields.io/badge/mode-mod%C3%A9rateur%20conversationnel-teal.svg)]()
 [![RAG](https://img.shields.io/badge/mode-ADRASEC%20enrichi-orange.svg)]()
 [![Web](https://img.shields.io/badge/v1.3-enrichissement%20web-blue.svg)]()
 
-### 📥 [**Télécharger la dernière version (v1.8.1)**](https://github.com/f1gbd/F1GBD/releases/download/dia-v1.8.1/d-IA.7z)
+### 📥 [**Télécharger la dernière version (v1.9.0)**](https://github.com/f1gbd/F1GBD/releases/download/dia-v1.9.0/d-IA.7z)
 
 </div>
 
@@ -43,6 +44,28 @@ Tout tourne **localement** par défaut (modèles Ollama auto-hébergés), avec u
 [**Créer son Serveur IAbrain pour la gestion des connaissances et qui fonctionne 100% hors-ligne.**](https://github.com/f1gbd/F1GBD/blob/master/iabrain/Documentations%20IAbrain/MEMO%20-%20Cr%C3%A9er_un_Serveur_IA_M1A_IAbrain.pdf)
 
 > 💡 **La différence clé de la v1.2** : jusqu'ici, deux IA pouvaient explorer un sujet sans jamais conclure. Désormais, un modérateur garde le cap et **force la convergence vers une solution** — d-IA devient un véritable assistant de recherche, pas seulement un générateur de dialogue.
+
+---
+
+## 🆕 Nouveautés v1.9 — Génération de preset depuis un PDF & question directe au LLM1
+
+La **v1.9** accélère la préparation d'exercices et l'usage au quotidien.
+
+### 🧠 Générer un preset depuis un PDF (SCENARIO ou SITREP)
+
+Nouveau menu **📋 Preset de sujet → 🧠 Générer un preset depuis un PDF…** : d-IA lit un **document PDF** (scénario d'exercice ou SITREP), en extrait le texte et demande au **LLM1** d'en produire un **preset `.diapreset.json` prêt à l'emploi**, dans l'un des trois modes au choix :
+
+- 🎭 **Jeu de Rôle** — simulation de crise jouée (COD / opérateur de terrain / injecteur d'événements), avec personas ADRASEC ;
+- 🔬 **Dialogue autonome** — les trois LLM analysent le document ;
+- 🛰️ **Vibe Research** — exploration prospective.
+
+Le preset est **appliqué immédiatement** (sujet, thèmes/phases, rôles, réglages) et peut être **enregistré** en `.diapreset.json`. Tout est **hors ligne** (modèle local + extraction PDF embarquée). Idéal pour transformer un **point de situation COD** ou un **SITREP réel** en exercice rejouable.
+
+### ❓ Question directe au LLM1
+
+Un bouton **❓ Question au LLM1** (colonne de gauche) ouvre la **zone de saisie** sous la conversation : tapez une question (multi-ligne, **Ctrl+Entrée** pour envoyer, **Échap** pour annuler) et le **LLM1** répond directement dans le fil — **sans lancer de dialogue**. Pratique pour interroger le COD / l'Investigateur à la volée pendant la préparation.
+
+> 💡 Le binaire embarque désormais **pypdf** pour la lecture des PDF. Non utilisées, ces fonctions ne changent rien au comportement de la v1.8.
 
 ---
 
@@ -590,6 +613,13 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 
 ## 📜 Historique des versions
 
+### v1.9.0 — Juin 2026 — Génération de preset depuis un PDF & question au LLM1
+
+- ➕ **Génération de preset depuis un PDF** (menu Preset de sujet → 🧠 Générer un preset depuis un PDF…) : lecture d'un **SCENARIO ou d'un SITREP PDF**, extraction du texte, et production par le **LLM1** d'un preset `.diapreset.json` dans l'un des trois modes — **Jeu de Rôle** (simulation ADRASEC), **Dialogue autonome 3 LLM** ou **Vibe Research**. Preset **appliqué immédiatement** et **enregistrable**. 100 % hors ligne (**pypdf** embarqué dans le binaire).
+- ➕ **Bouton « ❓ Question au LLM1 »** : pose une question directe au LLM1 via la **zone de saisie** de la conversation (multi-ligne, **Ctrl+Entrée** / **Échap**) ; la réponse s'affiche dans le fil, **sans lancer de dialogue**.
+- 🛠️ Ergonomie : fenêtres **« Type de preset à générer »** et **« Aperçu du preset courant »** redimensionnées (aperçu en **format large, défilant**).
+- ✅ Comportement de la v1.8 **inchangé** si ces fonctions ne sont pas utilisées.
+
 ### v1.8.1 — Juin 2026 — Fiabilité : fin des messages tronqués
 
 - 🛠️ **Séquences d'arrêt** empêchant un rôle de **rejouer le tour d'un autre interlocuteur** (le modèle imitait le format `[INVESTIGATEUR]`/`[ANALYSTE]` du contexte et partait en fausse transcription → dépassement de `num_predict`)
@@ -687,12 +717,12 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis (F1GBD)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.8.1 — 2026**
+**Version 1.9.0 — 2026**
 
 ---
 
 *Pour toute question, contactez votre référent ADRASEC départemental.*
 
-🤖 **d-IA v1.8.1** — *Deux IA cherchent — l'une puise dans le web, l'autre invente sur commande —, un troisième arbitre et fait converger, et les fiches alimentent IAbrain. En mode Jeu de Rôle, le trio rejoue un scénario — fiction ou exercice ADRASEC — animé par un injecteur d'événements. Et en **Mode CHAT**, c'est **vous** qui tenez l'opérateur de terrain, en direct, dans le scénario.*
+🤖 **d-IA v1.9.0** — *Deux IA cherchent — l'une puise dans le web, l'autre invente sur commande —, un troisième arbitre et fait converger, et les fiches alimentent IAbrain. En mode Jeu de Rôle, le trio rejoue un scénario — fiction ou exercice ADRASEC — animé par un injecteur d'événements. Et en **Mode CHAT**, c'est **vous** qui tenez l'opérateur de terrain, en direct, dans le scénario.*
 
 </div>
