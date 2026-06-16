@@ -2,8 +2,6 @@
 
 <img src="IAbrain_logo.png" alt="IAbrain" width="300">
 
-# IAbrain
-
 ### L'assistant IA local pour les opérateurs ADRASEC
 
 *Communications résilientes — Documentation opérationnelle — Rédaction de SITREP — SITREP PDF auto-rempli — SITREP SATER PDF — Cartographie interactive — Carte de position géocodée IGN — Corrections manuelles — 24 macros colorées et partageables — Actions natives — Connectivité Ollama Cloud — Mémoire conversationnelle — Profil opérateur — Variables de session — Pipeline SATER complet — Plugins externes extensibles — Auto-exécution de macros par le LLM — Exécution non-bloquante avec feedback live — Interface vocale STT/TTS pour usage mains libres et accessibilité — **Vibe Coding Python (panneau de code exportable, gestion automatique du contexte)** — **Avatar IAbrain animé***
