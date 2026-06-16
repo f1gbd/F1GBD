@@ -55,9 +55,9 @@ La **v1.9** accélère la préparation d'exercices et l'usage au quotidien.
 
 Nouveau menu **📋 Preset de sujet → 🧠 Générer un preset depuis un PDF…** : d-IA lit un **document PDF** (scénario d'exercice ou SITREP), en extrait le texte et demande au **LLM1** d'en produire un **preset `.diapreset.json` prêt à l'emploi**, dans l'un des trois modes au choix :
 
-- 🎭 **Jeu de Rôle** — simulation de crise jouée (COD / opérateur de terrain / injecteur d'événements), avec personas ADRASEC ;
+- 🎭 **Jeu de Rôle / Simulation** — simulation de crise jouée (COD / opérateur de terrain / injecteur d'événements), avec personas ADRASEC ;
 - 🔬 **Dialogue autonome** — les trois LLM analysent le document ;
-- 🛰️ **Vibe Research** — exploration prospective.
+- 🛰️ **Vibe Research** — les 3 IA (LLM) collaborent avec vous pour mener une étude scientifique complète du début à la fin.
 
 Le preset est **appliqué immédiatement** (sujet, thèmes/phases, rôles, réglages) et peut être **enregistré** en `.diapreset.json`. Tout est **hors ligne** (modèle local + extraction PDF embarquée). Idéal pour transformer un **point de situation COD** ou un **SITREP réel** en exercice rejouable.
 
@@ -65,7 +65,6 @@ Le preset est **appliqué immédiatement** (sujet, thèmes/phases, rôles, régl
 
 Un bouton **❓ Question au LLM1** (colonne de gauche) ouvre la **zone de saisie** sous la conversation : tapez une question (multi-ligne, **Ctrl+Entrée** pour envoyer, **Échap** pour annuler) et le **LLM1** répond directement dans le fil — **sans lancer de dialogue**. Pratique pour interroger le COD / l'Investigateur à la volée pendant la préparation.
 
-> 💡 Le binaire embarque désormais **pypdf** pour la lecture des PDF. Non utilisées, ces fonctions ne changent rien au comportement de la v1.8.
 
 ---
 
