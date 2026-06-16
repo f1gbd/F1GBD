@@ -11,9 +11,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v11.1.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/tcq-v11.1.0)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v11.1.4-blue)](https://github.com/f1gbd/F1GBD/releases/tag/tcq-v11.1.4)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v11.1.0/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v11.1.4/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -26,6 +26,38 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 [**📜 Toutes les releases TCQ**](https://github.com/f1gbd/F1GBD/releases?q=tcq) • [**📚 Documentation**](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations)
 
 </div>
+
+---
+
+## 🆕 Quoi de neuf en v11.1.4
+
+> **📋 Radiogrammes MeshCore plus rapides et plus sûrs** — Trois améliorations du transfert fragmenté de radiogrammes ADRASEC sur MeshCore LoRa, en complément du correctif « canal » de la v11.1.1.
+>
+> **⏱️ Fin des retransmissions systématiques (timeout d'ACK adaptatif)** — Sur LoRa, chaque paquet de données partait souvent **deux fois** : le délai d'attente d'accusé de réception était plus court que l'aller-retour radio des trames de données (plus volumineuses que l'initialisation). TCQ **mesure désormais le temps d'aller-retour réel** et adapte le délai en conséquence (puis l'affine paquet par paquet). Résultat : **~2× moins d'air-time** par radiogramme et des transferts plus rapides, sans sacrifier la détection d'échec (plafond réglable via `ack_timeout_max`).
+>
+> **🔒 Accusés de réception idempotents** — Un ACK dupliqué ou périmé (typiquement provoqué par une retransmission) ne peut plus déclencher par erreur l'envoi du paquet suivant. Correction d'un défaut latent de double émission.
+>
+> **🔁 Mode bouclage local (test en solo)** — Nouvelle case **« Bouclage local »** dans la fenêtre Radiogramme : elle exécute toute la chaîne de données (compression → fragmentation → réassemblage → CRC → authentification → affichage) **sans radio ni seconde station**, et ouvre la fenêtre « radiogramme reçu ». Idéal pour **valider la chaîne avant un exercice** sur un seul poste. Le handshake radio n'est pas rejoué (il nécessite un vrai lien distant).
+>
+> **🩺 Diagnostic d'échec affiné** — Lorsqu'un radiogramme sur canal échoue, TCQ distingue désormais « **aucun poste à l'écoute / hors de portée** » de « **un poste est présent mais n'a pas accusé réception** » (autre extrémité qui n'est pas une station TCQ ≥ 11.1.1 : nœud MeshCore simple, appli téléphone, ou version trop ancienne).
+>
+> **Action recommandée** : passez à la v11.1.4 si vous transmettez des radiogrammes sur MeshCore. Rappel : un radiogramme est un transfert **fiable avec accusé de réception** — il ne fonctionne qu'**entre stations TCQ ≥ 11.1.1**. Un message texte simple, lui, reste « tire-et-oublie » et passe vers n'importe quel nœud MeshCore.
+
+---
+
+## 🆕 Quoi de neuf en v11.1.2
+
+> **🌐 Transferts MeshCore sur canal réparés — compatibilité firmware MeshCore v1.x (≥ 1.6)** — Sur les nœuds MeshCore récents, l'envoi d'un **radiogramme ou d'un fichier diffusé sur un canal** (Canal Public, Canal Urgence ADRASEC…) échouait : la transmission bouclait sur *« Attente ACK initialisation… »* puis *« Timeout INIT, retry x/10 »* avant d'être annulée, alors que les **messages texte simples passaient** normalement.
+>
+> **Cause** : sur un canal, les messages MeshCore sont **anonymes** — la trame reçue ne contient aucune clé d'expéditeur. Or le protocole de transfert de TCQ renvoyait ses accusés de réception (ACK) en **message direct** vers cette clé absente ; l'ACK n'atteignait donc jamais l'émetteur.
+>
+> **Correctif** : les ACK sont désormais renvoyés **sur le canal de réception**, et l'auto-écho des nœuds récents (qui réémettent vos propres trames) est filtré. Les radiogrammes et fichiers repassent en diffusion sur canal. La liaison en **contact direct** (point à point) n'est pas affectée.
+>
+> **🩺 Diagnostic d'échec à l'écran (v11.1.2)** — Quand un transfert sur canal échoue malgré tout, TCQ affiche maintenant la **cause probable** plutôt qu'un simple timeout :
+> - *« Trafic reçu sur le canal, mais aucun ACK conforme »* → le **poste distant est en version < 11.1.1** (à mettre à jour).
+> - *« Aucune réponse ni trafic distant détecté »* → poste distant **hors de portée**, éteint, ou non à l'écoute du canal.
+>
+> **Action recommandée** : pour un radiogramme **diffusé sur canal**, les **deux stations** doivent tourner en **v11.1.1 ou supérieure** (le poste distant doit renvoyer l'ACK sur le canal). En **contact direct**, ancien et nouveau restent interopérables.
 
 ---
 
@@ -80,7 +112,7 @@ Conçu pour les opérations ADRASEC et les exercices de sécurité civile, TCQ p
 | 📨 | **LXMF / Reticulum** | Messagerie chiffrée bout-en-bout (X25519 + AES-128 + HMAC-SHA256), multi-saut, résiliente. Compatible TCP, série, LoRa, packet AX.25 et passerelle VARA. |
 | 📡 | **VARA HF / FM / SAT** | Modems ARQ haute performance (EA5HVK) intégrés avec protection idle/timeout, suspension/reprise des transferts, détection automatique du chemin VARA. |
 | 📻 | **TNC Packet (AX.25)** | Direwolf lancé automatiquement avec configuration adaptée à votre carte son. Modes KISS et AGWPE. Support BBS et PDF radio. |
-| 🌐 | **MeshCore LoRa** | Protocole mesh LoRa natif pour communications de proximité en zone d'exercice ou d'intervention. |
+| 🌐 | **MeshCore LoRa** | Protocole mesh LoRa natif pour communications de proximité en zone d'exercice ou d'intervention. Messagerie, BBS et **transferts de radiogrammes / fichiers diffusés sur canal** (Public, Urgence) — compatibles firmware MeshCore récent (≥ v1.6). |
 | 🖼️ | **SSTV temps réel** | Décodeur porté de slowrx — Scottie (S1/S2/SDX), Martin (M1/M2), Robot (36/72), PD (50→240). Waterfall + visualiseur plein écran + bouton Resync. |
 | 🎵 | **CW / Morse** | Décodeur DSP avec seuillage adaptatif et clustering K-means. **QSObrain** pour QSO CW entièrement autonomes (CSMA, WPM adaptatif, anti-self-CQ). |
 | 📬 | **BBS Multi-modes** | Bulletin Board System sur TNC Packet et MeshCore avec compteur paquets, réassemblage automatique, persistance SQLite. |
@@ -561,7 +593,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v11.1.0 — 2026-06-12**
+**Version v11.1.4 — 2026-06-16**
 
 ---
 
