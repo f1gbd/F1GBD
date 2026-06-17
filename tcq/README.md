@@ -11,9 +11,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v11.1.5-blue)](https://github.com/f1gbd/F1GBD/releases/tag/tcq-v11.1.5)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v11.1.7-blue)](https://github.com/f1gbd/F1GBD/releases/tag/tcq-v11.1.7)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v11.1.5/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v11.1.7/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -29,17 +29,27 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 
 ---
 
+## 🆕 Quoi de neuf en v11.1.7 — Fiabilité fichier/image MeshCore
+
+> Transferts de **fichiers et d'images** sur MeshCore LoRa nettement plus fiables et plus rapides 
+>
+> **🖼️ Compression automatique des images** — Le bouton **Image** redimensionne et compresse maintenant l'image **automatiquement** pour tenir sous le budget de transfert (≈ **3 Ko / 100 paquets**), gage de fiabilité sur LoRa. L'ajustement vise le **nombre réel de paquets** (et non une simple taille en kilo-octets, trompeuse selon le contenu), en conservant la plus grande dimension et la meilleure qualité possibles. Si l'image dépasse encore le budget au réglage minimal, elle part quand même avec un avertissement.
+>
+> **⚠️ Avertissement de volume** — Tout fichier ou image dépassant ~100 paquets affiche un conseil de compression (transfert long et fragile sur LoRa).
+
+---
+
 ## 🆕 Quoi de neuf en v11.1.5
 
-> **🔌 Déconnexion MeshCore rapide et fiable**
+> **🔌 Déconnexion MeshCore rapide et fiable 
 
-> **📋 Radiogrammes MeshCore plus rapides et plus sûrs** — Trois améliorations du transfert fragmenté de radiogrammes ADRASEC sur MeshCore LoRa
+> **📋 Radiogrammes MeshCore plus rapides et plus sûrs** — Trois améliorations du transfert fragmenté de radiogrammes ADRASEC sur MeshCore LoRa.
 >
-> **🔁 Mode bouclage local (test en solo)** — Nouvelle case **« Bouclage local »** dans la fenêtre Radiogramme : elle exécute toute la chaîne de données (compression → fragmentation → réassemblage → CRC → authentification → affichage) **sans radio ni seconde station**, et ouvre la fenêtre « radiogramme reçu ». Idéal pour **valider la chaîne avant un exercice** sur un seul poste. 
+> **🔁 Mode bouclage local (test en solo)** — Nouvelle case **« Bouclage local »** dans la fenêtre Radiogramme : elle exécute toute la chaîne de données (compression → fragmentation → réassemblage → CRC → authentification → affichage) **sans radio ni seconde station**, et ouvre la fenêtre « radiogramme reçu ». Idéal pour **valider la chaîne avant un exercice** sur un seul poste. Le handshake radio n'est pas rejoué (il nécessite un vrai lien distant).
 >
-> **🩺 Diagnostic d'échec affiné** — Lorsqu'un radiogramme sur canal échoue, TCQ distingue désormais « **aucun poste à l'écoute / hors de portée** » de « **un poste est présent mais n'a pas accusé réception** » (autre extrémité qui n'est pas une station TCQ ≥ 11.1.5 : nœud MeshCore simple, appli téléphone, ou version trop ancienne).
+> **🩺 Diagnostic d'échec affiné** — Lorsqu'un radiogramme sur canal échoue, TCQ distingue désormais « **aucun poste à l'écoute / hors de portée** » de « **un poste est présent mais n'a pas accusé réception** » (autre extrémité qui n'est pas une station TCQ ≥ 11.1.1 : nœud MeshCore simple, appli téléphone, ou version trop ancienne).
 >
-> **Action recommandée** : passez à la v11.1.4 si vous transmettez des radiogrammes sur MeshCore. Rappel : un radiogramme est un transfert **fiable avec accusé de réception** — il ne fonctionne qu'**entre stations TCQ ≥ 11.1.5**. Un message texte simple, lui, reste « tire-et-oublie » et passe vers n'importe quel nœud MeshCore.
+> **Action recommandée** : passez à la v11.1.4 si vous transmettez des radiogrammes sur MeshCore. Rappel : un radiogramme est un transfert **fiable avec accusé de réception** — il ne fonctionne qu'**entre stations TCQ ≥ 11.1.1**. Un message texte simple, lui, reste « tire-et-oublie » et passe vers n'importe quel nœud MeshCore.
 
 ---
 
@@ -575,7 +585,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v11.1.5 — 2026-06-16**
+**Version v11.1.7 — 2026-06-16**
 
 ---
 
