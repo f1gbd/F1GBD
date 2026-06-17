@@ -11,9 +11,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v11.1.7-blue)](https://github.com/f1gbd/F1GBD/releases/tag/tcq-v11.1.7)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v11.1.10-blue)](https://github.com/f1gbd/F1GBD/releases/tag/tcq-v11.1.10)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v11.1.7/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v11.1.10/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -29,7 +29,7 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 
 ---
 
-## 🆕 Quoi de neuf en v11.1.7 — Fiabilité fichier/image MeshCore
+## 🆕 Quoi de neuf en v11.1.10 — Fiabilité fichier/image MeshCore
 
 > Transferts de **fichiers et d'images** sur MeshCore LoRa nettement plus fiables et plus rapides 
 >
@@ -585,7 +585,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v11.1.7 — 2026-06-16**
+**Version v11.1.10 — 2026-06-16**
 
 ---
 
