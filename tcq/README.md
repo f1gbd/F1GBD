@@ -31,6 +31,20 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 
 ## 🆕 Quoi de neuf en v11.1.5
 
+> **🔌 Déconnexion MeshCore rapide et fiable**
+
+> **📋 Radiogrammes MeshCore plus rapides et plus sûrs** — Trois améliorations du transfert fragmenté de radiogrammes ADRASEC sur MeshCore LoRa
+>
+> **🔁 Mode bouclage local (test en solo)** — Nouvelle case **« Bouclage local »** dans la fenêtre Radiogramme : elle exécute toute la chaîne de données (compression → fragmentation → réassemblage → CRC → authentification → affichage) **sans radio ni seconde station**, et ouvre la fenêtre « radiogramme reçu ». Idéal pour **valider la chaîne avant un exercice** sur un seul poste. 
+>
+> **🩺 Diagnostic d'échec affiné** — Lorsqu'un radiogramme sur canal échoue, TCQ distingue désormais « **aucun poste à l'écoute / hors de portée** » de « **un poste est présent mais n'a pas accusé réception** » (autre extrémité qui n'est pas une station TCQ ≥ 11.1.5 : nœud MeshCore simple, appli téléphone, ou version trop ancienne).
+>
+> **Action recommandée** : passez à la v11.1.4 si vous transmettez des radiogrammes sur MeshCore. Rappel : un radiogramme est un transfert **fiable avec accusé de réception** — il ne fonctionne qu'**entre stations TCQ ≥ 11.1.5**. Un message texte simple, lui, reste « tire-et-oublie » et passe vers n'importe quel nœud MeshCore.
+
+---
+
+## 🆕 Quoi de neuf en v11.1.0
+
 > **📄 Transferts PDF radio plus robustes — `pdf_trans` v1.0.6** — TCQ embarque la dernière bibliothèque de compression PDF, qui corrige deux cas fréquents en exercice ADRASEC :
 >
 > **🔄 PDF scannés ou tournés** (arrêtés préfectoraux numérisés, fax, documents avec rotation de page…) : ils ressortaient **basculés à 90° sur fond noir** après recomposition. TCQ **détecte désormais automatiquement** ces documents et bascule en mode rendu image — rotation respectée, couches d'encre correctement composées — sans aucune manipulation côté opérateur.
