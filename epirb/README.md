@@ -6,19 +6,19 @@
 
 *Décodage EPIRB/ELT/PLB — Génération de trames d'exercice — SDR Direct RTL-SDR — Démodulation FM IQ — Audio Live / Fichier WAV / Hex — Carte OSM avec relèvements goniométriques — Triangulation ELT — **APRS-IS (compatible SATERfinder Android)** — SITREP PDF — MGRS — Thème clair/sombre — Export CSV*
 
-[![Decoder](https://img.shields.io/badge/decoder-v5.6.0-blue)](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.6.0/EPIRBdecoder.7z)
-[![Generator](https://img.shields.io/badge/generator-v3.6.1-blue)](https://github.com/f1gbd/F1GBD/releases?q=epirb)
+[![Decoder](https://img.shields.io/badge/decoder-v5.20-blue)](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.20/EPIRBdecoder.7z)
+[![Generator](https://img.shields.io/badge/generator-v3.7.5-blue)](https://github.com/f1gbd/F1GBD/releases?q=epirb)
 [![SATERfinder](https://img.shields.io/badge/SATERfinder_Android-v1.0-orange?logo=android)](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder)
 [![Téléchargements](https://img.shields.io/badge/téléchargements-actifs-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases?q=epirb)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![Mission](https://img.shields.io/badge/mission-COSPAS--SARSAT-orange.svg)]()
 
-### 🆕 v5.6.0 — Intégration APRS-IS et compatibilité SATERfinder Android
+### 🆕 v5.20 / v3.7.5 — Conformité protocole COSPAS-SARSAT renforcée
 
-Les relèvements goniométriques d'EPIRBdecoder sont désormais **partagés en temps réel** via APRS-IS avec les équipes terrain équipées de [SATERfinder Android](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder). Le PCS voit apparaître automatiquement sur sa carte les relevés émis par chaque équipe ; la triangulation collective devient immédiate.
+Cette série fiabilise le **cœur de décodage/encodage** des trames 406 MHz : polynôme **BCH-1 corrigé** (les trames générées passent désormais le contrôle BCH-1 du véritable système C-S), **table des codes protocole officiels** (Standard Location 2-7 et 14, **National Location** code 15), décodage du protocole **National Location** avec sa structure de position propre, et **position à la résolution 4 secondes** (Standard et National via offset PDF-2). Générateur et décodeur sont mis en cohérence pour un **aller-retour exact**, avec un test intégré fonctionnant aussi bien depuis le source que depuis l'exe. L'interopérabilité **APRS-IS** avec SATERfinder Android reste pleinement opérationnelle.
 
-### 📥 [**Télécharger EPIRB Suite v5.6.0 (Windows)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.6.0/EPIRBdecoder.7z) · [**SATERfinder Android v1.0 (APK)**](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder)
+### 📥 [**Télécharger EPIRB Suite v5.20 (Windows)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.20/EPIRBdecoder.7z) · [**SATERfinder Android v1.0 (APK)**](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder)
 
 </div>
 
@@ -30,8 +30,8 @@ La **EPIRB 406 MHz Suite** regroupe désormais **trois outils complémentaires**
 
 | Outil | Plateforme | Rôle |
 |---|---|---|
-| 📡 **EPIRB Decoder** (v5.6.0) | Windows 10/11 | Décodeur complet de trames 406 MHz — RTL-SDR, Audio Live, fichier WAV, Hex direct, carte OSM avec triangulation, SITREP PDF, **APRS-IS** (v5.6.0) |
-| 🛰 **EPIRB Generator** (v3.6.1) | Windows 10/11 | Générateur de trames d'exercice 406 MHz — émission audio directe, PTT série, signal Manchester 400 bauds conforme COSPAS-SARSAT T.001 |
+| 📡 **EPIRB Decoder** (v5.20) | Windows 10/11 | Décodeur complet 406 MHz — RTL-SDR, Audio Live, WAV, Hex direct, codes protocole officiels + **National Location**, position 4 s, carte OSM/triangulation, **APRS-IS**, SITREP PDF |
+| 🛰 **EPIRB Generator** (v3.7.5) | Windows 10/11 | Générateur de trames d'exercice 406 MHz — émission audio directe, PTT série, signal Manchester 400 bauds conforme COSPAS-SARSAT T.001 |
 | 📱 **SATERfinder** (v1.0) | Android 7+ | Application terrain de relevés goniométriques pour équipes mobiles — carte OSM, GPS interne, triangulation ELT, **partage APRS-IS** avec EPIRBdecoder PC |
 
 Les trois outils forment un **écosystème intégré** : le générateur produit des trames d'exercice décodées par EPIRBdecoder, les équipes terrain équipées de SATERfinder émettent leurs relèvements vers le PCS via APRS-IS, et la triangulation collective converge en temps réel sur la carte du chef de mission. Cela permet des scénarios de formation et des opérations réelles complets, sans dépendre de balises matérielles.
@@ -42,7 +42,7 @@ L'ensemble est destiné à la **formation des opérateurs ADRASEC**, aux **exerc
 
 ## ⭐ Fonctionnalités principales
 
-### 📡 EPIRB Decoder v5.6.0
+### 📡 EPIRB Decoder v5.20
 
 | Icône | Fonctionnalité | Description |
 |:---:|---|---|
@@ -68,7 +68,7 @@ L'ensemble est destiné à la **formation des opérateurs ADRASEC**, aux **exerc
 | 📤 | **Export / Import CSV** | Export des relèvements en CSV (point-virgule) avec indicatif, coordonnées DMS et décimales, azimut, signal et horodatage. Import CSV pour reprise de session ou échange inter-opérateurs. |
 | 📝 | **Journal de décodage** | Export du journal complet de la session (trames décodées, horodatages, paramètres) vers un fichier texte. |
 
-### 🛰 EPIRB Generator v3.6.1
+### 🛰 EPIRB Generator v3.7.5
 
 | Icône | Fonctionnalité | Description |
 |:---:|---|---|
@@ -102,12 +102,12 @@ PC ◀──USB── Digirig Mobile ◀──audio── FT-5DE (mode FM, 12.5 
 
 | Étape | Équipement | Configuration |
 |---|---|---|
-| **1. Source logicielle** | EPIRB Generator v3.6 | Trame test : 227 (France), protocole 14 (Std Loc. RLS), ID 0425A4 |
+| **1. Source logicielle** | EPIRB Generator v3.7.5 | Trame test : 227 (France), protocole 14 (Std Loc. RLS), ID 0425A4 |
 | **2. Interface TX** | Yaesu SCU-17 | Carte son USB + PTT série CAT (Yaesu FT-817 dans `generator_setup.json`) |
 | **3. Émetteur** | Yaesu FT-817ND | **Mode PKT** (Packet FM), 434,275 MHz, 0,5-5 W, entrée audio DATA arrière |
 | **4. Récepteur** | Yaesu FT-5DE | Mode FM standard, 12,5 kHz, sortie audio jack 3,5 mm |
 | **5. Interface RX** | Digirig Mobile | Carte son USB miniature, câble dédié Yaesu FT-5 |
-| **6. Décodeur** | EPIRB Decoder v5.6.0 | Mode **Audio Live** (entrée USB Audio Codec) — décodage immédiat |
+| **6. Décodeur** | EPIRB Decoder v5.20 | Mode **Audio Live** (entrée USB Audio Codec) — décodage immédiat |
 
 > ⚠ **Configurations à éviter** : Le mode FM standard sur l'entrée MIC du FT-817ND introduit du pre-emphasis incompatible avec le Manchester. Le mode DIG (SSB Data) utilise un filtre IF trop étroit (~2,4 kHz). Le décodage Audio Live à partir d'un récepteur FM physique calibré reste la solution la plus robuste pour la formation et les exercices.
 
@@ -171,9 +171,9 @@ Bouton dédié qui lance automatiquement la chaîne : génération → WAV → E
 
 <div align="center">
 
-#### 📥 [**Télécharger EPIRBdecoder.7z (Suite complète)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.6.0/EPIRBdecoder.7z)
+#### 📥 [**Télécharger EPIRBdecoder.7z (Suite complète)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.20/EPIRBdecoder.7z)
 
-*(archive contenant Decoder v5.6.0 + Generator v3.6.1 — voir [toutes les releases EPIRB](https://github.com/f1gbd/F1GBD/releases?q=epirb) pour les versions précédentes)*
+*(archive contenant Decoder v5.20 + Generator v3.7.5 — voir [toutes les releases EPIRB](https://github.com/f1gbd/F1GBD/releases?q=epirb) pour les versions précédentes)*
 
 [![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
 
@@ -224,13 +224,18 @@ Bouton dédié qui lance automatiquement la chaîne : génération → WAV → E
 
 ## 📡 Protocoles COSPAS-SARSAT décodés
 
-| Type de balise | Protocole | Informations extraites |
-|---|---|---|
-| **EPIRB** | Maritime MMSI | MMSI 9 chiffres, numéro de série, position GPS |
-| **ELT** | Aviation OACI 24 bits | Adresse OACI, type d'aéronef, position GPS |
-| **ELT-DT** | ELT avec données | Données étendues, position haute résolution |
-| **PLB** | Serial / National | Numéro de série, code pays, identification nationale |
-| **Test** | Protocole de test | Balise d'exercice ADRASEC, mode EXER |
+| Code | Protocole (Location) | Identification | Position |
+|:---:|---|---|---|
+| 2 | EPIRB MMSI | MMSI (bits 41-60) + n° EPIRB | PDF-1 + offset PDF-2 (4 s) |
+| 3 | ELT aviation OACI 24 bits | Adresse OACI (41-64) | PDF-1 + offset PDF-2 (4 s) |
+| 4 | ELT n° de série | TAC (41-50) + série (51-64) | PDF-1 + offset PDF-2 (4 s) |
+| 5 | ELT exploitant aérien | Désignateur (41-55) + série (56-64) | PDF-1 + offset PDF-2 (4 s) |
+| 6 | EPIRB n° de série | TAC + numéro de série | PDF-1 + offset PDF-2 (4 s) |
+| 7 | PLB n° de série | TAC + numéro de série | PDF-1 + offset PDF-2 (4 s) |
+| 14 | RLS / Standard Location | Identifiant balise 24 bits (41-64) | PDF-1 + offset PDF-2 (4 s) |
+| 15 | **National Location (Test)** | Identification nationale 18 bits (41-58) | PDF-1 National (2') + offset 4 s si bit 110=1 |
+
+> **Familles de position.** Les codes 2-7 et 14 suivent la structure **Standard Location** (position grossière PDF-1 + offset fin PDF-2 à 4 s). Le code 15 **National Location** possède une structure propre (PDF-1 à 2', offset fin 4 s optionnel signalé par le bit 110). Les codes non documentés (0, 1, 8-13) sont signalés **sans décodage de position**, par prudence SAR.
 
 Chaque trame décodée affiche :
 - **Type de protocole** et code pays (MID / code OACI)
@@ -393,7 +398,11 @@ Le bouton **Se connecter** établit la liaison ; le statut sous le panneau confi
 
 | Version | Apport principal |
 |---|---|
-| **v5.6.0** | **Version courante** — Intégration **APRS-IS** dans l'onglet Carte : connexion à `euro.aprs2.net`, émission et réception de relèvements goniométriques en temps réel avec les autres stations EPIRBdecoder et avec l'application Android compagnon **SATERfinder**. Protocole `EPIRB-GONIO` partagé. Sauvegarde indicatif / passcode / serveur dans `decoder_setup.json`. Émission automatique optionnelle de chaque nouveau relevé. |
+| **v5.20** | **Version courante** — Conformité protocole renforcée : décodage **National Location** (code 15) avec sa structure de position propre et **offset fin 4 s** (signalé par le bit 110), **table des codes officiels** C-S, polynôme **BCH-1 corrigé**, mode CLI `--file --json` (décodage sans GUI). |
+| v5.17 | Code 14 (RLS / Standard Location) reclassé dans la famille Standard |
+| v5.15 | Découverte et support du protocole **National Location** (code 15) |
+| v5.12 | Correctif majeur du polynôme générateur **BCH-1** (validation conforme au système C-S) |
+| v5.6.0 | Intégration **APRS-IS** (onglet Carte) : partage temps réel des relèvements avec **SATERfinder Android** et les stations EPIRBdecoder, protocole `EPIRB-GONIO` |
 | v5.5.1 | Triangulation ELT par moindres carrés avec CEP 95%, SITREP SATER PDF professionnel avec logo ADRASEC et capture carte, bouton Position GPS → Relevé |
 | v5.3.x | Coordonnées MGRS, pré-positionnement visuel, zone carte sauvegardée, bouton Position GPS |
 | v5.2.x | Carte plein écran, collage rapide Google Maps, force du signal dans les relevés, panneau relevés optimisé |
@@ -407,7 +416,8 @@ Le bouton **Se connecter** établit la liaison ; le statut sous le panneau confi
 
 | Version | Apport principal |
 |---|---|
-| **v3.6.1** | **Version courante** — Suppression du filtre passe-bas en bande de base, Manchester carré pur fidèle au signal d'une vraie balise 406, marge de décodage maximale en chaîne FM Packet |
+| **v3.7.5** | **Version courante** — Position **National Location à 4 s** (offset PDF-2), mise en cohérence complète avec le décodeur (codes officiels, BCH-1, familles Standard / National), test aller-retour fonctionnant en **source et en exe** |
+| v3.6.1 | Suppression du filtre passe-bas en bande de base, Manchester carré pur fidèle au signal d'une vraie balise 406 |
 | v3.5 | Filtre passe-bas 1200 Hz Butterworth ordre 4, contenu spectral élargi |
 | v3.4 | Version initiale GUI Pro, palette SAR Tactical Dark, support 16 transceivers CAT, mode EXER ADRASEC |
 
@@ -422,7 +432,7 @@ Pour le détail de tous les changements, consultez le [changelog complet sur Git
 │                    EPIRB 406 MHz Suite                               │
 │                                                                      │
 │  ┌────────────────────────────┐  ┌────────────────────────────────┐  │
-│  │  EPIRB Generator v3.6      │  │  EPIRB Decoder v5.4            │  │
+│  │  EPIRB Generator v3.7      │  │  EPIRB Decoder v5.20           │  │
 │  │  (interface Tkinter)       │  │  (interface Tkinter)           │  │
 │  │                            │  │                                │  │
 │  │  - Construction trame 144  │  │  - 4 onglets d'entrée :        │  │
@@ -504,7 +514,7 @@ Toute contribution, retour d'exercice ou proposition d'amélioration est bienven
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**EPIRB Decoder v5.6.0 + EPIRB Generator v3.6.1 — Mai 2026**
+**EPIRB Decoder v5.20 + EPIRB Generator v3.7.5 — Juin 2026**
 
 ---
 
