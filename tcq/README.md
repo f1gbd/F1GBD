@@ -11,9 +11,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.20.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.23.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.20.0/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.23.0/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -26,6 +26,22 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 [**📜 Toutes les releases TCQ**](https://github.com/f1gbd/F1GBD/releases?q=tcq) • [**📚 Documentation**](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations)
 
 </div>
+
+---
+
+## 🆕 Quoi de neuf en v12.23 — Canaux privés MeshCore (clé secrète)
+
+> **🔒 Canaux MeshCore privés protégés par clé secrète** — l'onglet **« 📡 Canaux »** du mode MeshCore permet désormais de **créer, partager et rejoindre** des canaux **chiffrés**, exactement comme l'application MeshCore officielle.
+>
+> **➕ Créer un canal privé** — nom + **clé secrète de 16 octets** (32 caractères hexadécimaux), avec **génération aléatoire** de clé en un clic et choix de l'emplacement. Le canal apparaît avec un cadenas **🔒**.
+>
+> **🔑 Partager la clé** — TCQ génère un **QR Code** et une **URL `meshcore://`** : les autres opérateurs **scannent le QR** (appli MeshCore) ou importent l'URL. Boutons **Copier l'URL** et **Enregistrer le QR en PNG** (transmissible par Winlink, e-mail, messagerie…).
+>
+> **📥 Rejoindre un canal** — import par URL `meshcore://channel/add?...`. À la **première sélection** d'un canal privé, la clé est **demandée une seule fois** puis **mémorisée** pour les connexions suivantes.
+>
+> **ℹ️ Vérifier** — un outil de diagnostic relit la clé **dans le module** et affiche le **hash de canal on-air**, pour confirmer en un coup d'œil que tous les postes partagent bien la même clé.
+>
+> **🛡️ Programmation automatique** — TCQ programme la clé dans le firmware MeshCore (l'emplacement **Public** reste intact), condition indispensable au chiffrement/déchiffrement du trafic de canal.
 
 ---
 
@@ -92,7 +108,7 @@ Conçu pour les opérations ADRASEC et les exercices de sécurité civile, TCQ p
 | 📨 | **LXMF / Reticulum** | Messagerie chiffrée bout-en-bout (X25519 + AES-128 + HMAC-SHA256), multi-saut, résiliente. Compatible TCP, série, LoRa, packet AX.25 et passerelle VARA. |
 | 📡 | **VARA HF / FM / SAT** | Modems ARQ haute performance (EA5HVK) intégrés avec protection idle/timeout, suspension/reprise des transferts, détection automatique du chemin VARA. |
 | 📻 | **TNC Packet (AX.25)** | Direwolf lancé automatiquement avec configuration adaptée à votre carte son. Modes KISS et AGWPE. Support BBS et PDF radio. |
-| 🌐 | **MeshCore LoRa** | Protocole mesh LoRa natif pour communications de proximité en zone d'exercice ou d'intervention. Messagerie, BBS et **transferts de radiogrammes / fichiers diffusés sur canal** (Public, Urgence) — compatibles firmware MeshCore récent (≥ v1.6). |
+| 🌐 | **MeshCore LoRa** | Protocole mesh LoRa natif pour communications de proximité en zone d'exercice ou d'intervention. Messagerie, BBS, **transferts de radiogrammes / fichiers diffusés sur canal** (Public, Urgence) et **canaux privés chiffrés par clé secrète** — création, partage par **QR Code / URL `meshcore://`**, mémorisation de la clé et vérification du **hash on-air**. Compatibles firmware MeshCore récent (≥ v1.6). |
 | 🖼️ | **SSTV temps réel** | Décodeur porté de slowrx — Scottie (S1/S2/SDX), Martin (M1/M2), Robot (36/72), PD (50→240). Waterfall + visualiseur plein écran + bouton Resync. |
 | 🎵 | **CW / Morse** | Décodeur DSP avec seuillage adaptatif et clustering K-means. **QSObrain** pour QSO CW entièrement autonomes (CSMA, WPM adaptatif, anti-self-CQ). |
 | 📬 | **BBS Multi-modes** | Bulletin Board System sur TNC Packet et MeshCore avec compteur paquets, réassemblage automatique, persistance SQLite. |
@@ -230,6 +246,46 @@ Au premier démarrage :
 5. Sélectionnez un mode dans la barre d'onglets et commencez à émettre/recevoir
 
 > ⏱ Comptez **5 minutes** pour la première configuration, ensuite TCQ est utilisable au quotidien sans réglage supplémentaire.
+
+---
+
+## 🆕 Nouveautés v12.21 → v12.23
+
+### 🔒 Canaux MeshCore privés protégés par clé secrète
+
+Le mode **MeshCore LoRa** gère désormais des **canaux privés chiffrés**, à l'image de l'application MeshCore officielle. Toute la gestion se fait depuis l'onglet **« 📡 Canaux »** du panneau de gauche.
+
+#### Principe
+
+Sur l'air, un canal MeshCore est identifié **uniquement par sa clé secrète** de 16 octets : le firmware en dérive un *hash de canal* et chiffre chaque message en AES. Le **nom** du canal n'est qu'une étiquette locale, propre à chaque poste. Deux stations communiquent donc sur un canal privé **si — et seulement si — elles partagent exactement la même clé**.
+
+#### ➕ Créer un canal privé
+
+Bouton **➕** : choisir un **emplacement** libre, un **nom**, cocher **« Canal PRIVÉ »** et saisir une clé — ou la **générer aléatoirement** d'un clic (**🎲**, 32 caractères hexadécimaux). Le canal apparaît dans la liste avec un cadenas **🔒** (clé enregistrée) ou une clé **🔑** (clé encore à saisir).
+
+#### 🔑 Partager la clé entre opérateurs
+
+Bouton **🔑** (Partager) : TCQ affiche un **QR Code**, la **clé secrète** et l'**URL de partage** au format `meshcore://channel/add?name=...&secret=...`. Les autres opérateurs **scannent le QR Code** depuis l'application MeshCore (*Menu → Ajouter un canal*), ou importent l'URL. Boutons **📋 Copier l'URL** et **💾 QR PNG** pour transmettre la clé par Winlink, e-mail ou messagerie.
+
+#### 📥 Rejoindre un canal
+
+Bouton **📥** (Importer) : coller l'URL `meshcore://` reçue, TCQ pré-remplit le nom et la clé. À la **première sélection** d'un canal privé sans clé enregistrée, la clé est **demandée une seule fois**, puis **mémorisée** dans `setup.json` — plus aucune ressaisie aux connexions suivantes.
+
+#### ℹ️ Vérifier la cohérence des clés
+
+Bouton **ℹ️** : relit l'emplacement **dans le module** (nom, clé stockée et **hash de canal on-air**) et signale tout écart avec la clé connue de TCQ. Pour qu'un canal privé fonctionne entre stations, le **hash on-air doit être identique sur tous les postes**.
+
+#### 🛡️ Programmation automatique du firmware
+
+Dès la création/sélection d'un canal privé et à chaque connexion, TCQ **programme la clé dans le module** MeshCore (l'emplacement **Public** n'est jamais modifié). Cette programmation locale est indispensable : sans elle, le firmware ne peut ni chiffrer ni déchiffrer le trafic du canal.
+
+> 📘 Voir la fiche pratique **« Canaux privés MeshCore dans TCQ »** dans le dossier [TCQ Documentations](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations).
+
+#### Détail des versions
+
+- **v12.21** — création, partage (QR Code / URL `meshcore://`) et import des canaux privés ; mémorisation de la clé à la première sélection.
+- **v12.22** — correctif **émission/réception sur les canaux non publics** : la clé est désormais programmée dans le firmware avant tout envoi (l'emplacement Public reste géré par défaut), condition indispensable pour que le trafic de canal soit déchiffrable par les autres postes.
+- **v12.23** — outil de **vérification ℹ️** (relecture de la clé dans le module et affichage du **hash de canal on-air**) pour confirmer que tous les postes partagent la même clé.
 
 ---
 
@@ -617,7 +673,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v12.20.0 — 2026-06-23**
+**Version v12.23.0 — 2026-06-23**
 
 ---
 
