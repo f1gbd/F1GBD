@@ -11,9 +11,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v11.1.10-blue)](https://github.com/f1gbd/F1GBD/releases/tag/tcq-v11.1.10)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.20.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v11.1.10/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.20.0/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -29,6 +29,30 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 
 ---
 
+## 🆕 Quoi de neuf en v12 — Journal de Bord / SITREP VIDEO
+
+> **📹 Journal de Bord vidéo embarqué** — TCQ capture un **clip webcam + voix** depuis l'interface pour transmettre un **point de situation audiovisuel (SITREP VIDEO)** par radio, **même sans Internet**. Deux voies complémentaires :
+>
+> **MEMO VIDEO (transport natif, compressé)** — clip émis **directement sur le canal du mode** (trame VBIN en VARA, fichier natif en LXMF). Deux sous-modes : **Clip vidéo + son** (≤ 20 s) et **Mémo vocal + photo** (≤ 30 s). Encodage VP9 + Opus en **160×120**, débit cible calibré (la taille suit la durée) — quand on n'a qu'une liaison radio.
+>
+> **JVFT — Journal Vidéo en VFT (pleine qualité)** — clip **320×240** jusqu'à **90 s** acheminé par le **canal latéral QIT/VFT**, sans la contrainte de taille du canal radio, avec signal **&QV&** sur le mode actif.
+>
+> **🕒 Horodatage incrusté** — la date et l'heure sont **gravées en bas de chaque image** du clip (toute capture d'écran reste datée).
+>
+> **🗂️ Journal de Bord** — chaque clip est **archivé automatiquement** dans un sous-dossier `Journal/` (`JVFT_<horodatage>.webm`). L'onglet **« Fichiers/Journal »** liste les vidéos : **rejouer**, **supprimer**, ouvrir le dossier. On peut aussi **recharger une vidéo du Journal** pour la ré-émettre.
+>
+> **✅ Enregistrer maintenant, envoyer plus tard** — boutons séparés **VALIDER** (encode + archive au Journal, sans émettre) et **ENVOYER** (émet ; pas de ré-encodage si déjà validé).
+>
+> **🖼️ Trace dans la main courante** — à la réception d'une vidéo, une **imagette** (1re image) + lien **« ▶ Visionner »** s'affiche dans le **chat de tous les modes** (VARA, Packet, MeshCore, LXMF) : la vacation garde une trace visuelle.
+>
+> **▶ Lecteur intégré à taille native** — les clips reçus se lisent dans une petite fenêtre TCQ **à leur résolution réelle** (avec le son), sans agrandissement par le lecteur système. Boutons Rejouer / zoom ×1–×3. **👁 Aperçu** du clip exact avant émission.
+>
+> **🔔 Annonce horodatée** — un court message « *Réception d'un MEMO VIDEO / JVFT de <indicatif>* » est émis sur le canal ; pour le MEMO VIDEO il part **après l'ACK du fichier**, afin de ne pas perturber le dernier paquet de la vidéo.
+>
+> **📋 Main courante Packet** — bouton **« Sauver le Log »** qui enregistre toute la conversation horodatée dans un fichier texte, comme en VARA.
+
+---
+
 ## 🆕 Quoi de neuf en v11.1.10 — Fiabilité fichier/image MeshCore
 
 > Transferts de **fichiers et d'images** sur MeshCore LoRa nettement plus fiables et plus rapides 
@@ -36,42 +60,6 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 > **🖼️ Compression automatique des images** — Le bouton **Image** redimensionne et compresse maintenant l'image **automatiquement** pour tenir sous le budget de transfert (≈ **3 Ko / 100 paquets**), gage de fiabilité sur LoRa. L'ajustement vise le **nombre réel de paquets** (et non une simple taille en kilo-octets, trompeuse selon le contenu), en conservant la plus grande dimension et la meilleure qualité possibles. Si l'image dépasse encore le budget au réglage minimal, elle part quand même avec un avertissement.
 >
 > **⚠️ Avertissement de volume** — Tout fichier ou image dépassant ~100 paquets affiche un conseil de compression (transfert long et fragile sur LoRa).
-
----
-
-## 🆕 Quoi de neuf en v11.1.5
-
-> **🔌 Déconnexion MeshCore rapide et fiable 
-
-> **📋 Radiogrammes MeshCore plus rapides et plus sûrs** — Trois améliorations du transfert fragmenté de radiogrammes ADRASEC sur MeshCore LoRa.
->
-> **🔁 Mode bouclage local (test en solo)** — Nouvelle case **« Bouclage local »** dans la fenêtre Radiogramme : elle exécute toute la chaîne de données (compression → fragmentation → réassemblage → CRC → authentification → affichage) **sans radio ni seconde station**, et ouvre la fenêtre « radiogramme reçu ». Idéal pour **valider la chaîne avant un exercice** sur un seul poste. Le handshake radio n'est pas rejoué (il nécessite un vrai lien distant).
->
-> **🩺 Diagnostic d'échec affiné** — Lorsqu'un radiogramme sur canal échoue, TCQ distingue désormais « **aucun poste à l'écoute / hors de portée** » de « **un poste est présent mais n'a pas accusé réception** » (autre extrémité qui n'est pas une station TCQ ≥ 11.1.1 : nœud MeshCore simple, appli téléphone, ou version trop ancienne).
->
-> **Action recommandée** : passez à la v11.1.4 si vous transmettez des radiogrammes sur MeshCore. Rappel : un radiogramme est un transfert **fiable avec accusé de réception** — il ne fonctionne qu'**entre stations TCQ ≥ 11.1.1**. Un message texte simple, lui, reste « tire-et-oublie » et passe vers n'importe quel nœud MeshCore.
-
----
-
-## 🆕 Quoi de neuf en v11.1.0
-
-> **📄 Transferts PDF radio plus robustes — `pdf_trans` v1.0.6** — TCQ embarque la dernière bibliothèque de compression PDF, qui corrige deux cas fréquents en exercice ADRASEC :
->
-> **🔄 PDF scannés ou tournés** (arrêtés préfectoraux numérisés, fax, documents avec rotation de page…) : ils ressortaient **basculés à 90° sur fond noir** après recomposition. TCQ **détecte désormais automatiquement** ces documents et bascule en mode rendu image — rotation respectée, couches d'encre correctement composées — sans aucune manipulation côté opérateur.
->
-> **📊 Cadres et couleurs de tableau** (SITREP, bilans opérationnels zonaux, niveaux de vigilance…) : les grilles et fonds de cellule tracés en segments de ligne disparaissaient à la recomposition, **surtout côté Linux**. Ils sont à nouveau **restitués fidèlement**.
->
-> **Action recommandée** : passez à la v11.1.0 si vous transmettez des arrêtés scannés ou des tableaux/SITREP colorés par radio. Le format `.psdi` reste **100% compatible** avec les versions précédentes.
-
----
-
-## 🆕 Quoi de neuf en v11.0.1
-
-> **🛰️ Recherche de balises en réseau** — TCQ partage désormais ses **relèvements goniométriques** en temps réel avec l'**EPIRBdecoder v5.6** et l'application Android **SATERfinder**, via le protocole commun `EPIRB-GONIO`. La fenêtre **CARTE** du mode TNC Packet reçoit une **connexion APRS-IS** complète : partage bidirectionnel des relevés, **affichage des stations APRS** reçues via APRS-IS, calcul de la **position présumée de la balise ELT** par triangulation, et import/export CSV interopérable avec l'EPIRBdecoder.
->
-> **🎙️ Correctif PTT CAT Icom IC-9700** — En VARA HF/SAT, le pilotage du PTT en CAT (CI-V) fonctionne désormais correctement sur les postes Icom à port USB natif (IC-9700, IC-705, IC-7300…) : les lignes RTS/DTR ne sont plus forcées, le PTT est commandé en CI-V pur comme sous Winlink. Voir le [**paramétrage CAT IC-9700**](#paramétrage-cat-spécifique-à-lic-9700-vara-hf--sat) détaillé plus bas.
->
-> **Action recommandée** : les ADRASEC menant des recherches SATER/SARSAT gagnent à passer à la v11.0.1 pour mutualiser les relevés entre postes PC (TCQ, EPIRBdecoder) et terrain (SATERfinder Android) sur un même fil APRS-IS.
 
 ---
 
@@ -109,6 +97,7 @@ Conçu pour les opérations ADRASEC et les exercices de sécurité civile, TCQ p
 | 🎵 | **CW / Morse** | Décodeur DSP avec seuillage adaptatif et clustering K-means. **QSObrain** pour QSO CW entièrement autonomes (CSMA, WPM adaptatif, anti-self-CQ). |
 | 📬 | **BBS Multi-modes** | Bulletin Board System sur TNC Packet et MeshCore avec compteur paquets, réassemblage automatique, persistance SQLite. |
 | 📄 | **PDF Radio** | Transmission de documents (SITREP, MEMO) avec compression LZMA, fragmentation adaptative, CRC par fragment, ACK et reprise sélective. Recomposition fidèle : cadres et couleurs de tableaux préservés, PDF scannés ou tournés gérés automatiquement (`pdf_trans` v1.0.6). |
+| 📹 | **Journal Vidéo (MEMO / JVFT)** | Capture webcam + voix pour SITREP audiovisuel. **MEMO VIDEO** compressé (160×120) sur transport natif (VARA/LXMF) — clip A/V ≤ 20 s ou mémo vocal ≤ 30 s. **JVFT** pleine qualité (320×240, ≤ 90 s) via canal QIT/VFT. Lecteur intégré à taille native, aperçu avant envoi, annonce horodatée. |
 | 🛰️ | **Gonio SATER / APRS-IS** | Carte des relèvements goniométriques avec **partage bidirectionnel APRS-IS** (protocole `EPIRB-GONIO` commun à l'EPIRBdecoder v5.6 et SATERfinder Android), **triangulation ELT** (CEP 95 %), affichage des stations APRS reçues via APRS-IS, et import/export CSV interopérable. |
 | 🔐 | **100% local** | Aucune télémétrie, aucune connexion externe non sollicitée. Toutes les communications restent sous le contrôle de l'opérateur. |
 
@@ -241,6 +230,49 @@ Au premier démarrage :
 5. Sélectionnez un mode dans la barre d'onglets et commencez à émettre/recevoir
 
 > ⏱ Comptez **5 minutes** pour la première configuration, ensuite TCQ est utilisable au quotidien sans réglage supplémentaire.
+
+---
+
+## 🆕 Nouveautés v12
+
+### 📹 Journal de Bord vidéo : MEMO VIDEO & JVFT (SITREP VIDEO)
+
+TCQ intègre un **Journal de Bord vidéo** : capture d'un clip **webcam + voix** directement depuis l'interface pour transmettre un point de situation **audiovisuel** par radio. Deux boutons (**📹 MEMO VIDEO** et **🎥 JVFT**) sont disponibles en bas de chaque mode compatible.
+
+#### 📹 MEMO VIDEO — transport natif, compressé
+
+Clip court émis **directement sur le canal du mode** (trame **VBIN** en VARA, **fichier natif** en LXMF ; grisé en Packet, faute de transport binaire AX.25). Encodage **VP9 + Opus** en **160×120**, à débit **cible** : la **taille suit la durée** (plafond de sécurité pour borner le temps d'antenne). Deux sous-modes :
+
+- **Clip vidéo + son** — séquence animée jusqu'à **20 s**.
+- **Mémo vocal + photo** — message **vocal jusqu'à 30 s** + photo fixe (presque tout le débit va à la voix).
+
+#### 🎥 JVFT — Journal Vidéo en VFT (pleine qualité)
+
+Clip **320×240** jusqu'à **90 s**, acheminé par le **canal latéral QIT/VFT** (sans la contrainte de taille du canal radio), avec signal **&QV&** sur le mode actif. Disponible sur tous les modes (VARA, Packet, MeshCore, LXMF).
+
+#### 🕒 Horodatage incrusté
+
+La **date et l'heure** sont **gravées en bas de chaque image** au moment de la capture — toute image extraite reste datée.
+
+#### 🗂️ Journal de Bord (archive)
+
+À chaque enregistrement, une **copie** du clip est archivée dans le sous-dossier **`Journal/`** sous le nom **`JVFT_<horodatage>.webm`** (le fichier d'envoi garde, lui, le nom `<INDICATIF>.webm`). L'onglet **« 📁 Fichiers/Journal »** comporte un cadre **« 🎬 Journal VIDEO »** : liste scrollable (nom, date, taille), **▶ Rejouer**, **🗑 Supprimer**, **🔄 Actualiser**, **📁 Dossier**. Double-clic = rejouer.
+
+#### ✅ VALIDER / 📤 ENVOYER (enregistrer maintenant, envoyer plus tard)
+
+Après l'enregistrement, deux boutons distincts : **VALIDER** encode le clip et l'archive au Journal **sans l'émettre** ; **ENVOYER** l'émet (s'il a déjà été validé, il part tel quel, sans ré-encodage). On peut ainsi préparer un clip et l'expédier plus tard via **« 📂 Recharger une vidéo du Journal »**. Un bouton **« 👁 OUVRIR VIDÉO »** permet de prévisualiser le clip exact avant émission.
+
+#### 🖼️ Trace dans la main courante (imagette)
+
+À la **réception** d'une vidéo (`.webm`), une **imagette** (1re image) suivie d'un lien **« ▶ Visionner la vidéo »** est insérée dans le **chat de tous les modes** (VARA, Packet, MeshCore, LXMF) : la main courante garde une trace visuelle. Un clic rejoue la vidéo dans le **lecteur intégré à taille native** (avec le son), au lieu du lecteur système qui l'agrandissait.
+
+#### 🔔 Annonce horodatée
+
+TCQ émet un court texte « *<date heure> Réception d'un MEMO VIDEO / JVFT de <indicatif>* ». Pour le **MEMO VIDEO**, l'annonce est **différée jusqu'à l'ACK** du fichier : émise pendant le transfert, elle s'intercalerait devant le dernier paquet et empêcherait le décodage.
+
+### 📋 Main courante en mode Packet
+
+Le mode **TNC Packet** dispose d'un bouton **« Sauver le Log »** qui enregistre toute la conversation (main courante **horodatée**) dans un fichier texte — comme en VARA.
 
 ---
 
@@ -585,7 +617,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v11.1.10 — 2026-06-16**
+**Version v12.20.0 — 2026-06-23**
 
 ---
 
