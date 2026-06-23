@@ -205,29 +205,6 @@ Pour décoder en **SDR Direct** :
 
 Pour analyser un **enregistrement**, onglet **Fichier Audio** → choisir un WAV. Pour une **entrée micro/ligne**, onglet **Audio Live**.
 
-### Décodage en ligne de commande (sans interface)
-
-Le binaire intègre un mode CLI pratique pour les scripts ou l'intégration :
-
-```bash
-# Décoder un fichier et obtenir le résultat en JSON sur stdout
-./EPIRBdecoder.sh --file balise.wav --json
-
-# Décoder un identifiant hexadécimal
-./EPIRBdecoder.sh --hex-id 8E3F00000B880364D882B38D1802E3
-
-# Aide complète (toutes les options : --file, --hex-id, --hex-msg, --exer,
-# --live, --sdr, --freq, --gain, --device, --gui, --json)
-./EPIRBdecoder.sh --help
-```
-
-Exemple de sortie JSON :
-
-```json
-{"protocol_name": "RLS/Std Loc. (code 14)", "country": "France",
- "lat_decimal": 48.5867, "lon_decimal": 2.5433,
- "bch1_valid": true, "bch2_valid": true}
-```
 
 ### Où sont stockés les fichiers de configuration ?
 
@@ -342,7 +319,6 @@ cp /chemin/vers/windows/decoder_setup.json ~/.local/share/EPIRBdecoder/
 ## 🤝 Communauté
 
 - **GitHub** : [github.com/f1gbd/F1GBD](https://github.com/f1gbd/F1GBD)
-- **Issues / Bugs** : [github.com/f1gbd/F1GBD/issues](https://github.com/f1gbd/F1GBD/issues)
 - **Auteur** : Jean-Louis (F1GBD) — [QRZ.com](https://qrz.com/db/F1GBD)
 - **Affiliation** : ADRASEC 77 / FNRASEC
 
