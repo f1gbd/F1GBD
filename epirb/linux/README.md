@@ -111,6 +111,7 @@ L'archive (≈ 117 Mo compressé, ≈ 291 Mo extrait) contient :
 EPIRBdecoder-5.20.0-linux-x86_64/
 ├── EPIRBdecoder          Binaire principal (ELF 64-bit)
 ├── EPIRBdecoder.sh       Lanceur (règle l'environnement RTL-SDR / Tk / audio)
+├── EPIRBdecoder.png      Icône de l'application (fenêtre + menu)
 ├── _internal/            Python 3.12 + numpy + scipy + Tk + PIL + librtlsdr…
 ├── install.sh            Script d'installation (utilisateur / système / désinstall)
 ├── EPIRBdecoder.desktop  Modèle d'entrée de menu
@@ -158,14 +159,21 @@ EPIRBdecoder est installé dans `/opt/EPIRBdecoder/` et accessible à tous les u
 
 ### RTL-SDR — activation du dongle
 
-Pour utiliser le mode **SDR Direct**, neutralisez le pilote DVB-T du noyau (qui monopolise le dongle) :
+Pour le mode **SDR Direct**, deux réglages système sont nécessaires : neutraliser le pilote DVB-T du noyau et autoriser l'accès USB **sans root**. **`install.sh` s'en charge automatiquement** :
 
 ```bash
-echo 'blacklist dvb_usb_rtl28xxu' | sudo tee /etc/modprobe.d/blacklist-rtlsdr.conf
-sudo modprobe -r dvb_usb_rtl28xxu 2>/dev/null || true
+sudo ./install.sh --system     # installe l'application + configure le RTL-SDR
+# ou, pour configurer le RTL-SDR seul (ex. après une installation utilisateur) :
+sudo ./install.sh --rtlsdr
 ```
 
-Pour un accès **sans root**, installez les règles udev rtl-sdr (paquet `rtl-sdr` de votre distribution) ou ajoutez une règle pour le VID:PID `0bda:2838` / `0bda:2832`, puis rebranchez la clé.
+Cela écrit la règle udev `/etc/udev/rules.d/20-rtlsdr.rules` (accès au dongle, `MODE="0666"`) et le blacklist `/etc/modprobe.d/blacklist-rtlsdr.conf`. **Débranchez puis rebranchez** ensuite la clé. Si `lsusb` affiche un `idProduct` autre que `2832` / `2838` / `2839`, ajoutez-le dans la règle udev.
+
+> Équivalent manuel, si vous préférez :
+> ```bash
+> echo 'blacklist dvb_usb_rtl28xxu' | sudo tee /etc/modprobe.d/blacklist-rtlsdr.conf
+> sudo modprobe -r dvb_usb_rtl28xxu 2>/dev/null || true
+> ```
 
 ### Désinstallation
 
@@ -287,12 +295,30 @@ Vérifier dans l'ordre :
    ldd --version | head -1   # doit afficher 2.38 ou supérieur
    ```
 
+### Erreur au lancement : « NumPy was built with baseline optimizations (X86_V2) »
+
+Ce message apparaît si le binaire a été compilé avec NumPy 2.x (baseline **x86-64-v2**) et que le **CPU n'expose pas** ces instructions — typiquement une **machine virtuelle** au modèle de processeur générique (`qemu64`) ou un CPU ancien. Cette édition est compilée avec **NumPy 1.26 (baseline x86-64-v1)** et tourne sur tout processeur x86-64, VM comprises. Si vous rencontrez encore ce message :
+
+- Vérifiez que vous utilisez bien la dernière archive `EPIRBdecoder-5.20.0-linux-x86_64.tar.gz`
+- Sur une VM (VirtualBox, QEMU/KVM, VMware), vous pouvez aussi activer le **passage du CPU hôte** (« host-passthrough » / « Copier la configuration du processeur hôte ») pour exposer toutes les instructions
+
 ### La clé RTL-SDR n'est pas détectée
 
 1. Le pilote DVB-T est-il neutralisé ? (voir [Installation › RTL-SDR](#rtl-sdr--activation-du-dongle))
 2. Tester l'accès : `lsusb | grep -i RTL` doit lister le dongle (`Realtek … RTL2838`)
-3. Accès non-root : installer les règles udev rtl-sdr, puis rebrancher la clé
+3. Accès non-root : `sudo ./install.sh --rtlsdr`, puis rebrancher la clé
 4. Lancer **via `EPIRBdecoder.sh`** (et non le binaire directement) pour que la librtlsdr embarquée soit trouvée
+
+### Erreur « LIBUSB_ERROR_ACCESS (-3) : Access denied » à l'ouverture du SDR
+
+La clé est détectée mais votre utilisateur n'a pas les **permissions USB** pour l'ouvrir (cas classique sous Linux, les périphériques USB appartiennent à root par défaut). Installez la règle udev :
+
+```bash
+sudo ./install.sh --rtlsdr
+# puis DÉBRANCHEZ / REBRANCHEZ la clé et relancez EPIRBdecoder
+```
+
+> À distinguer de `LIBUSB_ERROR_BUSY (-6)` (« device busy ») : là, c'est le pilote DVB-T du noyau qui a saisi la clé — `install.sh --rtlsdr` pose aussi le blacklist qui corrige ce cas.
 
 ### Le mode IQ (MLSE) ne décode pas une trame émise en FM
 
