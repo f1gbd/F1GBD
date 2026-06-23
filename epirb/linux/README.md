@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../images/EPIRBdecoder_logo.png" alt="EPIRBdecoder Logo" width="200">
+  <img src="../images/EPIRBdecoder_logo.png" alt="EPIRBdecoder Logo" width="600">
 </div>
 
 # EPIRB 406 MHz Decoder pour Linux
