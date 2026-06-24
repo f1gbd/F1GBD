@@ -11,9 +11,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.23.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.31.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.23.0/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.31.0/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -29,7 +29,7 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 
 ---
 
-## 🆕 Quoi de neuf en v12.23 — Canaux privés MeshCore (clé secrète)
+## 🆕 Quoi de neuf en v12.31 — Canaux privés MeshCore (clé secrète)
 
 > **🔒 Canaux MeshCore privés protégés par clé secrète** — l'onglet **« 📡 Canaux »** du mode MeshCore permet désormais de **créer, partager et rejoindre** des canaux **chiffrés**, exactement comme l'application MeshCore officielle.
 >
@@ -249,7 +249,7 @@ Au premier démarrage :
 
 ---
 
-## 🆕 Nouveautés v12.21 → v12.23
+## 🆕 Nouveautés v12.21 → v12.31
 
 ### 🔒 Canaux MeshCore privés protégés par clé secrète
 
@@ -285,7 +285,7 @@ Dès la création/sélection d'un canal privé et à chaque connexion, TCQ **pro
 
 - **v12.21** — création, partage (QR Code / URL `meshcore://`) et import des canaux privés ; mémorisation de la clé à la première sélection.
 - **v12.22** — correctif **émission/réception sur les canaux non publics** : la clé est désormais programmée dans le firmware avant tout envoi (l'emplacement Public reste géré par défaut), condition indispensable pour que le trafic de canal soit déchiffrable par les autres postes.
-- **v12.23** — outil de **vérification ℹ️** (relecture de la clé dans le module et affichage du **hash de canal on-air**) pour confirmer que tous les postes partagent la même clé.
+- **v12.31** — outil de **vérification ℹ️** (relecture de la clé dans le module et affichage du **hash de canal on-air**) pour confirmer que tous les postes partagent la même clé.
 
 ---
 
@@ -673,7 +673,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v12.23.0 — 2026-06-23**
+**Version v12.31.0 — 2026-06-24**
 
 ---
 
