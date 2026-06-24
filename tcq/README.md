@@ -29,9 +29,9 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 
 ---
 
-## 🆕 Quoi de neuf en v12.31 — Canaux privés MeshCore (clé secrète)
+## 🆕 Quoi de neuf en v12.31 — Canaux privés MeshCore
 
-> **🔒 Canaux MeshCore privés protégés par clé secrète** — l'onglet **« 📡 Canaux »** du mode MeshCore permet désormais de **créer, partager et rejoindre** des canaux **chiffrés**, exactement comme l'application MeshCore officielle.
+> **🔒 Canaux MeshCore privés protégés par clé secrète** — l'onglet **« 📡 Canaux »** du mode MeshCore permet désormais de **créer, partager et rejoindre** des canaux **privés**, exactement comme l'application MeshCore officielle.
 >
 > **➕ Créer un canal privé** — nom + **clé secrète de 16 octets** (32 caractères hexadécimaux), avec **génération aléatoire** de clé en un clic et choix de l'emplacement. Le canal apparaît avec un cadenas **🔒**.
 >
@@ -108,7 +108,7 @@ Conçu pour les opérations ADRASEC et les exercices de sécurité civile, TCQ p
 | 📨 | **LXMF / Reticulum** | Messagerie chiffrée bout-en-bout (X25519 + AES-128 + HMAC-SHA256), multi-saut, résiliente. Compatible TCP, série, LoRa, packet AX.25 et passerelle VARA. |
 | 📡 | **VARA HF / FM / SAT** | Modems ARQ haute performance (EA5HVK) intégrés avec protection idle/timeout, suspension/reprise des transferts, détection automatique du chemin VARA. |
 | 📻 | **TNC Packet (AX.25)** | Direwolf lancé automatiquement avec configuration adaptée à votre carte son. Modes KISS et AGWPE. Support BBS et PDF radio. |
-| 🌐 | **MeshCore LoRa** | Protocole mesh LoRa natif pour communications de proximité en zone d'exercice ou d'intervention. Messagerie, BBS, **transferts de radiogrammes / fichiers diffusés sur canal** (Public, Urgence) et **canaux privés chiffrés par clé secrète** — création, partage par **QR Code / URL `meshcore://`**, mémorisation de la clé et vérification du **hash on-air**. Compatibles firmware MeshCore récent (≥ v1.6). |
+| 🌐 | **MeshCore LoRa** | Protocole mesh LoRa natif pour communications de proximité en zone d'exercice ou d'intervention. Messagerie, BBS, **transferts de radiogrammes / fichiers diffusés sur canal** (Public, Urgence) et **canaux privés protégé par clé secrète** — création, partage par **QR Code / URL `meshcore://`**, mémorisation de la clé et vérification du **hash on-air**. Compatibles firmware MeshCore récent (≥ v1.6). |
 | 🖼️ | **SSTV temps réel** | Décodeur porté de slowrx — Scottie (S1/S2/SDX), Martin (M1/M2), Robot (36/72), PD (50→240). Waterfall + visualiseur plein écran + bouton Resync. |
 | 🎵 | **CW / Morse** | Décodeur DSP avec seuillage adaptatif et clustering K-means. **QSObrain** pour QSO CW entièrement autonomes (CSMA, WPM adaptatif, anti-self-CQ). |
 | 📬 | **BBS Multi-modes** | Bulletin Board System sur TNC Packet et MeshCore avec compteur paquets, réassemblage automatique, persistance SQLite. |
@@ -257,7 +257,7 @@ Le mode **MeshCore LoRa** gère désormais des **canaux privés chiffrés**, à 
 
 #### Principe
 
-Sur l'air, un canal MeshCore est identifié **uniquement par sa clé secrète** de 16 octets : le firmware en dérive un *hash de canal* et chiffre chaque message en AES. Le **nom** du canal n'est qu'une étiquette locale, propre à chaque poste. Deux stations communiquent donc sur un canal privé **si — et seulement si — elles partagent exactement la même clé**.
+Sur l'air, un canal MeshCore est identifié **uniquement par sa clé secrète** de 16 octets : le firmware en dérive un *hash de canal*. Le **nom** du canal n'est qu'une étiquette locale, propre à chaque poste. Deux stations communiquent donc sur un canal privé **si — et seulement si — elles partagent exactement la même clé**.
 
 #### ➕ Créer un canal privé
 
@@ -350,7 +350,7 @@ La fenêtre **CARTE** du mode **TNC Packet** intègre désormais un bandeau **AP
 - 🗺️ Case **« Stations APRS-IS »** : lorsqu'elle est activée, les stations APRS reçues via APRS-IS sont **affichées sur la carte** en plus des relevés goniométriques.
 - 🎚️ Filtre de portée automatique autour de votre position (`r/lat/lon/100 km`) pour ne charger que le trafic local pertinent en exercice.
 
-> ℹ️ Le module APRS-IS s'appuie sur le fichier compagnon **`aprs_client.py`** — strictement identique à celui de l'EPIRBdecoder v5.6 — embarqué automatiquement dans le binaire TCQ.
+> ℹ️ Le module APRS-IS s'appuie sur le module compagnon **`aprs_client`** — strictement identique à celui de l'EPIRBdecoder v5.6 — embarqué automatiquement dans le binaire TCQ.
 >
 > ⚠️ **Anti-écho strict par SSID** : si l'EPIRBdecoder (PC) et TCQ tournent sous le **même indicatif sans SSID**, ils ne verront pas mutuellement leurs relevés. En exercice, utilisez des SSID distincts (ex. `F1GBD` au PCS et `F1GBD-7` pour la passerelle APRS-IS).
 
