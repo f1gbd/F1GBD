@@ -29,7 +29,6 @@
 - [Test immédiat sans antenne](#test-immédiat-sans-antenne)
 - [Canaux 406 MHz configurables](#canaux-406-mhz-configurables)
 - [Dépannage](#dépannage)
-- [Compilation depuis les sources](#compilation-depuis-les-sources)
 - [Licence et crédits](#licence-et-crédits)
 
 ---
@@ -285,27 +284,6 @@ Vérifiez l'état : `./setup-autostart-lite.sh status`. Assurez-vous que le Pi d
 
 **La fenêtre dépasse de l'écran TFT**
 Appuyez sur **Échap** pour passer en mode fenêtré.
-
----
-
-## Compilation depuis les sources
-
-Le code source (le moteur `EPIRB-decoder.py` et l'application lite) **n'est pas distribué** : seules les archives binaires sont publiées. La compilation se fait **sur le Raspberry Pi**, à l'aide du kit de build (réservé) qui contient `build-pi-lite.sh`.
-
-En résumé, dans le dossier du kit (contenant `EPIRB-decoder.py` et les fichiers du kit) :
-
-```bash
-./build-pi-lite.sh
-```
-
-Le script :
-
-- installe les dépendances système et Python ;
-- compile le binaire autonome (PyInstaller, aarch64) ;
-- **embarque et vérifie** la bibliothèque Python partagée, le module `rtlsdr`, `librtlsdr` et `libusb` (le build s'arrête si l'un manque) ;
-- produit `dist_linux/EPIRBpi-decoder-lite-X.Y.Z-linux-aarch64.tar.gz` (+ `.sha256`).
-
-C'est **cette archive** qui est publiée sur GitHub (script `Publish-EPIRBpiLiteRelease.ps1`).
 
 ---
 
