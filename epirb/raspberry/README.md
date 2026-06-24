@@ -1,4 +1,11 @@
 # EPIRBpi-decoder-lite — Décodeur balise 406 MHz pour Raspberry Pi
+<div align="center">
+  <img src="../images/EPIRBdecoder_logo.png" alt="EPIRBdecoder Logo" width="300">
+</div>
+
+<div align="center">
+  <img src="images/apercu-lite-repli.png" alt="EPIRBdecoder Logo" width="600">
+</div>
 
 **Station de décodage COSPAS-SARSAT 406 MHz autonome, en mode kiosque plein écran, pour Raspberry Pi 5 + clé RTL-SDR + écran TFT.**
 
