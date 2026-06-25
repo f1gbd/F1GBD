@@ -12,7 +12,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![EPIRBpi-Decoder_Lite: Décodeur EPIRB 406 version Raspberry Pi pour les Recherches SATER pour les opérateurs ADRASEC](https://github.com/f1gbd/F1GBD/blob/master/epirb/raspberry/images/EPIRBpi-decoder.png)
 
-**MAJ du 25/06/2026** : [**EPIRBpi-Decoder_Lite: Décodeur EPIRB 406 version Raspberry Pi pour les Recherches SATER pour les opérateurs ADRASEC**](https://github.com/f1gbd/F1GBD/tree/master/epirb/raspberry)
+**MAJ du 25/06/2026** : [**EPIRBpi-Decoder_Lite: Décodeur EPIRB 406 version Raspberry Pi pour les Recherches SATER pour les ADRASEC**](https://github.com/f1gbd/F1GBD/tree/master/epirb/raspberry)
 
 ![d-IA — Dialogue autonome entre deux IA](https://github.com/f1gbd/F1GBD/blob/master/dia/images/d-IA_title.png)
 **MAJ du 16/06/2026** : [**d-IA — Dialogue autonome entre deux IA**](https://github.com/f1gbd/F1GBD/tree/master/dia)
