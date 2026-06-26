@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <img src="images/EPIRBandroid-decoder.jpg" width="600" alt="EPIRBpi-decoder-lite en réception terrain">
+  <img src="images/EPIRBandroid-decoder.jpg" width="800" alt="EPIRBpi-decoder-lite en réception terrain">
 </p>
 
 ---
@@ -50,7 +50,7 @@ identique à celui des versions PC / Raspberry Pi du projet.
 <p align="center">
   <img src="images/EPIRBandroid-deocder_lite.jpg" width="600" alt="Ensemble téléphone + RTL-SDR + antenne 406 sur trépied">
   &nbsp;&nbsp;
-  <img src="images/OTGcable.jpg" width="400" alt="Raccordement USB-OTG du dongle au téléphone">
+  <img src="images/OTGcable.jpg" width="600" alt="Raccordement USB-OTG du dongle au téléphone">
 </p>
 
 <p align="center"><i>
