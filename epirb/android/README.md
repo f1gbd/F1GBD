@@ -164,8 +164,6 @@ fichiers) :
 - `main_courante.csv` — journal tabulé (séparateur `;`, compatible Excel/LibreOffice).
 - `main_courante.txt` — journal lisible.
 
-```
-
 ## Architecture technique
 
 - **scipy-free** : `requirements = python3,kivy,numpy` — scipy n'a pas de recette
@@ -178,7 +176,6 @@ fichiers) :
 - **Décodage** : récepteur MLSE → décodeur de trame → contrôles BCH1/BCH2 →
   conversion MGRS, réutilisés tels quels depuis le moteur du projet.
 
-```
 
 ## Crédits
 
