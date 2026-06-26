@@ -164,46 +164,7 @@ fichiers) :
 - `main_courante.csv` — journal tabulé (séparateur `;`, compatible Excel/LibreOffice).
 - `main_courante.txt` — journal lisible.
 
-## Construction depuis les sources
-
-Environnement : **Ubuntu 24.04 LTS** + Docker (toolchain `kivy/buildozer`).
-
-Arborescence du dépôt (`epirb/android/`) :
-
 ```
-android/
-├── main.py            ← application Kivy
-├── epirb_dsp.py       ← back-end DSP (MLSE NumPy + décodage), scipy-free
-├── rtltcp.py          ← client rtl_tcp + conversion IQ
-├── epirb_engine.py    ← moteur (copie de EPIRB-decoder.py, nom de module valide)
-├── icon.png           ← icône (512×512)
-├── EPIRBdecoder.png   ← présplash
-├── buildozer.spec
-├── build-apk.sh
-├── images/            ← logo et captures (README)
-└── 406_samples/       ← captures IQ de test (.npy + .txt)
-```
-
-> Le moteur doit s'appeler **`epirb_engine.py`** (copie de `EPIRB-decoder.py`)
-> pour être compilé et inclus dans l'APK, et importé par nom.
-
-```bash
-# Prérequis
-sudo apt update && sudo apt install -y docker.io
-docker pull kivy/buildozer:latest
-
-# Construction (la 1re fois télécharge le SDK/NDK : ~20–40 min, mis en cache)
-cd android
-docker run -it --rm \
-  -v "$HOME/.buildozer":/home/user/.buildozer \
-  -v "$PWD":/home/user/hostcwd \
-  kivy/buildozer android debug
-
-adb install -r bin/epirbpilite-0.1-arm64-v8a-debug.apk
-```
-
-(ou `./build-apk.sh /chemin/vers/EPIRB-decoder.py` qui crée `epirb_engine.py` et
-lance le build).
 
 ## Architecture technique
 
