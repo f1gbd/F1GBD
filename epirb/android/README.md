@@ -76,6 +76,10 @@ dongle RTL-SDR relié au téléphone par un câble USB-OTG, antenne sur trépied
 - **Main courante** : journalisation automatique en **CSV** et **TXT**, avec
   visualisation et effacement intégrés (bouton **JOURNAL**).
 
+<p align="center">
+  <img src="images/EPIRBandroid-deocder_lite_toMap.jpg" width="800" alt="direct vers la balise 406">
+</p>
+
 ## Matériel requis
 
 - Un **RTL-SDR** (RTL-SDR Blog V3/V4, ou clé DVB-T compatible RTL2832U).
