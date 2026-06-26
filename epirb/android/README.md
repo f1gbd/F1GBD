@@ -65,6 +65,10 @@ dongle RTL-SDR relié au téléphone par un câble USB-OTG, antenne sur trépied
   contrôles **BCH1/BCH2**, indication 121.5 MHz.
 - **Tailles de caractères auto-maximales** pour les coordonnées (lisibilité
   terrain).
+- **Ouverture cartographique** : bouton **Google Maps** (place un repère sur la
+  position de la balise) et bouton **Itinéraire** (navigation routière
+  turn-by-turn vers la balise). Les deux boutons s'activent dès qu'une position
+  valide est décodée.
 - **Tonalité d'alerte** à chaque trame décodée (canal alarme).
 - **Date et heure** affichées en continu.
 - **Charger IQ** : décode un fichier `.npy` enregistré.
@@ -136,9 +140,16 @@ sur **CHARGER IQ**, activez-la dans les réglages puis revenez dans l'applicatio
 | **CHARGER IQ** | Décode un fichier `.npy` (capture IQ complexe). Fonctionne sans dongle. |
 | **ENREGISTRER** | Sauvegarde chaque burst reçu en `.npy` (+ `.txt` descriptif). |
 | **JOURNAL** | Affiche la main courante ; bouton **EFFACER** (avec confirmation). |
+| **Google Maps** | Ouvre la position décodée dans Google Maps (repère sur la balise). |
+| **Itinéraire** | Lance la navigation routière (turn-by-turn) vers la position de la balise. |
 
 À chaque trame décodée : tonalité d'alerte, mise à jour de l'affichage et ajout
 à la main courante.
+
+Les boutons **Google Maps** et **Itinéraire** se trouvent à côté du libellé
+*POSITION* ; ils restent grisés tant qu'aucune position n'est décodée. Ils
+ouvrent Google Maps s'il est installé (repli automatique : autre application de
+cartographie, puis Google Maps dans le navigateur).
 
 ## Échantillons de test 406
 
@@ -164,6 +175,47 @@ fichiers) :
 - `main_courante.csv` — journal tabulé (séparateur `;`, compatible Excel/LibreOffice).
 - `main_courante.txt` — journal lisible.
 
+## Construction depuis les sources
+
+Environnement : **Ubuntu 24.04 LTS** + Docker (toolchain `kivy/buildozer`).
+
+Arborescence du dépôt (`epirb/android/`) :
+
+```
+android/
+├── main.py            ← application Kivy
+├── epirb_dsp.py       ← back-end DSP (MLSE NumPy + décodage), scipy-free
+├── rtltcp.py          ← client rtl_tcp + conversion IQ
+├── epirb_engine.py    ← moteur (copie de EPIRB-decoder.py, nom de module valide)
+├── icon.png           ← icône (512×512)
+├── EPIRBdecoder.png   ← présplash
+├── buildozer.spec
+├── build-apk.sh
+├── images/            ← logo et captures (README)
+└── 406_samples/       ← captures IQ de test (.npy + .txt)
+```
+
+> Le moteur doit s'appeler **`epirb_engine.py`** (copie de `EPIRB-decoder.py`)
+> pour être compilé et inclus dans l'APK, et importé par nom.
+
+```bash
+# Prérequis
+sudo apt update && sudo apt install -y docker.io
+docker pull kivy/buildozer:latest
+
+# Construction (la 1re fois télécharge le SDK/NDK : ~20–40 min, mis en cache)
+cd android
+docker run -it --rm \
+  -v "$HOME/.buildozer":/home/user/.buildozer \
+  -v "$PWD":/home/user/hostcwd \
+  kivy/buildozer android debug
+
+adb install -r bin/epirbpilite-0.1-arm64-v8a-debug.apk
+```
+
+(ou `./build-apk.sh /chemin/vers/EPIRB-decoder.py` qui crée `epirb_engine.py` et
+lance le build).
+
 ## Architecture technique
 
 - **scipy-free** : `requirements = python3,kivy,numpy` — scipy n'a pas de recette
@@ -173,9 +225,10 @@ fichiers) :
 - **Accès SDR** : l'app ne touche pas l'USB directement. Le driver Marinov ouvre
   le dongle et expose un serveur rtl_tcp local ; un petit client pur-Python lit
   l'IQ (`u8` entrelacé → `complex64`) et alimente le décodeur.
+- **Cartographie** : la position décodée est ouverte via un intent `geo:`
+  (repère) ou `google.navigation:` (itinéraire), sans permission supplémentaire.
 - **Décodage** : récepteur MLSE → décodeur de trame → contrôles BCH1/BCH2 →
   conversion MGRS, réutilisés tels quels depuis le moteur du projet.
-
 
 ## Crédits
 
