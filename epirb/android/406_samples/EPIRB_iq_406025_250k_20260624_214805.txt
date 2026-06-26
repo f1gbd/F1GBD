@@ -1,0 +1,6 @@
+center_freq_hz=406025000
+sample_rate_hz=250000
+format=complex64 (.npy numpy)
+samples=230000
+duration_s=0.920000
+gain=29.7 dB
