@@ -178,6 +178,8 @@ fichiers) :
 - **Décodage** : récepteur MLSE → décodeur de trame → contrôles BCH1/BCH2 →
   conversion MGRS, réutilisés tels quels depuis le moteur du projet.
 
+```
+
 ## Crédits
 
 Développé par **Jean-Louis — F1GBD** pour **ADRASEC 77** / **FNRASEC**.
