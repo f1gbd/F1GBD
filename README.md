@@ -1,5 +1,5 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 25 juin 2026
+mis à jour le 27 juin 2026
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
@@ -9,6 +9,14 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 ![SATERfinder: Relèvement cartographique pour les Recherches SATER pour les opérateurs ADRASEC](https://github.com/f1gbd/F1GBD/blob/master/epirb/saterfinder/images/SATERfinder_title.jpg)
 
 **MAJ du 29/05/2026** : [**SATERfinder: Relèvement cartographique pour les Recherches SATER**](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder)
+
+![HOMER for SATER — Radiogoniométrie ELT sur Android](https://github.com/f1gbd/F1GBD/blob/master/homer/images/HOMER_Title.jpg)
+
+**MAJ du 27/06/2026** : [**HOMER for SATER — Radiogoniométrie ELT sur Android**](https://github.com/f1gbd/F1GBD/tree/master/homer)
+
+![EPIRBpi-Decoder_Lite: Décodeur EPIRB 406 version ANDROID pour les Recherches SATER pour les opérateurs ADRASEC](EPIRBandroid_title.jpg)
+
+**MAJ du 25/06/2026** : [**EPIRBpi-Decoder_Lite: Décodeur EPIRB 406 version ANDROID pour les Recherches SATER pour les ADRASEC**](https://github.com/f1gbd/F1GBD/tree/master/epirb/android)
 
 ![EPIRBpi-Decoder_Lite: Décodeur EPIRB 406 version Raspberry Pi pour les Recherches SATER pour les opérateurs ADRASEC](https://github.com/f1gbd/F1GBD/blob/master/epirb/raspberry/images/EPIRBpi-decoder.png)
 
