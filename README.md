@@ -14,7 +14,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 **MAJ du 27/06/2026** : [**HOMER for SATER — Radiogoniométrie ELT sur Android**](https://github.com/f1gbd/F1GBD/tree/master/homer)
 
-![EPIRBpi-Decoder_Lite: Décodeur EPIRB 406 version ANDROID pour les Recherches SATER pour les opérateurs ADRASEC](EPIRBandroid_title.jpg)
+![EPIRBpi-Decoder_Lite: Décodeur EPIRB 406 version ANDROID pour les Recherches SATER pour les opérateurs ADRASEC](https://github.com/f1gbd/F1GBD/blob/master/epirb/android/images/EPIRBandroid_title.jpg)
 
 **MAJ du 25/06/2026** : [**EPIRBpi-Decoder_Lite: Décodeur EPIRB 406 version ANDROID pour les Recherches SATER pour les ADRASEC**](https://github.com/f1gbd/F1GBD/tree/master/epirb/android)
 
