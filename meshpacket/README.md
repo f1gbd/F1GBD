@@ -7,7 +7,7 @@
 
 MeshPacket relie **deux réseaux radio MeshCore** (LoRa) à travers une **dorsale VHF Packet AX.25**. Le même programme tourne aux deux extrémités : les messages d'un canal MeshCore d'un site sont encapsulés, transmis en VHF (1200 bauds AFSK ou TNC KISS), puis réinjectés sur le réseau MeshCore du site distant — et inversement. C'est l'équivalent d'AirLink, mais avec AX.25 comme transport au lieu de LoRa, ce qui permet de franchir de plus longues distances via un relais packet.
 
-![Interface MeshPacket](images\MeshPacket_screen.png)
+![Interface MeshPacket](https://github.com/f1gbd/F1GBD/blob/master/meshpacket/images/MeshPacket_screen.png)
 
 > Version courante : **v1.1.12** — Windows (interface graphique).
 ### 📥 [**Télécharger la dernière version pour Windows 11 (x64)**](https://github.com/f1gbd/F1GBD/releases/download/meshpacket-v1.1.12/MeshPacket-v1.1.12-win64.zip)
