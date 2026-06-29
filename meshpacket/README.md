@@ -177,8 +177,8 @@ Exemple observé côté Direwolf :
 
 ## 📄 Documentation associée
 
-- 📘 **[Manuel utilisateur MeshPacket](documentation/MEMO - MANUEL Meshpacket.pdf)** — Manuel Utilisateur et Paramétrage de MeshPacket
-- 📋 **[Fiche de présentation MeshPacket](documentation/MEMO - Fiche Technique MeshPacket.pdf)** — Fiche Technique MeshPacket
+- 📘 **[Manuel utilisateur MeshPacket](https://github.com/f1gbd/F1GBD/blob/master/meshpacket/documentation/MEMO%20-%20Fiche%20Technique%20MeshPacket.pdf)** — Manuel Utilisateur et Paramétrage de MeshPacket
+- 📋 **[Fiche de présentation MeshPacket](https://github.com/f1gbd/F1GBD/blob/master/meshpacket/documentation/MEMO%20-%20MANUEL%20MeshPacket.pdf)** — Fiche Technique MeshPacket
 
 ---
 
