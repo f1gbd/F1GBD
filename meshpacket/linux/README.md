@@ -123,18 +123,6 @@ Pour le **paramétrage détaillé** et la **création d'un canal privé `adrasec
 
 ---
 
-## Compiler soi-même
-
-Le kit source (`MeshPacketLinux-srckit-v1.1.12.tar.gz`) contient `meshpacket.py`, `meshpacket.spec`, `build_linux.sh`, `install_linux.sh`, `requirements-linux.txt`. Voir **[BUILD_LINUX.md](BUILD_LINUX.md)**.
-
-```bash
-tar xzf MeshPacketLinux-srckit-v1.1.12.tar.gz
-cd MeshPacketLinux-srckit
-chmod +x build_linux.sh && ./build_linux.sh
-```
-
----
-
 ## Licence & auteur
 
 **MeshPacket Linux** — *a Packet Gateway for MeshCore* — par **F1GBD** (c) 2026 — **ADRASEC 77 / FNRASEC**.
