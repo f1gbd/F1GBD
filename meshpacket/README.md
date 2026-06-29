@@ -1,18 +1,21 @@
 <div align="center">
 
-<img src="images\MeshPacket.png" alt="MeshPacket" width="400">
+<img src="images/MeshPacket.png" alt="MeshPacket" width="400">
 
 
 **Passerelle Packet pour MeshCore — ADRASEC 77 / FNRASEC**
 
 MeshPacket relie **deux réseaux radio MeshCore** (LoRa) à travers une **dorsale VHF Packet AX.25**. Le même programme tourne aux deux extrémités : les messages d'un canal MeshCore d'un site sont encapsulés, transmis en VHF (1200 bauds AFSK ou TNC KISS), puis réinjectés sur le réseau MeshCore du site distant — et inversement. C'est l'équivalent d'AirLink, mais avec AX.25 comme transport au lieu de LoRa, ce qui permet de franchir de plus longues distances via un relais packet.
 
-![Interface MeshPacket](https://github.com/f1gbd/F1GBD/blob/master/meshpacket/images/MeshPacket_screen.png)
+![Interface MeshPacket](https://raw.githubusercontent.com/f1gbd/F1GBD/master/meshpacket/images/MeshPacket_screen.png)
 
 > Version courante : **v1.1.12** — Windows (interface graphique).
-### 📥 [**Télécharger la dernière version pour Windows 11 (x64)**](https://github.com/f1gbd/F1GBD/releases/download/meshpacket-v1.1.12/MeshPacket-v1.1.12-win64.zip)
+### 📥 [**Télécharger la dernière version pour Windows 11 (x64)**](https://github.com/f1gbd/F1GBD/releases/download/meshpacket-v1.1.12/MeshPacket-v1.1.12-win64.7z)
+
+*Archive **7-Zip** (.7z) — Windows 11 l'extrait nativement ; sinon installez [7-Zip](https://www.7-zip.org).*
 
 </div>
+
 ---
 
 ## Principe
@@ -63,7 +66,9 @@ Chaque passerelle est membre d'un **canal de routage MeshCore commun** (canal pu
 ---
 
 ## Installation
-### 📥 [**Télécharger la dernière version pour Windows 11 (x64)**](https://github.com/f1gbd/F1GBD/releases/download/meshpacket-v1.1.12/MeshPacket-v1.1.12-win64.zip)
+### 📥 [**Télécharger la dernière version pour Windows 11 (x64)**](https://github.com/f1gbd/F1GBD/releases/download/meshpacket-v1.1.12/MeshPacket-v1.1.12-win64.7z)
+
+*Archive **7-Zip** (.7z). Décompressez-la (Windows 11 nativement, ou [7-Zip](https://www.7-zip.org)), puis lancez `MeshPacket.exe`. Conservez `MeshPacket.png`, `MeshPacket.ico` et `meshpacket.json` à côté de l'exécutable.*
 
 ---
 
@@ -147,7 +152,7 @@ La fenêtre fonctionne que la passerelle soit démarrée (connexion active) ou a
 
 Les messages transportés en AX.25 (trames UI) utilisent un en-tête textuel simple :
 
-**Notes:** Les messages Meshcore transportés en AX.25 sont **en CLAIR** et **non cryptés**
+**Notes :** Les messages MeshCore transportés en AX.25 sont **en CLAIR** et **non cryptés**.
 
 ```
 MCG1|D|<seq>|<canal>|<texte>      données
@@ -177,8 +182,8 @@ Exemple observé côté Direwolf :
 
 ## 📄 Documentation associée
 
-- 📘 **[Manuel utilisateur MeshPacket](https://github.com/f1gbd/F1GBD/blob/master/meshpacket/documentation/MEMO%20-%20Fiche%20Technique%20MeshPacket.pdf)** — Manuel Utilisateur et Paramétrage de MeshPacket
-- 📋 **[Fiche de présentation MeshPacket](https://github.com/f1gbd/F1GBD/blob/master/meshpacket/documentation/MEMO%20-%20MANUEL%20MeshPacket.pdf)** — Fiche Technique MeshPacket
+- 📘 **[Manuel utilisateur MeshPacket](https://github.com/f1gbd/F1GBD/blob/master/meshpacket/documentation/MEMO%20-%20MANUEL%20MeshPacket.pdf)** — Manuel Utilisateur et Paramétrage de MeshPacket
+- 📋 **[Fiche de présentation MeshPacket](https://github.com/f1gbd/F1GBD/blob/master/meshpacket/documentation/MEMO%20-%20Fiche%20Technique%20MeshPacket.pdf)** — Fiche Technique MeshPacket
 
 ---
 
@@ -194,3 +199,5 @@ Exemple observé côté Direwolf :
 ---
 
 *Pour toute question, contactez votre référent ADRASEC départemental.*
+
+</div>
