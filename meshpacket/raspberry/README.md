@@ -8,7 +8,7 @@
 
 MeshPacket Pi est le portage **Raspberry Pi (aarch64)** de MeshPacket. Il relie **deux réseaux radio MeshCore** (LoRa) à travers une **dorsale VHF Packet AX.25** : les messages d'un canal MeshCore d'un site sont encapsulés, transmis en VHF (1200 bauds AFSK via Direwolf, ou TNC KISS série/Bluetooth), puis réinjectés sur le réseau MeshCore du site distant — et inversement. C'est la même application que la version Windows, recompilée pour Raspberry Pi.
 
-![Interface MeshPacket](https://raw.githubusercontent.com/f1gbd/F1GBD/master/meshpacket/images/MeshPacket_screen.png)
+![Interface MeshPacket](https://github.com/f1gbd/F1GBD/blob/master/meshpacket/raspberry/images/MeshPacketpi_desktop.png)
 
 > Version courante : **v1.1.12** — Raspberry Pi OS 64 bits (Bookworm / Trixie), Pi 4B+ ou Pi 5.
 ### 📥 [**Télécharger la dernière version pour Raspberry Pi (aarch64)**](https://github.com/f1gbd/F1GBD/releases/download/meshpacket-pi-arm64-v1.1.12/MeshPacketPi-v1.1.12-aarch64.tar.gz)
@@ -98,20 +98,6 @@ Pour le **paramétrage détaillé** et la **création d'un canal privé `adrasec
 - **Direwolf ne démarre pas** → installez-le (`sudo apt install direwolf`) ; vérifiez **Chemin Direwolf** = `direwolf` et renseignez **Config Direwolf** avec le chemin complet de votre `direwolf.conf`. En mode TNC série/BT, décochez **Lancer Direwolf**.
 - **Companion non détecté** → vérifiez le port avec `ls /dev/ttyACM* /dev/ttyUSB*` et ajustez **Port**.
 - **TNC Bluetooth** → appairez la radio puis liez le port : `sudo rfcomm bind /dev/rfcomm0 <MAC> 1`, et utilisez `/dev/rfcomm0`.
-
----
-
-## Compiler soi-même sur le Pi
-
-Le kit source (`MeshPacketPi-srckit-v1.1.12.tar.gz`) contient tout le nécessaire. Le script `build_pi.sh` crée un environnement virtuel, installe les dépendances et produit l'archive `MeshPacketPi-v<version>-aarch64.tar.gz` via PyInstaller.
-
-```bash
-tar xzf MeshPacketPi-srckit-v1.1.12.tar.gz
-cd MeshPacketPi-srckit
-chmod +x build_pi.sh && ./build_pi.sh
-```
-
-Détails dans **[README_PI4.md](README_PI4.md)**.
 
 ---
 
