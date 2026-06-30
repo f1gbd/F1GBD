@@ -5,7 +5,9 @@
 
 **Passerelle Reticulum / LXMF pour MeshCore — ADRASEC 77 / FNRASEC**
 
-### *Là où le LoRa s'arrête, le maillage Reticulum prend le relais.*
+### *« Un pont, deux Univers Mesh, aucune frontière. »*
+
+*Là où le LoRa s'arrête, le maillage Reticulum prend le relais.*
 
 MeshRNS relie un **réseau radio MeshCore** (LoRa) au **réseau maillé Reticulum** via **LXMF** (la même pile que TCQ), et ne dialogue **qu'avec les stations `TCQ-xxxx`** du réseau. Les messages d'un canal MeshCore sont transportés en LXMF vers les stations TCQ joignables par Reticulum (RF longue distance, LoRa, TCP/IP, I2P…), et les messages LXMF reçus des stations TCQ sont réinjectés sur le réseau MeshCore local. C'est l'équivalent d'une passerelle AirLink, mais avec **Reticulum/LXMF** comme dorsale au lieu de VARA — ce qui apporte l'**adressage de bout en bout**, le **chiffrement natif** et le **routage multi-saut** propres à Reticulum.
 
@@ -21,6 +23,10 @@ MeshRNS relie un **réseau radio MeshCore** (LoRa) au **réseau maillé Reticulu
 ---
 
 ## Principe
+
+<div align="center">
+<img src="images/MeshRNS_principle.png" alt="MeshRNS — un pont, deux réseaux, aucune frontière : du réseau MeshCore (LoRa, LXMF) au réseau Reticulum des stations TCQ" width="760">
+</div>
 
 ```
         Réseau MeshCore (LoRa)                       Réseau Reticulum (maillé)
@@ -171,9 +177,9 @@ La passerelle répond **sur le même canal**, sous la forme :
 
 ```
 Annuaire TCQ (3):
-1.TCQ-BBS-F1GBD 5436706f 2026-06-26 19:49
-2.TCQ-56/HF     9672a8ca 2026-06-26 18:12
-3.TCQ-F4JHW     a1b2c3d4 2026-06-25 21:07
+1.TCQ-F1GBD     5436706f 2026-06-26 19:49
+2.TCQ-F1ABC/HF  9672a8ca 2026-06-26 18:12
+3.TCQ-F1XYZ     a1b2c3d4 2026-06-25 21:07
 ```
 
 Les réponses trop longues sont **automatiquement découpées** à `mc_max_chars`. Côté GUI, le bouton **Annuaire…** affiche la même liste (nom, adresse LXMF, dernier contact) et permet de copier une adresse ou de la définir comme station directe.
@@ -190,7 +196,7 @@ LXMF est un protocole **adressé** (pas de diffusion native), contrairement à V
 - **`direct`** — chaque message est envoyé à la **station par défaut** (`peer_station`), équivalent d'une liaison point-à-point.
 - **`@<station> texte`** — surcharge ponctuelle : le message n'est envoyé qu'à la station indiquée (par **nom** TCQ ou **hash** LXMF de 32 caractères), quel que soit le mode. Exemple : `@TCQ-56/HF SITREP recu, QSL.`
 
-> **Préfixe d'expéditeur MeshCore.** Sur un canal, le firmware MeshCore ajoute le nom de l'émetteur en tête du message (`F1GBD/P: @TCQ-56/HF …`). Depuis la **v1.0.6**, MeshRNS détecte le `@cible` **même précédé de ce préfixe** ; le Journal le confirme par une ligne `Ciblage @TCQ-56/HF -> …`. Les messages relayés sont par ailleurs **signés** en fin de message avec l'indicatif (`sign_outbound`).
+> **Préfixe d'expéditeur MeshCore.** Sur un canal, le firmware MeshCore ajoute le nom de l'émetteur en tête du message (`F1GBD/P: @TCQ-F1ABC/HF …`). Depuis la **v1.0.6**, MeshRNS détecte le `@cible` **même précédé de ce préfixe** ; le Journal le confirme par une ligne `Ciblage @TCQ-56/HF -> …`. Les messages relayés sont par ailleurs **signés** en fin de message avec l'indicatif (`sign_outbound`).
 
 Pour chaque cible, MeshRNS effectue une **recherche de chemin RNS** (`request_path`, délai `path_timeout`) avant l'envoi.
 
