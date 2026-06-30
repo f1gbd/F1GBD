@@ -15,6 +15,10 @@
 MeshRNS Pi est le portage **Raspberry Pi (aarch64)** de MeshRNS. Il relie un **réseau radio MeshCore** (LoRa) au **réseau maillé Reticulum** via **LXMF** (la même pile que TCQ), et ne dialogue **qu'avec les stations `TCQ-xxxx`** du réseau. Les messages d'un canal MeshCore sont transportés en LXMF vers les stations TCQ joignables par Reticulum (RF longue distance, LoRa, TCP/IP, I2P…), et les messages LXMF reçus des stations TCQ sont réinjectés sur le réseau MeshCore local. **C'est la même application que la version Windows, recompilée pour Raspberry Pi** (interface, configuration et fichiers identiques).
 
 <div align="center">
+<img src="https://raw.githubusercontent.com/f1gbd/F1GBD/master/meshrns/images/MeshRNS_principle.png" alt="MeshRNSpi main screen" width="760">
+</div>
+
+<div align="center">
 <img src="https://raw.githubusercontent.com/f1gbd/F1GBD/master/meshrns/images/MeshRNS_principle.png" alt="MeshRNS — du réseau MeshCore (LoRa, LXMF) au réseau Reticulum des stations TCQ" width="760">
 </div>
 
