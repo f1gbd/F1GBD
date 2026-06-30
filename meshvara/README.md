@@ -5,6 +5,8 @@
 
 **Passerelle VARA pour MeshCore — ADRASEC 77 / FNRASEC**
 
+### *Là où le LoRa s'arrête, la liaison continue.*
+
 MeshVARA relie **deux réseaux radio MeshCore** (LoRa) à travers une **dorsale VARA HF / VARA FM / VARA SAT**. Le même programme tourne aux deux extrémités : les messages d'un canal MeshCore d'un site sont encapsulés, transmis sur la dorsale VARA (HF longue distance, FM local/relais, ou SAT via QO-100), puis réinjectés sur le réseau MeshCore du site distant — et inversement. C'est l'équivalent d'AirLink, mais avec **VARA** comme transport au lieu de LoRa, ce qui permet de franchir de très longues distances (NVIS/DX en HF, satellite en SAT) là où le Packet 1200 bauds ne porte pas.
 
 ![Interface MeshVARA](https://raw.githubusercontent.com/f1gbd/F1GBD/master/meshvara/images/MeshVARA_screen.png)
@@ -19,6 +21,8 @@ MeshVARA relie **deux réseaux radio MeshCore** (LoRa) à travers une **dorsale 
 ---
 
 ## Principe
+
+![Principe MeshVARA — deux réseaux MeshCore reliés par un pont radio FM / HF / SAT](https://raw.githubusercontent.com/f1gbd/F1GBD/master/meshvara/images/MeshVARA_principle.png)
 
 ```
 Réseau MeshCore A                                   Réseau MeshCore B
