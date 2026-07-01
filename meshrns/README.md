@@ -5,16 +5,14 @@
 
 **Passerelle Reticulum / LXMF pour MeshCore — ADRASEC 77 / FNRASEC**
 
-### *« Un pont, deux Univers Mesh, aucune frontière. »*
+### *Là où le LoRa s'arrête, le maillage Reticulum prend le relais.*
 
-*Là où le LoRa s'arrête, le maillage Reticulum prend le relais.*
-
-MeshRNS relie un **réseau radio MeshCore** (LoRa) au **réseau maillé Reticulum** via **LXMF** (la même pile que TCQ), et ne dialogue **qu'avec les stations `TCQ-xxxx`** du réseau. Les messages d'un canal MeshCore sont transportés en LXMF vers les stations TCQ joignables par Reticulum (RF longue distance, LoRa, TCP/IP, I2P…), et les messages LXMF reçus des stations TCQ sont réinjectés sur le réseau MeshCore local. C'est l'équivalent d'une passerelle AirLink, mais avec **Reticulum/LXMF** comme dorsale au lieu de VARA — ce qui apporte l'**adressage de bout en bout**, le **chiffrement natif** et le **routage multi-saut** propres à Reticulum.
+MeshRNS relie un **réseau radio MeshCore** (LoRa) au **réseau maillé Reticulum** via **LXMF** (la même pile que TCQ), et ne dialogue **qu'avec les stations `TCQ-xxxx`** du réseau. Les messages d'un canal MeshCore sont transportés en LXMF vers les stations TCQ joignables par Reticulum (RF longue distance, LoRa, TCP/IP, I2P…), et les messages LXMF reçus des stations TCQ sont réinjectés sur le réseau MeshCore local. C'est l'équivalent d'une passerelle AirLink, mais avec **Reticulum/LXMF** comme dorsale au lieu de VARA — ce qui apporte l'**adressage de bout en bout** et le **routage multi-saut** propres à Reticulum.
 
 ![Interface MeshRNS](https://raw.githubusercontent.com/f1gbd/F1GBD/master/meshrns/images/MeshRNS_screen.png)
 
-> Version courante : **v1.0.8** — Windows (interface graphique).
-### 📥 [**Télécharger la dernière version pour Windows 11 (x64)**](https://github.com/f1gbd/F1GBD/releases/download/meshrns-v1.0.8/MeshRNS-v1.0.8-win64.7z)
+> Version courante : **v2.0.0** — Windows (interface graphique). Nouveau : **interconnexion inter-îlots** (mode réflecteur).
+### 📥 [**Télécharger la dernière version pour Windows 11 (x64)**](https://github.com/f1gbd/F1GBD/releases/download/meshrns-v2.0.0/MeshRNS-v2.0.0-win64.7z)
 
 *Archive **7-Zip** (.7z) — Windows 11 l'extrait nativement ; sinon installez [7-Zip](https://www.7-zip.org).*
 
@@ -23,10 +21,6 @@ MeshRNS relie un **réseau radio MeshCore** (LoRa) au **réseau maillé Reticulu
 ---
 
 ## Principe
-
-<div align="center">
-<img src="images/MeshRNS_principle.png" alt="MeshRNS — un pont, deux réseaux, aucune frontière : du réseau MeshCore (LoRa, LXMF) au réseau Reticulum des stations TCQ" width="760">
-</div>
 
 ```
         Réseau MeshCore (LoRa)                       Réseau Reticulum (maillé)
@@ -41,7 +35,7 @@ MeshRNS relie un **réseau radio MeshCore** (LoRa) au **réseau maillé Reticulu
                                  │ (passerelle)│    (RNS)      │   RF / LoRa /
                                  └─────────────┘               │   TCP-IP / I2P…
                                                                │
-                                                    TCQ-F1GBD · TCQ-F1ABC/HF · TCQ-…
+                                                    TCQ-F1GBD · TCQ-56/HF · TCQ-BBS…
 ```
 
 La passerelle s'**annonce sur LXMF** sous un indicatif de station **`TCQ-*`** et écoute les annonces du réseau : seules les stations dont le nom commence par **`TCQ`** sont retenues (**filtrage**) et inscrites dans un **annuaire**. Tout message posté sur le **canal MeshCore de service `tcq`** est relayé en LXMF vers ces stations ; tout message LXMF reçu d'une station TCQ est réinjecté sur MeshCore.
@@ -53,6 +47,7 @@ La **connexion à Reticulum est automatique** : MeshRNS lit la configuration RNS
 ## Fonctionnalités
 
 - **Dorsale Reticulum / LXMF** — transport applicatif **LXMF** (Lightweight Extensible Message Format), exactement la pile utilisée par TCQ, par-dessus le réseau maillé **Reticulum** (RF, LoRa RNode, TCP/IP, I2P…). Adressage de bout en bout et chiffrement assurés par Reticulum.
+- **Interconnexion inter-îlots** *(v2.0)* — plusieurs passerelles MeshRNS **de confiance** peuvent miroiter un canal de service entre îlots **éloignés** (mode **réflecteur / peering**). Anti-écho par identifiant de message, liste blanche de pairs, fan-out optionnel par un hub. Voir la section dédiée plus bas.
 - **Connexion automatique à Reticulum** — la pile RNS lit `~/.reticulum/config` (interfaces, transport) **configuré via TCQ-config**. Rien à régler ici.
 - **Filtrage `TCQ-*`** — la passerelle ne retient (annonces, annuaire) et n'accepte (messages entrants) **que les stations TCQ**. Les autres trafics LXMF du réseau sont ignorés.
 - **Annuaire LXMF** — constitué automatiquement à partir des annonces des stations TCQ, persistant dans `annuaire.json` (**format identique à TCQ** : `{hash: {name, last_seen}}`), avec visualiseur intégré (copier l'adresse, définir comme station directe, case **« Sans filtre TCQ »** pour afficher *toutes* les stations LXMF vues, et bouton **« Importer annuaire TCQ… »** pour fusionner un `annuaire.json` complet généré par TCQ).
@@ -85,7 +80,7 @@ La **connexion à Reticulum est automatique** : MeshRNS lit la configuration RNS
 ---
 
 ## Installation
-### 📥 [**Télécharger la dernière version pour Windows 11 (x64)**](https://github.com/f1gbd/F1GBD/releases/download/meshrns-v1.0.8/MeshRNS-v1.0.8-win64.7z)
+### 📥 [**Télécharger la dernière version pour Windows 11 (x64)**](https://github.com/f1gbd/F1GBD/releases/download/meshrns-v2.0.0/MeshRNS-v2.0.0-win64.7z)
 
 *Archive **7-Zip** (.7z). Décompressez-la (Windows 11 nativement, ou [7-Zip](https://www.7-zip.org)), puis lancez `MeshRNS.exe`. Conservez `MeshRNS.png`, `MeshRNS.ico`, `meshrns.json` **et le dossier `reticulum_config/`** à côté de l'exécutable. L'annuaire `annuaire.json` est créé/maintenu au même endroit. Au premier lancement, si `~/.reticulum/config` n'existe pas, la configuration par défaut `reticulum_config/config` y est copiée automatiquement.*
 
@@ -125,7 +120,7 @@ Exemple (passerelle **TCQ-F1GBD**, mode `broadcast`, canal de service `tcq`) :
   },
   "local_call": "F1GBD",
   "link_mode": "broadcast",
-  "peer_station": "TCQ-BBS-F1GBD",
+  "peer_station": "TCQ-F1GBD/77",
   "broadcast_max_age_days": 7.0,
   "channels": [1], "channel_map": {}, "inject_channel": -1,
   "tcq_channel_name": "tcq", "service_channel": -1,
@@ -133,7 +128,17 @@ Exemple (passerelle **TCQ-F1GBD**, mode `broadcast`, canal de service `tcq`) :
   "tcq_filter_inbound": true,
   "sign_outbound": true, "signature": "",
   "antiloop_ttl": 30.0, "mc_max_chars": 140, "rx_dedup_ttl": 120.0,
-  "annuaire_file": "annuaire.json", "rns_loglevel": 0, "log_file": ""
+  "annuaire_file": "annuaire.json", "rns_loglevel": 0, "log_file": "",
+  "auto_start": false,
+
+  "peer_link_enabled": false,
+  "gateway_id": "GW-77",
+  "is_reflector": false,
+  "peers": [],
+  "mirror_channels": [],
+  "peer_channel_map": {},
+  "wan_dedup_ttl": 600,
+  "trust_peers_only": true
 }
 ```
 
@@ -159,6 +164,15 @@ Exemple (passerelle **TCQ-F1GBD**, mode `broadcast`, canal de service `tcq`) :
 | `rx_dedup_ttl` / `antiloop_ttl` | Anti-doublon LXMF entrant / anti-écho du companion (s). |
 | `rns_loglevel` | Verbosité de la pile RNS (`0` = silencieux, mute le spam d'interfaces ; `0..7`). |
 | `annuaire_file` | Fichier de l'annuaire TCQ (défaut `annuaire.json`, à côté de l'exe). |
+| `auto_start` | Démarrer la passerelle dès l'ouverture de la fenêtre (boot autonome). |
+| `peer_link_enabled` | *(v2.0)* Active l'**interconnexion inter-îlots** (miroir de canal entre passerelles). |
+| `gateway_id` | *(v2.0)* Identité **distincte** de cette passerelle (garde anti-boucle). Vide = indicatif local. |
+| `is_reflector` | *(v2.0)* Rôle **hub** : rediffuse les miroirs aux autres pairs (fan-out). |
+| `peers` | *(v2.0)* Cibles de l'interconnexion : noms `TCQ-*` ou **hash LXMF** (préférés). |
+| `mirror_channels` | *(v2.0)* Canaux MeshCore miroités (`[]` = canal de service `tcq`). |
+| `peer_channel_map` | *(v2.0)* Mappe le canal d'origine d'un pair vers un canal local (`{"<ch>": <ch>}`). |
+| `wan_dedup_ttl` | *(v2.0)* Mémoire anti-écho WAN par identifiant de message (s, défaut 600). |
+| `trust_peers_only` | *(v2.0)* N'accepter un miroir **que** des hash listés dans `peers` (recommandé). |
 
 ---
 
@@ -177,9 +191,9 @@ La passerelle répond **sur le même canal**, sous la forme :
 
 ```
 Annuaire TCQ (3):
-1.TCQ-F1GBD     5436706f 2026-06-26 19:49
-2.TCQ-F1ABC/HF  9672a8ca 2026-06-26 18:12
-3.TCQ-F1XYZ     a1b2c3d4 2026-06-25 21:07
+1.TCQ-BBS-F1GBD 5436706f 2026-06-26 19:49
+2.TCQ-F1XYZ/HF     9672a8ca 2026-06-26 18:12
+3.TCQ-F4ABC     a1b2c3d4 2026-06-25 21:07
 ```
 
 Les réponses trop longues sont **automatiquement découpées** à `mc_max_chars`. Côté GUI, le bouton **Annuaire…** affiche la même liste (nom, adresse LXMF, dernier contact) et permet de copier une adresse ou de la définir comme station directe.
@@ -196,7 +210,7 @@ LXMF est un protocole **adressé** (pas de diffusion native), contrairement à V
 - **`direct`** — chaque message est envoyé à la **station par défaut** (`peer_station`), équivalent d'une liaison point-à-point.
 - **`@<station> texte`** — surcharge ponctuelle : le message n'est envoyé qu'à la station indiquée (par **nom** TCQ ou **hash** LXMF de 32 caractères), quel que soit le mode. Exemple : `@TCQ-56/HF SITREP recu, QSL.`
 
-> **Préfixe d'expéditeur MeshCore.** Sur un canal, le firmware MeshCore ajoute le nom de l'émetteur en tête du message (`F1GBD/P: @TCQ-F1ABC/HF …`). Depuis la **v1.0.6**, MeshRNS détecte le `@cible` **même précédé de ce préfixe** ; le Journal le confirme par une ligne `Ciblage @TCQ-56/HF -> …`. Les messages relayés sont par ailleurs **signés** en fin de message avec l'indicatif (`sign_outbound`).
+> **Préfixe d'expéditeur MeshCore.** Sur un canal, le firmware MeshCore ajoute le nom de l'émetteur en tête du message (`F1GBD/P: @TCQ-56/HF …`). Depuis la **v1.0.6**, MeshRNS détecte le `@cible` **même précédé de ce préfixe** ; le Journal le confirme par une ligne `Ciblage @TCQ-56/HF -> …`. Les messages relayés sont par ailleurs **signés** en fin de message avec l'indicatif (`sign_outbound`).
 
 Pour chaque cible, MeshRNS effectue une **recherche de chemin RNS** (`request_path`, délai `path_timeout`) avant l'envoi.
 
@@ -224,6 +238,62 @@ La fenêtre fonctionne que la passerelle soit démarrée (connexion active) ou a
 
 ---
 
+## Interconnexion inter-îlots (mode réflecteur / peering) *(v2.0)*
+
+<div align="center">
+
+### *« Mille îlots, un seul maillage, aucune frontière. »*
+
+<img src="images/MeshRNS_interconnect.png" alt="MeshRNS — interconnexion inter-îlots" width="820">
+
+*Du sommet enneigé au désert, le même réseau.*
+
+</div>
+
+À partir de la **v2.0**, plusieurs passerelles MeshRNS **de confiance** peuvent relier des îlots LoRa MeshCore **géographiquement éloignés** en miroitant le canal de service `tcq` via Reticulum/LXMF. Le pont se fait **à la couche LXMF** : les îlots ne se voient jamais en RF (clés de canal indépendantes), la jonction est insensible à la distance dès qu'un chemin Reticulum existe entre les passerelles (TCP/Internet, HF/VHF packet, RNode LoRa, HamNet, I2P…).
+
+> Le ciblage **dirigé** `@TCQ-station/secteur` est déjà livré de bout en bout **sans** ce mode. L'interconnexion ne concerne que le trafic de **canal / groupe** (net).
+
+### Scénario A — deux îlots (peering direct)
+
+Aucune passerelle n'est réflecteur : chacune déclare l'autre comme **pair**.
+
+![Peering direct entre deux îlots](images/interco_peering.png)
+
+| Champ (GUI) | Passerelle A (/77) | Passerelle B (/13) |
+| --- | --- | --- |
+| Interco inter-îlots (réflecteur) | ✅ | ✅ |
+| ID passerelle | `GW-77` | `GW-13` |
+| Pairs (noms/hash, sép. `,`) | *hash LXMF de B* | *hash LXMF de A* |
+| Rôle réflecteur (hub) | ☐ | ☐ |
+| Pairs de confiance seuls | ✅ | ✅ |
+
+### Scénario B — N îlots (réflecteur central)
+
+Une passerelle joue le **hub** ; les autres sont des **feuilles** qui ne pointent **que** le hub. Le hub déduplique (par `mid`) et rediffuse aux autres feuilles.
+
+![Réflecteur central N îlots](images/interco_reflecteur.png)
+
+| Champ (GUI) | Hub | Chaque feuille (/77, /13, /35…) |
+| --- | --- | --- |
+| Interco inter-îlots | ✅ | ✅ |
+| Rôle réflecteur (hub) | ✅ | ☐ |
+| ID passerelle | `HUB` | `GW-77`, `GW-13`… (distinct) |
+| Pairs | *hash de toutes les feuilles* | *hash du hub uniquement* |
+| Pairs de confiance seuls | ✅ | ✅ |
+
+### Points clés
+
+- **`ID passerelle` (`gateway_id`) distinct** sur chaque passerelle : c'est la garde d'origine anti-boucle. Vide = prend l'indicatif local.
+- Le **hash LXMF** d'une passerelle figure dans la ligne `Diagnostic Reticulum : … adresse LXMF=<hash>` au démarrage ; préférez le hash au nom pour un hub stable.
+- **Anti-écho** : un miroir reçu du WAN ne repart jamais vers le WAN (sauf le fan-out du réflecteur), déduplication par `(gw, mid)` à TTL (`wan_dedup_ttl`).
+- **Liste blanche** (`trust_peers_only`, défaut activé) : seuls les pairs déclarés peuvent injecter.
+- **Duty cycle** : limitez `mirror_channels` au seul canal de service (EU868 = 1 %).
+
+*Fiche dédiée :* **MEMO - Fiche Interco MeshRNS** (paramétrage pas-à-pas avec ces deux schémas).
+
+---
+
 ## Connexion Reticulum (via TCQ-config)
 
 MeshRNS **ne configure pas** Reticulum : il réutilise la configuration RNS du poste, gérée par l'**éditeur de configuration Reticulum de TCQ-config** (`~/.reticulum/config`). Pour relier votre passerelle au reste du réseau TCQ, déclarez-y au moins une **interface** :
@@ -248,7 +318,16 @@ MeshRNS possède sa **propre identité LXMF** (dossier `lxmf.storage_path`, déf
 - **Canal `tcq` refusé sur le companion** → le canal n'existe pas avec la **même clé** : (re)configurez-le via **Canaux…** (QR de partage / Importer pour synchroniser la clé).
 - **La passerelle ne s'arrête pas / impossible de redémarrer** → corrigé en **v1.0.8** (arrêt borné, port libéré au besoin de force). Mettez à jour si vous observez ce comportement sur une version antérieure.
 
----
+<div align="center">
+
+### *« Un pont, deux Univers Mesh, aucune frontière. »*
+
+<img src="images/MeshRNS_principle.png" alt="MeshRNS — interconnexion inter-îlots" width="820">
+
+*Là où le LoRa s'arrête, le maillage Reticulum prend le relais.*
+
+</div>
+
 
 ## Licence & auteur
 
@@ -258,17 +337,17 @@ MeshRNS possède sa **propre identité LXMF** (dossier `lxmf.storage_path`, déf
 
 - 📘 **[Manuel utilisateur MeshRNS](https://github.com/f1gbd/F1GBD/blob/master/meshrns/documentation/MEMO%20-%20MANUEL%20MeshRNS.pdf)** — Manuel Utilisateur et Paramétrage de MeshRNS
 - 📋 **[Fiche technique MeshRNS](https://github.com/f1gbd/F1GBD/blob/master/meshrns/documentation/MEMO%20-%20Fiche%20Technique%20MeshRNS.pdf)** — Fiche Technique MeshRNS
-
----
+- 🔗 **[Fiche interconnexion inter-îlots](https://github.com/f1gbd/F1GBD/blob/master/meshrns/documentation/MEMO%20-%20Fiche%20Interco%20MeshRNS.pdf)** — Paramétrage du mode réflecteur / peering *(v2.0)*
+- 🧾 **[CHANGELOG](https://github.com/f1gbd/F1GBD/blob/master/meshrns/CHANGELOG.md)** — Historique des versions
 
 <div align="center">
 
 ### 📡 Auteur
 
-**Jean-Louis Naudin (F1GBD)**
+**Jean-Louis (F1GBD)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.0.8 — Juin 2026**
+**Version 2.0.0 — Juin 2026**
 
 ---
 
