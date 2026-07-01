@@ -38,7 +38,7 @@ Aucune source ni dépendance Python à installer : l'archive contient un **binai
 
 ### 📥 Télécharger la dernière version
 
-`https://github.com/f1gbd/F1GBD/releases` → tag **`meshrns-v2.1.2`**, puis l'archive correspondant à votre machine :
+ https://github.com/f1gbd/F1GBD/releases/download/meshrns-pi-arm64-v2.1.2/MeshRNS-v2.1.2-linux-aarch64.tar.gz
 
 | Plateforme | `uname -m` | Archive |
 | --- | --- | --- |
