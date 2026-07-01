@@ -88,7 +88,7 @@ La **connexion à Reticulum est automatique** : MeshRNS lit la configuration RNS
 
 ## Démarrage rapide
 
-1. **Préparez Reticulum dans TCQ-config** : vérifiez/créez la connexion RNS (interfaces, transport). MeshRNS s'y connectera automatiquement.
+1. Si **Reticulum** n'est pas installé sur votre PC, c'est MeshRNS qui le fera **automatiquement**, sinon, il utilisera la configuration Reticulum installée..
 2. Lancez MeshRNS. L'onglet **Connexion** présente trois groupes de réglages.
 3. **MeshCore (companion)** : choisissez le **Transport** (`serial`/`tcp`/`ble`), le **Port** (ex. `COM4`) et le **Baudrate**. Laissez **Lecture active (get_msg)** cochée.
 4. **LXMF / Reticulum** : indiquez la **Station LXMF** de cette passerelle (un indicatif **`TCQ-*`**, ex. `TCQ-F1GBD`). Laissez **Config RNS** vide (= configuration de TCQ-config). Réglez au besoin l'**intervalle d'annonce** et le **préfixe de filtre** (`TCQ`).
