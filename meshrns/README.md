@@ -9,6 +9,16 @@
 
 MeshRNS relie un **réseau radio MeshCore** (LoRa) au **réseau maillé Reticulum** via **LXMF** (la même pile que TCQ), et ne dialogue **qu'avec les stations `TCQ-xxxx`** du réseau. Les messages d'un canal MeshCore sont transportés en LXMF vers les stations TCQ joignables par Reticulum (RF longue distance, LoRa, TCP/IP, I2P…), et les messages LXMF reçus des stations TCQ sont réinjectés sur le réseau MeshCore local. C'est l'équivalent d'une passerelle AirLink, mais avec **Reticulum/LXMF** comme dorsale au lieu de VARA — ce qui apporte l'**adressage de bout en bout** et le **routage multi-saut** propres à Reticulum.
 
+<div align="center">
+
+### *« Un pont, deux Univers Mesh, aucune frontière. »*
+
+<img src="images/MeshRNS_principle.png" alt="MeshRNS — interconnexion inter-îlots" width="820">
+
+*Là où le LoRa s'arrête, le maillage Reticulum prend le relais.*
+
+</div>
+
 ![Interface MeshRNS](https://raw.githubusercontent.com/f1gbd/F1GBD/master/meshrns/images/MeshRNS_screen.png)
 
 > Version courante : **v2.0.0** — Windows (interface graphique). Nouveau : **interconnexion inter-îlots** (mode réflecteur).
@@ -317,16 +327,6 @@ MeshRNS possède sa **propre identité LXMF** (dossier `lxmf.storage_path`, déf
 - **`@station introuvable`** → la station n'est pas (ou plus) dans l'annuaire : laissez-la s'annoncer, ou utilisez son **hash** LXMF complet.
 - **Canal `tcq` refusé sur le companion** → le canal n'existe pas avec la **même clé** : (re)configurez-le via **Canaux…** (QR de partage / Importer pour synchroniser la clé).
 - **La passerelle ne s'arrête pas / impossible de redémarrer** → corrigé en **v1.0.8** (arrêt borné, port libéré au besoin de force). Mettez à jour si vous observez ce comportement sur une version antérieure.
-
-<div align="center">
-
-### *« Un pont, deux Univers Mesh, aucune frontière. »*
-
-<img src="images/MeshRNS_principle.png" alt="MeshRNS — interconnexion inter-îlots" width="820">
-
-*Là où le LoRa s'arrête, le maillage Reticulum prend le relais.*
-
-</div>
 
 
 ## Licence & auteur
