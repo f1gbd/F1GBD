@@ -21,8 +21,8 @@ MeshRNS relie un **réseau radio MeshCore** (LoRa) au **réseau maillé Reticulu
 
 ![Interface MeshRNS](https://raw.githubusercontent.com/f1gbd/F1GBD/master/meshrns/images/MeshRNS_screen.png)
 
-> Version courante : **v2.0.0** — Windows (interface graphique). Nouveau : **interconnexion inter-îlots** (mode réflecteur).
-### 📥 [**Télécharger la dernière version pour Windows 11 (x64)**](https://github.com/f1gbd/F1GBD/releases/download/meshrns-v2.0.0/MeshRNS-v2.0.0-win64.7z)
+> Version courante : **v2.1.2** — Windows (interface graphique). Nouveau : **routage de message vers email** (commande `#m`, radiogramme authentifié).
+### 📥 [**Télécharger la dernière version pour Windows 11 (x64)**](https://github.com/f1gbd/F1GBD/releases/download/meshrns-v2.1.2/MeshRNS-v2.1.2-win64.7z)
 
 *Archive **7-Zip** (.7z) — Windows 11 l'extrait nativement ; sinon installez [7-Zip](https://www.7-zip.org).*
 
@@ -58,6 +58,7 @@ La **connexion à Reticulum est automatique** : MeshRNS lit la configuration RNS
 
 - **Dorsale Reticulum / LXMF** — transport applicatif **LXMF** (Lightweight Extensible Message Format), exactement la pile utilisée par TCQ, par-dessus le réseau maillé **Reticulum** (RF, LoRa RNode, TCP/IP, I2P…). Adressage de bout en bout et chiffrement assurés par Reticulum.
 - **Interconnexion inter-îlots** *(v2.0)* — plusieurs passerelles MeshRNS **de confiance** peuvent miroiter un canal de service entre îlots **éloignés** (mode **réflecteur / peering**). Anti-écho par identifiant de message, liste blanche de pairs, fan-out optionnel par un hub. Voir la section dédiée plus bas.
+- **Routage de message vers email** *(v2.1)* — un client MeshCore peut faire router un message vers un ou plusieurs destinataires courriel depuis un canal LoRa (commande **`#m`**). Le corps est encapsulé dans un **radiogramme ADRASEC authentifié TOTP+CRC** (algorithmes identiques à TCQ, donc re-validable par toute station TCQ) puis envoyé par SMTP. Configuration SMTP **autonome** (bloc `email` de `meshrns.json`, sans TCQ). Voir la section dédiée plus bas.
 - **Connexion automatique à Reticulum** — la pile RNS lit `~/.reticulum/config` (interfaces, transport) **configuré via TCQ-config**. Rien à régler ici.
 - **Filtrage `TCQ-*`** — la passerelle ne retient (annonces, annuaire) et n'accepte (messages entrants) **que les stations TCQ**. Les autres trafics LXMF du réseau sont ignorés.
 - **Annuaire LXMF** — constitué automatiquement à partir des annonces des stations TCQ, persistant dans `annuaire.json` (**format identique à TCQ** : `{hash: {name, last_seen}}`), avec visualiseur intégré (copier l'adresse, définir comme station directe, case **« Sans filtre TCQ »** pour afficher *toutes* les stations LXMF vues, et bouton **« Importer annuaire TCQ… »** pour fusionner un `annuaire.json` complet généré par TCQ).
@@ -90,7 +91,7 @@ La **connexion à Reticulum est automatique** : MeshRNS lit la configuration RNS
 ---
 
 ## Installation
-### 📥 [**Télécharger la dernière version pour Windows 11 (x64)**](https://github.com/f1gbd/F1GBD/releases/download/meshrns-v2.0.0/MeshRNS-v2.0.0-win64.7z)
+### 📥 [**Télécharger la dernière version pour Windows 11 (x64)**](https://github.com/f1gbd/F1GBD/releases/download/meshrns-v2.1.2/MeshRNS-v2.1.2-win64.7z)
 
 *Archive **7-Zip** (.7z). Décompressez-la (Windows 11 nativement, ou [7-Zip](https://www.7-zip.org)), puis lancez `MeshRNS.exe`. Conservez `MeshRNS.png`, `MeshRNS.ico`, `meshrns.json` **et le dossier `reticulum_config/`** à côté de l'exécutable. L'annuaire `annuaire.json` est créé/maintenu au même endroit. Au premier lancement, si `~/.reticulum/config` n'existe pas, la configuration par défaut `reticulum_config/config` y est copiée automatiquement.*
 
@@ -148,7 +149,17 @@ Exemple (passerelle **TCQ-F1GBD**, mode `broadcast`, canal de service `tcq`) :
   "mirror_channels": [],
   "peer_channel_map": {},
   "wan_dedup_ttl": 600,
-  "trust_peers_only": true
+  "trust_peers_only": true,
+
+  "email": {
+    "enabled": false,
+    "smtp_server": "smtp.gmail.com", "smtp_port": 587,
+    "smtp_username": "", "smtp_password": "",
+    "sender_email": "", "sender_name": "ADRASEC Radiogramme",
+    "use_tls": true, "use_ssl": false,
+    "recipients": [],
+    "cmd_prefix": "#m", "radiogramme_alert": "EXERCICE", "radiogramme_origine": ""
+  }
 }
 ```
 
@@ -183,6 +194,7 @@ Exemple (passerelle **TCQ-F1GBD**, mode `broadcast`, canal de service `tcq`) :
 | `peer_channel_map` | *(v2.0)* Mappe le canal d'origine d'un pair vers un canal local (`{"<ch>": <ch>}`). |
 | `wan_dedup_ttl` | *(v2.0)* Mémoire anti-écho WAN par identifiant de message (s, défaut 600). |
 | `trust_peers_only` | *(v2.0)* N'accepter un miroir **que** des hash listés dans `peers` (recommandé). |
+| `email` | *(v2.1)* Bloc SMTP du routage **`#m`** (serveur, identifiants, destinataires par défaut, préfixe). **Champs SMTP vierges dans la version publiée**, à renseigner par le sysop. Voir la section dédiée. |
 
 ---
 
@@ -304,6 +316,51 @@ Une passerelle joue le **hub** ; les autres sont des **feuilles** qui ne pointen
 
 ---
 
+## Routage de message vers email (`#m`) *(v2.1)*
+
+À partir de la **v2.1**, un client MeshCore peut faire **router un message vers un ou plusieurs destinataires courriel**, directement depuis un canal LoRa. Le corps est encapsulé dans un **radiogramme ADRASEC authentifié TOTP+CRC** — mêmes algorithmes que TCQ, donc le courriel reçu est **re-validable par n'importe quelle station TCQ**. Tout est **autonome** : la configuration SMTP vit dans `meshrns.json`, **sans TCQ installé**.
+
+### Syntaxe
+
+Sur le canal de service `tcq` (ou en message direct) :
+
+```
+#m dest1@exemple.com; dest2@wanadoo.fr; corps du message ... 73
+```
+
+Les adresses de tête (séparées par `;`) sont les destinataires ; le reste constitue le corps (les `;` internes sont conservés). Sans adresse, les **destinataires par défaut** (`email.recipients`) sont utilisés. Le préfixe `#m` (champ `cmd_prefix`) et le préfixe d'expéditeur MeshCore sont tolérés. Une confirmation **`[#m] OK`** (code AUTH + expiration) est renvoyée sur le canal. La commande est **purement locale** : elle n'est jamais relayée vers LXMF ni miroitée.
+
+### Configuration SMTP (`bloc email de meshrns.json`)
+
+> **Dans la version publiée, les champs SMTP sont vierges** : c'est au sysop de la passerelle de les renseigner, puis de passer `enabled` à `true` (ou cocher **Routage email actif** dans l'onglet *Connexion*, groupe **Routage email**, sous *LXMF / Reticulum*).
+
+| Champ | Rôle |
+| --- | --- |
+| `enabled` | Active le routage email (à passer à `true` après remplissage). |
+| `smtp_server` / `smtp_port` | Serveur SMTP et port (ex. `smtp.gmail.com` / `587`). |
+| `smtp_username` / `smtp_password` | Identifiants SMTP. Gmail : utiliser un **app-password** (voir ci-dessous). |
+| `sender_email` / `sender_name` | Adresse et nom d'expéditeur affichés. |
+| `use_tls` / `use_ssl` | STARTTLS (587) ou SSL direct (465). |
+| `recipients` | Destinataires par défaut si `#m` sans adresse. |
+| `cmd_prefix` | Préfixe de la commande (défaut `#m`). |
+| `radiogramme_alert` | Niveau d'alerte du radiogramme (défaut `EXERCICE`). |
+| `radiogramme_origine` | Champ « Origine (Localisation) » (vide = indicatif local). |
+
+> Le mot de passe SMTP est stocké dans `meshrns.json` ; dans l'interface il est **masqué** (case **« Afficher »** pour le révéler). Protégez ce fichier et préférez un **app-password dédié** (révocable indépendamment) au mot de passe principal du compte.
+
+### Générer un mot de passe d'application Google (app-password)
+
+Requis pour un compte **Gmail** avec validation en 2 étapes. À créer **sur le compte qui sert au login SMTP** (`smtp_username`).
+
+1. **Activez la validation en 2 étapes** (Compte Google › Sécurité › « Comment vous connecter à Google »). Sans elle, l'option n'apparaît pas.
+2. Ouvrez la page des app-passwords via le **lien direct** `https://myaccount.google.com/apppasswords` (Google a retiré l'accès par les menus). Reconnectez-vous si demandé.
+3. Dans « Select app », choisissez **Other (Custom name)** et nommez-le p. ex. `MeshRNS`, puis **Generate**.
+4. Copiez les **16 caractères** (ils ne réapparaîtront plus) et collez-les dans `smtp_password` / champ **Mot de passe SMTP** (avec ou sans espaces).
+
+**Révoquer / renouveler** : même page `myaccount.google.com/apppasswords`, supprimez l'entrée « MeshRNS » — sans impacter vos autres applications (dont TCQ). Changer le mot de passe du compte Google révoque d'un coup tous les app-passwords existants.
+
+---
+
 ## Connexion Reticulum (via TCQ-config)
 
 MeshRNS **ne configure pas** Reticulum : il réutilise la configuration RNS du poste, gérée par l'**éditeur de configuration Reticulum de TCQ-config** (`~/.reticulum/config`). Pour relier votre passerelle au reste du réseau TCQ, déclarez-y au moins une **interface** :
@@ -347,7 +404,7 @@ MeshRNS possède sa **propre identité LXMF** (dossier `lxmf.storage_path`, déf
 **Jean-Louis (F1GBD)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 2.0.0 — Juin 2026**
+**Version 2.1.2 — Juillet 2026**
 
 ---
 
