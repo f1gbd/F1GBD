@@ -86,7 +86,7 @@ MeshRNS possède sa **propre identité LXMF** (dossier `~/.meshrns`), distincte 
 ## Démarrage rapide
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/f1gbd/F1GBD/master/meshrns/images/MeshRNSpi_mainscreen.png" alt="Interface MeshRNS v2.1.2 — onglet Connexion avec le groupe Routage email" width="900">
+<img src="https://github.com/f1gbd/F1GBD/blob/master/meshrns/raspberry/images/MeshRNSpi_mainscreen.png" alt="Interface MeshRNS v2.1.2 — onglet Connexion avec le groupe Routage email" width="900">
 </div>
 
 1. **Préparez `~/.reticulum/config`** (interface RNode LoRa / TCP qui joint le réseau TCQ).
