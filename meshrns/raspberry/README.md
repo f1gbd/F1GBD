@@ -6,7 +6,7 @@
 
 **Passerelle Reticulum / LXMF pour MeshCore — édition Raspberry Pi 4B+/5 (aarch64)**
 
-### *« Un pont, deux Univers Mesh, aucune frontière. »*
+### *« Un pont, deux réseaux, aucune frontière. »*
 
 *Là où le LoRa s'arrête, le maillage Reticulum prend le relais.*
 
@@ -15,14 +15,10 @@
 MeshRNS Pi est le portage **Raspberry Pi (aarch64)** de MeshRNS. Il relie un **réseau radio MeshCore** (LoRa) au **réseau maillé Reticulum** via **LXMF** (la même pile que TCQ), et ne dialogue **qu'avec les stations `TCQ-xxxx`** du réseau. Les messages d'un canal MeshCore sont transportés en LXMF vers les stations TCQ joignables par Reticulum (RF longue distance, LoRa, TCP/IP, I2P…), et les messages LXMF reçus des stations TCQ sont réinjectés sur le réseau MeshCore local. **C'est la même application que la version Windows, recompilée pour Raspberry Pi** (interface, configuration et fichiers identiques).
 
 <div align="center">
-<img src="https://github.com/f1gbd/F1GBD/blob/master/meshrns/raspberry/images/MeshRNSpi_mainscreen.png" alt="MeshRNSpi main screen" width="760">
-</div>
-
-<div align="center">
 <img src="https://raw.githubusercontent.com/f1gbd/F1GBD/master/meshrns/images/MeshRNS_principle.png" alt="MeshRNS — du réseau MeshCore (LoRa, LXMF) au réseau Reticulum des stations TCQ" width="760">
 </div>
 
-> Version courante : **v1.0.8** — Raspberry Pi OS 64 bits (Bookworm/Trixie), Pi 4B+ ou Pi 5.
+> Version courante : **v2.0.0** — Raspberry Pi OS 64 bits (Bookworm/Trixie), Pi 4B+ ou Pi 5.
 
 > Contrairement à MeshPacket, MeshRNS n'utilise **ni Direwolf ni AX.25** : sa dorsale est **Reticulum/LXMF**.
 
@@ -40,12 +36,12 @@ MeshRNS Pi est le portage **Raspberry Pi (aarch64)** de MeshRNS. Il relie un **r
 
 ### 📥 Télécharger la dernière version Raspberry Pi (aarch64)
 
-`https://github.com/f1gbd/F1GBD/releases` → tag **`meshrns-pi-arm64-v1.0.8`**, fichier **`MeshRNSPi-v1.0.8-aarch64.tar.gz`**.
+`https://github.com/f1gbd/F1GBD/releases` → tag **`meshrns-pi-arm64-v2.0.0`**, fichier **`MeshRNSPi-v2.0.0-aarch64.tar.gz`**.
 
 ```bash
 # 1. Extraction
-tar xzf MeshRNSPi-v1.0.8-aarch64.tar.gz
-cd MeshRNSPi-v1.0.8-aarch64
+tar xzf MeshRNSPi-v2.0.0-aarch64.tar.gz
+cd MeshRNSPi-v2.0.0-aarch64
 
 # 2. Configuration système (accès série, Bluetooth optionnel, raccourci menu)
 chmod +x install_pi.sh
@@ -61,7 +57,7 @@ L'archive est **autonome** : le binaire `MeshRNS` et son dossier `_internal/` em
 ### Vérifier l'intégrité (SHA-256)
 
 ```bash
-sha256sum -c MeshRNSPi-v1.0.8-aarch64.tar.gz.sha256
+sha256sum -c MeshRNSPi-v2.0.0-aarch64.tar.gz.sha256
 ```
 
 ---
@@ -104,12 +100,39 @@ L'édition Pi est **fonctionnellement identique** à la version Windows :
 - **Signature** des messages relayés, **réinjection LXMF → MeshCore** avec déduplication et anti-écho, **confirmation de livraison** journalisée (`Livraison LXMF confirmee`).
 - **Gestion des canaux** du companion (création/clé, **QR de partage**, import d'URL `meshcore://channel/add`).
 - **Arrêt fiable** (port libéré au besoin de force) et **config Reticulum par défaut** installée au 1ᵉʳ lancement si absente.
+- **Interconnexion inter-îlots** *(v2.0)* — relie plusieurs îlots LoRa MeshCore **éloignés** en miroitant le canal de service via LXMF (mode **réflecteur / peering**), avec anti-écho par identifiant de message et liste blanche de pairs. Idéale pour un **réflecteur ADRASEC** sur Pi en fonctionnement autonome (voir l'autostart ci-dessous).
 
-> Pour le détail exhaustif (tableau `meshrns.json`, canal `tcq`, dépannage complet), voir le **[README principal MeshRNS](https://github.com/f1gbd/F1GBD/tree/master/meshrns)** et les fiches PDF — identiques, l'interface étant la même.
+> Pour le détail exhaustif (tableau `meshrns.json`, canal `tcq`, **paramétrage de l'interconnexion** avec schémas, dépannage complet), voir le **[README principal MeshRNS](https://github.com/f1gbd/F1GBD/tree/master/meshrns)** et les fiches PDF — identiques, l'interface étant la même.
 
 ---
 
-## Dépannage (spécifique Pi)
+## Lancement automatique au démarrage
+
+Pour qu'une passerelle ADRASEC démarre **MeshRNS Pi automatiquement** à l'allumage du Raspberry Pi (et **désactiver** le démarrage automatique de MeshPacket Pi sur le même poste) :
+
+```bash
+chmod +x autostart_pi.sh
+./autostart_pi.sh
+sudo reboot
+```
+
+Le script `autostart_pi.sh` :
+
+- **active** MeshRNS Pi au démarrage via l'**autostart XDG** `~/.config/autostart/meshrns-pi.desktop` (honoré par les sessions Raspberry Pi OS en **X11** comme en **Wayland** — labwc / wayfire), avec une petite temporisation au boot ;
+- **désactive** MeshPacket Pi au démarrage sur tous les mécanismes courants : autostart XDG (`meshpacket*.desktop` → `.disabled`), services **systemd** (utilisateur et système), et fichiers `labwc` / `lxsession`.
+
+Pour **revenir en arrière** (retirer MeshRNS du démarrage et réactiver MeshPacket) :
+
+```bash
+./autostart_pi.sh --undo
+sudo reboot
+```
+
+> L'autostart ouvre l'**interface** MeshRNS ; cliquez sur **Démarrer** pour lancer la passerelle (ou laissez-la démarrer si vous l'avez configurée ainsi). Pour un fonctionnement totalement sans surveillance, demandez l'ajout d'une option de démarrage automatique de la passerelle.
+
+---
+
+
 
 - **`/dev/ttyACM0` : permission refusée** → vous n'êtes pas dans le groupe `dialout`. Lancez `./install_pi.sh` puis déconnectez/reconnectez la session (ou `sudo usermod -aG dialout $USER`).
 - **Companion non détecté** → `ls /dev/ttyACM* /dev/ttyUSB*` et ajustez **Port**.
@@ -117,6 +140,7 @@ L'édition Pi est **fonctionnellement identique** à la version Windows :
 - **`Pas de chemin RNS vers …`** → la station cible n'est pas joignable sur le réseau Reticulum actuel (hors ligne, ou autre réseau). La ligne `Livraison LXMF confirmee` atteste d'une remise effective.
 - **Companion Bluetooth (BLE)** → `./install_pi.sh` installe `bluez` ; appairez le companion, choisissez transport `ble`. *(Le binaire doit avoir été compilé avec le support BLE : bloc `bleak` décommenté dans `MeshRNS.spec`.)*
 - **Annuaire vide après redémarrage** → placez le dossier de l'appli dans un emplacement **inscriptible** (home), pour que `annuaire.json` persiste.
+
 
 ---
 
@@ -135,9 +159,9 @@ L'édition Pi est **fonctionnellement identique** à la version Windows :
 
 ### 📡 Auteur
 
-**Jean-Louis Naudin (F1GBD)**
+**Jean-Louis (F1GBD)**
 *ADRASEC 77 — FNRASEC*
 
-**MeshRNS Pi — Version 1.0.8 — Juin 2026**
+**MeshRNS Pi — Version 2.0.0 — Juin 2026**
 
 </div>
