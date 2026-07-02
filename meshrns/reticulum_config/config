@@ -1,0 +1,86 @@
+# Configuration RNS par défaut
+# Générée par RNS Configuration Editor v1.0.0
+# Date: 2026-03-26 08:19:14
+
+[reticulum]
+  enable_transport = False
+  share_instance = Yes
+  shared_instance_port = 37428
+  instance_control_port = 37429
+  panic_on_interface_error = No
+
+[logging]
+  loglevel = 4
+
+[interfaces]
+
+  [[Default Interface]]
+    type = AutoInterface
+    selected_interface_mode = 1
+    interface_enabled = true
+    name = Default Interface
+    configured_bitrate = None
+  
+  [[RNS BetweenTheBorders]]
+    type = TCPClientInterface
+    interface_enabled = true
+    target_host = reticulum.betweentheborders.com
+    target_port = 4242
+    selected_interface_mode = 1
+    name = RNS BetweenTheBorders
+    configured_bitrate = None
+
+  [[RNS Testnet Amsterdam]]
+    type = TCPClientInterface
+    interface_enabled = true
+    target_host = amsterdam.connect.reticulum.network
+    target_port = 4965
+    selected_interface_mode = 1
+    name = RNS Testnet Amsterdam
+    configured_bitrate = None
+  
+  [[RNS Testnet Dublin]]
+    type = TCPClientInterface
+    target_host = dublin.connect.reticulum.network
+    target_port = 4965
+    interface_enabled = true
+    selected_interface_mode = 1
+    name = RNS Testnet Dublin
+    configured_bitrate = None
+  
+  [[rmap.world]]
+    type = TCPClientInterface
+    interface_enabled = true
+    target_host = rmap.world
+    target_port = 4242
+    name = rmap.world
+    selected_interface_mode = 1
+    configured_bitrate = None
+  
+  [[RNS Node Spain]]
+    type = TCPClientInterface
+    interface_enabled = true
+    target_host = reticulum.quixote.network
+    target_port = 4242
+    name = RNS Node Spain
+    selected_interface_mode = 1
+    configured_bitrate = None
+  
+  [[Beleth]]
+    type = TCPClientInterface
+    interface_enabled = true
+    target_host = rns.beleth.net
+    target_port = 4242
+    name = Beleth
+    selected_interface_mode = 1
+    configured_bitrate = None
+  
+  [[RNS Node Germany]]
+    type = TCPClientInterface
+    interface_enabled = true
+    target_host = 202.61.243.41
+    target_port = 4965
+    name = RNS Node Germany
+    selected_interface_mode = 1
+    configured_bitrate = None
+
