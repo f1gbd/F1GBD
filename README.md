@@ -1,10 +1,14 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 27 juin 2026
+mis à jour le 02 juillet 2026
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
+
+![Là où le LoRa s'arrête, le maillage Reticulum prend le relais](https://github.com/f1gbd/F1GBD/blob/master/meshrns/images/MeshRNS_principle.png)
+
+**MAJ du 02/07/2026** : [**MeshRNS: Là où le LoRa s'arrête, le maillage Reticulum prend le relais**](https://github.com/f1gbd/F1GBD/tree/master/meshrns)
 
 ![SATERfinder: Relèvement cartographique pour les Recherches SATER pour les opérateurs ADRASEC](https://github.com/f1gbd/F1GBD/blob/master/epirb/saterfinder/images/SATERfinder_title.jpg)
 
