@@ -302,7 +302,7 @@ La fenêtre fonctionne que la passerelle soit démarrée (connexion active) ou a
 
 ### *« Mille îlots, un seul maillage, aucune frontière. »*
 
-<img src="images/MeshRNS_interconnect.png" alt="MeshRNS — interconnexion inter-îlots" width="820">
+<img src="https://github.com/f1gbd/F1GBD/blob/master/meshrns/images/MeshRNS_interconnect.png" alt="MeshRNS — interconnexion inter-îlots" width="820">
 
 *Du sommet enneigé au désert, le même réseau.*
 
@@ -316,7 +316,7 @@ La fenêtre fonctionne que la passerelle soit démarrée (connexion active) ou a
 
 Aucune passerelle n'est réflecteur : chacune déclare l'autre comme **pair**.
 
-![Peering direct entre deux îlots](images/interco_peering.png)
+![Peering direct entre deux îlots](https://github.com/f1gbd/F1GBD/blob/master/meshrns/images/interco_peering.png)
 
 | Champ (GUI) | Passerelle A (/77) | Passerelle B (/13) |
 | --- | --- | --- |
@@ -330,7 +330,7 @@ Aucune passerelle n'est réflecteur : chacune déclare l'autre comme **pair**.
 
 Une passerelle joue le **hub** ; les autres sont des **feuilles** qui ne pointent **que** le hub. Le hub déduplique (par `mid`) et rediffuse aux autres feuilles.
 
-![Réflecteur central N îlots](images/interco_reflecteur.png)
+![Réflecteur central N îlots](https://github.com/f1gbd/F1GBD/blob/master/meshrns/images/interco_reflecteur.png)
 
 | Champ (GUI) | Hub | Chaque feuille (/77, /13, /35…) |
 | --- | --- | --- |
