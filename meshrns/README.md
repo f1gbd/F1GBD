@@ -21,8 +21,8 @@ MeshRNS relie un **réseau radio MeshCore** (LoRa) au **réseau maillé Reticulu
 
 ![Interface MeshRNS](https://raw.githubusercontent.com/f1gbd/F1GBD/master/meshrns/images/MeshRNS_screen.png)
 
-> Version courante : **v2.1.2** — Windows (interface graphique). Nouveau : **routage de message vers email** (commande `#m`, radiogramme authentifié).
-### 📥 [**Télécharger la dernière version pour Windows 11 (x64)**](https://github.com/f1gbd/F1GBD/releases/download/meshrns-v2.1.2/MeshRNS-v2.1.2-win64.7z)
+> Version courante : **v2.1.8** — Windows (interface graphique). Nouveau : **commandes de canal** `#?` `#v` `#p` `#h` (réponses en **direct/DM**) et **routage de message vers email** `#m` (radiogramme authentifié).
+### 📥 [**Télécharger la dernière version pour Windows 11 (x64)**](https://github.com/f1gbd/F1GBD/releases/download/meshrns-v2.1.8/MeshRNS-v2.1.8-win64.7z)
 
 *Archive **7-Zip** (.7z) — Windows 11 l'extrait nativement ; sinon installez [7-Zip](https://www.7-zip.org).*
 
@@ -59,6 +59,8 @@ La **connexion à Reticulum est automatique** : MeshRNS lit la configuration RNS
 - **Dorsale Reticulum / LXMF** — transport applicatif **LXMF** (Lightweight Extensible Message Format), exactement la pile utilisée par TCQ, par-dessus le réseau maillé **Reticulum** (RF, LoRa RNode, TCP/IP, I2P…). Adressage de bout en bout et chiffrement assurés par Reticulum.
 - **Interconnexion inter-îlots** *(v2.0)* — plusieurs passerelles MeshRNS **de confiance** peuvent miroiter un canal de service entre îlots **éloignés** (mode **réflecteur / peering**). Anti-écho par identifiant de message, liste blanche de pairs, fan-out optionnel par un hub. Voir la section dédiée plus bas.
 - **Routage de message vers email** *(v2.1)* — un client MeshCore peut faire router un message vers un ou plusieurs destinataires courriel depuis un canal LoRa (commande **`#m`**). Le corps est encapsulé dans un **radiogramme ADRASEC authentifié TOTP+CRC** (algorithmes identiques à TCQ, donc re-validable par toute station TCQ) puis envoyé par SMTP. Configuration SMTP **autonome** (bloc `email` de `meshrns.json`, sans TCQ). Voir la section dédiée plus bas.
+- **Commandes de canal `#`** *(v2.1)* — depuis le canal `tcq` (ou en DM), commandes courtes : **`#h`** (aide), **`#?`** (stations TCQ vues < 1 h), **`#v`** (version), **`#p <station>`** (ping LXMF, comme TCQ), **`#m`** (routage e-mail). **Les réponses `#` reviennent en message direct (DM) à la station émettrice**, jamais en diffusion. Voir la section dédiée plus bas.
+- **Configuration auto-créée** *(v2.1)* — au premier lancement, si `meshrns.json` est absent, il est créé avec les **valeurs par défaut**.
 - **Connexion automatique à Reticulum** — la pile RNS lit `~/.reticulum/config` (interfaces, transport) **configuré via TCQ-config**. Rien à régler ici.
 - **Filtrage `TCQ-*`** — la passerelle ne retient (annonces, annuaire) et n'accepte (messages entrants) **que les stations TCQ**. Les autres trafics LXMF du réseau sont ignorés.
 - **Annuaire LXMF** — constitué automatiquement à partir des annonces des stations TCQ, persistant dans `annuaire.json` (**format identique à TCQ** : `{hash: {name, last_seen}}`), avec visualiseur intégré (copier l'adresse, définir comme station directe, case **« Sans filtre TCQ »** pour afficher *toutes* les stations LXMF vues, et bouton **« Importer annuaire TCQ… »** pour fusionner un `annuaire.json` complet généré par TCQ).
@@ -91,7 +93,7 @@ La **connexion à Reticulum est automatique** : MeshRNS lit la configuration RNS
 ---
 
 ## Installation
-### 📥 [**Télécharger la dernière version pour Windows 11 (x64)**](https://github.com/f1gbd/F1GBD/releases/download/meshrns-v2.1.2/MeshRNS-v2.1.2-win64.7z)
+### 📥 [**Télécharger la dernière version pour Windows 11 (x64)**](https://github.com/f1gbd/F1GBD/releases/download/meshrns-v2.1.8/MeshRNS-v2.1.8-win64.7z)
 
 *Archive **7-Zip** (.7z). Décompressez-la (Windows 11 nativement, ou [7-Zip](https://www.7-zip.org)), puis lancez `MeshRNS.exe`. Conservez `MeshRNS.png`, `MeshRNS.ico`, `meshrns.json` **et le dossier `reticulum_config/`** à côté de l'exécutable. L'annuaire `annuaire.json` est créé/maintenu au même endroit. Au premier lancement, si `~/.reticulum/config` n'existe pas, la configuration par défaut `reticulum_config/config` y est copiée automatiquement.*
 
@@ -100,7 +102,7 @@ La **connexion à Reticulum est automatique** : MeshRNS lit la configuration RNS
 ## Démarrage rapide
 
 1. Si **Reticulum** n'est pas installé sur votre PC, c'est MeshRNS qui le fera **automatiquement**, sinon, il utilisera la configuration Reticulum installée..
-2. Lancez MeshRNS. L'onglet **Connexion** présente trois groupes de réglages.
+2. Lancez MeshRNS. L'onglet **Connexion** présente quatre groupes de réglages (MeshCore, LXMF / Reticulum, **Routage email**, Lien & filtrage TCQ).
 3. **MeshCore (companion)** : choisissez le **Transport** (`serial`/`tcp`/`ble`), le **Port** (ex. `COM4`) et le **Baudrate**. Laissez **Lecture active (get_msg)** cochée.
 4. **LXMF / Reticulum** : indiquez la **Station LXMF** de cette passerelle (un indicatif **`TCQ-*`**, ex. `TCQ-F1GBD`). Laissez **Config RNS** vide (= configuration de TCQ-config). Réglez au besoin l'**intervalle d'annonce** et le **préfixe de filtre** (`TCQ`).
 5. **Lien & filtrage TCQ** : **Indicatif local**, **Mode d'émission** (`broadcast` ou `direct`), et — en mode direct — la **Station par défaut** (`peer_station`). Vérifiez le **Canal de service** (`tcq`). Laissez **Filtrer entrant (TCQ seul)** coché.
@@ -316,6 +318,22 @@ Une passerelle joue le **hub** ; les autres sont des **feuilles** qui ne pointen
 
 ---
 
+## Commandes du canal (`#…`) *(v2.1)*
+
+Depuis le canal de service `tcq` (ou en message direct), un client MeshCore dispose de commandes courtes préfixées par `#`. **Les réponses sont renvoyées en message direct (DM) à la station qui a émis la commande** — jamais en diffusion sur le canal. La station émettrice doit être un **contact connu** de la passerelle (annonce MeshCore préalablement reçue).
+
+| Commande | Fonction |
+| --- | --- |
+| `#h` | Aide : liste des commandes `#` avec une description succincte. |
+| `#?` | Liste des stations **TCQ-\*** vues dans la **dernière heure**. |
+| `#v` | Nom et **numéro de version** de MeshRNS. |
+| `#p <station>` | **Ping LXMF** d'une station TCQ (échange *TEST QUANTUM LXMF* / *TEST LXMF OK*, comme TCQ) ; renvoie l'aller-retour ou un délai dépassé. |
+| `#m <e-mail;…>; <texte>` | **Routage courriel** (radiogramme authentifié) — voir la section dédiée ci-dessous. |
+
+> Pour l'annuaire diffusé **sur le canal** (visible de tous), utilisez plutôt `ANNUAIRE` / `DIR` / `LIST` / `?` ; `#?` en est l'équivalent renvoyé **en privé** au demandeur.
+
+---
+
 ## Routage de message vers email (`#m`) *(v2.1)*
 
 À partir de la **v2.1**, un client MeshCore peut faire **router un message vers un ou plusieurs destinataires courriel**, directement depuis un canal LoRa. Le corps est encapsulé dans un **radiogramme ADRASEC authentifié TOTP+CRC** — mêmes algorithmes que TCQ, donc le courriel reçu est **re-validable par n'importe quelle station TCQ**. Tout est **autonome** : la configuration SMTP vit dans `meshrns.json`, **sans TCQ installé**.
@@ -328,7 +346,7 @@ Sur le canal de service `tcq` (ou en message direct) :
 #m dest1@exemple.com; dest2@wanadoo.fr; corps du message ... 73
 ```
 
-Les adresses de tête (séparées par `;`) sont les destinataires ; le reste constitue le corps (les `;` internes sont conservés). Sans adresse, les **destinataires par défaut** (`email.recipients`) sont utilisés. Le préfixe `#m` (champ `cmd_prefix`) et le préfixe d'expéditeur MeshCore sont tolérés. Une confirmation **`[#m] OK`** (code AUTH + expiration) est renvoyée sur le canal. La commande est **purement locale** : elle n'est jamais relayée vers LXMF ni miroitée.
+Les adresses de tête (séparées par `;`) sont les destinataires ; le reste constitue le corps (les `;` internes sont conservés). Sans adresse, les **destinataires par défaut** (`email.recipients`) sont utilisés. Le préfixe `#m` (champ `cmd_prefix`) et le préfixe d'expéditeur MeshCore sont tolérés. Une confirmation **`[#m] OK`** (code AUTH + expiration) est renvoyée **en message direct (DM)** à la station émettrice — jamais en diffusion sur le canal. La commande est **purement locale** : elle n'est jamais relayée vers LXMF ni miroitée.
 
 ### Configuration SMTP (`bloc email de meshrns.json`)
 
@@ -404,7 +422,7 @@ MeshRNS possède sa **propre identité LXMF** (dossier `lxmf.storage_path`, déf
 **Jean-Louis (F1GBD)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 2.1.2 — Juillet 2026**
+**Version 2.1.8 — Juillet 2026**
 
 ---
 
