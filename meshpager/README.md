@@ -7,6 +7,10 @@ l'alerte de façon **visuelle et sonore** et confirme la bonne réception à l'�
 
 > Projet **ADRASEC 77 / FNRASEC** — F1GBD / F4JHW. Usage exercices et opérations SATER / ORSEC.
 
+<p align="center">
+  <img src="images/Rasec-Alert_logo.jpg" width="560" alt="RASEC ALERT"/>
+</p>
+
 ---
 
 ## Fonctionnement
@@ -20,10 +24,13 @@ l'alerte de façon **visuelle et sonore** et confirme la bonne réception à l'�
 - **Écran d'accueil** dédié : titre, signature et **compteur d'alertes reçues**.
 
 <p align="center">
-  <img src="oled_pager.png" width="360" alt="Écran d'accueil du pager"/>
-  &nbsp;&nbsp;
-  <img src="oled_alert.png" width="360" alt="Alerte RASEC affichée"/>
+  <img src="images/rasec_pager.gif" width="440" alt="Pager recevant l'alerte RASEC en direct"/>
 </p>
+<p align="center">
+  <img src="images/raserc_pager.jpeg" width="440" alt="Pager Heltec V3 affichant RASEC ALERT"/>
+</p>
+
+<p align="center"><em>Réception d'une alerte « RASEC ALERT » sur un pager Heltec V3.</em></p>
 
 ---
 
