@@ -56,7 +56,7 @@ port série, laisser flasher, puis **RST**. Le binaire est servi par GitHub Page
 
 ### Méthode 2 — Télécharger le binaire et flasher
 
-1. Télécharger **[`pager_rasec_heltecv3.bin`](https://github.com/f1gbd/F1GBD/releases/download/meshpager-v3.1/pager_rasec_heltecv3-v3.1.bin)** (dernière release).
+1. Télécharger **[`pager_rasec_heltecv3.bin`](https://github.com/f1gbd/F1GBD/releases/download/meshpager-v3.2/pager_rasec_heltecv3.bin)** (dernière release).
 2. Ouvrir **https://espressif.github.io/esptool-js/** (Chrome/Edge), **Connect**, fichier à l'adresse `0x0`, **Program**.
 
 ### Méthode 3 — esptool (ligne de commande)
