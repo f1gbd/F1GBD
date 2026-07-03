@@ -11,6 +11,11 @@ l'alerte de façon **visuelle et sonore** et confirme la bonne réception à l'�
   <img src="images/Rasec-Alert_logo.jpg" width="560" alt="RASEC ALERT"/>
 </p>
 
+<p align="center">
+  <img src="images/Meshcore_Pager.png" width="560" alt="RASEC ALERT"/>
+</p>
+
+
 ---
 
 ## Fonctionnement
