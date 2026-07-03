@@ -10,7 +10,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 **MAJ du 02/07/2026** : [**MeshRNS: Là où le LoRa s'arrête, le maillage Reticulum prend le relais**](https://github.com/f1gbd/F1GBD/tree/master/meshrns)
 
-![MeshPager: un Outils d'alerte pour les opérateurs ADRASEC](https://github.com/f1gbd/F1GBD/blob/master/meshpager/images/Meshcore_Pager.png)
+![MeshPager: un Outils d'alerte pour les opérateurs ADRASEC](https://github.com/f1gbd/F1GBD/blob/master/meshpager/images/MeshPager_title.jpg)
 
 **MAJ du 03/07/2026** : [**MeshPager: un Outils d'alerte pour les opérateurs ADRASEC**](https://github.com/f1gbd/F1GBD/tree/master/meshpager)
 
