@@ -1,0 +1,14 @@
+{
+  "name": "MeshPager RASEC ALERT",
+  "version": "3.1",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "improv": false,
+      "parts": [
+        { "path": "pager_rasec_heltecv3.bin", "offset": 0 }
+      ]
+    }
+  ]
+}
