@@ -34,6 +34,26 @@ l'alerte de façon **visuelle et sonore** et confirme la bonne réception à l'�
 
 ---
 
+## Paramètres radio (France)
+
+Le firmware est compilé avec les paramètres LoRa ADRASEC pour la France :
+
+| Fréquence | Bande passante | Spreading Factor | Coding Rate |
+|---|---|---|---|
+| **869.618 MHz** | **62.5 kHz** | **8** | **8** |
+
+Ces valeurs sont figées au build (flags `LORA_FREQ / LORA_BW / LORA_SF / LORA_CR`).
+
+> ⚠️ **Effacer la mémoire au flashage.** MeshCore enregistre les paramètres radio :
+> les valeurs figées ne s'appliquent qu'à l'initialisation. Lors du flashage, choisir
+> **« Erase device / Effacer »** pour qu'elles prennent effet — sinon les réglages
+> précédemment enregistrés persistent. Vérification : bouton **USER** → page radio,
+> lire `FQ 869.618 · BW 62.50 · SF 8 · CR 8`.
+
+Tous les nœuds du réseau doivent partager **exactement** ces paramètres pour communiquer.
+
+---
+
 ## Matériel
 
 - **Heltec WiFi LoRa 32 V3** (ESP32-S3, écran OLED 0,96", LED blanche, bouton USER).
@@ -48,22 +68,24 @@ l'alerte de façon **visuelle et sonore** et confirme la bonne réception à l'�
 
 ➡️ **[Installer le firmware Pager](https://f1gbd.github.io/F1GBD/meshpager/)**  (Chrome ou Edge)
 
-Brancher la Heltec V3 en USB, cliquer **Installer le firmware Pager**, choisir le
-port série, laisser flasher, puis **RST**. Le binaire est servi par GitHub Pages
-(même origine), donc le flashage web fonctionne directement.
+Brancher la Heltec V3 en USB, cliquer **Installer le firmware Pager**, **choisir
+« Erase device / Effacer »** (pour appliquer les paramètres radio France), laisser
+flasher, puis **RST**. Le binaire est servi par GitHub Pages (même origine), donc le
+flashage web fonctionne directement.
 
 > Connexion impossible ? Maintenir **BOOT**, appuyer/relâcher **RST**, relâcher **BOOT**, puis réessayer.
 
 ### Méthode 2 — Télécharger le binaire et flasher
 
-1. Télécharger **[`pager_rasec_heltecv3.bin`](https://github.com/f1gbd/F1GBD/releases/download/meshpager-v3.2/pager_rasec_heltecv3.bin)** (dernière release).
-2. Ouvrir **https://espressif.github.io/esptool-js/** (Chrome/Edge), **Connect**, fichier à l'adresse `0x0`, **Program**.
+1. Télécharger **[`pager_rasec_heltecv3.bin`](https://github.com/f1gbd/F1GBD/releases/latest/download/pager_rasec_heltecv3.bin)** (dernière release).
+2. Ouvrir **https://espressif.github.io/esptool-js/** (Chrome/Edge), **Connect**, effacer la flash, fichier à l'adresse `0x0`, **Program**.
 
 ### Méthode 3 — esptool (ligne de commande)
 
 ```bash
 pip install esptool
-esptool.py --chip esp32s3 --port COM3 --baud 921600 write_flash 0x0 pager_rasec_heltecv3.bin
+esptool --chip esp32s3 --port COM3 --baud 921600 erase_flash
+esptool --chip esp32s3 --port COM3 --baud 921600 write_flash 0x0 pager_rasec_heltecv3.bin
 ```
 
 ---
@@ -104,6 +126,10 @@ Options (buzzer, textes, durées) : voir la fiche technique.
 | `PAGER_HOME` | (non défini) | Active l'écran d'accueil pager |
 | `PIN_BUZZER` | (non défini) | Broche du buzzer (active le bip) |
 | `PAGER_ALSO_MATCH_TEXT` | (non défini) | Accepte aussi le texte brut « RASEC ALERT » |
+| `LORA_FREQ` | `869.618` | Fréquence LoRa (MHz) — France |
+| `LORA_BW` | `62.5` | Bande passante (kHz) |
+| `LORA_SF` | `8` | Spreading factor |
+| `LORA_CR` | `8` | Coding rate |
 
 ---
 
