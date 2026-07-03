@@ -77,7 +77,7 @@ flashage web fonctionne directement.
 
 ### Méthode 2 — Télécharger le binaire et flasher
 
-1. Télécharger **[`pager_rasec_heltecv3.bin`](https://github.com/f1gbd/F1GBD/releases/latest/download/pager_rasec_heltecv3.bin)** (dernière release).
+1. Télécharger **[`pager_rasec_heltecv3.bin`](https://github.com/f1gbd/F1GBD/releases/download/meshpager-v3.3/pager_rasec_heltecv3.bin)** (dernière release).
 2. Ouvrir **https://espressif.github.io/esptool-js/** (Chrome/Edge), **Connect**, effacer la flash, fichier à l'adresse `0x0`, **Program**.
 
 ### Méthode 3 — esptool (ligne de commande)
