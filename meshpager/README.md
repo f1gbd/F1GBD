@@ -90,8 +90,8 @@ Le code d'activation par défaut est `ADRASEC77` ; il se personnalise au build
 
 ## Documentation
 
-- 📄 **Fiche réflexe** (envoyer / tester l'alerte) : [`Fiche_reflexe_RASEC_ALERT.docx`](Fiche_reflexe_RASEC_ALERT.docx)
-- 📘 **Fiche technique** (mise en œuvre complète) : [`Fiche_PAGER_RASEC_ALERT_ADRASEC.docx`](Fiche_PAGER_RASEC_ALERT_ADRASEC.docx)
+- 📄 **Fiche réflexe** (envoyer / tester l'alerte) : [`Fiche_reflexe_RASEC_ALERT.docx`](Fiche_reflexe_RASEC_ALERT.pdf)
+- 📘 **Fiche technique** (mise en œuvre complète) : [`Fiche_PAGER_RASEC_ALERT_ADRASEC.docx`](Fiche_PAGER_RASEC_ALERT_ADRASEC.pdf)
 - 🔧 **Procédure de flashage** : [`FLASH_pager_RASEC_operateurs.md`](FLASH_pager_RASEC_operateurs.md)
 
 ---
@@ -112,7 +112,7 @@ Options (buzzer, textes, durées) : voir la fiche technique.
 
 ## Auteur & licence
 
-**Jean-Louis Naudin — F1GBD / F4JHW**, ADRASEC 77.
+**Jean-Louis — F1GBD**, ADRASEC 77.
 Basé sur MeshCore (voir la licence du projet MeshCore pour le firmware de base).
 
 73 !
