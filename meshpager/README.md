@@ -82,7 +82,7 @@ flashage web fonctionne directement.
 
 ### Méthode 2 — Télécharger le binaire et flasher
 
-1. Télécharger **[`pager_rasec_heltecv3.bin`](https://github.com/f1gbd/F1GBD/releases/download/meshpager-v3.3/pager_rasec_heltecv3.bin)** (dernière release).
+1. Télécharger **[`pager_rasec_heltecv3.bin`](https://github.com/f1gbd/F1GBD/releases/latest/download/pager_rasec_heltecv3.bin)** (dernière release).
 2. Ouvrir **https://espressif.github.io/esptool-js/** (Chrome/Edge), **Connect**, effacer la flash, fichier à l'adresse `0x0`, **Program**.
 
 ### Méthode 3 — esptool (ligne de commande)
@@ -109,7 +109,8 @@ recommandé, ou canal commun) :
 - En message direct, l'émetteur reçoit l'accusé « Pager OK - alerte bien recue ».
 
 Le code d'activation par défaut est `ADRASEC77` ; il se personnalise au build
-(`-D PAGER_ACTIVATION_CODE`).
+(`-D PAGER_ACTIVATION_CODE`). Il peut aussi être changé à distance (message direct) :
+`#rapass <ancien_code> <nouveau_code>`.
 
 ---
 
@@ -126,11 +127,12 @@ Options (buzzer, textes, durées) : voir la fiche technique.
 
 | Flag | Défaut | Rôle |
 |---|---|---|
-| `PAGER_ACTIVATION_CODE` | `ADRASEC77` | Code attendu après `#ra` |
+| `PAGER_ACTIVATION_CODE` | `ADRASEC77` | Code attendu après `#ra` (valeur d'usine) |
 | `PAGER_ALERT_MS` | `6000` | Durée de l'alerte (écran + LED), ms |
 | `PAGER_HOME` | (non défini) | Active l'écran d'accueil pager |
 | `PIN_BUZZER` | (non défini) | Broche du buzzer (active le bip) |
 | `PAGER_ALSO_MATCH_TEXT` | (non défini) | Accepte aussi le texte brut « RASEC ALERT » |
+| `BLE_PIN_CODE` | (aléatoire) | Code d'appairage BLE fixe (≠ 123456) |
 | `LORA_FREQ` | `869.618` | Fréquence LoRa (MHz) — France |
 | `LORA_BW` | `62.5` | Bande passante (kHz) |
 | `LORA_SF` | `8` | Spreading factor |
