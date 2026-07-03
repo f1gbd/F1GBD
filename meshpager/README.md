@@ -96,29 +96,6 @@ Le code d'activation par défaut est `ADRASEC77` ; il se personnalise au build
 
 ---
 
-## Compiler depuis les sources
-
-Le firmware est le **companion BLE** de [MeshCore](https://github.com/meshcore-dev/MeshCore)
-v1.16, modifié par un patch (écran + LED + buzzer + accusé + écran d'accueil + activation `#ra`).
-
-1. Cloner MeshCore, appliquer le patch depuis la racine :
-   ```bash
-   git apply meshcore-companion-pager-rasec-f1gbd-v3.1.patch
-   ```
-2. Ajouter un environnement dérivé dans `platformio.local.ini` :
-   ```ini
-   [env:Heltec_v3_pager_adrasec]
-   extends = env:Heltec_v3_companion_radio_ble
-   build_flags =
-     ${env:Heltec_v3_companion_radio_ble.build_flags}
-     -D PAGER_HOME=1
-     -D PAGER_ACTIVATION_CODE='"ADRASEC77"'
-   ```
-3. Compiler / flasher :
-   ```bash
-   pio run -e Heltec_v3_pager_adrasec -t upload
-   ```
-
 Options (buzzer, textes, durées) : voir la fiche technique.
 
 ### Principaux paramètres (`build_flags`)
