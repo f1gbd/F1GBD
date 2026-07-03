@@ -37,28 +37,22 @@ l'alerte de façon **visuelle et sonore** et confirme la bonne réception à l'�
 
 ## Flashage (opérateurs)
 
-Fichier à flasher : **`pager_rasec_heltecv3.bin`** (binaire fusionné, adresse `0x0`).
+### ⚡ Méthode 1 — Bouton « Install » en un clic (recommandé)
 
-### ⚡ Flashage en un clic (le plus simple)
+➡️ **[Installer le firmware Pager](https://f1gbd.github.io/F1GBD/meshpager/)**  (Chrome ou Edge)
 
-➡️ **[Installer le firmware Pager](https://f1gbd.github.io/F1GBD/meshpager/)** (Chrome ou Edge)
+Brancher la Heltec V3 en USB, cliquer **Installer le firmware Pager**, choisir le
+port série, laisser flasher, puis **RST**. Le binaire est servi par GitHub Pages
+(même origine), donc le flashage web fonctionne directement.
 
-Un bouton « Installer le firmware Pager » détecte la carte et flashe automatiquement.
-(Nécessite l'activation de GitHub Pages sur le dépôt.)
+> Connexion impossible ? Maintenir **BOOT**, appuyer/relâcher **RST**, relâcher **BOOT**, puis réessayer.
 
-### Méthode 1 — Flasheur web générique (sans installation)
+### Méthode 2 — Télécharger le binaire et flasher
 
-Navigateur **Chrome** ou **Edge** (Web Serial requis).
+1. Télécharger **[`pager_rasec_heltecv3.bin`](https://github.com/f1gbd/F1GBD/releases/latest/download/pager_rasec_heltecv3.bin)** (dernière release).
+2. Ouvrir **https://espressif.github.io/esptool-js/** (Chrome/Edge), **Connect**, fichier à l'adresse `0x0`, **Program**.
 
-1. Brancher la Heltec V3 en USB.
-2. Ouvrir **https://espressif.github.io/esptool-js/**
-3. **Connect** → choisir le port série de la carte.
-4. Adresse `0x0`, fichier `pager_rasec_heltecv3.bin`, puis **Program**.
-5. Appuyer sur **RST**. Le pager démarre.
-
-> Connexion impossible ? Maintenir **BOOT**, appuyer/relâcher **RST**, relâcher **BOOT**, puis reconnecter.
-
-### Méthode 2 — esptool (ligne de commande)
+### Méthode 3 — esptool (ligne de commande)
 
 ```bash
 pip install esptool
