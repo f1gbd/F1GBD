@@ -66,8 +66,6 @@ pip install esptool
 esptool.py --chip esp32s3 --port COM3 --baud 921600 write_flash 0x0 pager_rasec_heltecv3.bin
 ```
 
-Détails et création du binaire fusionné : voir [`FLASH_pager_RASEC_operateurs.md`](FLASH_pager_RASEC_operateurs.md).
-
 ---
 
 ## Utilisation
