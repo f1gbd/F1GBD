@@ -95,6 +95,26 @@ esptool --chip esp32s3 --port COM3 --baud 921600 write_flash 0x0 pager_rasec_hel
 
 ---
 
+## Appairage Bluetooth (BLE)
+
+Pour configurer le pager depuis l'application MeshCore, l'appairage BLE demande un
+**code PIN**. Ce PIN s'affiche **au démarrage**, sur l'écran de logo (splash), sous la
+date :
+
+```
+Pin BLE: 772677
+```
+
+- Le PIN est **fixe** (`772677`) grâce au flag `-D BLE_PIN_CODE=772677`. Sans ce flag,
+  il est **aléatoire** et régénéré à chaque démarrage (à relire au splash).
+- Dans l'appli MeshCore : lancer l'appairage, puis saisir ce code.
+
+> ℹ️ Après un flashage **Erase**, l'identité du nœud change : il faut **re-ajouter le
+> pager comme contact** dans TCQ / l'application (il ré-émet une annonce au démarrage)
+> avant de pouvoir lui envoyer un message direct.
+
+---
+
 ## Utilisation
 
 Depuis TCQ ou une application cliente MeshCore, envoyer au pager (message direct
@@ -109,8 +129,11 @@ recommandé, ou canal commun) :
 - En message direct, l'émetteur reçoit l'accusé « Pager OK - alerte bien recue ».
 
 Le code d'activation par défaut est `ADRASEC77` ; il se personnalise au build
-(`-D PAGER_ACTIVATION_CODE`). Il peut aussi être changé à distance (message direct) :
-`#rapass <ancien_code> <nouveau_code>`.
+(`-D PAGER_ACTIVATION_CODE`). Il peut aussi être **changé à distance** (message direct) :
+```
+#rapass <ancien_code> <nouveau_code>
+```
+Le pager répond « Code RASEC mis a jour » ; le nouveau code est persistant (survit au redémarrage).
 
 ---
 
@@ -132,7 +155,7 @@ Options (buzzer, textes, durées) : voir la fiche technique.
 | `PAGER_HOME` | (non défini) | Active l'écran d'accueil pager |
 | `PIN_BUZZER` | (non défini) | Broche du buzzer (active le bip) |
 | `PAGER_ALSO_MATCH_TEXT` | (non défini) | Accepte aussi le texte brut « RASEC ALERT » |
-| `BLE_PIN_CODE` | (aléatoire) | Code d'appairage BLE fixe (≠ 123456) |
+| `BLE_PIN_CODE` | (aléatoire) | Code d'appairage BLE fixe (≠ 123456), affiché au splash |
 | `LORA_FREQ` | `869.618` | Fréquence LoRa (MHz) — France |
 | `LORA_BW` | `62.5` | Bande passante (kHz) |
 | `LORA_SF` | `8` | Spreading factor |
