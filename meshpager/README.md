@@ -24,7 +24,8 @@ l'alerte de façon **visuelle et sonore** et confirme la bonne réception à l'�
 
 - **Écran OLED** : affichage plein écran « RASEC ALERT ».
 - **LED blanche** : clignotement rapide par **séries de 3 impulsions**.
-- **Buzzer piezo** (sur **GPIO 4**) : 3 bips à chaque alerte.
+- **Buzzer piezo** (sur **GPIO 4**) : **3 bips** par défaut (réglable par `#b <n>`).
+- **Alarme continue** possible (`#b 0`) : bips en boucle jusqu'à **acquittement** par la touche **USER**.
 - **Accusé de réception** : renvoyé automatiquement à l'émetteur (message direct).
 - **Écran d'accueil** dédié : titre, signature et **compteur d'alertes reçues**.
 
@@ -150,6 +151,17 @@ Le code d'activation par défaut est `ADRASEC77` ; il se personnalise au build
 #rapass <ancien_code> <nouveau_code>
 ```
 Le pager répond « Code RASEC mis a jour » ; le nouveau code est persistant (survit au redémarrage).
+
+### Nombre de bips et alarme continue
+
+Le nombre de bips de l'alarme se règle à distance (message direct), valeur **persistante** :
+```
+#b <n>
+```
+- `#b 5` → l'alarme sonnera **5 bips** (défaut : **3**). Réponse : « Bips d'alarme regles sur 5 ».
+- `#b 0` → **alarme continue** : séquences de 3 bips espacées d'~1 s, **indéfiniment**, jusqu'à ce qu'un opérateur **acquitte** en appuyant sur la touche **USER** (bouton du haut du Heltec V3). Le pager affiche alors « Alerte acquittee ».
+
+> La touche **USER** acquitte / coupe toute alerte en cours (même une alerte normale de quelques secondes). En mode continu, une **borne de sécurité de 30 min** coupe l'alarme si personne n'acquitte.
 
 ---
 
