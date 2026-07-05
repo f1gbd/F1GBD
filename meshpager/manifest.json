@@ -1,6 +1,6 @@
 {
   "name": "MeshPager RASEC ALERT",
-  "version": "3.8",
+  "version": "3.9",
   "new_install_prompt_erase": true,
   "builds": [
     {
