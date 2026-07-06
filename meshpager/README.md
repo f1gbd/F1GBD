@@ -146,7 +146,8 @@ recommandé, ou canal commun) :
 - En message direct, l'émetteur reçoit l'accusé « Pager OK - alerte bien recue ».
 
 Le code d'activation par défaut est `ADRASEC77` ; il se personnalise au build
-(`-D PAGER_ACTIVATION_CODE`). Il peut aussi être **changé à distance** (message direct) :
+(`-D PAGER_ACTIVATION_CODE`). Il peut aussi être **changé à distance**, uniquement en
+**message direct** (jamais sur un canal) :
 ```
 #rapass <ancien_code> <nouveau_code>
 ```
@@ -154,7 +155,8 @@ Le pager répond « Code RASEC mis a jour » ; le nouveau code est persistant (s
 
 ### Nombre de bips et alarme continue
 
-Le nombre de bips de l'alarme se règle à distance (message direct), valeur **persistante** :
+Le nombre de bips de l'alarme se règle **uniquement en message direct** (jamais sur un canal),
+valeur **persistante** :
 ```
 #b <n>
 ```
@@ -162,6 +164,11 @@ Le nombre de bips de l'alarme se règle à distance (message direct), valeur **p
 - `#b 0` → **alarme continue** : séquences de 3 bips espacées d'~1 s, **indéfiniment**, jusqu'à ce qu'un opérateur **acquitte** en appuyant sur la touche **USER** (bouton du haut du Heltec V3). Le pager affiche alors « Alerte acquittee ».
 
 > La touche **USER** acquitte / coupe toute alerte en cours (même une alerte normale de quelques secondes). En mode continu, une **borne de sécurité de 30 min** coupe l'alarme si personne n'acquitte.
+
+> ⚠️ **Important — commandes de configuration en message direct uniquement.** Les commandes
+> `#b` et `#rapass` ne sont traitées que sur le chemin **message direct** : envoyées sur un
+> **canal**, elles sont **ignorées**. Règle d'usage : **on configure en DM** (`#b`, `#rapass`),
+> **on alerte via le canal** (`#ra`).
 
 ---
 
