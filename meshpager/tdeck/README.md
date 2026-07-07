@@ -40,6 +40,8 @@ En mode veille, la ligne **« RASEC-ALERT 1.0.3-f1gbd »** s'affiche en orange s
 
 ## Licence & crédits
 
-[Saitama](https://github.com/868meshbot/Saitama) est sous **GPL-3.0-or-later** ; ce dérivé l'est également. 
-Basé sur [MeshCore](https://github.com/ripplebiz/MeshCore). 
+[Saitama](https://github.com/868meshbot/Saitama) est sous **GPL-3.0-or-later** ; ce dérivé l'est également.
+
+Basé sur [MeshCore](https://github.com/ripplebiz/MeshCore).
+
 Portage T-Deck et option RASEC-ALERT : **F1GBD — ADRASEC 77**.
