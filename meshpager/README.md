@@ -171,14 +171,18 @@ valeur **persistante** :
 > **canal**, elles sont **ignorées**. Règle d'usage : **on configure en DM** (`#b`, `#rapass`),
 > **on alerte via le canal** (`#ra`).
 
-### Émettre un code Chappe (CHAPPE 26)
+### Transmettre un Mini-Message CHAPPE26
 
-Depuis la **v5.0**, le pager peut **émettre** un code Chappe à 4 chiffres directement depuis
-le terrain, **sans téléphone ni application**. Le code (livre de code civil « Chappe 2026 »)
+<p align="center">
+  <img src="images/MeshPager_Chappe26.png" width="560" alt="RASEC ALERT"/>
+</p>
+
+Depuis la **v5.0**, le pager peut **émettre** un Message Chappe26 à 4 chiffres directement depuis
+le terrain, **sans téléphone ni application**. voir le Livret « Chappe26 » pour le format du message: [`Chappe26_Livret_B5.pdf`](https://github.com/f1gbd/F1GBD/blob/master/meshpager/documentation/Chappe26_Livret_B5.pdf)
 part **préfixé par `!`** (ex. `!2104`) sur le **canal privé** ADRASEC, où il est lisible par
 tous les opérateurs abonnés au canal.
 
-> Format du code : 1er chiffre = **Domaine**, 2e = **Sous-catégorie**, 3e et 4e = **Expression**
+> Format du message : 1er chiffre = **Domaine**, 2e = **Sous-catégorie**, 3e et 4e = **Expression**
 > (voir le *Livre de Code Civil*).
 
 **Saisie à la touche USER :**
@@ -188,11 +192,11 @@ tous les opérateurs abonnés au canal.
 3. **Appui LONG** : valide le chiffre et passe au suivant.
 4. Après les 4 chiffres, un **5ᵉ chiffre de confirmation** : `1` = **envoi**, `0` = **annulation**.
 
-L'écran affiche « CHAPPE 26 », le code en cours (chiffre courant entre crochets) et le rappel
+L'écran affiche « CHAPPE 26 », le message en cours (chiffre courant entre crochets) et le rappel
 des touches. À l'émission, le pager affiche « Chappe: envoye ». **30 s** d'inactivité annulent
 la saisie.
 
-Le code est émis sur le canal d'index `CHAPPE_CHANNEL_IDX` (**= 1** par défaut, le **même** que
+Le message est émis sur le canal d'index `CHAPPE_CHANNEL_IDX` (**= 1** par défaut, le **même** que
 celui du RASEC ALERT collectif) : les nœuds inscrits reçoivent « `<Nom> : !2104` ».
 
 > Sans conflit avec le buzzer : la bascule buzzer reste sur l'**appui long de la page 1**
