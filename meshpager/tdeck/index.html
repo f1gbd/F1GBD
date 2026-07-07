@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flash Saitama T-Deck — RASEC-ALERT (F1GBD)</title>
+  <script type="module"
+          src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+  <style>
+    :root { --navy:#1F4E79; --blue:#2E75B6; --orange:#C55A11; }
+    body { font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
+           max-width: 640px; margin: 40px auto; padding: 0 20px; color:#1b1b1b;
+           line-height: 1.55; }
+    h1 { color: var(--navy); font-size: 1.5rem; }
+    .tag { color: var(--orange); font-weight: 700; }
+    .card { border:1px solid #ddd; border-radius:10px; padding:20px; margin:24px 0;
+            background:#fafafa; }
+    .btn { --esp-tools-button-color:#fff;
+           --esp-tools-button-background-color:var(--blue); }
+    ol { padding-left: 1.2rem; }
+    code { background:#eef; padding:1px 5px; border-radius:4px; }
+    .warn { background:#fff6e5; border-left:4px solid var(--orange);
+            padding:10px 14px; border-radius:4px; font-size:0.95rem; }
+    footer { color:#777; font-size:0.85rem; margin-top:32px; }
+  </style>
+</head>
+<body>
+  <h1>Saitama T-Deck — option <span class="tag">RASEC-ALERT</span></h1>
+  <p>Firmware pour <strong>LilyGo T-Deck / T-Deck Plus</strong> (ESP32-S3, LoRa SX1262),
+     version <strong>1.0.3-f1gbd</strong>. Flashez directement depuis ce navigateur,
+     sans rien installer.</p>
+
+  <div class="card">
+    <p><strong>Pour flasher :</strong></p>
+    <ol>
+      <li>Utilisez <strong>Chrome</strong> ou <strong>Edge</strong> sur ordinateur (Web Serial requis).</li>
+      <li>Branchez le T-Deck en USB-C, interrupteur latéral sur ON.</li>
+      <li>Cliquez sur <strong>Installer</strong> ci-dessous et choisissez le port du T-Deck.</li>
+      <li>Laissez l'installation se terminer, puis appuyez sur <strong>reset</strong>.</li>
+    </ol>
+    <p>
+      <esp-web-install-button class="btn" manifest="manifest.json">
+        <button slot="activate">⚡ Installer le firmware</button>
+        <span slot="unsupported">Navigateur non compatible — utilisez Chrome ou Edge sur ordinateur.</span>
+        <span slot="not-allowed">Accès au port série refusé.</span>
+      </esp-web-install-button>
+    </p>
+  </div>
+
+  <p class="warn">
+    <strong>Si le bouton ne trouve pas le port ou échoue à se connecter</strong> (fréquent sur
+    ESP32-S3 à USB natif) : mettez le T-Deck en <em>mode download</em> à la main — maintenez le
+    bouton central de la trackball, appuyez sur reset (côté gauche), relâchez les deux — puis
+    recliquez sur <strong>Installer</strong>.
+  </p>
+
+  <p>Après le flash : déposez <code>redalert.mp3</code> à la racine de la carte SD (FAT32) pour
+     activer le son d'alerte, puis testez en envoyant <code>#ra ADRASEC77</code> depuis un autre
+     nœud MeshCore, en direct ou sur le canal privé partagé.</p>
+
+  <footer>
+    Dérivé de <a href="https://github.com/868meshbot/Saitama">Saitama</a> (GPL-3.0-or-later),
+    basé sur <a href="https://github.com/ripplebiz/MeshCore">MeshCore</a>.
+    Portage T-Deck + option RASEC-ALERT : F1GBD — ADRASEC 77.
+  </footer>
+</body>
+</html>
