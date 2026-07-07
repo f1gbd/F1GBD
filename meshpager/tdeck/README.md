@@ -23,10 +23,8 @@ Le plus simple : flasher directement depuis le navigateur, sans rien installer.
 
 Si le bouton n'arrive pas à se connecter (fréquent sur ESP32-S3 à USB natif), mettez d'abord le T-Deck en **mode download** — maintenir la trackball, appuyer sur reset (côté gauche), relâcher — puis recliquez sur **Installer**.
 
-> La page de flash nécessite l'activation de **GitHub Pages** sur le dépôt (Settings → Pages → Deploy from branch → `master` / root). Le binaire, le `manifest.json` et `index.html` doivent rester dans le même dossier `meshpager/tdeck/`.
 
 ---
-
 
 ## Option Pager RASEC-ALERT — utilisation
 
@@ -43,7 +41,6 @@ Le son `redalert.mp3` doit être présent à la racine de la **carte SD** (forma
 En mode veille, la ligne **« RASEC-ALERT 1.0.3-f1gbd »** s'affiche en orange sous l'horloge et le nom de station, ce qui distingue cette version du Saitama 1.0.2 d'origine.
 
 ---
-
 
 ## Licence & crédits
 
