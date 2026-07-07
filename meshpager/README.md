@@ -28,6 +28,7 @@ l'alerte de façon **visuelle et sonore** et confirme la bonne réception à l'�
 - **Alarme continue** possible (`#b 0`) : bips en boucle jusqu'à **acquittement** par la touche **USER**.
 - **Accusé de réception** : renvoyé automatiquement à l'émetteur (message direct).
 - **Écran d'accueil** dédié : titre, signature et **compteur d'alertes reçues**.
+- **Émission CHAPPE 26** *(v5.0)* : le pager peut aussi **émettre** un code Chappe à 4 chiffres sur le canal privé — voir [Émettre un code Chappe](#émettre-un-code-chappe-chappe-26).
 
 <p align="center">
   <img src="images/rasec_pager.gif" width="440" alt="Pager recevant l'alerte RASEC en direct"/>
@@ -170,6 +171,33 @@ valeur **persistante** :
 > **canal**, elles sont **ignorées**. Règle d'usage : **on configure en DM** (`#b`, `#rapass`),
 > **on alerte via le canal** (`#ra`).
 
+### Émettre un code Chappe (CHAPPE 26)
+
+Depuis la **v5.0**, le pager peut **émettre** un code Chappe à 4 chiffres directement depuis
+le terrain, **sans téléphone ni application**. Le code (livre de code civil « Chappe 2026 »)
+part **préfixé par `!`** (ex. `!2104`) sur le **canal privé** ADRASEC, où il est lisible par
+tous les opérateurs abonnés au canal.
+
+> Format du code : 1er chiffre = **Domaine**, 2e = **Sous-catégorie**, 3e et 4e = **Expression**
+> (voir le *Livre de Code Civil*).
+
+**Saisie à la touche USER :**
+
+1. Depuis l'accueil, aller sur la **page 2 « Recent Advert »** (appuis courts pour naviguer), puis **appui LONG** → entrée en mode **CHAPPE 26**.
+2. **Appui COURT** : fait défiler le chiffre courant (`0 → 9`).
+3. **Appui LONG** : valide le chiffre et passe au suivant.
+4. Après les 4 chiffres, un **5ᵉ chiffre de confirmation** : `1` = **envoi**, `0` = **annulation**.
+
+L'écran affiche « CHAPPE 26 », le code en cours (chiffre courant entre crochets) et le rappel
+des touches. À l'émission, le pager affiche « Chappe: envoye ». **30 s** d'inactivité annulent
+la saisie.
+
+Le code est émis sur le canal d'index `CHAPPE_CHANNEL_IDX` (**= 1** par défaut, le **même** que
+celui du RASEC ALERT collectif) : les nœuds inscrits reçoivent « `<Nom> : !2104` ».
+
+> Sans conflit avec le buzzer : la bascule buzzer reste sur l'**appui long de la page 1**
+> « RASEC ALERT » ; l'entrée CHAPPE 26 est réservée à l'**appui long de la page 2** « Recent Advert ».
+
 ---
 
 ## Documentation
@@ -189,6 +217,7 @@ Options (buzzer, textes, durées) : voir la fiche technique.
 | `PAGER_ALERT_MS` | `6000` | Durée de l'alerte (écran + LED), ms |
 | `PAGER_HOME` | (non défini) | Active l'écran d'accueil pager |
 | `PIN_BUZZER` | `4` | Broche du buzzer piezo (GPIO 4) |
+| `CHAPPE_CHANNEL_IDX` | `1` | Index du canal privé d'émission des codes Chappe (CHAPPE 26) |
 | `PAGER_ALSO_MATCH_TEXT` | (non défini) | Accepte aussi le texte brut « RASEC ALERT » |
 | `BLE_PIN_CODE` | (aléatoire) | Code d'appairage BLE fixe (≠ 123456), affiché au splash |
 | `LORA_FREQ` | `869.618` | Fréquence LoRa (MHz) — France |
