@@ -208,28 +208,12 @@ celui du RASEC ALERT collectif) : les nœuds inscrits reçoivent « `<Nom> : !21
 
 - 📄 **Fiche réflexe** (envoyer / tester l'alerte) : [`Fiche_reflexe_RASEC_ALERT.pdf`](https://github.com/f1gbd/F1GBD/blob/master/meshpager/documentation/Fiche_reflexe_RASEC_ALERT.pdf)
 - 📘 **Fiche technique** (mise en œuvre complète) : [`Fiche_PAGER_RASEC_ALERT_ADRASEC.pdf`](https://github.com/f1gbd/F1GBD/blob/master/meshpager/documentation/Fiche_PAGER_RASEC_ALERT_ADRASEC.pdf)
+- 📘 **Livret Transmission « Chappe26 »**: [`Chappe26_Livret_B5.pdf`](https://github.com/f1gbd/F1GBD/blob/master/meshpager/documentation/Chappe26_Livret_B5.pdf)
 
 ---
 
 Options (buzzer, textes, durées) : voir la fiche technique.
 
-### Principaux paramètres (`build_flags`)
-
-| Flag | Défaut | Rôle |
-|---|---|---|
-| `PAGER_ACTIVATION_CODE` | `ADRASEC77` | Code attendu après `#ra` (valeur d'usine) |
-| `PAGER_ALERT_MS` | `6000` | Durée de l'alerte (écran + LED), ms |
-| `PAGER_HOME` | (non défini) | Active l'écran d'accueil pager |
-| `PIN_BUZZER` | `4` | Broche du buzzer piezo (GPIO 4) |
-| `CHAPPE_CHANNEL_IDX` | `1` | Index du canal privé d'émission des codes Chappe (CHAPPE 26) |
-| `PAGER_ALSO_MATCH_TEXT` | (non défini) | Accepte aussi le texte brut « RASEC ALERT » |
-| `BLE_PIN_CODE` | (aléatoire) | Code d'appairage BLE fixe (≠ 123456), affiché au splash |
-| `LORA_FREQ` | `869.618` | Fréquence LoRa (MHz) — France |
-| `LORA_BW` | `62.5` | Bande passante (kHz) |
-| `LORA_SF` | `8` | Spreading factor |
-| `LORA_CR` | `8` | Coding rate |
-
----
 
 ## Auteur & licence
 
