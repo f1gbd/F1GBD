@@ -22,19 +22,6 @@ Si le bouton n'arrive pas à se connecter (fréquent sur ESP32-S3 à USB natif),
 > La page de flash nécessite l'activation de **GitHub Pages** sur le dépôt (Settings → Pages → Deploy from branch → `master` / root). Le binaire, le `manifest.json` et `index.html` doivent rester dans le même dossier `meshpager/tdeck/`.
 
 ---
-
-## Flash manuel (alternative)
-
-Le binaire fusionné se flashe à l'offset `0x0` (installation complète). T-Deck en mode download, puis :
-
-```
-python -m esptool --chip esp32s3 --port COM6 --baud 921600 write_flash 0x0 saitama-t-deck-plus-1.0.3-f1gbd-merged.bin
-```
-
-(remplacez `COM6` par votre port). Ou, depuis l'arbre de compilation PlatformIO : `pio run -e t-deck -t upload`.
-
----
-
 ## Option Pager RASEC-ALERT — utilisation
 
 Depuis un autre nœud MeshCore, en **message direct** ou sur le **canal privé partagé** :
@@ -48,33 +35,6 @@ Acquittement de l'alerte : **toucher l'écran**.
 Le son `redalert.mp3` doit être présent à la racine de la **carte SD** (formatée FAT32). Sans lui, l'écran d'alerte s'affiche mais reste muet.
 
 En mode veille, la ligne **« RASEC-ALERT 1.0.3-f1gbd »** s'affiche en orange sous l'horloge et le nom de station, ce qui distingue cette version du Saitama 1.0.2 d'origine.
-
----
-
-## Reconstruire depuis les sources
-
-Les sources ne sont pas dupliquées ici : cette édition est un **patch** appliqué au dépôt Saitama.
-
-```
-git clone --recurse-submodules https://github.com/868meshbot/Saitama.git
-cd Saitama
-git apply /chemin/vers/saitama-tdeck-pager-rasec-f1gbd-v1_0_3-f1gbd.patch
-pio run -e t-deck
-```
-
-Le binaire fusionné est généré dans `firmware/saitama-t-deck-plus-1.0.3-f1gbd-merged.bin`.
-
----
-
-## Contenu du dossier
-
-| Fichier | Rôle |
-|---|---|
-| `saitama-t-deck-plus-1.0.3-f1gbd-merged.bin` | Firmware complet à flasher à `0x0` |
-| `saitama-tdeck-pager-rasec-f1gbd-v1_0_3-f1gbd.patch` | Patch RASEC-ALERT à appliquer sur Saitama v1.0.2 |
-| `manifest.json` | Descripteur pour le flash en un clic (ESP Web Tools) |
-| `index.html` | Page de flash navigateur |
-| `README.md` | Ce fichier |
 
 ---
 
