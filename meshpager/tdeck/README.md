@@ -27,18 +27,6 @@ Si le bouton n'arrive pas à se connecter (fréquent sur ESP32-S3 à USB natif),
 
 ---
 
-## Flash manuel (alternative)
-
-Le binaire fusionné se flashe à l'offset `0x0` (installation complète). T-Deck en mode download, puis :
-
-```
-python -m esptool --chip esp32s3 --port COM6 --baud 921600 write_flash 0x0 saitama-t-deck-plus-1.0.5-f1gbd-merged.bin
-```
-
-(remplacez `COM6` par votre port). Ou, depuis l'arbre de compilation PlatformIO : `pio run -e t-deck -t upload`.
-
----
-
 ## Option Pager RASEC-ALERT — utilisation
 
 Depuis un autre nœud MeshCore, en **message direct** ou sur le **canal privé partagé** :
@@ -55,34 +43,8 @@ En mode veille, la ligne **« RASEC-ALERT 1.0.5-f1gbd »** s'affiche en orange s
 
 ---
 
-## Reconstruire depuis les sources
-
-Les sources ne sont pas dupliquées ici : cette édition est un **patch** appliqué au dépôt Saitama.
-
-```
-git clone --recurse-submodules https://github.com/868meshbot/Saitama.git
-cd Saitama
-git apply /chemin/vers/saitama-tdeck-pager-rasec-f1gbd-v1_0_5-f1gbd.patch
-pio run -e t-deck
-```
-
-Le binaire fusionné est généré dans `firmware/saitama-t-deck-plus-1.0.5-f1gbd-merged.bin`.
-
----
-
-## Contenu du dossier
-
-| Fichier | Rôle |
-|---|---|
-| `saitama-t-deck-plus-1.0.5-f1gbd-merged.bin` | Firmware complet à flasher à `0x0` |
-| `saitama-tdeck-pager-rasec-f1gbd-v1_0_5-f1gbd.patch` | Patch RASEC-ALERT à appliquer sur Saitama v1.0.2 |
-| `manifest.json` | Descripteur pour le flash en un clic (ESP Web Tools) |
-| `index.html` | Page de flash navigateur |
-| `images/rasec-alert-demo.gif` | Démonstration animée de l'alerte |
-| `README.md` | Ce fichier |
-
----
-
 ## Licence & crédits
 
-[Saitama](https://github.com/868meshbot/Saitama) est sous **GPL-3.0-or-later** ; ce dérivé l'est également. Basé sur [MeshCore](https://github.com/ripplebiz/MeshCore). Portage T-Deck et option RASEC-ALERT : **F1GBD — ADRASEC 77**.
+- [Saitama](https://github.com/868meshbot/Saitama) est sous **GPL-3.0-or-later** ; ce dérivé l'est également. 
+- Basé sur [MeshCore](https://github.com/ripplebiz/MeshCore). 
+- Portage T-Deck et option RASEC-ALERT : **F1GBD — ADRASEC 77**.
