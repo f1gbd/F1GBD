@@ -176,7 +176,7 @@ valeur **persistante** :
 ---
 
 Depuis la **v5.0**, le pager peut **émettre** un code Chappe à 4 chiffres directement depuis
-le terrain, **sans téléphone ni application et sans besoin d'Internet**. Cette méthode est **a utiliser uniquement en situation extrême et en cas d'urgence**.
+le terrain, **sans téléphone ni application et sans besoin d'Internet**. Cette méthode est **à utiliser uniquement en situation extrême et en cas d'urgence**.
 
 <p align="center">
   <img src="images/MeshPager_FOMEC_Chappe26.png" width="560" alt="RASEC ALERT"/>
