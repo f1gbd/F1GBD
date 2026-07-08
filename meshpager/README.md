@@ -203,7 +203,16 @@ celui du RASEC ALERT collectif) : les nœuds inscrits reçoivent « `<Nom> : !21
 > « RASEC ALERT » ; l'entrée CHAPPE 26 est réservée à l'**appui long de la page 2** « Recent Advert ».
 
 ---
+MeshPager est disponible sur **LILYGO T-Deck Plus**
+---
+<p align="center">
+  <img src="tdeck/images/rasec-alert-demo.gif" width="300" alt="RASEC ALERT"/>
 
+  Pour plus de détails voir: **https://github.com/f1gbd/F1GBD/tree/master/meshpager/tdeck**
+</p>
+
+
+---
 ## Documentation
 
 - 📄 **Fiche réflexe** (envoyer / tester l'alerte) : [`Fiche_reflexe_RASEC_ALERT.pdf`](https://github.com/f1gbd/F1GBD/blob/master/meshpager/documentation/Fiche_reflexe_RASEC_ALERT.pdf)
