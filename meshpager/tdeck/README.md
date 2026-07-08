@@ -2,7 +2,7 @@
 
 Firmware pour **LilyGo T-Deck / T-Deck Plus** (ESP32-S3, LoRa SX1262, écran ST7789), dérivé de [Saitama](https://github.com/868meshbot/Saitama) v1.0.2 et enrichi de l'**option Pager RASEC-ALERT** portée depuis le MeshPager Heltec.
 
-Version : **1.0.3-f1gbd**
+Version : **1.0.4-f1gbd**
 
 L'option RASEC-ALERT transforme le T-Deck en récepteur d'alerte de sécurité civile : un message chat déclenche un **écran plein écran clignotant « RASEC ALERT »** (avec compteur d'alertes), joue le son `redalert.mp3` et renvoie automatiquement un accusé de réception. Aucune saisie de code Chappe n'est nécessaire — le clavier et le chat du T-Deck suffisent.
 
