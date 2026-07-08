@@ -171,16 +171,22 @@ valeur **persistante** :
 > **canal**, elles sont **ignorées**. Règle d'usage : **on configure en DM** (`#b`, `#rapass`),
 > **on alerte via le canal** (`#ra`).
 
+---
 ### Émettre un code Chappe (CHAPPE 26)
+---
 
 Depuis la **v5.0**, le pager peut **émettre** un code Chappe à 4 chiffres directement depuis
-le terrain, **sans téléphone ni application**. Le Livret « Chappe 2026 » 
-part **préfixé par `!`** (ex. `!2104`) sur le **canal privé** ADRASEC, où il est lisible par
-tous les opérateurs abonnés au canal.
+le terrain, **sans téléphone ni application et sans besoin d'Internet**. Cette méthode est **a utiliser uniquement en situation extrême et en cas d'urgence**.
 
+<p align="center">
+  <img src="images/MeshPager_FOMEC_Chappe26.png" width="560" alt="RASEC ALERT"/>
+</p>
+
+Un message de type Chappe26 est **préfixé par `!`** (ex. `!2104`) sur le **canal privé** ADRASEC, où il est lisible par
+tous les opérateurs abonnés au canal.
 > Format du code : 1er chiffre = **Domaine**, 2e = **Sous-catégorie**, 3e et 4e = **Expression**
 
-> (Pour plus de détails consulter le *[Livret Chappe26](https://github.com/f1gbd/F1GBD/blob/master/meshpager/documentation/Chappe26_Livret_B5.pdf)*.
+- (Pour plus de détails consulter le *[Livret Chappe26](https://github.com/f1gbd/F1GBD/blob/master/meshpager/documentation/Chappe26_Livret_B5.pdf)*.
 
 **Saisie à la touche USER :**
 
@@ -198,7 +204,9 @@ celui du RASEC ALERT collectif) : les nœuds inscrits reçoivent « `<Nom> : !21
 
 > Sans conflit avec le buzzer : la bascule buzzer reste sur l'**appui long de la page 1**
 > « RASEC ALERT » ; l'entrée CHAPPE 26 est réservée à l'**appui long de la page 2** « Recent Advert ».
-
+- 📘 **Livret Code Chappe26** : [`Chappe26_Livret_B5.pdf`](https://github.com/f1gbd/F1GBD/blob/master/meshpager/documentation/Chappe26_Livret_B5.pdf)
+- 📘 **Fiche Exemple Chappe26 Blackout** : [`Fiche_Exemple_Blackout.pdf`](https://github.com/f1gbd/F1GBD/blob/master/meshpager/documentation/Chappe26_Fiche_BlackOut.pdf)
+- 📘 **Fiche Exemple Chappe26 Incendie** : [`Fiche_Exemple_Incendie.pdf`](https://github.com/f1gbd/F1GBD/blob/master/meshpager/documentation/Chappe26_Fiche_Incendie.pdf)
 ---
 MeshPager est disponible sur LILYGO T-Deck
 ---
