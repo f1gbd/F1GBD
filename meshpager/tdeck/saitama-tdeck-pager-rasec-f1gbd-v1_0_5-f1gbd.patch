@@ -358,20 +358,17 @@ index 0000000..5345664
 +}  // namespace ops
 diff --git a/src/ui/RasecAlert.cpp b/src/ui/RasecAlert.cpp
 new file mode 100644
-index 0000000..272f1cd
+index 0000000..cb623da
 --- /dev/null
 +++ b/src/ui/RasecAlert.cpp
-@@ -0,0 +1,139 @@
+@@ -0,0 +1,120 @@
 +// Saitama — RasecAlert.cpp
 +// F1GBD — Écran plein écran "RASEC ALERT" clignotant. Voir RasecAlert.h.
 +
 +#include "RasecAlert.h"
 +#include "Theme.h"
 +#include "../hardware/Board.h"
-+#include "../utils/MP3Player.h"
-+#include "../utils/SDCard.h"
-+#include "../utils/Log.h"
-+#include "../mesh/PagerRasec.h"   // pour PAGER_ALERT_MP3
++#include "../utils/Sound.h"
 +#include <lvgl.h>
 +#include <Arduino.h>
 +
@@ -384,7 +381,6 @@ index 0000000..272f1cd
 +static lv_obj_t*  s_title     = nullptr;   // "RASEC ALERT"
 +static lv_obj_t*  s_counter   = nullptr;   // "Alertes recues: N"
 +static uint32_t   s_count     = 0;         // compteur d'alertes
-+static int        s_reps      = 0;         // répétitions restantes ; <0 = continu
 +static bool       s_blinkOn   = false;
 +static uint32_t   s_blinkMs   = 0;
 +static const uint32_t BLINK_PERIOD_MS = 350;
@@ -437,7 +433,6 @@ index 0000000..272f1cd
 +// ── API ──────────────────────────────────────────────────────────────────────
 +void trigger(int beeps) {
 +    s_count++;
-+    s_reps    = (beeps == 0) ? -1 : beeps;   // 0 -> continu
 +    s_blinkOn = true;
 +    s_blinkMs = millis();
 +
@@ -448,17 +443,9 @@ index 0000000..272f1cd
 +    // Rétroéclairage à fond.
 +    Board::instance().setDisplayBrightness(255);
 +
-+    // Son : uniquement si la SD est montée ET le fichier présent. Sinon l'alerte
-+    // reste visuelle (jamais de plantage si /redalert.mp3 manque).
-+    bool haveSound = (ops::sdcard::isMounted() || ops::sdcard::tryMount())
-+                     && ops::sdcard::hasFile(PAGER_ALERT_MP3);
-+    if (haveSound) {
-+        ops::mp3player::stop();
-+        ops::mp3player::play(PAGER_ALERT_MP3);
-+    } else {
-+        s_reps = 0;   // pas de répétition son
-+        OPS_LOG("RASEC", "Alerte visuelle seule: %s indisponible (SD ?)", PAGER_ALERT_MP3);
-+    }
++    // Alarme sonore synthétisée en I2S (aucune SD, aucun fichier).
++    //   beeps > 0  : N cycles ; beeps <= 0 : continu jusqu'à acquittement.
++    ops::sound::playAlarm(beeps > 0 ? beeps : 0);
 +    lv_refr_now(nullptr);
 +}
 +
@@ -476,17 +463,11 @@ index 0000000..272f1cd
 +
 +    // Maintien du rétroéclairage (annule un éventuel dimming du même tick).
 +    Board::instance().setDisplayBrightness(255);
-+
-+    // Répétition du son.
-+    if (s_reps != 0 && ops::mp3player::state() == ops::mp3player::State::Done) {
-+        if (s_reps > 0) s_reps--;
-+        if (s_reps != 0) ops::mp3player::play(PAGER_ALERT_MP3);
-+    }
++    // La répétition du son est gérée par la tâche d'alarme du module Sound.
 +}
 +
 +void dismiss() {
-+    ops::mp3player::stop();
-+    s_reps = 0;
++    ops::sound::stopAlarm();
 +    if (s_overlay) {
 +        lv_obj_del(s_overlay);
 +        s_overlay = nullptr;
@@ -654,8 +635,163 @@ index ba95362..b21f2fc 100644
          OPS_LOG("SD", "No card or mount failed");
          return;
      }
+diff --git a/src/utils/Sound.cpp b/src/utils/Sound.cpp
+index ccb1059..523d6ac 100644
+--- a/src/utils/Sound.cpp
++++ b/src/utils/Sound.cpp
+@@ -6,6 +6,8 @@
+ #include "Log.h"
+ 
+ #include <driver/i2s.h>
++#include <freertos/FreeRTOS.h>
++#include <freertos/task.h>
+ #include <cmath>
+ #include <cstring>
+ 
+@@ -46,6 +48,12 @@ static constexpr float JINGLE_FREQS[JINGLE_NOTES] = {
+ static constexpr int   JINGLE_LENS[JINGLE_NOTES] = { 1600, 640, 640, 640, 640, 640, 640, 4800 };
+ static constexpr int   JINGLE_TOTAL = 10240;  // 1600 + 640*6 + 4800
+ 
++// RASEC-ALERT alarm (F1GBD): two-tone siren, 1000 Hz / 750 Hz, 300 ms each.
++// One cycle = 600 ms = 4800 samples @ 8 kHz. Looped by the alarm task.
++static constexpr int   ALARM_SAMPLES = 4800;
++static constexpr float ALARM_F1      = 1000.0f;
++static constexpr float ALARM_F2      = 750.0f;
++
+ // Applies cfg.speakerVolume (0–100) scaling when writing to I2S DMA.
+ // Chunks through a 256-sample stack buffer to avoid a heap allocation.
+ static void _writeScaled(const int16_t* buf, int count)
+@@ -70,9 +78,15 @@ static int16_t* s_pluckBuf  = nullptr;
+ static int16_t* s_clearBuf  = nullptr;
+ static int16_t* s_whooshBuf = nullptr;
+ static int16_t* s_jingleBuf = nullptr;
++static int16_t* s_alarmBuf  = nullptr;
+ static bool     s_initialized = false;
+ static uint32_t s_soundEndMs  = 0;  // millis() deadline while DMA is draining
+ 
++// RASEC-ALERT alarm task state
++static TaskHandle_t   s_alarmTaskH = nullptr;
++static volatile bool  s_alarmStop  = false;
++static volatile int   s_alarmCycles = 0;   // <=0 => loop until stopAlarm()
++
+ static void _generatePing()
+ {
+     for (int i = 0; i < PING_SAMPLES; i++) {
+@@ -158,6 +172,24 @@ static void _generateJingle()
+     }
+ }
+ 
++// Two-tone siren for the RASEC alarm. Short fades avoid clicks between tones.
++static void _generateAlarm()
++{
++    const int half = ALARM_SAMPLES / 2;   // 2400 samples per tone
++    const int fade = 160;                 // ~20 ms
++    for (int seg = 0; seg < 2; seg++) {
++        const float f = seg ? ALARM_F2 : ALARM_F1;
++        for (int i = 0; i < half; i++) {
++            const int pos = seg * half + i;
++            float t   = (float)pos / (float)SAMPLE_RATE;
++            float env = 1.0f;
++            if (i < fade)            env = (float)i / (float)fade;
++            else if (i > half - fade) env = (float)(half - i) / (float)fade;
++            s_alarmBuf[pos] = (int16_t)(sinf(2.0f * M_PI * f * t) * env * 16000.0f);
++        }
++    }
++}
++
+ namespace ops {
+ 
+ void sound::init()
+@@ -167,7 +199,8 @@ void sound::init()
+     s_clearBuf  = (int16_t*)ps_malloc(CLEAR_SAMPLES  * sizeof(int16_t));
+     s_whooshBuf = (int16_t*)ps_malloc(WHOOSH_SAMPLES * sizeof(int16_t));
+     s_jingleBuf = (int16_t*)ps_malloc(JINGLE_TOTAL   * sizeof(int16_t));
+-    if (!s_pingBuf || !s_pluckBuf || !s_clearBuf || !s_whooshBuf || !s_jingleBuf) {
++    s_alarmBuf  = (int16_t*)ps_malloc(ALARM_SAMPLES  * sizeof(int16_t));
++    if (!s_pingBuf || !s_pluckBuf || !s_clearBuf || !s_whooshBuf || !s_jingleBuf || !s_alarmBuf) {
+         OPS_LOG("Sound", "ps_malloc failed for waveform buffers");
+         return;
+     }
+@@ -176,6 +209,7 @@ void sound::init()
+     _generateClear();
+     _generateWhoosh();
+     _generateJingle();
++    _generateAlarm();
+ 
+     i2s_config_t cfg = {};
+     cfg.mode                 = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_TX);
+@@ -270,4 +304,49 @@ void sound::playStartupJingle()
+     _writeScaled(s_jingleBuf, JINGLE_TOTAL);
+ }
+ 
++// ── RASEC-ALERT alarm (F1GBD) ─────────────────────────────────────────────────
++// Runs in its own task so the blinking alert screen and the keyboard (for
++// acknowledgment) stay responsive. Writes to the already-installed 8 kHz mono
++// I2S — no driver reinstall, no SD, no file.
++
++static void _alarmTask(void*)
++{
++    int done = 0;
++    while (!s_alarmStop) {
++        // Keep the CPU governor from dropping APB below 80 MHz mid-tone.
++        s_soundEndMs = millis() + 900;
++        if (getCpuFrequencyMhz() < 80) setCpuFrequencyMhz(80);
++
++        _writeScaled(s_alarmBuf, ALARM_SAMPLES);
++
++        if (s_alarmCycles > 0 && ++done >= s_alarmCycles) break;
++    }
++    i2s_zero_dma_buffer(SPK_I2S_PORT);
++    s_alarmTaskH = nullptr;
++    vTaskDelete(nullptr);
++}
++
++void sound::playAlarm(int cycles)
++{
++    if (!ops::config::get().speakerEnabled) return;   // master mute respected
++    if (!s_initialized) return;
++    stopAlarm();                                       // ensure a single instance
++
++    s_alarmStop   = false;
++    s_alarmCycles = cycles;                            // <=0 => loop until stopAlarm()
++    if (getCpuFrequencyMhz() < 80) setCpuFrequencyMhz(80);
++
++    xTaskCreatePinnedToCore(_alarmTask, "rasecalarm", 3072, nullptr, 2, &s_alarmTaskH, 0);
++}
++
++void sound::stopAlarm()
++{
++    if (!s_alarmTaskH) return;
++    s_alarmStop = true;
++    for (int i = 0; i < 60 && s_alarmTaskH; i++) vTaskDelay(pdMS_TO_TICKS(10));
++    i2s_zero_dma_buffer(SPK_I2S_PORT);
++}
++
++bool sound::alarmActive() { return s_alarmTaskH != nullptr; }
++
+ }  // namespace ops
+diff --git a/src/utils/Sound.h b/src/utils/Sound.h
+index c0ba286..9abca79 100644
+--- a/src/utils/Sound.h
++++ b/src/utils/Sound.h
+@@ -33,5 +33,15 @@ namespace sound {
+     // Call after config::init() and before ui::init().
+     void playStartupJingle();
+ 
++    // ── RASEC-ALERT alarm (F1GBD) ─────────────────────────────────────────
++    // Synthétise une sirène bitonale en I2S, jouée dans une tâche dédiée
++    // (non bloquant : l'UI reste réactive). Aucune carte SD ni fichier requis.
++    //   cycles > 0  : joue N cycles puis s'arrête.
++    //   cycles <= 0 : boucle jusqu'à stopAlarm() (alarme continue).
++    // Gated by cfg.speakerEnabled.
++    void playAlarm(int cycles);
++    void stopAlarm();
++    bool alarmActive();
++
+ }  // namespace sound
+ }  // namespace ops
 diff --git a/src/version.h b/src/version.h
-index ef2f7ee..bcc6c9e 100644
+index ef2f7ee..f28557a 100644
 --- a/src/version.h
 +++ b/src/version.h
 @@ -2,6 +2,6 @@
@@ -665,6 +801,6 @@ index ef2f7ee..bcc6c9e 100644
 -#define OPS_VERSION_PATCH 2
 -#define OPS_VERSION_PRE   ""
 -#define OPS_VERSION_STRING "1.0.2"
-+#define OPS_VERSION_PATCH 4
++#define OPS_VERSION_PATCH 5
 +#define OPS_VERSION_PRE   "f1gbd"
-+#define OPS_VERSION_STRING "1.0.4-f1gbd"
++#define OPS_VERSION_STRING "1.0.5-f1gbd"
