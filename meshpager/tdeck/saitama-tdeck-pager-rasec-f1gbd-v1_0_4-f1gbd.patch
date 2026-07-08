@@ -358,10 +358,10 @@ index 0000000..5345664
 +}  // namespace ops
 diff --git a/src/ui/RasecAlert.cpp b/src/ui/RasecAlert.cpp
 new file mode 100644
-index 0000000..6104e51
+index 0000000..272f1cd
 --- /dev/null
 +++ b/src/ui/RasecAlert.cpp
-@@ -0,0 +1,127 @@
+@@ -0,0 +1,139 @@
 +// Saitama — RasecAlert.cpp
 +// F1GBD — Écran plein écran "RASEC ALERT" clignotant. Voir RasecAlert.h.
 +
@@ -369,6 +369,8 @@ index 0000000..6104e51
 +#include "Theme.h"
 +#include "../hardware/Board.h"
 +#include "../utils/MP3Player.h"
++#include "../utils/SDCard.h"
++#include "../utils/Log.h"
 +#include "../mesh/PagerRasec.h"   // pour PAGER_ALERT_MP3
 +#include <lvgl.h>
 +#include <Arduino.h>
@@ -443,10 +445,20 @@ index 0000000..6104e51
 +    _refreshCounter();
 +    lv_obj_move_foreground(s_overlay);
 +
-+    // Rétroéclairage à fond + son.
++    // Rétroéclairage à fond.
 +    Board::instance().setDisplayBrightness(255);
-+    ops::mp3player::stop();
-+    ops::mp3player::play(PAGER_ALERT_MP3);
++
++    // Son : uniquement si la SD est montée ET le fichier présent. Sinon l'alerte
++    // reste visuelle (jamais de plantage si /redalert.mp3 manque).
++    bool haveSound = (ops::sdcard::isMounted() || ops::sdcard::tryMount())
++                     && ops::sdcard::hasFile(PAGER_ALERT_MP3);
++    if (haveSound) {
++        ops::mp3player::stop();
++        ops::mp3player::play(PAGER_ALERT_MP3);
++    } else {
++        s_reps = 0;   // pas de répétition son
++        OPS_LOG("RASEC", "Alerte visuelle seule: %s indisponible (SD ?)", PAGER_ALERT_MP3);
++    }
 +    lv_refr_now(nullptr);
 +}
 +
@@ -589,8 +601,61 @@ index 9ad2534..84cbbfb 100644
      ScreenMap::tick();
      ScreenTrace::tick();
      ScreenFinder::tick();
+diff --git a/src/utils/MP3Player.cpp b/src/utils/MP3Player.cpp
+index a01099e..6c9b693 100644
+--- a/src/utils/MP3Player.cpp
++++ b/src/utils/MP3Player.cpp
+@@ -20,6 +20,7 @@
+ 
+ #include "MP3Player.h"
+ #include "Log.h"
++#include "SDCard.h"
+ 
+ #include <SD.h>
+ #include <driver/i2s.h>
+@@ -256,6 +257,20 @@ bool play(const char* sdPath)
+ {
+     OPS_LOG("MP3", "play() -> [%s]", sdPath);
+ 
++    // F1GBD — garde-fou : ne jamais lancer la tâche si la SD n'est pas montée ou
++    // si le fichier est absent. Sans ça, AudioFileSourceSD ouvre un fichier
++    // invalide et la lib MP3 libère un buffer non alloué -> panique (heap_caps_free).
++    if (!ops::sdcard::isMounted() && !ops::sdcard::tryMount()) {
++        OPS_LOG("MP3", "play aborted: SD not mounted [%s]", sdPath);
++        s_state = State::Error;
++        return false;
++    }
++    if (!ops::sdcard::hasFile(sdPath)) {
++        OPS_LOG("MP3", "play aborted: file missing [%s]", sdPath);
++        s_state = State::Error;
++        return false;
++    }
++
+     if (s_state == State::Playing || s_state == State::Paused || s_state == State::Stopping) {
+         for (int i = 0; i < 30 && s_task != nullptr; i++)
+             vTaskDelay(pdMS_TO_TICKS(10));
+diff --git a/src/utils/SDCard.cpp b/src/utils/SDCard.cpp
+index ba95362..b21f2fc 100644
+--- a/src/utils/SDCard.cpp
++++ b/src/utils/SDCard.cpp
+@@ -18,7 +18,14 @@ bool sdcard::isMounted() { return s_mounted; }
+ 
+ void sdcard::init() {
+     s_spi.begin(40, 38, 41, -1);   // SCK, MISO, MOSI, SS (CS handled by SD lib)
+-    if (!SD.begin(SD_CS, s_spi)) {
++    // F1GBD — jusqu'à 3 essais : sur le bus SPI partagé (écran/LoRa/SD),
++    // le premier SD.begin() échoue parfois si la carte n'est pas encore prête.
++    bool ok = false;
++    for (int attempt = 0; attempt < 3 && !ok; attempt++) {
++        if (attempt) { SD.end(); delay(120); }
++        ok = SD.begin(SD_CS, s_spi);
++    }
++    if (!ok) {
+         OPS_LOG("SD", "No card or mount failed");
+         return;
+     }
 diff --git a/src/version.h b/src/version.h
-index ef2f7ee..f1ab6fe 100644
+index ef2f7ee..bcc6c9e 100644
 --- a/src/version.h
 +++ b/src/version.h
 @@ -2,6 +2,6 @@
@@ -600,6 +665,6 @@ index ef2f7ee..f1ab6fe 100644
 -#define OPS_VERSION_PATCH 2
 -#define OPS_VERSION_PRE   ""
 -#define OPS_VERSION_STRING "1.0.2"
-+#define OPS_VERSION_PATCH 3
++#define OPS_VERSION_PATCH 4
 +#define OPS_VERSION_PRE   "f1gbd"
-+#define OPS_VERSION_STRING "1.0.3-f1gbd"
++#define OPS_VERSION_STRING "1.0.4-f1gbd"
