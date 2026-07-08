@@ -205,7 +205,7 @@ MeshPager est disponible sur LILYGO T-Deck
 <p align="center">
   <img src="tdeck/images/rasec-alert-demo.gif" width="300" alt="Pager recevant l'alerte RASEC en direct"/>
 </p>
-Voir : **https://github.com/f1gbd/F1GBD/tree/master/meshpager/tdeck/**
+Voir : https://github.com/f1gbd/F1GBD/tree/master/meshpager/tdeck/
 
 ---
 ## Documentation
