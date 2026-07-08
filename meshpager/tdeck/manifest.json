@@ -1,13 +1,13 @@
 {
   "name": "Saitama T-Deck — RASEC-ALERT (F1GBD)",
-  "version": "1.0.4-f1gbd",
+  "version": "1.0.5-f1gbd",
   "new_install_prompt_erase": true,
   "builds": [
     {
       "chipFamily": "ESP32-S3",
       "improv": false,
       "parts": [
-        { "path": "saitama-t-deck-plus-1.0.4-f1gbd-merged.bin", "offset": 0 }
+        { "path": "saitama-t-deck-plus-1.0.5-f1gbd-merged.bin", "offset": 0 }
       ]
     }
   ]
