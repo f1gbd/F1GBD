@@ -1,75 +1,76 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Flash Saitama T-Deck — RASEC-ALERT (F1GBD)</title>
-  <script type="module"
-          src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MeshPager RASEC ALERT — Installation</title>
+  <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
   <style>
-    :root { --navy:#1F4E79; --blue:#2E75B6; --orange:#C55A11; }
-    body { font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
-           max-width: 640px; margin: 40px auto; padding: 0 20px; color:#1b1b1b;
-           line-height: 1.55; }
-    h1 { color: var(--navy); font-size: 1.5rem; }
-    .tag { color: var(--orange); font-weight: 700; }
-    .card { border:1px solid #ddd; border-radius:10px; padding:20px; margin:24px 0;
-            background:#fafafa; }
-    .btn { --esp-tools-button-color:#fff;
-           --esp-tools-button-background-color:var(--blue); }
-    ol { padding-left: 1.2rem; }
-    code { background:#eef; padding:1px 5px; border-radius:4px; }
-    .warn { background:#fff6e5; border-left:4px solid var(--orange);
-            padding:10px 14px; border-radius:4px; font-size:0.95rem; }
-    footer { color:#777; font-size:0.85rem; margin-top:32px; }
+    :root { --red:#b23a2e; --ink:#222; --muted:#666; --line:#e3e3e3; --bg:#faf9f6; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+           color:var(--ink); background:var(--bg); line-height:1.6; }
+    .wrap { max-width:720px; margin:0 auto; padding:32px 20px 60px; }
+    .kicker { color:var(--red); font-weight:700; letter-spacing:.04em; font-size:14px; }
+    h1 { font-size:28px; margin:6px 0 4px; }
+    .sub { color:var(--muted); margin:0 0 24px; }
+    .card { background:#fff; border:1px solid var(--line); border-radius:12px; padding:22px; margin:18px 0; }
+    .install { text-align:center; padding:28px 22px; }
+    .btn { background:var(--red); color:#fff; border:none; border-radius:8px;
+           font-size:17px; font-weight:600; padding:14px 26px; cursor:pointer; }
+    .btn:hover { filter:brightness(1.05); }
+    .req { font-size:14px; color:var(--muted); margin-top:14px; }
+    code { background:#f1efe9; padding:2px 6px; border-radius:4px; font-size:15px; }
+    .cmd { display:block; background:#111; color:#f2f2f2; border-radius:8px; padding:14px 16px;
+           font-family:Consolas,monospace; font-size:17px; text-align:center; margin:12px 0; }
+    h2 { font-size:19px; border-bottom:2px solid var(--red); padding-bottom:6px; margin-top:0; }
+    ul { margin:8px 0; padding-left:20px; }
+    a { color:var(--red); }
+    .note { font-size:14px; color:var(--muted); }
+    footer { text-align:center; color:var(--muted); font-size:13px; margin-top:34px; }
   </style>
 </head>
 <body>
-  <h1>Saitama T-Deck — option <span class="tag">RASEC-ALERT</span></h1>
-  <p>Firmware pour <strong>LilyGo T-Deck / T-Deck Plus</strong> (ESP32-S3, LoRa SX1262),
-     version <strong id="ver">…</strong>. Flashez directement depuis ce navigateur,
-     sans rien installer.</p>
+  <div class="wrap">
+    <div class="kicker">ADRASEC 77 · FNRASEC</div>
+    <h1>MeshPager — RASEC ALERT</h1>
+    <p class="sub">Flashage en un clic pour Heltec WiFi LoRa 32 V3 (ESP32-S3)</p>
 
-  <div class="card">
-    <p><strong>Pour flasher :</strong></p>
-    <ol>
-      <li>Utilisez <strong>Chrome</strong> ou <strong>Edge</strong> sur ordinateur (Web Serial requis).</li>
-      <li>Branchez le T-Deck en USB-C, interrupteur latéral sur ON.</li>
-      <li>Cliquez sur <strong>Installer</strong> ci-dessous et choisissez le port du T-Deck.</li>
-      <li>Laissez l'installation se terminer, puis appuyez sur <strong>reset</strong>.</li>
-    </ol>
-    <p>
-      <esp-web-install-button class="btn" manifest="manifest.json">
-        <button slot="activate">⚡ Installer le firmware</button>
-        <span slot="unsupported">Navigateur non compatible — utilisez Chrome ou Edge sur ordinateur.</span>
-        <span slot="not-allowed">Accès au port série refusé.</span>
+    <div class="card install">
+      <esp-web-install-button manifest="manifest.json">
+        <button class="btn" slot="activate">Installer le firmware Pager</button>
+        <span slot="unsupported">Navigateur non compatible — ouvrez cette page dans <b>Google Chrome</b> ou <b>Microsoft Edge</b> sur un ordinateur.</span>
+        <span slot="not-allowed">Le flashage nécessite une connexion sécurisée (https).</span>
       </esp-web-install-button>
-    </p>
+      <div class="req">
+        Chrome / Edge sur ordinateur · carte branchée en USB.<br />
+        Si la connexion échoue : maintenir <b>BOOT</b>, appuyer/relâcher <b>RST</b>, relâcher <b>BOOT</b>, puis réessayer.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Après le flashage</h2>
+      <p>Au démarrage : logo MeshCore (~3 s) puis la page d'accueil pager
+         (« RASEC ALERT / by F1GBD / Alertes: 0 »). Réveiller l'écran avec le bouton
+         <b>USER</b> si besoin.</p>
+      <p>Pour déclencher une alerte, envoyer depuis TCQ ou une appli cliente MeshCore
+         (message direct ou canal) :</p>
+      <span class="cmd">#ra ADRASEC77</span>
+      <p class="note">Le pager affiche « RASEC ALERT », la LED clignote par séries de 3 impulsions,
+         le buzzer bipe (si équipé), et l'émetteur reçoit un accusé de réception (message direct).</p>
+    </div>
+
+    <div class="card">
+      <h2>Documentation</h2>
+      <ul>
+        <li><a href="Fiche_reflexe_RASEC_ALERT.docx">Fiche réflexe</a> — envoyer et tester l'alerte</li>
+        <li><a href="Fiche_PAGER_RASEC_ALERT_ADRASEC.docx">Fiche technique</a> — mise en œuvre complète</li>
+        <li><a href="FLASH_pager_RASEC_operateurs.md">Procédure de flashage</a> (méthodes alternatives)</li>
+        <li><a href="https://github.com/f1gbd/F1GBD/tree/master/meshpager">Dépôt du projet</a></li>
+      </ul>
+    </div>
+
+    <footer>F1GBD / F4JHW — ADRASEC 77 — 73</footer>
   </div>
-
-  <p class="warn">
-    <strong>Si le bouton ne trouve pas le port ou échoue à se connecter</strong> (fréquent sur
-    ESP32-S3 à USB natif) : mettez le T-Deck en <em>mode download</em> à la main — maintenez le
-    bouton central de la trackball, appuyez sur reset (côté gauche), relâchez les deux — puis
-    recliquez sur <strong>Installer</strong>.
-  </p>
-
-  <p>Après le flash : testez en envoyant <code>#ra ADRASEC77</code> depuis un autre nœud
-     MeshCore, en direct ou sur le canal privé partagé. L'alarme sonore est intégrée au
-     firmware — aucune carte SD ni fichier audio n'est nécessaire.</p>
-
-  <footer>
-    Dérivé de <a href="https://github.com/868meshbot/Saitama">Saitama</a> (GPL-3.0-or-later),
-    basé sur <a href="https://github.com/ripplebiz/MeshCore">MeshCore</a>.
-    Portage T-Deck + option RASEC-ALERT : F1GBD — ADRASEC 77.
-  </footer>
-
-  <script>
-    // Affiche la version lue depuis manifest.json — plus besoin de l'écrire en dur ici.
-    fetch('manifest.json', { cache: 'no-store' })
-      .then(r => r.json())
-      .then(m => { document.getElementById('ver').textContent = m.version || ''; })
-      .catch(() => { document.getElementById('ver').textContent = ''; });
-  </script>
 </body>
 </html>
