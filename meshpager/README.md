@@ -212,6 +212,7 @@ Voir : https://github.com/f1gbd/F1GBD/tree/master/meshpager/tdeck/
 
 - 📄 **Fiche réflexe** (envoyer / tester l'alerte) : [`Fiche_reflexe_RASEC_ALERT.pdf`](https://github.com/f1gbd/F1GBD/blob/master/meshpager/documentation/Fiche_reflexe_RASEC_ALERT.pdf)
 - 📘 **Fiche technique** (mise en œuvre complète) : [`Fiche_PAGER_RASEC_ALERT_ADRASEC.pdf`](https://github.com/f1gbd/F1GBD/blob/master/meshpager/documentation/Fiche_PAGER_RASEC_ALERT_ADRASEC.pdf)
+- 📘 **Livret Code Chappe26** : [`Chappe26_Livret_B5.pdf`](https://github.com/f1gbd/F1GBD/blob/master/meshpager/documentation/Chappe26_Livret_B5.pdf)
 - 📘 **Fiche Exemple Chappe26 Blackout** : [`Fiche_Exemple_Blackout.pdf`](https://github.com/f1gbd/F1GBD/blob/master/meshpager/documentation/Chappe26_Fiche_BlackOut.pdf)
 - 📘 **Fiche Exemple Chappe26 Incendie** : [`Fiche_Exemple_Incendie.pdf`](https://github.com/f1gbd/F1GBD/blob/master/meshpager/documentation/Chappe26_Fiche_Incendie.pdf)
 
