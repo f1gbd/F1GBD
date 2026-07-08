@@ -27,7 +27,7 @@
 <body>
   <h1>Saitama T-Deck — option <span class="tag">RASEC-ALERT</span></h1>
   <p>Firmware pour <strong>LilyGo T-Deck / T-Deck Plus</strong> (ESP32-S3, LoRa SX1262),
-     version <strong>1.0.3-f1gbd</strong>. Flashez directement depuis ce navigateur,
+     version <strong id="ver">…</strong>. Flashez directement depuis ce navigateur,
      sans rien installer.</p>
 
   <div class="card">
@@ -63,5 +63,13 @@
     basé sur <a href="https://github.com/ripplebiz/MeshCore">MeshCore</a>.
     Portage T-Deck + option RASEC-ALERT : F1GBD — ADRASEC 77.
   </footer>
+
+  <script>
+    // Affiche la version lue depuis manifest.json — plus besoin de l'écrire en dur ici.
+    fetch('manifest.json', { cache: 'no-store' })
+      .then(r => r.json())
+      .then(m => { document.getElementById('ver').textContent = m.version || ''; })
+      .catch(() => { document.getElementById('ver').textContent = ''; });
+  </script>
 </body>
 </html>
