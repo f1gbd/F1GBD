@@ -174,12 +174,13 @@ valeur **persistante** :
 ### Émettre un code Chappe (CHAPPE 26)
 
 Depuis la **v5.0**, le pager peut **émettre** un code Chappe à 4 chiffres directement depuis
-le terrain, **sans téléphone ni application**. Le code (livre de code civil « Chappe 2026 »)
+le terrain, **sans téléphone ni application**. Le Livret « Chappe 2026 » 
 part **préfixé par `!`** (ex. `!2104`) sur le **canal privé** ADRASEC, où il est lisible par
 tous les opérateurs abonnés au canal.
 
 > Format du code : 1er chiffre = **Domaine**, 2e = **Sous-catégorie**, 3e et 4e = **Expression**
-> (voir le *Livre de Code Civil*).
+
+> (Pour plus de détails consulter le *[Livret Chappe26](https://github.com/f1gbd/F1GBD/blob/master/meshpager/documentation/Chappe26_Livret_B5.pdf)*.
 
 **Saisie à la touche USER :**
 
@@ -199,33 +200,25 @@ celui du RASEC ALERT collectif) : les nœuds inscrits reçoivent « `<Nom> : !21
 > « RASEC ALERT » ; l'entrée CHAPPE 26 est réservée à l'**appui long de la page 2** « Recent Advert ».
 
 ---
+MeshPager est disponible sur LILYGO T-Deck
+---
+<p align="center">
+  <img src="tdeck/images/rasec-alert-demo.gif" width="300" alt="Pager recevant l'alerte RASEC en direct"/>
+</p>
+Voir : **https://github.com/f1gbd/F1GBD/tree/master/meshpager/tdeck/**
 
+---
 ## Documentation
 
 - 📄 **Fiche réflexe** (envoyer / tester l'alerte) : [`Fiche_reflexe_RASEC_ALERT.pdf`](https://github.com/f1gbd/F1GBD/blob/master/meshpager/documentation/Fiche_reflexe_RASEC_ALERT.pdf)
 - 📘 **Fiche technique** (mise en œuvre complète) : [`Fiche_PAGER_RASEC_ALERT_ADRASEC.pdf`](https://github.com/f1gbd/F1GBD/blob/master/meshpager/documentation/Fiche_PAGER_RASEC_ALERT_ADRASEC.pdf)
+- 📘 **Fiche Exemple Chappe26 Blackout** : [`Fiche_Exemple_Blackout.pdf`](https://github.com/f1gbd/F1GBD/blob/master/meshpager/documentation/Chappe26_Fiche_BlackOut.pdf)
+- 📘 **Fiche Exemple Chappe26 Incendie** : [`Fiche_Exemple_Incendie.pdf`](https://github.com/f1gbd/F1GBD/blob/master/meshpager/documentation/Chappe26_Fiche_Incendie.pdf)
 
 ---
 
 Options (buzzer, textes, durées) : voir la fiche technique.
 
-### Principaux paramètres (`build_flags`)
-
-| Flag | Défaut | Rôle |
-|---|---|---|
-| `PAGER_ACTIVATION_CODE` | `ADRASEC77` | Code attendu après `#ra` (valeur d'usine) |
-| `PAGER_ALERT_MS` | `6000` | Durée de l'alerte (écran + LED), ms |
-| `PAGER_HOME` | (non défini) | Active l'écran d'accueil pager |
-| `PIN_BUZZER` | `4` | Broche du buzzer piezo (GPIO 4) |
-| `CHAPPE_CHANNEL_IDX` | `1` | Index du canal privé d'émission des codes Chappe (CHAPPE 26) |
-| `PAGER_ALSO_MATCH_TEXT` | (non défini) | Accepte aussi le texte brut « RASEC ALERT » |
-| `BLE_PIN_CODE` | (aléatoire) | Code d'appairage BLE fixe (≠ 123456), affiché au splash |
-| `LORA_FREQ` | `869.618` | Fréquence LoRa (MHz) — France |
-| `LORA_BW` | `62.5` | Bande passante (kHz) |
-| `LORA_SF` | `8` | Spreading factor |
-| `LORA_CR` | `8` | Coding rate |
-
----
 
 ## Auteur & licence
 
