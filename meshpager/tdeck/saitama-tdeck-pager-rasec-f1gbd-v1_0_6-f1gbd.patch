@@ -1,0 +1,893 @@
+diff --git a/post_build.py b/post_build.py
+index b8e3bbe..f5033e7 100644
+--- a/post_build.py
++++ b/post_build.py
+@@ -38,6 +38,12 @@ def _read_version(project_dir):
+ def _version_slug(version, project_dir):
+     if "-" not in version:
+         return version  # stable release — clean filename, no metadata
++    # F1GBD — libellé de build "vendeur" (ex "-f1gbd") : nom de fichier propre,
++    # sans métadonnées auto. On n'ajoute count/date/hash que pour un vrai
++    # pré-release marqué "-dev" ou "-rc".
++    lower = version.lower()
++    if "-dev" not in lower and "-rc" not in lower and "-beta" not in lower and "-alpha" not in lower:
++        return version
+     count = _git(["rev-list", "--count", "HEAD"], project_dir) or "0"
+     hash_ = _git(["rev-parse", "--short", "HEAD"], project_dir) or "unknown"
+     date  = datetime.utcnow().strftime("%Y%m%d")
+diff --git a/src/main.cpp b/src/main.cpp
+index 64b80bc..7867ec1 100644
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -15,6 +15,7 @@
+ #include "utils/Repeaters.h"
+ #include "utils/SDCard.h"
+ #include "utils/Sound.h"
++#include "mesh/PagerRasec.h"
+ #include "ui/ScreenTerminal.h"
+ #include "bt/BTCompanionService.h"
+ 
+@@ -43,6 +44,9 @@ void setup() {
+     ops::contacts::init();
+     ops::repeaters::init();
+ 
++    // F1GBD — RASEC ALERT : charge le code d'activation + nb de répétitions (NVS)
++    ops::pager::begin();
++
+     // Apply saved keyboard backlight state on boot
+     ops::Board::instance().setKeyboardBacklight(ops::config::get().kbBrightness);
+ 
+diff --git a/src/mesh/MeshService.cpp b/src/mesh/MeshService.cpp
+index 1ae4a11..37a7449 100644
+--- a/src/mesh/MeshService.cpp
++++ b/src/mesh/MeshService.cpp
+@@ -13,6 +13,7 @@
+ #include "../utils/Repeaters.h"
+ #include "../utils/SDCard.h"
+ #include "../utils/Log.h"
++#include "PagerRasec.h"
+ 
+ #include <Arduino.h>
+ #include <SPI.h>
+@@ -976,6 +977,18 @@ class OMSMesh : public BaseChatMesh {
+         OPS_LOG("RX", "[DM] %s: %.100s  h:%u rssi:%.0f snr:%.0f",
+                 from.name, text, msg.hops, (double)msg.rssi, (double)msg.snr);
+         _enqueueRx(msg);
++        // F1GBD — RASEC ALERT (message direct) : #ra / #rapass / #b
++        {
++            ops::pager::Result pr = ops::pager::onIncoming(text, /*isDirect=*/true);
++            if (pr.action == ops::pager::Action::Alert)
++                ops::pager::setAlertPending(pr.beeps);
++            if (pr.action != ops::pager::Action::None && pr.reply[0]) {
++                ContactInfo dest = from;
++                uint32_t exp_ack = 0, est_to = 0;
++                sendMessage(dest, getRTCClock()->getCurrentTimeUnique(), 0, pr.reply,
++                            exp_ack, est_to);
++            }
++        }
+         _compQueueContactMsg(from, pkt, sender_timestamp, text);
+     }
+ 
+@@ -1169,6 +1182,16 @@ class OMSMesh : public BaseChatMesh {
+                 msg.channelName[0] ? msg.channelName : "?",
+                 msg.senderName, msg.text, (double)msg.rssi, (double)msg.snr);
+         _enqueueRx(msg);
++        // F1GBD — RASEC ALERT (canal) : msg.text = corps sans le préfixe "Nom: "
++        {
++            ops::pager::Result pr = ops::pager::onIncoming(msg.text, /*isDirect=*/false);
++            if (pr.action == ops::pager::Action::Alert) {
++                ops::pager::setAlertPending(pr.beeps);
++                sendGroupMessage(getRTCClock()->getCurrentTimeUnique(),
++                                 const_cast<mesh::GroupChannel&>(channel),
++                                 _callsign, pr.reply, strlen(pr.reply));
++            }
++        }
+         _compQueueChannelMsg(channel, pkt, timestamp, text);
+     }
+ 
+@@ -1610,7 +1633,11 @@ public:
+     {}
+ 
+     void begin_mesh(const char* callsign) {
+-        strncpy(_callsign, callsign, 31);
++        // F1GBD — assainit le nom au démarrage : un nom déjà "sale" (octets
++        // parasites) se nettoie ici, donc l'advert diffusé sur le mesh est propre.
++        char clean[32];
++        ops::config::sanitizeName(callsign, clean, sizeof(clean));
++        strncpy(_callsign, clean, 31);
+         _callsign[31] = '\0';
+ 
+         BaseChatMesh::begin();
+@@ -1786,7 +1813,9 @@ public:
+     }
+ 
+     void updateCallsign(const char* cs) {
+-        strncpy(_callsign, cs, 31);
++        char clean[32];
++        ops::config::sanitizeName(cs, clean, sizeof(clean));
++        strncpy(_callsign, clean, 31);
+         _callsign[31] = '\0';
+         if (LittleFS.begin(false)) {
+             IdentityStore store(LittleFS, "/mesh");
+diff --git a/src/mesh/PagerRasec.cpp b/src/mesh/PagerRasec.cpp
+new file mode 100644
+index 0000000..ba49205
+--- /dev/null
++++ b/src/mesh/PagerRasec.cpp
+@@ -0,0 +1,165 @@
++// Saitama — PagerRasec.cpp
++// F1GBD — Portage de la fonction "RASEC ALERT" du MeshPager v5.0 vers le T-Deck.
++// Les analyseurs pagerMatchCode / pagerParsePass / pagerParseBeeps sont repris
++// tels quels du MeshPager (logique inchangée). Persistance via Preferences (NVS).
++
++#include "PagerRasec.h"
++#include <string.h>
++#include <stdlib.h>
++#include <Preferences.h>
++
++namespace ops {
++namespace pager {
++
++// ── État courant (chargé de la flash au begin()) ─────────────────────────────
++static char _code[PAGER_CODE_MAXLEN] = PAGER_ACTIVATION_CODE;
++static int  _beeps = 3;
++static volatile bool _alertPending = false;
++static volatile int  _pendingBeeps = 0;
++
++static const char* NVS_NS   = "rasec";
++static const char* K_CODE   = "code";
++static const char* K_BEEPS  = "beeps";
++
++// ── Analyseurs (portés à l'identique du MeshPager) ───────────────────────────
++
++// true si "text" déclenche l'alerte pour le code "code" ("#ra <code>").
++static bool matchCode(const char* text, const char* code) {
++    if (!text) return false;
++    while (*text == ' ') text++;                       // espaces de tête
++    size_t plen = strlen(PAGER_CMD_PREFIX);
++    if (strncmp(text, PAGER_CMD_PREFIX, plen) == 0) {
++        const char* p = text + plen;
++        while (*p == ' ') p++;                          // espace(s) avant le code
++        size_t clen = strlen(code);
++        if (clen > 0 && strncmp(p, code, clen) == 0
++            && (p[clen] == 0 || p[clen] == ' ' || p[clen] == '\r' || p[clen] == '\n')) {
++            return true;                                // "#ra <code>" valide
++        }
++        return false;                                  // préfixe présent mais code faux
++    }
++    return false;
++}
++
++// "#rapass <ancien> <nouveau>" : 1 si OK (-> new_buf), -1 si commande mais ancien
++// code faux / nouveau vide, 0 si ce n'est pas la commande.
++static int parsePass(const char* text, const char* code, char* new_buf, size_t new_max) {
++    if (!text) return 0;
++    while (*text == ' ') text++;
++    size_t pl = strlen(PAGER_PASS_PREFIX);
++    if (strncmp(text, PAGER_PASS_PREFIX, pl) != 0 || text[pl] != ' ') return 0;
++    const char* p = text + pl;
++    while (*p == ' ') p++;
++    size_t clen = strlen(code);
++    if (clen == 0 || strncmp(p, code, clen) != 0 || p[clen] != ' ') return -1;
++    p += clen;
++    while (*p == ' ') p++;
++    size_t n = 0;
++    while (p[n] && p[n] != ' ' && p[n] != '\r' && p[n] != '\n' && n < new_max - 1) {
++        new_buf[n] = p[n]; n++;
++    }
++    new_buf[n] = 0;
++    return (n > 0) ? 1 : -1;
++}
++
++// "#b <n>" -> *out = n (0..MAX). 1 si valide, -1 si commande mais valeur invalide,
++// 0 si autre commande.
++static int parseBeeps(const char* text, int* out) {
++    if (!text) return 0;
++    while (*text == ' ') text++;
++    size_t pl = strlen(PAGER_BEEP_PREFIX);
++    if (strncmp(text, PAGER_BEEP_PREFIX, pl) != 0 || text[pl] != ' ') return 0;
++    const char* p = text + pl;
++    while (*p == ' ') p++;
++    if (*p < '0' || *p > '9') return -1;
++    int n = atoi(p);
++    if (n < 0 || n > PAGER_BEEP_MAX) return -1;
++    *out = n;
++    return 1;
++}
++
++// ── Persistance ──────────────────────────────────────────────────────────────
++static void saveCode() {
++    Preferences p;
++    if (p.begin(NVS_NS, false)) { p.putString(K_CODE, _code); p.end(); }
++}
++static void saveBeeps() {
++    Preferences p;
++    if (p.begin(NVS_NS, false)) { p.putInt(K_BEEPS, _beeps); p.end(); }
++}
++
++void begin() {
++    Preferences p;
++    if (p.begin(NVS_NS, true)) {
++        String c = p.getString(K_CODE, PAGER_ACTIVATION_CODE);
++        strncpy(_code, c.c_str(), sizeof(_code) - 1);
++        _code[sizeof(_code) - 1] = 0;
++        int b = p.getInt(K_BEEPS, 3);
++        if (b >= 0 && b <= PAGER_BEEP_MAX) _beeps = b;
++        p.end();
++    }
++}
++
++const char* code()  { return _code; }
++int         beeps() { return _beeps; }
++
++// ── Analyse d'un message entrant ─────────────────────────────────────────────
++Result onIncoming(const char* text, bool isDirect) {
++    Result r;
++    if (!text) return r;
++
++    // Commandes de configuration : messages directs uniquement.
++    if (isDirect) {
++        char newcode[PAGER_CODE_MAXLEN];
++        int st = parsePass(text, _code, newcode, sizeof(newcode));
++        if (st != 0) {
++            if (st == 1) {
++                strncpy(_code, newcode, sizeof(_code) - 1);
++                _code[sizeof(_code) - 1] = 0;
++                saveCode();
++                r.action = Action::PassChanged;
++                strncpy(r.reply, PAGER_PASS_ACK, sizeof(r.reply) - 1);
++            } else {
++                r.action = Action::PassFail;
++                strncpy(r.reply, PAGER_PASS_FAIL, sizeof(r.reply) - 1);
++            }
++            return r;
++        }
++
++        int nb;
++        st = parseBeeps(text, &nb);
++        if (st != 0) {
++            if (st == 1) {
++                _beeps = nb;
++                saveBeeps();
++                r.action = Action::BeepsSet;
++                if (nb == 0)
++                    snprintf(r.reply, sizeof(r.reply), "Alarme continue (acquit. touche)");
++                else
++                    snprintf(r.reply, sizeof(r.reply), "Repetitions reglees sur %d", nb);
++            } else {
++                r.action = Action::BeepsFail;
++                snprintf(r.reply, sizeof(r.reply), "Valeur #b invalide (0-%d)", PAGER_BEEP_MAX);
++            }
++            return r;
++        }
++    }
++
++    // Déclencheur d'alerte (direct ET canal).
++    if (matchCode(text, _code)) {
++        r.action = Action::Alert;
++        r.beeps  = _beeps;
++        strncpy(r.reply, PAGER_ACK_TEXT, sizeof(r.reply) - 1);
++        return r;
++    }
++
++    return r;
++}
++
++// ── Pont UI ──────────────────────────────────────────────────────────────────
++void setAlertPending(int b) { _pendingBeeps = b; _alertPending = true; }
++bool alertPending()         { return _alertPending; }
++int  consumeAlertBeeps()    { _alertPending = false; return _pendingBeeps; }
++
++}  // namespace pager
++}  // namespace ops
+diff --git a/src/mesh/PagerRasec.h b/src/mesh/PagerRasec.h
+new file mode 100644
+index 0000000..5345664
+--- /dev/null
++++ b/src/mesh/PagerRasec.h
+@@ -0,0 +1,94 @@
++// Saitama — PagerRasec.h
++// F1GBD — Portage de la fonction "RASEC ALERT" du MeshPager v5.0 vers le T-Deck.
++//
++// Fonction de messagerie d'alerte déclenchée par un message chat sur canal privé
++// ou en direct :
++//    "#ra <code>"              -> déclenche l'alerte (son redalert.mp3 + popup) + ACK
++//    "#rapass <ancien> <new>"  -> change le code d'activation (DM uniquement, persisté)
++//    "#b <n>"                  -> règle le nb de répétitions du son (0 = continu, DM only)
++//
++// Toute la logique d'analyse est portée à l'identique du MeshPager ; seule la
++// partie son diffère : le T-Deck n'a pas de piézo, on joue redalert.mp3 en I2S.
++//
++// Persistance : namespace NVS "rasec" (indépendant du blob de config Saitama).
++
++#pragma once
++#include <stdint.h>
++#include <stddef.h>
++
++// ── Constantes surchargeables via build_flags (-D...) ────────────────────────
++#ifndef PAGER_CMD_PREFIX
++  #define PAGER_CMD_PREFIX       "#ra"       // déclencheur d'alerte
++#endif
++#ifndef PAGER_PASS_PREFIX
++  #define PAGER_PASS_PREFIX      "#rapass"   // changement de code
++#endif
++#ifndef PAGER_BEEP_PREFIX
++  #define PAGER_BEEP_PREFIX      "#b"        // nb de répétitions
++#endif
++#ifndef PAGER_ACTIVATION_CODE
++  #define PAGER_ACTIVATION_CODE  "ADRASEC77" // code par défaut (build)
++#endif
++#ifndef PAGER_ACK_TEXT
++  #define PAGER_ACK_TEXT         "Pager OK - alerte bien recue"  // NE PAS contenir le code (anti-boucle)
++#endif
++#ifndef PAGER_PASS_ACK
++  #define PAGER_PASS_ACK         "Code RASEC mis a jour"
++#endif
++#ifndef PAGER_PASS_FAIL
++  #define PAGER_PASS_FAIL        "Echec: ancien code RASEC incorrect"
++#endif
++#ifndef PAGER_BEEP_MAX
++  #define PAGER_BEEP_MAX         20
++#endif
++#ifndef PAGER_ALERT_MP3
++  #define PAGER_ALERT_MP3        "/redalert.mp3"  // chemin SD du son d'alerte
++#endif
++#ifndef PAGER_CODE_MAXLEN
++  #define PAGER_CODE_MAXLEN      24
++#endif
++
++namespace ops {
++namespace pager {
++
++// Action à effectuer après analyse d'un message entrant.
++enum class Action : uint8_t {
++    None,         // rien à faire
++    Alert,        // déclencher l'alerte (son + popup) + renvoyer reply (ACK)
++    PassChanged,  // code changé -> renvoyer reply (PASS_ACK) — DM only
++    PassFail,     // #rapass mais ancien code faux -> renvoyer reply (PASS_FAIL)
++    BeepsSet,     // #b n appliqué -> renvoyer reply — DM only
++    BeepsFail,    // #b invalide -> renvoyer reply
++};
++
++struct Result {
++    Action action  = Action::None;
++    int    beeps   = 0;      // pour Alert : nb de répétitions (0 = continu jusqu'à acquittement)
++    char   reply[64] = {0};  // texte d'ACK à renvoyer (vide si aucun)
++};
++
++// Charge le code + le nb de bips persistés (à appeler une fois au démarrage,
++// après config::init()). Sans persistance, part sur PAGER_ACTIVATION_CODE.
++void begin();
++
++const char* code();   // code d'activation courant (ex. "ADRASEC77")
++int         beeps();  // nb de répétitions courant (0 = continu)
++
++// Analyse un message entrant.
++//   text     : corps du message. Pour un canal, le préfixe "Nom: " doit être
++//              retiré AVANT l'appel (voir point d'insertion onChannelMessageRecv).
++//   isDirect : true = message direct (autorise #rapass et #b),
++//              false = canal (seul #ra déclenche l'alerte).
++// Ne touche à aucune ressource matérielle : renvoie juste l'action à réaliser.
++Result onIncoming(const char* text, bool isDirect);
++
++// ── Pont vers l'UI (déclenchement du son + popup depuis le contexte UI) ──────
++// Les callbacks mesh tournent hors du thread LVGL : on ne joue donc PAS le son
++// ni le popup directement dans onIncoming(). Le callback pose un "drapeau"
++// d'alerte que la boucle UI consomme (comme pour les notifications Saitama).
++void setAlertPending(int beeps);   // appelé depuis le callback mesh
++bool alertPending();               // testé dans UIScreen::tick()
++int  consumeAlertBeeps();          // lit + efface le drapeau, renvoie le nb de répétitions
++
++}  // namespace pager
++}  // namespace ops
+diff --git a/src/ui/RasecAlert.cpp b/src/ui/RasecAlert.cpp
+new file mode 100644
+index 0000000..cb623da
+--- /dev/null
++++ b/src/ui/RasecAlert.cpp
+@@ -0,0 +1,120 @@
++// Saitama — RasecAlert.cpp
++// F1GBD — Écran plein écran "RASEC ALERT" clignotant. Voir RasecAlert.h.
++
++#include "RasecAlert.h"
++#include "Theme.h"
++#include "../hardware/Board.h"
++#include "../utils/Sound.h"
++#include <lvgl.h>
++#include <Arduino.h>
++
++namespace ops {
++namespace ui {
++namespace rasec {
++
++// ── État interne ─────────────────────────────────────────────────────────────
++static lv_obj_t*  s_overlay   = nullptr;   // conteneur plein écran
++static lv_obj_t*  s_title     = nullptr;   // "RASEC ALERT"
++static lv_obj_t*  s_counter   = nullptr;   // "Alertes recues: N"
++static uint32_t   s_count     = 0;         // compteur d'alertes
++static bool       s_blinkOn   = false;
++static uint32_t   s_blinkMs   = 0;
++static const uint32_t BLINK_PERIOD_MS = 350;
++
++// ── Acquittement sur appui / tap ─────────────────────────────────────────────
++static void _onClick(lv_event_t* /*e*/) { dismiss(); }
++
++// ── Construction de l'overlay ────────────────────────────────────────────────
++static void _build() {
++    lv_obj_t* parent = lv_scr_act();
++    s_overlay = lv_obj_create(parent);
++    lv_obj_set_size(s_overlay, OPS_SCREEN_W, OPS_SCREEN_H);
++    lv_obj_align(s_overlay, LV_ALIGN_CENTER, 0, 0);
++    lv_obj_set_style_radius(s_overlay, 0, LV_PART_MAIN);
++    lv_obj_set_style_border_width(s_overlay, 0, LV_PART_MAIN);
++    lv_obj_set_style_pad_all(s_overlay, 0, LV_PART_MAIN);
++    lv_obj_set_style_bg_color(s_overlay, theme::RED, LV_PART_MAIN);
++    lv_obj_set_style_bg_opa(s_overlay, LV_OPA_COVER, LV_PART_MAIN);
++    lv_obj_clear_flag(s_overlay, LV_OBJ_FLAG_SCROLLABLE);
++    lv_obj_add_flag(s_overlay, LV_OBJ_FLAG_CLICKABLE);
++    lv_obj_add_event_cb(s_overlay, _onClick, LV_EVENT_CLICKED, nullptr);
++
++    s_title = lv_label_create(s_overlay);
++    lv_obj_set_style_text_font(s_title, &lv_font_montserrat_36, LV_PART_MAIN);
++    lv_obj_set_style_text_color(s_title, lv_color_white(), LV_PART_MAIN);
++    lv_label_set_text(s_title, "RASEC ALERT");
++    lv_obj_align(s_title, LV_ALIGN_CENTER, 0, -20);
++
++    s_counter = lv_label_create(s_overlay);
++    lv_obj_set_style_text_font(s_counter, &lv_font_montserrat_16, LV_PART_MAIN);
++    lv_obj_set_style_text_color(s_counter, lv_color_white(), LV_PART_MAIN);
++    lv_obj_align(s_counter, LV_ALIGN_CENTER, 0, 24);
++
++    lv_obj_t* hint = lv_label_create(s_overlay);
++    lv_obj_set_style_text_font(hint, &lv_font_montserrat_14, LV_PART_MAIN);
++    lv_obj_set_style_text_color(hint, lv_color_hex(0xFFDDDD), LV_PART_MAIN);
++    lv_label_set_text(hint, "Toucher l'ecran pour acquitter");
++    lv_obj_align(hint, LV_ALIGN_BOTTOM_MID, 0, -12);
++
++    lv_obj_move_foreground(s_overlay);
++}
++
++static void _refreshCounter() {
++    if (!s_counter) return;
++    char buf[32];
++    snprintf(buf, sizeof(buf), "Alertes recues: %lu", (unsigned long)s_count);
++    lv_label_set_text(s_counter, buf);
++}
++
++// ── API ──────────────────────────────────────────────────────────────────────
++void trigger(int beeps) {
++    s_count++;
++    s_blinkOn = true;
++    s_blinkMs = millis();
++
++    if (!s_overlay) _build();
++    _refreshCounter();
++    lv_obj_move_foreground(s_overlay);
++
++    // Rétroéclairage à fond.
++    Board::instance().setDisplayBrightness(255);
++
++    // Alarme sonore synthétisée en I2S (aucune SD, aucun fichier).
++    //   beeps > 0  : N cycles ; beeps <= 0 : continu jusqu'à acquittement.
++    ops::sound::playAlarm(beeps > 0 ? beeps : 0);
++    lv_refr_now(nullptr);
++}
++
++void tick() {
++    if (!s_overlay) return;
++
++    // Clignotement rouge <-> noir.
++    uint32_t now = millis();
++    if (now - s_blinkMs >= BLINK_PERIOD_MS) {
++        s_blinkMs = now;
++        s_blinkOn = !s_blinkOn;
++        lv_obj_set_style_bg_color(s_overlay,
++            s_blinkOn ? theme::RED : lv_color_black(), LV_PART_MAIN);
++    }
++
++    // Maintien du rétroéclairage (annule un éventuel dimming du même tick).
++    Board::instance().setDisplayBrightness(255);
++    // La répétition du son est gérée par la tâche d'alarme du module Sound.
++}
++
++void dismiss() {
++    ops::sound::stopAlarm();
++    if (s_overlay) {
++        lv_obj_del(s_overlay);
++        s_overlay = nullptr;
++        s_title   = nullptr;
++        s_counter = nullptr;
++    }
++}
++
++bool     active() { return s_overlay != nullptr; }
++uint32_t count()  { return s_count; }
++
++}  // namespace rasec
++}  // namespace ui
++}  // namespace ops
+diff --git a/src/ui/RasecAlert.h b/src/ui/RasecAlert.h
+new file mode 100644
+index 0000000..fb5dc21
+--- /dev/null
++++ b/src/ui/RasecAlert.h
+@@ -0,0 +1,32 @@
++// Saitama — RasecAlert.h
++// F1GBD — Écran plein écran "RASEC ALERT" clignotant (équivalent T-Deck de
++// l'alerte pager du MeshPager). Overlay LVGL autonome, thread UI uniquement.
++//
++//   - trigger(beeps) : affiche l'alerte plein écran (rouge/noir clignotant),
++//                      incrémente le compteur, lance /redalert.mp3.
++//                      beeps = nb de répétitions du son ; 0 = continu jusqu'à
++//                      acquittement (comme "#b 0" sur le MeshPager).
++//   - tick()         : à appeler à chaque UIScreen::tick() (gère clignotement,
++//                      répétition du son, maintien du rétroéclairage).
++//   - dismiss()      : acquittement (stoppe le son, ferme l'écran).
++//   - active()       : true tant que l'alerte est affichée.
++//
++// IMPORTANT : toutes ces fonctions doivent être appelées depuis le thread LVGL
++// (UIScreen::tick), jamais depuis un callback mesh.
++
++#pragma once
++#include <stdint.h>
++
++namespace ops {
++namespace ui {
++namespace rasec {
++
++    void trigger(int beeps);   // affiche/relance l'alerte plein écran
++    void tick();               // clignotement + répétition son + rétroéclairage
++    void dismiss();            // acquittement : stoppe le son et ferme l'écran
++    bool active();             // true si l'alerte est à l'écran
++    uint32_t count();          // nb total d'alertes reçues depuis le boot
++
++}  // namespace rasec
++}  // namespace ui
++}  // namespace ops
+diff --git a/src/ui/UIScreen.cpp b/src/ui/UIScreen.cpp
+index 9ad2534..84cbbfb 100644
+--- a/src/ui/UIScreen.cpp
++++ b/src/ui/UIScreen.cpp
+@@ -29,6 +29,9 @@
+ #include "../utils/Contacts.h"
+ #include "../utils/Log.h"
+ #include "../utils/Sound.h"
++#include "RasecAlert.h"
++#include "../mesh/PagerRasec.h"
++#include "../version.h"
+ #include "../utils/Keymap.h"
+ #include "../utils/SDCard.h"
+ #include "../utils/GpsMgr.h"
+@@ -453,10 +456,18 @@ static void _activateScreensaver(bool analog = false)
+         lv_obj_set_style_text_font(s_ssNameLbl, theme::bodyFont12(), LV_PART_MAIN);
+         lv_obj_set_style_text_color(s_ssNameLbl, lv_color_make(0xAA, 0xAA, 0xAA), LV_PART_MAIN);
+         lv_obj_set_style_text_align(s_ssNameLbl, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN);
+-        lv_obj_align(s_ssNameLbl, LV_ALIGN_BOTTOM_MID, 0, -8);
++        lv_obj_align(s_ssNameLbl, LV_ALIGN_BOTTOM_MID, 0, -22);
+         const char* name = ops::config::get().callsign[0]
+                            ? ops::config::get().callsign : "OMS-NODE";
+         lv_label_set_text(s_ssNameLbl, name);
++
++        // F1GBD — ligne "RASEC-ALERT <version>" sous le nom de station (veille analogique)
++        lv_obj_t* rasecLbl = lv_label_create(s_screensaverScreen);
++        lv_obj_set_style_text_font(rasecLbl, &lv_font_montserrat_10, LV_PART_MAIN);
++        lv_obj_set_style_text_color(rasecLbl, theme::ORANGE, LV_PART_MAIN);
++        lv_obj_set_style_text_align(rasecLbl, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN);
++        lv_label_set_text(rasecLbl, "RASEC-ALERT " OPS_VERSION_STRING);
++        lv_obj_align(rasecLbl, LV_ALIGN_BOTTOM_MID, 0, -6);
+     } else {
+         // Flex-column container so time + name centre as a single group
+         lv_obj_t* col = lv_obj_create(s_screensaverScreen);
+@@ -483,6 +494,13 @@ static void _activateScreensaver(bool analog = false)
+         const char* name = ops::config::get().callsign[0]
+                            ? ops::config::get().callsign : "OMS-NODE";
+         lv_label_set_text(s_ssNameLbl, name);
++
++        // F1GBD — ligne "RASEC-ALERT <version>" sous l'horloge et le nom de station
++        lv_obj_t* rasecLbl = lv_label_create(col);
++        lv_obj_set_style_text_font(rasecLbl, &lv_font_montserrat_10, LV_PART_MAIN);
++        lv_obj_set_style_text_color(rasecLbl, theme::ORANGE, LV_PART_MAIN);
++        lv_obj_set_style_text_align(rasecLbl, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN);
++        lv_label_set_text(rasecLbl, "RASEC-ALERT " OPS_VERSION_STRING);
+     }
+ 
+     lv_scr_load(s_screensaverScreen);
+@@ -871,6 +889,13 @@ void tick() {
+         ScreenHome::checkPendingAck();
+     }
+ 
++    // F1GBD — RASEC ALERT : déclenchement + entretien (thread LVGL uniquement)
++    if (ops::pager::alertPending()) {
++        _deactivateScreensaver();
++        ops::ui::rasec::trigger(ops::pager::consumeAlertBeeps());
++    }
++    ops::ui::rasec::tick();
++
+     ScreenMap::tick();
+     ScreenTrace::tick();
+     ScreenFinder::tick();
+diff --git a/src/utils/Config.cpp b/src/utils/Config.cpp
+index bd8b2fa..788df75 100644
+--- a/src/utils/Config.cpp
++++ b/src/utils/Config.cpp
+@@ -267,6 +267,16 @@ void config::init() {
+                 }
+                 OPS_LOG("Config", "Loaded from NVS: callsign=%s region=%s",
+                         s_cfg.callsign, s_cfg.radioRegion);
++                // F1GBD — nettoie un nom hérité contenant des octets parasites
++                {
++                    char clean[sizeof(s_cfg.callsign)];
++                    sanitizeName(s_cfg.callsign, clean, sizeof(clean));
++                    if (strcmp(clean, s_cfg.callsign) != 0) {
++                        strncpy(s_cfg.callsign, clean, sizeof(s_cfg.callsign) - 1);
++                        s_cfg.callsign[sizeof(s_cfg.callsign) - 1] = '\0';
++                        save();
++                    }
++                }
+                 return;
+             }
+             OPS_LOG("Config", "NVS blob corrupted (tcXScale=%.6f) — migrating from SD",
+@@ -392,8 +402,24 @@ void config::save() {
+     OPS_LOG("Config", "Saved");
+ }
+ 
++void config::sanitizeName(const char* in, char* out, size_t outSz) {
++    if (!out || outSz == 0) return;
++    size_t j = 0;
++    for (size_t i = 0; in && in[i] && j < outSz - 1; i++) {
++        unsigned char c = (unsigned char)in[i];
++        if (c >= 0x20 && c <= 0x7E) out[j++] = (char)c;  // ASCII imprimable uniquement
++    }
++    out[j] = '\0';
++    while (j > 0 && out[j - 1] == ' ') out[--j] = '\0';   // espaces de fin
++    size_t s = 0;
++    while (out[s] == ' ') s++;                             // espaces de tête
++    if (s) memmove(out, out + s, strlen(out + s) + 1);
++}
++
+ void config::setCallsign(const char* cs) {
+-    strncpy(s_cfg.callsign, cs, sizeof(s_cfg.callsign) - 1);
++    char clean[sizeof(s_cfg.callsign)];
++    sanitizeName(cs, clean, sizeof(clean));
++    strncpy(s_cfg.callsign, clean, sizeof(s_cfg.callsign) - 1);
+     s_cfg.callsign[sizeof(s_cfg.callsign) - 1] = '\0';
+     save();
+ }
+diff --git a/src/utils/Config.h b/src/utils/Config.h
+index ecb3f35..56cbebc 100644
+--- a/src/utils/Config.h
++++ b/src/utils/Config.h
+@@ -88,6 +88,11 @@ namespace config {
+     const Config& get();
+ 
+     void setCallsign(const char* cs);
++
++    // F1GBD — nettoie un nom de station : ne conserve que l'ASCII imprimable
++    // (0x20–0x7E), retire les espaces de tête/fin. Évite les octets parasites
++    // (□) dans le nom diffusé sur le mesh.
++    void sanitizeName(const char* in, char* out, size_t outSz);
+     void setRegion(const char* reg);
+     void setChannel(int idx, const char* name, const char* psk, const char* shortname, const char* scope = "");
+     void setChannelNotify(int idx, bool notify);
+diff --git a/src/utils/MP3Player.cpp b/src/utils/MP3Player.cpp
+index a01099e..6c9b693 100644
+--- a/src/utils/MP3Player.cpp
++++ b/src/utils/MP3Player.cpp
+@@ -20,6 +20,7 @@
+ 
+ #include "MP3Player.h"
+ #include "Log.h"
++#include "SDCard.h"
+ 
+ #include <SD.h>
+ #include <driver/i2s.h>
+@@ -256,6 +257,20 @@ bool play(const char* sdPath)
+ {
+     OPS_LOG("MP3", "play() -> [%s]", sdPath);
+ 
++    // F1GBD — garde-fou : ne jamais lancer la tâche si la SD n'est pas montée ou
++    // si le fichier est absent. Sans ça, AudioFileSourceSD ouvre un fichier
++    // invalide et la lib MP3 libère un buffer non alloué -> panique (heap_caps_free).
++    if (!ops::sdcard::isMounted() && !ops::sdcard::tryMount()) {
++        OPS_LOG("MP3", "play aborted: SD not mounted [%s]", sdPath);
++        s_state = State::Error;
++        return false;
++    }
++    if (!ops::sdcard::hasFile(sdPath)) {
++        OPS_LOG("MP3", "play aborted: file missing [%s]", sdPath);
++        s_state = State::Error;
++        return false;
++    }
++
+     if (s_state == State::Playing || s_state == State::Paused || s_state == State::Stopping) {
+         for (int i = 0; i < 30 && s_task != nullptr; i++)
+             vTaskDelay(pdMS_TO_TICKS(10));
+diff --git a/src/utils/SDCard.cpp b/src/utils/SDCard.cpp
+index ba95362..b21f2fc 100644
+--- a/src/utils/SDCard.cpp
++++ b/src/utils/SDCard.cpp
+@@ -18,7 +18,14 @@ bool sdcard::isMounted() { return s_mounted; }
+ 
+ void sdcard::init() {
+     s_spi.begin(40, 38, 41, -1);   // SCK, MISO, MOSI, SS (CS handled by SD lib)
+-    if (!SD.begin(SD_CS, s_spi)) {
++    // F1GBD — jusqu'à 3 essais : sur le bus SPI partagé (écran/LoRa/SD),
++    // le premier SD.begin() échoue parfois si la carte n'est pas encore prête.
++    bool ok = false;
++    for (int attempt = 0; attempt < 3 && !ok; attempt++) {
++        if (attempt) { SD.end(); delay(120); }
++        ok = SD.begin(SD_CS, s_spi);
++    }
++    if (!ok) {
+         OPS_LOG("SD", "No card or mount failed");
+         return;
+     }
+diff --git a/src/utils/Sound.cpp b/src/utils/Sound.cpp
+index ccb1059..523d6ac 100644
+--- a/src/utils/Sound.cpp
++++ b/src/utils/Sound.cpp
+@@ -6,6 +6,8 @@
+ #include "Log.h"
+ 
+ #include <driver/i2s.h>
++#include <freertos/FreeRTOS.h>
++#include <freertos/task.h>
+ #include <cmath>
+ #include <cstring>
+ 
+@@ -46,6 +48,12 @@ static constexpr float JINGLE_FREQS[JINGLE_NOTES] = {
+ static constexpr int   JINGLE_LENS[JINGLE_NOTES] = { 1600, 640, 640, 640, 640, 640, 640, 4800 };
+ static constexpr int   JINGLE_TOTAL = 10240;  // 1600 + 640*6 + 4800
+ 
++// RASEC-ALERT alarm (F1GBD): two-tone siren, 1000 Hz / 750 Hz, 300 ms each.
++// One cycle = 600 ms = 4800 samples @ 8 kHz. Looped by the alarm task.
++static constexpr int   ALARM_SAMPLES = 4800;
++static constexpr float ALARM_F1      = 1000.0f;
++static constexpr float ALARM_F2      = 750.0f;
++
+ // Applies cfg.speakerVolume (0–100) scaling when writing to I2S DMA.
+ // Chunks through a 256-sample stack buffer to avoid a heap allocation.
+ static void _writeScaled(const int16_t* buf, int count)
+@@ -70,9 +78,15 @@ static int16_t* s_pluckBuf  = nullptr;
+ static int16_t* s_clearBuf  = nullptr;
+ static int16_t* s_whooshBuf = nullptr;
+ static int16_t* s_jingleBuf = nullptr;
++static int16_t* s_alarmBuf  = nullptr;
+ static bool     s_initialized = false;
+ static uint32_t s_soundEndMs  = 0;  // millis() deadline while DMA is draining
+ 
++// RASEC-ALERT alarm task state
++static TaskHandle_t   s_alarmTaskH = nullptr;
++static volatile bool  s_alarmStop  = false;
++static volatile int   s_alarmCycles = 0;   // <=0 => loop until stopAlarm()
++
+ static void _generatePing()
+ {
+     for (int i = 0; i < PING_SAMPLES; i++) {
+@@ -158,6 +172,24 @@ static void _generateJingle()
+     }
+ }
+ 
++// Two-tone siren for the RASEC alarm. Short fades avoid clicks between tones.
++static void _generateAlarm()
++{
++    const int half = ALARM_SAMPLES / 2;   // 2400 samples per tone
++    const int fade = 160;                 // ~20 ms
++    for (int seg = 0; seg < 2; seg++) {
++        const float f = seg ? ALARM_F2 : ALARM_F1;
++        for (int i = 0; i < half; i++) {
++            const int pos = seg * half + i;
++            float t   = (float)pos / (float)SAMPLE_RATE;
++            float env = 1.0f;
++            if (i < fade)            env = (float)i / (float)fade;
++            else if (i > half - fade) env = (float)(half - i) / (float)fade;
++            s_alarmBuf[pos] = (int16_t)(sinf(2.0f * M_PI * f * t) * env * 16000.0f);
++        }
++    }
++}
++
+ namespace ops {
+ 
+ void sound::init()
+@@ -167,7 +199,8 @@ void sound::init()
+     s_clearBuf  = (int16_t*)ps_malloc(CLEAR_SAMPLES  * sizeof(int16_t));
+     s_whooshBuf = (int16_t*)ps_malloc(WHOOSH_SAMPLES * sizeof(int16_t));
+     s_jingleBuf = (int16_t*)ps_malloc(JINGLE_TOTAL   * sizeof(int16_t));
+-    if (!s_pingBuf || !s_pluckBuf || !s_clearBuf || !s_whooshBuf || !s_jingleBuf) {
++    s_alarmBuf  = (int16_t*)ps_malloc(ALARM_SAMPLES  * sizeof(int16_t));
++    if (!s_pingBuf || !s_pluckBuf || !s_clearBuf || !s_whooshBuf || !s_jingleBuf || !s_alarmBuf) {
+         OPS_LOG("Sound", "ps_malloc failed for waveform buffers");
+         return;
+     }
+@@ -176,6 +209,7 @@ void sound::init()
+     _generateClear();
+     _generateWhoosh();
+     _generateJingle();
++    _generateAlarm();
+ 
+     i2s_config_t cfg = {};
+     cfg.mode                 = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_TX);
+@@ -270,4 +304,49 @@ void sound::playStartupJingle()
+     _writeScaled(s_jingleBuf, JINGLE_TOTAL);
+ }
+ 
++// ── RASEC-ALERT alarm (F1GBD) ─────────────────────────────────────────────────
++// Runs in its own task so the blinking alert screen and the keyboard (for
++// acknowledgment) stay responsive. Writes to the already-installed 8 kHz mono
++// I2S — no driver reinstall, no SD, no file.
++
++static void _alarmTask(void*)
++{
++    int done = 0;
++    while (!s_alarmStop) {
++        // Keep the CPU governor from dropping APB below 80 MHz mid-tone.
++        s_soundEndMs = millis() + 900;
++        if (getCpuFrequencyMhz() < 80) setCpuFrequencyMhz(80);
++
++        _writeScaled(s_alarmBuf, ALARM_SAMPLES);
++
++        if (s_alarmCycles > 0 && ++done >= s_alarmCycles) break;
++    }
++    i2s_zero_dma_buffer(SPK_I2S_PORT);
++    s_alarmTaskH = nullptr;
++    vTaskDelete(nullptr);
++}
++
++void sound::playAlarm(int cycles)
++{
++    if (!ops::config::get().speakerEnabled) return;   // master mute respected
++    if (!s_initialized) return;
++    stopAlarm();                                       // ensure a single instance
++
++    s_alarmStop   = false;
++    s_alarmCycles = cycles;                            // <=0 => loop until stopAlarm()
++    if (getCpuFrequencyMhz() < 80) setCpuFrequencyMhz(80);
++
++    xTaskCreatePinnedToCore(_alarmTask, "rasecalarm", 3072, nullptr, 2, &s_alarmTaskH, 0);
++}
++
++void sound::stopAlarm()
++{
++    if (!s_alarmTaskH) return;
++    s_alarmStop = true;
++    for (int i = 0; i < 60 && s_alarmTaskH; i++) vTaskDelay(pdMS_TO_TICKS(10));
++    i2s_zero_dma_buffer(SPK_I2S_PORT);
++}
++
++bool sound::alarmActive() { return s_alarmTaskH != nullptr; }
++
+ }  // namespace ops
+diff --git a/src/utils/Sound.h b/src/utils/Sound.h
+index c0ba286..9abca79 100644
+--- a/src/utils/Sound.h
++++ b/src/utils/Sound.h
+@@ -33,5 +33,15 @@ namespace sound {
+     // Call after config::init() and before ui::init().
+     void playStartupJingle();
+ 
++    // ── RASEC-ALERT alarm (F1GBD) ─────────────────────────────────────────
++    // Synthétise une sirène bitonale en I2S, jouée dans une tâche dédiée
++    // (non bloquant : l'UI reste réactive). Aucune carte SD ni fichier requis.
++    //   cycles > 0  : joue N cycles puis s'arrête.
++    //   cycles <= 0 : boucle jusqu'à stopAlarm() (alarme continue).
++    // Gated by cfg.speakerEnabled.
++    void playAlarm(int cycles);
++    void stopAlarm();
++    bool alarmActive();
++
+ }  // namespace sound
+ }  // namespace ops
+diff --git a/src/version.h b/src/version.h
+index ef2f7ee..9855308 100644
+--- a/src/version.h
++++ b/src/version.h
+@@ -2,6 +2,6 @@
+ // Saitama version — update before each release
+ #define OPS_VERSION_MAJOR 1
+ #define OPS_VERSION_MINOR 0
+-#define OPS_VERSION_PATCH 2
+-#define OPS_VERSION_PRE   ""
+-#define OPS_VERSION_STRING "1.0.2"
++#define OPS_VERSION_PATCH 6
++#define OPS_VERSION_PRE   "f1gbd"
++#define OPS_VERSION_STRING "1.0.6-f1gbd"

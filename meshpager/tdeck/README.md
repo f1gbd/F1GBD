@@ -2,7 +2,7 @@
 
 Firmware pour **LilyGo T-Deck / T-Deck Plus** (ESP32-S3, LoRa SX1262, écran ST7789), dérivé de [Saitama](https://github.com/868meshbot/Saitama) v1.0.2 et enrichi de l'**option Pager RASEC-ALERT** portée depuis le MeshPager Heltec.
 
-Version : **1.0.5-f1gbd**
+Version : **1.0.6-f1gbd**
 
 L'option RASEC-ALERT transforme le T-Deck en récepteur d'alerte de sécurité civile : un message chat déclenche un **écran plein écran clignotant « RASEC ALERT »** (avec compteur d'alertes), déclenche une alarme sonore synthétisée et renvoie automatiquement un accusé de réception. Aucune saisie de code Chappe n'est nécessaire — le clavier et le chat du T-Deck suffisent.
 
@@ -38,7 +38,14 @@ Acquittement de l'alerte : **toucher l'écran**.
 
 L'alarme sonore est une **sirène bitonale synthétisée** intégrée au firmware (I2S) : aucune carte SD ni fichier `.mp3` n'est nécessaire. Le son suit le volume et l'interrupteur haut-parleur des réglages.
 
-En mode veille, la ligne **« RASEC-ALERT 1.0.5-f1gbd »** s'affiche en orange sous l'horloge et le nom de station, ce qui distingue cette version du Saitama 1.0.2 d'origine.
+En mode veille, la ligne **« RASEC-ALERT 1.0.6-f1gbd »** s'affiche en orange sous l'horloge et le nom de station, ce qui distingue cette version du Saitama 1.0.2 d'origine.
+
+---
+
+## Nouveautés
+
+- **1.0.6** : nom de station assaini (suppression des caractères parasites dans le nom diffusé sur le mesh).
+- **1.0.5** : alarme sonore synthétisée intégrée — plus de dépendance à la carte SD ni au fichier MP3.
 
 ---
 
