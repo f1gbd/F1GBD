@@ -13,7 +13,7 @@ MeshRNS relie un **réseau radio MeshCore** (LoRa) au **réseau maillé Reticulu
 
 ### *« Un pont, deux Univers Mesh, aucune frontière. »*
 
-<img src="images/MeshRNS_principle.png" alt="MeshRNS — interconnexion inter-îlots" width="820">
+<img src="images/MeshRNS_interconnect.png" alt="MeshRNS — interconnexion inter-îlots" width="820">
 
 *Là où le LoRa s'arrête, le maillage Reticulum prend le relais.*
 
@@ -51,6 +51,12 @@ MeshRNS relie un **réseau radio MeshCore** (LoRa) au **réseau maillé Reticulu
 La passerelle s'**annonce sur LXMF** sous un indicatif de station **`TCQ-*`** et écoute les annonces du réseau : seules les stations dont le nom commence par **`TCQ`** sont retenues (**filtrage**) et inscrites dans un **annuaire**. Tout message posté sur le **canal MeshCore de service `tcq`** est relayé en LXMF vers ces stations ; tout message LXMF reçu d'une station TCQ est réinjecté sur MeshCore.
 
 La **connexion à Reticulum est automatique** : MeshRNS lit la configuration RNS du poste (`~/.reticulum/config`), **préparée dans TCQ-config** — il n'y a **aucun réglage d'interface RNS dans MeshRNS**.
+
+---
+
+<img src="images/MeshRNS_Mail.png" alt="MeshRNS mail" width="600">
+
+**Routage de message vers email** (v2.1) — un client MeshCore peut faire router un message vers un ou plusieurs destinataires courriel depuis un canal LoRa (commande #m). Le corps est encapsulé dans un radiogramme ADRASEC authentifié TOTP+CRC (algorithmes identiques à TCQ, donc re-validable par toute station TCQ) 
 
 ---
 
