@@ -72,7 +72,7 @@ C'est l'outil de configuration pensé pour un usage **de secours et d'autonomie 
 ###  Exécutable Windows (recommandé, aucune dépendance)
 
 Téléchargez la dernière archive `MC-RMRPconfigurator-vX.Y.Z-win64.7z` depuis la page
-[Releases](https://github.com/f1gbd/F1GBD/releases), décompressez-la (Windows 11 gère le
+[MCconfig v1.2.0:](https://github.com/f1gbd/F1GBD/releases/download/mcconfig-v1.2.0/MC-RMRPconfigurator-v1.2.0-win64.7z), décompressez-la (Windows 11 gère le
 `.7z` nativement, sinon [7-Zip](https://www.7-zip.org)), puis lancez
 `MC-RMRPconfigurator.exe`.
 
