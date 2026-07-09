@@ -91,7 +91,7 @@ Téléchargez la dernière archive `MC-RMRPconfigurator-vX.Y.Z-win64.7z` depuis 
    (la fréquence et les paramètres radio ne prennent effet qu'après reboot).
 5. Utilisez **📢 Advertise** pour annoncer le nœud sur le réseau.
 
-📄 Une **[Fiche Technique](FICHE_TECHNIQUE.md)** détaille pas-à-pas la configuration d'un
+📄 Une **[Fiche Technique](https://github.com/f1gbd/F1GBD/blob/master/mcconfig/documentation/FICHE_TECHNIQUE.pdf)** détaille pas-à-pas la configuration d'un
 Room Server et d'un Répéteur.
 
 ---
