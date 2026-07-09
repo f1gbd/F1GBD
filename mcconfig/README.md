@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="images/MC-RMRPconf.png" width="400" alt="MC-RMPRP Configurator"/>
+</p>
+
 # MC-RMRPconfigurator
 
 **Configurateur 100 % OFF-GRID pour Room Server & Répéteur MeshCore**
@@ -55,25 +59,23 @@ C'est l'outil de configuration pensé pour un usage **de secours et d'autonomie 
   `erase`…).
 - **Profils JSON** : sauvegarde / rechargement de la configuration pour déployer
   plusieurs nœuds identiques.
-- Interface sombre « pro » (PySide6 / Qt).
+
+---
+<p align="center">
+  <img src="images/MC-RMRPconf_screen.png" width="800" alt="MC-RMPRP Configurator"/>
+</p>
 
 ---
 
 ## Installation
 
-### Option A — Exécutable Windows (recommandé, aucune dépendance)
+###  Exécutable Windows (recommandé, aucune dépendance)
 
 Téléchargez la dernière archive `MC-RMRPconfigurator-vX.Y.Z-win64.7z` depuis la page
 [Releases](https://github.com/f1gbd/F1GBD/releases), décompressez-la (Windows 11 gère le
 `.7z` nativement, sinon [7-Zip](https://www.7-zip.org)), puis lancez
 `MC-RMRPconfigurator.exe`.
 
-### Option B — Depuis les sources (Python 3.9+)
-
-```bash
-pip install pyside6 pyserial esptool
-python mc_rmrp_configurator.py
-```
 
 > Astuce : installez les dépendances **une fois** sur une machine connectée, l'application
 > tourne ensuite **totalement hors-ligne**.
