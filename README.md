@@ -67,7 +67,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 **MAJ du 27/02/2025** : [**Meshtastic Messenger pour Reticulum**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20Reticulum%20-%20Meshtastic%20Messenger.pdf).
 
 ![TinyGS la Station Sol Satellite LoRa](https://github.com/f1gbd/F1GBD/blob/master/lora/TinyGS_F1GBD_station.jpg)
-[F1GBD_TinyGS la Ground Station LoRA SAT AUTONOME SOLAIRE en Live](https://tinygs.com/station/F1GBD_TinyGS@8062286045)
+[F1GBD_TinyGS la Ground Station LoRA SAT AUTONOME SOLAIRE en Live](https://app.tinygs.com/station/F1GBD_TinyGS@8062286045)
 
 **MAJ du 06/02/2025** : [**Créer un Transpondeur RNS Hybride avec un Raspberry PI4**](https://github.com/f1gbd/F1GBD/blob/master/lora/MEMO%20-%20RASPBERRY%20PI%20-%20Cr%C3%A9er%20un%20Transpondeur%20RETICULUM.pdf).
 
