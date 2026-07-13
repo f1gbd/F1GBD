@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="images/gslorasat-banner.png" alt="GSLoRaSat" width="820">
+  <img src="images/GSLoRASAT.png" alt="GSLoRaSat" width="820">
 </p>
 
 <h1 align="center">GSLoRaSat</h1>
