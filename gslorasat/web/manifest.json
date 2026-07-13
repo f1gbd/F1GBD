@@ -1,18 +1,18 @@
 {
   "name": "GSLoRaSat",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "new_install_prompt_erase": true,
   "builds": [
     {
       "chipFamily": "ESP32",
       "parts": [
-        { "path": "https://github.com/f1gbd/F1GBD/releases/download/gslorasat-v1.0.0/gslorasat-firmware-tbeam-433.bin", "offset": 0 }
+        { "path": "https://github.com/f1gbd/F1GBD/releases/download/gslorasat-v1.0.1/gslorasat-firmware-tbeam-433.bin", "offset": 0 }
       ]
     },
     {
       "chipFamily": "ESP32-S3",
       "parts": [
-        { "path": "https://github.com/f1gbd/F1GBD/releases/download/gslorasat-v1.0.0/gslorasat-firmware-heltec-v3.bin", "offset": 0 }
+        { "path": "https://github.com/f1gbd/F1GBD/releases/download/gslorasat-v1.0.1/gslorasat-firmware-heltec-v3.bin", "offset": 0 }
       ]
     }
   ]
