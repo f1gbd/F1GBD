@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="images/GSLoRASAT.png" alt="GSLoRaSat" width="820">
+  <img src="images/gslorasat-banner.png" alt="GSLoRaSat" width="820">
 </p>
 
 <h1 align="center">GSLoRaSat</h1>
@@ -19,14 +19,25 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/f1gbd/F1GBD/releases?q=gslorasat&expanded=true">
+    <img src="https://img.shields.io/badge/⬇️%20Télécharger%20l'app%20Windows-.7z-2b6cb0?style=for-the-badge">
+  </a>
+  &nbsp;
   <a href="https://f1gbd.github.io/F1GBD/gslorasat/web/">
-    <img src="https://img.shields.io/badge/⚡%20Flasher%20en%201%20clic-navigateur-1e90ff?style=for-the-badge">
+    <img src="https://img.shields.io/badge/⚡%20Flasher%20la%20station-1%20clic-1e90ff?style=for-the-badge">
   </a>
 </p>
 
 <p align="center">
-  <i>Branchez votre carte, ouvrez la page dans Chrome/Edge, cliquez « Installer » — la puce est
-  détectée et le bon firmware est flashé automatiquement.</i>
+  <a href="https://github.com/f1gbd/F1GBD/releases?q=gslorasat&expanded=true">
+    <img src="https://img.shields.io/github/v/release/f1gbd/F1GBD?filter=gslorasat-v*&label=derni%C3%A8re%20version&color=2b6cb0">
+  </a>
+</p>
+
+<p align="center">
+  <i>Téléchargez <b>GSLoRaSat.exe</b> (application Windows autonome), puis flashez votre carte :
+  ouvrez la page dans Chrome/Edge, cliquez « Installer » — la puce est détectée et le bon
+  firmware est envoyé automatiquement.</i>
 </p>
 
 ---
@@ -36,17 +47,13 @@
 **GSLoRaSat** transforme une carte LoRa ESP32 en **station sol autonome** pilotée par une
 application de bureau Windows, **sans passer par le serveur MQTT `app.tinygs.com` ni par Internet**.
 
-<p align="center">
-  <img src="images/screenshot-dashboard.png" alt="GSLoRaSat" width="820">
-</p>
-
 Toute la chaîne fonctionne hors ligne :
 
 ```
    Satellite LoRa  ))))         ┌─────────────────────┐        ┌─────────────────────────┐
-        ▼                       │   Carte ESP32       │  USB   │   GSLoRaSat (PC)        │
-   [ RF 400–437 MHz ] ────────► │  station off-grid   │ ◄────► │  réception, émission,   │
-                                │  (SX1278 / SX1262)  │ série  │  éphémérides, autopilote│
+        ▼                       │   Carte ESP32        │  USB   │   GSLoRaSat (PC)        │
+   [ RF 400–437 MHz ] ────────► │  station off-grid    │ ◄────► │  réception, émission,   │
+                                │  (SX1278 / SX1262)   │ série  │  éphémérides, autopilote│
                                 └─────────────────────┘        └─────────────────────────┘
 ```
 
@@ -67,6 +74,17 @@ calculées localement.
 - 📤 **Émission** de trames LoRa vers un satellite (sous réserve de licence radioamateur et d'autorisation locale).
 - 🖥️ **Interface claire** : Tableau de bord, Réception, Paquets, Vue du ciel, Trace au sol, Émission, Console — plus un **simulateur** pour tout tester sans matériel.
 
+## Captures d'écran
+
+<p align="center">
+  <img src="images/screenshot-dashboard.png" alt="Tableau de bord" width="48%">
+  <img src="images/screenshot-reception.png" alt="Réception" width="48%">
+</p>
+<p align="center">
+  <img src="images/screenshot-skyview.png" alt="Vue du ciel / Trace au sol" width="48%">
+  <img src="images/screenshot-auto.png" alt="Mode automatique" width="48%">
+</p>
+
 ## Matériel supporté
 
 | Station | MCU | Radio | Bande | GPS |
@@ -79,7 +97,8 @@ calculées localement.
 
 ## Installation & utilisation
 
-Les binaires prêts à l'emploi sont fournis dans la section **[Releases](https://github.com/f1gbd/F1GBD/releases/tag/gslorasat-v1.0.1)**.
+Les binaires prêts à l'emploi (application Windows `.7z` + firmwares `.bin`) sont dans les
+**[Releases GSLoRaSat](https://github.com/f1gbd/F1GBD/releases?q=gslorasat&expanded=true)**.
 
 **1 — Flasher la station** (une fois).
 
@@ -95,8 +114,10 @@ Les binaires prêts à l'emploi sont fournis dans la section **[Releases](https:
   esptool --chip esp32s3 --port COMx write_flash 0x0 gslorasat-firmware-heltec-v3.bin
   ```
 
-**2 — Lancer l'application.** Téléchargez `GSLoraSat.exe` (binaire autonome, aucune installation
-requise) et ouvrez-le.
+**2 — Lancer l'application.**
+**[⬇️ Télécharger la dernière version Windows](https://github.com/f1gbd/F1GBD/releases?q=gslorasat&expanded=true)**
+(archive `GSLoRaSat-v…-win64.7z`), décompressez-la et ouvrez `GSLoraSat.exe` — binaire autonome,
+aucune installation requise.
 
 **3 — Connecter.** Sélectionnez le port USB de la station puis **Connecter**. Sans matériel, la
 source **Simulateur** permet de découvrir l'interface immédiatement.
@@ -139,6 +160,6 @@ seul responsable de vos transmissions.
 - Interopère avec l'écosystème **[TinyGS](https://tinygs.com)** et s'appuie sur les éphémérides
   **[SGP4](https://pypi.org/project/sgp4/)** / **[Celestrak](https://celestrak.org)**.
 
-Distribué sous licence **GNU GPLv3** — voir le fichier [`LICENSE`](LICENSE.txt).
+Distribué sous licence **GNU GPLv3** — voir le fichier [`LICENSE`](LICENSE).
 
 <p align="center"><i>73 de F1GBD 🛰️📡</i></p>
