@@ -77,7 +77,7 @@ calculées localement.
 ## Captures d'écran
 
 <p align="center">
-  <img src="images/screenshot-dashboard.png" alt="Tableau de bord" width="640">
+  <img src="images/screenshot-dashboard.png" alt="Tableau de bord" width="1024">
 </p>
 
 ## Matériel supporté
