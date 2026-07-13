@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="images/GSLoRASAT.png" alt="GSLoRaSat" width="820">
+  <img src="images/gslorasat-banner.png" alt="GSLoRaSat" width="820">
 </p>
 
 <h1 align="center">GSLoRaSat</h1>
@@ -40,9 +40,9 @@ Toute la chaîne fonctionne hors ligne :
 
 ```
    Satellite LoRa  ))))         ┌─────────────────────┐        ┌─────────────────────────┐
-        ▼                       │   Carte ESP32       │  USB   │   GSLoRaSat (PC)        │
-   [ RF 400–437 MHz ] ────────► │  station off-grid   │ ◄────► │  réception, émission,   │
-                                │  (SX1278 / SX1262)  │ série  │  éphémérides, autopilote│
+        ▼                       │   Carte ESP32        │  USB   │   GSLoRaSat (PC)        │
+   [ RF 400–437 MHz ] ────────► │  station off-grid    │ ◄────► │  réception, émission,   │
+                                │  (SX1278 / SX1262)   │ série  │  éphémérides, autopilote│
                                 └─────────────────────┘        └─────────────────────────┘
 ```
 
