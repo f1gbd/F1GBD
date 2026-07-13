@@ -139,6 +139,6 @@ seul responsable de vos transmissions.
 - Interopère avec l'écosystème **[TinyGS](https://tinygs.com)** et s'appuie sur les éphémérides
   **[SGP4](https://pypi.org/project/sgp4/)** / **[Celestrak](https://celestrak.org)**.
 
-Distribué sous licence **GNU GPLv3** — voir le fichier [`LICENSE`](LICENSE).
+Distribué sous licence **GNU GPLv3** — voir le fichier [`LICENSE`](LICENSE.txt).
 
 <p align="center"><i>73 de F1GBD 🛰️📡</i></p>
