@@ -36,6 +36,10 @@
 **GSLoRaSat** transforme une carte LoRa ESP32 en **station sol autonome** pilotée par une
 application de bureau Windows, **sans passer par le serveur MQTT `app.tinygs.com` ni par Internet**.
 
+<p align="center">
+  <img src="images/screenshot-dashboard.png.png" alt="GSLoRaSat" width="820">
+</p>
+
 Toute la chaîne fonctionne hors ligne :
 
 ```
