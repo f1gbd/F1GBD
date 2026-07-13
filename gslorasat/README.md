@@ -79,7 +79,7 @@ calculées localement.
 
 ## Installation & utilisation
 
-Les binaires prêts à l'emploi sont fournis dans la section **[Releases](../../releases)**.
+Les binaires prêts à l'emploi sont fournis dans la section **[Releases](https://github.com/f1gbd/F1GBD/releases/tag/gslorasat-v1.0.1)**.
 
 **1 — Flasher la station** (une fois).
 
@@ -139,6 +139,6 @@ seul responsable de vos transmissions.
 - Interopère avec l'écosystème **[TinyGS](https://tinygs.com)** et s'appuie sur les éphémérides
   **[SGP4](https://pypi.org/project/sgp4/)** / **[Celestrak](https://celestrak.org)**.
 
-Distribué sous licence **GNU GPLv3** — voir le fichier [`LICENSE`](LICENSE).
+Distribué sous licence **GNU GPLv3** — voir le fichier [`LICENSE`](LICENSE.txt).
 
 <p align="center"><i>73 de F1GBD 🛰️📡</i></p>
