@@ -79,7 +79,7 @@ calculées localement.
 
 ## Installation & utilisation
 
-Les binaires prêts à l'emploi sont fournis dans la section **[Releases](../../releases)**.
+Les binaires prêts à l'emploi sont fournis dans la section **[Releases](https://github.com/f1gbd/F1GBD/releases/tag/gslorasat-v1.0.1)**.
 
 **1 — Flasher la station** (une fois).
 
