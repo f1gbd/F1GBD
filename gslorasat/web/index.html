@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GSLoRaSat — Flashage One-Click</title>
+  <style>
+    :root { --bg:#0a0f1e; --card:#111a30; --line:#1e2c4a; --txt:#e6ecff; --dim:#9fb0d0; --accent:#1e90ff; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:radial-gradient(1200px 600px at 50% -10%, #16224a 0%, var(--bg) 60%);
+           color:var(--txt); font-family:Segoe UI, Roboto, system-ui, sans-serif; line-height:1.55; }
+    .wrap { max-width:820px; margin:0 auto; padding:28px 20px 60px; }
+    .banner { width:100%; border-radius:14px; display:block; box-shadow:0 8px 40px rgba(30,144,255,.25); }
+    h1 { font-size:1.7rem; margin:26px 0 4px; }
+    .sub { color:var(--dim); margin:0 0 24px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px 24px; margin:18px 0; }
+    .flash { text-align:center; }
+    esp-web-install-button { --esp-tools-button-color:#fff; --esp-tools-button-background-color:var(--accent); }
+    .btnfallback { color:var(--dim); font-size:.92rem; margin-top:10px; }
+    table { width:100%; border-collapse:collapse; margin-top:6px; }
+    th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); font-size:.95rem; }
+    th { color:var(--dim); font-weight:600; }
+    ol { padding-left:20px; } li { margin:6px 0; }
+    code { background:#0c1730; border:1px solid var(--line); border-radius:6px; padding:1px 6px; }
+    .warn { border-left:3px solid var(--accent); background:#0e1830; }
+    a { color:var(--accent); }
+    footer { text-align:center; color:var(--dim); margin-top:30px; font-size:.9rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <img class="banner" src="../images/gslorasat-banner.png" alt="GSLoRaSat">
+
+    <h1>Flashage One-Click de la station</h1>
+    <p class="sub">Branchez votre carte en USB et cliquez sur « Installer » — le firmware est
+       envoyé directement depuis votre navigateur. Aucun logiciel à installer.</p>
+
+    <div class="card flash">
+      <esp-web-install-button manifest="./manifest.json"></esp-web-install-button>
+      <p class="btnfallback">La puce est détectée automatiquement : le bon firmware
+        (T-Beam ou Heltec) est choisi tout seul.</p>
+    </div>
+
+    <div class="card">
+      <b>Cartes supportées</b>
+      <table>
+        <tr><th>Carte</th><th>Puce détectée</th><th>Firmware flashé</th></tr>
+        <tr><td>LilyGo T-Beam v1.1 (433 MHz, GPS)</td><td>ESP32</td><td>gslorasat-firmware-tbeam-433</td></tr>
+        <tr><td>Heltec WiFi LoRa 32 V3</td><td>ESP32-S3</td><td>gslorasat-firmware-heltec-v3</td></tr>
+      </table>
+    </div>
+
+    <div class="card warn">
+      <b>Prérequis</b>
+      <ol>
+        <li>Navigateur <b>Chrome</b> ou <b>Edge</b> sur ordinateur (le flashage web
+            utilise le <i>Web Serial</i> ; Firefox et Safari ne le supportent pas).</li>
+        <li>Le pilote USB-série de la carte installé (CP210x pour Heltec, CH9102 pour T-Beam) —
+            en général déjà présent sous Windows 11.</li>
+        <li>Fermez tout logiciel qui occupe le port (moniteur série, l'app GSLoRaSat…).</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <b>Ensuite</b>
+      <ol>
+        <li>Récupérez l'application <code>GSLoRaSat.exe</code> dans les
+            <a href="../../releases">Releases</a>.</li>
+        <li>Branchez la station, ouvrez l'app, sélectionnez le port USB, <b>Connecter</b>.</li>
+        <li>Menu <b>Éphémérides → Mettre à jour</b>, puis <b>Satellites → Mode automatique</b>.</li>
+      </ol>
+      <p class="btnfallback">Flashage manuel possible via
+        <a href="https://github.com/espressif/esptool">esptool</a> :
+        <code>esptool --chip esp32 --port COMx write_flash 0x0 gslorasat-firmware-&lt;carte&gt;.bin</code></p>
+    </div>
+
+    <footer>GSLoRaSat — 73 de F1GBD 🛰️📡 &nbsp;·&nbsp; <a href="../">README du projet</a></footer>
+  </div>
+
+  <script type="module"
+          src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+</body>
+</html>
