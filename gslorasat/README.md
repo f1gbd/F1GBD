@@ -18,6 +18,17 @@
   <img src="https://img.shields.io/badge/auteur-F1GBD-000000">
 </p>
 
+<p align="center">
+  <a href="https://f1gbd.github.io/F1GBD/gslorasat/web/">
+    <img src="https://img.shields.io/badge/⚡%20Flasher%20en%201%20clic-navigateur-1e90ff?style=for-the-badge">
+  </a>
+</p>
+
+<p align="center">
+  <i>Branchez votre carte, ouvrez la page dans Chrome/Edge, cliquez « Installer » — la puce est
+  détectée et le bon firmware est flashé automatiquement.</i>
+</p>
+
 ---
 
 ## Présentation
@@ -77,12 +88,19 @@ calculées localement.
 
 Les binaires prêts à l'emploi sont fournis dans la section **[Releases](../../releases)**.
 
-**1 — Flasher la station** (une fois). Téléchargez le firmware `.bin` correspondant à votre carte
-et flashez-le avec [esptool](https://github.com/espressif/esptool) ou un flasher ESP :
+**1 — Flasher la station** (une fois).
 
-```
-esptool --chip esp32 --port COMx --baud 921600 write_flash 0x0 gslorasat-<carte>.bin
-```
+- **Le plus simple — flashage One-Click dans le navigateur :** ouvrez
+  **[la page de flashage](https://f1gbd.github.io/F1GBD/gslorasat/web/)** (Chrome ou Edge),
+  branchez la carte en USB et cliquez **Installer**. La puce (ESP32 T-Beam / ESP32-S3 Heltec)
+  est détectée automatiquement et le bon firmware est envoyé — rien à installer.
+- **Ou en manuel** avec [esptool](https://github.com/espressif/esptool) : téléchargez le `.bin`
+  de votre carte dans les Releases, puis :
+
+  ```
+  esptool --chip esp32   --port COMx write_flash 0x0 gslorasat-firmware-tbeam-433.bin
+  esptool --chip esp32s3 --port COMx write_flash 0x0 gslorasat-firmware-heltec-v3.bin
+  ```
 
 **2 — Lancer l'application.** Téléchargez `GSLoraSat.exe` (binaire autonome, aucune installation
 requise) et ouvrez-le.
