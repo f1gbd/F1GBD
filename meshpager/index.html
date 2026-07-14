@@ -20,6 +20,8 @@
            font-size:17px; font-weight:600; padding:14px 26px; cursor:pointer; }
     .btn:hover { filter:brightness(1.05); }
     .req { font-size:14px; color:var(--muted); margin-top:14px; }
+    .board { font-weight:700; font-size:16px; margin-bottom:12px; color:var(--ink); }
+    .board span { color:var(--muted); font-weight:400; font-size:14px; }
     code { background:#f1efe9; padding:2px 6px; border-radius:4px; font-size:15px; }
     .cmd { display:block; background:#111; color:#f2f2f2; border-radius:8px; padding:14px 16px;
            font-family:Consolas,monospace; font-size:17px; text-align:center; margin:12px 0; }
@@ -34,19 +36,32 @@
   <div class="wrap">
     <div class="kicker">ADRASEC 77 · FNRASEC</div>
     <h1>MeshPager — RASEC ALERT</h1>
-    <p class="sub">Flashage en un clic pour Heltec WiFi LoRa 32 V3 (ESP32-S3)</p>
+    <p class="sub">Flashage en un clic pour Heltec WiFi LoRa 32 <b>V3</b> et <b>V4</b> (ESP32-S3)</p>
+    <p class="note" style="text-align:center;margin:-14px 0 22px">Choisissez le bouton correspondant à votre carte.</p>
 
     <div class="card install">
+      <div class="board">Heltec WiFi LoRa 32 V3 <span>· ESP32-S3</span></div>
       <esp-web-install-button manifest="manifest.json">
-        <button class="btn" slot="activate">Installer le firmware Pager</button>
+        <button class="btn" slot="activate">Installer — Pager V3</button>
         <span slot="unsupported">Navigateur non compatible — ouvrez cette page dans <b>Google Chrome</b> ou <b>Microsoft Edge</b> sur un ordinateur.</span>
         <span slot="not-allowed">Le flashage nécessite une connexion sécurisée (https).</span>
       </esp-web-install-button>
-      <div class="req">
-        Chrome / Edge sur ordinateur · carte branchée en USB.<br />
-        Si la connexion échoue : maintenir <b>BOOT</b>, appuyer/relâcher <b>RST</b>, relâcher <b>BOOT</b>, puis réessayer.
-      </div>
+      <div class="req">Buzzer GPIO 4 · Chrome / Edge sur ordinateur · carte branchée en USB.</div>
     </div>
+
+    <div class="card install">
+      <div class="board">Heltec WiFi LoRa 32 V4 <span>· ESP32-S3</span></div>
+      <esp-web-install-button manifest="manifest-v4.json">
+        <button class="btn" slot="activate">Installer — Pager V4</button>
+        <span slot="unsupported">Navigateur non compatible — ouvrez cette page dans <b>Google Chrome</b> ou <b>Microsoft Edge</b> sur un ordinateur.</span>
+        <span slot="not-allowed">Le flashage nécessite une connexion sécurisée (https).</span>
+      </esp-web-install-button>
+      <div class="req">Sortie ~27 dBm (PA GC1109) · buzzer GPIO 40 · carte branchée en USB.</div>
+    </div>
+
+    <p class="note" style="text-align:center;margin-top:-4px">
+      Connexion impossible ? Maintenir <b>BOOT</b>, appuyer/relâcher <b>RST</b>, relâcher <b>BOOT</b>, puis réessayer.
+    </p>
 
     <div class="card">
       <h2>Après le flashage</h2>

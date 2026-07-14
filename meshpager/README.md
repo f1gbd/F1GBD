@@ -1,6 +1,6 @@
-# MeshPager — PAGER RASEC ALERT (MeshCore / Heltec V3)
+# MeshPager — PAGER RASEC ALERT (MeshCore / Heltec V3 & V4)
 
-Transforme un module **Heltec WiFi LoRa 32 V3** (firmware companion BLE MeshCore v1.16)
+Transforme un module **Heltec WiFi LoRa 32 V3 ou V4** (firmware companion BLE MeshCore v1.16)
 en **pager d'alerte** pour la chaîne ADRASEC. À réception d'une commande d'activation
 envoyée en chat (depuis TCQ ou une application cliente MeshCore), le pager signale
 l'alerte de façon **visuelle et sonore** et confirme la bonne réception à l'émetteur.
@@ -24,7 +24,7 @@ l'alerte de façon **visuelle et sonore** et confirme la bonne réception à l'�
 
 - **Écran OLED** : affichage plein écran « RASEC ALERT ».
 - **LED blanche** : clignotement rapide par **séries de 3 impulsions**.
-- **Buzzer piezo** (sur **GPIO 4**) : **3 bips** par défaut (réglable par `#b <n>`).
+- **Buzzer piezo** (**GPIO 4** sur V3, **GPIO 40** sur V4) : **3 bips** par défaut (réglable par `#b <n>`).
 - **Alarme continue** possible (`#b 0`) : bips en boucle jusqu'à **acquittement** par la touche **USER**.
 - **Accusé de réception** : renvoyé automatiquement à l'émetteur (message direct).
 - **Écran d'accueil** dédié : titre, signature et **compteur d'alertes reçues**.
@@ -63,17 +63,22 @@ Tous les nœuds du réseau doivent partager **exactement** ces paramètres pour 
 
 ## Matériel
 
-- **Heltec WiFi LoRa 32 V3** (ESP32-S3, écran OLED 0,96", LED blanche, bouton USER).
+- **Heltec WiFi LoRa 32 V3** (ESP32-S3, écran OLED 0,96", LED blanche, bouton USER) — buzzer sur **GPIO 4**.
+- **Heltec WiFi LoRa 32 V4** (ESP32-S3, écran OLED, **PA externe GC1109**) — buzzer sur **GPIO 40**, sortie réglée à **~27 dBm**.
 - Câble USB-C.
-- **Buzzer piezo passif** sur **GPIO 4** (borne + sur GPIO 4, borne − sur GND).
+- **Buzzer piezo passif** (borne + sur la broche buzzer de la carte, borne − sur GND).
 - (Optionnel) module relais pour une variante TOR.
+
+> Le firmware est **identique** pour la V3 et la V4 (patch pager + CHAPPE 26) ; seule la
+> cible de build change : `Heltec_v3_pager_adrasec` ou `heltec_v4_pager_adrasec`.
 
 ---
 
-## Buzzer (GPIO 4)
+## Buzzer (GPIO 4 sur V3 · GPIO 40 sur V4)
 
-Le firmware active un **buzzer piezo passif** sur **GPIO 4** : à chaque `#ra <code>`
-reçu, le pager émet **3 bips** (et un court jingle au démarrage). Câblage direct :
+Le firmware active un **buzzer piezo passif** — sur **GPIO 4** (Heltec V3) ou **GPIO 40**
+(Heltec V4) : à chaque `#ra <code>` reçu, le pager émet **3 bips** (et un court jingle au
+démarrage). Câblage direct (adapter la broche selon la carte) :
 
 ```
 GPIO 4  ──►│─── borne +  (piezo passif)
@@ -89,26 +94,32 @@ GND     ────── borne −
 
 ### ⚡ Méthode 1 — Bouton « Install » en un clic (recommandé)
 
-➡️ **[Installer le firmware Pager](https://f1gbd.github.io/F1GBD/meshpager/)**  (Chrome ou Edge)
+➡️ **[Ouvrir la page de flashage](https://f1gbd.github.io/F1GBD/meshpager/)** (Chrome ou Edge)
 
-Brancher la Heltec V3 en USB, cliquer **Installer le firmware Pager**, **choisir
-« Erase device / Effacer »** (pour appliquer les paramètres radio France), laisser
-flasher, puis **RST**. Le binaire est servi par GitHub Pages (même origine), donc le
-flashage web fonctionne directement.
+La page propose **deux boutons** : un pour la **Heltec V3**, un pour la **Heltec V4**
+(les deux sont des ESP32-S3 — choisir celui qui correspond à la carte). Brancher la carte
+en USB, cliquer le bon bouton, **choisir « Erase device / Effacer »** (pour appliquer les
+paramètres radio France), laisser flasher, puis **RST**. Le binaire est servi par GitHub
+Pages (même origine), donc le flashage web fonctionne directement.
 
 > Connexion impossible ? Maintenir **BOOT**, appuyer/relâcher **RST**, relâcher **BOOT**, puis réessayer.
 
 ### Méthode 2 — Télécharger le binaire et flasher
 
-1. Télécharger **[`pager_rasec_heltecv3.bin`](https://github.com/f1gbd/F1GBD/releases/latest/download/pager_rasec_heltecv3.bin)** (dernière release).
-2. Ouvrir **https://espressif.github.io/esptool-js/** (Chrome/Edge), **Connect**, effacer la flash, fichier à l'adresse `0x0`, **Program**.
+1. Télécharger le binaire **fusionné** de sa carte :
+   - **V3** → **[`pager_rasec_heltecv3.bin`](https://github.com/f1gbd/F1GBD/releases/latest/download/pager_rasec_heltecv3.bin)**
+   - **V4** → **[`RASEC-ALERT-Pager-v4.bin`](https://f1gbd.github.io/F1GBD/meshpager/RASEC-ALERT-Pager-v4.bin)**
+2. Ouvrir **https://espressif.github.io/esptool-js/** (Chrome/Edge), **Connect**, effacer la flash, charger le fichier à l'adresse `0x0`, **Program**.
 
 ### Méthode 3 — esptool (ligne de commande)
 
 ```bash
 pip install esptool
 esptool --chip esp32s3 --port COM3 --baud 921600 erase_flash
+# V3 :
 esptool --chip esp32s3 --port COM3 --baud 921600 write_flash 0x0 pager_rasec_heltecv3.bin
+# V4 :
+esptool --chip esp32s3 --port COM3 --baud 921600 write_flash 0x0 RASEC-ALERT-Pager-v4.bin
 ```
 
 ---
