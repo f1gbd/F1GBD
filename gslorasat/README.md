@@ -35,9 +35,9 @@
 </p>
 
 <p align="center">
-  <i>Téléchargez <b>GSLoRaSat.exe</b> (application Windows autonome), puis flashez votre carte :
-  ouvrez la page dans Chrome/Edge, cliquez « Installer » — la puce est détectée et le bon
-  firmware est envoyé automatiquement.</i>
+  <i>Téléchargez <b>GSLoRaSat.exe</b> (application Windows autonome), puis flashez votre carte —
+  directement depuis l'app (menu <b>Firmware</b>, 100&nbsp;% hors ligne) ou dans le navigateur
+  (Chrome/Edge). La puce est détectée et le bon firmware est envoyé automatiquement.</i>
 </p>
 
 ---
@@ -51,9 +51,9 @@ Toute la chaîne fonctionne hors ligne :
 
 ```
    Satellite LoRa  ))))         ┌─────────────────────┐        ┌─────────────────────────┐
-        ▼                       │   Carte ESP32       │  USB   │   GSLoRaSat (PC)        │
-   [ RF 400–437 MHz ] ────────► │  station off-grid   │ ◄────► │  réception, émission,   │
-                                │  (SX1278 / SX1262)  │ série  │  éphémérides, autopilote│
+        ▼                       │   Carte ESP32        │  USB   │   GSLoRaSat (PC)        │
+   [ RF 400–437 MHz ] ────────► │  station off-grid    │ ◄────► │  réception, émission,   │
+                                │  (SX1278 / SX1262)   │ série  │  éphémérides, autopilote│
                                 └─────────────────────┘        └─────────────────────────┘
 ```
 
@@ -69,15 +69,24 @@ calculées localement.
 - 🎯 **Sélection manuelle** du satellite écouté → reconfiguration réelle du modem de la station.
 - 🤖 **Mode automatique (élévation max)** : la station se cale toute seule sur le satellite LoRa le plus haut au-dessus de l'horizon, et rebascule au fil des passages.
 - 🌍 **Éphémérides locales (SGP4)** : distance, azimut, élévation, doppler, trace au sol — TLE mis en cache pour un usage 100 % hors ligne.
+- 🌌 **Vue du ciel temps réel** (radar azimut/élévation, montant/descendant) et **trace au sol avec fond de carte offline**.
 - 🧭 **GPS embarqué** (T-Beam) : position et heure UTC transmises à l'application pour caler l'autopilote sans configuration manuelle.
-- ⚙️ **Configuration série** de la station (carte, position, nom, autorisation d'émission) **sans portail WiFi**.
+- 🔎 **Détection automatique de la carte** (Heltec / T-Beam) annoncée par la station — aucun index à régler à la main.
+- 🔌 **Flasheur de firmware intégré** (esptool embarqué) : (re)programmez la carte directement depuis l'app, **100 % hors ligne**.
+- 🧬 **Décodeur de télémétrie** : balises d'éléments orbitaux (Tianqi / FossaSat) décodées dans l'onglet Paquets.
+- ⚙️ **Configuration série** de la station (carte, position, nom, autorisation d'émission) **sans portail WiFi**, réglages persistants (`gslorasat.json`).
 - 📤 **Émission** de trames LoRa vers un satellite (sous réserve de licence radioamateur et d'autorisation locale).
 - 🖥️ **Interface claire** : Tableau de bord, Réception, Paquets, Vue du ciel, Trace au sol, Émission, Console — plus un **simulateur** pour tout tester sans matériel.
 
 ## Captures d'écran
 
 <p align="center">
-  <img src="images/screenshot-dashboard.png" alt="Tableau de bord" width="1024">
+  <img src="images/screenshot-dashboard.png" alt="Tableau de bord" width="48%">
+  <img src="images/screenshot-Reception.png" alt="Réception" width="48%">
+</p>
+<p align="center">
+  <img src="images/screenshot-satlist.png" alt="Vue du ciel" width="48%">
+  <img src="images/screenshot-Trace.png" alt="Trace au sol" width="48%">
 </p>
 
 ## Matériel supporté
@@ -87,22 +96,42 @@ calculées localement.
 | **Heltec WiFi LoRa 32 V3** | ESP32-S3 | SX1262 | 150–960 MHz | — |
 | **LilyGo T-Beam v1.1** | ESP32 | SX1278 (RFM95) | 433 MHz | NEO-6M |
 
-> La carte est sélectionnable à chaud depuis l'application (menu de configuration de la station),
-> sans reflasher.
+> La carte est **détectée automatiquement** par l'application (annonce de la station) ; les deux
+> firmwares étant dédiés à une puce précise, aucun index n'est à régler à la main.
+
+## Contenu de l'archive
+
+L'archive Windows `GSLoRaSat-v…-win64.7z` est **autonome** et contient tout le nécessaire :
+
+```
+GSLoraSat.exe            application Windows autonome (flasheur intégré compris)
+firmware/                firmwares prêts à flasher
+  ├── gslorasat-firmware-heltec-v3.bin    Heltec WiFi LoRa 32 V3 (ESP32-S3)
+  └── gslorasat-firmware-tbeam-433.bin    LilyGo T-Beam v1.1/v1.2 (ESP32, 433 MHz)
+documentation/           fiche technique + manuel utilisateur (DOCX)
+```
+
+## Documentation
+
+- 📄 **Manuel utilisateur** — installation, configuration, tour des onglets, mode automatique, flasheur, dépannage.
+- 📄 **Fiche technique** — matériel, caractéristiques radio, protocole série, modes de fonctionnement.
+
+Les deux documents sont dans le sous-dossier `documentation/` de l'archive.
 
 ## Installation & utilisation
 
-Les binaires prêts à l'emploi (application Windows `.7z` + firmwares `.bin`) sont dans les
-**[Releases GSLoRaSat](https://github.com/f1gbd/F1GBD/releases?q=gslorasat&expanded=true)**.
+Les binaires prêts à l'emploi (application Windows `.7z` incluant firmwares et documentation) sont
+dans les **[Releases GSLoRaSat](https://github.com/f1gbd/F1GBD/releases?q=gslorasat&expanded=true)**.
 
-**1 — Flasher la station** (une fois).
+**1 — Flasher la station** (une fois). Trois méthodes, de la plus simple à la plus manuelle :
 
-- **Le plus simple — flashage One-Click dans le navigateur :** ouvrez
+- **100 % hors ligne — flasheur intégré à l'app :** menu **Firmware → Flasher une carte**,
+  choisissez la carte (le `.bin` du sous-dossier `firmware/` est présélectionné), le port USB,
+  puis **Flasher**. La progression s'affiche et la carte redémarre seule — aucun outil externe.
+- **Dans le navigateur (One-Click) :** ouvrez
   **[la page de flashage](https://f1gbd.github.io/F1GBD/gslorasat/web/)** (Chrome ou Edge),
-  branchez la carte en USB et cliquez **Installer**. La puce (ESP32 T-Beam / ESP32-S3 Heltec)
-  est détectée automatiquement et le bon firmware est envoyé — rien à installer.
-- **Ou en manuel** avec [esptool](https://github.com/espressif/esptool) : téléchargez le `.bin`
-  de votre carte dans les Releases, puis :
+  branchez la carte et cliquez **Installer**. La puce est détectée et le bon firmware envoyé.
+- **En manuel** avec [esptool](https://github.com/espressif/esptool), depuis `firmware/` :
 
   ```
   esptool --chip esp32   --port COMx write_flash 0x0 gslorasat-firmware-tbeam-433.bin

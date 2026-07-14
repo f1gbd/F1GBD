@@ -1,0 +1,17 @@
+GSLoRaSat — Firmwares de flashage
+=================================
+
+Deux firmwares fusionnés (flashables à l'adresse 0x0) :
+
+  gslorasat-firmware-heltec-v3.bin  -> Heltec WiFi LoRa 32 V3 (ESP32-S3)
+  gslorasat-firmware-tbeam-433.bin  -> LilyGo T-Beam v1.1/v1.2 (ESP32, 433 MHz)
+
+Méthode recommandée (hors ligne) : dans l'application GSLoraSat,
+menu Firmware > Flasher une carte, choisir la carte, le port, puis Flasher.
+
+Flashage manuel (esptool) :
+  esptool --chip esp32   --port COMx write_flash 0x0 gslorasat-firmware-tbeam-433.bin
+  esptool --chip esp32s3 --port COMx write_flash 0x0 gslorasat-firmware-heltec-v3.bin
+
+Vérifiez que le firmware correspond bien à la carte.
+73 de F1GBD
