@@ -74,11 +74,9 @@ détectée — les images V3 et V4 ne sont pas interchangeables.
 
 <br>
 
-**1.** Télécharger `RRLoRa.7z`, décompresser, lancer `RRLoRaConsole.exe`.
-
-**2.** Brancher la carte en USB, choisir le port, **Flash Firmware**.
-
-**3.** **Connecter**, régler la radio, **Écrire et sauvegarder**, redémarrer.
+- **1.** Télécharger `RRLoRa.7z`, décompresser, lancer `RRLoRaConsole.exe`.
+- **2.** Brancher la carte en USB, choisir le port, **Flash Firmware**.
+- **3.** **Connecter**, régler la radio, **Écrire et sauvegarder**, redémarrer.
 
 Les mêmes paramètres radio doivent être appliqués sur **tous** les nœuds du
 réseau — un seul écart et rien ne passe.
@@ -116,7 +114,9 @@ Faits établis par la mesure, et non par déduction :
 | Vext OLED | GPIO36, actif **BAS** | scan I2C sur les 4 combinaisons |
 | Interop RNode | OK | probe validé |
 
-
+<div align="center">
+<img src="images/RRLoRA_points_hauts.png" alt="RRLoRa sur points hauts" width="800">
+</div>
 
 ## Licence
 
