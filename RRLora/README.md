@@ -66,7 +66,7 @@ détectée — les images V3 et V4 ne sont pas interchangeables.
 
 <div align="center">
 
-## 📥 [Télécharger la dernière version de RRLoRa](https://github.com/f1gbd/F1GBD/releases?q=rrlora&expanded=true)
+## 📥 [Télécharger la dernière version de RRLoRa](https://github.com/f1gbd/F1GBD/releases/download/rrlora-v1.0.0/RRLoRa-v1.0.0-win64.7z)
 
 ### **Flasheur et firmware inclus**
 
