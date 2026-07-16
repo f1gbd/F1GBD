@@ -1,0 +1,81 @@
+RRLoRa — Répéteur Réticulum LoRa
+Copyright 2026 F1GBD — ADRASEC 77 / FNRASEC
+
+Ce produit est distribué sous la licence Apache 2.0 (voir LICENSE).
+
+================================================================================
+Œuvres tierces
+================================================================================
+
+microReticulum
+    Copyright (c) 2023-2026 Chad Attermann
+    Licence : Apache-2.0
+    https://github.com/attermann/microReticulum
+
+    Pile Reticulum embarquée. Le fichier src/LoRaInterface.{h,cpp} est repris
+    de microReticulum/examples/common/lora_interface (v0.5.0) et modifié :
+    paramètres radio issus de RepeaterConfig.h au lieu d'être codés en dur, et
+    ajout de la détection et du pilotage du front-end RF du Heltec V4.
+
+Reticulum Network Stack
+    Copyright (c) 2016-2026 Mark Qvist
+    Licence : MIT
+    https://reticulum.network/
+
+    Protocole et conception. Aucun code repris directement : microReticulum en
+    est le portage C++.
+
+RNode Firmware
+    Copyright (c) Mark Qvist
+    Licence : GPL-3.0
+    https://github.com/markqvist/RNode_Firmware
+
+    Référence pour le brochage SX1262 du Heltec, par l'intermédiaire de
+    microReticulum. Aucun code GPL n'est inclus dans RRLoRa.
+
+MeshCore
+    Copyright (c) 2025 Scott Powell / rippleradios.com
+    Licence : MIT
+    https://github.com/meshcore-dev/MeshCore
+
+    La détection et le pilotage du front-end RF du Heltec V4 dans
+    src/LoRaInterface.cpp (fem_init, fem_tx_mode, fem_rx_mode) suivent la
+    logique de variants/heltec_v4/LoRaFEMControl.cpp : détection de la
+    révision par le niveau au repos de CSD (GPIO2), pull-down du GC1109
+    contre pull-up du KCT8103L, et commutation de CPS (GPIO46) ou CTX
+    (GPIO5) selon la puce.
+
+    Les tables de gain du PA affichées par tools/rrlora_console.py
+    (PA_GAIN_KCT8103L, PA_GAIN_GC1109) proviennent de Boards.h de
+    microReticulum_Firmware, lui-même dérivé de ce travail.
+
+    Le brochage du Heltec V4 — Vext, OLED, GNSS, batterie — a été vérifié
+    contre variants/heltec_v4/platformio.ini. Note : la polarité de Vext
+    retenue ici (actif à l'état BAS) diffère du PIN_VEXT_EN_ACTIVE=HIGH de
+    MeshCore, qui pilote un autre rail. Mesuré par scan I2C sur une V4.3.
+
+RadioLib
+    Copyright (c) Jan Gromeš
+    Licence : MIT
+    https://github.com/jgromes/RadioLib
+
+    Pilote SX1262, via lib_deps.
+
+esptool
+    Copyright (c) Espressif Systems
+    Licence : GPL-2.0-or-later
+    https://github.com/espressif/esptool
+
+    Utilisé par tools/rrlora_console.py pour le bouton Flash Firmware, appelé
+    comme outil sans liaison statique. Si tu redistribues un exécutable
+    empaqueté avec PyInstaller qui embarque esptool, les obligations de la
+    GPL-2.0 s'appliquent à cette partie : fournir le code source d'esptool ou
+    un lien vers le dépôt amont.
+
+================================================================================
+Logo
+================================================================================
+
+Le logo RRLoRa et l'icône sont l'œuvre de F1GBD. Les emblèmes FNRASEC et
+Sécurité Civile appartiennent à leurs détenteurs respectifs et sont utilisés
+dans le cadre associatif de l'ADRASEC.

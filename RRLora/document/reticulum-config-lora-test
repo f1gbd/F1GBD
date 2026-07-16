@@ -1,0 +1,89 @@
+# Configuration RNS — banc de test du repeteur LoRa Reticulum
+#
+# Tout ce qui n'est pas la radio est desactive : les interfaces TCP publiques
+# et l'AutoInterface multicast etaient toutes injoignables sur cette machine et
+# noyaient les logs sous des timeouts. On garde uniquement le RNode.
+#
+# A copier dans : C:\Users\jlnau\.reticulum\config
+# (garder une sauvegarde de l'ancien fichier)
+
+[reticulum]
+  enable_transport = False
+  share_instance = Yes
+  shared_instance_port = 37428
+  instance_control_port = 37429
+  panic_on_interface_error = No
+
+[logging]
+  # 4 = INFO. Passer a 6 (DEBUG) ou 7 (EXTREME) pour voir le detail des
+  # paquets recus/emis pendant la mise au point du lien radio.
+  loglevel = 4
+
+[interfaces]
+
+  # ------------------------------------------------------------------
+  # Radio LoRa — DOIT correspondre exactement au repeteur :
+  # 867.5 MHz / BW 125 kHz / SF8 / CR 4:5
+  # Un seul parametre different et rien ne passe.
+  # ------------------------------------------------------------------
+  [[RNode LoRa]]
+    type = RNodeInterface
+    interface_enabled = True
+    port = COM3
+    frequency = 867500000
+    bandwidth = 125000
+    txpower = 7
+    spreadingfactor = 8
+    codingrate = 5
+
+  # ------------------------------------------------------------------
+  # Desactivees pour le banc de test. Remettre interface_enabled = True
+  # au cas par cas quand le lien radio sera valide.
+  # ------------------------------------------------------------------
+
+  [[Default Interface]]
+    type = AutoInterface
+    interface_enabled = False
+    name = Default Interface
+
+  [[RNS BetweenTheBorders]]
+    type = TCPClientInterface
+    interface_enabled = False
+    target_host = reticulum.betweentheborders.com
+    target_port = 4242
+
+  [[RNS Testnet Amsterdam]]
+    type = TCPClientInterface
+    interface_enabled = False
+    target_host = amsterdam.connect.reticulum.network
+    target_port = 4965
+
+  [[RNS Testnet Dublin]]
+    type = TCPClientInterface
+    interface_enabled = False
+    target_host = dublin.connect.reticulum.network
+    target_port = 4965
+
+  [[rmap.world]]
+    type = TCPClientInterface
+    interface_enabled = False
+    target_host = rmap.world
+    target_port = 4242
+
+  [[RNS Node Spain]]
+    type = TCPClientInterface
+    interface_enabled = False
+    target_host = reticulum.quixote.network
+    target_port = 4242
+
+  [[Beleth]]
+    type = TCPClientInterface
+    interface_enabled = False
+    target_host = rns.beleth.net
+    target_port = 4242
+
+  [[RNS Node Germany]]
+    type = TCPClientInterface
+    interface_enabled = False
+    target_host = 202.61.243.41
+    target_port = 4965
