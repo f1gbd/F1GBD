@@ -64,6 +64,16 @@ détectée — les images V3 et V4 ne sont pas interchangeables.
 
 ## Démarrer
 
+<div align="center">
+
+## 📥 [Télécharger la dernière version de RRLoRa](https://github.com/f1gbd/F1GBD/releases?q=rrlora&expanded=true)
+
+### **Flasheur et firmware inclus**
+
+</div>
+
+<br>
+
 **1.** Télécharger `RRLoRa.7z`, décompresser, lancer `RRLoRaConsole.exe`.
 
 **2.** Brancher la carte en USB, choisir le port, **Flash Firmware**.
