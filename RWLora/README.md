@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="images/RWLoRA_logo.jpg" alt="RWLoRa" width="380">
+<img src="images/rwlora_logo.png" alt="RWLoRa" width="380">
 
 # RWLoRa — Routeur WiFi LoRa
 
@@ -25,7 +25,7 @@ Internet en temps normal, **ou depuis le seul PCO quand il n'y a plus
 d'Internet du tout**.
 
 <div align="center">
-<img src="images/RWLoRA_situation.png" alt="Déploiement ADRASEC — du sinistré au PC opérationnel" width="820">
+<img src="images/RWLora_situation.png" alt="Déploiement ADRASEC — du sinistré au PC opérationnel" width="820">
 <br>
 <sub><i>D'un côté le silence : plus de cellulaire, plus d'Internet, plus d'énergie.<br>
 De l'autre le PC opérationnel. Entre les deux, la passerelle.</i></sub>
@@ -86,7 +86,7 @@ une carte V3 plutôt que de produire une passerelle qui plante au démarrage.
 Pour un V3, c'est [RRLoRa](../RRLora) — le relais de terrain.
 
 <div align="center">
-<img src="images/RWLoRa_HeltecV4_screen.jpg" alt="RWLoRa en fonctionnement" width="800">
+<img src="images/RWLora_screen.png" alt="RWLoRa en fonctionnement" width="800">
 </div>
 
 L'écran dit l'essentiel d'un coup d'œil : état des deux interfaces, octets
@@ -122,7 +122,7 @@ vivre. La fenêtre libère du budget au fil de l'heure.
 ## Console de configuration
 
 <div align="center">
-<img src="images/RWLoRA_screen.png" alt="RWLoRa Console" width="520">
+<img src="images/RWLora_conf_screen.png" alt="RWLoRa Console" width="520">
 </div>
 
 Application Windows autonome. Elle configure les cinq paramètres radio —
