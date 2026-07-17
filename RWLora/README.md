@@ -122,7 +122,7 @@ vivre. La fenêtre libère du budget au fil de l'heure.
 ## Console de configuration
 
 <div align="center">
-<img src="images/RWLora_conf_screen.png" alt="RWLoRa Console" width="520">
+<img src="images/RWLora_conf_screen.png" alt="RWLoRa Console" width="1024">
 </div>
 
 Application Windows autonome. Elle configure les cinq paramètres radio —
@@ -147,7 +147,7 @@ champ secret. Le laisser vide conserve celui déjà enregistré.
 
 <div align="center">
 
-## 📥 [Télécharger la dernière version de RWLoRa](https://github.com/f1gbd/F1GBD/releases?q=rwlora&expanded=true)
+## 📥 [Télécharger la dernière version de RWLoRa](https://github.com/f1gbd/F1GBD/releases/download/rwlora-v1.0.0/RWLoRa-v1.0.0-win64.7z)
 
 ### **Flasheur et firmware inclus**
 
