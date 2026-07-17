@@ -122,7 +122,7 @@ vivre. La fenêtre libère du budget au fil de l'heure.
 ## Console de configuration
 
 <div align="center">
-<img src="images/RWLora_conf_screen.png" alt="RWLoRa Console" width="1024">
+<img src="images/RWLora_conf_screen.png" alt="RWLoRa Console" width="800">
 </div>
 
 Application Windows autonome. Elle configure les cinq paramètres radio —
