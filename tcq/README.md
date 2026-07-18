@@ -11,9 +11,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.33.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.34.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.33.0/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.34.0/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -26,6 +26,22 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 [**📜 Toutes les releases TCQ**](https://github.com/f1gbd/F1GBD/releases?q=tcq) • [**📚 Documentation**](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations)
 
 </div>
+
+---
+
+## 🆕 Quoi de neuf en v12.34 — RNS Nodes List (nodes Reticulum en direct)
+
+> **🌐 Liste des nodes Reticulum du moment** — l'onglet **« 📢 Annonce LXMF »** dispose d'un nouveau bouton **« 🌐 RNS Nodes List »** qui récupère **en direct** les points d'accès Reticulum recensés par le service communautaire [rns.fyi](https://rns.fyi) : **santé, uptime 30 j, fiabilité, sauts et localisation** de chaque relais.
+>
+> **🔍 Tester la disponibilité** — un clic sonde chaque node en **TCP** (en parallèle) et affiche son état 🟢 joignable / 🔴 injoignable, pour ne retenir que les relais réellement actifs *du moment*.
+>
+> **💾 Mettre à jour la config Reticulum** — cochez les nodes à utiliser et TCQ écrit les interfaces `TCPClientInterface` dans `~/.reticulum/config`, dans un **bloc géré** dédié : vos **interfaces manuelles sont préservées**, les doublons ignorés, et une **sauvegarde horodatée** est créée automatiquement.
+>
+> **🗄️ Sauvegarder les RNS actifs** — copie horodatée du fichier `config` **+** export **JSON** des interfaces TCP actives, pour figer et archiver l'état du réseau avant un exercice.
+>
+> **📝 Éditer Config / 📡 Config Répéteur LoRa** — ouverture directe du fichier `config` dans **Notepad**, et insertion en un clic d'un bloc **`[[RNode LoRa]]`** préréglé (**867.5 MHz / BW 125 kHz / SF8 / CR 4:5**, port `COM3`) pour se raccorder au **répéteur RRLoRa**.
+>
+> **📒 Auto Ajout Annuaire** — nouvelle case dans l'onglet Annonce LXMF : les nouvelles stations **TCQ\*** reçues par annonce LXMF sont **ajoutées automatiquement à l'annuaire** en mémoire si elles n'y figurent pas encore.
 
 ---
 
@@ -105,7 +121,7 @@ Conçu pour les opérations ADRASEC et les exercices de sécurité civile, TCQ p
 
 | Icône | Fonctionnalité | Description |
 |:---:|---|---|
-| 📨 | **LXMF / Reticulum** | Messagerie chiffrée bout-en-bout (X25519 + AES-128 + HMAC-SHA256), multi-saut, résiliente. Compatible TCP, série, LoRa, packet AX.25 et passerelle VARA. |
+| 📨 | **LXMF / Reticulum** | Messagerie chiffrée bout-en-bout (X25519 + AES-128 + HMAC-SHA256), multi-saut, résiliente. Compatible TCP, série, LoRa, packet AX.25 et passerelle VARA. **RNS Nodes List** : sélection des points d'accès Reticulum du moment (rns.fyi) et mise à jour assistée de `~/.reticulum/config`. |
 | 📡 | **VARA HF / FM / SAT** | Modems ARQ haute performance (EA5HVK) intégrés avec protection idle/timeout, suspension/reprise des transferts, détection automatique du chemin VARA. |
 | 📻 | **TNC Packet (AX.25)** | Direwolf lancé automatiquement avec configuration adaptée à votre carte son. Modes KISS et AGWPE. Support BBS et PDF radio. |
 | 🌐 | **MeshCore LoRa** | Protocole mesh LoRa natif pour communications de proximité en zone d'exercice ou d'intervention. Messagerie, BBS, **transferts de radiogrammes / fichiers diffusés sur canal** (Public, Urgence) et **canaux privés protégé par clé secrète** — création, partage par **QR Code / URL `meshcore://`**, mémorisation de la clé et vérification du **hash on-air**. Compatibles firmware MeshCore récent (≥ v1.6). |
@@ -246,6 +262,39 @@ Au premier démarrage :
 5. Sélectionnez un mode dans la barre d'onglets et commencez à émettre/recevoir
 
 > ⏱ Comptez **5 minutes** pour la première configuration, ensuite TCQ est utilisable au quotidien sans réglage supplémentaire.
+
+---
+
+## 🆕 Nouveautés v12.34
+
+### 🌐 RNS Nodes List — points d'accès Reticulum en direct (rns.fyi)
+
+L'onglet **« 📢 Annonce LXMF »** intègre un bouton **« 🌐 RNS Nodes List »** qui ouvre une fenêtre dédiée à la gestion des **points d'accès Reticulum** (nodes TCP publics), à partir de la liste tenue à jour par le service communautaire **[rns.fyi](https://rns.fyi)**. La fonction repose sur le module compagnon **`rnslister_lib`**, embarqué automatiquement dans le binaire.
+
+#### 📡 Lister et trier les nodes disponibles
+
+La fenêtre récupère en direct les nodes joignables en TCP et les présente dans un tableau : **nom**, **adresse `host:port`**, **santé**, **uptime 30 j**, **fiabilité**, **nombre de sauts** et **localisation**. Filtres intégrés : santé minimale, nodes **recommandés** (*floor pass*), nom, nombre maximal affiché. Tri automatique par qualité décroissante.
+
+#### 🔍 Tester la disponibilité *du moment*
+
+Le bouton **« 🔍 Tester dispo »** sonde chaque node en **TCP**, en parallèle, et affiche son état : 🟢 joignable / 🔴 injoignable — pour ne retenir que les relais réellement actifs à l'instant T.
+
+#### 💾 Mettre à jour la configuration Reticulum
+
+Cochez les nodes souhaités puis **« 💾 Mettre à jour config Reticulum »** : les interfaces `TCPClientInterface` correspondantes sont écrites dans `~/.reticulum/config`, à l'intérieur d'un **bloc géré** dédié. Les **interfaces manuelles** (RNode, TCPServer, hubs personnels…) sont **intégralement préservées**, les doublons ignorés, et une **sauvegarde horodatée** du fichier est créée avant toute écriture. Le chemin du fichier `config` est modifiable dans la fenêtre.
+
+#### 🗄️ Sauvegarder les RNS actifs
+
+Le bouton **« 🗄 Sauvegarder RNS actifs »** archive l'état courant : copie horodatée du fichier `config` **+** export **JSON** détaillé des interfaces TCP actuellement actives (et de la sélection) — pratique pour figer une configuration réseau validée avant un exercice.
+
+#### 📝 Éditer Config & 📡 Config Répéteur LoRa
+
+- **« 📝 Éditer Config »** ouvre directement le fichier `config` Reticulum dans **Notepad** (éditeur système en secours hors Windows).
+- **« 📡 Config Répéteur LoRa »** insère — s'il est absent — un bloc **`[[RNode LoRa]]`** préréglé (**867.5 MHz / BW 125 kHz / SF8 / CR 4:5**, port `COM3`) juste après la section `[interfaces]`, avec sauvegarde horodatée. Ce préréglage correspond **exactement** au répéteur **RRLoRa** : un seul paramètre différent et la liaison ne passe pas.
+
+### 📒 Auto Ajout Annuaire — collecte automatique des stations TCQ
+
+L'onglet **« 📢 Annonce LXMF »** dispose d'une nouvelle case **« 📒 Auto Ajout Annuaire (stations TCQ\*) »**, **décochée par défaut**. Lorsqu'elle est activée, toute **nouvelle station** dont le nom commence par **`TCQ`**, reçue par **annonce LXMF**, est **ajoutée automatiquement à l'index de l'annuaire LXMF en mémoire** si elle n'y figure pas déjà — l'annuaire se constitue tout seul pendant la vacation. L'ajout se fait en mémoire ; utilisez la **sauvegarde manuelle** de l'annuaire pour le figer sur disque.
 
 ---
 
@@ -673,7 +722,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v12.33.0 — 2026-06-24**
+**Version v12.34.0 — 2026-07-18**
 
 ---
 
