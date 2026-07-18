@@ -119,26 +119,32 @@ refuses 7 → 28 → 80 → 152 → 383
 Une fois le budget épuisé, la radio se tait et le lien Internet continue de
 vivre. La fenêtre libère du budget au fil de l'heure.
 
-## Console de configuration
-
-<div align="center">
-<img src="images/RWLora_conf_screen.png" alt="RWLoRa Console" width="800">
-</div>
+## Console de configuration — v2
 
 Application Windows autonome. Elle configure les cinq paramètres radio —
 **exactement le même jeu que RRLoRa**, pour que passerelle et relais parlent la
 même radio — et le lien montant : SSID, mot de passe, hôte Reticulum, port TCP.
+
+> **Nouveau en v2** : le sélecteur de nodes ne lit plus le fichier de
+> configuration local ; il interroge en direct l'annuaire public **rns.fyi** et
+> classe les points d'accès par santé, uptime, fiabilité et nombre de sauts.
 
 Trois commodités qui évitent des soirées perdues :
 
 - **Scanner WiFi** force un balayage des deux bandes avant de lister, sinon
   Windows ne rend qu'un cache où votre box n'apparaît qu'en 5 GHz — que le
   Heltec ne sait pas capter.
-- **Hubs RNS** lit votre `~/.reticulum/config` et propose les
-  `TCPClientInterface` qui y sont déclarées, avec un test de joignabilité **en
-  IPv4** — le seul chemin qu'emprunte un ESP32.
+- **Nodes RNS** interroge en direct l'annuaire public [rns.fyi](https://rns.fyi/)
+  et présente les points d'accès Reticulum avec leurs métriques de qualité :
+  santé, uptime, fiabilité, nombre de sauts. Filtrable par santé minimale, par
+  « sains uniquement » et par nom. Un clic copie l'hôte et le port choisis.
 - Le **journal du nœud** remonte dans la fenêtre. La console tient le port
   série ; sans cela, on configure à l'aveugle.
+
+Le sélecteur de nodes teste la joignabilité **en IPv4** — le seul chemin
+qu'emprunte un ESP32 — et exporte la liste au format config Reticulum pour
+sauvegarde. La librairie `rnslister_lib` est partagée avec les autres outils de
+l'écosystème (RNSnodes_lister, TCQ).
 
 Le mot de passe WiFi n'est jamais relu depuis la passerelle : il est écrit en
 champ secret. Le laisser vide conserve celui déjà enregistré.
@@ -147,7 +153,7 @@ champ secret. Le laisser vide conserve celui déjà enregistré.
 
 <div align="center">
 
-## 📥 [Télécharger la dernière version de RWLoRa](https://github.com/f1gbd/F1GBD/releases/download/rwlora-v1.0.0/RWLoRa-v1.0.0-win64.7z)
+## 📥 [Télécharger la dernière version de RWLoRa](https://github.com/f1gbd/F1GBD/releases?q=rwlora&expanded=true)
 
 ### **Flasheur et firmware inclus**
 
@@ -185,6 +191,14 @@ dizaines de destinations, le flot d'annonces disparaît, et le maillage ne dépe
 d'aucun hub tenu par un inconnu.
 
 C'est aussi la bonne doctrine opérationnelle.
+
+> **Et le sélecteur « Nodes RNS » alors ?** Il interroge l'annuaire public
+> rns.fyi, ce qui semble contredire ce qui précède. Ce n'est pas le cas : il sert
+> à un banc d'essai, une démonstration, un test de connectivité — et surtout à
+> vérifier la joignabilité et la santé d'un node avant de s'y fier, y compris le
+> vôtre s'il est recensé. En opération, on saisit l'adresse de son propre `rnsd`.
+> Le sélecteur aide à choisir un node **sain et à faible nombre de sauts** quand
+> on doit passer par le réseau public ; il ne dispense pas d'y réfléchir.
 
 ### Renseigner une adresse IP, pas un nom
 
