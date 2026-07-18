@@ -153,7 +153,7 @@ champ secret. Le laisser vide conserve celui déjà enregistré.
 
 <div align="center">
 
-## 📥 [Télécharger la dernière version de RWLoRa](https://github.com/f1gbd/F1GBD/releases?q=rwlora&expanded=true)
+## 📥 [Télécharger la dernière version de RWLoRa](https://github.com/f1gbd/F1GBD/releases/download/rwlora-v2.0.0/RWLoRa-v2.0.0-win64.7z)
 
 ### **Flasheur et firmware inclus**
 
