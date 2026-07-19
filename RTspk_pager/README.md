@@ -21,8 +21,7 @@ native** est également émise.
 
 ## Téléchargement et installation (Android)
 
-1. Télécharger le fichier **`RTspk_pager-<version>.apk`** ci-joint (onglet
-   *Releases* du dépôt, ou ce dossier).
+1. Télécharger le fichier **`RTspk_pager-<version>.apk`** (https://github.com/f1gbd/F1GBD/releases/download/1.0.25/RTspk_pager-1.0.25.apk).
 2. Sur le téléphone, autoriser l'installation depuis cette source (« sources
    inconnues » / « Installer des applications inconnues »).
 3. Ouvrir le fichier APK et installer.
