@@ -2,7 +2,7 @@
 <img src="images/RatSpeak_RASEC-ALERT.png" alt="RWLoRa" width="380">
 </div>
 
-# RTspk Pager — Ratspeak édition RASEC-ALERT (F1GBD / ADRASEC 77)
+# RTspk Pager — Ratspeak édition RASEC-ALERT (F1GBD/ADRASEC 77)
 
 **Récepteur d'alerte (pager) pour réseau Reticulum / LXMF**, basé sur
 l'application [Ratspeak](https://github.com/ratspeak/Ratspeak) avec l'ajout de
