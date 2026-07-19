@@ -10,11 +10,11 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 **MAJ du 16/07/2026** : [**RWLoRa: « La communication renaît dans le silence des réseaux. »**](https://github.com/f1gbd/F1GBD/tree/master/RWLora)
 
-![« Là où il n'y a plus rien, il y a encore le réseau. »](https://github.com/f1gbd/F1GBD/blob/master/RRLora/images/RRLoRA_situation.png)
+![« Là où il n'y a plus rien, il y a encore le réseau. »](https://github.com/f1gbd/F1GBD/blob/master/RRLora/images/RRLoRa_title.png.png)
 
 **MAJ du 16/07/2026** : [**RRLoRa: « Là où il n'y a plus rien, il y a encore le réseau. »**](https://github.com/f1gbd/F1GBD/tree/master/RRLora)
 
-![Là où le LoRa s'arrête, le maillage Reticulum prend le relais](https://github.com/f1gbd/F1GBD/blob/master/meshrns/images/MeshRNS_principle.png)
+![Là où le LoRa s'arrête, le maillage Reticulum prend le relais](https://github.com/f1gbd/F1GBD/blob/master/meshrns/images/MeshRNS_intro.png)
 
 **MAJ du 02/07/2026** : [**MeshRNS: Là où le LoRa s'arrête, le maillage Reticulum prend le relais**](https://github.com/f1gbd/F1GBD/tree/master/meshrns)
 
