@@ -1,0 +1,683 @@
+diff --git a/crates/ratspeak-runtime/src/lib.rs b/crates/ratspeak-runtime/src/lib.rs
+index 54ffed1..8d1f93b 100644
+--- a/crates/ratspeak-runtime/src/lib.rs
++++ b/crates/ratspeak-runtime/src/lib.rs
+@@ -15,6 +15,8 @@ pub mod identity_prune;
+ pub mod lxmf;
+ pub mod messaging;
+ pub mod propagation;
++// F1GBD — RASEC-ALERT : analyse des commandes #ra / #rapass / #b sur LXMF entrant.
++pub mod rasec;
+ pub mod rns;
+ pub mod rns_config;
+ pub mod state;
+@@ -3139,6 +3141,13 @@ async fn process_inbound_lxmf(
+         }
+     }
+     state.emit_to_all("lxmf_message", event_data);
++
++    // F1GBD — RASEC-ALERT : analyse le corps du message pour les commandes
++    // #ra / #rapass / #b (déclenchement d'alerte + ACK, ou configuration).
++    // Placé après l'émission normale : l'alerte s'ajoute à l'affichage du
++    // message, elle ne le remplace pas.
++    rasec::handle_incoming(state, &msg.content, &source_hash, &identity_id).await;
++
+     messaging::broadcast_conversations(Arc::clone(state));
+ 
+     // Post-emit UI refresh failures only mean stale sidebar counts.
+diff --git a/crates/ratspeak-runtime/src/rasec.rs b/crates/ratspeak-runtime/src/rasec.rs
+new file mode 100644
+index 0000000..baca38a
+--- /dev/null
++++ b/crates/ratspeak-runtime/src/rasec.rs
+@@ -0,0 +1,321 @@
++//! Ratspeak — RASEC-ALERT (F1GBD / ADRASEC 77)
++//!
++//! Portage de la fonction « RASEC ALERT » du MeshPager / de l'édition Saitama
++//! T-Deck (MeshCore) et de rsDeck vers **Ratspeak** (Reticulum / LXMF, Rust +
++//! Tauri).
++//!
++//! Un message **LXMF** reçu dont le corps correspond au code d'activation
++//! déclenche une alerte dans l'interface (overlay plein écran clignotant
++//! « RASEC ALERT » + sirène bitonale synthétisée en Web Audio) et un **accusé
++//! de réception automatique** renvoyé à l'expéditeur.
++//!
++//! Sous Reticulum/LXMF, toute trame reçue est adressée directement à l'adresse
++//! LXMF du nœud : il n'y a pas de notion de « canal » comme sous MeshCore. Les
++//! trois commandes sont donc toujours autorisées (équivalent `isDirect = true`
++//! de la version Saitama) :
++//!
++//!   * `#ra <code>`             — déclenche l'alerte (overlay + sirène) + ACK.
++//!   * `#rapass <ancien> <new>` — change le code d'activation (persisté).
++//!   * `#b <n>`                 — règle le nombre de répétitions de la sirène
++//!                                (`0` = continu jusqu'à acquittement, 0–20).
++//!
++//! Les analyseurs `match_code` / `parse_pass` / `parse_beeps` reprennent à
++//! l'identique la logique du MeshPager (constantes et terminateurs inclus).
++//!
++//! Persistance : le code et le nombre de répétitions sont stockés dans la table
++//! `settings` de la base Ratspeak (clés `rasec_code` / `rasec_beeps`), ce qui
++//! joue le rôle du namespace NVS `rasec` de la version T-Deck.
++
++use std::sync::Arc;
++
++use crate::db;
++use crate::state::AppState;
++use serde_json::json;
++
++// ── Constantes (équivalent des `#define` surchargeables de PagerRasec.h) ─────
++/// Code d'activation par défaut (première utilisation, avant persistance).
++pub const DEFAULT_CODE: &str = "ADRASEC77";
++/// Nombre de répétitions par défaut de la sirène.
++pub const DEFAULT_BEEPS: i64 = 3;
++/// Plage maximale du réglage `#b`.
++pub const BEEP_MAX: i64 = 20;
++/// Longueur maximale (caractères) du code d'activation.
++pub const CODE_MAXLEN: usize = 23;
++/// Marqueur de version de l'option (surfacé dans l'événement `rasec_alert`).
++pub const RASEC_ALERT_VERSION: &str = "rasec-f1gbd-1";
++
++const CMD_PREFIX: &str = "#ra"; // déclencheur d'alerte
++const PASS_PREFIX: &str = "#rapass"; // changement de code
++const BEEP_PREFIX: &str = "#b"; // nb de répétitions
++
++// L'ACK ne doit JAMAIS contenir le code (anti-boucle d'auto-déclenchement).
++const ACK_TEXT: &str = "Pager OK - alerte bien recue";
++const PASS_ACK: &str = "Code RASEC mis a jour";
++const PASS_FAIL: &str = "Echec: ancien code RASEC incorrect";
++
++const K_CODE: &str = "rasec_code";
++const K_BEEPS: &str = "rasec_beeps";
++
++// ── Analyseurs (portés à l'identique du MeshPager) ──────────────────────────
++
++/// `true` si `text` déclenche l'alerte pour `code` (« #ra <code> »).
++/// Le caractère suivant le code doit être une fin de chaîne, un espace ou un
++/// retour chariot/ligne (comme dans la version C).
++pub fn match_code(text: &str, code: &str) -> bool {
++    let t = text.trim_start_matches(' ');
++    let Some(rest) = t.strip_prefix(CMD_PREFIX) else {
++        return false;
++    };
++    let rest = rest.trim_start_matches(' ');
++    if code.is_empty() {
++        return false;
++    }
++    let Some(after) = rest.strip_prefix(code) else {
++        return false;
++    };
++    matches!(after.chars().next(), None | Some(' ') | Some('\r') | Some('\n'))
++}
++
++/// Résultat de l'analyse de « #rapass <ancien> <nouveau> ».
++#[derive(Debug, PartialEq, Eq)]
++pub enum PassResult {
++    /// Ce n'est pas la commande `#rapass`.
++    NotCommand,
++    /// Commande `#rapass` mais ancien code faux / nouveau code vide.
++    Invalid,
++    /// Nouveau code accepté.
++    Ok(String),
++}
++
++/// Analyse « #rapass <ancien> <nouveau> ».
++pub fn parse_pass(text: &str, code: &str) -> PassResult {
++    let t = text.trim_start_matches(' ');
++    let Some(rest) = t.strip_prefix(PASS_PREFIX) else {
++        return PassResult::NotCommand;
++    };
++    // Un espace doit suivre immédiatement le préfixe (text[pl] == ' ').
++    if !rest.starts_with(' ') {
++        return PassResult::NotCommand;
++    }
++    let rest = rest.trim_start_matches(' ');
++    if code.is_empty() {
++        return PassResult::Invalid;
++    }
++    let Some(after) = rest.strip_prefix(code) else {
++        return PassResult::Invalid;
++    };
++    // Un espace doit séparer l'ancien code du nouveau (p[clen] == ' ').
++    if !after.starts_with(' ') {
++        return PassResult::Invalid;
++    }
++    let after = after.trim_start_matches(' ');
++    let newcode: String = after
++        .chars()
++        .take_while(|&c| c != ' ' && c != '\r' && c != '\n')
++        .take(CODE_MAXLEN)
++        .collect();
++    if newcode.is_empty() {
++        PassResult::Invalid
++    } else {
++        PassResult::Ok(newcode)
++    }
++}
++
++/// Résultat de l'analyse de « #b <n> ».
++#[derive(Debug, PartialEq, Eq)]
++pub enum BeepResult {
++    /// Ce n'est pas la commande `#b`.
++    NotCommand,
++    /// Commande `#b` mais valeur hors plage / absente.
++    Invalid,
++    /// Nombre de répétitions accepté (0–BEEP_MAX).
++    Ok(i64),
++}
++
++/// Analyse « #b <n> » → nombre de répétitions (0 = continu, plage 0–BEEP_MAX).
++pub fn parse_beeps(text: &str) -> BeepResult {
++    let t = text.trim_start_matches(' ');
++    let Some(rest) = t.strip_prefix(BEEP_PREFIX) else {
++        return BeepResult::NotCommand;
++    };
++    if !rest.starts_with(' ') {
++        return BeepResult::NotCommand;
++    }
++    let rest = rest.trim_start_matches(' ');
++    let digits: String = rest.chars().take_while(|c| c.is_ascii_digit()).collect();
++    if digits.is_empty() {
++        return BeepResult::Invalid;
++    }
++    match digits.parse::<i64>() {
++        Ok(n) if (0..=BEEP_MAX).contains(&n) => BeepResult::Ok(n),
++        _ => BeepResult::Invalid,
++    }
++}
++
++// ── Persistance (table `settings`) ──────────────────────────────────────────
++fn load_code(pool: &db::DbPool) -> String {
++    db::get_setting(pool, K_CODE).unwrap_or_else(|| DEFAULT_CODE.to_string())
++}
++fn load_beeps(pool: &db::DbPool) -> i64 {
++    db::get_setting(pool, K_BEEPS)
++        .and_then(|s| s.parse::<i64>().ok())
++        .filter(|n| (0..=BEEP_MAX).contains(n))
++        .unwrap_or(DEFAULT_BEEPS)
++}
++
++/// Envoie un accusé de réception LXMF (texte court) à l'expéditeur.
++/// Aucun `.await` n'est effectué tant que le verrou `lxmf` est tenu.
++fn send_reply(state: &AppState, source_hash: &str, identity_id: &str, reply: &str) {
++    if let Ok(mut lxmf) = state.lxmf.lock() {
++        if let Some(mgr) = lxmf.as_mut() {
++            mgr.send_message(source_hash, reply, "RASEC", &state.db, identity_id);
++        }
++    }
++}
++
++/// Analyse un message LXMF entrant et exécute l'action RASEC-ALERT associée
++/// (déclenchement de l'alerte UI + ACK, ou commande de configuration + ACK).
++///
++/// À appeler depuis le pipeline `process_inbound_lxmf`, après l'enregistrement
++/// et l'émission normale du message : l'alerte s'ajoute à l'affichage du
++/// message dans la conversation, elle ne le remplace pas.
++pub async fn handle_incoming(
++    state: &Arc<AppState>,
++    content: &str,
++    source_hash: &str,
++    identity_id: &str,
++) {
++    // Fast-path : toutes les commandes RASEC commencent par '#'. Évite une
++    // lecture NVS/SQLite pour la grande majorité des messages ordinaires.
++    if !content.trim_start().starts_with('#') {
++        return;
++    }
++
++    // Lecture de l'état persisté hors du thread async.
++    let pool = state.db.clone();
++    let (code, beeps) = db::spawn_db(pool, move |p| (load_code(&p), load_beeps(&p)))
++        .await
++        .unwrap_or_else(|_| (DEFAULT_CODE.to_string(), DEFAULT_BEEPS));
++
++    // 1) Changement de code : « #rapass <ancien> <nouveau> ».
++    match parse_pass(content, &code) {
++        PassResult::Ok(newcode) => {
++            let pool = state.db.clone();
++            let newcode_for_db = newcode.clone();
++            let _ = db::spawn_db(pool, move |p| {
++                db::set_setting(&p, K_CODE, &newcode_for_db);
++            })
++            .await;
++            tracing::info!(from = %source_hash, "RASEC-ALERT: code d'activation mis a jour");
++            send_reply(state, source_hash, identity_id, PASS_ACK);
++            return;
++        }
++        PassResult::Invalid => {
++            tracing::warn!(from = %source_hash, "RASEC-ALERT: #rapass refuse (ancien code faux)");
++            send_reply(state, source_hash, identity_id, PASS_FAIL);
++            return;
++        }
++        PassResult::NotCommand => {}
++    }
++
++    // 2) Réglage des répétitions : « #b <n> ».
++    match parse_beeps(content) {
++        BeepResult::Ok(n) => {
++            let pool = state.db.clone();
++            let _ = db::spawn_db(pool, move |p| {
++                db::set_setting(&p, K_BEEPS, &n.to_string());
++            })
++            .await;
++            let reply = if n == 0 {
++                "Alarme continue (acquit. a l'ecran)".to_string()
++            } else {
++                format!("Repetitions reglees sur {n}")
++            };
++            tracing::info!(from = %source_hash, beeps = n, "RASEC-ALERT: repetitions reglees");
++            send_reply(state, source_hash, identity_id, &reply);
++            return;
++        }
++        BeepResult::Invalid => {
++            let reply = format!("Valeur #b invalide (0-{BEEP_MAX})");
++            send_reply(state, source_hash, identity_id, &reply);
++            return;
++        }
++        BeepResult::NotCommand => {}
++    }
++
++    // 3) Déclencheur d'alerte : « #ra <code> ».
++    if match_code(content, &code) {
++        tracing::warn!(from = %source_hash, beeps, "RASEC-ALERT: alerte declenchee");
++
++        // Signale l'UI (overlay + sirène). Le webview joue la sirène pour
++        // `beeps` cycles (0 = continu jusqu'à acquittement).
++        state.emit_to_all(
++            "rasec_alert",
++            json!({
++                "beeps": beeps,
++                "source": source_hash,
++                "version": RASEC_ALERT_VERSION,
++            }),
++        );
++
++        // Notification native (utile si l'app est en arrière-plan / mobile).
++        let label = crate::contact_label_from_db(&state.db, source_hash, identity_id);
++        state.emit_native_notification(ratspeak_core::NativeNotification::message(
++            "RASEC ALERT".to_string(),
++            format!("Alerte declenchee par {label}"),
++            format!("lxmf:{source_hash}"),
++            0,
++        ));
++
++        // ACK automatique (sans le code : anti-boucle).
++        send_reply(state, source_hash, identity_id, ACK_TEXT);
++    }
++}
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++
++    const CODE: &str = "ADRASEC77";
++
++    #[test]
++    fn match_code_accepts_exact_and_trailing() {
++        assert!(match_code("#ra ADRASEC77", CODE));
++        assert!(match_code("   #ra   ADRASEC77", CODE));
++        assert!(match_code("#ra ADRASEC77 ", CODE));
++        assert!(match_code("#ra ADRASEC77\r\n", CODE));
++    }
++
++    #[test]
++    fn match_code_rejects_wrong_or_partial() {
++        assert!(!match_code("#ra WRONG", CODE));
++        assert!(!match_code("#ra ADRASEC77EXTRA", CODE));
++        assert!(!match_code("#ra", CODE));
++        assert!(!match_code("hello world", CODE));
++        // Le préfixe de #rapass ne doit pas déclencher l'alerte.
++        assert!(!match_code("#rapass ADRASEC77 NEW", CODE));
++    }
++
++    #[test]
++    fn parse_pass_changes_code() {
++        assert_eq!(
++            parse_pass("#rapass ADRASEC77 NOUVEAU", CODE),
++            PassResult::Ok("NOUVEAU".to_string())
++        );
++        assert_eq!(parse_pass("#rapass WRONG NEW", CODE), PassResult::Invalid);
++        assert_eq!(parse_pass("#rapass ADRASEC77 ", CODE), PassResult::Invalid);
++        assert_eq!(parse_pass("#ra ADRASEC77", CODE), PassResult::NotCommand);
++        assert_eq!(parse_pass("#rapassX", CODE), PassResult::NotCommand);
++    }
++
++    #[test]
++    fn parse_beeps_range() {
++        assert_eq!(parse_beeps("#b 0"), BeepResult::Ok(0));
++        assert_eq!(parse_beeps("#b 5"), BeepResult::Ok(5));
++        assert_eq!(parse_beeps("#b 20"), BeepResult::Ok(20));
++        assert_eq!(parse_beeps("#b 21"), BeepResult::Invalid);
++        assert_eq!(parse_beeps("#b x"), BeepResult::Invalid);
++        assert_eq!(parse_beeps("#ra ADRASEC77"), BeepResult::NotCommand);
++        assert_eq!(parse_beeps("#beep"), BeepResult::NotCommand);
++    }
++}
+diff --git a/dashboard/index.html b/dashboard/index.html
+index 4833352..96c3bfd 100644
+--- a/dashboard/index.html
++++ b/dashboard/index.html
+@@ -12,6 +12,27 @@
+     <title>Ratspeak - Dashboard</title>
+     <link rel="stylesheet" href="/static/fonts/fonts.css">
+     <link rel="stylesheet" href="/static/style.css">
++    <!-- F1GBD — bandeau RASEC Pager (mobile) : le menu lateral (et sa signature)
++         est masque en vue mobile, on affiche donc un bandeau en haut, en
++         reservant sa hauteur sur .app-layout. Place apres style.css pour primer. -->
++    <style id="rasec-css">
++    #rasec-topbanner { display: none; }
++    body.checking-setup #rasec-topbanner,
++    body.setup-active   #rasec-topbanner { display: none !important; }
++    @media (max-width: 768px) {
++        #rasec-topbanner {
++            display: flex; align-items: center; justify-content: center;
++            height: 20px; box-sizing: border-box; padding: 0 10px;
++            background: var(--surface-shell); border-bottom: 1px solid var(--border-surface-soft);
++            color: var(--accent); font-weight: 600; font-size: 10px; letter-spacing: .02em;
++            line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
++        }
++        .app-layout { height: calc(var(--app-height, 100vh) - 55px - var(--sat) - 20px); }
++    }
++    @media (max-width: 768px) and (orientation: landscape) and (max-height: 500px) {
++        .app-layout { height: calc(var(--app-height, 100vh) - 40px - var(--sat) - 20px); }
++    }
++    </style>
+ </head>
+ <body class="checking-setup">
+ 
+@@ -47,6 +68,9 @@
+     </div>
+ </div>
+ 
++<!-- F1GBD — bandeau RASEC Pager (visible en vue mobile ; version injectee par rasec_alert.js) -->
++<div id="rasec-topbanner">RASEC Pager par F1GBD</div>
++
+ <div class="app-layout">
+ 
+     <div class="sidebar-overlay" id="sidebar-overlay"></div>
+@@ -63,6 +87,8 @@
+             </svg>
+             <span class="sidebar-brand-text">Ratspeak</span>
+         </div>
++        <!-- F1GBD — signature RASEC Pager (version injectee par rasec_alert.js) -->
++        <div class="sidebar-rasec-brand" id="sidebar-rasec-brand" title="RASEC Pager par F1GBD">RASEC Pager par F1GBD</div>
+         <div class="sidebar-divider"></div>
+         <a class="nav-item active" data-view="dashboard" href="#dashboard" title="Home">
+             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+@@ -1709,6 +1735,8 @@
+ <script src="/static/js/identity.js"></script>
+ <script src="/static/js/confetti.js"></script>
+ <script src="/static/js/games_tab.js"></script>
++<!-- F1GBD — RASEC-ALERT : overlay plein écran + sirène sur événement `rasec_alert` -->
++<script src="/static/js/rasec_alert.js"></script>
+ <script src="/static/js/tauri_events.js"></script>
+ <script src="/static/js/init_dom_handlers.js"></script>
+ </body>
+diff --git a/dashboard/static/js/rasec_alert.js b/dashboard/static/js/rasec_alert.js
+new file mode 100644
+index 0000000..5ddce4c
+--- /dev/null
++++ b/dashboard/static/js/rasec_alert.js
+@@ -0,0 +1,246 @@
++// Ratspeak — RASEC-ALERT (F1GBD / ADRASEC 77)
++//
++// Équivalent web/Tauri de l'écran d'alerte pager du MeshPager / de l'édition
++// Saitama T-Deck. Le backend (crate ratspeak-runtime, module `rasec`) détecte
++// la commande « #ra <code> » dans un message LXMF entrant, renvoie l'ACK, puis
++// émet l'événement Tauri `rasec_alert`. Ce module :
++//   * affiche un overlay plein écran clignotant « RASEC ALERT » + un compteur ;
++//   * joue une sirène bitonale synthétisée en Web Audio (1000 / 750 Hz) ;
++//       - beeps > 0  : N cycles puis arrêt ;
++//       - beeps <= 0 : continu jusqu'à acquittement (comme « #b 0 ») ;
++//   * s'acquitte en touchant l'écran, en cliquant, ou avec Échap / Entrée /
++//     Espace (stoppe la sirène et ferme l'overlay).
++(function () {
++    'use strict';
++    window.RS = window.RS || {};
++
++    // ── Paramètres de la sirène (repris du two-tone T-Deck) ──────────────────
++    var TONE_A_HZ = 1000.0;
++    var TONE_B_HZ = 750.0;
++    var TONE_MS = 300;                 // durée de chaque demi-cycle
++    var CYCLE_MS = TONE_A_HZ ? (TONE_MS * 2) : 600; // 600 ms / cycle
++    var FADE_MS = 12;                  // court fondu anti-clic entre tonalités
++    var BLINK_PERIOD_MS = 350;
++
++    // ── État interne ─────────────────────────────────────────────────────────
++    var overlay = null;
++    var counterEl = null;
++    var alertCount = 0;
++    var blinkTimer = null;
++    var blinkOn = true;
++    var stopTimer = null;
++    var srcNode = null;
++    var gainNode = null;
++
++    function _ctx() {
++        if (window.RS.audioPlayback && typeof window.RS.audioPlayback.context === 'function') {
++            return window.RS.audioPlayback.context();
++        }
++        var ctor = window.AudioContext || window.webkitAudioContext || null;
++        if (!ctor) return null;
++        if (!window.__ratspeakFallbackAudioContext) {
++            try { window.__ratspeakFallbackAudioContext = new ctor(); } catch (_) { return null; }
++        }
++        return window.__ratspeakFallbackAudioContext;
++    }
++
++    function _ensureAudio() {
++        if (window.RS.audioPlayback && typeof window.RS.audioPlayback.ensure === 'function') {
++            return window.RS.audioPlayback.ensure({ installUnlock: true });
++        }
++        var ctx = _ctx();
++        if (!ctx) return Promise.resolve(false);
++        if (ctx.state === 'suspended' && typeof ctx.resume === 'function') {
++            return ctx.resume().then(function () { return true; }).catch(function () { return false; });
++        }
++        return Promise.resolve(true);
++    }
++
++    // Un cycle de sirène : tonalité A puis tonalité B, avec fondus courts.
++    function _renderCycle(ctx) {
++        var sampleRate = ctx.sampleRate || 44100;
++        var total = Math.max(1, Math.round((sampleRate * CYCLE_MS) / 1000));
++        var half = Math.round(total / 2);
++        var fade = Math.max(1, Math.round((sampleRate * FADE_MS) / 1000));
++        var buffer = ctx.createBuffer(1, total, sampleRate);
++        var out = buffer.getChannelData(0);
++        var phase = 0;
++        for (var i = 0; i < total; i++) {
++            var inSecond = i >= half;
++            var freq = inSecond ? TONE_B_HZ : TONE_A_HZ;
++            var local = inSecond ? i - half : i;
++            var segLen = inSecond ? (total - half) : half;
++            phase += (2 * Math.PI * freq) / sampleRate;
++            var env = 1.0;
++            if (local < fade) env = local / fade;
++            else if (local > segLen - fade) env = Math.max(0, (segLen - local) / fade);
++            out[i] = Math.sin(phase) * env * 0.5;
++        }
++        return buffer;
++    }
++
++    function _startSiren(beeps) {
++        _stopSiren();
++        _ensureAudio().then(function (ok) {
++            if (!ok || !overlay) return;
++            var ctx = _ctx();
++            if (!ctx) return;
++            try {
++                gainNode = ctx.createGain();
++                gainNode.gain.setValueAtTime(0.9, ctx.currentTime);
++                gainNode.connect(ctx.destination);
++                srcNode = ctx.createBufferSource();
++                srcNode.buffer = _renderCycle(ctx);
++                srcNode.loop = true;
++                srcNode.connect(gainNode);
++                srcNode.start(ctx.currentTime);
++                // beeps > 0 : arrêt automatique après N cycles.
++                if (beeps > 0) {
++                    stopTimer = setTimeout(function () { _stopSiren(); }, beeps * CYCLE_MS + 40);
++                }
++            } catch (err) {
++                if (window.RS.diag) window.RS.diag('warn', '[rasec] Web Audio siren failed:', err);
++            }
++        });
++    }
++
++    function _stopSiren() {
++        if (stopTimer) { clearTimeout(stopTimer); stopTimer = null; }
++        if (srcNode) {
++            try { srcNode.stop(); } catch (_) {}
++            try { srcNode.disconnect(); } catch (_) {}
++            srcNode = null;
++        }
++        if (gainNode) {
++            try { gainNode.disconnect(); } catch (_) {}
++            gainNode = null;
++        }
++    }
++
++    function _injectStyle() {
++        if (document.getElementById('rasec-alert-style')) return;
++        var css = ''
++            + '#rasec-alert-overlay{position:fixed;inset:0;z-index:2147483000;display:flex;'
++            + 'flex-direction:column;align-items:center;justify-content:center;'
++            + 'background:#d40000;color:#fff;cursor:pointer;user-select:none;'
++            + 'font-family:Outfit,system-ui,sans-serif;text-align:center;padding:24px;}'
++            + '#rasec-alert-overlay.rasec-blink-off{background:#000;}'
++            + '#rasec-alert-overlay .rasec-title{font-size:min(14vw,64px);font-weight:800;'
++            + 'letter-spacing:.06em;line-height:1.05;text-shadow:0 2px 12px rgba(0,0,0,.5);}'
++            + '#rasec-alert-overlay .rasec-count{margin-top:14px;font-size:min(5vw,22px);opacity:.95;}'
++            + '#rasec-alert-overlay .rasec-hint{position:absolute;bottom:20px;left:0;right:0;'
++            + 'font-size:min(4vw,15px);color:#ffdddd;opacity:.9;}'
++            + '#sidebar-rasec-brand{padding:0 14px 8px;margin-top:-4px;font-size:10px;line-height:1.25;'
++            + 'color:var(--accent,#e6892b);font-weight:600;letter-spacing:.02em;white-space:nowrap;'
++            + 'overflow:hidden;text-overflow:ellipsis;}'
++            + '.sidebar.collapsed #sidebar-rasec-brand{display:none;}';
++        var el = document.createElement('style');
++        el.id = 'rasec-alert-style';
++        el.textContent = css;
++        document.head.appendChild(el);
++    }
++
++    function _onDismissKey(e) {
++        if (!overlay) return;
++        if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
++            e.preventDefault();
++            dismiss();
++        }
++    }
++
++    function _build() {
++        _injectStyle();
++        overlay = document.createElement('div');
++        overlay.id = 'rasec-alert-overlay';
++        overlay.setAttribute('role', 'alertdialog');
++        overlay.setAttribute('aria-label', 'RASEC ALERT');
++
++        var title = document.createElement('div');
++        title.className = 'rasec-title';
++        title.textContent = 'RASEC ALERT';
++        overlay.appendChild(title);
++
++        counterEl = document.createElement('div');
++        counterEl.className = 'rasec-count';
++        overlay.appendChild(counterEl);
++
++        var hint = document.createElement('div');
++        hint.className = 'rasec-hint';
++        hint.textContent = "Toucher l'ecran (ou Echap) pour acquitter";
++        overlay.appendChild(hint);
++
++        overlay.addEventListener('click', dismiss);
++        document.addEventListener('keydown', _onDismissKey, true);
++        document.body.appendChild(overlay);
++
++        blinkOn = true;
++        blinkTimer = setInterval(function () {
++            if (!overlay) return;
++            blinkOn = !blinkOn;
++            overlay.classList.toggle('rasec-blink-off', !blinkOn);
++        }, BLINK_PERIOD_MS);
++    }
++
++    function _refreshCounter() {
++        if (counterEl) counterEl.textContent = 'Alertes recues: ' + alertCount;
++    }
++
++    // ── API publique ─────────────────────────────────────────────────────────
++    function trigger(beeps) {
++        alertCount++;
++        if (!overlay) _build();
++        _refreshCounter();
++        try { overlay.focus(); } catch (_) {}
++        _startSiren(typeof beeps === 'number' ? beeps : 3);
++    }
++
++    function dismiss() {
++        _stopSiren();
++        if (blinkTimer) { clearInterval(blinkTimer); blinkTimer = null; }
++        document.removeEventListener('keydown', _onDismissKey, true);
++        if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
++        overlay = null;
++        counterEl = null;
++    }
++
++    window.RS.rasecAlert = {
++        trigger: trigger,
++        dismiss: dismiss,
++        active: function () { return overlay != null; },
++        count: function () { return alertCount; }
++    };
++
++    // ── Abonnement à l'événement backend ────────────────────────────────────
++    function _wire() {
++        if (!window.RS || typeof window.RS.listen !== 'function') {
++            setTimeout(_wire, 200);
++            return;
++        }
++        window.RS.listen('rasec_alert', function (data) {
++            var beeps = (data && typeof data.beeps === 'number') ? data.beeps : 3;
++            trigger(beeps);
++        });
++    }
++
++    // ── Signature « RASEC Pager par F1GBD » en haut du menu principal ────────
++    // Renseigne la version de l'app (via api_version) dans le libellé du menu.
++    function _brand() {
++        var side = document.getElementById('sidebar-rasec-brand'); // menu lateral (desktop)
++        var top = document.getElementById('rasec-topbanner');      // bandeau haut (mobile)
++        if (!window.RS || typeof window.RS.invoke !== 'function') return;
++        window.RS.invoke('api_version').then(function (d) {
++            var v = (d && d.version) ? d.version : '';
++            var tag = v ? ' · v' + v : '';
++            if (side) side.textContent = 'RASEC Pager par F1GBD' + tag;
++            if (top) top.textContent = 'Ratspeak · RASEC Pager par F1GBD' + tag;
++        }).catch(function () {});
++    }
++
++    _injectStyle();   // le style de la signature doit exister des le demarrage
++    _wire();
++    if (document.readyState === 'loading') {
++        document.addEventListener('DOMContentLoaded', _brand);
++    } else {
++        _brand();
++    }
++})();
+diff --git a/dashboard/static/js/settings.js b/dashboard/static/js/settings.js
+index 56c5308..dd05d6d 100644
+--- a/dashboard/static/js/settings.js
++++ b/dashboard/static/js/settings.js
+@@ -19,8 +19,10 @@ var _settingsUpdateCheckInFlight = false;
+ var _settingsDeveloperModeBound = false;
+ var _settingsDeveloperModeStorageKey = 'ratspeak-developer-mode-enabled';
+ var _settingsDeveloperModeEnabled = readDeveloperModePreference();
+-var RATSPEAK_RELEASE_LATEST_URL = 'https://api.github.com/repos/ratspeak/Ratspeak/releases/latest';
+-var RATSPEAK_RELEASES_URL = 'https://github.com/ratspeak/Ratspeak/releases';
++// F1GBD — RASEC Pager : la mise a jour pointe sur le depot F1GBD (RTspk_pager),
++// pas sur le depot Ratspeak amont.
++var RATSPEAK_RELEASE_LATEST_URL = 'https://api.github.com/repos/f1gbd/F1GBD/releases/latest';
++var RATSPEAK_RELEASES_URL = 'https://github.com/f1gbd/F1GBD/tree/master/RTspk_pager';
+ 
+ function readDeveloperModePreference() {
+     try {
