@@ -18,7 +18,7 @@ Reticulum.
 
 ## Téléchargement
 
-**[⬇ Télécharger RNSnodes_lister (dernière version)](https://github.com/f1gbd/F1GBD/releases/latest/download/RNSnodes_lister.7z)**
+**[⬇ Télécharger RNSnodes_lister (dernière version)](https://github.com/f1gbd/F1GBD/releases/download/rnsnodeslister-v1.0.2/RNSnodes_lister.7z)**
 
 Version épinglée : [RNSnodes_lister v1.0.2](https://github.com/f1gbd/F1GBD/releases/download/rnsnodeslister-v1.0.2/RNSnodes_lister.7z) · [page de la release](https://github.com/f1gbd/F1GBD/releases/tag/rnsnodeslister-v1.0.2)
 
