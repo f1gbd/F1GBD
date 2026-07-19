@@ -10,7 +10,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 **MAJ du 16/07/2026** : [**RWLoRa: « La communication renaît dans le silence des réseaux. »**](https://github.com/f1gbd/F1GBD/tree/master/RWLora)
 
-![« Là où il n'y a plus rien, il y a encore le réseau. »](https://github.com/f1gbd/F1GBD/blob/master/RRLora/images/RRLoRa_title.png.png)
+![« Là où il n'y a plus rien, il y a encore le réseau. »](https://github.com/f1gbd/F1GBD/blob/master/RRLora/images/RRLoRa_title.png)
 
 **MAJ du 16/07/2026** : [**RRLoRa: « Là où il n'y a plus rien, il y a encore le réseau. »**](https://github.com/f1gbd/F1GBD/tree/master/RRLora)
 
