@@ -1,10 +1,14 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 16 juillet 2026
+mis à jour le 19 juillet 2026
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
+
+![« La communication renaît dans le silence des réseaux. »](https://github.com/f1gbd/F1GBD/blob/master/RWLora/images/RWLoRa_intro.png)
+
+**MAJ du 16/07/2026** : [**RWLoRa: « La communication renaît dans le silence des réseaux. »**](https://github.com/f1gbd/F1GBD/tree/master/RWLora)
 
 ![« Là où il n'y a plus rien, il y a encore le réseau. »](https://github.com/f1gbd/F1GBD/blob/master/RRLora/images/RRLoRA_situation.png)
 
