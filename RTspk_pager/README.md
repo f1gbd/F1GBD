@@ -111,11 +111,7 @@ modifiée est mis à disposition :
   frères rsReticulum / rsLXMF / rsLXST / lrgp-rs).
 - Modifications RASEC-ALERT (méthode patch) : le fichier
   **`ratspeak-rasec-alert-f1gbd.patch`** fourni dans ce dossier s'applique sur une
-  copie propre des sources Ratspeak (`git apply ratspeak-rasec-alert-f1gbd.patch`).
-- Préréglage LoRa « France (868 MHz) » par défaut (1.0.26) : le fichier
-  **`rtspk-france-preset-f1gbd.patch`** fourni dans ce dossier.
-- Fonction Listes de diffusion (1.0.27) : écran frontend `rasec_distribution.js`
-  et entrée de menu « Diffusion » (aucune modification du cœur Reticulum/LXMF).
+  copie propre des sources Ratspeak 
 - Procédure de build de l'APK sous Windows : voir `BUILD-APK-WINDOWS.md`.
 
 En reversant vos modifications, merci de respecter les termes de l'AGPL-3.0.
