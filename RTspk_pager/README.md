@@ -27,13 +27,18 @@ native** est également émise.
 
 ## Téléchargement et installation (Android)
 
-1. Télécharger le fichier **`RTspk_pager-<version>.apk`** (https://github.com/f1gbd/F1GBD/releases/download/1.0.25/RTspk_pager-1.0.25.apk).
+1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.26.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.26/RTspk_pager-1.0.26.apk)**.
 2. Sur le téléphone, autoriser l'installation depuis cette source (« sources
    inconnues » / « Installer des applications inconnues »).
 3. Ouvrir le fichier APK et installer.
 4. Au premier lancement, créer/importer une identité Reticulum et configurer au
    moins une interface (LoRa/RNode, TCP, WiFi/BLE…) dans *Settings*.
 
+> **Nouveau en 1.0.26 — préréglage radio par défaut « France (868 MHz) ».**
+> À la création d'une interface LoRa/RNode, les paramètres par défaut sont :
+> **867,5 MHz · SF 8 · 125 kHz · CR 5 · TX 18 dBm**, avec limite d'airtime
+> réglementaire (**1,5 % / heure**, **33 % / 15 s**). Tout reste modifiable dans
+> *Settings → interface LoRa*.
 
 ---
 
@@ -79,6 +84,8 @@ modifiée est mis à disposition :
 - Modifications RASEC-ALERT (méthode patch) : le fichier
   **`ratspeak-rasec-alert-f1gbd.patch`** fourni dans ce dossier s'applique sur une
   copie propre des sources Ratspeak (`git apply ratspeak-rasec-alert-f1gbd.patch`).
+- Préréglage LoRa « France (868 MHz) » par défaut (1.0.26) : le fichier
+  **`rtspk-france-preset-f1gbd.patch`** fourni dans ce dossier.
 - Procédure de build de l'APK sous Windows : voir `BUILD-APK-WINDOWS.md`.
 
 En reversant vos modifications, merci de respecter les termes de l'AGPL-3.0.
