@@ -1,5 +1,5 @@
 <div align="center">
-<img src="images/RatSpeak_RASEC-ALERT.png" alt="RWLoRa" width="380">
+<img src="images/RatSpeak_Adrasec_Logo.png" alt="RWLoRa" width="320">
 </div>
 
 # RTspk Pager — Ratspeak édition RASEC-ALERT (F1GBD/ADRASEC 77)
@@ -14,8 +14,14 @@ une **sirène bitonale** synthétisée (aucun fichier son requis), et un **accus
 de réception automatique** renvoyé à l'expéditeur. Sur mobile, une **notification
 native** est également émise.
 
+**RTspk Pager** est compatible avec le logiciel **TCQ** (désactiver le mode quantique)
+
 > Application Android — fonctionne sur téléphone/tablette et sur le LilyGO T-Deck
 > (Android). Version desktop possible en compilant depuis les sources.
+
+<div align="center">
+<img src="images/RatSpeak_RASEC-ALERT.png" alt="RWLoRa" width="380">
+</div>
 
 ---
 
@@ -28,13 +34,6 @@ native** est également émise.
 4. Au premier lancement, créer/importer une identité Reticulum et configurer au
    moins une interface (LoRa/RNode, TCP, WiFi/BLE…) dans *Settings*.
 
-APK **signé** (ADRASEC 77). Empreinte du certificat de signature (SHA-256) :
-
-```
-60:E7:BE:4C:45:3D:9D:03:AE:95:59:EB:7B:05:92:B4:33:8B:CE:7C:E4:93:B8:A4:DF:69:EE:BE:D6:40:F2:67
-```
-
-Vérification possible avec : `apksigner verify --print-certs RTspk_pager-<version>.apk`.
 
 ---
 
