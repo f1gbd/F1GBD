@@ -21,16 +21,22 @@
 
 **TransMiniLora** transforme une carte **Heltec WiFi LoRa 32 V4** (ESP32‑S3 + SX1262)
 en un **émetteur‑récepteur LoRa autonome** dédié à l'échange de **codes « Chappe 26 »**
-(format `!DDDD` — 4 chiffres) sur le réseau **Reticulum**, au format **LXMF**.
+(format `!DDDD` — 4 chiffres) sur le réseau **Reticulum**, au format **LXMF**. voir le **LIVRET du Code CHAPPE-26** (https://github.com/f1gbd/F1GBD/blob/master/TML/documentation/Chappe26_Livret_B5.pdf)
 
 Conçu pour l'**ADRASEC / FNRASEC**, le TML fonctionne **sans PC, sans téléphone et
 sans Internet** : la saisie et la lecture des messages se font directement sur la
 carte, à l'aide de son unique bouton et de son écran OLED. Idéal pour transmettre des
 messages courts et normalisés quand les réseaux habituels sont indisponibles.
 
-Le TML **interopère avec n'importe quel client LXMF** (Sideband, NomadNet, MeshChat,
+Le TML **interopère avec n'importe quel client LXMF** (TCQ, RATspeak, Columba, Sideband, NomadNet, MeshChat,
 station Reticulum…) : il reçoit aussi bien les messages livrés en mode *opportuniste*
 que ceux livrés *en direct* (via un Link), et renvoie une preuve de livraison.
+
+<div align="center">
+<img src="images/tml_screen1.png" alt="Page Rx" width="600">
+<img src="images/screen_rx.jpg" alt="Page Rx" width="600">
+&nbsp;&nbsp;
+</div>
 
 ---
 
@@ -79,9 +85,11 @@ Un **appui court** fait défiler les pages ; un **appui long** déclenche l'acti
 chiffre. Après les 4 chiffres, un 5ᵉ champ de confirmation (`1` = envoi, `0` = annulation).
 
 <div align="center">
-<img src="images/screen_rx.jpg" alt="Page Rx" width="300">
+<img src="images/screen_code_enter.jpg" alt="Page Rx" width="400">
 &nbsp;&nbsp;
-<img src="images/screen_chappe.jpg" alt="Saisie Chappe 26" width="300">
+<img src="images/screen_chappe.jpg" alt="Saisie Chappe 26" width="400">
+&nbsp;&nbsp;
+<img src="images/screen_tx.jpg" alt="Saisie Chappe 26" width="400">
 </div>
 
 ---
@@ -104,7 +112,7 @@ chiffre. Après les 4 chiffres, un 5ᵉ champ de confirmation (`1` = envoi, `0` 
 
 Le firmware est **prêt à l'emploi** : aucune compilation nécessaire.
 
-1. Télécharge **[`TML.7z`](../../releases)** (voir [Téléchargement](#téléchargement)) et
+1. Télécharge l'archive **[`TML.7z`](https://github.com/f1gbd/F1GBD/releases/download/tml-v1.0.0/TML-v1.0.0.7z)** et
    décompresse-le : tu obtiens `tml_firmware_v4.bin` et la licence.
 2. Lance le configurateur **`TML_config`** (`tml_config.exe`).
 3. Branche le Heltec v4 en USB, sélectionne son **port**.
@@ -120,7 +128,7 @@ Procédure détaillée dans le **[Guide d'utilisation](documentation/GUIDE_UTILI
 
 ## Configurateur `TML_config`
 
-Application Windows (Python/Tkinter, distribuable en `.exe` autonome) pour préparer une
+Application Windows pour préparer une
 carte **avant mission** :
 
 - Indicatif de la station, lecture de l'**adresse LXMF** du TML.
@@ -144,19 +152,23 @@ carte **avant mission** :
 - **Répondre** : page *Rx* → appui long → saisir un code → il est envoyé **uniquement**
   à l'expéditeur du dernier message.
 
+<div align="center">
+<img src="images/TML_in_action.png" alt="TML_config" width="640">
+</div>
+
 ---
 
 ## Interopérabilité LXMF
 
-Le TML est compatible **markqvist/LXMF** sur **Reticulum**. Il dialogue avec :
-**Sideband**, **NomadNet**, **Reticulum MeshChat** et toute station Reticulum/LXMF, en
+Le TML est compatible **TCQt/LXMF** sur **Reticulum**. Il dialogue avec :
+**RATspeak - version ADRASEC**, **Columba**, **Sideband**, **NomadNet**, **Reticulum MeshChat** et toute station Reticulum/LXMF, en
 livraison opportuniste comme en livraison directe (Link).
 
 ---
 
 ## Documentation
 
-- **[Guide d'utilisation](documentation/GUIDE_UTILISATION.md)** — flashage, configuration
+- **[Guide d'utilisation](documentation/MEMO - GUIDE_UTILISATION.pdf)** — flashage, configuration
   et utilisation sur le terrain.
 
 *(Les documents sont dans le sous‑dossier [`documentation/`](documentation), les captures et le logo dans [`images/`](images).)*
@@ -170,7 +182,7 @@ L'archive **`TML.7z`** contient :
 - `tml_firmware_v4.bin` — image firmware fusionnée, à flasher à l'offset `0x0` ;
 - la **licence** (GPLv3).
 
-➡️ **[Télécharger la dernière version](../../releases)** *(ou depuis ce dossier du dépôt).*
+➡️ **[Télécharger la dernière version](https://github.com/f1gbd/F1GBD/releases/download/tml-v1.0.0/TML-v1.0.0.7z)** *(ou depuis ce dossier du dépôt).*
 
 ---
 
