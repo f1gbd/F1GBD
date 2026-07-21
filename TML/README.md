@@ -122,7 +122,7 @@ Le firmware est **prêt à l'emploi** : aucune compilation nécessaire.
 > Si la carte n'entre pas en mode téléchargement : maintiens **BOOT**, appuie sur
 > **RST**, relâche **BOOT**, puis relance le flash.
 
-Procédure détaillée dans le **[Guide d'utilisation](documentation/GUIDE_UTILISATION.md)**.
+Procédure détaillée dans le **[Guide d'utilisation](documentation/MEMO - GUIDE_UTILISATION.pdf)**.
 
 ---
 
@@ -138,7 +138,7 @@ carte **avant mission** :
 - **Flashage** du firmware sur le Heltec v4 (esptool intégré).
 
 <div align="center">
-<img src="images/config_app.png" alt="TML_config" width="480">
+<img src="images/config_app.png" alt="TML_config" width="800">
 </div>
 
 ---
