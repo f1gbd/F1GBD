@@ -109,6 +109,7 @@ chiffre. Après les 4 chiffres, un 5ᵉ champ de confirmation (`1` = envoi, `0` 
 **Saisie d'un texte libre** (clavier une touche) : appui court = caractère suivant
 (A→Z, 0→9, espace, ponctuation, puis **EFFACER** et **ENVOI**) ; appui long = valider la
 lettre / effacer / envoyer.
+
 &nbsp;&nbsp;
 <img src="images/screen_TX_clair.jpg" alt="Saisie Chappe 26" width="400">
 &nbsp;&nbsp;
