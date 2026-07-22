@@ -11,9 +11,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.34.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.35.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.34.0/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.35.0/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -26,6 +26,18 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 [**📜 Toutes les releases TCQ**](https://github.com/f1gbd/F1GBD/releases?q=tcq) • [**📚 Documentation**](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations)
 
 </div>
+
+---
+
+## 🆕 Quoi de neuf en v12.35 — RASEC-ALERT, CHAPPE26 & Groupes LXMF
+
+> **🚨 RASEC-ALERT — alerte déclenchée à distance** — un correspondant envoie un simple message (LXMF, TNC Packet ou VARA) contenant `#ra <code>` pour déclencher sur votre station une **alerte plein écran clignotante + sirène sonore forte + accusé de réception**. Acquittement par clic ou Échap / Entrée / Espace. Le code d'activation (défaut `ADRASEC77`) se change à distance par `#rapass <ancien> <nouveau>`, et le nombre de répétitions de la sirène par `#b <n>` (`#b 0` = sirène **continue** jusqu'à acquittement). Nouveau bouton **« 🚨 RASEC-ALERT »** dans la barre d'outils pour régler le code, la sirène et **tester** l'alerte localement. L'accusé (« *Pager OK - alerte bien recue* ») ne contient **jamais** le code, pour éviter toute boucle d'auto-déclenchement.
+>
+> **📟 CHAPPE26 — décodage automatique en clair** — à la réception d'un message LXMF contenant des codes **CHAPPE26** (répertoire des **1000 codes** ADRASEC/FNRASEC, format `!1000 !1024 !1990`), TCQ affiche automatiquement la **traduction en clair** juste sous le message reçu. Nouveau bouton **« 📟 CHAPPE26 »** ouvrant un décodeur de test (saisie d'un message, décodage, tableau détaillé code / page / ligne / domaine / signification).
+>
+> **👥 Gestion des Groupes LXMF depuis l'Annuaire** — la gestion des groupes est désormais intégrée à l'onglet **« 📒 Annuaire LXMF »** via un bouton **« 👥 Groupes LXMF »** placé à droite du filtre. On **crée / renomme / supprime** un groupe et on **ajoute / retire ses membres par simple sélection dans l'annuaire** (double liste annuaire ↔ membres, filtre de recherche, ascenseurs, double-clic, adresses LXMF complètes).
+>
+> **⚛️ Mode quantique désactivé par défaut** — pour que la transmission LXMF **en clair** (codes CHAPPE26, messages standard) parte telle quelle sans altération de la charge utile, la téléportation quantique est désormais **désactivée par défaut** (réactivable à tout moment via la case **« ⚛ Quantique »**).
 
 ---
 
@@ -131,6 +143,8 @@ Conçu pour les opérations ADRASEC et les exercices de sécurité civile, TCQ p
 | 📄 | **PDF Radio** | Transmission de documents (SITREP, MEMO) avec compression LZMA, fragmentation adaptative, CRC par fragment, ACK et reprise sélective. Recomposition fidèle : cadres et couleurs de tableaux préservés, PDF scannés ou tournés gérés automatiquement (`pdf_trans` v1.0.6). |
 | 📹 | **Journal Vidéo (MEMO / JVFT)** | Capture webcam + voix pour SITREP audiovisuel. **MEMO VIDEO** compressé (160×120) sur transport natif (VARA/LXMF) — clip A/V ≤ 20 s ou mémo vocal ≤ 30 s. **JVFT** pleine qualité (320×240, ≤ 90 s) via canal QIT/VFT. Lecteur intégré à taille native, aperçu avant envoi, annonce horodatée. |
 | 🛰️ | **Gonio SATER / APRS-IS** | Carte des relèvements goniométriques avec **partage bidirectionnel APRS-IS** (protocole `EPIRB-GONIO` commun à l'EPIRBdecoder v5.6 et SATERfinder Android), **triangulation ELT** (CEP 95 %), affichage des stations APRS reçues via APRS-IS, et import/export CSV interopérable. |
+| 🚨 | **RASEC-ALERT** | Déclenchement d'alerte à distance par message LXMF / TNC Packet / VARA (`#ra <code>`) : écran plein écran clignotant + sirène sonore forte + accusé de réception. Code d'activation persistant (défaut `ADRASEC77`), sirène réglable (`#b`, 0 = continu), acquittement clic/clavier. Bouton de réglage et de test intégré. |
+| 📟 | **CHAPPE26** | Décodage automatique en clair des messages LXMF codés CHAPPE26 (répertoire des 1000 codes ADRASEC/FNRASEC). Traduction affichée sous le message ; décodeur de test intégré. |
 | 🔐 | **100% local** | Aucune télémétrie, aucune connexion externe non sollicitée. Toutes les communications restent sous le contrôle de l'opérateur. |
 
 ---
@@ -262,6 +276,40 @@ Au premier démarrage :
 5. Sélectionnez un mode dans la barre d'onglets et commencez à émettre/recevoir
 
 > ⏱ Comptez **5 minutes** pour la première configuration, ensuite TCQ est utilisable au quotidien sans réglage supplémentaire.
+
+---
+
+## 🆕 Nouveautés v12.35
+
+### 🚨 RASEC-ALERT — déclenchement d'alerte à distance (LXMF / TNC / VARA)
+
+Un opérateur distant peut **déclencher une alerte sur votre station** en envoyant un simple message texte depuis n'importe quel nœud Reticulum/LXMF (RTspk Pager, Ratspeak, MeshChat…), ou depuis une station **TNC Packet** ou **VARA** (réception flash). À réception de la commande, TCQ affiche un **écran d'alerte plein écran clignotant** (rouge/jaune), fait retentir une **sirène sonore forte et bi-tonale** pour avertir l'opérateur, et renvoie un **accusé de réception** sur le même transport que le déclencheur.
+
+| Commande | Effet |
+|---|---|
+| `#ra ADRASEC77` | Déclenche l'alerte (écran clignotant + sirène + ACK). |
+| `#rapass <ancien> <nouveau>` | Change le code d'activation (vérifie l'ancien, persiste le nouveau). |
+| `#b <n>` | Règle le nombre de répétitions de la sirène. `#b 0` = alarme **continue** jusqu'à acquittement. Plage : 0–20. |
+
+- **Code d'activation par défaut : `ADRASEC77`** (modifiable via `#rapass` ou depuis le bouton **RASEC-ALERT**).
+- **Acquittement** : cliquer l'écran d'alerte, ou appuyer sur **Échap / Entrée / Espace** — ce qui arrête la sirène et ferme l'écran.
+- L'accusé renvoyé (« *Pager OK - alerte bien recue* ») **ne contient jamais le code**, pour éviter toute boucle d'auto-déclenchement. L'ACK repart sur le même canal : réponse LXMF pour un déclencheur LXMF, trame vers l'indicatif+SSID en TNC, broadcast `send_chat` en VARA.
+- Le **message déclencheur reste affiché normalement** dans la conversation.
+- Nouveau bouton **« 🚨 RASEC-ALERT »** dans la barre d'outils : réglage du **code d'activation**, du **nombre de répétitions de la sirène** (0 = continu) et **test local** de l'alerte.
+
+### 📟 CHAPPE26 — décodage automatique des messages codés
+
+À la réception d'un message **LXMF** contenant des codes **CHAPPE26** au format transmission (`!1000 !1024 !1376 … !1990`), TCQ décode automatiquement le message et affiche la **traduction en clair** juste sous le message reçu. Le décodeur s'appuie sur le **répertoire complet des 1000 codes** ADRASEC/FNRASEC (10 domaines × 100 lignes), embarqué dans le module compagnon `chappe26_lib`. Chaque code à 4 chiffres correspond à une **page** (domaine) et une **ligne** (expression) — par exemple `1204` = *Santé · Ambulance requise*.
+
+La détection est robuste (elle n'agit que sur les codes préfixés « ! » présents au répertoire, ce qui évite les faux positifs). Un nouveau bouton **« 📟 CHAPPE26 »** ouvre un **décodeur de test** : saisie d'un message, décodage en clair, et tableau détaillé (code / page / ligne / domaine / signification, codes inconnus signalés).
+
+### 👥 Gestion des Groupes LXMF depuis l'Annuaire
+
+La gestion des **groupes LXMF** est désormais intégrée à l'onglet **« 📒 Annuaire LXMF »** : un bouton **« 👥 Groupes LXMF »**, placé à droite du champ *Filtre*, ouvre un gestionnaire à double liste. À gauche, la liste des groupes (boutons **Nouveau / Renommer / Supprimer**) ; au centre, l'**annuaire LXMF** des stations disponibles avec son filtre de recherche ; à droite, les **membres du groupe** sélectionné. On **ajoute / retire un membre par simple sélection** dans l'annuaire (boutons **Ajouter ▶ / ◀ Retirer** ou double-clic), sans avoir à copier-coller d'adresses hexadécimales. Chaque station est affichée avec son **nom d'annuaire et son adresse complète**, et des ascenseurs verticaux/horizontaux permettent de tout consulter. Un bouton **« ✓ Utiliser comme destination »** place `@nom_groupe` dans le champ de destination. Toute modification est **enregistrée immédiatement** dans `setup.json` (`lxmf.groups`), et l'envoi `@nom_groupe` continue de fonctionner à l'identique.
+
+### ⚛️ Mode quantique désactivé par défaut
+
+La **téléportation quantique** (couche pédagogique QIT) modifiait la charge utile des messages LXMF, ce qui empêchait l'envoi d'un message **en clair** tel qu'attendu par les codes CHAPPE26 ou par un correspondant standard. Le mode quantique est désormais **désactivé par défaut** : la case **« ⚛ Quantique »** du chat est décochée à l'ouverture, et les messages LXMF partent en clair. Elle reste activable manuellement pour un envoi quantique ponctuel.
 
 ---
 
@@ -722,7 +770,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v12.34.0 — 2026-07-18**
+**Version v12.35.0 — 2026-07-22**
 
 ---
 
