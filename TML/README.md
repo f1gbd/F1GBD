@@ -167,7 +167,15 @@ carte **avant mission** :
 <img src="images/TML_in_action.png" alt="TML_config" width="640">
 </div>
 
----
+## Exemple de Transmission de message d'urgence
+
+<div align="center">
+<img src="images/TML_C26-BlackOut.png" alt="TML_config" width="640">
+</div>
+
+<div align="center">
+<img src="images/TML_C26-Incendie.png" alt="TML_config" width="640">
+</div>
 
 ## Canal de groupe (diffusion chiffrée à clé partagée)
 
