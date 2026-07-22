@@ -1,18 +1,17 @@
 <div align="center">
 <img src="images/RatSpeak_Adrasec_Logo.png" alt="RWLoRa" width="320">
-</div>
 
 # rsDeck T-Deck — édition RASEC-ALERT
 par F1GBD / ADRASEC 77 / FNRASEC
+
+</div>
+
+
 
 Firmware **RASEC-ALERT** pour **LilyGo T-Deck Plus** (ESP32-S3, LoRa SX1262,
 écran ST7789), dérivé de [rsDeck](https://github.com/ratspeak/rsDeck) — un
 messager Reticulum / **LXMF** — et enrichi de l'**option Pager RASEC-ALERT**
 portée depuis le MeshPager.
-
-<div align="center">
-<img src="images/RatSpeak_Adrasec_Logo.png" alt="RWLoRa" width="320">
-</div>
 
 <div align="center">
 
