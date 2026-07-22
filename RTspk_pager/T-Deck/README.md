@@ -18,8 +18,8 @@ portée depuis le MeshPager.
 
 # Version : **2.0.2-rasec-f1gbd**
 
-<img src="images/t-deck_ratspeak-adrasec.png" alt="RWLoRa" width="320">
-
+<img src="images/t-deck_ratspeak-adrasec.png" alt="RWLoRa" width="220">
+<img src="images/t-deck_ratspeak-alert.png" alt="RWLoRa" width="260">
 </div>
 
 ---
