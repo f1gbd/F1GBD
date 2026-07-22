@@ -4,7 +4,7 @@
 
 # TransMiniLora (TML)
 
-**Mini-transceiver LoRa autonome pour la transmission de codes « Chappe 26 » en situation d'urgence — sans téléphone, sans application, sans Internet.**
+**Mini-transceiver LoRa autonome pour la transmission de messages d'urgence — en clair ou en codes « Chappe 26 » — sans téléphone, sans application, sans Internet.**
 
 [![Firmware](https://img.shields.io/badge/firmware-ESP32--S3-blue)](#)
 [![Radio](https://img.shields.io/badge/radio-LoRa%20SX1262-orange)](#)
@@ -20,13 +20,18 @@
 ## Présentation
 
 **TransMiniLora** transforme une carte **Heltec WiFi LoRa 32 V4** (ESP32‑S3 + SX1262)
-en un **émetteur‑récepteur LoRa autonome** dédié à l'échange de **codes « Chappe 26 »**
-(format `!DDDD` — 4 chiffres) sur le réseau **Reticulum**, au format **LXMF**. voir le **LIVRET du Code CHAPPE-26** (https://github.com/f1gbd/F1GBD/blob/master/TML/documentation/Chappe26_Livret_B5.pdf)
+en un **émetteur‑récepteur LoRa autonome** dédié à l'échange de messages courts — en
+**texte clair** ou en **codes « Chappe 26 »** (format `!DDDD` — 4 chiffres) — sur le
+réseau **Reticulum**, au format **LXMF**. voir le **LIVRET du Code CHAPPE-26** (https://github.com/f1gbd/F1GBD/blob/master/TML/documentation/Chappe26_Livret_B5.pdf)
 
 Conçu pour l'**ADRASEC / FNRASEC**, le TML fonctionne **sans PC, sans téléphone et
 sans Internet** : la saisie et la lecture des messages se font directement sur la
 carte, à l'aide de son unique bouton et de son écran OLED. Idéal pour transmettre des
 messages courts et normalisés quand les réseaux habituels sont indisponibles.
+
+<div align="center">
+<img src="images/TML_in_action_field_night.png" alt="TML_config" width="640">
+</div>
 
 Le TML **interopère avec n'importe quel client LXMF** (TCQ, RATspeak, Columba, Sideband, NomadNet, MeshChat,
 station Reticulum…) : il reçoit aussi bien les messages livrés en mode *opportuniste*
@@ -57,23 +62,24 @@ tous les abonnés.
 
 ## Fonctionnalités
 
-- **Émission** de codes Chappe 26 (`!DDDD`) vers un destinataire principal **et** une
-  liste de diffusion (configurés avant mission).
+- **Émission multi-modale** : codes Chappe 26 (`!DDDD`) **ou** messages en **texte clair**,
+  vers un destinataire principal **et** une liste de diffusion (configurés avant mission).
+- **Réponse en clair** depuis la page *Rx* : **réponses rapides** pré‑enregistrées
+  (RECU, OK, NON, ATTENDRE, URGENT…) **ou** **texte libre** saisi au clavier une touche
+  — en plus du code Chappe.
 - **Réception** de messages LXMF, en **opportuniste** *et* **par Link** (livraison
   directe des clients LXMF complets).
-- **Canal de groupe chiffré à clé partagée** : diffusion d'un code **lisible par tous
-  les TML partageant la même phrase secrète** (AES‑128 + HMAC via la classe *Token* de
-  Reticulum).
-- **Réponse directe** : appui long sur la page *Rx* pour répondre à l'expéditeur du
-  dernier message reçu (ou **re‑diffuser au groupe** si le dernier message venait du groupe).
+- **Canal de groupe chiffré à clé partagée** : diffusion d'un code ou d'un message clair
+  **lisible par tous les TML partageant la même phrase secrète** (AES‑128 + HMAC via la
+  classe *Token* de Reticulum).
 - **Preuve de livraison** renvoyée à l'émetteur → pas de retransmissions inutiles.
 - **Déduplication** des messages (par empreinte LXMF) comme filet de sécurité.
 - **Balise / annonce** périodique (indicatif de la station).
 - **Journal Rx** des derniers messages reçus, indicatif expéditeur affiché proprement
   (messages de groupe préfixés `[G]`).
 - **Persistance** de la configuration en flash (LittleFS) — conservée après extinction.
-- **Configurateur USB** dédié (`TML_config` v1.1) avec paramétrage, **canal de groupe**
-  **et flashage** de la carte.
+- **Configurateur USB** dédié (`TML_config` v1.1) : paramétrage, **canal de groupe**,
+  **réponses rapides** et **flashage** de la carte.
 
 ---
 
@@ -85,17 +91,26 @@ Un **appui court** fait défiler les pages ; un **appui long** déclenche l'acti
 |---|---|---|
 | **STATUS** (1/5) | Fréquence, SF, BW, CR, puissance, état Reticulum, batterie | — |
 | **RECENT ADVERT** (2/5) | Stations connues, joignabilité du destinataire | **Émettre une annonce** |
-| **RECU Rx** (3/5) | Journal des messages reçus (indicatif ou `[G]` + `!DDDD`) | **Répondre** au dernier expéditeur |
-| **CANAL GROUPE** (4/5) | Nom du groupe, nb de messages de groupe reçus | **Diffuser un code** au groupe |
+| **RECU Rx** (3/5) | Journal des messages reçus (indicatif ou `[G]` + message) | **Menu de réponse** : Chappe, réponse rapide ou texte libre |
+| **CANAL GROUPE** (4/5) | Nom du groupe, nb de messages de groupe reçus | **Menu de diffusion** au groupe : Chappe, réponse rapide ou texte libre |
 | **CHAPPE 26** (5/5) | Écran de saisie | **Saisir un code** à émettre |
 
-**Saisie d'un code** : appui court = +1 sur le chiffre courant ; appui long = valider le
+**Saisie d'un code Chappe** : appui court = +1 sur le chiffre courant ; appui long = valider le
 chiffre. Après les 4 chiffres, un 5ᵉ champ de confirmation (`1` = envoi, `0` = annulation).
+
 
 <div align="center">
 <img src="images/screen_code_enter.jpg" alt="Page Rx" width="400">
 &nbsp;&nbsp;
 <img src="images/screen_chappe.jpg" alt="Saisie Chappe 26" width="400">
+&nbsp;&nbsp;
+
+
+**Saisie d'un texte libre** (clavier une touche) : appui court = caractère suivant
+(A→Z, 0→9, espace, ponctuation, puis **EFFACER** et **ENVOI**) ; appui long = valider la
+lettre / effacer / envoyer.
+&nbsp;&nbsp;
+<img src="images/screen_TX_clair.jpg" alt="Saisie Chappe 26" width="400">
 &nbsp;&nbsp;
 <img src="images/screen_tx.jpg" alt="Saisie Chappe 26" width="400">
 </div>
@@ -144,6 +159,7 @@ carte **avant mission** :
 - Périodicité de la balise.
 - Destinataire LXMF principal + liste de diffusion.
 - **Canal de groupe** : activation, nom et **phrase secrète partagée**.
+- **Réponses rapides** : jusqu'à 8 messages en clair pré‑enregistrés (RECU, OK, NON…).
 - **Flashage** du firmware sur le Heltec v4 (esptool intégré).
 
 <div align="center">
@@ -157,11 +173,13 @@ carte **avant mission** :
 - **Émettre** : page *CHAPPE 26* → appui long → saisir `!DDDD` → confirmer. Le code part
   vers le destinataire principal et la liste de diffusion.
 - **Recevoir** : à réception, le TML bascule sur la page *Rx* et journalise le message
-  (`indicatif  !DDDD`, ou `[G]<groupe>  !DDDD` pour un message de groupe).
-- **Répondre** : page *Rx* → appui long → saisir un code → il est envoyé **uniquement**
+  (`indicatif  message`, ou `[G]<groupe>  message` pour un message de groupe).
+- **Répondre** : page *Rx* → appui long → **menu de réponse** : un **code Chappe**, une
+  **réponse rapide** (RECU, OK…) ou un **texte libre**. La réponse part **uniquement**
   à l'expéditeur du dernier message (ou **au groupe** si ce message venait du groupe).
-- **Diffuser au groupe** : page *CANAL GROUPE* → appui long → saisir `!DDDD` → tous les
-  TML partageant la phrase secrète reçoivent le code.
+- **Diffuser au groupe** : page *CANAL GROUPE* → appui long → **menu de diffusion**
+  (code, réponse rapide ou texte libre) → tous les TML partageant la phrase secrète
+  reçoivent le message.
 
 <div align="center">
 <img src="images/TML_in_action.png" alt="TML_config" width="640">
@@ -177,12 +195,29 @@ carte **avant mission** :
 <img src="images/TML_C26-Incendie.png" alt="TML_config" width="1024">
 </div>
 
+## Réponses rapides & texte libre
+
+Répondre (page *Rx*) ou diffuser (page *CANAL GROUPE*) se fait via un **menu unique**,
+avec **un seul bouton** :
+
+- **Code Chappe 26** — saisie des 4 chiffres.
+- **Réponses rapides** — une liste de messages standard courts, configurables dans
+  `TML_config` (jusqu'à 8, ex. RECU, OK, NON, ATTENDRE, URGENT, QRV, QRT, RAS) :
+  appui court pour faire défiler, appui long pour envoyer. Rapide et fiable.
+- **Texte libre** — un clavier une touche : appui court = caractère suivant
+  (lettres, chiffres, espace, ponctuation, **EFFACER**, **ENVOI**), appui long = valider.
+
+La réponse en clair part **au dernier expéditeur** (ou au **groupe** si le message
+venait du groupe). Un client LXMF (TCQ, Sideband, NomadNet…) reçoit le texte tel quel.
+
+---
+
 ## Canal de groupe (diffusion chiffrée à clé partagée)
 
 Le TML propose un **canal de groupe** : une **diffusion chiffrée lisible par tous les
 membres** qui partagent la même **phrase secrète**.
 
-- La phrase secrète est dérivée en **clé AES‑128** (SHA‑256). Chaque code diffusé est
+- La phrase secrète est dérivée en **clé AES‑128** (SHA‑256). Chaque message diffusé est
   chiffré et authentifié par la classe **Token** de Reticulum (AES‑CBC + HMAC‑SHA256).
 - Tous les TML ayant la **même phrase** appartiennent au **même groupe** : ils
   reçoivent et déchiffrent la diffusion. Une phrase différente = un HMAC invalide =
@@ -190,7 +225,7 @@ membres** qui partagent la même **phrase secrète**.
 - **Configuration** (dans `TML_config`, section *Canal de groupe*) : activer le canal,
   donner un **nom** (informatif) et saisir la **phrase secrète** — la même, exactement,
   sur tous les postes du groupe. La phrase n'est jamais relue depuis le TML.
-- **Diffuser** : page *CANAL GROUPE* → appui long → saisie `!DDDD`.
+- **Diffuser** : page *CANAL GROUPE* → appui long → menu (code Chappe, réponse rapide ou texte libre).
 - **Recevoir** : les messages de groupe apparaissent dans *RECU Rx* préfixés `[G]<nom>`.
 
 ---
@@ -206,7 +241,7 @@ livraison opportuniste comme en livraison directe (Link).
 ## Documentation
 
 - **[Guide d'utilisation](documentation/MEMO - GUIDE_UTILISATION.pdf)** — flashage, configuration
-  (dont le canal de groupe) et utilisation sur le terrain.
+  (canal de groupe, réponses rapides) et utilisation sur le terrain.
 
 *(Les documents sont dans le sous‑dossier [`documentation/`](documentation), les captures et le logo dans [`images/`](images).)*
 
@@ -228,7 +263,7 @@ L'archive **`TML.7z`** contient :
 - Firmware basé sur **microReticulum_Firmware** — Chad **Attermann**.
 - **Reticulum** & **LXMF** — Mark **Qvist**.
 - Format **Chappe 26** — nomenclature de messages courts.
-- Intégration TML, UI Chappe, couche LXMF embarquée, canal de groupe, configurateur — **F1GBD**.
+- Intégration TML, UI Chappe, couche LXMF embarquée, canal de groupe, réponses en clair, configurateur — **F1GBD**.
 
 ---
 
