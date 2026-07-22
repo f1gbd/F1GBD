@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>rsDeck T-Deck — RASEC-ALERT (ADRASEC 77 / F1GBD)</title>
+  <meta name="description" content="Flash en un clic du firmware rsDeck édition RASEC-ALERT pour LilyGo T-Deck Plus.">
+  <style>
+    :root {
+      --bg: #0d1117; --panel: #161b22; --elev: #1c2330; --border: #2a3441;
+      --text: #e6edf3; --muted: #8b949e; --green: #2ea043; --green-d: #238636;
+      --accent: #39d0d8; --orange: #e3821a; --red: #d0342c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.55;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 28px 20px 64px; }
+    header { text-align: center; padding: 20px 0 8px; }
+    .badge {
+      display: inline-block; font-size: 12px; letter-spacing: 2px; font-weight: 700;
+      color: var(--orange); border: 1px solid var(--orange); border-radius: 4px;
+      padding: 3px 10px; margin-bottom: 14px;
+    }
+    h1 { font-size: 26px; margin: 6px 0 4px; }
+    h1 span { color: var(--red); }
+    .sub { color: var(--muted); font-size: 15px; margin: 0; }
+    .ver { color: var(--accent); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+    .card {
+      background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+      padding: 20px 22px; margin: 20px 0;
+    }
+    .flash-card { text-align: center; background: var(--elev); }
+    esp-web-install-button { --esp-tools-button-color: #fff; }
+    .btn {
+      display: inline-block; background: var(--green-d); color: #fff; border: 0;
+      padding: 13px 26px; font-size: 16px; font-weight: 600; border-radius: 8px;
+      cursor: pointer; text-decoration: none;
+    }
+    .btn:hover { background: var(--green); }
+    .steps { counter-reset: s; list-style: none; padding: 0; margin: 8px 0 0; }
+    .steps li { counter-increment: s; position: relative; padding: 6px 0 6px 34px; }
+    .steps li::before {
+      content: counter(s); position: absolute; left: 0; top: 6px;
+      width: 22px; height: 22px; background: var(--green-d); color: #fff;
+      border-radius: 50%; text-align: center; font-size: 13px; line-height: 22px; font-weight: 700;
+    }
+    h2 { font-size: 18px; margin: 4px 0 10px; }
+    h2 .ic { color: var(--accent); }
+    code, kbd {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px;
+      background: #0b0f14; border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px;
+    }
+    kbd { background: var(--elev); }
+    table { width: 100%; border-collapse: collapse; margin-top: 6px; font-size: 14px; }
+    th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--muted); font-weight: 600; }
+    td code { white-space: nowrap; }
+    .note { border-left: 3px solid var(--orange); background: #1d1710; padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 14px 0; font-size: 14px; }
+    .warn { border-left-color: var(--red); background: #1d1110; }
+    a { color: var(--accent); }
+    footer { text-align: center; color: var(--muted); font-size: 13px; margin-top: 34px; }
+    .unsupported { display: none; color: var(--red); font-size: 14px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="badge">ADRASEC 77 · F1GBD</div>
+      <h1>rsDeck T-Deck — <span>RASEC-ALERT</span></h1>
+      <p class="sub">Récepteur d'alerte de sécurité civile pour LilyGo T-Deck Plus</p>
+      <p class="sub ver">firmware 2.0.2-rasec-f1gbd · Reticulum / LXMF</p>
+    </header>
+
+    <div class="card flash-card">
+      <h2>⚡ Flash en un clic</h2>
+      <p class="sub" style="margin-bottom:18px">
+        Branchez le T-Deck en USB-C, interrupteur sur <strong>ON</strong>, puis cliquez.
+      </p>
+
+      <esp-web-install-button manifest="./manifest.json">
+        <button class="btn" slot="activate">🚀 Installer le firmware</button>
+        <span slot="unsupported" class="unsupported">
+          Navigateur non compatible : utilisez <strong>Chrome</strong> ou <strong>Edge</strong> sur ordinateur.
+        </span>
+        <span slot="not-allowed" class="unsupported">
+          Web Serial doit être autorisé (HTTPS requis).
+        </span>
+      </esp-web-install-button>
+
+      <p class="sub" style="margin-top:16px; font-size:13px">
+        Compatible <strong>Chrome / Edge sur ordinateur</strong> (Web Serial).
+        Ne fonctionne pas sur iOS / Safari.
+      </p>
+    </div>
+
+    <div class="note warn">
+      <strong>Le bouton ne se connecte pas ?</strong> (fréquent sur ESP32-S3 à USB natif)
+      Passez le T-Deck en <strong>mode download</strong> : maintenez la <strong>trackball</strong>
+      enfoncée, appuyez brièvement sur <strong>reset</strong> (côté gauche), relâchez —
+      puis recliquez sur « Installer ». Après le flash, appuyez sur <strong>reset</strong>.
+    </div>
+
+    <div class="card">
+      <h2><span class="ic">▸</span> Étapes</h2>
+      <ol class="steps">
+        <li>Ouvrir cette page depuis <strong>Chrome</strong> ou <strong>Edge</strong> sur ordinateur.</li>
+        <li>Brancher le T-Deck en <strong>USB-C</strong>, interrupteur sur <strong>ON</strong>.</li>
+        <li>Cliquer <strong>Installer le firmware</strong> et choisir le port série du T-Deck.</li>
+        <li>Laisser l'installation se terminer, puis appuyer sur <strong>reset</strong>.</li>
+        <li>Au 1<sup>er</sup> démarrage, régler la région radio sur <strong>Europe (868 MHz)</strong> dans
+            <em>Settings → Radio</em>.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2><span class="ic">▸</span> Utilisation de l'alerte</h2>
+      <p style="margin-top:0">
+        Depuis un autre nœud Reticulum/LXMF, en <strong>message direct</strong> vers l'adresse LXMF du T-Deck :
+      </p>
+      <table>
+        <tr><th>Commande</th><th>Effet</th></tr>
+        <tr><td><code>#ra ADRASEC77</code></td><td>Déclenche l'alerte : écran plein écran clignotant « RASEC ALERT » + sirène + accusé de réception.</td></tr>
+        <tr><td><code>#rapass &lt;ancien&gt; &lt;nouveau&gt;</code></td><td>Change le code d'activation à distance (persisté en flash).</td></tr>
+        <tr><td><code>#b &lt;n&gt;</code></td><td>Nombre de répétitions de la sirène. <code>#b 0</code> = alarme continue jusqu'à acquittement. Plage 0–20.</td></tr>
+      </table>
+      <p style="margin-bottom:0">
+        <strong>Acquittement :</strong> toucher l'écran, appuyer sur une touche, ou appui long.
+        La sirène est synthétisée dans le firmware (aucune carte SD ni MP3) et suit le volume / l'interrupteur audio.
+      </p>
+    </div>
+
+    <footer>
+      Firmware dérivé de <a href="https://github.com/ratspeak/rsDeck">rsDeck</a> (Reticulum / microReticulum).<br>
+      Portage de l'option RASEC-ALERT : <strong>F1GBD — ADRASEC 77</strong>.
+    </footer>
+  </div>
+
+  <!-- ESP Web Tools (nécessite HTTPS + Chrome/Edge). GitHub Pages fournit le HTTPS. -->
+  <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+</body>
+</html>

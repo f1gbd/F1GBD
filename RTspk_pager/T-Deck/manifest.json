@@ -1,0 +1,13 @@
+{
+  "name": "rsDeck T-Deck — RASEC-ALERT (ADRASEC 77)",
+  "version": "2.0.2-rasec-f1gbd",
+  "new_install_prompt_erase": false,
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "parts": [
+        { "path": "rsdeck-adrasec-alert.bin", "offset": 0 }
+      ]
+    }
+  ]
+}
