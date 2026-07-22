@@ -170,11 +170,11 @@ carte **avant mission** :
 ## Exemple de Transmission de message d'urgence
 
 <div align="center">
-<img src="images/TML_C26-BlackOut.png" alt="TML_config" width="640">
+<img src="images/TML_C26-BlackOut.png" alt="TML_config" width="1024">
 </div>
 
 <div align="center">
-<img src="images/TML_C26-Incendie.png" alt="TML_config" width="640">
+<img src="images/TML_C26-Incendie.png" alt="TML_config" width="1024">
 </div>
 
 ## Canal de groupe (diffusion chiffrée à clé partagée)
