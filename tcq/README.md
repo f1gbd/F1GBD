@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="images/TCQ_logo.png" alt="TCQ" width="200">
+<img src="images/TCQ_logo.png" alt="TCQ" width="600">
 
 # TCQ
 
