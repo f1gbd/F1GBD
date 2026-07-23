@@ -11,9 +11,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.35.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.40.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.35.0/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.40.0/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -26,6 +26,25 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 [**📜 Toutes les releases TCQ**](https://github.com/f1gbd/F1GBD/releases?q=tcq) • [**📚 Documentation**](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations)
 
 </div>
+
+---
+
+## 🆕 Quoi de neuf en v12.40 — Cartographie opérationnelle & symboles normalisés
+
+> **🗺️ Bouton « CARTE » sur la page principale** — accès direct à la carte APRS / SATER depuis la pile de boutons (les boutons **VFT** *(TEST / ENVOI)* et **vidéo** *(MEMO / JVFT)* ont été regroupés sur une ligne chacun pour ne pas allonger la pile).
+>
+> **🚩 Palette de symboles normalisés (carto_lib)** — dépose sur la carte des **symboles opérationnels** : engins et personnels **SDIS** (FPT, CCF, VSAV, VSR, EPA, VTU, PC, CODIS, COD/COZ/COGIC…), **moyens aériens** (Dragon, hélico bombardier d'eau, Canadair, Dash, Tracker), symbologie **OTAN / APP-6** pour la **NEB** (unités par appartenance ami/hostile/neutre/inconnu, échelons, fonctions, graphiques tactiques) et **SATER** (balise ELT/EPIRB 406 MHz, relevé goniométrique, datum, PC, équipe). Filtre par catégorie, aperçu, étiquette.
+>
+> **🔥 Zones vectorielles & circulation** — trace des **zones de feu** translucides (feu, front actif, risque, exclusion…) façon carte SDIS, et des **routes coupées** (barrière « route barrée », déviation, accident, route inondée). Dépôt au clic, **gomme**, **annulation** du dernier élément, confirmation avant « tout effacer ».
+>
+> **💾 Enregistrer / Charger / 🖨️ Imprimer** — sauvegarde la carte (JSON rechargeable, **KML** pour Google Earth, **GeoJSON** pour QGIS), recharge un scénario, et exporte une **image PNG** de la carte finale prête à imprimer ou à joindre à un SITREP. La couche de symboles est **rechargée automatiquement au démarrage** (`carto_symbols.json`).
+
+<p align="center">
+  <img src="images/TCQ_Carto_SDIS.png" alt="Carto SDIS-ADRASEC" width="1024"/>
+  <br><i>Exemple de cartographie SDIS pour la gestion temps réel des équipes avec l'ADRASEC via TCQ</i>
+</p>
+
+> **Ces fonctions sont partagées avec l'EPIRB-decoder (onglet Carte) via la même librairie**
 
 ---
 
@@ -279,6 +298,49 @@ Au premier démarrage :
 
 ---
 
+## 🆕 Nouveautés v12.40
+
+### 🗺️ Carte opérationnelle et symboles normalisés (carto_lib)
+
+TCQ intègre une bibliothèque de **symboles cartographiques normalisés** que l'on dépose directement sur la carte APRS / SATER. Un bouton **« 🗺️ CARTE »** a été ajouté sur la page principale, et les boutons VFT et vidéo ont été regroupés pour préserver la hauteur de la pile.
+
+La palette **« 🚩 Symboles »** (bouton dans la barre d'outils de la carte) propose plus de cent symboles répartis en catégories :
+
+- **SDIS** — engins (FPT, FPTL, CCF, CCGC, VSAV, VSR, VTU, EPA/EPS/EA, BEA, FMOGP, VLSM, VSU…), commandement (PC, PCM, PCO, PCC, PCS, CODIS, COD, COZ, COGIC, COS, DOS…), **moyens aériens** avec silhouettes (Dragon, HBE / hélico bombardier d'eau, Canadair, Dash, Tracker), personnels (binôme, équipe, chefs d'agrès / groupe / colonne / site, ISP, MSP) ;
+
+- **Circulation & sinistre** — route barrée / coupée, barrage, sens interdit, déviation, accident, route inondée, foyer d'incendie.
+
+<p align="center">
+  <img src="images/TCQ_Carto_SDIS.png" alt="Carto SDIS-ADRASEC" width="1024"/>
+  <br><i>Exemple de cartographie SDIS pour la gestion temps réel des équipes avec l'ADRASEC via TCQ</i>
+</p>
+
+- **SATER** — balise ELT/EPIRB 406 MHz, relevé goniométrique, datum (position triangulée), PC, équipe de recherche ;
+
+<p align="center">
+  <img src="images/TCQ_Carto_SATER.png" alt="Carto SATER-ADRASEC" width="1024"/>
+  <br><i>Exemple de cartographie OTAN type NEB utilisé avec TCQ v12.40</i>
+</p>
+
+- **OTAN / APP-6 (NEB)** — cadres par appartenance (ami / hostile / neutre / inconnu), marqueurs d'échelon (équipe → armée), fonctions (infanterie, blindés, artillerie, génie, santé, transmissions, PC, reconnaissance…) et graphiques tactiques (objectif, axe d'effort, limite, zone de regroupement, zone minée…) ;
+
+<p align="center">
+  <img src="images/TCQ_Carto_OTAN_NEB.png" alt="Carto SDIS-ADRASEC" width="1024"/>
+  <br><i>Exemple de cartographie OTAN type NEB utilisé avec TCQ v12.40</i>
+</p>
+
+
+### 🔥 Zones vectorielles et tracés
+
+On trace à la souris des **zones de feu** vectorielles translucides (styles feu, front actif, risque, exclusion, soutien…) et des **routes coupées**, exactement comme sur les cartes « Zone Feu Forêt » du SDIS. Dépôt au clic, mode **gomme** (retire un symbole, une zone ou une route), **annulation** du dernier élément, et confirmation avant « tout effacer ».
+
+### 💾 Enregistrer, charger, imprimer
+
+La carte se **sauvegarde** en JSON (rechargeable à l'identique), **KML** (Google Earth) ou **GeoJSON** (QGIS), se **recharge** (ajout ou remplacement), et s'exporte en **image PNG** prête à imprimer ou à joindre à un SITREP. La couche de symboles est **rechargée automatiquement au démarrage** (fichier `carto_symbols.json`, à côté de `setup.json`). Les mêmes fonctions équipent l'onglet Carte de l'EPIRB-decoder.
+
+
+---
+
 ## 🆕 Nouveautés v12.35
 
 ### 🚨 RASEC-ALERT — déclenchement d'alerte à distance (LXMF / TNC / VARA)
@@ -451,134 +513,7 @@ La fenêtre **CARTE** du mode **TNC Packet** intègre désormais un bandeau **AP
 >
 > ⚠️ **Anti-écho strict par SSID** : si l'EPIRBdecoder (PC) et TCQ tournent sous le **même indicatif sans SSID**, ils ne verront pas mutuellement leurs relevés. En exercice, utilisez des SSID distincts (ex. `F1GBD` au PCS et `F1GBD-7` pour la passerelle APRS-IS).
 
-### 🎙️ Pilotage PTT CAT — correctif Icom IC-9700 *(v11.0.1)*
 
-En mode **VARA HF / SAT**, le PTT peut être commandé en **CAT (CI-V)**. La v11.0.1 corrige un comportement qui empêchait le passage en émission sur les postes Icom à port USB natif (IC-9700, IC-705, IC-7300…) :
-
-- 🔧 **RTS et DTR ne sont plus forcés à ON** par défaut en mode CAT. Le PTT est piloté uniquement par la commande CI-V — comportement identique à Winlink. Forcer ces lignes pouvait entrer en conflit avec un réglage *USB SEND* mappé sur RTS/DTR et **bloquer l'émission**.
-- 🧰 Nouvelle option **« Forcer RTS/DTR à ON en mode CAT »** (TCQconfig → onglet VARA → *Commandes CAT*) à n'activer **que** pour les interfaces série héritées qui s'alimentent sur ces lignes (CT-17, montages maison).
-
-#### Paramétrage CAT spécifique à l'IC-9700 (VARA HF / SAT)
-
-**Trame PTT CI-V de l'IC-9700** (adresse `A2h`, contrôleur `E0h`, commande CI-V `1C 00`) :
-
-| Action | Trame CI-V envoyée |
-|---|---|
-| PTT ON (émission) | `FE FE A2 E0 1C 00 01 FD` |
-| PTT OFF (réception) | `FE FE A2 E0 1C 00 00 FD` |
-
-**Côté TCQ** — TCQconfig → onglet *VARA* → *Contrôle PTT série (HF/SAT)* :
-
-| Paramètre | Valeur pour l'IC-9700 |
-|---|---|
-| Activer contrôle PTT | ✅ coché |
-| Mode PTT | **CAT (commandes série)** |
-| Modèle radio | **Icom IC-9700** *(remplit automatiquement les trames CI-V ci-dessus)* |
-| Port COM | le port série *CI-V* de l'IC-9700 (cordon USB unique) |
-| Baudrate | **identique** au réglage *CI-V USB Baud Rate* du poste (souvent **19200** ou **115200**) |
-| Forcer RTS/DTR à ON en mode CAT | ⬜ **décoché** |
-
-**Côté IC-9700** — MENU » SET » Connectors » CI-V :
-
-- *CI-V USB Port* = **Unlink from [REMOTE]** (sinon les commandes CI-V du port USB ne pilotent pas le poste)
-- *CI-V Address* = **A2h** (valeur par défaut attendue par TCQ)
-- *USB SEND* (SET » Connectors » USB SEND/Keying) = **OFF** lorsque le PTT est piloté en CI-V — évite un PTT matériel parasite sur RTS/DTR
-
-**Côté VARA HF / SAT** : régler le PTT de VARA pour qu'il **délègue la commande au programme externe** (TCQ). VARA émet alors `PTT ON` / `PTT OFF` sur son canal de commande, et TCQ envoie la trame CI-V correspondante.
-
-> ✅ Avec ce paramétrage, l'IC-9700 passe en émission sur commande CI-V exactement comme avec Winlink. Pour les interfaces RS-232 sur prise [REMOTE] (CT-17), cocher au contraire *Forcer RTS/DTR à ON en mode CAT*.
-
----
-
-## 🆕 Nouveautés v11.1.0
-
-### Module PDF radio — PDF scannés/tournés + cadres et couleurs de tableaux
-
-- 🔄 **Intégration de `pdf_trans` v1.0.6 — auto-bascule en mode rendu image** pour les PDF scannés ou portant une rotation de page (`/Rotate`). Le mode structuré ignorait la rotation à la recomposition et aplatissait les images-masques (couche d'encre des scans) en opaque, d'où une page **basculée à 90° sur fond noir** — typiquement les arrêtés préfectoraux numérisés. `pdf_to_archive()` détecte désormais ces documents et les traite via `get_pixmap()`, qui respecte nativement la rotation **et** compose correctement les masques.
-- 📊 **Cadres et couleurs de tableau restaurés.** Les grilles et fonds de cellule tracés en **segments de ligne** (LibreOffice, et selon la version de MuPDF embarquée — d'où une différence de comportement observée entre Windows et Linux) étaient ignorés par l'extraction structurée, qui ne conservait que les rectangles `re`. L'extraction reconstruit désormais les rectangles **aussi à partir des lignes** : SITREP, bilans opérationnels zonaux et niveaux de vigilance retrouvent leur grille et leurs couleurs de cellule.
-- 🎯 **Détection ciblée, sans faux positif** : seuls les documents tournés (raison `rotation`) ou scannés (raison `scan`) basculent en mode image ; les vrais PDF texte natifs non tournés conservent le mode structuré, plus compact. La raison de la bascule est journalisée.
-- 🔄 **Compatibilité ascendante totale** : toutes les archives `.psdi` produites antérieurement restent lisibles avec la v11.1.0 et bénéficient même automatiquement des corrections côté recomposition.
-- 📡 Le correctif s'applique automatiquement à tous les transferts PDF via **VARA HF/FM/SAT**, **TNC Packet** et **TCQ-BBS**.
-
-### Logging au démarrage
-
-- 📋 Le log au démarrage indique désormais `pdf_trans v1.0.6` :
-  ```
-  INFO: Bibliothèque pdf_trans v1.0.6 chargée avec succès - TRANSFERT PDF disponible
-  ```
-- 🩺 Permet à un opérateur ADRASEC de vérifier en un coup d'œil avant un exercice que son poste embarque bien la version corrigée.
-
-### Compatibilité
-
-- ✅ Aucun changement d'API publique de `pdf_trans` : les intégrations tierces continuent de fonctionner sans modification
-- ✅ Cohérence avec **PDFteleporter v1.0.6** qui partage la même bibliothèque
-- ✅ Les opérateurs disposant de PDFteleporter en application autonome bénéficient des mêmes correctifs
-
----
-
-## 🆕 Nouveautés v10.15.0
-
-### Module PDF radio — Correctif rendu des tableaux
-
-- 📐 **Intégration de `pdf_trans` v1.0.2** qui corrige le débordement des libellés hors des cellules de tableaux lors de la recomposition structurée (Bilan humain, Moyens engagés, Activité de secours…)
-- 📐 La bibliothèque respecte désormais strictement le bounding box d'origine des lignes de texte (plus d'étirement jusqu'au bord de la page)
-- 🔤 **Conservation de la famille de fonte d'origine** (sans-serif / serif / monospace) dans l'archive `.psdi` pour un rendu plus fidèle à l'aspect du document source
-- 🔄 **Compatibilité ascendante totale** : toutes les archives `.psdi` produites antérieurement (v1.0.0 et v1.0.1 de pdf_trans) restent lisibles avec la v10.15.0 et bénéficient même automatiquement du fix de rendu côté recomposition
-- 📡 Le correctif s'applique automatiquement à tous les transferts PDF via **VARA HF/FM/SAT**, **TNC Packet** et **TCQ-BBS**
-
-### Logging au démarrage
-
-- 📋 Le log au démarrage indique désormais `pdf_trans v1.0.5` :
-  ```
-  INFO: Bibliothèque pdf_trans v1.0.2 chargée avec succès - TRANSFERT PDF disponible
-  ```
-- 🩺 Permet à un opérateur ADRASEC de vérifier en un coup d'œil avant un exercice que son poste embarque bien la version corrigée
-
-### Compatibilité
-
-- ✅ Aucun changement d'API publique de `pdf_trans` : les intégrations tierces continuent de fonctionner sans modification
-- ✅ Cohérence avec **PDFteleporter v1.0.5** qui partage la même bibliothèque
-- ✅ Les opérateurs disposant de PDFteleporter en application autonome bénéficient du même correctif
-
----
-
-## 🆕 Nouveautés v10.12.0
-
-### Module PDF radio — Correctif fond noir
-
-- 🛡 **Intégration de `pdf_trans` v1.0.1** qui corrige le bug de recomposition « fond noir » sur les PDF produits par **Microsoft : Print To PDF** et **Microsoft Word LTSC**
-- 🛡 La bibliothèque itère désormais sur les sous-items individuels des paths vectoriels au lieu d'utiliser leur bounding box global — finis les gros rectangles noirs pleine page lors de la recomposition
-- 🛡 Garde-fou supplémentaire : tout rectangle quasi-pleine-page de luminance < 0,3 est ignoré (un fond de page opérationnel ADRASEC n'est jamais noir plein)
-- 🔄 **Compatibilité ascendante totale** : les archives `.psdi` produites par les versions antérieures restent lisibles avec la v10.12.0
-- 📡 Le correctif s'applique automatiquement à tous les transferts PDF via **VARA HF/FM/SAT**, **TNC Packet** et **TCQ-BBS**
-
-### Logging amélioré
-
-- 📋 La version de `pdf_trans` chargée est désormais affichée dans le log au démarrage de TCQ, ce qui facilite le diagnostic en exercice ADRASEC :
-  ```
-  INFO: Bibliothèque pdf_trans v1.0.1 chargée avec succès - TRANSFERT PDF disponible
-  ```
-- 🩺 Vérification rapide qu'un poste est bien à jour avant un exercice : un coup d'œil au log suffit
-
-### Compatibilité
-
-- ✅ Aucun changement d'API publique de `pdf_trans` : les intégrations tierces continuent de fonctionner sans modification
-- ✅ Cohérence avec **PDFteleporter v1.0.5** qui partage la même bibliothèque
-- ✅ Les opérateurs disposant de PDFteleporter en application autonome bénéficient du même correctif
-
----
-
-## 🆕 Nouveautés v10.11
-
-### Module SSTV (refonte majeure)
-
-- ✅ Décodeur SSTV temps réel porté de **slowrx** (open source)
-- ✅ **Waterfall spectrogramme** en direct + visualiseur plein écran
-- ✅ **Système d'overlays** multi-textes au format `.stt` (JSON)
-- ✅ **Champs RSV** + variables de template (`%call`, `%RSV`, `%date`, `%time`, `%utc`, `%mode`)
-- ✅ Correction artefacts Robot 36 + recherche DFT du sync pulse
-- ✅ Fix décodage couleurs Scottie S1 / S2 / SDX
-- ✅ Bouton **Resync** pour re-décoder les WAV de debug
 
 <p align="center">
   <img src="images/TCQ_sstv_decoder.png" alt="Décodeur SSTV avec waterfall" width="800"/>
@@ -770,7 +705,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v12.35.0 — 2026-07-22**
+**Version v12.40 — 2026-07-23**
 
 ---
 
