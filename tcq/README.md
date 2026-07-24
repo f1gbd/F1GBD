@@ -1,8 +1,6 @@
 <div align="center">
 
-<img src="images/TCQ_logo.png" alt="TCQ" width="200">
-
-# TCQ
+<img src="images/TCQ_logo.png" alt="TCQ" width="300">
 
 ### La plateforme de communications radio multi-modes pour les opérateurs ADRASEC
 
@@ -11,9 +9,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.40.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.41.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.40.0/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.41.0/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -29,6 +27,22 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 
 ---
 
+## 🆕 Quoi de neuf en v12.41 — Synchronisation NEM (Numérisation de l'Espace de Mission)
+
+> **🛰️ Partage de la situation cartographique via LXMF** — un nouveau bouton **« 🛰️ Synchro NEM »** (à droite de « Émettre relevé » sur la carte) partage **toute la situation affichée** — symboles, zones de feu, routes coupées **et** relevés goniométriques — dans un message LXMF spécial (`NEM1:`) envoyé à un **Groupe LXMF**. Toute une équipe partage ainsi la même *Numérisation de l'Espace de Mission* en un clic.
+>
+> **📥 Réception et recentrage automatiques** — à la réception d'un message de **synchronisation NEM**, les données sont **fusionnées et affichées** sur la carte du destinataire, avec **recentrage automatique** sur la zone concernée (notification dans le chat + signal sonore). Si la carte est fermée, les données sont mémorisées et s'affichent, recentrées, à la prochaine ouverture.
+>
+> **🎯 Recentrage au chargement** — au rechargement d'une carte de symboles (JSON) ou de relevés SATER, l'affichage se **recentre et ajuste le zoom** automatiquement sur l'emprise des données.
+
+
+<p align="center">
+  <img src="images/TCQ_Carto_OVERLORD.png" alt="Interface principale TCQ v10.13" width="81024"/>
+  <br><i>Reproduction de l'opération Overlord (débarquement du 6 juin 1944) au format OTAN/APP-6 (NEB)</i>
+</p>
+
+---
+
 ## 🆕 Quoi de neuf en v12.40 — Cartographie opérationnelle & symboles normalisés
 
 > **🗺️ Bouton « CARTE » sur la page principale** — accès direct à la carte APRS / SATER depuis la pile de boutons (les boutons **VFT** *(TEST / ENVOI)* et **vidéo** *(MEMO / JVFT)* ont été regroupés sur une ligne chacun pour ne pas allonger la pile).
@@ -36,15 +50,20 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 > **🚩 Palette de symboles normalisés (carto_lib)** — dépose sur la carte des **symboles opérationnels** : engins et personnels **SDIS** (FPT, CCF, VSAV, VSR, EPA, VTU, PC, CODIS, COD/COZ/COGIC…), **moyens aériens** (Dragon, hélico bombardier d'eau, Canadair, Dash, Tracker), symbologie **OTAN / APP-6** pour la **NEB** (unités par appartenance ami/hostile/neutre/inconnu, échelons, fonctions, graphiques tactiques) et **SATER** (balise ELT/EPIRB 406 MHz, relevé goniométrique, datum, PC, équipe). Filtre par catégorie, aperçu, étiquette.
 >
 > **🔥 Zones vectorielles & circulation** — trace des **zones de feu** translucides (feu, front actif, risque, exclusion…) façon carte SDIS, et des **routes coupées** (barrière « route barrée », déviation, accident, route inondée). Dépôt au clic, **gomme**, **annulation** du dernier élément, confirmation avant « tout effacer ».
->
-> **💾 Enregistrer / Charger / 🖨️ Imprimer** — sauvegarde la carte (JSON rechargeable, **KML** pour Google Earth, **GeoJSON** pour QGIS), recharge un scénario, et exporte une **image PNG** de la carte finale prête à imprimer ou à joindre à un SITREP. La couche de symboles est **rechargée automatiquement au démarrage** (`carto_symbols.json`).
 
 <p align="center">
-  <img src="images/TCQ_Carto_SDIS.png" alt="Carto SDIS-ADRASEC" width="1024"/>
-  <br><i>Exemple de cartographie SDIS pour la gestion temps réel des équipes avec l'ADRASEC via TCQ</i>
+  <img src="images/TCQ_Carto_SDIS.png" alt="Interface principale TCQ v10.13" width="1024"/>
+  <br><i>Cartographie avec symbôles opérationnels SDIS</i>
 </p>
 
-> **Ces fonctions sont partagées avec l'EPIRB-decoder (onglet Carte) via la même librairie**
+>
+> **💾 Enregistrer / Charger / 🖨️ Imprimer** — sauvegarde la carte (JSON rechargeable, **KML** pour Google Earth, **GeoJSON** pour QGIS), recharge un scénario, et exporte une **image PNG** de la carte finale prête à imprimer ou à joindre à un SITREP. La couche de symboles est **rechargée automatiquement au démarrage** (`carto_symbols.json`).
+>
+
+<p align="center">
+  <img src="images/TCQ_Carto_OTAN_NEB.png" alt="Opération ORION-26 dépt 56" width="1024"/>
+  <br><i>Reconstitution d'un débarquement amphibie interarmées dans le Morbihan (Exercice ORION‑26 (56)). Format OTA - APP6 (NEB)</i>
+</p>
 
 ---
 
@@ -114,15 +133,6 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 >
 > **📋 Main courante Packet** — bouton **« Sauver le Log »** qui enregistre toute la conversation horodatée dans un fichier texte, comme en VARA.
 
----
-
-## 🆕 Quoi de neuf en v11.1.10 — Fiabilité fichier/image MeshCore
-
-> Transferts de **fichiers et d'images** sur MeshCore LoRa nettement plus fiables et plus rapides 
->
-> **🖼️ Compression automatique des images** — Le bouton **Image** redimensionne et compresse maintenant l'image **automatiquement** pour tenir sous le budget de transfert (≈ **3 Ko / 100 paquets**), gage de fiabilité sur LoRa. L'ajustement vise le **nombre réel de paquets** (et non une simple taille en kilo-octets, trompeuse selon le contenu), en conservant la plus grande dimension et la meilleure qualité possibles. Si l'image dépasse encore le budget au réglage minimal, elle part quand même avec un avertissement.
->
-> **⚠️ Avertissement de volume** — Tout fichier ou image dépassant ~100 paquets affiche un conseil de compression (transfert long et fragile sur LoRa).
 
 ---
 
@@ -298,6 +308,28 @@ Au premier démarrage :
 
 ---
 
+## 🆕 Nouveautés v12.41
+
+### 🛰️ Synchronisation NEM — partage de la situation par LXMF de Groupe
+
+La **Numérisation de l'Espace de Mission (NEM)** permet à toute une équipe de partager la même situation cartographique. Le bouton **« 🛰️ Synchro NEM »** (à droite de « Émettre relevé » sur la carte) sérialise **l'ensemble des données affichées** — symboles SDIS / OTAN / SATER, zones de feu, routes coupées et relevés goniométriques — et les diffuse dans un message LXMF dédié (`NEM1:`) vers un **Groupe LXMF** (sélection du groupe à l'émission).
+
+À la **réception**, TCQ reconnaît le message, **fusionne** les symboles et les relevés reçus, affiche une notification (chat + son), et **recentre automatiquement** la carte sur la zone concernée. Si la carte est fermée, les données sont mémorisées et affichées, recentrées, dès la réouverture de la CARTE.
+
+Le format d'échange réutilise le format natif `carto_lib` (rechargeable à l'identique) : les cartes NEM sont donc interchangeables avec l'enregistrement / chargement JSON, TCQ et l'EPIRB-decoder.
+
+### 🎯 Recentrage automatique au chargement
+
+Au rechargement d'une **carte de symboles (JSON)** ou de **relevés SATER**, l'affichage se recentre et ajuste le zoom sur l'emprise complète des données, pour retrouver immédiatement la zone de travail.
+
+<p align="center">
+  <img src="images/TCQ_Carto_OTAN_NEB.png" alt="Opération Orion-26 dept 56" width="1024"/>
+  <br><i>Reconstitution d'un débarquement amphibie interarmées dans le Morbihan (Exercice ORION‑26 (56)) au format OTAN/APP-6 (NEB)</i>
+</p>
+
+
+---
+
 ## 🆕 Nouveautés v12.40
 
 ### 🗺️ Carte opérationnelle et symboles normalisés (carto_lib)
@@ -307,28 +339,9 @@ TCQ intègre une bibliothèque de **symboles cartographiques normalisés** que l
 La palette **« 🚩 Symboles »** (bouton dans la barre d'outils de la carte) propose plus de cent symboles répartis en catégories :
 
 - **SDIS** — engins (FPT, FPTL, CCF, CCGC, VSAV, VSR, VTU, EPA/EPS/EA, BEA, FMOGP, VLSM, VSU…), commandement (PC, PCM, PCO, PCC, PCS, CODIS, COD, COZ, COGIC, COS, DOS…), **moyens aériens** avec silhouettes (Dragon, HBE / hélico bombardier d'eau, Canadair, Dash, Tracker), personnels (binôme, équipe, chefs d'agrès / groupe / colonne / site, ISP, MSP) ;
-
-- **Circulation & sinistre** — route barrée / coupée, barrage, sens interdit, déviation, accident, route inondée, foyer d'incendie.
-
-<p align="center">
-  <img src="images/TCQ_Carto_SDIS.png" alt="Carto SDIS-ADRASEC" width="1024"/>
-  <br><i>Exemple de cartographie SDIS pour la gestion temps réel des équipes avec l'ADRASEC via TCQ</i>
-</p>
-
-- **SATER** — balise ELT/EPIRB 406 MHz, relevé goniométrique, datum (position triangulée), PC, équipe de recherche ;
-
-<p align="center">
-  <img src="images/TCQ_Carto_SATER.png" alt="Carto SATER-ADRASEC" width="1024"/>
-  <br><i>Exemple de cartographie OTAN type NEB utilisé avec TCQ v12.40</i>
-</p>
-
 - **OTAN / APP-6 (NEB)** — cadres par appartenance (ami / hostile / neutre / inconnu), marqueurs d'échelon (équipe → armée), fonctions (infanterie, blindés, artillerie, génie, santé, transmissions, PC, reconnaissance…) et graphiques tactiques (objectif, axe d'effort, limite, zone de regroupement, zone minée…) ;
-
-<p align="center">
-  <img src="images/TCQ_Carto_OTAN_NEB.png" alt="Carto SDIS-ADRASEC" width="1024"/>
-  <br><i>Exemple de cartographie OTAN type NEB utilisé avec TCQ v12.40</i>
-</p>
-
+- **SATER** — balise ELT/EPIRB 406 MHz, relevé goniométrique, datum (position triangulée), PC, équipe de recherche ;
+- **Circulation & sinistre** — route barrée / coupée, barrage, sens interdit, déviation, accident, route inondée, foyer d'incendie.
 
 ### 🔥 Zones vectorielles et tracés
 
@@ -337,7 +350,6 @@ On trace à la souris des **zones de feu** vectorielles translucides (styles feu
 ### 💾 Enregistrer, charger, imprimer
 
 La carte se **sauvegarde** en JSON (rechargeable à l'identique), **KML** (Google Earth) ou **GeoJSON** (QGIS), se **recharge** (ajout ou remplacement), et s'exporte en **image PNG** prête à imprimer ou à joindre à un SITREP. La couche de symboles est **rechargée automatiquement au démarrage** (fichier `carto_symbols.json`, à côté de `setup.json`). Les mêmes fonctions équipent l'onglet Carte de l'EPIRB-decoder.
-
 
 ---
 
@@ -503,16 +515,6 @@ La fenêtre **CARTE** du mode **TNC Packet** intègre désormais un bandeau **AP
 - 📶 **Force du signal** (fort / moyen / faible / nul) ajoutée au dialogue de relevé d'azimut — transmise sur APRS-IS et exportée en CSV.
 - 🎯 Bouton **« BALISE ELT »** : calcul de la **position présumée de la balise** par triangulation des relèvements (moindres carrés + rejet d'aberrants MAD), avec tracé du marqueur et du **cercle de probabilité CEP 95 %** sur la carte. Algorithme identique à celui de l'EPIRBdecoder v5.6.
 - 💾 **Import / export CSV des relevés compatibles EPIRBdecoder v5.6** : un fichier produit par TCQ se relit dans l'EPIRBdecoder (et inversement), avec indicatif, position, azimut, force du signal et horodatage.
-
-### 📍 Affichage des stations APRS reçues via APRS-IS *(v11.0.0)*
-
-- 🗺️ Case **« Stations APRS-IS »** : lorsqu'elle est activée, les stations APRS reçues via APRS-IS sont **affichées sur la carte** en plus des relevés goniométriques.
-- 🎚️ Filtre de portée automatique autour de votre position (`r/lat/lon/100 km`) pour ne charger que le trafic local pertinent en exercice.
-
-> ℹ️ Le module APRS-IS s'appuie sur le module compagnon **`aprs_client`** — strictement identique à celui de l'EPIRBdecoder v5.6 — embarqué automatiquement dans le binaire TCQ.
->
-> ⚠️ **Anti-écho strict par SSID** : si l'EPIRBdecoder (PC) et TCQ tournent sous le **même indicatif sans SSID**, ils ne verront pas mutuellement leurs relevés. En exercice, utilisez des SSID distincts (ex. `F1GBD` au PCS et `F1GBD-7` pour la passerelle APRS-IS).
-
 
 
 <p align="center">
@@ -705,7 +707,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v12.40 — 2026-07-23**
+**Version v12.35.0 — 2026-07-22**
 
 ---
 
