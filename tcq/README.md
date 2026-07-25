@@ -9,9 +9,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.41.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.42.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.41.0/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.42.0/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -27,17 +27,19 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 
 ---
 
-## 🆕 Quoi de neuf en v12.41 — Synchronisation NEM (Numérisation de l'Espace de Mission)
+## 🆕 Quoi de neuf en v12.42 — Synchronisation NEM (Numérisation de l'Espace de Mission)
 
 > **🛰️ Partage de la situation cartographique via LXMF** — un nouveau bouton **« 🛰️ Synchro NEM »** (à droite de « Émettre relevé » sur la carte) partage **toute la situation affichée** — symboles, zones de feu, routes coupées **et** relevés goniométriques — dans un message LXMF spécial (`NEM1:`) envoyé à un **Groupe LXMF**. Toute une équipe partage ainsi la même *Numérisation de l'Espace de Mission* en un clic.
 >
 > **📥 Réception et recentrage automatiques** — à la réception d'un message de **synchronisation NEM**, les données sont **fusionnées et affichées** sur la carte du destinataire, avec **recentrage automatique** sur la zone concernée (notification dans le chat + signal sonore). Si la carte est fermée, les données sont mémorisées et s'affichent, recentrées, à la prochaine ouverture.
 >
 > **🎯 Recentrage au chargement** — au rechargement d'une carte de symboles (JSON) ou de relevés SATER, l'affichage se **recentre et ajuste le zoom** automatiquement sur l'emprise des données.
-
+>
+> **🛰️ Bouton « Synchro NEM » dans la palette**: le partage LXMF de la situation cartographique est désormais accessible directement depuis la fenêtre « 🚩 Symboles cartographiques », sur une nouvelle ligne sous le bouton « 💾
+>
 
 <p align="center">
-  <img src="images/TCQ_Carto_OVERLORD.png" alt="Interface principale TCQ v10.13" width="81024"/>
+  <img src="images/TCQ_Carto_OVERLORD.png" alt="Reproduction de l'opération Overlord" width="81024"/>
   <br><i>Reproduction de l'opération Overlord (débarquement du 6 juin 1944) au format OTAN/APP-6 (NEB)</i>
 </p>
 
@@ -308,7 +310,7 @@ Au premier démarrage :
 
 ---
 
-## 🆕 Nouveautés v12.41
+## 🆕 Nouveautés v12.42
 
 ### 🛰️ Synchronisation NEM — partage de la situation par LXMF de Groupe
 
@@ -707,7 +709,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v12.35.0 — 2026-07-22**
+**Version v12.42.0 — 2026-07-22**
 
 ---
 
