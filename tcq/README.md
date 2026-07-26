@@ -9,9 +9,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.43.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.44.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.43.0/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.44.0/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -27,15 +27,16 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 
 ---
 
-## 🆕 Quoi de neuf en v12.43 — Synchronisation NEM (Numérisation de l'Espace de Mission)
+## 🆕 Quoi de neuf en v12.44 — Synchronisation NEM (Numérisation de l'Espace de Mission)
 
 > **✋ Déplacer un objet** : un nouveau bouton **« ✋ Déplacer »** dans la palette **« 🚩 Symboles »** active un mode où le clic gauche maintenu **saisit l'objet le plus proche** (symbole en priorité, sinon route, sinon zone) et le fait **suivre le curseur**. Un symbole se repositionne au point ; une route ou une zone est **translatée en bloc**. Le déplacement est **annulable** via « ↶ Annuler » (retour à la position d'origine). En dehors de ce mode, le glisser continue de déplacer la carte.
+>
 > **☑️ Case « Auto Synchro »** (cochée par défaut), à droite du bouton **« 🛰️ Synchro NEM »** de la carte, qui pilote le comportement à la **réception** d'une synchro NEM :
-  - **📚 Archivage horodaté** : la carte courante (symboles, zones, routes **et** relevés) est d'abord **sauvegardée localement** avec horodatage dans le sous-dossier **`carto_history`** (fichier `NEM_avant_AAAAMMJJ_HHMMSS.json`, à côté de `carto_symbols.json`), pour garder un **historique**.
-  - **♻️ Remplacement automatique** : la carte est ensuite **effacée puis rechargée intégralement** avec les données reçues, et **recentrée** sur la zone concernée.
-  - **➕ Mode fusion** : si la case est **décochée**, les données reçues sont **fusionnées** (ajoutées) à la carte existante, comme dans les versions précédentes.
-> Le message de notification (chat + log) précise désormais si la carte a été **« remplacée »** ou **« fusionnée »**.
-
+- **📚 Archivage horodaté** : la carte courante (symboles, zones, routes **et** relevés) est d'abord **sauvegardée localement** avec horodatage dans le sous-dossier **`carto_history`** (fichier `NEM_avant_AAAAMMJJ_HHMMSS.json`, à côté de `carto_symbols.json`), pour garder un **historique**.
+- **♻️ Remplacement automatique** : la carte est ensuite **effacée puis rechargée intégralement** avec les données reçues, et **recentrée** sur la zone concernée.
+ - **➕ Mode fusion** : si la case est **décochée**, les données reçues sont **fusionnées** (ajoutées) à la carte existante, comme dans les versions précédentes.
+- Le message de notification (chat + log) précise désormais si la carte a été **« remplacée »** ou **« fusionnée »**.
+>
 > **🛰️ Partage de la situation cartographique via LXMF** — un nouveau bouton **« 🛰️ Synchro NEM »** (à droite de « Émettre relevé » sur la carte) partage **toute la situation affichée** — symboles, zones de feu, routes coupées **et** relevés goniométriques — dans un message LXMF spécial (`NEM1:`) envoyé à un **Groupe LXMF**. Toute une équipe partage ainsi la même *Numérisation de l'Espace de Mission* en un clic.
 >
 > **📥 Réception et recentrage automatiques** — à la réception d'un message de **synchronisation NEM**, les données sont **fusionnées et affichées** sur la carte du destinataire, avec **recentrage automatique** sur la zone concernée (notification dans le chat + signal sonore). Si la carte est fermée, les données sont mémorisées et s'affichent, recentrées, à la prochaine ouverture.
@@ -44,6 +45,9 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 >
 > **🛰️ Bouton « Synchro NEM » dans la palette**: le partage LXMF de la situation cartographique est désormais accessible directement depuis la fenêtre « 🚩 Symboles cartographiques », sur une nouvelle ligne sous le bouton « 💾
 >
+> **🔍 Zoom sur une zone au clic central** : maintenez le **bouton central** de la souris et **étirez un rectangle** sur la carte ; au relâchement, la carte **s'agrandit exactement sur la zone encadrée** (recentrage automatique + meilleur niveau de zoom).
+>
+> **📐 Surface des zones en hectares** : à la fin du tracé d'une zone, sa **surface est affichée en hectares** directement sur la carte (au centre de la zone, avec le libellé). Le calcul utilise une formule d'aire sphérique et se **met à jour automatiquement** au rechargement d'une carte ou après déplacement d'une zone.
 
 <p align="center">
   <img src="images/TCQ_Carto_OVERLORD.png" alt="Reproduction de l'opération Overlord" width="81024"/>
@@ -317,7 +321,7 @@ Au premier démarrage :
 
 ---
 
-## 🆕 Nouveautés v12.43
+## 🆕 Nouveautés v12.44
 
 ### 🛰️ Synchronisation NEM — partage de la situation par LXMF de Groupe
 
@@ -716,7 +720,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v12.43.0 — 2026-07-22**
+**Version v12.44.0 — 2026-07-22**
 
 ---
 
