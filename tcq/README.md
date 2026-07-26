@@ -57,7 +57,7 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 - **🗺️ Zones d'alerte météo** : définissez une **zone à surveiller** (par exemple une forêt) en la **traçant à la souris**, exactement comme une zone de symbole (clic gauche = points, clic droit = terminer, Échap = annuler). Chaque zone reçoit un nom et est **enregistrée dans `setup.json`**.
 
 <p align="center">
-  <img src="images/TCQ_Carto_3x30_ZoneAlert.png" alt="Affichage des zone à risque incendies" width="1024"/>
+  <img src="images/TCQ_Carto_3x30_ZoneAlert2.png" alt="Affichage des zone à risque incendies" width="1024"/>
   <br><i>Définition Zones à Risques Incendie (Règle des trois 30, voir ( https://fr.wikipedia.org/wiki/R%C3%A8gle_des_trois_30 )</i>
 </p>
 
