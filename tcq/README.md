@@ -9,9 +9,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.44.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.45.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.44.0/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.45.0/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -27,7 +27,19 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 
 ---
 
-## 🆕 Quoi de neuf en v12.44 — Synchronisation NEM (Numérisation de l'Espace de Mission)
+## 🆕 Quoi de neuf en v12.45 — Synchronisation NEM (Numérisation de l'Espace de Mission)
+
+### ✈️ Suivi avion temps réel — bouton « OpenSky »
+
+Affiche les **avions présents dans la zone visible**, rafraîchis à l'intervalle choisi (~15 s par défaut), dessinés **en bleu foncé**, **orientés selon leur cap**, avec **indicatif** et **niveau de vol (FL)**. **Trois sources au choix** :
+
+- **OpenSky Network** (en ligne). **Authentification OAuth2** automatique : placez votre fichier **`credentials.json`** (clientId / clientSecret, téléchargé depuis votre compte OpenSky) **dans le dossier TCQ** — il est détecté et utilisé tout seul, le jeton est renouvelé automatiquement, ce qui **lève la limite de débit** de l'accès anonyme (4 000 crédits/jour).
+- **Récepteur ADS-B local** (dump1090 / readsb / Virtual Radar Server), lecteur **tolérant aux formats** avec **auto-détection** du bon `aircraft.json` et bouton **« Tester le récepteur local »**.
+- **SDR direct** : décodage ADS-B 1090 MHz **directement depuis la clé RTL-SDR en Python**, **sans dump1090.exe**. Bouton **« Tester le SDR »** pour valider l'antenne en ~5 s.
+
+Modes **Auto** (local puis OpenSky), **OpenSky seul**, **local seul** ou **SDR direct**. **Dialogue de réglages** (bouton ⚙ ou clic droit) : mode, URL dump1090, identifiants OpenSky, index/gain de la clé SDR, intervalle — **enregistrés dans `setup.json`**. 
+
+**Infobulle au survol** : passez la souris sur un avion pour afficher ses données (indicatif, code ICAO, altitude + niveau de vol, vitesse sol en kt/km/h, cap, position).
 
 > **✋ Déplacer un objet** : un nouveau bouton **« ✋ Déplacer »** dans la palette **« 🚩 Symboles »** active un mode où le clic gauche maintenu **saisit l'objet le plus proche** (symbole en priorité, sinon route, sinon zone) et le fait **suivre le curseur**. Un symbole se repositionne au point ; une route ou une zone est **translatée en bloc**. Le déplacement est **annulable** via « ↶ Annuler » (retour à la position d'origine). En dehors de ce mode, le glisser continue de déplacer la carte.
 >
@@ -321,7 +333,7 @@ Au premier démarrage :
 
 ---
 
-## 🆕 Nouveautés v12.44
+## 🆕 Nouveautés v12.45
 
 ### 🛰️ Synchronisation NEM — partage de la situation par LXMF de Groupe
 
@@ -720,7 +732,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v12.44.0 — 2026-07-22**
+**Version v12.45.0 — 2026-07-22**
 
 ---
 
