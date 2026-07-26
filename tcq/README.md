@@ -9,9 +9,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.45.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.46.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.45.0/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.46.0/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -27,7 +27,26 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 
 ---
 
-## 🆕 Quoi de neuf en v12.45 — Synchronisation NEM (Numérisation de l'Espace de Mission)
+## 🆕 Quoi de neuf en v12.46 — Synchronisation NEM (Numérisation de l'Espace de Mission)
+
+### Bouton **« 🌦️ Météo »** sur la carte récupère la météo AROME (Météo-France) via **Open-Meteo** (gratuit, **sans clé**) sur la **zone affichée** et affiche trois éléments :
+
+- **📋 Bulletin au point de la station** : température, humidité relative, vent (vitesse + direction) et rafales, pression.
+- **💨 Champ de vent** : une grille de flèches sur l'emprise visible, orientées vers où souffle le vent et **colorées selon la vitesse** (vert < 20, orange 20–30, rouge ≥ 30 km/h).
+- ### **🔥 Zones « règle des 3×30 »** : colorisation des mailles selon le **danger feux de forêt** — **rouge** quand les trois critères sont réunis (**T ≥ 30 °C, vent ≥ 30 km/h, humidité ≤ 30 %**), **jaune** pour 2 critères sur 3 (vigilance). Les mailles se fondent en zones continues, avec légende.
+
+**Réglages** (bouton ⚙ ou clic droit sur « Météo »), **enregistrés dans `setup.json`** :
+
+- **Modèle** : AROME France HD (~1,5 km), AROME France, ou ARPEGE Europe.
+- **Densité de la grille** : de 1×1 à **10×10** (défaut **10×10**, jusqu'à 100 points en une seule requête).
+- **Taille des flèches** : facteur d'échelle réglable de 0,5 à 3,0 (défaut **1,5**).
+- **Seuils de la règle 3×30** réglables (T≥ / vent≥ / HR≤) — par défaut **30 / 30 / 30** (la vraie règle) ; abaissables pour tester le rendu ou s'adapter à une doctrine locale. La légende affiche les seuils actifs.
+- **Intervalle** de rafraîchissement, et **activation/désactivation** de chaque calque (vent, zones 3×30, bulletin).
+
+<p align="center">
+  <img src="images/TCQ_Carto_3x30_SDIS.png" alt="Affichage des zone à risque incendies" width="1024"/>
+  <br><i>Affichage Zones à Risques Incendie (Règle des trois 30, voir ( https://fr.wikipedia.org/wiki/R%C3%A8gle_des_trois_30 )</i>
+</p>
 
 ### ✈️ Suivi avion temps réel — bouton « OpenSky »
 
@@ -338,7 +357,7 @@ Au premier démarrage :
 
 ---
 
-## 🆕 Nouveautés v12.45
+## 🆕 Nouveautés v12.46
 
 ### 🛰️ Synchronisation NEM — partage de la situation par LXMF de Groupe
 
@@ -737,7 +756,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v12.45.0 — 2026-07-22**
+**Version v12.46.0 — 2026-07-22**
 
 ---
 
