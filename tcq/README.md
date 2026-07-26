@@ -41,6 +41,11 @@ Modes **Auto** (local puis OpenSky), **OpenSky seul**, **local seul** ou **SDR d
 
 **Infobulle au survol** : passez la souris sur un avion pour afficher ses données (indicatif, code ICAO, altitude + niveau de vol, vitesse sol en kt/km/h, cap, position).
 
+<p align="center">
+  <img src="images/TCQ_Carto_OpenSky.png" alt="Affichage Traffic aérien en Temps Réel" width="1024"/>
+  <br><i>Affichage Traffic aérien en Temps Réel avec OpenSky</i>
+</p>
+
 > **✋ Déplacer un objet** : un nouveau bouton **« ✋ Déplacer »** dans la palette **« 🚩 Symboles »** active un mode où le clic gauche maintenu **saisit l'objet le plus proche** (symbole en priorité, sinon route, sinon zone) et le fait **suivre le curseur**. Un symbole se repositionne au point ; une route ou une zone est **translatée en bloc**. Le déplacement est **annulable** via « ↶ Annuler » (retour à la position d'origine). En dehors de ce mode, le glisser continue de déplacer la carte.
 >
 > **☑️ Case « Auto Synchro »** (cochée par défaut), à droite du bouton **« 🛰️ Synchro NEM »** de la carte, qui pilote le comportement à la **réception** d'une synchro NEM :
@@ -62,7 +67,7 @@ Modes **Auto** (local puis OpenSky), **OpenSky seul**, **local seul** ou **SDR d
 > **📐 Surface des zones en hectares** : à la fin du tracé d'une zone, sa **surface est affichée en hectares** directement sur la carte (au centre de la zone, avec le libellé). Le calcul utilise une formule d'aire sphérique et se **met à jour automatiquement** au rechargement d'une carte ou après déplacement d'une zone.
 
 <p align="center">
-  <img src="images/TCQ_Carto_OVERLORD.png" alt="Reproduction de l'opération Overlord" width="81024"/>
+  <img src="images/TCQ_Carto_OVERLORD.png" alt="Reproduction de l'opération Overlord" width="1024"/>
   <br><i>Reproduction de l'opération Overlord (débarquement du 6 juin 1944) au format OTAN/APP-6 (NEB)</i>
 </p>
 
