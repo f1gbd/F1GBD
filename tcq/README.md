@@ -9,9 +9,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.46.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.47.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.46.0/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.47.0/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -26,8 +26,14 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 </div>
 
 ---
+## 🆕 Nouveautés v12.47
 
-## 🆕 Quoi de neuf en v12.46 — Synchronisation NEM (Numérisation de l'Espace de Mission)
+- **🖱️ Infobulle météo au survol** : passez la souris sur un vecteur de vent pour afficher une **infobulle fugitive** avec les données du point — température, humidité, vent (vitesse + direction), rafales, pression, et l'état de la **règle 3×30**.
+
+<p align="center">
+  <img src="images/TCQ_Carto_donnéesMéteo.png" alt=Données météo" width="400"/>
+  <br><i>Affichage des données météo sous le curseur</i>
+</p>
 
 ### Bouton **« 🌦️ Météo »** sur la carte récupère la météo AROME (Météo-France) via **Open-Meteo** (gratuit, **sans clé**) sur la **zone affichée** et affiche trois éléments :
 
@@ -47,6 +53,19 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
   <img src="images/TCQ_Carto_3x30_SDIS.png" alt="Affichage des zone à risque incendies" width="1024"/>
   <br><i>Affichage Zones à Risques Incendie (Règle des trois 30, voir ( https://fr.wikipedia.org/wiki/R%C3%A8gle_des_trois_30 )</i>
 </p>
+
+- **🗺️ Zones d'alerte météo** : définissez une **zone à surveiller** (par exemple une forêt) en la **traçant à la souris**, exactement comme une zone de symbole (clic gauche = points, clic droit = terminer, Échap = annuler). Chaque zone reçoit un nom et est **enregistrée dans `setup.json`**.
+
+<p align="center">
+  <img src="images/TCQ_Carto_3x30_ZoneAlert.png" alt="Affichage des zone à risque incendies" width="1024"/>
+  <br><i>Définition Zones à Risques Incendie (Règle des trois 30, voir ( https://fr.wikipedia.org/wiki/R%C3%A8gle_des_trois_30 )</i>
+</p>
+
+- **🚨 Alerte automatique** : TCQ surveille en continu la météo AROME **dans chaque zone** ; lorsque les **seuils d'alerte sont dépassés** — règle des **3×30** complète (T ≥ 30 °C, vent ≥ 30 km/h, HR ≤ 30 %), ou **vigilance** (2 critères sur 3, au choix) — la carte affiche un **bandeau « ⚠️ ALERTE MÉTÉO » clignotant**, la zone passe en rouge, et une **tonalité d'alerte** retentit (sonorité montante **type FR-Alert**, distincte de la sirène RASEC-ALERT). L'alerte s'**acquitte d'un clic** sur le bandeau (la surveillance reste active).
+- **⚙️ Dialogue « Paramètres d'alerte météo »** (depuis les réglages météo) : activation des alertes, condition de déclenchement (3×30 complète ou vigilance), tonalité + nombre de répétitions (avec bouton de test), et **gestion des zones** (tracer / supprimer). Tout est **persisté dans `setup.json`**.
+
+
+## 🆕 TCQ v12.46 — Synchro NEM (Numérisation de l'Espace de Mission) et suivi d'aéronefs en temps réel
 
 ### ✈️ Suivi avion temps réel — bouton « OpenSky »
 
@@ -92,7 +111,7 @@ Modes **Auto** (local puis OpenSky), **OpenSky seul**, **local seul** ou **SDR d
 
 ---
 
-## 🆕 Quoi de neuf en v12.40 — Cartographie opérationnelle & symboles normalisés
+## 🆕 TCQ v12.40 — Cartographie opérationnelle & symboles normalisés
 
 > **🗺️ Bouton « CARTE » sur la page principale** — accès direct à la carte APRS / SATER depuis la pile de boutons (les boutons **VFT** *(TEST / ENVOI)* et **vidéo** *(MEMO / JVFT)* ont été regroupés sur une ligne chacun pour ne pas allonger la pile).
 >
@@ -116,7 +135,7 @@ Modes **Auto** (local puis OpenSky), **OpenSky seul**, **local seul** ou **SDR d
 
 ---
 
-## 🆕 Quoi de neuf en v12.35 — RASEC-ALERT, CHAPPE26 & Groupes LXMF
+## 🆕 TCQ v12.35 — RASEC-ALERT, CHAPPE26 & Groupes LXMF
 
 > **🚨 RASEC-ALERT — alerte déclenchée à distance** — un correspondant envoie un simple message (LXMF, TNC Packet ou VARA) contenant `#ra <code>` pour déclencher sur votre station une **alerte plein écran clignotante + sirène sonore forte + accusé de réception**. Acquittement par clic ou Échap / Entrée / Espace. Le code d'activation (défaut `ADRASEC77`) se change à distance par `#rapass <ancien> <nouveau>`, et le nombre de répétitions de la sirène par `#b <n>` (`#b 0` = sirène **continue** jusqu'à acquittement). Nouveau bouton **« 🚨 RASEC-ALERT »** dans la barre d'outils pour régler le code, la sirène et **tester** l'alerte localement. L'accusé (« *Pager OK - alerte bien recue* ») ne contient **jamais** le code, pour éviter toute boucle d'auto-déclenchement.
 >
@@ -128,7 +147,7 @@ Modes **Auto** (local puis OpenSky), **OpenSky seul**, **local seul** ou **SDR d
 
 ---
 
-## 🆕 Quoi de neuf en v12.34 — RNS Nodes List (nodes Reticulum en direct)
+## 🆕 TCQ v12.34 — RNS Nodes List (nodes Reticulum en direct)
 
 > **🌐 Liste des nodes Reticulum du moment** — l'onglet **« 📢 Annonce LXMF »** dispose d'un nouveau bouton **« 🌐 RNS Nodes List »** qui récupère **en direct** les points d'accès Reticulum recensés par le service communautaire [rns.fyi](https://rns.fyi) : **santé, uptime 30 j, fiabilité, sauts et localisation** de chaque relais.
 >
@@ -141,47 +160,6 @@ Modes **Auto** (local puis OpenSky), **OpenSky seul**, **local seul** ou **SDR d
 > **📝 Éditer Config / 📡 Config Répéteur LoRa** — ouverture directe du fichier `config` dans **Notepad**, et insertion en un clic d'un bloc **`[[RNode LoRa]]`** préréglé (**867.5 MHz / BW 125 kHz / SF8 / CR 4:5**, port `COM3`) pour se raccorder au **répéteur RRLoRa**.
 >
 > **📒 Auto Ajout Annuaire** — nouvelle case dans l'onglet Annonce LXMF : les nouvelles stations **TCQ\*** reçues par annonce LXMF sont **ajoutées automatiquement à l'annuaire** en mémoire si elles n'y figurent pas encore.
-
----
-
-## 🆕 Quoi de neuf en v12.33 — Canaux privés MeshCore
-
-> **🔒 Canaux MeshCore privés protégés par clé secrète** — l'onglet **« 📡 Canaux »** du mode MeshCore permet désormais de **créer, partager et rejoindre** des canaux **privés**, exactement comme l'application MeshCore officielle.
->
-> **➕ Créer un canal privé** — nom + **clé secrète de 16 octets** (32 caractères hexadécimaux), avec **génération aléatoire** de clé en un clic et choix de l'emplacement. Le canal apparaît avec un cadenas **🔒**.
->
-> **🔑 Partager la clé** — TCQ génère un **QR Code** et une **URL `meshcore://`** : les autres opérateurs **scannent le QR** (appli MeshCore) ou importent l'URL. Boutons **Copier l'URL** et **Enregistrer le QR en PNG** (transmissible par Winlink, e-mail, messagerie…).
->
-> **📥 Rejoindre un canal** — import par URL `meshcore://channel/add?...`. À la **première sélection** d'un canal privé, la clé est **demandée une seule fois** puis **mémorisée** pour les connexions suivantes.
->
-> **ℹ️ Vérifier** — un outil de diagnostic relit la clé **dans le module** et affiche le **hash de canal on-air**, pour confirmer en un coup d'œil que tous les postes partagent bien la même clé.
->
-> **🛡️ Programmation automatique** — TCQ programme la clé dans le firmware MeshCore (l'emplacement **Public** reste intact), condition indispensable au chiffrement/déchiffrement du trafic de canal.
-
----
-
-## 🆕 Quoi de neuf en v12 — Journal de Bord / SITREP VIDEO
-
-> **📹 Journal de Bord vidéo embarqué** — TCQ capture un **clip webcam + voix** depuis l'interface pour transmettre un **point de situation audiovisuel (SITREP VIDEO)** par radio, **même sans Internet**. Deux voies complémentaires :
->
-> **MEMO VIDEO (transport natif, compressé)** — clip émis **directement sur le canal du mode** (trame VBIN en VARA, fichier natif en LXMF). Deux sous-modes : **Clip vidéo + son** (≤ 20 s) et **Mémo vocal + photo** (≤ 30 s). Encodage VP9 + Opus en **160×120**, débit cible calibré (la taille suit la durée) — quand on n'a qu'une liaison radio.
->
-> **JVFT — Journal Vidéo en VFT (pleine qualité)** — clip **320×240** jusqu'à **90 s** acheminé par le **canal latéral QIT/VFT**, sans la contrainte de taille du canal radio, avec signal **&QV&** sur le mode actif.
->
-> **🕒 Horodatage incrusté** — la date et l'heure sont **gravées en bas de chaque image** du clip (toute capture d'écran reste datée).
->
-> **🗂️ Journal de Bord** — chaque clip est **archivé automatiquement** dans un sous-dossier `Journal/` (`JVFT_<horodatage>.webm`). L'onglet **« Fichiers/Journal »** liste les vidéos : **rejouer**, **supprimer**, ouvrir le dossier. On peut aussi **recharger une vidéo du Journal** pour la ré-émettre.
->
-> **✅ Enregistrer maintenant, envoyer plus tard** — boutons séparés **VALIDER** (encode + archive au Journal, sans émettre) et **ENVOYER** (émet ; pas de ré-encodage si déjà validé).
->
-> **🖼️ Trace dans la main courante** — à la réception d'une vidéo, une **imagette** (1re image) + lien **« ▶ Visionner »** s'affiche dans le **chat de tous les modes** (VARA, Packet, MeshCore, LXMF) : la vacation garde une trace visuelle.
->
-> **▶ Lecteur intégré à taille native** — les clips reçus se lisent dans une petite fenêtre TCQ **à leur résolution réelle** (avec le son), sans agrandissement par le lecteur système. Boutons Rejouer / zoom ×1–×3. **👁 Aperçu** du clip exact avant émission.
->
-> **🔔 Annonce horodatée** — un court message « *Réception d'un MEMO VIDEO / JVFT de <indicatif>* » est émis sur le canal ; pour le MEMO VIDEO il part **après l'ACK du fichier**, afin de ne pas perturber le dernier paquet de la vidéo.
->
-> **📋 Main courante Packet** — bouton **« Sauver le Log »** qui enregistre toute la conversation horodatée dans un fichier texte, comme en VARA.
-
 
 ---
 
@@ -357,7 +335,7 @@ Au premier démarrage :
 
 ---
 
-## 🆕 Nouveautés v12.46
+## 🆕 Nouveautés v12.47
 
 ### 🛰️ Synchronisation NEM — partage de la situation par LXMF de Groupe
 
@@ -756,7 +734,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v12.46.0 — 2026-07-22**
+**Version v12.47.0 — 2026-07-22**
 
 ---
 
