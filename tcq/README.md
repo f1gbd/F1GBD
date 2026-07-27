@@ -9,9 +9,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.47.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.48.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.47.0/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.48.0/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -24,6 +24,34 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 [**📜 Toutes les releases TCQ**](https://github.com/f1gbd/F1GBD/releases?q=tcq) • [**📚 Documentation**](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations)
 
 </div>
+
+---
+## 🆕 Nouveautés v12.48
+**TCQ-CARTO** : Un outil d'aide à la décision pour la communauté ADRASEC et les équipes de sécurité civile.
+
+### ✈️ Filtre des types d'aéronefs — suivi OpenSky
+
+Le suivi avion (bouton **« ✈️ OpenSky »**) dispose désormais d'un **filtre des types d'aéronefs affichés** : par défaut, TCQ **n'affiche que les aéronefs d'État et de secours** et **masque les avions civils**, pour ne garder à l'écran que ce qui est pertinent en opération. La reconnaissance combine l'**indicatif** (callsign) et l'**adresse ICAO24 militaire**.
+
+Dans **Réglages OpenSky** (clic droit sur le bouton ✈️ OpenSky), une case maîtresse active le filtre, avec une **case à cocher par catégorie** :
+
+- **Bombardiers d'eau** — Pélican (Canadair CL-415), Milan (Dash-8), Morane ;
+- **Hélicoptères de secours** — Dragon (Sécurité Civile), SAMU / HéliSMUR ;
+- **Sécurité Civile / Douane / Gendarmerie / Police** ;
+- **Aéronefs militaires** — FAF, COTAM, CTM, NATO… + plages ICAO24 réputées militaires ;
+- **Autres aéronefs d'État**.
+
+Le compteur en bas de carte indique alors **« N/Total (filtre État) »**, l'**infobulle au survol** précise le **type reconnu**, et le réglage est **enregistré dans `setup.json`** et **appliqué immédiatement**.
+
+### 🩺 Diagnostic Quota Open-Meteo — couche météo
+
+Les **Réglages météo** intègrent un bouton **« 🩺 Diagnostic Quota Open-Meteo »** qui interroge le service et affiche clairement l'état du quota journalier gratuit :
+
+- **✅ « Quota Open-Meteo OK »** — le service répond, la couche météo doit fonctionner (une éventuelle pause automatique est levée) ;
+- **🚫 « Quota Open-Meteo Dépassé »** — quota épuisé (HTTP 429), avec rappel de la remise à zéro (**00:00 UTC ≈ 2 h en France**) et des réglages recommandés (grille **6×5**, intervalle **15 min**) ;
+- **⚠️** un message dédié en cas d'indisponibilité réseau.
+
+Le test tourne **en arrière-plan** (interface non figée) et le résultat est aussi consigné dans le journal.
 
 ---
 ## 🆕 Nouveautés v12.47
@@ -734,7 +762,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v12.47.0 — 2026-07-22**
+**Version v12.48.0 — 2026-07-27**
 
 ---
 
