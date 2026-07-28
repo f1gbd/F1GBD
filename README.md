@@ -1,10 +1,14 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 22 juillet 2026
+mis à jour le 28 juillet 2026
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
+
+![«ADRAlink»](https://github.com/f1gbd/F1GBD/blob/master/ADRAlink/images/ADRAlink_situ_expl.png)
+
+**MAJ du 28/07/2026** : [**ADRAlink: La solidarité radioamateur, opérationnelle même dans le noir**](https://github.com/f1gbd/F1GBD/tree/master/ADRAlink)
 
 ![«TransMiniLora (TML) v1.1 — la résilience ultime, MULTI-MODALE»](https://github.com/f1gbd/F1GBD/blob/master/TML/images/TML_title.png)
 
