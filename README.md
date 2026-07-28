@@ -6,6 +6,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
 
+![«ADRAlink»](https://github.com/f1gbd/F1GBD/blob/master/ADRAlink/images/ADRAlink_intro.png)
 ![«ADRAlink»](https://github.com/f1gbd/F1GBD/blob/master/ADRAlink/images/ADRAlink_situ_expl.png)
 
 **MAJ du 28/07/2026** : [**ADRAlink: La solidarité radioamateur, opérationnelle même dans le noir**](https://github.com/f1gbd/F1GBD/tree/master/ADRAlink)
