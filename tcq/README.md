@@ -9,9 +9,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.49.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.50.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.49.0/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.50.0/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -25,6 +25,32 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 
 </div>
 
+## 🆕 Nouveautés v12.50 — Couche « Live feux » (EFFIS + FIRMS + unités ADS-B)
+
+**TCQ-CARTO** ajoute une **couche cartographique temps réel des feux de forêt**, alimentée par des **données GIS ouvertes** (les mêmes sources que GISFire) : périmètres officiels de **zones brûlées EFFIS/Copernicus**, **points chauds satellite NASA FIRMS** (VIIRS 375 m + MODIS) et **position en direct des unités aériennes** (Canadair/Dash/Dragon) via **ADS-B**.
+
+### 🛰️ Bouton « Live feux » sur la carte
+
+Un nouveau bouton **« 🛰️ Live feux »** (barre d'outils de la carte, à côté de « ✈️ OpenSky » et « 🌦️ Météo ») active/désactive une couche qui superpose trois sources GIS ouvertes :
+
+- **🟤 Zones brûlées EFFIS/Copernicus** — périmètres officiels validés (couche WFS `ms:modis.ba.poly`), en polygones marron ;
+- **🔴 Foyers FIRMS** — détections satellite VIIRS 375 m + MODIS, agrégées en foyers avec enveloppe et **flèche de propagation** orientée selon le vent Open-Meteo ;
+- **✈️ Unités aériennes en direct** — bombardiers d'eau et hélicoptères suivis en **ADS-B** (airplanes.live), positionnés à leur emplacement réel avec indicatif.
+
+<p align="center">
+  <img src="images/TCQ_Carto_ZoneFeu.png" alt="Affichage des zone à risque incendies" width="1024"/>
+  <br><i>Affichage Zones à Risques Incendie (Règle des trois 30, voir ( https://fr.wikipedia.org/wiki/R%C3%A8gle_des_trois_30 )</i>
+</p>
+
+### 🔑 Clé FIRMS + intervalle persistés
+
+Clic droit sur le bouton (ou l'engrenage **⚙**) ouvre les réglages : la **clé NASA FIRMS (MAP_KEY)** — gratuite — et l'**intervalle de rafraîchissement** (défaut **30 min**) sont **enregistrés dans `setup.json`** (section `feux_live`) et **rechargés au démarrage**. Sans clé, la couche affiche quand même les **zones brûlées EFFIS et les aéronefs** (EFFIS et ADS-B ne nécessitent aucune clé). Un bouton **« 🧪 Tester maintenant »** lance un cycle immédiat et affiche un **récapitulatif** (zones brûlées / foyers / aéronefs / vent).
+
+### 🎛️ Filtres d'affichage & carte épurée
+
+Le dialogue de réglages propose **quatre cases** pour afficher/masquer indépendamment les **zones brûlées**, les **foyers FIRMS**, les **unités aériennes** et les **flèches de propagation**. L'affichage est **épuré par défaut** (icônes et polygones sans texte ; seuls les aéronefs portent un **indicatif court**) pour ne pas surcharger la carte, même avec des dizaines de foyers.
+
+### 🧱 Couche dédiée, non destructive & centrage manuel
 ---
 ## 🆕 Nouveautés v12.49
 **TCQ-CARTO** : Un outil d'aide à la décision pour la communauté ADRASEC et les équipes de sécurité civile.
@@ -764,7 +790,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v12.49.0 — 2026-07-27**
+**Version v12.50.0 — 2026-07-28**
 
 ---
 
