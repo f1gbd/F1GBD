@@ -53,7 +53,11 @@ Le message est acheminé **par radio via Winlink** (PAT), en **telnet CMS**
 - **PAT** (client Winlink) assure le transport : telnet CMS ou modem radio
   (VARA FM/HF, ARDOP). Le serveur ne réinvente pas la partie radio.
 
-Détails : voir [documentations/ARCHITECTURE.md](documentations/ARCHITECTURE.md).
+| Configration RADIO VARA FM (Serveur (ADRASEC) | Mini-Routeur GLnet GL-MT3600BE |
+|:---:|:---:|
+| !<img src="images/FTM300 + MiniRouter_ZB.png" alt="ADRAlink-serveur" width="400"> | !!<img src="images/MiniRouteur_GL-MT3600BE.png" alt="ADRAlink-Client" width="480"> |
+
+**Station ADRASEC ADRASEClink VARA FM utilisée en Zone Blanche (FTM300de + Signalink + Mini-Routeur Wifi GLnet)**
 
 ---
 
