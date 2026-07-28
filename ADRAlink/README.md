@@ -59,11 +59,11 @@ Détails : voir [documentations/ARCHITECTURE.md](documentations/ARCHITECTURE.md)
 
 ## Les trois applications
 
-| Application | Rôle | Techno |
-|---|---|---|
-| **ADRAlink_serveur** | Console opérateur ADRASEC : pilote PAT, le modem VARA FM, et le serveur ADRAlink interne (compose les messages, relève les réponses, journal horodaté). | Python / Tkinter |
-| **ADRAlink_client** | Interface de saisie pour le sinistré (poste de secours Windows). | Python / Tkinter |
-| **ADRAlink client Android** | Même interface pour smartphone (formulaire + découverte auto du serveur). | Tauri (Rust + web) |
+| Application | Rôle |
+|---|---|
+| **ADRAlink_serveur** | Console opérateur ADRASEC : pilote PAT, le modem VARA FM, et le serveur ADRAlink interne (compose les messages, relève les réponses, journal horodaté). 
+| **ADRAlink_client** | Interface de saisie pour le sinistré (poste de secours Windows). 
+| **ADRAlink client Android** | Même interface pour smartphone (formulaire + découverte auto du serveur). 
 
 ---
 
