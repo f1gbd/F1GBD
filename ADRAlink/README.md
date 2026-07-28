@@ -29,6 +29,8 @@ Le message est acheminé **par radio via Winlink** (PAT), en **telnet CMS**
 
 ![Principe ADRAlink](images/ADRAlink_situ_expl.png)
 
+![Principe ADRAlink](images/ADRAlink_activation_PCS.png)
+
 > Un manuel complet (fiche technique + installation + utilisation) est disponible :
 > [documentations/ADRAlink_Manuel.pdf](documentations/ADRAlink_Manuel.pdf).
 
