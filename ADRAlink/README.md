@@ -25,9 +25,11 @@ Le message est acheminé **par radio via Winlink** (PAT), en **telnet CMS**
 
 | Serveur (opérateur ADRASEC) | Client Windows (sinistré) | Client Android (sinistré) |
 |:---:|:---:|:---:|
-| ![Serveur ADRAlink](images/serveur_VARA_FM.png) | ![Client Windows](images/client_windows.png) | ![Client Android](images/android_accueil.jpg) |
+| <img src="images/ADRAlink_serveur_VARA_FM.png" alt="ADRAlink" width="800"><br> | <img src="images/ADRAlink_Client_PC.png" alt="ADRAlink" width="900"><br> | <img src="images/ADRAlink_android.jpg" alt="ADRAlink" width="500"><br> |
 
-![Principe ADRAlink](images/ADRAlink_situation.png)
+![Principe ADRAlink](images/ADRAlink_situ_expl.png)
+
+![Principe ADRAlink](images/ADRAlink_activation_PCS.png)
 
 > Un manuel complet (fiche technique + installation + utilisation) est disponible :
 > [documentations/ADRAlink_Manuel.docx](documentations/ADRAlink_Manuel.docx).
@@ -53,7 +55,9 @@ Le message est acheminé **par radio via Winlink** (PAT), en **telnet CMS**
 - **PAT** (client Winlink) assure le transport : telnet CMS ou modem radio
   (VARA FM/HF, ARDOP). Le serveur ne réinvente pas la partie radio.
 
-Détails : voir [documentations/ARCHITECTURE.md](documentations/ARCHITECTURE.md).
+| Serveur ADRAlink VARA FM (ADRASEC) | Mini-Routeur GL-MT3600BE |
+|:---:|:---:|
+| <img src="images/FTM300 + MiniRouter_ZB.png" alt="ADRAlink" width="800"><br> | <img src="images/MiniRouteur_GL-MT3600BE.png" alt="ADRAlink" width="800"><br> |
 
 ---
 
