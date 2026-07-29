@@ -25,14 +25,12 @@ Le message est acheminé **par radio via Winlink** (PAT), en **telnet CMS**
 
 | Serveur (opérateur ADRASEC) | Client Windows (sinistré) | Client Android (sinistré) |
 |:---:|:---:|:---:|
-| !<img src="images/ADRAlink_serveur_VARA_FM.png" alt="ADRAlink-serveur" width="400"> | !!<img src="images/ADRAlink_Client_PC.png" alt="ADRAlink-Client" width="460"> | !<img src="images/ADRAlink_android.jpg" alt="ADRAlink-ClAndroid" width="230"> |
+| ![Serveur ADRAlink](images/serveur_VARA_FM.png) | ![Client Windows](images/client_windows.png) | ![Client Android](images/android_accueil.jpg) |
 
-![Principe ADRAlink](images/ADRAlink_situ_expl.png)
-
-![Principe ADRAlink](images/ADRAlink_activation_PCS.png)
+![Principe ADRAlink](images/ADRAlink_situation.png)
 
 > Un manuel complet (fiche technique + installation + utilisation) est disponible :
-> [documentations/ADRAlink_Manuel.pdf](documentations/ADRAlink_Manuel.pdf).
+> [documentations/ADRAlink_Manuel.docx](documentations/ADRAlink_Manuel.docx).
 
 ---
 
@@ -40,9 +38,9 @@ Le message est acheminé **par radio via Winlink** (PAT), en **telnet CMS**
 
 ```
 ┌────────────────────┐   REST/JSON    ┌───────────────────────┐   HTTP    ┌──────────┐
-│  Client ADRAlink   │ ────WiFi────▶  │   ADRAlink-serveur   │ ───────▶  │   PAT    │ ──▶ Radio
-│  Windows / Android │   (découverte  │  (identifiants, valid.│  API PAT  │ (Winlink)│     Winlink
-│      (sinistré)    │    auto UDP)   │    compo, relève)     │           └──────────┘   telnet / VARA
+│  Client ADRAlink   │ ───WiFi──▶    │   ADRAlink-serveur    │ ───────▶ │   PAT     │ ──▶ Radio
+│  Windows / Android │   (découverte  │  (identifiants, valid.│  API PAT  │(Winlink) │     Winlink
+│      (sinistré)    │    auto UDP)   │   compo, relève)      │           └──────────┘   telnet / VARA
 └────────────────────┘                └───────────────────────┘
 ```
 
@@ -55,33 +53,29 @@ Le message est acheminé **par radio via Winlink** (PAT), en **telnet CMS**
 - **PAT** (client Winlink) assure le transport : telnet CMS ou modem radio
   (VARA FM/HF, ARDOP). Le serveur ne réinvente pas la partie radio.
 
-| Configration RADIO VARA FM (Serveur (ADRASEC) | Mini-Routeur GLnet GL-MT3600BE |
-|:---:|:---:|
-| !<img src="images/FTM300 + MiniRouter_ZB.png" alt="ADRAlink-serveur" width="400"> | !!<img src="images/MiniRouteur_GL-MT3600BE.png" alt="ADRAlink-Client" width="480"> |
-
-**Station ADRASEC ADRASEClink VARA FM utilisée en Zone Blanche (FTM300de + Signalink + Mini-Routeur Wifi GLnet)**
+Détails : voir [documentations/ARCHITECTURE.md](documentations/ARCHITECTURE.md).
 
 ---
 
 ## Les trois applications
 
-| Application | Rôle |
-|---|---|
-| **ADRAlink_serveur** | Console opérateur ADRASEC : pilote PAT, le modem VARA FM, et le serveur ADRAlink interne (compose les messages, relève les réponses, journal horodaté). 
-| **ADRAlink_client** | Interface de saisie pour le sinistré (poste de secours Windows). 
-| **ADRAlink client Android** | Même interface pour smartphone (formulaire + découverte auto du serveur). 
+| Application | Rôle | Techno |
+|---|---|---|
+| **ADRAlink_serveur** | Console opérateur ADRASEC : pilote PAT, le modem VARA FM, et le serveur ADRAlink interne (compose les messages, relève les réponses, journal horodaté). | Python / Tkinter |
+| **ADRAlink_client** | Interface de saisie pour le sinistré (poste de secours Windows). | Python / Tkinter |
+| **ADRAlink client Android** | Même interface pour smartphone (formulaire + découverte auto du serveur). | Tauri (Rust + web) |
 
 ---
 
 ## Téléchargement
 
-Dernière version : **v1.0.1** (https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.0.1/ADRAlink.7z).
+Dernière version : **v1.1.1** (https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.1.1/ADRAlink.7z).
 
-- 💻 **Windows** — archive `ADRAlink.7z` (contient
+- 💻 **Windows (exe, sans source)** — archive `ADRAlink.7z` (contient
   `ADRAlink_serveur.exe` + `ADRAlink_client.exe`) :
-  [**ADRAlink.7z**](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.0.1/ADRAlink.7z)
+  [**ADRAlink.7z**](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.1.1/ADRAlink.7z)
 - 📱 **Android (APK)** :
-  [**ADRAlink_client.apk**](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.0.1/ADRAlink_client.apk)
+  [**ADRAlink_client.apk**](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.1.1/ADRAlink_client.apk)
 
 Décompressez `ADRAlink.7z`, placez **les deux exe dans le même dossier** et lancez
 `ADRAlink_serveur.exe`. Les exécutables sont autonomes (icône et logos embarqués).
@@ -102,8 +96,27 @@ tiers à installer séparément. Pour l'APK : autorisez les « sources inconnues
 3. Le sinistré **note son identifiant** ; il pourra consulter la réponse de ses
    proches en le saisissant dans **« Consulter mes réponses »**.
 
-Guide serveur complet (telnet, VARA FM, options) :
-[documentations/ADRAlink_Manuel.pdf](documentations/ADRAlink_Manuel.pdf).
+
+---
+
+## Portail de téléchargement (zone blanche)
+
+Pour que le sinistré installe l'application Android **sans Internet**, la console
+`ADRAlink_serveur` intègre un **portail de téléchargement** : bouton
+**« Lancer le portail »**. Le sinistré, connecté au WiFi du dispositif, ouvre une
+page simple (adresse `http://adralink.fr` ou **portail captif** qui s'ouvre tout
+seul) et **télécharge l'APK**. Placez `ADRAlink_client.apk` à côté de
+`ADRAlink_serveur.exe` pour qu'il soit proposé.
+
+**Client web (sans rien installer).** Depuis un PC, une tablette ou un iPhone,
+le sinistré peut aussi **écrire et lire ses messages directement dans le
+navigateur** : la page du portail propose un bouton **« Utiliser dans le
+navigateur »** (`http://adralink.fr/app`). Le client web est servi par le
+serveur ADRAlink et relayé par le portail (aucun port à saisir, aucune
+installation).
+
+Configuration du routeur (nom `adralink.fr`, portail captif, variante hébergée
+sur le routeur) : [documentations/PORTAL_SETUP.md](documentations/PORTAL_SETUP.md).
 
 ---
 
@@ -114,4 +127,4 @@ Développement et portage : **F1GBD — ADRASEC 77 / FNRASEC**.
 Basé sur **[PAT](https://github.com/la5nta/pat)** (client Winlink open source,
 LA5NTA) pour le transport radio Winlink.
 
-*ADRAlink v1.0.1 — © 2026 F1GBD / ADRASEC 77. Licence GNU GPL v3.0.*
+*ADRAlink v1.1.1 — © 2026 F1GBD / ADRASEC 77. Licence GNU GPL v3.0.*
