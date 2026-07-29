@@ -58,16 +58,20 @@ Le message est acheminé **par radio via Winlink** (PAT), en **telnet CMS**
 | Serveur ADRAlink VARA FM (ADRASEC) | Mini-Routeur GL-MT3600BE |
 |:---:|:---:|
 | <img src="images/FTM300 + MiniRouter_ZB.png" alt="ADRAlink" width="800"><br> | <img src="images/MiniRouteur_GL-MT3600BE.png" alt="ADRAlink" width="800"><br> |
+- Station ADRASEC Serveur ADRAlink VHF: Transceiver Yaesu FTM300DE + Signalink
+- Antenne VHF/UHF
+- Mini-Routeur Wifi GLnet GL-MT3600BE
+- ADRALINK + VARA FM (ou HF ou SAT)
 
 ---
 
 ## Les trois applications
 
-| Application | Rôle | Techno |
-|---|---|---|
-| **ADRAlink_serveur** | Console opérateur ADRASEC : pilote PAT, le modem VARA FM, et le serveur ADRAlink interne (compose les messages, relève les réponses, journal horodaté). | Python / Tkinter |
-| **ADRAlink_client** | Interface de saisie pour le sinistré (poste de secours Windows). | Python / Tkinter |
-| **ADRAlink client Android** | Même interface pour smartphone (formulaire + découverte auto du serveur). | Tauri (Rust + web) |
+| Application | Rôle |
+|---|---|
+| **ADRAlink_serveur** | Console opérateur ADRASEC : pilote PAT, le modem VARA FM, et le serveur ADRAlink interne (compose les messages, relève les réponses, journal horodaté). |
+| **ADRAlink_client** | Interface de saisie pour le sinistré (poste de secours Windows). |
+| **ADRAlink client Android** | Même interface pour smartphone (formulaire + découverte auto du serveur). |
 
 ---
 
