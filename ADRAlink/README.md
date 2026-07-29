@@ -126,6 +126,9 @@ navigateur »** (`http://adralink.fr/app`). Le client web est servi par le
 serveur ADRAlink et relayé par le portail (aucun port à saisir, aucune
 installation).
 
+![Principe ADRAlink](images/ADRAlink_Fiche_1.png)
+![Principe ADRAlink](images/ADRAlink_Fiche_2.png)
+
 Configuration du routeur (nom `adralink.fr`, portail captif, variante hébergée
 sur le routeur) : [documentations/PORTAL_SETUP.md](documentations/PORTAL_SETUP.md).
 
