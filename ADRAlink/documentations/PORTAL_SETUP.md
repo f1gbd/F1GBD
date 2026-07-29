@@ -37,7 +37,7 @@ téléphone connecté au WiFi : `http://IP-DU-PC/`.
 
 > Astuce : donnez au PC une **IP fixe** sur le réseau du routeur (ou une
 > réservation DHCP), pour que l'adresse `adralink.fr` pointe toujours au bon
-> endroit. Dans les exemples ci-dessous, le PC est en `192.168.8.100`
+> endroit. Dans les exemples ci-dessous, le PC est en `192.168.8.206`
 > (adaptez à votre `ipconfig`).
 
 ---
@@ -52,14 +52,14 @@ Interface avancée du GL.iNet → **Network → DHCP and DNS → General → Add
 (champ « Address ») → ajoutez :
 
 ```
-/adralink.fr/192.168.8.100
+/adralink.fr/192.168.8.206
 ```
 
 ### Via SSH (uci)
 
 ```
 ssh root@192.168.8.1
-uci add_list dhcp.@dnsmasq[0].address='/adralink.fr/192.168.8.100'
+uci add_list dhcp.@dnsmasq[0].address='/adralink.fr/192.168.8.206'
 uci commit dhcp
 /etc/init.d/dnsmasq restart
 ```
@@ -77,6 +77,42 @@ uci commit dhcp
 
 Le port 80 étant le port web par défaut, l'utilisateur tape juste
 **`adralink.fr`** (ou `adralink.fr:8088` si vous êtes sur le port de repli).
+
+### Réglages côté smartphone (important)
+
+Même avec le DNS du routeur correctement configuré, deux réglages du téléphone
+empêchent souvent `adralink.fr` de fonctionner :
+
+- **Tapez `http://adralink.fr`** (avec le `http://`). Sinon les navigateurs
+  mobiles lancent une **recherche** au lieu de naviguer, ou tentent **`https://`**
+  (non servi par le portail) — ce qui donne « ne fonctionne pas » alors que le
+  DNS est bon.
+- **Désactivez le « DNS privé » d'Android** : *Paramètres → Réseau et Internet →
+  DNS privé → Désactivé*. En zone blanche, un DNS privé (dns.google, Cloudflare…)
+  est injoignable et **court-circuite** le DNS du routeur.
+- Après tout changement DNS, **oubliez puis reconnectez** le WiFi ADRAlink pour
+  que le téléphone reprenne le DNS distribué par le routeur.
+
+### Dépannage : « l'IP marche, mais pas `adralink.fr` »
+
+C'est le symptôme typique d'un **mappage DNS absent ou bloqué**. Si
+`http://192.168.8.206` affiche bien ADRAlink mais que `http://adralink.fr` non :
+
+1. Vérifiez que l'`address=/adralink.fr/192.168.8.206` est bien ajouté **et**
+   `dnsmasq` redémarré (commandes ci-dessus).
+2. Sur le GL.iNet, si la firmware a une **« DNS Rebinding Attack Protection »**
+   (ou un résolveur maison type AdGuard), désactivez-la ou ajoutez le
+   `rebind_domain` (ci-dessus). Un nom **`.lan`** (`adralink.lan`) contourne le
+   problème.
+3. Côté téléphone : `http://` explicite + **DNS privé désactivé** + reconnexion
+   au WiFi.
+4. Test décisif : sur le téléphone (ou un PC du réseau), `ping adralink.fr` doit
+   renvoyer **`192.168.8.206`**. Si oui, `http://adralink.fr` et
+   `http://adralink.fr/app` fonctionnent.
+
+> **Le plus fiable en zone isolée : passez directement à la section 3** (`/#/`),
+> qui fait résoudre `adralink.fr` (et tout autre nom) vers le PC **et** ouvre le
+> portail automatiquement.
 
 ---
 
@@ -96,14 +132,17 @@ mène aussi.
 
 ```
 ssh root@192.168.8.1
-uci add_list dhcp.@dnsmasq[0].address='/#/192.168.8.100'
+uci add_list dhcp.@dnsmasq[0].address='/#/192.168.8.206'
 uci commit dhcp
 /etc/init.d/dnsmasq restart
 ```
 
-`/#/` = « tous les domaines ». Le portail répond aux sondes captives
+`/#/` = « tous les domaines » → **192.168.8.206**. Du coup **`adralink.fr`
+fonctionne aussi** (il tombe sur le PC), et le portail répond aux sondes captives
 (`/generate_204`, `/hotspot-detect.html`, `/ncsi.txt`, …) par une redirection
-vers la page : la fenêtre de téléchargement s'ouvre donc automatiquement.
+vers la page : la fenêtre de téléchargement **s'ouvre automatiquement**. Les
+réglages « côté smartphone » de la section 2 (http://, DNS privé désactivé)
+restent valables.
 
 > Cela n'empêche pas l'application ADRAlink de fonctionner : le client parle au
 > serveur par **adresse IP** (et la découverte automatique reste par IP), pas par
@@ -114,11 +153,11 @@ vers la page : la fenêtre de téléchargement s'ouvre donc automatiquement.
 Rediriger uniquement les domaines de détection vers le PC :
 
 ```
-uci add_list dhcp.@dnsmasq[0].address='/connectivitycheck.gstatic.com/192.168.8.100'
-uci add_list dhcp.@dnsmasq[0].address='/clients3.google.com/192.168.8.100'
-uci add_list dhcp.@dnsmasq[0].address='/captive.apple.com/192.168.8.100'
-uci add_list dhcp.@dnsmasq[0].address='/www.msftconnecttest.com/192.168.8.100'
-uci add_list dhcp.@dnsmasq[0].address='/www.msftncsi.com/192.168.8.100'
+uci add_list dhcp.@dnsmasq[0].address='/connectivitycheck.gstatic.com/192.168.8.206'
+uci add_list dhcp.@dnsmasq[0].address='/clients3.google.com/192.168.8.206'
+uci add_list dhcp.@dnsmasq[0].address='/captive.apple.com/192.168.8.206'
+uci add_list dhcp.@dnsmasq[0].address='/www.msftconnecttest.com/192.168.8.206'
+uci add_list dhcp.@dnsmasq[0].address='/www.msftncsi.com/192.168.8.206'
 uci commit dhcp; /etc/init.d/dnsmasq restart
 ```
 
@@ -178,7 +217,7 @@ echo "static.apk=application/vnd.android.package-archive" >> /etc/httpd.conf
 
 Puis pointez `adralink.fr` (ou la redirection captive) vers **l'IP du routeur**
 (`192.168.8.1`) au lieu de celle du PC. Les mêmes réglages DNS qu'aux sections 2
-et 3 s'appliquent, en remplaçant `192.168.8.100` par `192.168.8.1`.
+et 3 s'appliquent, en remplaçant `192.168.8.206` par `192.168.8.1`.
 
 > Pour générer la page seule (à copier dans le routeur), lancez le portail sur le
 > PC et enregistrez `http://127.0.0.1/` depuis un navigateur, ou demandez le
