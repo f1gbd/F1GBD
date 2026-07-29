@@ -39,11 +39,8 @@ que ceux livrés *en direct* (via un Link), et renvoie une preuve de livraison. 
 en plus un **canal de groupe chiffré à clé partagée** pour une diffusion lisible par
 tous les abonnés.
 
-➡️ **[Télécharger la dernière version de TML](https://github.com/f1gbd/F1GBD/releases/download/tml-v1.2.0/TML-v1.2.0.7z)**
-
-
 <div align="center">
-<img src="images/TML_box.jpg" alt="Page Rx" width="600">
+<img src="images/tml_screen1.png" alt="Page Rx" width="600">
 <img src="images/screen_rx.jpg" alt="Page Rx" width="600">
 &nbsp;&nbsp;
 </div>
@@ -81,7 +78,7 @@ tous les abonnés.
 - **Journal Rx** des derniers messages reçus, indicatif expéditeur affiché proprement
   (messages de groupe préfixés `[G]`).
 - **Persistance** de la configuration en flash (LittleFS) — conservée après extinction.
-- **Configurateur USB** dédié (`TML_config` v1.1.1) : paramétrage, **canal de groupe**,
+- **Configurateur USB** dédié (`TML_config` v1.1) : paramétrage, **canal de groupe**,
   **réponses rapides** et **flashage** de la carte.
 
 ---
@@ -106,23 +103,17 @@ chiffre. Après les 4 chiffres, un 5ᵉ champ de confirmation (`1` = envoi, `0` 
 <img src="images/screen_code_enter.jpg" alt="Page Rx" width="400">
 &nbsp;&nbsp;
 <img src="images/screen_chappe.jpg" alt="Saisie Chappe 26" width="400">
-</div>
+&nbsp;&nbsp;
 
 
-**Saisie d'un texte libre** (clavier une touche) :
-- appui court = caractère suivant (A→Z, 0→9, espace, ponctuation, 
-- puis **EFFACER** et **ENVOI**) ; appui long = valider la lettre / effacer / envoyer.
+**Saisie d'un texte libre** (clavier une touche) : appui court = caractère suivant
+(A→Z, 0→9, espace, ponctuation, puis **EFFACER** et **ENVOI**) ; appui long = valider la
+lettre / effacer / envoyer.
 
-<div align="center">
 &nbsp;&nbsp;
 <img src="images/screen_TX_clair.jpg" alt="Saisie Chappe 26" width="400">
 &nbsp;&nbsp;
 <img src="images/screen_tx.jpg" alt="Saisie Chappe 26" width="400">
-</div>
-
-<div align="center">
-&nbsp;&nbsp;
-<img src="images/Groupe.jpg" alt="Saisie Chappe 26" width="400">
 </div>
 
 ---
@@ -145,7 +136,7 @@ chiffre. Après les 4 chiffres, un 5ᵉ champ de confirmation (`1` = envoi, `0` 
 
 Le firmware est **prêt à l'emploi** : aucune compilation nécessaire.
 
-1. Télécharge l'archive **[`TML.7z`](https://github.com/f1gbd/F1GBD/releases/download/tml-v1.2.0/TML-v1.2.0.7z)** et
+1. Télécharge l'archive **[`TML.7z`](https://github.com/f1gbd/F1GBD/releases/download/tml-v1.1.0/TML-v1.1.0.7z)** et
    décompresse-le : tu obtiens `tml_firmware_v4.bin` et la licence.
 2. Lance le configurateur **`TML_config`** (`tml_config.exe`).
 3. Branche le Heltec v4 en USB, sélectionne son **port**.
@@ -264,7 +255,7 @@ L'archive **`TML.7z`** contient :
 - `tml_firmware_v4.bin` — image firmware fusionnée, à flasher à l'offset `0x0` ;
 - la **licence** (GPLv3).
 
-➡️ **[Télécharger la dernière version](https://github.com/f1gbd/F1GBD/releases/download/tml-v1.2.0/TML-v1.2.0.7z)** *(ou depuis ce dossier du dépôt).*
+➡️ **[Télécharger la dernière version](https://github.com/f1gbd/F1GBD/releases/download/tml-v1.1.0/TML-v1.1.0.7z)** *(ou depuis ce dossier du dépôt).*
 
 ---
 
