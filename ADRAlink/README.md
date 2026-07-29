@@ -55,13 +55,16 @@ Le message est acheminé **par radio via Winlink** (PAT), en **telnet CMS**
 - **PAT** (client Winlink) assure le transport : telnet CMS ou modem radio
   (VARA FM/HF, ARDOP). Le serveur ne réinvente pas la partie radio.
 
-| Serveur ADRAlink VARA FM (ADRASEC) | Mini-Routeur GL-MT3600BE |
+| Serveur ADRAlink VARA FM (ADRASEC) | Mini-Routeur Wifi GL-MT3600BE |
 |:---:|:---:|
-| <img src="images/FTM300 + MiniRouter_ZB.png" alt="ADRAlink" width="800"><br> | <img src="images/MiniRouteur_GL-MT3600BE.png" alt="ADRAlink" width="800"><br> |
-- Station ADRASEC Serveur ADRAlink VHF: Transceiver Yaesu FTM300DE + Signalink
+| <img src="images/FTM300 + MiniRouter_ZB.png" alt="Serveur ADRAlink ADRASEC" width="800"><br> | <img src="images/MiniRouteur_GL-MT3600BE.png" alt="Routeur Wifi" width="800"><br> |
+
+**Exemple de Station ADRASEC serveur ADRAlink pour Zone Blanche:**
+- Station ADRASEC Serveur ADRAlink VHF: Transceiver Yaesu FTM300DE + Interface Signalink
 - Antenne VHF/UHF
+- Liaison OK vers un RMS Winlink VARA FM en direct ou via un Digipeater
 - Mini-Routeur Wifi GLnet GL-MT3600BE
-- ADRALINK + VARA FM (ou HF ou SAT)
+- ADRALINK + VARA FM (installé et Licence VARA OK)
 
 ---
 
