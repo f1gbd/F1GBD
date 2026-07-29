@@ -24,8 +24,6 @@ Depuis la [dernière release](https://github.com/f1gbd/F1GBD/releases) :
 
 - 📦 **Paquet Debian (recommandé)** — `adralink_1.1.2_arm64.deb`
   ([télécharger](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.1.2/adralink_1.1.2_arm64.deb))
-- 🗜️ **Archive** — `ADRAlink-pi-1.1.2.tar.gz`
-  ([télécharger](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.1.2/ADRAlink-pi-1.1.2.tar.gz))
 
 Prérequis : **Raspberry Pi 4B+**, **Raspberry Pi OS 64-bit** (Lite suffit), Pi
 connecté au réseau du mini-routeur (IP fixe conseillée).
@@ -34,7 +32,7 @@ connecté au réseau du mini-routeur (IP fixe conseillée).
 
 ## Installation (opérateur de terrain)
 
-### Méthode A — paquet `.deb` (la plus simple)
+### Méthode — paquet `.deb` (la plus simple)
 
 ```bash
 sudo apt install ./adralink_1.1.2_arm64.deb
@@ -42,12 +40,6 @@ sudo apt install ./adralink_1.1.2_arm64.deb
 
 Tout est installé, activé et démarré. Aucune question posée.
 
-### Méthode B — archive `.tar.gz`
-
-```bash
-tar xzf ADRAlink-pi-1.1.2.tar.gz
-cd ADRAlink-pi-1.1.2
-sudo bash install.sh
 ```
 
 ### Configuration (une seule fois, après l'installation)
@@ -70,7 +62,7 @@ sudo bash /opt/adralink/install_vara_service.sh
 ```
 
 Détails (Wine/Box86, ARDOP natif, écran/VNC) : voir
-[RASPBERRY_PI.md](RASPBERRY_PI.md) §6.
+[RASPBERRY_PI.md](documentations/RASPBERRY_PI.md) §6.
 
 ---
 
@@ -89,9 +81,9 @@ Au **redémarrage**, tout se relance automatiquement.
 
 ## Documentation
 
-- 🧭 **[Fiche exploitation terrain](FICHE_TERRAIN.md)** — 1 page : allumer,
+- 🧭 **[Fiche exploitation terrain](documentations/FICHE_TERRAIN.md)** — 1 page : allumer,
   vérifier, changer de transport/digi, éteindre.
-- 📘 **[Guide complet RASPBERRY_PI.md](RASPBERRY_PI.md)** — installation, PAT,
+- 📘 **[Guide complet RASPBERRY_PI.md](documentations/RASPBERRY_PI.md)** — installation, PAT,
   VARA/Wine, réseau, supervision, dépannage.
 - 🌐 **[Portail & DNS routeur](../documentations/PORTAL_SETUP.md)** —
   `adralink.fr`, portail captif.
