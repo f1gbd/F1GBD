@@ -22,7 +22,7 @@ hôte de son réseau local.
 
 Depuis la [dernière release](https://github.com/f1gbd/F1GBD/releases) :
 
-- 📦 **Paquet Debian (recommandé)** — `adralink_1.1.2_arm64.deb`
+- 📦 **Paquet Debian (recommandé)** — `adralink_1.2.0_arm64.deb`
   ([télécharger](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.2.0/adralink_1.2.0_arm64.deb))
 
 Prérequis : **Raspberry Pi 4B+**, **Raspberry Pi OS 64-bit** (Lite suffit), Pi
