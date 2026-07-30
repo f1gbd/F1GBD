@@ -23,7 +23,7 @@ hôte de son réseau local.
 Depuis la [dernière release](https://github.com/f1gbd/F1GBD/releases) :
 
 - 📦 **Paquet Debian (recommandé)** — `adralink_1.1.2_arm64.deb`
-  ([télécharger](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.1.2/adralink_1.1.2_arm64.deb))
+  ([télécharger](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.2.0/adralink_1.2.0_arm64.deb))
 
 Prérequis : **Raspberry Pi 4B+**, **Raspberry Pi OS 64-bit** (Lite suffit), Pi
 connecté au réseau du mini-routeur (IP fixe conseillée).
@@ -35,7 +35,7 @@ connecté au réseau du mini-routeur (IP fixe conseillée).
 ### Méthode — paquet `.deb` (la plus simple)
 
 ```bash
-sudo apt install ./adralink_1.1.2_arm64.deb
+sudo apt install ./adralink_1.2.0_arm64.deb
 ```
 
 Tout est installé, activé et démarré. Aucune question posée.
@@ -98,4 +98,4 @@ avec les sources). Voir le kit `raspberry/build/` du dépôt de développement :
 
 ---
 
-*ADRAlink v1.1.2 — © 2026 F1GBD / ADRASEC 77 / FNRASEC. Licence GNU GPL v3.0.*
+*ADRAlink v1.2.0 — © 2026 F1GBD / ADRASEC 77 / FNRASEC. Licence GNU GPL v3.0.*
