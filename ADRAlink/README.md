@@ -80,7 +80,7 @@ Le message est acheminé **par radio via Winlink** (PAT), en **telnet CMS**
 
 ## Téléchargement
 
-Dernière version : **v1.2.0** (hhttps://github.com/f1gbd/F1GBD/releases/download/adralink-v1.2.0/ADRAlink.7z).
+Dernière version : **v1.2.0** (https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.2.0/ADRAlink.7z).
 
 - 💻 **Windows (exe, sans source)** — archive `ADRAlink.7z` (contient
   `ADRAlink_serveur.exe` + `ADRAlink_client.exe`) :
