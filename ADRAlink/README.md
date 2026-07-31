@@ -36,10 +36,8 @@ aussi joindre le serveur **par radio LoRa** (Reticulum / LXMF) — voir la secti
 ![Principe ADRAlink](images/ADRAlink_activation_PCS.png)
 
 > Un manuel complet (fiche technique + installation + utilisation) est disponible :
-> [documentations/ADRAlink_Manuel.docx](documentations/ADRAlink_Manuel.docx).
+> [documentations/ADRAlink_Manuel.pdf](documentations/ADRAlink_Manuel.pdf).
 
----
-[**Exemple de mise en situation d'ADRAlink**](adralink_zone_blanche.html)
 ---
 
 ## Architecture
@@ -77,10 +75,6 @@ aussi joindre le serveur **par radio LoRa** (Reticulum / LXMF) — voir la secti
 - Mini-Routeur Wifi GLnet GL-MT3600BE
 - ADRALINK + VARA FM (installé et Licence VARA OK)
 
-<p align="center">
-  <img src="images/ADRAlink_serveur_VARA_FM.png" alt="ADRAlink" width="1024"><br>
-</p>
-
 ---
 
 ## Transport LoRa / LXMF (zones blanches, v1.3)
@@ -104,6 +98,38 @@ portée du point d'accès WiFi.
 > **WiFi + LoRa** avec backhaul Winlink en **telnet** (Internet). Le modem
 > **VARA** (radio) reste sur un poste **x86 natif** : l'émulation d'un modem DSP
 > temps réel (Wine/BOX64) sur Pi n'est pas fiable.
+
+---
+
+## Liaison en zone blanche — exemple de déploiement
+
+Exemple concret combinant les deux accès locaux et le relais radio Winlink : les
+**sinistrés** à proximité se connectent en **WiFi**, les **opérateurs ADRASEC**
+déployés sur une zone d'intervention plus large se connectent en **LoRa**, et la
+station relaie l'ensemble vers Winlink en **VARA FM** via le digipeater
+**F5ZYI-7** puis le RMS **F1GBD**.
+
+### Schéma synoptique de la chaîne
+
+![Schéma synoptique ADRAlink](images/ADRAlink_zone_blanche_synoptique.png)
+
+Deux accès locaux (WiFi / LoRa) convergent vers la station ADRASEC, qui relaie en
+radio VARA FM jusqu'au réseau Winlink :
+
+- **WiFi** — les sinistrés à proximité saisissent leur message (APK, client web ou client PC).
+- **LoRa / LXMF (Reticulum)** — les opérateurs hors de portée WiFi joignent le serveur par radio (module RNode).
+- **Station ADRAlink** — gère WiFi et LoRa dans un seul processus, compose le message Winlink et pilote PAT + le modem VARA FM.
+- **VARA FM** — liaison radio vers le digipeater F5ZYI-7 puis le RMS Winlink F1GBD.
+- **Internet (Winlink CMS)** — le RMS injecte le message dans le réseau Winlink, qui délivre l'e-mail aux proches.
+
+### Déploiement sur le terrain
+
+![Déploiement ADRAlink en zone blanche](images/ADRAlink_zone_blanche_situation.png)
+
+La station ADRASEC couvre les **sinistrés en WiFi** (courte portée) et les
+**opérateurs déployés en LoRa** (longue portée) sur une zone d'intervention
+élargie ; le trafic Winlink part en **VARA FM** vers le digipeater **F5ZYI-7**
+puis le **RMS F1GBD**, qui injecte le message dans le réseau Winlink.
 
 ---
 
