@@ -75,6 +75,10 @@ aussi joindre le serveur **par radio LoRa** (Reticulum / LXMF) — voir la secti
 - Mini-Routeur Wifi GLnet GL-MT3600BE
 - ADRALINK + VARA FM (installé et Licence VARA OK)
 
+<p align="center">
+  <img src="images/ADRAlink_serveur_VARA_FM.png" alt="ADRAlink" width="1024"><br>
+</p>
+
 ---
 
 ## Transport LoRa / LXMF (zones blanches, v1.3)
