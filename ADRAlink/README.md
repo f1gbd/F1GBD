@@ -16,6 +16,10 @@ Le sinistré se connecte en **WiFi** au dispositif via un mini-routeur, obtient 
 Le message est acheminé **par radio via Winlink** (PAT), en **telnet CMS**
 (Internet de secours) ou en **VARA FM / VARA HF / ARDOP** (liaison radio).
 
+Depuis la **v1.3**, une station opérateur ADRASEC hors de portée du WiFi peut
+aussi joindre le serveur **par radio LoRa** (Reticulum / LXMF) — voir la section
+[Transport LoRa / LXMF](#transport-lora--lxmf-zones-blanches-v13).
+
 > Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt))
 > pour un usage personnel uniquement, non professionnel et non commercial.
 
@@ -52,8 +56,13 @@ Le message est acheminé **par radio via Winlink** (PAT), en **telnet CMS**
 - Le **serveur** génère les identifiants uniques, valide la saisie, compose le
   message Winlink (référence `[ADRAlink XXXXXXXX]` pour rattacher les réponses),
   pilote **PAT** pour l'envoi et la relève, et journalise tout (fichier horodaté).
-- **PAT** (client Winlink) assure le transport : telnet CMS ou modem radio
-  (VARA FM/HF, ARDOP). Le serveur ne réinvente pas la partie radio.
+- **PAT** (client Winlink) assure le transport vers Winlink : telnet CMS ou modem
+  radio (VARA FM/HF, ARDOP). Le serveur ne réinvente pas la partie radio.
+
+> **Depuis la v1.3**, le **client PC** peut aussi joindre le serveur par **LoRa
+> (Reticulum / LXMF)** au lieu du WiFi — pour une station opérateur en zone
+> blanche, hors de portée du point d'accès. Le serveur embarque alors une
+> passerelle LoRa/LXMF (WiFi **et** LoRa gérés dans un seul processus).
 
 | Serveur ADRAlink VARA FM (ADRASEC) | Mini-Routeur Wifi GL-MT3600BE |
 |:---:|:---:|
@@ -68,25 +77,49 @@ Le message est acheminé **par radio via Winlink** (PAT), en **telnet CMS**
 
 ---
 
+## Transport LoRa / LXMF (zones blanches, v1.3)
+
+En complément du WiFi, ADRAlink peut acheminer les demandes **par radio LoRa**
+via [Reticulum](https://reticulum.network/) / LXMF, pour les stations hors de
+portée du point d'accès WiFi.
+
+- **Client PC** : sélecteur de transport à l'accueil — « WiFi / réseau » **ou**
+  « LoRa (passerelle) ». En LoRa, il attaque un **RNode** (module LoRa) via
+  Reticulum et joint la passerelle du serveur ; les écrans sont identiques dans
+  les deux modes.
+- **Serveur** : **passerelle LoRa/LXMF intégrée** — WiFi (HTTP) et LoRa dans un
+  seul processus. Si LXMF est indisponible, le serveur tourne en WiFi seul.
+- **Client Android (APK) et client web** : **WiFi uniquement** (le LoRa nécessite
+  un RNode et n'est disponible que sur le client PC).
+- **Versions obligatoires** : RNS **1.0.4** (build « mod F1GBD ») + **LXMF 0.9.3**
+  (LXMF ≥ 0.9.5 casse l'assemblage des messages avec RNS 1.0.x).
+
+> **Note Raspberry Pi** : le serveur ADRAlink tourne parfaitement sur Pi en
+> **WiFi + LoRa** avec backhaul Winlink en **telnet** (Internet). Le modem
+> **VARA** (radio) reste sur un poste **x86 natif** : l'émulation d'un modem DSP
+> temps réel (Wine/BOX64) sur Pi n'est pas fiable.
+
+---
+
 ## Les trois applications
 
 | Application | Rôle |
 |---|---|
-| **ADRAlink_serveur** | Console opérateur ADRASEC : pilote PAT, le modem VARA FM, et le serveur ADRAlink interne (compose les messages, relève les réponses, journal horodaté). |
-| **ADRAlink_client** | Interface de saisie pour le sinistré (poste de secours Windows). |
-| **ADRAlink client Android** | Même interface pour smartphone (formulaire + découverte auto du serveur). |
+| **ADRAlink_serveur** | Console opérateur ADRASEC : pilote PAT, le modem VARA FM, la passerelle LoRa/LXMF et le serveur ADRAlink interne (compose les messages, relève les réponses, journal horodaté). |
+| **ADRAlink_client** | Interface de saisie pour le sinistré / l'opérateur (poste Windows). Connexion **WiFi ou LoRa (RNode/Reticulum)**. |
+| **ADRAlink client Android** | Même interface pour smartphone (formulaire + découverte auto du serveur). Connexion **WiFi**. |
 
 ---
 
 ## Téléchargement
 
-Dernière version : **v1.2.0** (hhttps://github.com/f1gbd/F1GBD/releases/download/adralink-v1.2.0/ADRAlink.7z).
+Dernière version : **v1.3.1** (https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.3.1/ADRAlink.7z).
 
 - 💻 **Windows (exe, sans source)** — archive `ADRAlink.7z` (contient
   `ADRAlink_serveur.exe` + `ADRAlink_client.exe`) :
-  [**ADRAlink.7z**](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.2.0/ADRAlink.7z)
+  [**ADRAlink.7z**](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.3.1/ADRAlink.7z)
 - 📱 **Android (APK)** :
-  [**ADRAlink_client.apk**](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.2.0/ADRAlink_client.apk)
+  [**ADRAlink_client.apk**](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.3.1/ADRAlink_client.apk)
 
 Décompressez `ADRAlink.7z`, placez **les deux exe dans le même dossier** et lancez
 `ADRAlink_serveur.exe`. Les exécutables sont autonomes (icône et logos embarqués).
@@ -103,7 +136,8 @@ tiers à installer séparément. Pour l'APK : autorisez les « sources inconnues
    **« Démarrer le serveur »**.
 2. Sur le poste ou le téléphone du sinistré : ouvrir **ADRAlink_client** —
    le serveur est détecté automatiquement — puis **« Nouvelle demande »**,
-   saisir le message et l'envoyer.
+   saisir le message et l'envoyer. (Un poste opérateur hors WiFi peut choisir
+   le transport **LoRa** et viser la passerelle du serveur.)
 3. Le sinistré **note son identifiant** ; il pourra consulter la réponse de ses
    proches en le saisissant dans **« Consulter mes réponses »**.
 
@@ -139,6 +173,7 @@ sur le routeur) : [documentations/PORTAL_SETUP.md](documentations/PORTAL_SETUP.m
 Développement et portage : **F1GBD — ADRASEC 77 / FNRASEC**.
 
 Basé sur **[PAT](https://github.com/la5nta/pat)** (client Winlink open source,
-LA5NTA) pour le transport radio Winlink.
+LA5NTA) pour le transport radio Winlink, et sur **[Reticulum / LXMF](https://reticulum.network/)**
+pour le transport LoRa.
 
-*ADRAlink v1.2.0 — © 2026 F1GBD / ADRASEC 77. Licence GNU GPL v3.0.*
+*ADRAlink v1.3.1 — © 2026 F1GBD / ADRASEC 77. Licence GNU GPL v3.0.*
