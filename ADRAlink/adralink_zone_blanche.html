@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>ADRAlink — Liaison en zone blanche</title>
+<style>
+  :root{
+    --navy:#14324f; --navy2:#1d4e77; --orange:#ee7f1a;
+    --wifi:#2e86c1; --lora:#1e9e5a; --vara:#e0492f; --net:#7a8a99;
+    --ink:#1b2733; --bg:#eef3f8; --card:#ffffff; --line:#d5dfe8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;background:var(--bg);color:var(--ink);padding:26px 22px}
+  .wrap{max-width:1240px;margin:0 auto}
+  h1{color:var(--navy);font-size:26px;letter-spacing:.2px}
+  h1 .v{color:var(--orange)}
+  .sub{color:#54697d;font-size:14.5px;margin:6px 0 20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+        box-shadow:0 2px 10px rgba(20,50,79,.06);padding:16px 18px;margin-bottom:22px}
+  .card h2{color:var(--navy);font-size:17px;margin-bottom:2px;display:flex;align-items:center;gap:9px}
+  .card h2 .tag{background:var(--orange);color:#fff;font-size:11px;font-weight:700;
+        padding:2px 8px;border-radius:20px;letter-spacing:.3px}
+  .card p.cap{color:#5d7386;font-size:13px;margin:2px 0 8px}
+  svg{display:block;width:100%;height:auto}
+  .legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:8px;font-size:13px;color:#3a4d5e}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .legend i{width:26px;height:0;border-top-width:4px;border-top-style:solid;border-radius:3px;display:inline-block}
+  .foot{color:#6a7d8e;font-size:12.5px;text-align:center;margin-top:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>ADRAlink — liaison d'urgence en <span class="v">zone blanche</span></h1>
+  <p class="sub">Message des sinistrés (WiFi local) et des opérateurs ADRASEC (LoRa longue portée) → relais Winlink par VARA FM via le digipeater F5ZYI-7 vers le RMS F1GBD.</p>
+
+  <!-- ============ PANEL 1 : SCHEMA SYNOPTIQUE ============ -->
+  <div class="card">
+    <h2><span class="tag">SYNOPTIQUE</span> Chaîne de liaison</h2>
+    <p class="cap">Deux accès locaux (WiFi / LoRa) convergent vers la station ADRASEC, qui relaie en radio VARA FM jusqu'au réseau Winlink.</p>
+    <svg viewBox="0 0 1200 470" role="img" aria-label="Schéma synoptique ADRAlink">
+      <defs>
+        <marker id="aWifi" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#2e86c1"/></marker>
+        <marker id="aLora" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1e9e5a"/></marker>
+        <marker id="aVara" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#e0492f"/></marker>
+        <marker id="aNet" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#7a8a99"/></marker>
+      </defs>
+
+      <!-- Sinistrés -->
+      <g>
+        <rect x="20" y="40" width="200" height="120" rx="12" fill="#eaf4fb" stroke="#2e86c1" stroke-width="2"/>
+        <text x="120" y="66" text-anchor="middle" font-size="14.5" font-weight="700" fill="#14324f">Sinistrés</text>
+        <text x="120" y="84" text-anchor="middle" font-size="11.5" fill="#4b6070">(utilisateurs locaux)</text>
+        <!-- phones -->
+        <g transform="translate(70,96)"><rect width="26" height="42" rx="5" fill="#fff" stroke="#2e86c1" stroke-width="2"/><rect x="4" y="6" width="18" height="26" rx="2" fill="#cfe6f6"/><circle cx="13" cy="37" r="2" fill="#2e86c1"/></g>
+        <g transform="translate(112,96)"><rect width="26" height="42" rx="5" fill="#fff" stroke="#2e86c1" stroke-width="2"/><rect x="4" y="6" width="18" height="26" rx="2" fill="#cfe6f6"/><circle cx="13" cy="37" r="2" fill="#2e86c1"/></g>
+      </g>
+
+      <!-- Opérateurs ADRASEC -->
+      <g>
+        <rect x="20" y="300" width="200" height="130" rx="12" fill="#e9f7ef" stroke="#1e9e5a" stroke-width="2"/>
+        <text x="120" y="326" text-anchor="middle" font-size="14.5" font-weight="700" fill="#14324f">Opérateurs ADRASEC</text>
+        <text x="120" y="344" text-anchor="middle" font-size="11.5" fill="#4b6070">(zone d'intervention élargie)</text>
+        <!-- laptop + lora node -->
+        <g transform="translate(62,356)">
+          <rect x="0" y="24" width="44" height="6" rx="2" fill="#1e9e5a"/>
+          <rect x="5" y="2" width="34" height="24" rx="2" fill="#fff" stroke="#1e9e5a" stroke-width="2"/>
+          <rect x="9" y="6" width="26" height="16" fill="#d6f0e1"/>
+        </g>
+        <g transform="translate(126,352)">
+          <rect x="0" y="16" width="22" height="18" rx="3" fill="#fff" stroke="#1e9e5a" stroke-width="2"/>
+          <line x1="11" y1="16" x2="11" y2="2" stroke="#1e9e5a" stroke-width="2"/>
+          <circle cx="11" cy="2" r="2.5" fill="#1e9e5a"/>
+          <text x="11" y="30" text-anchor="middle" font-size="8.5" fill="#1e7d47" font-weight="700">RNode</text>
+        </g>
+      </g>
+
+      <!-- Station ADRASEC -->
+      <g>
+        <rect x="330" y="120" width="220" height="230" rx="14" fill="#fff" stroke="#ee7f1a" stroke-width="2.5"/>
+        <rect x="330" y="120" width="220" height="34" rx="14" fill="#ee7f1a"/>
+        <text x="440" y="142" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">Station ADRASEC</text>
+        <text x="440" y="176" text-anchor="middle" font-size="13.5" font-weight="700" fill="#14324f">Serveur ADRAlink</text>
+        <line x1="352" y1="188" x2="528" y2="188" stroke="#e6eef4" stroke-width="1.5"/>
+        <text x="440" y="208" text-anchor="middle" font-size="11.5" fill="#3a4d5e">• Point d'accès WiFi</text>
+        <text x="440" y="228" text-anchor="middle" font-size="11.5" fill="#3a4d5e">• Passerelle LoRa / LXMF</text>
+        <text x="440" y="248" text-anchor="middle" font-size="11.5" fill="#3a4d5e">• PAT (client Winlink)</text>
+        <text x="440" y="268" text-anchor="middle" font-size="11.5" fill="#3a4d5e">• Modem VARA FM</text>
+        <line x1="352" y1="282" x2="528" y2="282" stroke="#e6eef4" stroke-width="1.5"/>
+        <text x="440" y="303" text-anchor="middle" font-size="10.5" fill="#6a7d8e">WiFi + LoRa gérés</text>
+        <text x="440" y="318" text-anchor="middle" font-size="10.5" fill="#6a7d8e">dans un seul processus</text>
+        <text x="440" y="338" text-anchor="middle" font-size="10.5" fill="#a06318" font-weight="700">+ VARA FM / radio VHF</text>
+      </g>
+
+      <!-- Digipeater -->
+      <g>
+        <rect x="620" y="150" width="150" height="90" rx="12" fill="#fdeee9" stroke="#e0492f" stroke-width="2"/>
+        <text x="695" y="185" text-anchor="middle" font-size="13.5" font-weight="700" fill="#14324f">Digipeater</text>
+        <text x="695" y="206" text-anchor="middle" font-size="14" font-weight="700" fill="#e0492f">F5ZYI-7</text>
+        <text x="695" y="225" text-anchor="middle" font-size="10.5" fill="#6a7d8e">relais VARA FM</text>
+      </g>
+
+      <!-- RMS -->
+      <g>
+        <rect x="820" y="150" width="150" height="90" rx="12" fill="#fdeee9" stroke="#e0492f" stroke-width="2"/>
+        <text x="895" y="185" text-anchor="middle" font-size="13.5" font-weight="700" fill="#14324f">RMS Winlink</text>
+        <text x="895" y="206" text-anchor="middle" font-size="14" font-weight="700" fill="#e0492f">F1GBD</text>
+        <text x="895" y="225" text-anchor="middle" font-size="10.5" fill="#6a7d8e">passerelle Winlink</text>
+      </g>
+
+      <!-- Proches -->
+      <g>
+        <rect x="1020" y="150" width="160" height="90" rx="12" fill="#eef1f4" stroke="#7a8a99" stroke-width="2"/>
+        <text x="1100" y="182" text-anchor="middle" font-size="13.5" font-weight="700" fill="#14324f">Proches</text>
+        <text x="1100" y="203" text-anchor="middle" font-size="11.5" fill="#4b6070">e-mail reçu</text>
+        <text x="1100" y="223" text-anchor="middle" font-size="10.5" fill="#6a7d8e">(via Winlink CMS)</text>
+      </g>
+
+      <!-- Arrows -->
+      <!-- WiFi sinistrés -> station -->
+      <path d="M224,100 C280,100 288,150 328,175" fill="none" stroke="#2e86c1" stroke-width="3" marker-end="url(#aWifi)"/>
+      <text x="270" y="122" font-size="12" font-weight="700" fill="#2e86c1">WiFi</text>
+      <!-- LoRa operateurs -> station -->
+      <path d="M224,360 C285,360 292,300 328,290" fill="none" stroke="#1e9e5a" stroke-width="3" stroke-dasharray="2 0" marker-end="url(#aLora)"/>
+      <text x="250" y="336" font-size="12" font-weight="700" fill="#1e9e5a">LoRa / LXMF</text>
+      <!-- station -> digipeater VARA -->
+      <path d="M550,205 L616,197" fill="none" stroke="#e0492f" stroke-width="3" marker-end="url(#aVara)"/>
+      <text x="556" y="188" font-size="11.5" font-weight="700" fill="#e0492f">VARA FM</text>
+      <!-- digipeater -> RMS VARA -->
+      <path d="M770,195 L816,195" fill="none" stroke="#e0492f" stroke-width="3" marker-end="url(#aVara)"/>
+      <text x="772" y="184" font-size="11.5" font-weight="700" fill="#e0492f">VARA FM</text>
+      <!-- RMS -> proches internet -->
+      <path d="M970,195 L1016,195" fill="none" stroke="#7a8a99" stroke-width="3" stroke-dasharray="6 4" marker-end="url(#aNet)"/>
+      <text x="964" y="184" font-size="11" font-weight="700" fill="#7a8a99">Internet</text>
+    </svg>
+
+    <div class="legend">
+      <span><i style="border-color:#2e86c1"></i> WiFi — sinistrés locaux</span>
+      <span><i style="border-color:#1e9e5a"></i> LoRa / LXMF — opérateurs (longue portée)</span>
+      <span><i style="border-color:#e0492f"></i> VARA FM — liaison radio Winlink</span>
+      <span><i style="border-color:#7a8a99;border-top-style:dashed"></i> Internet — réseau Winlink</span>
+    </div>
+  </div>
+
+  <!-- ============ PANEL 2 : ILLUSTRATION SITUATION ============ -->
+  <div class="card">
+    <h2><span class="tag">SITUATION</span> Déploiement sur le terrain</h2>
+    <p class="cap">La station ADRASEC couvre les sinistrés en WiFi (courte portée) et les opérateurs déployés en LoRa (longue portée) ; le trafic Winlink part en VARA FM vers le digipeater puis le RMS.</p>
+    <svg viewBox="0 0 1200 640" role="img" aria-label="Illustration situation zone blanche">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#d9eaf7"/><stop offset="1" stop-color="#eef6fb"/>
+        </linearGradient>
+        <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#e9efe4"/><stop offset="1" stop-color="#dbe6d2"/>
+        </linearGradient>
+        <marker id="bVara" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#e0492f"/></marker>
+        <marker id="bNet" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#7a8a99"/></marker>
+      </defs>
+
+      <!-- backgrounds -->
+      <rect x="0" y="0" width="1200" height="640" fill="url(#sky)"/>
+      <rect x="0" y="360" width="1200" height="280" fill="url(#ground)"/>
+      <!-- mountains (white zone) -->
+      <path d="M0,360 L150,250 L280,360 Z" fill="#cdd8c6"/>
+      <path d="M120,360 L300,210 L470,360 Z" fill="#c2cfba"/>
+      <path d="M760,360 L900,240 L1010,360 Z" fill="#cdd8c6"/>
+      <path d="M950,360 L1080,270 L1200,360 Z" fill="#c2cfba"/>
+      <text x="600" y="40" text-anchor="middle" font-size="14" fill="#7d8f7a" font-style="italic">Zone blanche — pas de réseau Internet ni téléphonie</text>
+
+      <!-- WiFi coverage bubble -->
+      <circle cx="330" cy="430" r="150" fill="#2e86c1" opacity="0.08"/>
+      <circle cx="330" cy="430" r="150" fill="none" stroke="#2e86c1" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.6"/>
+      <text x="330" y="596" text-anchor="middle" font-size="12" font-weight="700" fill="#2e86c1">Couverture WiFi locale</text>
+
+      <!-- ADRASEC station (center) -->
+      <g transform="translate(300,300)">
+        <!-- mast -->
+        <line x1="30" y1="130" x2="30" y2="8" stroke="#4a5b68" stroke-width="4"/>
+        <line x1="18" y1="24" x2="42" y2="24" stroke="#4a5b68" stroke-width="3"/>
+        <line x1="22" y1="40" x2="38" y2="40" stroke="#4a5b68" stroke-width="3"/>
+        <!-- rf waves up-right (VARA) -->
+        <path d="M40,14 q18,-4 30,10" fill="none" stroke="#e0492f" stroke-width="2.2" opacity="0.8"/>
+        <path d="M44,6 q26,-6 44,14" fill="none" stroke="#e0492f" stroke-width="2.2" opacity="0.55"/>
+        <!-- shelter / vehicle -->
+        <rect x="-8" y="92" width="90" height="46" rx="6" fill="#ffffff" stroke="#ee7f1a" stroke-width="2.5"/>
+        <rect x="-8" y="92" width="90" height="16" rx="6" fill="#ee7f1a"/>
+        <text x="37" y="104" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">ADRAlink</text>
+        <!-- wifi router icon -->
+        <g transform="translate(4,116)"><rect width="24" height="12" rx="3" fill="#eaf4fb" stroke="#2e86c1" stroke-width="1.5"/><path d="M2,8 q10,-10 20,0" fill="none" stroke="#2e86c1" stroke-width="1.5"/></g>
+        <!-- lora antenna icon -->
+        <g transform="translate(56,110)"><line x1="6" y1="18" x2="6" y2="2" stroke="#1e9e5a" stroke-width="2"/><circle cx="6" cy="2" r="2.5" fill="#1e9e5a"/><rect x="0" y="18" width="12" height="10" rx="2" fill="#e9f7ef" stroke="#1e9e5a" stroke-width="1.5"/></g>
+      </g>
+      <text x="337" y="460" text-anchor="middle" font-size="13.5" font-weight="700" fill="#14324f">Station ADRASEC</text>
+      <text x="337" y="477" text-anchor="middle" font-size="10.5" fill="#4b6070">Serveur ADRAlink — WiFi + LoRa + VARA FM</text>
+
+      <!-- Sinistrés inside wifi bubble (sous la station) -->
+      <g transform="translate(240,522)">
+        <circle cx="0" cy="0" r="9" fill="#2e86c1"/><rect x="-9" y="10" width="18" height="22" rx="7" fill="#2e86c1"/>
+        <rect x="12" y="6" width="12" height="20" rx="2.5" fill="#fff" stroke="#2e86c1" stroke-width="2"/>
+      </g>
+      <g transform="translate(430,522)">
+        <circle cx="0" cy="0" r="9" fill="#2e86c1"/><rect x="-9" y="10" width="18" height="22" rx="7" fill="#2e86c1"/>
+        <rect x="-26" y="6" width="12" height="20" rx="2.5" fill="#fff" stroke="#2e86c1" stroke-width="2"/>
+      </g>
+      <text x="335" y="558" text-anchor="middle" font-size="11.5" fill="#2e86c1" font-weight="700">Sinistrés (WiFi)</text>
+      <!-- wifi links station -> sinistrés -->
+      <path d="M318,444 Q278,494 250,520" fill="none" stroke="#2e86c1" stroke-width="2" stroke-dasharray="4 4"/>
+      <path d="M352,444 Q402,494 422,520" fill="none" stroke="#2e86c1" stroke-width="2" stroke-dasharray="4 4"/>
+
+      <!-- Operators (LoRa, spread wide) -->
+      <!-- op 1 left far -->
+      <g transform="translate(70,430)">
+        <circle cx="0" cy="0" r="8" fill="#1e9e5a"/><rect x="-8" y="9" width="16" height="20" rx="6" fill="#1e9e5a"/>
+        <line x1="16" y1="30" x2="16" y2="10" stroke="#1e9e5a" stroke-width="2"/><circle cx="16" cy="9" r="2.5" fill="#1e9e5a"/>
+        <text x="6" y="46" text-anchor="middle" font-size="9.5" fill="#1e7d47" font-weight="700">Opérateur</text>
+      </g>
+      <!-- op 2 right -->
+      <g transform="translate(640,470)">
+        <circle cx="0" cy="0" r="8" fill="#1e9e5a"/><rect x="-8" y="9" width="16" height="20" rx="6" fill="#1e9e5a"/>
+        <line x1="16" y1="30" x2="16" y2="10" stroke="#1e9e5a" stroke-width="2"/><circle cx="16" cy="9" r="2.5" fill="#1e9e5a"/>
+        <text x="6" y="46" text-anchor="middle" font-size="9.5" fill="#1e7d47" font-weight="700">Opérateur</text>
+      </g>
+      <!-- op 3 far right low -->
+      <g transform="translate(560,560)">
+        <circle cx="0" cy="0" r="8" fill="#1e9e5a"/><rect x="-8" y="9" width="16" height="20" rx="6" fill="#1e9e5a"/>
+        <line x1="16" y1="30" x2="16" y2="10" stroke="#1e9e5a" stroke-width="2"/><circle cx="16" cy="9" r="2.5" fill="#1e9e5a"/>
+        <text x="6" y="46" text-anchor="middle" font-size="9.5" fill="#1e7d47" font-weight="700">Opérateur</text>
+      </g>
+      <!-- LoRa long links -->
+      <path d="M92,428 q120,-40 220,-70" fill="none" stroke="#1e9e5a" stroke-width="2.4" stroke-dasharray="9 6"/>
+      <path d="M648,466 q-140,-40 -300,-90" fill="none" stroke="#1e9e5a" stroke-width="2.4" stroke-dasharray="9 6"/>
+      <path d="M566,556 q-120,-90 -215,-165" fill="none" stroke="#1e9e5a" stroke-width="2.4" stroke-dasharray="9 6"/>
+      <text x="150" y="388" font-size="12" font-weight="700" fill="#1e9e5a" transform="rotate(-14 150 388)">LoRa / LXMF — longue portée</text>
+
+      <!-- Digipeater on hill -->
+      <g transform="translate(835,205)">
+        <!-- tower -->
+        <path d="M12,150 L28,150 L24,18 L16,18 Z" fill="none" stroke="#4a5b68" stroke-width="3"/>
+        <line x1="14" y1="60" x2="26" y2="80" stroke="#4a5b68" stroke-width="1.6"/><line x1="26" y1="60" x2="14" y2="80" stroke="#4a5b68" stroke-width="1.6"/>
+        <line x1="14" y1="95" x2="26" y2="115" stroke="#4a5b68" stroke-width="1.6"/><line x1="26" y1="95" x2="14" y2="115" stroke="#4a5b68" stroke-width="1.6"/>
+        <line x1="20" y1="18" x2="20" y2="0" stroke="#e0492f" stroke-width="2.5"/>
+        <path d="M8,6 q12,-8 24,0" fill="none" stroke="#e0492f" stroke-width="2" opacity="0.7"/>
+        <path d="M2,-2 q18,-12 36,0" fill="none" stroke="#e0492f" stroke-width="2" opacity="0.45"/>
+      </g>
+      <text x="855" y="378" text-anchor="middle" font-size="13" font-weight="700" fill="#14324f">Digipeater F5ZYI-7</text>
+
+      <!-- RMS building -->
+      <g transform="translate(1055,250)">
+        <rect x="0" y="60" width="70" height="60" rx="4" fill="#ffffff" stroke="#e0492f" stroke-width="2.5"/>
+        <rect x="10" y="72" width="14" height="14" fill="#fdeee9"/><rect x="30" y="72" width="14" height="14" fill="#fdeee9"/><rect x="50" y="72" width="12" height="14" fill="#fdeee9"/>
+        <rect x="10" y="94" width="14" height="14" fill="#fdeee9"/><rect x="30" y="94" width="14" height="14" fill="#fdeee9"/>
+        <line x1="35" y1="60" x2="35" y2="30" stroke="#4a5b68" stroke-width="3"/>
+        <line x1="35" y1="34" x2="52" y2="24" stroke="#e0492f" stroke-width="2.5"/>
+        <path d="M24,30 q11,-9 22,0" fill="none" stroke="#e0492f" stroke-width="2" opacity="0.6"/>
+      </g>
+      <text x="1090" y="392" text-anchor="middle" font-size="13" font-weight="700" fill="#14324f">RMS Winlink F1GBD</text>
+
+      <!-- cloud internet -->
+      <g transform="translate(1030,70)">
+        <ellipse cx="55" cy="45" rx="70" ry="30" fill="#eef1f4" stroke="#7a8a99" stroke-width="1.8"/>
+        <circle cx="30" cy="42" r="22" fill="#eef1f4" stroke="#7a8a99" stroke-width="1.8"/>
+        <circle cx="75" cy="34" r="26" fill="#eef1f4" stroke="#7a8a99" stroke-width="1.8"/>
+        <rect x="18" y="40" width="80" height="26" fill="#eef1f4"/>
+        <text x="55" y="50" text-anchor="middle" font-size="12" font-weight="700" fill="#5d7386">Winlink CMS</text>
+      </g>
+      <text x="1085" y="150" text-anchor="middle" font-size="11" fill="#6a7d8e">Internet → e-mail proches</text>
+
+      <!-- VARA radio links -->
+      <!-- station mast -> digipeater -->
+      <path d="M348,310 Q620,150 848,205" fill="none" stroke="#e0492f" stroke-width="3" marker-end="url(#bVara)"/>
+      <text x="560" y="196" font-size="12.5" font-weight="700" fill="#e0492f">VARA FM (VHF)</text>
+      <!-- digipeater -> rms -->
+      <path d="M868,210 Q980,205 1058,300" fill="none" stroke="#e0492f" stroke-width="3" marker-end="url(#bVara)"/>
+      <text x="928" y="235" font-size="12" font-weight="700" fill="#e0492f">VARA FM</text>
+      <!-- rms -> cloud -->
+      <path d="M1090,248 Q1085,190 1085,145" fill="none" stroke="#7a8a99" stroke-width="2.6" stroke-dasharray="6 4" marker-end="url(#bNet)"/>
+    </svg>
+
+    <div class="legend">
+      <span><i style="border-color:#2e86c1;border-top-style:dashed"></i> WiFi (sinistrés, courte portée)</span>
+      <span><i style="border-color:#1e9e5a;border-top-style:dashed"></i> LoRa / LXMF (opérateurs, longue portée)</span>
+      <span><i style="border-color:#e0492f"></i> VARA FM (radio VHF Winlink)</span>
+      <span><i style="border-color:#7a8a99;border-top-style:dashed"></i> Internet (Winlink CMS → e-mail)</span>
+    </div>
+  </div>
+
+  <p class="foot">ADRAlink v1.3 — F1GBD / ADRASEC 77 / FNRASEC — Licence GNU GPL v3.0</p>
+</div>
+</body>
+</html>

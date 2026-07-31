@@ -39,6 +39,8 @@ aussi joindre le serveur **par radio LoRa** (Reticulum / LXMF) — voir la secti
 > [documentations/ADRAlink_Manuel.docx](documentations/ADRAlink_Manuel.docx).
 
 ---
+[**Exemple de mise en situation d'ADRAlink**](adralink_zone_blanche.html)
+---
 
 ## Architecture
 
