@@ -17,7 +17,9 @@ Le message est acheminé **par radio via Winlink** (PAT), en **telnet CMS**
 (Internet de secours) ou en **VARA FM / VARA HF / ARDOP** (liaison radio).
 
 Depuis la **v1.3**, une station opérateur ADRASEC hors de portée du WiFi peut
-aussi joindre le serveur **par radio LoRa** (Reticulum / LXMF) — voir la section
+aussi joindre le serveur **par radio LoRa** (Reticulum / LXMF) — aussi bien depuis
+le **client Windows** que depuis l'**APK Android** (RNode Heltec connecté en
+**Bluetooth**) — voir la section
 [Transport LoRa / LXMF](#transport-lora--lxmf-zones-blanches-v13).
 
 > Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt))
@@ -59,10 +61,10 @@ aussi joindre le serveur **par radio LoRa** (Reticulum / LXMF) — voir la secti
 - **PAT** (client Winlink) assure le transport vers Winlink : telnet CMS ou modem
   radio (VARA FM/HF, ARDOP). Le serveur ne réinvente pas la partie radio.
 
-> **Depuis la v1.3**, le **client PC** peut aussi joindre le serveur par **LoRa
-> (Reticulum / LXMF)** au lieu du WiFi — pour une station opérateur en zone
-> blanche, hors de portée du point d'accès. Le serveur embarque alors une
-> passerelle LoRa/LXMF (WiFi **et** LoRa gérés dans un seul processus).
+> **Depuis la v1.3**, le **client PC** et l'**APK Android** peuvent aussi joindre
+> le serveur par **LoRa (Reticulum / LXMF)** au lieu du WiFi — pour une station
+> opérateur en zone blanche, hors de portée du point d'accès. Le serveur embarque
+> alors une passerelle LoRa/LXMF (WiFi **et** LoRa gérés dans un seul processus).
 
 | Serveur ADRAlink VARA FM (ADRASEC) | Mini-Routeur Wifi GL-MT3600BE |
 |:---:|:---:|
@@ -83,14 +85,20 @@ En complément du WiFi, ADRAlink peut acheminer les demandes **par radio LoRa**
 via [Reticulum](https://reticulum.network/) / LXMF, pour les stations hors de
 portée du point d'accès WiFi.
 
-- **Client PC** : sélecteur de transport à l'accueil — « WiFi / réseau » **ou**
+- **Client PC** : sélecteur de transport à l'accueil — « WiFi » **ou**
   « LoRa (passerelle) ». En LoRa, il attaque un **RNode** (module LoRa) via
   Reticulum et joint la passerelle du serveur ; les écrans sont identiques dans
   les deux modes.
+- **Client Android (APK, v1.3.1)** : fonctionne **AUSSI en WiFi ET en LoRa**.
+  Même sélecteur **WiFi / LoRa (RNode)** que le client PC : en LoRa, l'APK se
+  connecte à un **RNode Heltec en Bluetooth** (BLE), monte la pile Reticulum/LXMF
+  embarquée, découvre la passerelle du serveur par ses annonces (bouton
+  « Rechercher », remplissage automatique de l'adresse LXMF) et achemine la demande
+  par radio — **envoi et relève des réponses**, exactement comme le client PC.
 - **Serveur** : **passerelle LoRa/LXMF intégrée** — WiFi (HTTP) et LoRa dans un
   seul processus. Si LXMF est indisponible, le serveur tourne en WiFi seul.
-- **Client Android (APK) et client web** : **WiFi uniquement** (le LoRa nécessite
-  un RNode et n'est disponible que sur le client PC).
+- **Client web** : **WiFi uniquement** (le LoRa nécessite un RNode, propre aux
+  clients Windows et Android).
 - **Versions obligatoires** : RNS **1.0.4** (build « mod F1GBD ») + **LXMF 0.9.3**
   (LXMF ≥ 0.9.5 casse l'assemblage des messages avec RNS 1.0.x).
 
@@ -139,7 +147,7 @@ puis le **RMS F1GBD**, qui injecte le message dans le réseau Winlink.
 |---|---|
 | **ADRAlink_serveur** | Console opérateur ADRASEC : pilote PAT, le modem VARA FM, la passerelle LoRa/LXMF et le serveur ADRAlink interne (compose les messages, relève les réponses, journal horodaté). |
 | **ADRAlink_client** | Interface de saisie pour le sinistré / l'opérateur (poste Windows). Connexion **WiFi ou LoRa (RNode/Reticulum)**. |
-| **ADRAlink client Android** | Même interface pour smartphone (formulaire + découverte auto du serveur). Connexion **WiFi**. |
+| **ADRAlink client Android** | Même interface pour smartphone (formulaire + découverte auto du serveur). Connexion **WiFi ou LoRa (RNode Heltec en Bluetooth)** — v1.3.1. |
 
 ---
 
@@ -166,10 +174,12 @@ tiers à installer séparément. Pour l'APK : autorisez les « sources inconnues
    (après l'avoir configuré une fois via *Configurer Winlink*), choisir le
    transport (**Telnet** pour débuter, **VARA FM** en radio), puis
    **« Démarrer le serveur »**.
-2. Sur le poste ou le téléphone du sinistré : ouvrir **ADRAlink_client** —
-   le serveur est détecté automatiquement — puis **« Nouvelle demande »**,
-   saisir le message et l'envoyer. (Un poste opérateur hors WiFi peut choisir
-   le transport **LoRa** et viser la passerelle du serveur.)
+2. Sur le poste ou le téléphone du sinistré : ouvrir **ADRAlink_client** (PC) ou
+   l'**APK Android** — le serveur est détecté automatiquement — puis
+   **« Nouvelle demande »**, saisir le message et l'envoyer. (Un opérateur hors
+   WiFi, sur PC **ou** smartphone, peut choisir le transport **LoRa** : sur
+   Android, connecter le **RNode Heltec en Bluetooth** puis **« Rechercher »** la
+   passerelle du serveur.)
 3. Le sinistré **note son identifiant** ; il pourra consulter la réponse de ses
    proches en le saisissant dans **« Consulter mes réponses »**.
 
