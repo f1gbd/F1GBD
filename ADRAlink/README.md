@@ -22,6 +22,12 @@ le **client Windows** que depuis l'**APK Android** (RNode Heltec connecté en
 **Bluetooth**) — voir la section
 [Transport LoRa / LXMF](#transport-lora--lxmf-zones-blanches-v13).
 
+> **Nouveau en v1.4.0 :** le serveur **flashe le firmware RNode directement en
+> zone blanche**, sans Internet, sur un **Heltec LoRa32 V3 ou V4** par simple câble
+> USB (bouton **Firmware**), et **programme la config LoRa standard France en un
+> clic** (bouton **Config LoRa France**). Voir
+> [Flashage de firmware & config LoRa](#flashage-de-firmware-rnode--config-lora-off-grid-v140).
+
 > Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt))
 > pour un usage personnel uniquement, non professionnel et non commercial.
 
@@ -89,7 +95,7 @@ portée du point d'accès WiFi.
   « LoRa (passerelle) ». En LoRa, il attaque un **RNode** (module LoRa) via
   Reticulum et joint la passerelle du serveur ; les écrans sont identiques dans
   les deux modes.
-- **Client Android (APK, v1.3.1)** : fonctionne **AUSSI en WiFi ET en LoRa**.
+- **Client Android (APK, v1.4.0)** : fonctionne **AUSSI en WiFi ET en LoRa**.
   Même sélecteur **WiFi / LoRa (RNode)** que le client PC : en LoRa, l'APK se
   connecte à un **RNode Heltec en Bluetooth** (BLE), monte la pile Reticulum/LXMF
   embarquée, découvre la passerelle du serveur par ses annonces (bouton
@@ -106,6 +112,38 @@ portée du point d'accès WiFi.
 > **WiFi + LoRa** avec backhaul Winlink en **telnet** (Internet). Le modem
 > **VARA** (radio) reste sur un poste **x86 natif** : l'émulation d'un modem DSP
 > temps réel (Wine/BOX64) sur Pi n'est pas fiable.
+
+---
+
+## Flashage de firmware RNode & config LoRa (off-grid, v1.4.0)
+
+Pour déployer des modules LoRa **sur le terrain, sans Internet**, la console
+`ADRAlink_serveur` intègre depuis la **v1.4.0** deux outils, accessibles sans
+ligne de commande.
+
+**Bouton « Firmware » — installation complète et 100 % hors-ligne.** En un clic,
+le serveur installe le firmware **RNode v1.86** sur un **Heltec LoRa32 V3 ou V4**
+branché en **USB** : bootloader + table de partitions + application + console, puis
+**provision de l'EEPROM avec hash et signature**. L'opérateur choisit la carte, la
+bande et le port ; la progression s'affiche dans le journal, et un signal sonore +
+une fenêtre confirment la fin.
+
+- **V3 et V4** pris en charge (l'USB natif du V4 est géré : passage en bootloader
+  et suivi du changement de port automatiques).
+- **Réinstallation** d'un module déjà provisionné (effacement EEPROM) automatique.
+- **Rien à installer** sur le poste : l'exécutable autonome embarque `esptool` et
+  `rnodeconf`. Les archives firmware se placent dans un sous-dossier `firmware`.
+
+**Bouton « Config LoRa France » — toute la flotte sur les mêmes réglages.** Écrit
+la config LoRa standard ADRASEC directement dans le fichier de configuration
+Reticulum : **867.5 MHz / BW 125 kHz / SF8 / CR 4:5**, puissance au **maximum selon
+la carte** (22 dBm en V3, 28 dBm en V4). Ces paramètres doivent être **identiques
+sur tous les nœuds** — un seul écart et plus rien ne passe. Une config existante
+est **préservée** (seules les lignes radio sont mises à jour, sauvegarde `.bak`).
+
+> Ces deux outils rendent une station ADRAlink **autonome pour préparer des RNode**
+> en intervention : flasher un Heltec neuf et le régler aux normes France, sans
+> réseau ni PC dédié.
 
 ---
 
@@ -145,21 +183,21 @@ puis le **RMS F1GBD**, qui injecte le message dans le réseau Winlink.
 
 | Application | Rôle |
 |---|---|
-| **ADRAlink_serveur** | Console opérateur ADRASEC : pilote PAT, le modem VARA FM, la passerelle LoRa/LXMF et le serveur ADRAlink interne (compose les messages, relève les réponses, journal horodaté). |
+| **ADRAlink_serveur** | Console opérateur ADRASEC : pilote PAT, le modem VARA FM, la passerelle LoRa/LXMF et le serveur ADRAlink interne (compose les messages, relève les réponses, journal horodaté). **v1.4.0** : flashage de firmware RNode (Heltec V3/V4, off-grid) et config LoRa France. |
 | **ADRAlink_client** | Interface de saisie pour le sinistré / l'opérateur (poste Windows). Connexion **WiFi ou LoRa (RNode/Reticulum)**. |
-| **ADRAlink client Android** | Même interface pour smartphone (formulaire + découverte auto du serveur). Connexion **WiFi ou LoRa (RNode Heltec en Bluetooth)** — v1.3.1. |
+| **ADRAlink client Android** | Même interface pour smartphone (formulaire + découverte auto du serveur). Connexion **WiFi ou LoRa (RNode Heltec en Bluetooth)** — v1.4.0. |
 
 ---
 
 ## Téléchargement
 
-Dernière version : **v1.3.1** (https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.3.1/ADRAlink.7z).
+Dernière version : **v1.4.0** (https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.4.0/ADRAlink.7z).
 
 - 💻 **Windows (exe, sans source)** — archive `ADRAlink.7z` (contient
   `ADRAlink_serveur.exe` + `ADRAlink_client.exe`) :
-  [**ADRAlink.7z**](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.3.1/ADRAlink.7z)
+  [**ADRAlink.7z**](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.4.0/ADRAlink.7z)
 - 📱 **Android (APK)** :
-  [**ADRAlink_client.apk**](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.3.1/ADRAlink_client.apk)
+  [**ADRAlink_client.apk**](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.4.0/ADRAlink_client.apk)
 
 Décompressez `ADRAlink.7z`, placez **les deux exe dans le même dossier** et lancez
 `ADRAlink_serveur.exe`. Les exécutables sont autonomes (icône et logos embarqués).
@@ -218,4 +256,4 @@ Basé sur **[PAT](https://github.com/la5nta/pat)** (client Winlink open source,
 LA5NTA) pour le transport radio Winlink, et sur **[Reticulum / LXMF](https://reticulum.network/)**
 pour le transport LoRa.
 
-*ADRAlink v1.3.1 — © 2026 F1GBD / ADRASEC 77. Licence GNU GPL v3.0.*
+*ADRAlink v1.4.0 — © 2026 F1GBD / ADRASEC 77. Licence GNU GPL v3.0.*
