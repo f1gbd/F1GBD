@@ -72,16 +72,19 @@ le **client Windows** que depuis l'**APK Android** (RNode Heltec connecté en
 > opérateur en zone blanche, hors de portée du point d'accès. Le serveur embarque
 > alors une passerelle LoRa/LXMF (WiFi **et** LoRa gérés dans un seul processus).
 
-| Serveur ADRAlink VARA FM (ADRASEC) | Mini-Routeur Wifi GL-MT3600BE |
+| Serveur ADRAlink VHF/Wifi/LoRa (ADRASEC) | Point d'Accès Wifi Wavelink AC600 |
 |:---:|:---:|
-| <img src="images/FTM300 + MiniRouter_ZB.png" alt="Serveur ADRAlink ADRASEC" width="800"><br> | <img src="images/MiniRouteur_GL-MT3600BE.png" alt="Routeur Wifi" width="800"><br> |
+| <img src="images/ADRAlink_VHF-LoRA-Wifi.png" alt="Serveur ADRAlink ADRASEC" width="820"><br> | <img src="images/MiniRouteur_GL-MT3600BE.png" alt="Routeur Wifi" width="450"><br> |
 
 **Exemple de Station ADRASEC serveur ADRAlink pour Zone Blanche:**
-- Station ADRASEC Serveur ADRAlink VHF: Transceiver Yaesu FTM300DE + Interface Signalink
+- Station ADRASEC Serveur ADRAlink VHF: Transceiver Retevis RT-95 + Interface SCU-17
 - Antenne VHF/UHF
 - Liaison OK vers un RMS Winlink VARA FM en direct ou via un Digipeater
-- Mini-Routeur Wifi GLnet GL-MT3600BE
+- Point d'Accès Wifi Wavelink AC600
+- Module LoRa Heltec v3.2 ou v4 868 MHz
 - ADRALINK + VARA FM (installé et Licence VARA OK)
+
+![RT-95 et SC-17 diag ADRAlink](images/RT95_SCU-17.jpeg)
 
 ---
 
