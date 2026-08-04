@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Micro Radar — flashage web</title>
+<title>MMR v1.0 — Montre Micro Radar — flashage web</title>
 <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
 <style>
   :root {
@@ -57,8 +57,8 @@
 <body>
 <main>
 
-  <h1>📡 MICRO RADAR</h1>
-  <p class="sub">Radar de trafic aérien pour cartes Waveshare Touch-AMOLED 2.06&Prime; (ESP32-S3 et ESP32-C6)</p>
+  <h1>📡 MMR v1.0 — MONTRE MICRO RADAR</h1>
+  <p class="sub">Radar de trafic aérien en temps réel pour la carte Waveshare ESP32-S3-Touch-AMOLED-2.06&Prime;</p>
 
   <div class="panel">
     <esp-web-install-button manifest="manifest.json">
@@ -71,14 +71,16 @@
       </span>
     </esp-web-install-button>
     <p style="margin-bottom:0">Branche la carte en USB-C, clique, choisis le port série.<br>
-      Le modèle de puce est détecté automatiquement.</p>
+      Firmware <strong>MMR v1.0</strong> — carte ESP32-S3.</p>
   </div>
 
-  <h2>Cartes prises en charge</h2>
+  <h2>Matériel requis</h2>
   <table>
-    <tr><th>Carte</th><th>Puce</th><th>Écran</th></tr>
-    <tr><td>ESP32-S3-Touch-AMOLED-2.06</td><td>ESP32-S3</td><td>CO5300 410×502 QSPI</td></tr>
-    <tr><td>ESP32-C6-Touch-AMOLED-2.06</td><td>ESP32-C6</td><td>CO5300 410×502 QSPI</td></tr>
+    <tr><th>Élément</th><th>Détail</th></tr>
+    <tr><td>Carte</td><td>Waveshare <strong>ESP32-S3-Touch-AMOLED-2.06</strong></td></tr>
+    <tr><td>Écran</td><td>AMOLED CO5300, 410×502, bus QSPI</td></tr>
+    <tr><td>Mémoire</td><td>16 Mo Flash, 8 Mo PSRAM OPI</td></tr>
+    <tr><td>Liaison</td><td>USB-C natif (aucun pilote à installer)</td></tr>
   </table>
 
   <h2>Après le flashage</h2>

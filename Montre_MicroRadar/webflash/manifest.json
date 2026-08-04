@@ -1,18 +1,12 @@
 {
-  "name": "Micro Radar - Waveshare Touch-AMOLED 2.06",
-  "version": "dev",
+  "name": "MMR - Montre Micro Radar",
+  "version": "1.0",
   "new_install_prompt_erase": true,
   "builds": [
     {
       "chipFamily": "ESP32-S3",
       "parts": [
         { "path": "micro-radar-s3.bin", "offset": 0 }
-      ]
-    },
-    {
-      "chipFamily": "ESP32-C6",
-      "parts": [
-        { "path": "micro-radar-c6.bin", "offset": 0 }
       ]
     }
   ]
