@@ -29,7 +29,7 @@ Wi-Fi. Tout se configure depuis une page web servie par la montre elle-même.
 
 | | |
 |:---:|:---:|
-| <img src="images/MicroRadar_Watch_03.jpg" width="300"> | <img src="images/MicroRadar_Watch_02.jpg" width="300"> |
+| <img src="images/MicroRadar_Watch_03.jpg" width="300"> | <img src="images/MicroRadar_Watch_02.jpg" width="800"> |
 | La montre assemblée | Au poignet, en fonctionnement |
 
 </div>
