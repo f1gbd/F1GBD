@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Micro Radar — flashage web</title>
+<script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+<style>
+  :root {
+    --bg:   #05080a;
+    --fg:   #4ade80;
+    --dim:  #15803d;
+    --line: #14532d;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 2.5rem 1.25rem;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+  }
+  main { width: 100%; max-width: 46rem; }
+  h1 { font-size: 1.6rem; margin: 0 0 .25rem; letter-spacing: .04em; }
+  h2 { font-size: 1rem; margin: 2.5rem 0 .75rem; color: var(--fg); border-bottom: 1px solid var(--line); padding-bottom: .4rem; }
+  p, li { color: #86efac; }
+  .sub { color: var(--dim); margin: 0 0 2rem; }
+  .panel {
+    border: 1px solid var(--line);
+    padding: 1.75rem;
+    text-align: center;
+    background: #070c0e;
+  }
+  esp-web-install-button { --esp-tools-button-color: #05080a; --esp-tools-button-text-color: #4ade80; }
+  esp-web-install-button button, .fakebtn {
+    background: var(--fg);
+    color: #05080a;
+    border: 0;
+    padding: .8rem 1.6rem;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .unsupported { color: #fca5a5; }
+  table { width: 100%; border-collapse: collapse; margin-top: .5rem; }
+  th, td { text-align: left; padding: .45rem .6rem; border-bottom: 1px solid var(--line); font-size: .92rem; }
+  th { color: var(--dim); font-weight: 400; }
+  code { background: #0d1512; padding: .1rem .35rem; color: #bbf7d0; }
+  a { color: #bbf7d0; }
+  footer { margin-top: 3rem; color: var(--dim); font-size: .85rem; }
+</style>
+</head>
+<body>
+<main>
+
+  <h1>📡 MICRO RADAR</h1>
+  <p class="sub">Radar de trafic aérien pour cartes Waveshare Touch-AMOLED 2.06&Prime; (ESP32-S3 et ESP32-C6)</p>
+
+  <div class="panel">
+    <esp-web-install-button manifest="manifest.json">
+      <button slot="activate">⚡ Installer le firmware</button>
+      <span slot="unsupported" class="unsupported">
+        Navigateur non compatible.<br>Utilise Chrome ou Edge sur ordinateur (l'API Web Serial n'existe ni sur Firefox, ni sur Safari, ni sur mobile).
+      </span>
+      <span slot="not-allowed" class="unsupported">
+        Cette page doit être servie en HTTPS.
+      </span>
+    </esp-web-install-button>
+    <p style="margin-bottom:0">Branche la carte en USB-C, clique, choisis le port série.<br>
+      Le modèle de puce est détecté automatiquement.</p>
+  </div>
+
+  <h2>Cartes prises en charge</h2>
+  <table>
+    <tr><th>Carte</th><th>Puce</th><th>Écran</th></tr>
+    <tr><td>ESP32-S3-Touch-AMOLED-2.06</td><td>ESP32-S3</td><td>CO5300 410×502 QSPI</td></tr>
+    <tr><td>ESP32-C6-Touch-AMOLED-2.06</td><td>ESP32-C6</td><td>CO5300 410×502 QSPI</td></tr>
+  </table>
+
+  <h2>Après le flashage</h2>
+  <ol>
+    <li>La carte crée un point d'accès Wi-Fi <code>MicroRadar-Setup</code> — connecte-toi et choisis ton réseau (2,4&nbsp;GHz uniquement).</li>
+    <li>L'écran affiche ensuite l'adresse de la page de configuration, par exemple <code>http://192.168.1.140/</code>.</li>
+    <li>Saisis latitude, longitude et rayon. <code>0.2</code>° ≈ 22&nbsp;km : une bonne valeur de départ.</li>
+    <li>Un compte gratuit <a href="https://opensky-network.org" target="_blank" rel="noopener">OpenSky</a> fait passer de 400 à 4000 requêtes/jour, soit un rafraîchissement toutes les 22&nbsp;s au lieu de 3,6&nbsp;min.</li>
+  </ol>
+
+  <h2>En cas de souci</h2>
+  <ul>
+    <li><strong>Aucun port proposé</strong> — maintiens <code>BOOT</code> enfoncé, appuie brièvement sur <code>RESET</code>, relâche <code>BOOT</code>, puis réessaie.</li>
+    <li><strong>Le port apparaît puis disparaît</strong> — c'est normal, la carte réénumère son USB à chaque reset. Relance simplement l'installation.</li>
+    <li><strong>Sous Linux</strong> — ajoute ton utilisateur au groupe <code>dialout</code>.</li>
+  </ul>
+
+  <footer>
+    Flashage assuré par <a href="https://esphome.github.io/esp-web-tools/" target="_blank" rel="noopener">ESP Web Tools</a>.
+    D'après <a href="https://github.com/AnthonySturdy/micro-radar" target="_blank" rel="noopener">micro-radar</a> d'Anthony Sturdy.<br>
+    Sources du portage : <a href="https://github.com/f1gbd/F1GBD/tree/master/Montre_MicroRadar" target="_blank" rel="noopener">github.com/f1gbd/F1GBD</a>
+  </footer>
+
+</main>
+</body>
+</html>
