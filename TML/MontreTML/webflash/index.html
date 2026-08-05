@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Montre TML v1.1 — flashage web</title>
+<script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+<style>
+  :root {
+    --fond: #0d1117; --carte: #161b22; --bord: #30363d;
+    --texte: #e6edf3; --gris: #8b949e; --vert: #2ea043; --orange: #d29922;
+    --bleu: #58a6ff; --rouge: #f85149;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 2rem 1rem 4rem;
+    background: var(--fond); color: var(--texte);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
+  }
+  main { max-width: 46rem; margin: 0 auto; }
+  h1 { font-size: 2rem; margin: 0 0 .3rem; }
+  h2 { font-size: 1.15rem; margin: 2.2rem 0 .6rem; color: var(--bleu); }
+  .sous { color: var(--gris); margin: 0 0 1.6rem; }
+  img { max-width: 100%; border-radius: 10px; display: block; margin: 1rem 0; }
+  .carte {
+    background: var(--carte); border: 1px solid var(--bord);
+    border-radius: 10px; padding: 2rem 1.5rem; margin: 1.2rem 0; text-align: center;
+  }
+  esp-web-install-button::part(button) {
+    background: var(--vert); color: #fff; border: 0;
+    padding: .85rem 2.2rem; border-radius: 8px;
+    font-size: 1.05rem; font-weight: 600; cursor: pointer;
+  }
+  .avert {
+    border-left: 4px solid var(--orange);
+    background: rgba(210,153,34,.08);
+    padding: .9rem 1.1rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0;
+  }
+  table { width: 100%; border-collapse: collapse; margin: .6rem 0; font-size: .95rem; }
+  th, td { text-align: left; padding: .45rem .6rem; border-bottom: 1px solid var(--bord); }
+  th { color: var(--gris); font-weight: 600; }
+  code { background: #21262d; padding: .12rem .4rem; border-radius: 4px; font-size: .9em; }
+  ol, ul { padding-left: 1.3rem; }
+  li { margin: .35rem 0; }
+  a { color: var(--bleu); }
+  .grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: .8rem; margin: 1rem 0; }
+  .tuile { background: var(--carte); border: 1px solid var(--bord); border-radius: 8px; padding: .8rem 1rem; }
+  .tuile b { display: block; color: var(--texte); }
+  .tuile span { color: var(--gris); font-size: .9rem; }
+  footer { margin-top: 3rem; color: var(--gris); font-size: .9rem; text-align: center; }
+</style>
+</head>
+<body>
+<main>
+
+  <h1>Montre TML <span style="color:var(--gris);font-weight:400">v1.1</span></h1>
+  <p class="sous">La messagerie LXMF d'urgence au poignet, reliée en ESP-NOW au TransMiniLora.</p>
+
+  <img src="../images/MontreTML_set.jpg" alt="La montre et son TransMiniLora">
+
+  <div class="carte">
+    <esp-web-install-button manifest="manifest.json">
+      <button slot="activate">Flasher la montre</button>
+      <span slot="unsupported" style="display:block;color:var(--orange)">
+        Ce navigateur ne gère pas le Web Serial. Utilisez Chrome ou Edge sur ordinateur.
+      </span>
+      <span slot="not-allowed" style="display:block;color:var(--orange)">
+        Le flashage web exige une page en HTTPS.
+      </span>
+    </esp-web-install-button>
+    <p style="color:var(--gris);margin:1rem 0 0;font-size:.92rem">
+      Chrome ou Edge, sur ordinateur. Environ 1,2 Mo, une minute.
+    </p>
+  </div>
+
+  <div class="avert">
+    <strong>Une seule carte est compatible :</strong> la Waveshare
+    <strong>ESP32-S3-Touch-AMOLED-2.06</strong>. Ce binaire ne convient ni à la
+    variante ESP32-C6, dont le brochage diffère, ni à aucune autre carte —
+    l'écran resterait noir.
+  </div>
+
+  <h2>Ce que fait cette version</h2>
+  <div class="grille">
+    <div class="tuile"><b>Alerte RASEC</b><span>sirène + écran rouge sur <code>#ra</code></span></div>
+    <div class="tuile"><b>Messages LXMF</b><span>émission, réponse, réception</span></div>
+    <div class="tuile"><b>Courriel</b><span>par passerelle ADRAlink</span></div>
+    <div class="tuile"><b>Annonce</b><span>pavé ANN</span></div>
+    <div class="tuile"><b>Veille</b><span>écran éteint après 1 min</span></div>
+    <div class="tuile"><b>Accu</b><span>niveau et charge au bandeau</span></div>
+    <div class="tuile"><b>Historique</b><span>12 messages conservés</span></div>
+    <div class="tuile"><b>Clavier</b><span>AZERTY tactile, 3 modes</span></div>
+  </div>
+
+  <h2>Avant de flasher</h2>
+  <ol>
+    <li>Brancher la montre sur un port USB-C avec un câble de <em>données</em> :
+        beaucoup de câbles ne portent que l'alimentation.</li>
+    <li>Fermer tout ce qui pourrait tenir le port série : moniteur, IDE, autre onglet de flashage.</li>
+    <li>Cliquer sur le bouton, puis choisir le port dans la fenêtre du navigateur.</li>
+    <li>Si aucun port n'apparaît, maintenir <code>BOOT</code> enfoncé, brancher le câble, relâcher.</li>
+  </ol>
+
+  <h2>Il faut aussi un TransMiniLora</h2>
+  <p>
+    La montre ne transmet rien elle-même. Le
+    <a href="https://github.com/f1gbd/F1GBD/tree/master/TML">TransMiniLora</a>
+    reste le modem LoRa et la pile Reticulum / LXMF, et doit tourner avec un
+    firmware intégrant le pont ESP-NOW.
+  </p>
+
+  <h2>Au premier démarrage</h2>
+  <table>
+    <tr><th>Ce que vous voyez</th><th>Ce que ça veut dire</th></tr>
+    <tr><td>Bandeau rouge, « TML absent »</td><td>Normal : la montre balaie les canaux WiFi 1 à 13</td></tr>
+    <tr><td>Bandeau vert avec un indicatif</td><td>Le TML répond, vous pouvez écrire</td></tr>
+    <tr><td>« tactile non detecte »</td><td>Contrôleur CST9220 non géré ; l'écran fonctionne, pilotage par la console série</td></tr>
+    <tr><td>Écran noir</td><td>Ce n'est pas la bonne carte, ou le flashage a échoué</td></tr>
+  </table>
+
+  <h2>Documentation</h2>
+  <ul>
+    <li><a href="../doc/Montre_TML_Manuel.docx">Manuel d'utilisation</a></li>
+    <li><a href="../doc/Montre_TML_Fiche_technique.docx">Fiche technique</a></li>
+    <li><a href="https://github.com/f1gbd/F1GBD/tree/master/TML/MontreTML">Présentation du projet</a></li>
+  </ul>
+
+  <footer>F1GBD — ADRASEC</footer>
+
+</main>
+</body>
+</html>
