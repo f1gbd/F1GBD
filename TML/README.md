@@ -283,7 +283,7 @@ L'archive **`TML.7z`** contient :
 <img src="MontreTML/images/MontreTML.png" alt="TML_config" width="640">
 </div>
 
-- Pour en savoir plus sur la **[MontreTML]((https://github.com/la5nta/pat)**)**
+- Pour en savoir plus sur la **MontreTML**: https://github.com/f1gbd/F1GBD/tree/master/TML/MontreTML
 
 ---
 
