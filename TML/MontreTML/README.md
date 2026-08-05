@@ -144,8 +144,10 @@ réseau et retient toute station dont le nom contient « adralink » sans conten
 ![Échange avec TCQ](images/MTML_TCQ_chappe26.png)
 
 La montre seule ne sert à rien. Le TML doit tourner avec un firmware intégrant
-le **pont ESP-NOW** — voir la page du
-[TransMiniLora](https://github.com/f1gbd/F1GBD/tree/master/TML).
+le **pont ESP-NOW**, c'est-à-dire **TML v1.3.0 ou plus récent** — voir la page du
+[TransMiniLora](https://github.com/f1gbd/F1GBD/tree/master/TML) et ses
+[releases](https://github.com/f1gbd/F1GBD/releases). Avec une version
+antérieure, la montre cherchera indéfiniment et le bandeau restera rouge.
 
 Les deux appareils doivent être sur le **même canal WiFi**. La montre balaie les
 canaux 1 à 13 au démarrage et se verrouille sur le premier TML qui répond : il
