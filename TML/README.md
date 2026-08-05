@@ -277,6 +277,16 @@ L'archive **`TML.7z`** contient :
 
 ---
 
+## ACCESSOIRE TML: La Montre TML
+
+<div align="center">
+<img src="MontreTML/images/MontreTML.png" alt="TML_config" width="640">
+</div>
+
+- Pour en savoir plus sur la **[MontreTML]((https://github.com/la5nta/pat)**)**
+
+---
+
 ## Licence
 
 Distribué sous licence **GNU GPL v3.0** (comme le firmware de base). Voir le fichier
