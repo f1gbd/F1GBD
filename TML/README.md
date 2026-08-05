@@ -39,7 +39,7 @@ que ceux livrés *en direct* (via un Link), et renvoie une preuve de livraison. 
 en plus un **canal de groupe chiffré à clé partagée** pour une diffusion lisible par
 tous les abonnés.
 
-➡️ **[Télécharger la dernière version de TML](https://github.com/f1gbd/F1GBD/releases/download/tml-v1.2.0/TML-v1.2.0.7z)**
+➡️ **[Télécharger la dernière version de TML v1.3.0](https://github.com/f1gbd/F1GBD/releases/download/tml-v1.3.0/TML-v1.3.0.7z)**
 
 
 <div align="center">
@@ -145,7 +145,7 @@ chiffre. Après les 4 chiffres, un 5ᵉ champ de confirmation (`1` = envoi, `0` 
 
 Le firmware est **prêt à l'emploi** : aucune compilation nécessaire.
 
-1. Télécharge l'archive **[`TML.7z`](https://github.com/f1gbd/F1GBD/releases/download/tml-v1.2.0/TML-v1.2.0.7z)** et
+1. Télécharge l'archive **[`TML.7z`](https://github.com/f1gbd/F1GBD/releases/download/tml-v1.3.0/TML-v1.3.0.7z)** et
    décompresse-le : tu obtiens `tml_firmware_v4.bin` et la licence.
 2. Lance le configurateur **`TML_config`** (`tml_config.exe`).
 3. Branche le Heltec v4 en USB, sélectionne son **port**.
@@ -264,7 +264,7 @@ L'archive **`TML.7z`** contient :
 - `tml_firmware_v4.bin` — image firmware fusionnée, à flasher à l'offset `0x0` ;
 - la **licence** (GPLv3).
 
-➡️ **[Télécharger la dernière version](https://github.com/f1gbd/F1GBD/releases/download/tml-v1.2.0/TML-v1.2.0.7z)** *(ou depuis ce dossier du dépôt).*
+➡️ **[Télécharger la dernière version](https://github.com/f1gbd/F1GBD/releases/download/tml-v1.3.0/TML-v1.3.0.7z)** *(ou depuis ce dossier du dépôt).*
 
 ---
 
