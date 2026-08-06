@@ -27,7 +27,7 @@ native** est également émise.
 
 ## Téléchargement et installation (Android)
 
-1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.27.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.27/RTspk_pager-1.0.27.apk)**.
+1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.31.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.31/RTspk_pager-1.0.31.apk)**.
 2. Sur le téléphone, autoriser l'installation depuis cette source (« sources
    inconnues » / « Installer des applications inconnues »).
 3. Ouvrir le fichier APK et installer.
@@ -37,6 +37,11 @@ native** est également émise.
 ---
 
 ## Nouveautés
+
+**1.0.31 — Veille alerte et bouton MAIL.** Deux ajouts majeurs pour l'usage
+en pager d'astreinte : une **veille alerte** qui continue de recevoir en LoRa
+application fermée, et un bouton **MAIL** qui envoie un email par radio via une
+passerelle ADRAlink. Voir les deux sections dédiées plus bas.
 
 **1.0.27 — Listes de diffusion.** Envoi d'un message ou d'une alerte RASEC à
 plusieurs opérateurs ADRASEC en une fois (voir plus bas).
@@ -93,6 +98,63 @@ Les listes sont **sauvegardées sur l'appareil** et réutilisables à volonté.
 
 ---
 
+## Bouton MAIL — message d'urgence ADRAlink
+
+Le bouton **MAIL**, en tête du menu (menu « … » sur téléphone), permet d'envoyer
+un **email à ses proches par radio**, via une passerelle
+[ADRAlink](https://github.com/f1gbd) (acheminement Winlink assuré par
+l'ADRASEC). C'est le même format et le même protocole que le client ADRAlink
+pour PC.
+
+1. **Passerelle** : *Rechercher* liste les stations annoncées dont le nom
+   contient « ADRAlink ». L'adresse choisie est mémorisée ; elle peut aussi être
+   collée à la main.
+2. **Nouvelle demande** : la passerelle renvoie un **identifiant de 8
+   caractères**, à conserver — c'est lui qui donne accès aux réponses.
+3. **Formulaire** : Prénom, Nom, email du proche (un second facultatif), objet,
+   message de 160 caractères maximum. Les quatre premiers champs sont
+   obligatoires.
+4. **Consulter les réponses** interroge la passerelle ; la réponse du proche
+   s'affiche dans le journal des échanges, en bas de l'écran.
+
+En LoRa, comptez jusqu'à deux minutes entre l'envoi et l'accusé de réception :
+c'est le temps de propagation normal (recherche de chemin + temps d'antenne).
+
+---
+
+## Veille alerte RASEC (réception application fermée)
+
+Le pager continue de recevoir les alertes `#ra` lorsque l'application n'est plus
+à l'écran. L'alerte passe alors par un **canal Android dédié** : son d'**alarme**
+(audible même en mode silencieux), vibration longue, contournement du mode « Ne
+pas déranger », répété autant de fois que le règlage `#b` l'indique. La sirène
+Web Audio, elle, ne joue que lorsque l'application est ouverte.
+
+Le **bouton Retour** ne ferme plus l'application tant que la veille est armée :
+il la met en arrière-plan, en conservant la liaison BLE du RNode. Pour quitter
+réellement, utilisez l'action **« Arrêter la veille »** de la notification
+permanente. Après un « Tout fermer » depuis les récents ou un redémarrage du
+téléphone, l'application se relance d'elle-même pour réarmer la veille.
+
+### Trois autorisations à accorder
+
+Sans elles, la veille tient quelques minutes puis s'éteint silencieusement :
+
+| Autorisation | Où | Sans elle |
+|---|---|---|
+| Notifications | demandée au 1er lancement | aucune alerte visible ni sonore |
+| Batterie sans restriction | demandée au 1er lancement | Doze suspend la réception écran éteint |
+| Afficher par-dessus les autres applications | *Paramètres → Applications → RTspk Pager* | pas de réarmement automatique après « Tout fermer » ou redémarrage |
+
+L'accès « Ne pas déranger » est facultatif : il n'est utile que si vous utilisez
+ce mode et voulez que l'alerte passe malgré tout.
+
+> **Surcouches constructeur.** Xiaomi, Huawei et Samsung gèrent la mémoire de
+> façon agressive. Si la veille tombe au bout de quelques heures, ajoutez
+> l'application aux « applications protégées » de la surcouche.
+
+---
+
 ## Mise à jour
 
 *Settings → (bas de page) → « Check for updates »* interroge les *Releases* de ce
@@ -111,7 +173,17 @@ modifiée est mis à disposition :
   frères rsReticulum / rsLXMF / rsLXST / lrgp-rs).
 - Modifications RASEC-ALERT (méthode patch) : le fichier
   **`ratspeak-rasec-alert-f1gbd.patch`** fourni dans ce dossier s'applique sur une
-  copie propre des sources Ratspeak 
+  copie propre des sources Ratspeak (`git apply ratspeak-rasec-alert-f1gbd.patch`).
+- Préréglage LoRa « France (868 MHz) » par défaut (1.0.26) : le fichier
+  **`rtspk-france-preset-f1gbd.patch`** fourni dans ce dossier.
+- Fonction Listes de diffusion (1.0.27) : écran frontend `rasec_distribution.js`
+  et entrée de menu « Diffusion » (aucune modification du cœur Reticulum/LXMF).
+- Bouton MAIL ADRAlink et veille alerte (1.0.28 à 1.0.31) : écran frontend
+  `dashboard/static/js/adralink_mail.js`, genre de notification `Alert`
+  (`crates/ratspeak-core/src/notification.rs`, `crates/ratspeak-tauri/src/notifier.rs`),
+  alerte native répétée (`crates/ratspeak-runtime/src/rasec.rs`) et cycle de vie
+  Android (`src-tauri/gen/android/.../RasecStandby.kt`, `RatspeakService.kt`,
+  `MainActivity.kt`, `AndroidManifest.xml`).
 - Procédure de build de l'APK sous Windows : voir `BUILD-APK-WINDOWS.md`.
 
 En reversant vos modifications, merci de respecter les termes de l'AGPL-3.0.
