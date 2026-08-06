@@ -22,6 +22,16 @@ le **client Windows** que depuis l'**APK Android** (RNode Heltec connecté en
 **Bluetooth**) — voir la section
 [Transport LoRa / LXMF](#transport-lora--lxmf-zones-blanches-v13).
 
+> **Nouveau en v1.4.2 :** **fiabilité de la messagerie LoRa** — la réponse email
+> est **nettoyée avant l'envoi** (retrait de l'original cité, trop volumineux pour
+> une trame LoRa), **relecture ciblée d'un ancien message** (`LIRE <identifiant>`),
+> et **clôture automatique d'un identifiant après livraison** de sa réponse (fin de
+> la surcharge du serveur par des relèves répétées). Plus un **arrêt propre** du
+> serveur (PAT toujours refermé). Côté client **T-Deck rsDeck (firmware 2.0.3)** :
+> **champ identifiant modifiable** (relire un ancien message), **journal effaçable**
+> et **retour visuel** des envois/réponses.
+>
+
 > **Nouveau en v1.4.1 :** **réglages LoRa RF éditables** (fréquence / BW / SF / CR)
 > avec presets **« Standard France »** et **« Haut débit »** — dans la Config LoRa
 > du serveur **et** via un bouton engrenage ⚙ sur le client PC et l'APK Android —
@@ -212,13 +222,13 @@ puis le **RMS F1GBD**, qui injecte le message dans le réseau Winlink.
 
 ## Téléchargement
 
-Dernière version : **v1.4.1** (https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.4.1/ADRAlink.7z).
+Dernière version : **v1.4.2** (https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.4.2/ADRAlink.7z).
 
 - 💻 **Windows (exe, sans source)** — archive `ADRAlink.7z` (contient
   `ADRAlink_serveur.exe` + `ADRAlink_client.exe`) :
-  [**ADRAlink.7z**](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.4.1/ADRAlink.7z)
+  [**ADRAlink.7z**](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.4.2/ADRAlink.7z)
 - 📱 **Android (APK)** :
-  [**ADRAlink_client.apk**](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.4.1/ADRAlink_client.apk)
+  [**ADRAlink_client.apk**](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.4.2/ADRAlink_client.apk)
 
 Décompressez `ADRAlink.7z`, placez **les deux exe dans le même dossier** et lancez
 `ADRAlink_serveur.exe`. Les exécutables sont autonomes (icône et logos embarqués).
@@ -277,4 +287,4 @@ Basé sur **[PAT](https://github.com/la5nta/pat)** (client Winlink open source,
 LA5NTA) pour le transport radio Winlink, et sur **[Reticulum / LXMF](https://reticulum.network/)**
 pour le transport LoRa.
 
-*ADRAlink v1.4.1 — © 2026 F1GBD / ADRASEC 77. Licence GNU GPL v3.0.*
+*ADRAlink v1.4.2 — © 2026 F1GBD / ADRASEC 77. Licence GNU GPL v3.0.*
