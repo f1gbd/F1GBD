@@ -155,7 +155,7 @@ ce mode et voulez que l'alerte passe malgré tout.
 
 ---
 
-## Mise à jour
+## Mise à jour 
 
 *Settings → (bas de page) → « Check for updates »* interroge les *Releases* de ce
 dépôt. Installer manuellement la dernière version publiée ici : il n'y a pas de
@@ -171,19 +171,6 @@ modifiée est mis à disposition :
 
 - Sources d'origine : https://github.com/ratspeak/Ratspeak (+ les bibliothèques
   frères rsReticulum / rsLXMF / rsLXST / lrgp-rs).
-- Modifications RASEC-ALERT (méthode patch) : le fichier
-  **`ratspeak-rasec-alert-f1gbd.patch`** fourni dans ce dossier s'applique sur une
-  copie propre des sources Ratspeak (`git apply ratspeak-rasec-alert-f1gbd.patch`).
-- Préréglage LoRa « France (868 MHz) » par défaut (1.0.26) : le fichier
-  **`rtspk-france-preset-f1gbd.patch`** fourni dans ce dossier.
-- Fonction Listes de diffusion (1.0.27) : écran frontend `rasec_distribution.js`
-  et entrée de menu « Diffusion » (aucune modification du cœur Reticulum/LXMF).
-- Bouton MAIL ADRAlink et veille alerte (1.0.28 à 1.0.31) : écran frontend
-  `dashboard/static/js/adralink_mail.js`, genre de notification `Alert`
-  (`crates/ratspeak-core/src/notification.rs`, `crates/ratspeak-tauri/src/notifier.rs`),
-  alerte native répétée (`crates/ratspeak-runtime/src/rasec.rs`) et cycle de vie
-  Android (`src-tauri/gen/android/.../RasecStandby.kt`, `RatspeakService.kt`,
-  `MainActivity.kt`, `AndroidManifest.xml`).
 - Procédure de build de l'APK sous Windows : voir `BUILD-APK-WINDOWS.md`.
 
 En reversant vos modifications, merci de respecter les termes de l'AGPL-3.0.
