@@ -1,27 +1,11 @@
-<div align="center">
-<img src="images/RatSpeak_Adrasec_Logo.png" alt="RWLoRa" width="320">
-
-# rsDeck T-Deck — édition RASEC-ALERT
-par F1GBD / ADRASEC 77 / FNRASEC
-
-</div>
-
-
+# rsDeck T-Deck — édition RASEC-ALERT (F1GBD / ADRASEC 77)
 
 Firmware **RASEC-ALERT** pour **LilyGo T-Deck Plus** (ESP32-S3, LoRa SX1262,
 écran ST7789), dérivé de [rsDeck](https://github.com/ratspeak/rsDeck) — un
 messager Reticulum / **LXMF** — et enrichi de l'**option Pager RASEC-ALERT**
 portée depuis le MeshPager.
 
-<div align="center">
-
-# Version : **2.0.2-rasec-f1gbd**
-
-<img src="images/t-deck_ratspeak-adrasec.png" alt="RWLoRa" width="220">
-<img src="images/t-deck_ratspeak-alert.png" alt="RWLoRa" width="260">
-</div>
-
----
+Version : **2.0.2-rasec-f1gbd**
 
 Un message **LXMF** reçu déclenche un **écran plein écran clignotant
 « RASEC ALERT »** (avec compteur d'alertes), une **sirène bitonale synthétisée**
@@ -70,6 +54,20 @@ volume et l'interrupteur haut-parleur des réglages.
 
 ---
 
+## Contenu de ce dossier
+
+| Fichier | Rôle |
+|---|---|
+| `index.html` | Page de flash web (ESP Web Tools). |
+| `manifest.json` | Manifest ESP Web Tools (ESP32-S3, image à l'offset `0x0`). |
+| `rsdeck-adrasec-alert.bin` | **Image firmware fusionnée** (à générer, voir ci-dessous). |
+| `README.md` | Ce fichier. |
+
+> ⚠️ Le web-flasher ne fonctionne que si `rsdeck-adrasec-alert.bin` est présent
+> dans ce dossier et poussé sur GitHub. C'est l'unique fichier à régénérer à
+> chaque nouvelle version du firmware.
+
+---
 
 ## Licence & crédits
 
