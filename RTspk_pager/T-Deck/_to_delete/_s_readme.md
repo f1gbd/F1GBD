@@ -10,7 +10,7 @@ Firmware **RASEC-ALERT** pour **LilyGo T-Deck Plus** (ESP32-S3, LoRa SX1262,
 messager Reticulum / **LXMF** — et enrichi de l'**option Pager RASEC-ALERT**
 portée depuis le MeshPager.
 
-Version : **2.0.4-rasec-f1gbd**
+Version : **2.0.3-rasec-f1gbd**
 
 Un message **LXMF** reçu déclenche un **écran plein écran clignotant
 « RASEC ALERT »** (avec compteur d'alertes), une **sirène bitonale synthétisée**
@@ -23,18 +23,6 @@ d'urgence** à un proche via une passerelle **ADRAlink** (routage Winlink / ADRA
 et **relire les réponses** — le tout par radio, sans Internet. Depuis la **2.0.3** :
 champ identifiant **modifiable** (relire un ancien message), **journal effaçable**,
 et **retour visuel** clair à l'envoi comme à la réception.
-
-**Nouveau en 2.0.4 — décodeur CHAPPE26 intégré.** À la réception d'un message LXMF
-contenant des codes CHAPPE26 au format transmission (`!1000 !1204 !1990 …`), le
-firmware **décode automatiquement** et affiche la **traduction en clair juste sous
-le message**. Le décodeur s'appuie sur le **répertoire complet ADRASEC/FNRASEC**
-(10 domaines × 100 lignes = **1000 codes** ; ex. `1204` = *Santé · Ambulance
-requise*). La détection est robuste : seuls les codes préfixés `!` **et** présents
-au répertoire agissent (pas de faux positifs). Un **décodeur de test** est aussi
-accessible via **Settings → « Decodeur CHAPPE26 »** (saisie, traduction en clair,
-tableau détaillé code/page/ligne/domaine/signification). Cette version ajoute aussi
-un **rétro-éclairage clavier temporisé** (5 s à la frappe) et deux **presets LoRa
-France** (Standard 868 et Haut Débit 868).
 
 ---
 
@@ -94,12 +82,12 @@ volume et l'interrupteur haut-parleur des réglages.
 |---|---|
 | `index.html` | Page de flash web (ESP Web Tools). |
 | `manifest.json` | Manifest ESP Web Tools (ESP32-S3, image à l'offset `0x0`). |
-| `rsdeck-mail-adralink-2.0.4.bin` | **Image firmware fusionnée** (à flasher à l'offset `0x0`). |
+| `rsdeck-mail-adralink-2.0.3.bin` | **Image firmware fusionnée** (à flasher à l'offset `0x0`). |
 | `images/` | Photos et captures d'écran du T-Deck. |
 | `README.md` | Ce fichier. |
 
 > ⚠️ Le web-flasher ne fonctionne que si le binaire référencé par `manifest.json`
-> (`rsdeck-mail-adralink-2.0.4.bin`) est présent dans ce dossier et poussé sur
+> (`rsdeck-mail-adralink-2.0.3.bin`) est présent dans ce dossier et poussé sur
 > GitHub. C'est le fichier à régénérer — et à renommer avec le numéro de version —
 > à chaque nouvelle version du firmware.
 
