@@ -1,7 +1,7 @@
 # rsDeck T-Deck — édition RASEC-ALERT + MAIL ADRAlink (F1GBD / ADRASEC 77)
 
 <p align="center">
-  <img src="images/RATspeak_T-Deck_v2.jpg" alt="rsDeck T-Deck — écran d'accueil" width="330"><br>
+  <img src="images/t-deck_ratspeak-adrasec.png" alt="rsDeck T-Deck — écran d'accueil" width="2048"><br>
   <em>Écran d'accueil : LoRa + WiFi, pairs entendus, et le bouton <strong>MAIL ADRALINK</strong>.</em>
 </p>
 
@@ -36,6 +36,13 @@ tableau détaillé code/page/ligne/domaine/signification). Cette version ajoute 
 un **rétro-éclairage clavier temporisé** (5 s à la frappe) et deux **presets LoRa
 France** (Standard 868 et Haut Débit 868).
 
+voir le LIVRET du **Code CHAPPE-26** (https://github.com/f1gbd/F1GBD/blob/master/TML/documentation/Chappe26_Livret_B5.pdf)
+
+<p align="center">
+  <img src="images/t-deck_ratspeak-Chappe26.png" alt="rsDeck T-Deck — écran d'accueil" width="580"><br>
+  <em>Décodage de message <strong>Chappe26</strong> Intégré.</em>
+</p>
+
 ---
 
 ## ⚡ Flash en un clic (recommandé)
@@ -56,9 +63,12 @@ sur reset (côté gauche), relâcher — puis recliquez sur **Installer**.
 
 > **Région radio.** rsDeck démarre par défaut sur *Americas (915 MHz)*. Pour la
 > France, choisir **Europe (868 MHz)** dans *Settings → Radio* après le 1ᵉʳ boot.
+> Il y a deux possibilités de réglages LoRa: 
+> - France Std 868 (Fréq: 867.5 MHz BW125/SF8/CR5) 
+> - France HD 868 (Fréq: 867.5 MHz BW500/SF7/CR5)
 
 <p align="center">
-  <img src="images/t-deck_ratspeak-adrasec.png" alt="Accueil rsDeck en LoRa pur 868 MHz" width="300"><br>
+  <img src="images/Preset.png" alt="Accueil rsDeck en LoRa pur 868 MHz" width="580"><br>
   <em>Accueil en <strong>LoRa pur</strong> (868 MHz, TCP/WiFi coupés) — configuration terrain ADRASEC.</em>
 </p>
 
