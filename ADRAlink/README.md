@@ -22,6 +22,16 @@ le **client Windows** que depuis l'**APK Android** (RNode Heltec connecté en
 **Bluetooth**) — voir la section
 [Transport LoRa / LXMF](#transport-lora--lxmf-zones-blanches-v13).
 
+> **Nouveau en v1.4.4 :** le serveur **flashe désormais la version 3.0.0** du
+> firmware T-Deck rsDeck. Le bouton **Firmware → « T-Deck (rsDeck) »** écrit
+> l'image **`rsdeck-mail-adralink-3.0.0.bin`** (flash direct à `0x0`, comme le
+> web-flasher). Le firmware **rsDeck 3.0.0** apporte une **carte OpenStreetMap
+> intégrée** centrée GPS — **live** (téléchargement WiFi + cache SD) et
+> **off-grid** (tuiles `maps/osm/` depuis la micro-SD) — un **dialogue GPS**
+> (position, satellites) et un **filtre TCQ** dans « Peers » (RASEC-ALERT,
+> MAIL ADRAlink et CHAPPE26 conservés).
+>
+
 > **Nouveau en v1.4.3 :** le serveur **flashe aussi le T-Deck rsDeck** — le bouton
 > **Firmware** propose, à côté des Heltec RNode, une entrée **« T-Deck (rsDeck) »**
 > qui écrit notre image applicative complète **directement à `0x0` via esptool**,
@@ -163,12 +173,13 @@ une fenêtre confirment la fin.
 - **Réinstallation** d'un module déjà provisionné (effacement EEPROM) automatique.
 - **Rien à installer** sur le poste : l'exécutable autonome embarque `esptool` et
   `rnodeconf`. Les archives firmware se placent dans un sous-dossier `firmware`.
-- **Depuis la v1.4.3 — flash du T-Deck rsDeck.** Une entrée **« T-Deck (rsDeck) »**
-  flashe le **client LoRa ADRASEC** (LilyGO T-Deck) avec notre image applicative
-  `rsdeck-mail-adralink-2.0.4.bin` : écriture **directe à `0x0` via esptool**
-  (comme le web-flasher), sans rnodeconf ni provisioning EEPROM. Placez le `.bin`
-  dans le dossier `firmware`. Sur ESP32-S3 à USB natif, passage en bootloader
-  automatique ; au besoin, mode download manuel (maintenir la trackball puis reset).
+- **Depuis la v1.4.3 (firmware 3.0.0 depuis la v1.4.4) — flash du T-Deck rsDeck.**
+  Une entrée **« T-Deck (rsDeck) »** flashe le **client LoRa ADRASEC** (LilyGO
+  T-Deck) avec notre image applicative `rsdeck-mail-adralink-3.0.0.bin` : écriture
+  **directe à `0x0` via esptool** (comme le web-flasher), sans rnodeconf ni
+  provisioning EEPROM. Placez le `.bin` dans le dossier `firmware`. Sur ESP32-S3 à
+  USB natif, passage en bootloader automatique ; au besoin, mode download manuel
+  (maintenir la trackball puis reset).
 
 **Bouton « Config LoRa » — toute la flotte sur les mêmes réglages.** Écrit la
 config LoRa directement dans le fichier de configuration Reticulum. Le preset
@@ -236,13 +247,13 @@ puis le **RMS F1GBD**, qui injecte le message dans le réseau Winlink.
 
 ## Téléchargement
 
-Dernière version : **v1.4.3** (https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.4.3/ADRAlink.7z).
+Dernière version : **v1.4.4** (https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.4.4/ADRAlink.7z).
 
 - 💻 **Windows (exe, sans source)** — archive `ADRAlink.7z` (contient
   `ADRAlink_serveur.exe` + `ADRAlink_client.exe`) :
-  [**ADRAlink.7z**](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.4.3/ADRAlink.7z)
+  [**ADRAlink.7z**](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.4.4/ADRAlink.7z)
 - 📱 **Android (APK)** :
-  [**ADRAlink_client.apk**](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.4.3/ADRAlink_client.apk)
+  [**ADRAlink_client.apk**](https://github.com/f1gbd/F1GBD/releases/download/adralink-v1.4.4/ADRAlink_client.apk)
 
 Décompressez `ADRAlink.7z`, placez **les deux exe dans le même dossier** et lancez
 `ADRAlink_serveur.exe`. Les exécutables sont autonomes (icône et logos embarqués).
@@ -301,4 +312,4 @@ Basé sur **[PAT](https://github.com/la5nta/pat)** (client Winlink open source,
 LA5NTA) pour le transport radio Winlink, et sur **[Reticulum / LXMF](https://reticulum.network/)**
 pour le transport LoRa.
 
-*ADRAlink v1.4.3 — © 2026 F1GBD / ADRASEC 77. Licence GNU GPL v3.0.*
+*ADRAlink v1.4.4 — © 2026 F1GBD / ADRASEC 77. Licence GNU GPL v3.0.*
