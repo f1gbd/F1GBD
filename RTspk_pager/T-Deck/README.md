@@ -1,8 +1,12 @@
 # rsDeck T-Deck — édition RASEC-ALERT + MAIL ADRAlink + CHAPPE26 + Carte OSM (F1GBD / ADRASEC 77)
 
 <p align="center">
-  <img src="images/t-deck_ratspeak-adrasec.png" alt="rsDeck T-Deck — écran d'accueil" width="2048"><br>
-  <em>Écran d'accueil : LoRa + WiFi, pairs entendus, bouton <strong>MAIL ADRALINK</strong> et bouton <strong>GPS</strong>.</em>
+  <img src="images/RatSpeak_Adrasec_Logo.png" alt="RatSpeak — ADRASEC" width="200">
+</p>
+
+<p align="center">
+  <img src="images/RATspeak_T-Deck_v300.jpg" alt="rsDeck T-Deck — écran d'accueil v3.0.0" width="380"><br>
+  <em>Écran d'accueil <strong>v3.0.0</strong> : LoRa + WiFi + GPS, pairs entendus, boutons <strong>GPS</strong> et <strong>MAIL ADRALINK</strong>.</em>
 </p>
 
 Firmware **RASEC-ALERT** pour **LilyGo T-Deck Plus** (ESP32-S3, LoRa SX1262,
@@ -56,8 +60,23 @@ position** en temps réel.
 > SD au fur et à mesure et restent disponibles hors-réseau (le cache est **par niveau
 > de zoom**). On peut aussi pré-copier un dossier `maps/osm/` à la racine de la SD.
 
+<p align="center">
+  <img src="images/RATspeak_T-Deck_map.jpg" alt="Carte OSM sur le T-Deck (terrain)" width="330">
+  &nbsp;&nbsp;
+  <img src="images/Carto_v300.jpg" alt="Carte OSM plein écran — Melun" width="400"><br>
+  <em>Carte OSM centrée sur la position GPS : sur le terrain (à gauche) et en plein
+  écran (à droite). Glisser pour déplacer, boutons <code>+</code> / <code>−</code>
+  (zoom) et <code>O</code> (recentrer GPS) ; marqueur rouge = position.</em>
+</p>
+
 **Filtre TCQ dans « Peers ».** Une case **TCQ** en haut de la liste des pairs filtre
 l'affichage pour ne garder que les annonces dont le nom commence par `TCQ`.
+
+<p align="center">
+  <img src="images/Filtage_TCQ.jpg" alt="Filtre TCQ dans l'écran Peers" width="400"><br>
+  <em>Filtre <strong>TCQ</strong> actif dans « Peers » : seules les annonces
+  commençant par <code>TCQ</code> sont affichées.</em>
+</p>
 
 <p align="center">
   <img src="images/t-deck_ratspeak-Chappe26.png" alt="rsDeck T-Deck — décodage Chappe26" width="580"><br>
