@@ -27,7 +27,7 @@ native** est également émise.
 
 ## Téléchargement et installation (Android)
 
-1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.32.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.32/RTspk_pager-1.0.32.apk)**.
+1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.31.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.31/RTspk_pager-1.0.31.apk)**.
 2. Sur le téléphone, autoriser l'installation depuis cette source (« sources
    inconnues » / « Installer des applications inconnues »).
 3. Ouvrir le fichier APK et installer.
@@ -38,26 +38,10 @@ native** est également émise.
 
 ## Nouveautés
 
-**1.0.32 — Carte tactique et synchro NEM.** Cartographie OpenStreetMap
-embarquée **Live et Off-grid** (cache des tuiles hors réseau), **symbologie
-SDIS / NEB** de TCQ (118 symboles), enregistrement/chargement au **format JSON
-compatible TCQ**, et **synchro NEM** : partage de toute la situation par radio
-(LXMF), interopérable avec TCQ. Voir la section « Cartographie & synchro NEM ».
-
-<div align="center">
-<img src="images/RATspeak_Carto_Nem_FTBL.jpg" alt="RWLoRa" width="640">
-</div>
-
-
-<div align="center">
-<img src="images/RATspeak_Carto_Nem.jpg" alt="RWLoRa" width="320">
-</div>
-
 **1.0.31 — Veille alerte et bouton MAIL.** Deux ajouts majeurs pour l'usage
 en pager d'astreinte : une **veille alerte** qui continue de recevoir en LoRa
 application fermée, et un bouton **MAIL** qui envoie un email par radio via une
 passerelle ADRAlink. Voir les deux sections dédiées plus bas.
-
 
 **1.0.27 — Listes de diffusion.** Envoi d'un message ou d'une alerte RASEC à
 plusieurs opérateurs ADRASEC en une fois (voir plus bas).
@@ -69,46 +53,6 @@ heure**, **33 % / 15 s**). Tout reste modifiable dans *Settings → interface Lo
 
 Un **écran de démarrage** (splash) aux couleurs RATSPEAK ADRASEC s'affiche au
 lancement.
-
----
-
-## Cartographie & synchro NEM
-
-Icône **Carte** dans la barre du bas.
-
-**Carte OSM Live et Off-grid.** Carte OpenStreetMap temps réel avec position
-**GPS** (marqueur + cercle de précision) et bouton *recentrer*. Chaque tuile
-affichée est mise en **cache** dans l'appareil : la zone déjà vue reste
-disponible **hors réseau**. Le bouton **⬇ Télécharger la zone** pré-charge la
-vue visible (zoom courant + 2 niveaux) pour une utilisation off-grid ; appui
-long = vider le cache. **Curseur central** avec coordonnées **décimal / DMS /
-MGRS** en haut à droite et **échelle** métrique en bas.
-
-**Symbologie SDIS / NEB (comme TCQ).** 118 symboles issus de `carto_lib`
-(unités OTAN/NEB, graphiques tactiques, engins et personnels SDIS, moyens
-aériens, sinistres, circulation, moyens, événements, zones de secours, SATER).
-Palette classée + recherche : toucher un symbole le pose au curseur, on le
-**glisse** pour ajuster, **clic droit / menu** pour supprimer ou renommer. Zones
-(polygones), lignes et flèches rendues à l'identique du format TCQ.
-
-<div align="center">
-<img src="images/RATspeak_NEM_DORDOGNE26.png" alt="RWLoRa" width="320">
-<img src="images/RATspeak_NEM_ORION26.png" alt="RWLoRa" width="320">
-</div>
-
-**Enregistrer / Charger — format TCQ.** La situation (symboles + zones + tracés)
-s'enregistre et se recharge au format **JSON `carto_lib.overlay`** compatible
-TCQ ; au chargement, la carte se **recadre automatiquement** sur la zone. Les
-fichiers passent de RTspk Pager à TCQ et inversement.
-
-**Synchro NEM (partage par radio).** Le bouton **🛰️ Synchro NEM** partage toute
-la situation vers un ou plusieurs contacts par message **LXMF**, au **protocole
-NEM de TCQ** (Numérisation de l'Espace de Mission). À la réception, la carte
-s'ouvre et se recadre ; option **« Remplacer à la réception »** (remplacement ou
-fusion). Pour ménager un **RNode en Bluetooth** à l'émission, la synchro est
-**découpée** en messages d'un seul paquet (`NEMC:`), réassemblés à l'arrivée ; la
-réception accepte aussi les synchros `NEM1:` uniques de TCQ. La réception des
-synchros découpées côté TCQ nécessite **TCQ v12.51**.
 
 ---
 
@@ -152,12 +96,6 @@ fois**, séquentiellement.
 
 Les listes sont **sauvegardées sur l'appareil** et réutilisables à volonté.
 
-
-<div align="center">
-<img src="images/RATspeak_Liste.png" alt="RWLoRa" width="320">
-</div>
-
-
 ---
 
 ## Bouton MAIL — message d'urgence ADRAlink
@@ -167,11 +105,6 @@ un **email à ses proches par radio**, via une passerelle
 [ADRAlink](https://github.com/f1gbd) (acheminement Winlink assuré par
 l'ADRASEC). C'est le même format et le même protocole que le client ADRAlink
 pour PC.
-
-<div align="center">
-<img src="images/RATspeak_ADRAlink1.png" alt="RWLoRa" width="320">
-<img src="images/RATspeak_ADRAlink2.png" alt="RWLoRa" width="320">
-</div>
 
 1. **Passerelle** : *Rechercher* liste les stations annoncées dont le nom
    contient « ADRAlink ». L'adresse choisie est mémorisée ; elle peut aussi être
@@ -196,12 +129,6 @@ Le pager continue de recevoir les alertes `#ra` lorsque l'application n'est plus
 (audible même en mode silencieux), vibration longue, contournement du mode « Ne
 pas déranger », répété autant de fois que le règlage `#b` l'indique. La sirène
 Web Audio, elle, ne joue que lorsque l'application est ouverte.
-
-
-<div align="center">
-<img src="images/RATspeak_RASEC-ALERT.jpg" alt="RWLoRa" width="320">
-<img src="images/RATspeak_RASEC-ALERT2.jpg" alt="RWLoRa" width="320">
-</div>
 
 Le **bouton Retour** ne ferme plus l'application tant que la veille est armée :
 il la met en arrière-plan, en conservant la liaison BLE du RNode. Pour quitter
@@ -228,7 +155,7 @@ ce mode et voulez que l'alerte passe malgré tout.
 
 ---
 
-## Mise à jour
+## Mise à jour 
 
 *Settings → (bas de page) → « Check for updates »* interroge les *Releases* de ce
 dépôt. Installer manuellement la dernière version publiée ici : il n'y a pas de
@@ -244,9 +171,6 @@ modifiée est mis à disposition :
 
 - Sources d'origine : https://github.com/ratspeak/Ratspeak (+ les bibliothèques
   frères rsReticulum / rsLXMF / rsLXST / lrgp-rs).
-- Modifications RASEC-ALERT (méthode patch) : le fichier
-  **`ratspeak-rasec-alert-f1gbd.patch`** fourni dans ce dossier s'applique sur une
-  copie propre des sources Ratspeak (`git apply ratspeak-rasec-alert-f1gbd.patch`).
 - Procédure de build de l'APK sous Windows : voir `BUILD-APK-WINDOWS.md`.
 
 En reversant vos modifications, merci de respecter les termes de l'AGPL-3.0.

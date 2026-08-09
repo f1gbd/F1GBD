@@ -9,9 +9,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.50.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.51.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.50.0/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.51.0/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -24,6 +24,13 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 [**📜 Toutes les releases TCQ**](https://github.com/f1gbd/F1GBD/releases?q=tcq) • [**📚 Documentation**](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations)
 
 </div>
+
+## 🆕 Nouveautés v12.51 — Compatibilité NEM avec RATspeak Android version Adrasec
+
+### 🛰️ SYNCHRO NEM (Numérisation de l'Espace de Mission) PAR RADIO LoRa — INTEROP TCQ
+Partage TOUTE la situation (symboles + zones + tracés) par LXMF, au protocole NEM de TCQ <-> RATspeak. Reçue 
+➡️ la carte s'ouvre et se recadre automatiquement. **Optimisée pour la LoRa** : émission découpée pour ne pas faire décrocher un RNode Bluetooth. ✅ Testé Ratspeak ⇄ TCQ dans les deux sens.
+(Réception des synchros découpées côté TCQ : v12.51.)
 
 ## 🆕 Nouveautés v12.50 — Couche « Live feux » (EFFIS + FIRMS + unités ADS-B)
 
@@ -790,7 +797,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v12.50.0 — 2026-07-28**
+**Version v12.51.0 — 2026-09-08**
 
 ---
 
