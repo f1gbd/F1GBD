@@ -27,7 +27,7 @@ native** est également émise.
 
 ## Téléchargement et installation (Android)
 
-1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.32.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.32/RTspk_pager-1.0.32.apk)**.
+1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.33.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.32/RTspk_pager-1.0.33.apk)**.
 2. Sur le téléphone, autoriser l'installation depuis cette source (« sources
    inconnues » / « Installer des applications inconnues »).
 3. Ouvrir le fichier APK et installer.
@@ -38,6 +38,18 @@ native** est également émise.
 
 ## Nouveautés
 
+**1.0.33 — Messages FLASH sur la carte.** Bouton **⚡** pour envoyer un message
+court (**90 car.**) à un ou plusieurs contacts (ou une liste de diffusion), préfixé
+`&`. À la réception d'un `&`, un dialogue s'ouvre par-dessus la carte pour lire et
+répondre ; `$GPS` dans la réponse insère la position. Voir « Cartographie & synchro
+NEM ».
+<div align="center">
+<img src="images/RATspeak_repFLASH.png" alt="RWLoRa" width="320">
+
+  <em><strong>"RTspk FLASH</strong> — message éclair, carte en direct."</em>
+</div>
+
+
 **1.0.32 — Carte tactique et synchro NEM.** Cartographie OpenStreetMap
 embarquée **Live et Off-grid** (cache des tuiles hors réseau), **symbologie
 SDIS / NEB** de TCQ (118 symboles), enregistrement/chargement au **format JSON
@@ -46,11 +58,17 @@ compatible TCQ**, et **synchro NEM** : partage de toute la situation par radio
 
 <div align="center">
 <img src="images/RATspeak_Carto_Nem_FTBL.jpg" alt="RWLoRa" width="640">
+
+  <em><strong>Carte Tactique partagée en équipe **"synchro NEM"**</strong> en Mission Opérationnelle sur le terrain.</em>
+
 </div>
 
 
 <div align="center">
 <img src="images/RATspeak_Carto_Nem.jpg" alt="RWLoRa" width="320">
+
+  <em><strong>**Symbologie
+SDIS / NEB**</strong> de TCQ (118 symboles) .</em>
 </div>
 
 **1.0.31 — Veille alerte et bouton MAIL.** Deux ajouts majeurs pour l'usage
@@ -94,6 +112,9 @@ Palette classée + recherche : toucher un symbole le pose au curseur, on le
 <div align="center">
 <img src="images/RATspeak_NEM_DORDOGNE26.png" alt="RWLoRa" width="320">
 <img src="images/RATspeak_NEM_ORION26.png" alt="RWLoRa" width="320">
+
+  <em><strong>**Symbologie
+SDIS / NEB**</strong> très détaillée et partagée en temps réel sur Zone Op .</em>
 </div>
 
 **Enregistrer / Charger — format TCQ.** La situation (symboles + zones + tracés)
@@ -109,6 +130,20 @@ fusion). Pour ménager un **RNode en Bluetooth** à l'émission, la synchro est
 **découpée** en messages d'un seul paquet (`NEMC:`), réassemblés à l'arrivée ; la
 réception accepte aussi les synchros `NEM1:` uniques de TCQ. La réception des
 synchros découpées côté TCQ nécessite **TCQ v12.51**.
+
+**Messages FLASH (⚡).** Un bouton **⚡** sur la carte envoie un message court
+(90 caractères max) à un ou plusieurs contacts cochés, ou à une **liste de
+diffusion** enregistrée. Le message est préfixé par `&`. À la réception d'un
+message commençant par `&`, un **dialogue s'ouvre par-dessus la carte** : il
+affiche le flash et une ligne de réponse (la croix ✕ ferme et rend la carte). Si
+la réponse contient `$GPS`, il est remplacé par les **coordonnées GPS** courantes.
+Les flashs tiennent dans un seul paquet (adaptés au RNode Bluetooth).
+
+<div align="center">
+<img src="images/RATspeak_FLASH.png" alt="RWLoRa" width="320">
+
+  <em><strong>**Message FLASH**</strong> individuel ou de groupe.</em>
+</div>
 
 ---
 
@@ -155,6 +190,8 @@ Les listes sont **sauvegardées sur l'appareil** et réutilisables à volonté.
 
 <div align="center">
 <img src="images/RATspeak_Liste.png" alt="RWLoRa" width="320">
+
+  <em><strong>**Liste de Diffusion**</strong> pour l'envoi de messages aux membres d'une équipe.</em>
 </div>
 
 
@@ -171,6 +208,8 @@ pour PC.
 <div align="center">
 <img src="images/RATspeak_ADRAlink1.png" alt="RWLoRa" width="320">
 <img src="images/RATspeak_ADRAlink2.png" alt="RWLoRa" width="320">
+
+  <em><strong>**MAIL d'Urgence via ADRAlink**</strong> - Envoi/Réception d'Emails avec Identification.</em>
 </div>
 
 1. **Passerelle** : *Rechercher* liste les stations annoncées dont le nom
@@ -201,6 +240,9 @@ Web Audio, elle, ne joue que lorsque l'application est ouverte.
 <div align="center">
 <img src="images/RATspeak_RASEC-ALERT.jpg" alt="RWLoRa" width="320">
 <img src="images/RATspeak_RASEC-ALERT2.jpg" alt="RWLoRa" width="320">
+
+
+  <em><strong>**RASEC ALERT**</strong> par VISUEL et SONNERIE.</em>
 </div>
 
 Le **bouton Retour** ne ferme plus l'application tant que la veille est armée :
