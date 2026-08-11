@@ -11,7 +11,7 @@
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
 [![Version TCQ](https://img.shields.io/badge/version-tcq--v12.60.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.60.0/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.60/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
