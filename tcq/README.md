@@ -9,9 +9,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.51.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.60.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.51.0/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.60.0/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -24,6 +24,20 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 [**📜 Toutes les releases TCQ**](https://github.com/f1gbd/F1GBD/releases?q=tcq) • [**📚 Documentation**](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations)
 
 </div>
+
+## 🆕 Nouveautés v12.60 — Transmission LXMF par radio VHF packet fiabilisée (VR-N76)
+
+### 📻 LXMF/Reticulum PAR RADIO VHF — LA VRAIE VALEUR AJOUTÉE
+TCQ v12.60 achemine la messagerie **LXMF/Reticulum de façon totalement autonome, sans Internet ni infrastructure**, directement **par radio VHF en packet AX.25** avec un simple **VGC VR-N76** (TNC KISS Bluetooth intégré, AFSK 1200 bauds). Textes, relèvements SATER, positions carto et **synchros NEM complètes** transitent de poste à poste sur la seule liaison radio — l'atout décisif en situation ADRASEC dégradée, là où aucun réseau ne fonctionne. ✅ Interopérable **TCQ ⇄ RTspk Pager (Android/Adrasec v1.0.34+)** dans les deux sens.
+
+### 🛰️ SYNCHRO NEM par packet VHF — fiabilité renforcée
+La synchro NEM (symboles + zones + tracés) est désormais **fiabilisée sur liaison packet VHF** : émission découpée (chunks NEMC) avec **reprise sur erreur (ARQ / NEMR)** et **résolution de chemin robuste**. Fini les **temps morts** (~35 s) et les *write timeouts* lors d'une perte de chemin : la recherche de route est relancée activement et l'envoi opportuniste part sans attendre inutilement. Résultat : transferts **nettement plus rapides et sûrs**, testés ⇄ dans les deux sens.
+
+### ✅ À utiliser impérativement pour l'interop packet AX.25
+Pour garantir la **compatibilité de transmission Packet AX.25 en LXMF**, utilisez **TCQ v12.60** côté poste fixe et **RTspk Pager v1.0.34+** côté Android : c'est le couple validé pour la messagerie LXMF et la synchro NEM par radio VHF.
+
+### 🪟 Correctif d'interface
+Bouton **Fermer** replacé et centré sur une seconde ligne dans les boîtes de dialogue pour rester toujours accessible.
 
 ## 🆕 Nouveautés v12.51 — Compatibilité NEM avec RATspeak Android version Adrasec
 
@@ -797,7 +811,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v12.51.0 — 2026-09-08**
+**Version v12.60.0 — 11/08/2026**
 
 ---
 

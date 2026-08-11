@@ -27,7 +27,7 @@ native** est également émise.
 
 ## Téléchargement et installation (Android)
 
-1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.33.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.33/RTspk_pager-1.0.33.apk)**.
+1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.34.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.34/RTspk_pager-1.0.34.apk)**.
 2. Sur le téléphone, autoriser l'installation depuis cette source (« sources
    inconnues » / « Installer des applications inconnues »).
 3. Ouvrir le fichier APK et installer.
@@ -37,6 +37,8 @@ native** est également émise.
 ---
 
 ## Nouveautés
+
+**1.0.34 — Balise de position & synchro NEM fiabilisée.** Appui long sur le bouton de recentrage GPS (◎) : pose ton symbole **SATER:TEAM** à ta position, avec ton indicatif en label. Synchro NEM stabilisée et **bidirectionnelle** (émission + réception fiables sur VHF packet).
 
 **1.0.33 — Messages FLASH sur la carte.** Bouton **⚡** pour envoyer un message
 court (**90 car.**) à un ou plusieurs contacts (ou une liste de diffusion), préfixé
@@ -90,6 +92,33 @@ lancement.
 
 ---
 
+## Transmission LXMF par radio VHF — packet (VR-N76) 📻
+
+**La vraie valeur ajoutée : une messagerie LXMF entièrement autonome — sans
+Internet, sans réseau cellulaire, sans aucune infrastructure — sur une simple
+radio VHF en mode packet.**
+
+RTspk Pager (téléphone) et **TCQ** (poste fixe) échangent tous leurs messages
+**LXMF / Reticulum** directement **sur les ondes VHF en packet** (TNC KISS,
+liaison AX.25), typiquement avec un **VGC VR-N76** (TNC Bluetooth intégré). Sur
+ce lien radio passe **tout** : messagerie LXMF, **alertes RASEC**, **messages
+FLASH**, et la **synchro cartographique NEM** (symboles SDIS/NEB, zones, tracés,
+relevés SATER). C'est la solution idéale pour l'**ADRASEC / le secours en zone
+blanche** ou en cas de coupure d'infrastructure.
+
+Le téléphone parle à la radio en **Bluetooth KISS** ; la radio transmet les
+trames Reticulum sur la fréquence VHF ; la station TCQ (VR-N76 sur port KISS)
+reçoit, affiche et répond — la liaison est **bidirectionnelle** et porte à
+plusieurs kilomètres selon le relief et les antennes.
+
+> **⚠️ Compatibilité — utilisez TCQ v12.60 (ou plus récent).**
+> Le transport **packet AX.25 / LXMF** a été fiabilisé pour la radio lente et
+> semi-duplex : découpage/réassemblage NEM, résolution de chemin robuste, envoi
+> opportuniste sans temps morts. **TCQ v12.60** est la version de référence pour
+> un échange packet radio ↔ RTspk Pager **fiable et rapide dans les deux sens**.
+
+---
+
 ## Cartographie & synchro NEM
 
 Icône **Carte** dans la barre du bas.
@@ -129,7 +158,7 @@ s'ouvre et se recadre ; option **« Remplacer à la réception »** (remplacemen
 fusion). Pour ménager un **RNode en Bluetooth** à l'émission, la synchro est
 **découpée** en messages d'un seul paquet (`NEMC:`), réassemblés à l'arrivée ; la
 réception accepte aussi les synchros `NEM1:` uniques de TCQ. La réception des
-synchros découpées côté TCQ nécessite **TCQ v12.51**.
+synchros découpées côté TCQ nécessite **TCQ v12.60** (transport packet AX.25 / LXMF fiabilisé, dans les deux sens).
 
 **Messages FLASH (⚡).** Un bouton **⚡** sur la carte envoie un message court
 (90 caractères max) à un ou plusieurs contacts cochés, ou à une **liste de
