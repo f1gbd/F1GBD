@@ -20,7 +20,8 @@ native** est également émise.
 > (Android). Version desktop possible en compilant depuis les sources.
 
 <div align="center">
-<img src="images/RatSpeak_RASEC-ALERT.png" alt="RWLoRa" width="380">
+<img src="images/RatSpeak_RASEC-ALERT.png" alt="RWLoRa" width="320">
+<img src="images/RATspeak_ADRASECv1.033.jpeg" alt="RWLoRa" width="480">
 </div>
 
 ---
