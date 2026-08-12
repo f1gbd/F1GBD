@@ -6,14 +6,14 @@
 
 *Communications résilientes — **Indexation RAG perso d'un dossier complet (récursif)** — Documentation opérationnelle — Rédaction de SITREP — SITREP PDF auto-rempli — SITREP SATER PDF — Cartographie interactive — Carte de position géocodée IGN — Corrections manuelles — 24 macros colorées et partageables — Actions natives — Connectivité Ollama Cloud — Mémoire conversationnelle — Profil opérateur — Variables de session — Pipeline SATER complet — Plugins externes extensibles — Auto-exécution de macros par le LLM — Exécution non-bloquante avec feedback live — Interface vocale STT/TTS pour usage mains libres et accessibilité — **Vibe Coding Python (panneau de code exportable, gestion automatique du contexte)** — **Avatar IAbrain animé***
 
-[![Version](https://img.shields.io/badge/version-iabrain--v1.46.00-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.46.00)
+[![Version](https://img.shields.io/badge/version-iabrain--v1.50.00-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.50.00)
 [![Téléchargements](https://img.shields.io/badge/téléchargements-200%2B-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![100% local](https://img.shields.io/badge/local%20%2F%20cloud-hybride-brightgreen.svg)]()
 [![Accessibilité](https://img.shields.io/badge/accessibilité-voix%20%F0%9F%8E%A4%20%F0%9F%94%8A-purple.svg)]()
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.46.00/IAbrain.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.50.00/IAbrain.7z)
 
 </div>
 
@@ -69,7 +69,7 @@ Concrètement, c'est un outil qui répond à vos questions opérationnelles, ré
 | 🎤🔊 | **Interface vocale STT + TTS** *(v1.42+)* | **Reconnaissance vocale mains libres** (Vosk offline) avec wake-word « ordinateur », et **synthèse vocale** des réponses. **Trois modes STT configurables** : activé / sujets génériques uniquement (recommandé — les questions ADRASEC techniques sont injectées pour relecture avant envoi) / désactivé. **Pré-correction phonétique automatique** du vocabulaire radio (VARA, TCQ, ADRASEC, QO-100, AX.25…) avec **apprentissage progressif des corrections** de l'opérateur (dictionnaire personnel persistant). **Bips d'accessibilité** *(v1.42.14)* pour les utilisateurs non-voyants : un bip court signale le début de la génération LLM, un double bip ascendant annonce l'imminence de la lecture TTS, un bip grave signale une erreur. **Lecture intégrale** des réponses sans troncature avec annonce vocale de la durée pour les longues réponses (« Réponse longue, environ 2 minutes de lecture. Appuyez sur F3 pour interrompre. »). **Accessibilité** : utilisable par les opérateurs malvoyants/non-voyants, et en mission de terrain sans clavier (mains occupées, gants épais, équipement de protection). Confidentialité : 100 % local, aucun audio ne sort de la machine. |
 | 📚 | **Base de connaissances ADRASEC intégrée** | Toutes les notes techniques, MEMO, fiches réflexes et SITREP sont indexés et consultables. IAbrain cite ses sources et indique de quel document provient chaque information. |
 | 📂 | **Base RAG personnelle** *(v1.34+)* | En plus de la base ADRASEC officielle (alimentée par OTA), une **seconde base perso** isolée vous permet d'indexer vos propres notes, RETEX et documents locaux. Les deux bases sont fouillées simultanément ; la base perso est **toujours préservée** lors des mises à jour OTA. |
-| 📁 | **Indexation d'un dossier complet dans la base perso** *(v1.46.00)* | Nouveau menu **« 📁 RAG perso »** : un panneau dédié indexe **récursivement un dossier entier et tous ses sous-dossiers** dans votre base personnelle, en un clic. Prise en charge de tous les formats natifs (PDF, DOCX, TXT, MD, CSV…) **et conversion automatique des classeurs Excel** (`.xlsx/.xlsm`). Indexation **incrémentale** (empreinte SHA-256 : seuls les fichiers modifiés sont retraités), **purge** des fichiers disparus, **simulation** (dry-run) et **sauvegarde horodatée** avant écriture. La base principale ADRASEC n'est jamais modifiée. |
+| 📁 | **Indexation d'un dossier complet dans la base perso** *(v1.50.00)* | Nouveau menu **« 📁 RAG perso »** : un panneau dédié indexe **récursivement un dossier entier et tous ses sous-dossiers** dans votre base personnelle, en un clic. Prise en charge de tous les formats natifs (PDF, DOCX, TXT, MD, CSV…) **et conversion automatique des classeurs Excel** (`.xlsx/.xlsm`). **OCR automatique des PDF scannés et des Word image** (via Tesseract) : les documents image sans couche texte (conventions signées, arrêtés…), qu'ils soient en PDF ou en `.docx`, sont reconnus et indexés au lieu d'être rejetés. Indexation **incrémentale** (empreinte SHA-256 : seuls les fichiers modifiés sont retraités), **purge** des fichiers disparus, **simulation** (dry-run) et **sauvegarde horodatée** avant écriture. La base principale ADRASEC n'est jamais modifiée. |
 | 🌐 | **Cartographie interactive de la base** *(v1.35+)* | Visualisation arborescente de la base RAG (Base → Cluster thématique → Fichier → Chunk). Force-directed dynamique style Reticulum MeshChat, embarqué 100% hors-ligne dans un fichier HTML autonome. Recherche temps réel avec auto-expand des branches pertinentes et surlignage des chunks matchant. |
 | 📢 | **Corrections manuelles intégrées** *(v1.36+)* | Quand IAbrain produit une réponse imprécise ou incorrecte, **clic-droit → « 📢 Corriger cette réponse »** suffit. Votre correction est indexée dans la base perso et **automatiquement appliquée aux questions similaires futures, en priorité absolue**. Format Markdown versionable, partageable entre opérateurs via export/import ZIP. |
 | 🆕 | **Macros utilisateur** *(v1.37+, étendu v1.43)* | **24 boutons** configurables (6 rangées de 4) au-dessus de la liste des fichiers pour automatiser vos tâches récurrentes. Deux types : **🤖 Macro LLM** (envoie un prompt à l'IA, avec méta-langage `{{lastfile}}`, `{{date}}`, `{{call}}`...) et **⚙️ Macro Action** (exécute une fonction native déterministe, sans LLM). *(v1.43)* **Couleur de fond personnalisable par bouton** pour repérer les familles d'un coup d'œil, et **définitions stockées dans un fichier dédié et partageable `IAbrain_macros.json`** (chargé au démarrage, dissocié de la configuration générale). |
@@ -1305,9 +1305,9 @@ ollama pull bge-m3              # Reranking RAG (recommandé, 1.2 Go)
 
 <div align="center">
 
-#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.46.00/IAbrain.7z)
+#### 📥 [**Télécharger IAbrain.7z**](https://github.com/f1gbd/F1GBD/releases/download/iabrain-v1.50.00/IAbrain.7z)
 
-*(version `iabrain-v1.46.00` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
+*(version `iabrain-v1.50.00` — voir [toutes les releases IAbrain](https://github.com/f1gbd/F1GBD/releases?q=iabrain) pour les versions précédentes)*
 
 [![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
 
@@ -1491,19 +1491,21 @@ Ce dépôt contient également les manuels suivants :
 
 ---
 
-## 🆕 Évolution récente — v1.33 → v1.46
+## 🆕 Évolution récente — v1.33 → v1.50
 
-Les versions récentes ont apporté plusieurs améliorations majeures, du RAG hybride aux corrections manuelles, en passant par la cartographie, les macros utilisateur, la connectivité cloud, la mémoire conversationnelle, le profil opérateur, l'auto-exécution de macros par le LLM, le remplissage automatique du SITREP PDF officiel ADRASEC, l'exécution non-bloquante des macros Action avec feedback de progression en direct, la détection de négation contextuelle dans le plugin SITREP, l'interface vocale complète (reconnaissance + synthèse) avec apprentissage des corrections de l'opérateur, une barre de 24 macros colorées et partageables complétée par les actions natives POS OSM (carte géocodée IGN) et SITREP SATER (compte-rendu PDF), un **avatar IAbrain animé**, un **« vibe coding » Python fiabilisé** (panneau de code exportable, ré-indentation automatique, gestion automatique du contexte et détection de troncature), et désormais l'**indexation d'un dossier complet dans la base RAG personnelle** via le nouveau menu « 📁 RAG perso ».
+Les versions récentes ont apporté plusieurs améliorations majeures, du RAG hybride aux corrections manuelles, en passant par la cartographie, les macros utilisateur, la connectivité cloud, la mémoire conversationnelle, le profil opérateur, l'auto-exécution de macros par le LLM, le remplissage automatique du SITREP PDF officiel ADRASEC, l'exécution non-bloquante des macros Action avec feedback de progression en direct, la détection de négation contextuelle dans le plugin SITREP, l'interface vocale complète (reconnaissance + synthèse) avec apprentissage des corrections de l'opérateur, une barre de 24 macros colorées et partageables complétée par les actions natives POS OSM (carte géocodée IGN) et SITREP SATER (compte-rendu PDF), un **avatar IAbrain animé**, un **« vibe coding » Python fiabilisé** (panneau de code exportable, ré-indentation automatique, gestion automatique du contexte et détection de troncature), et désormais l'**indexation d'un dossier complet dans la base RAG personnelle** (avec **OCR automatique des PDF scannés**) via le nouveau menu « 📁 RAG perso ».
 
-### 📁 v1.46.x — Menu « RAG perso » : indexation récursive d'un dossier complet
+### 📁 v1.50.x — Menu « RAG perso » : indexation récursive d'un dossier complet
 
-La v1.46.00 comble un manque de la base personnelle : jusqu'ici, la perso ne pouvait être alimentée **qu'un fichier à la fois**, tandis que l'indexation d'un **dossier entier** visait la base **principale** (ADRASEC). Un nouveau menu de premier niveau **« 📁 RAG perso »** ouvre un **panneau dédié** qui parcourt **récursivement** un dossier et tous ses sous-dossiers, et indexe leur contenu directement dans **votre** base — sans jamais toucher la base de référence.
+La v1.50.00 comble un manque de la base personnelle : jusqu'ici, la perso ne pouvait être alimentée **qu'un fichier à la fois**, tandis que l'indexation d'un **dossier entier** visait la base **principale** (ADRASEC). Un nouveau menu de premier niveau **« 📁 RAG perso »** ouvre un **panneau dédié** qui parcourt **récursivement** un dossier et tous ses sous-dossiers, et indexe leur contenu directement dans **votre** base — sans jamais toucher la base de référence.
 
 Le panneau regroupe toutes les options utiles : **conversion automatique des classeurs Excel** (`.xlsx/.xlsm`) en plus des formats natifs (PDF, DOCX, TXT, MD, CSV…), **réindexation forcée**, **purge** des fichiers disparus, **simulation (dry-run)** et **sauvegarde horodatée** avant écriture, avec réglage du **découpage** (taille de chunk / recouvrement). L'indexation est **incrémentale** (empreinte SHA-256 : seuls les fichiers modifiés sont retraités) et **sans doublon** (les anciens extraits d'un fichier réindexé sont remplacés). La progression et un journal détaillé s'affichent en direct.
 
+**🔎 OCR automatique des PDF scannés.** Beaucoup de documents opérationnels (conventions signées, arrêtés, plans) sont des **PDF image** sans couche texte : ils étaient jusqu'ici rejetés à l'indexation (« aucun texte extrait »). Désormais, si un PDF ne renvoie aucun texte, IAbrain **l'OCR-ise automatiquement** (rendu des pages via PyMuPDF, reconnaissance via **Tesseract**, français par défaut) avant de l'indexer — de façon transparente, avec la progression page par page dans le journal. Le même mécanisme s'applique aux **documents Word (`.docx`) ne contenant que des images** (un scan collé dans Word) : IAbrain en extrait les images et les OCR-ise. Option activable/désactivable dans le panneau (« OCR des PDF scannés »). **Prérequis** : Tesseract OCR installé sur le poste (avec le pack de langue voulu, ex. `fra`) ; sans lui, le document scanné est simplement signalé comme non indexable.
+
 | Version | Apport principal |
 |---|---|
-| **1.46.00** | **Menu « 📁 RAG perso »** : panneau d'indexation **récursive** d'un dossier complet dans la base personnelle (`IAbrain_rag_db_perso`). Formats natifs + **conversion automatique Excel** (`.xlsx/.xlsm`), indexation **incrémentale** (SHA-256), **purge des orphelins**, **simulation (dry-run)**, **sauvegarde horodatée** et réglage du découpage. La base principale ADRASEC n'est jamais modifiée. Support Excel inclus dans le build (`openpyxl`). |
+| **1.50.00** | **Menu « 📁 RAG perso »** : panneau d'indexation **récursive** d'un dossier complet dans la base personnelle (`IAbrain_rag_db_perso`). Formats natifs + **conversion automatique Excel** (`.xlsx/.xlsm`), **OCR automatique des PDF scannés** (Tesseract), indexation **incrémentale** (SHA-256), **purge des orphelins**, **simulation (dry-run)**, **sauvegarde horodatée** et réglage du découpage. La base principale ADRASEC n'est jamais modifiée. Support Excel inclus dans le build (`openpyxl`) ; OCR via Tesseract (prérequis externe à installer). |
 
 ### 💻 v1.45.x — Vibe Coding Python : panneau de code, ré-indentation, contexte automatique
 
@@ -1700,9 +1702,9 @@ Architecture double-base qui sépare strictement la documentation officielle ADR
 | Base | Origine | Mise à jour |
 |---|---|---|
 | **Principale ADRASEC** | OTA GitHub officiel | Écrasée à chaque OTA |
-| **Perso** | Vos `Indexer un fichier`, l'**indexation récursive d'un dossier complet** (menu « 📁 RAG perso », v1.46.00), vos notes, vos corrections (v1.36+) | **Jamais écrasée par l'OTA** |
+| **Perso** | Vos `Indexer un fichier`, l'**indexation récursive d'un dossier complet** (menu « 📁 RAG perso », v1.50.00), vos notes, vos corrections (v1.36+) | **Jamais écrasée par l'OTA** |
 
-Depuis la **v1.46.00**, le menu **« 📁 RAG perso »** permet d'alimenter cette base en indexant **un dossier entier et tous ses sous-dossiers** en une seule opération (formats natifs + Excel converti automatiquement, indexation incrémentale, purge des orphelins, dry-run et sauvegarde).
+Depuis la **v1.50.00**, le menu **« 📁 RAG perso »** permet d'alimenter cette base en indexant **un dossier entier et tous ses sous-dossiers** en une seule opération (formats natifs + Excel converti automatiquement, indexation incrémentale, purge des orphelins, dry-run et sauvegarde).
 
 Les deux bases sont fouillées simultanément à chaque requête RAG. Dans la cartographie v1.35, les chunks perso apparaissent en losanges orange — d'un coup d'œil vous voyez où vos notes s'intègrent thématiquement par rapport à la base officielle.
 
@@ -1739,7 +1741,7 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.46.00 — 2026-08-01**
+**Version 1.50.00 — 2026-08-01**
 
 ---
 
