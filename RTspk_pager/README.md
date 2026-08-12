@@ -28,7 +28,7 @@ native** est également émise.
 
 ## Téléchargement et installation (Android)
 
-1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.34.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.34/RTspk_pager-1.0.34.apk)**.
+1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.35.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.35/RTspk_pager-1.0.35.apk)**.
 2. Sur le téléphone, autoriser l'installation depuis cette source (« sources
    inconnues » / « Installer des applications inconnues »).
 3. Ouvrir le fichier APK et installer.
@@ -38,6 +38,8 @@ native** est également émise.
 ---
 
 ## Nouveautés
+
+**1.0.35 — Synchro NEM DELTA (n'échange que la différence).** La synchro NEM ne retélécharge plus toute la carte : RTspk compare les deux cartes et ne transmet **que ce qui a changé**. Cartes déjà identiques → simple accusé de **~20 octets** (jusqu'à **~97 % de données en moins** sur VHF 1200 bauds). Un objet déplacé **glisse à sa nouvelle position au lieu de se dupliquer** (même nom + même symbole = même objet ; la modif la plus récente gagne). **Repli automatique** en synchro complète si le correspondant est en version antérieure. ✅ Delta de bout en bout avec **TCQ v12.61** ; compatible en repli avec les versions plus anciennes.
 
 **1.0.34 — Balise de position & synchro NEM fiabilisée.** Appui long sur le bouton de recentrage GPS (◎) : pose ton symbole **SATER:TEAM** à ta position, avec ton indicatif en label. Synchro NEM stabilisée et **bidirectionnelle** (émission + réception fiables sur VHF packet).
 
@@ -117,6 +119,12 @@ plusieurs kilomètres selon le relief et les antennes.
 > semi-duplex : découpage/réassemblage NEM, résolution de chemin robuste, envoi
 > opportuniste sans temps morts. **TCQ v12.60** est la version de référence pour
 > un échange packet radio ↔ RTspk Pager **fiable et rapide dans les deux sens**.
+>
+> **Synchro NEM delta (RTspk 1.0.35).** L'échange de la seule *différence* entre
+> les deux cartes — cartes identiques réglées en ~20 octets, objet déplacé
+> repositionné sans doublon — nécessite **TCQ v12.61** aux deux extrémités. Face
+> à une version plus ancienne, la synchro **retombe automatiquement en transfert
+> complet** : rien ne casse, on perd seulement le gain de débit du delta.
 
 ---
 
@@ -160,6 +168,13 @@ fusion). Pour ménager un **RNode en Bluetooth** à l'émission, la synchro est
 **découpée** en messages d'un seul paquet (`NEMC:`), réassemblés à l'arrivée ; la
 réception accepte aussi les synchros `NEM1:` uniques de TCQ. La réception des
 synchros découpées côté TCQ nécessite **TCQ v12.60** (transport packet AX.25 / LXMF fiabilisé, dans les deux sens).
+
+**Synchro NEM delta (depuis 1.0.35).** Quand les deux stations sont à jour
+(**RTspk 1.0.35 + TCQ v12.61**), la synchro n'échange plus que la **différence**
+entre les deux cartes : cartes identiques → accusé de ~20 octets, objet déplacé →
+**repositionné sans doublon** (même nom + même symbole = même objet), la
+modification la plus récente l'emporte (horodatage). Face à une version plus
+ancienne, **repli automatique** en synchro complète.
 
 **Messages FLASH (⚡).** Un bouton **⚡** sur la carte envoie un message court
 (90 caractères max) à un ou plusieurs contacts cochés, ou à une **liste de
