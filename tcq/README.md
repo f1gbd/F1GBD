@@ -9,9 +9,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.62.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.63.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.62/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.63/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -25,16 +25,16 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 
 </div>
 
-## 🆕 Nouveautés v12.62 — Synchro NEM DELTA (n'échange que la différence)
+## 🆕 Nouveautés v12.63 — Synchro NEM DELTA (n'échange que la différence)
 
 ### 🛰️ SYNCHRO NEM DELTA — beaucoup moins de données sur VHF packet
-La synchro NEM ne retransmet plus toute la carte à chaque fois. TCQ v12.62 compare d'abord les deux cartes (empreinte compacte) et **n'échange que la DIFFÉRENCE** — la vraie cure d'amaigrissement pour la radio lente 1200 bauds.
+La synchro NEM ne retransmet plus toute la carte à chaque fois. TCQ v12.63 compare d'abord les deux cartes (empreinte compacte) et **n'échange que la DIFFÉRENCE** — la vraie cure d'amaigrissement pour la radio lente 1200 bauds.
 
 - **Cartes déjà identiques** → un simple accusé d'environ **20 octets**, rien à retransmettre (jusqu'à **~97 % de données en moins** en synchro de contrôle sur VHF packet).
 - **Objet déplacé / modifié** → seul cet objet circule, et il est **repositionné sur place au lieu d'être dupliqué** : réconciliation par **clé naturelle** (même nom + même symbole = même objet). En cas de divergence, la **modification la plus récente gagne** (horodatage) — plus de doublons ni de retour en arrière.
 - **Repli automatique** vers la synchro complète si le correspondant est en version antérieure : **aucune rupture de compatibilité**.
 
-✅ Delta de bout en bout avec le couple **TCQ v12.62 ⇄ RTspk Pager (Android/Adrasec) v1.0.35**. Face à une version plus ancienne (v12.60 / v1.0.34 et antérieures), la synchro **retombe automatiquement en transfert complet** — rien ne casse. Testé ⇄ dans les deux sens sur radio VHF 1200 bauds.
+✅ Delta de bout en bout avec le couple **TCQ v12.63 ⇄ RTspk Pager (Android/Adrasec) v1.0.35**. Face à une version plus ancienne (v12.60 / v1.0.34 et antérieures), la synchro **retombe automatiquement en transfert complet** — rien ne casse. Testé ⇄ dans les deux sens sur radio VHF 1200 bauds.
 
 ---
 
@@ -824,7 +824,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v12.62.0 — 14/08/2026**
+**Version v12.63.0 — 14/08/2026**
 
 ---
 
