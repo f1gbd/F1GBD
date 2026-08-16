@@ -51,6 +51,11 @@ depuis la carte. Détails dans les sections dédiées plus bas. Corrige aussi un
 blocage de la liaison LXMF après un envoi d'image (un transfert enlisé gelait
 la file d'attente jusqu'au redémarrage). ✅ Interopérable **TCQ v12.66**.
 
+<div align="center">
+<img src="images/RATspeak_Ping_LXMF.png" alt="RWLoRa" width="380">
+<img src="images/RATspeak_Photos.png" alt="RWLoRa" width="380">
+</div>
+
 **1.0.38 — Radar aéronefs et compresseur d'images.** Scope radar plein écran
 façon Montre Micro Radar, et compression d'images aux réglages de TCQ.
 
