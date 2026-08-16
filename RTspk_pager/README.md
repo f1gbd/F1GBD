@@ -31,7 +31,7 @@ quantique est un format propre à TCQ, illisible par tout autre client LXMF.
 
 ## Téléchargement et installation (Android)
 
-1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.39.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.39/RTspk_pager-1.0.39.apk)**.
+1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.40.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.40/RTspk_pager-1.0.40.apk)**.
 2. Sur le téléphone, autoriser l'installation depuis cette source (« sources
    inconnues » / « Installer des applications inconnues »).
 3. Ouvrir le fichier APK et installer.
@@ -42,7 +42,7 @@ quantique est un format propre à TCQ, illisible par tout autre client LXMF.
 
 ## Nouveautés
 
-**1.0.39 — PING LXMF, photos compatibles TCQ, radar aéronefs.** Quatre ajouts
+**1.0.40 — PING LXMF, photos compatibles TCQ, radar aéronefs.** Quatre ajouts
 tournés vers l'opérationnel : un **PING LXMF** pour vérifier qu'une station
 répond avant de compter dessus, l'**envoi de photos** (galerie ou prise de vue)
 avec compression au format de TCQ, un transfert d'images **qui fonctionne dans
@@ -60,8 +60,9 @@ la file d'attente jusqu'au redémarrage). ✅ Interopérable **TCQ v12.66**.
 façon Montre Micro Radar, et compression d'images aux réglages de TCQ.
 
 <div align="center">
-<img src="images/RATspeak_RADAR_btn_loc.png" alt="RWLoRa" width="380">
-<img src="images/RATspeak_RADAR_display.png" alt="RWLoRa" width="380">
+<img src="images/RATspeak_RADAR_btn_loc.png" alt="RWLoRa" width="250">
+<img src="images/RATspeak_RADAR_display.png" alt="RWLoRa" width="250">
+<img src="images/RATspeak_RADAR_display_setup.png" alt="RWLoRa" width="250">
 </div>
 
 **1.0.37 — Synchro NEM rapide par Internet.** Quand la liaison passe par
