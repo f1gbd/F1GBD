@@ -14,7 +14,10 @@ une **sirène bitonale** synthétisée (aucun fichier son requis), et un **accus
 de réception automatique** renvoyé à l'expéditeur. Sur mobile, une **notification
 native** est également émise.
 
-**RTspk Pager** est compatible avec le logiciel **TCQ** (désactiver le mode quantique)
+**RTspk Pager** est compatible avec le logiciel **TCQ** — messages, PING LXMF,
+images et synchro cartographique NEM, dans les deux sens. Côté TCQ, laisser la
+case « ⚛ Quantique » du panneau de chat **décochée** : la téléportation
+quantique est un format propre à TCQ, illisible par tout autre client LXMF.
 
 > Application Android — fonctionne sur téléphone/tablette et sur le LilyGO T-Deck
 > (Android). Version desktop possible en compilant depuis les sources.
@@ -28,7 +31,7 @@ native** est également émise.
 
 ## Téléchargement et installation (Android)
 
-1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.37.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.37/RTspk_pager-1.0.37.apk)**.
+1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.39.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.39/RTspk_pager-1.0.39.apk)**.
 2. Sur le téléphone, autoriser l'installation depuis cette source (« sources
    inconnues » / « Installer des applications inconnues »).
 3. Ouvrir le fichier APK et installer.
@@ -39,7 +42,32 @@ native** est également émise.
 
 ## Nouveautés
 
-**1.0.37 — Synchro NEM DELTA (n'échange que la différence).** La synchro NEM ne retélécharge plus toute la carte : RTspk compare les deux cartes et ne transmet **que ce qui a changé**. Cartes déjà identiques → simple accusé de **~20 octets** (jusqu'à **~97 % de données en moins** sur VHF 1200 bauds). Un objet déplacé **glisse à sa nouvelle position au lieu de se dupliquer** (même nom + même symbole = même objet ; la modif la plus récente gagne). **Repli automatique** en synchro complète si le correspondant est en version antérieure. ✅ Delta de bout en bout avec **TCQ v12.63** ; compatible en repli avec les versions plus anciennes.
+**1.0.39 — PING LXMF, photos compatibles TCQ, radar aéronefs.** Quatre ajouts
+tournés vers l'opérationnel : un **PING LXMF** pour vérifier qu'une station
+répond avant de compter dessus, l'**envoi de photos** (galerie ou prise de vue)
+avec compression au format de TCQ, un transfert d'images **qui fonctionne dans
+les deux sens** avec TCQ, et un **radar aéronefs** en balayage PPI accessible
+depuis la carte. Détails dans les sections dédiées plus bas. Corrige aussi un
+blocage de la liaison LXMF après un envoi d'image (un transfert enlisé gelait
+la file d'attente jusqu'au redémarrage). ✅ Interopérable **TCQ v12.66**.
+
+**1.0.38 — Radar aéronefs et compresseur d'images.** Scope radar plein écran
+façon Montre Micro Radar, et compression d'images aux réglages de TCQ.
+
+<div align="center">
+<img src="images/RATspeak_RADAR_btn_loc.png" alt="RWLoRa" width="380">
+<img src="images/RATspeak_RADAR_display.png" alt="RWLoRa" width="380">
+</div>
+
+**1.0.37 — Synchro NEM rapide par Internet.** Quand la liaison passe par
+Internet plutôt que par la radio, la synchro NEM utilise des morceaux de
+**4000 octets** au lieu de 50 et n'attend plus entre deux envois : une carte
+complète part en quelques secondes au lieu de plusieurs minutes. La cadence
+radio reste inchangée.
+
+**1.0.36 — Synchro NEM ULTRA-COMPACTE (marqueurs en binaire).** Après le delta, RTspk compresse encore : les marqueurs voyagent en **binaire compact** (1 octet pour le symbole, position sur 3+3 octets) au lieu du JSON. Un marqueur tient en **~1 trame** ; **2 marqueurs = 3 morceaux** au lieu de 28 — transferts **~10× plus courts** sur VHF 1200 bauds. Repli JSON automatique (lignes/zones/marqueurs à options/versions antérieures), et **recentrage** de la carte sur les objets reçus. Ajoute aussi un bouton **« 🔄 Scanner »** dans « Ajouter un TNC » (rafraîchit les appareils appairés) et la demande d'autorisation **« Appareils à proximité »** au 1er lancement. ✅ Interopérable **TCQ v12.62**.
+
+**1.0.35 — Synchro NEM DELTA (n'échange que la différence).** La synchro NEM ne retélécharge plus toute la carte : RTspk compare les deux cartes et ne transmet **que ce qui a changé**. Cartes déjà identiques → simple accusé de **~20 octets** (jusqu'à **~97 % de données en moins** sur VHF 1200 bauds). Un objet déplacé **glisse à sa nouvelle position au lieu de se dupliquer** (même nom + même symbole = même objet ; la modif la plus récente gagne). **Repli automatique** en synchro complète si le correspondant est en version antérieure. ✅ Delta de bout en bout avec **TCQ v12.61** ; compatible en repli avec les versions plus anciennes.
 
 **1.0.34 — Balise de position & synchro NEM fiabilisée.** Appui long sur le bouton de recentrage GPS (◎) : pose ton symbole **SATER:TEAM** à ta position, avec ton indicatif en label. Synchro NEM stabilisée et **bidirectionnelle** (émission + réception fiables sur VHF packet).
 
@@ -120,7 +148,7 @@ plusieurs kilomètres selon le relief et les antennes.
 > opportuniste sans temps morts. **TCQ v12.60** est la version de référence pour
 > un échange packet radio ↔ RTspk Pager **fiable et rapide dans les deux sens**.
 >
-> **Synchro NEM delta (RTspk 1.0.37).** L'échange de la seule *différence* entre
+> **Synchro NEM delta (RTspk 1.0.35).** L'échange de la seule *différence* entre
 > les deux cartes — cartes identiques réglées en ~20 octets, objet déplacé
 > repositionné sans doublon — nécessite **TCQ v12.61** aux deux extrémités. Face
 > à une version plus ancienne, la synchro **retombe automatiquement en transfert
@@ -169,8 +197,8 @@ fusion). Pour ménager un **RNode en Bluetooth** à l'émission, la synchro est
 réception accepte aussi les synchros `NEM1:` uniques de TCQ. La réception des
 synchros découpées côté TCQ nécessite **TCQ v12.60** (transport packet AX.25 / LXMF fiabilisé, dans les deux sens).
 
-**Synchro NEM delta (depuis 1.0.37).** Quand les deux stations sont à jour
-(**RTspk 1.0.37 + TCQ v12.61**), la synchro n'échange plus que la **différence**
+**Synchro NEM delta (depuis 1.0.35).** Quand les deux stations sont à jour
+(**RTspk 1.0.35 + TCQ v12.61**), la synchro n'échange plus que la **différence**
 entre les deux cartes : cartes identiques → accusé de ~20 octets, objet déplacé →
 **repositionné sans doublon** (même nom + même symbole = même objet), la
 modification la plus récente l'emporte (horodatage). Face à une version plus
@@ -189,6 +217,101 @@ Les flashs tiennent dans un seul paquet (adaptés au RNode Bluetooth).
 
   <em><strong>**Message FLASH**</strong> individuel ou de groupe.</em>
 </div>
+
+---
+
+## PING LXMF — vérifier qu'une station répond 📡
+
+Avant de compter sur un correspondant, on veut savoir s'il est là. Le **PING
+LXMF** envoie un message court et attend la réponse automatique de l'autre
+poste, puis affiche le **temps d'aller-retour**.
+
+Deux façons de le lancer :
+
+- **Fiche contact** — ouvrir le contact, bouton **Ping**. L'état s'affiche sous
+  le bouton : `⏳ Ping envoyé…`, puis `🟢 Station disponible — RTT 2,4 s` ou
+  `🔴 Pas de réponse après 60 s`.
+- **Menu ⋮ de la conversation** — entrée **Ping LXMF**, sans quitter le fil.
+
+**Le protocole est celui de TCQ**, à l'identique — bouton « Test LXMF » de
+l'onglet LXMF :
+
+| | |
+|---|---|
+| Requête | `TEST QUANTUM LXMF - <STATION> - HH:MM:SS` |
+| Réponse | `TEST LXMF OK - <STATION> - HH:MM:SS` |
+
+RTspk **répond automatiquement** à toute requête reçue, de TCQ comme d'un autre
+RTspk. Les deux messages restent des messages LXMF texte ordinaires : ils
+apparaissent dans le fil des deux côtés, rien ne circule en trafic caché. Le
+ping fonctionne donc **dans les deux sens** entre TCQ et RTspk.
+
+---
+
+## Photos et images — compatibles TCQ, dans les deux sens 📷
+
+Bouton **+** de la conversation : **Photos** (galerie) ou **Appareil photo**
+(prise de vue). L'image est réduite et compressée avant l'envoi, puis présentée
+en aperçu avant validation.
+
+**Trois qualités, exactement celles de TCQ :**
+
+| Qualité | Taille max | Format | Usage |
+|---|---|---|---|
+| Basse | 320 px | WebP q22 | liaison lente, VHF packet |
+| Moyenne | 640 px | WebP q66 | compromis courant |
+| Haute | 1280 px | WebP q75 | détail, liaison rapide |
+
+L'image est réduite pour **tenir** dans le carré en conservant ses proportions,
+et n'est jamais agrandie. Le redessin supprime au passage les **métadonnées
+EXIF**, position GPS comprise — utile quand on transmet une photo de terrain.
+
+Côté transport, c'est le champ LXMF standard `FIELD_IMAGE` : ce qu'émet TCQ, et
+ce qu'attendent aussi **Sideband**, **Columba** et **MeshChat**. Le transfert
+est donc **bidirectionnel** : une photo prise sur le téléphone s'affiche dans
+TCQ, et une image envoyée depuis TCQ s'affiche dans la conversation RTspk.
+
+> Sur certains téléphones, le sélecteur du navigateur interne rend un fichier
+> illisible. RTspk ouvre donc le sélecteur **côté natif** et décode l'image
+> hors du moteur web — c'est transparent à l'usage.
+
+---
+
+## Radar aéronefs — balayage PPI ◉
+
+Bouton **◉** en haut à droite de la carte. Il ouvre un **scope radar plein
+écran** — fond noir, cercles de portée, balayage vert — porté à l'écran du
+téléphone depuis la
+[Montre Micro Radar](https://github.com/f1gbd/F1GBD/tree/master/Montre_MicroRadar).
+C'est un écran à part : **rien n'est dessiné sur la carte**.
+
+**Centré sur la position GPS**, relue à chaque interrogation : le scope suit
+l'opérateur qui se déplace. Sans point GPS, le centre de la carte prend le
+relais ; le bandeau indique la source (`[GPS]` ou `[carte]`) et les coordonnées.
+
+| | |
+|---|---|
+| Rayon | **0,2°** ≈ 22 km (réglable : 0,1 / 0,2 / 0,35 / 0,5 / 1°) |
+| Rafraîchissement | **22 s** (réglable : 15 à 240 s) |
+| Balayage | un tour en ~19 s, avec traînée |
+| Aéronefs | triangles orientés au cap, étiquette indicatif / vitesse / altitude |
+
+Appui long sur ◉ : réglages — rayon, cadence, balayage, étiquettes, et **filtre
+par catégorie** repris de TCQ (bombardiers d'eau Pélican/Canadair/Milan,
+hélicoptères Dragon/SAMU, Sécurité Civile, Douane, Gendarmerie, militaires,
+autres aéronefs d'État). La reconnaissance se fait par préfixe d'indicatif et
+par plage d'adresse ICAO24 militaire — même table que TCQ.
+
+Entre deux interrogations, la position affichée est **extrapolée** à la vitesse
+sol sur le cap : l'image reste vivante malgré les 22 s de cadence.
+
+**Source de données : adsb.lol** par défaut (réseau communautaire ADS-B en open
+data, sans compte ni quota). **OpenSky** reste disponible avec un compte OAuth2
+à saisir dans *Settings → Radar (OpenSky)*, bouton **Tester** à l'appui — au
+prix de son quota (400 crédits/jour sans compte, 4000 avec).
+
+> Le radar consomme du réseau : aucune requête n'est émise quand le scope est
+> fermé.
 
 ---
 

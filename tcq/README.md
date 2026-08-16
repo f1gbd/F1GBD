@@ -9,9 +9,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.63.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.66.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.63/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.66/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -25,16 +25,111 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 
 </div>
 
-## 🆕 Nouveautés v12.63 — Synchro NEM DELTA (n'échange que la différence)
+## 🆕 Nouveautés v12.63 → v12.66 — Interopérabilité RTspk Pager : PING, images, radar
+
+Quatre chantiers d'interopérabilité avec **RTspk Pager ADRASEC v1.0.39**
+(Android). Tout ce qui suit fonctionne **dans les deux sens**.
+
+### 📡 PING LXMF — vérifier qu'une station répond
+
+Le bouton **« Test LXMF »** de l'onglet LXMF envoie une requête et attend la
+réponse automatique du correspondant :
+
+| | |
+|---|---|
+| Requête | `TEST QUANTUM LXMF - <STATION> - HH:MM:SS` |
+| Réponse | `TEST LXMF OK - <STATION> - HH:MM:SS` |
+
+TCQ **répond automatiquement** à toute requête reçue, et enregistre dans son
+annuaire toute station qui lui renvoie un `TEST LXMF OK`. RTspk Pager applique
+exactement le même protocole, avec un bouton **Ping** dans la fiche contact et
+une entrée **Ping LXMF** dans le menu ⋮ de la conversation. Le ping passe donc
+**TCQ ⇄ RTspk** dans les deux sens, et affiche le temps d'aller-retour.
+
+> **v12.64** — le PING partait jusque-là en téléportation quantique lorsque le
+> mode ⚛ était actif : le correspondant recevait une enveloppe de résultats de
+> Bell au lieu du texte, et ne pouvait pas répondre. Le PING est désormais
+> toujours envoyé en **LXMF texte ordinaire**.
+
+### 📷 Images et photos — même compresseur des deux côtés
+
+RTspk Pager reprend **à l'identique** les réglages de `_process_and_send_image`
+de TCQ :
+
+| Qualité | Taille max | Format |
+|---|---|---|
+| Basse | 320 px | WebP q22 |
+| Moyenne | 640 px | WebP q66 |
+| Haute | 1280 px | WebP q75 |
+
+L'image est réduite pour **tenir** dans le carré en conservant ses proportions
+et n'est jamais agrandie (équivalent de `PIL.Image.thumbnail()`). Le transport
+est le champ LXMF standard `FIELD_IMAGE 0x06 = [format, octets]` — celui
+qu'attendent aussi **Sideband**, **Columba** et **MeshChat**.
+
+**Transfert bidirectionnel validé** : une photo prise sur le smartphone
+s'affiche dans TCQ, et une image envoyée depuis TCQ s'affiche dans la
+conversation RTspk.
+
+### ⚛ Le mode quantique ne s'invite plus dans les envois automatiques
+
+> **v12.66** — `send_via_lxmf()` envoyait **toujours** en téléportation
+> quantique, sans consulter la case ⚛ Quantique. Or cette méthode sert aux
+> **accusés de réception LXMF** et aux réponses **@rmail** — des envois
+> automatiques vers des correspondants quelconques. Un client non-TCQ recevait
+> alors `⚛ Téléportation Quantique / Station: … / Taille: 45 octets / Fidélité:
+> 1.0000 / Checksum: …` au lieu du texte. L'envoi est désormais **direct par
+> défaut** ; la téléportation reste disponible entre stations TCQ, sur demande
+> explicite.
+
+### ◉ Radar aéronefs sur le smartphone
+
+Le suivi d'aéronefs de TCQ (v12.46) a son pendant sur RTspk Pager : un bouton
+**◉** en haut à droite de la carte ouvre un **scope radar plein écran** en
+balayage PPI, centré sur la position GPS, rayon **0,2° ≈ 22 km**,
+rafraîchissement **22 s**. Il reprend la **classification de TCQ** —
+bombardiers d'eau Pélican/Canadair/Milan, hélicoptères Dragon/SAMU, Sécurité
+Civile, Douane, Gendarmerie, militaires — par préfixe d'indicatif et par plage
+d'adresse ICAO24. Source **adsb.lol** par défaut, **OpenSky** au choix.
+
+### 🔧 Aussi dans ces versions
+
+- **v12.63** — la liste des points d'accès Reticulum recensés par **rns.fyi**
+  refonctionne (le service ne publie plus le drapeau « recommandé » : filtrage
+  local avec repli sur la liste complète). Synchro **NEM par Internet** accélérée :
+  morceaux de 4000 octets au lieu de 50 et plus d'attente entre deux envois, la
+  cadence radio restant inchangée.
+- **v12.65** — les **annonces LXMF** de RTspk Pager sont à nouveau lisibles :
+  le nom de station est encodé en tableau msgpack par les clients récents, TCQ
+  le décodait en UTF-8 brut et affichait `TCQ-F1GBD/rtspk16chat,voices`.
+
+✅ Interopérable **RTspk Pager v1.0.39**.
+
+---
+
+## 🆕 Nouveautés v12.62 — Synchro NEM ULTRA-COMPACTE (marqueurs en binaire)
+
+### 🛰️ Un symbole en ~1 trame au lieu de ~3
+Après le delta (v12.61), TCQ v12.62 compresse encore : les **marqueurs** sont sérialisés en **binaire compact** au lieu du JSON. Le symbole tient sur **1 octet** (index dans le catalogue des 118 symboles), la position sur **3+3 octets** (~1–2 m), plus l'horodatage — un marqueur passe ainsi dans **une seule trame** radio.
+
+- **Exemple mesuré** : 2 marqueurs = un jeton de 44 caractères → **3 morceaux** transmis, contre **28** auparavant. Transferts **~10× plus courts** sur VHF packet 1200 bauds.
+- **Repli JSON automatique** pour les lignes, zones, marqueurs à options, ou face à une version antérieure.
+- **Recentrage** de la carte à la réception d'un delta : les objets reçus apparaissent directement dans la vue.
+
+✅ Interopérable avec le couple **TCQ v12.62 ⇄ RTspk Pager v1.0.36** (même table de 118 symboles `carto_lib`, empreinte `3714`). Validé ⇄ dans les deux sens sur radio VHF 1200 bauds.
+
+---
+
+## 🆕 Nouveautés v12.61 — Synchro NEM DELTA (n'échange que la différence)
 
 ### 🛰️ SYNCHRO NEM DELTA — beaucoup moins de données sur VHF packet
-La synchro NEM ne retransmet plus toute la carte à chaque fois. TCQ v12.63 compare d'abord les deux cartes (empreinte compacte) et **n'échange que la DIFFÉRENCE** — la vraie cure d'amaigrissement pour la radio lente 1200 bauds.
+La synchro NEM ne retransmet plus toute la carte à chaque fois. TCQ v12.61 compare d'abord les deux cartes (empreinte compacte) et **n'échange que la DIFFÉRENCE** — la vraie cure d'amaigrissement pour la radio lente 1200 bauds.
 
 - **Cartes déjà identiques** → un simple accusé d'environ **20 octets**, rien à retransmettre (jusqu'à **~97 % de données en moins** en synchro de contrôle sur VHF packet).
 - **Objet déplacé / modifié** → seul cet objet circule, et il est **repositionné sur place au lieu d'être dupliqué** : réconciliation par **clé naturelle** (même nom + même symbole = même objet). En cas de divergence, la **modification la plus récente gagne** (horodatage) — plus de doublons ni de retour en arrière.
 - **Repli automatique** vers la synchro complète si le correspondant est en version antérieure : **aucune rupture de compatibilité**.
 
-✅ Delta de bout en bout avec le couple **TCQ v12.63 ⇄ RTspk Pager (Android/Adrasec) v1.0.35**. Face à une version plus ancienne (v12.60 / v1.0.34 et antérieures), la synchro **retombe automatiquement en transfert complet** — rien ne casse. Testé ⇄ dans les deux sens sur radio VHF 1200 bauds.
+✅ Delta de bout en bout avec le couple **TCQ v12.61 ⇄ RTspk Pager (Android/Adrasec) v1.0.35**. Face à une version plus ancienne (v12.60 / v1.0.34 et antérieures), la synchro **retombe automatiquement en transfert complet** — rien ne casse. Testé ⇄ dans les deux sens sur radio VHF 1200 bauds.
 
 ---
 
@@ -824,7 +919,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v12.63.0 — 14/08/2026**
+**Version v12.66.0 — 16/08/2026**
 
 ---
 
