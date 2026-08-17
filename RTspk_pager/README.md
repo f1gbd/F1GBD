@@ -384,7 +384,7 @@ Le renommage remplace la liste en place, sans créer de doublon.
 Les listes sont **sauvegardées sur l'appareil** et réutilisables à volonté.
 
 <div align="center">
-<img src="images/RATspeak_Liste.png" alt="RWLoRa" width="320">
+<img src="images/RATspeak_Liste-Diffusion.jpg" alt="RWLoRa" width="1024320">
 
   <em><strong>**Liste de Diffusion**</strong> pour l'envoi de messages aux membres d'une équipe.</em>
 </div>
