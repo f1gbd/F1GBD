@@ -31,7 +31,7 @@ quantique est un format propre à TCQ, illisible par tout autre client LXMF.
 
 ## Téléchargement et installation (Android)
 
-1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.40.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.40/RTspk_pager-1.0.40.apk)**.
+1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.41.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.41/RTspk_pager-1.0.41.apk)**.
 2. Sur le téléphone, autoriser l'installation depuis cette source (« sources
    inconnues » / « Installer des applications inconnues »).
 3. Ouvrir le fichier APK et installer.
@@ -41,6 +41,12 @@ quantique est un format propre à TCQ, illisible par tout autre client LXMF.
 ---
 
 ## Nouveautés
+
+**1.0.41 — Listes de diffusion modifiables.** Un bouton **Éditer** sous
+**Envoyer** recharge une liste existante dans le formulaire : cochez pour
+ajouter un opérateur, décochez pour le retirer. Le renommage ne crée plus de
+doublon, et un membre dont le contact a disparu est conservé au lieu d'être
+silencieusement perdu.
 
 **1.0.40 — PING LXMF, photos compatibles TCQ, radar aéronefs.** Quatre ajouts
 tournés vers l'opérationnel : un **PING LXMF** pour vérifier qu'une station
@@ -346,6 +352,7 @@ envoyer un **message** vers l'adresse LXMF de l'appareil :
 
 ## Listes de diffusion (envoi groupé)
 
+
 L'écran **Diffusion** (menu latéral, ou menu « … » sur mobile) permet d'envoyer
 le même message — ou une alerte `#ra ADRASEC77` — à **plusieurs opérateurs à la
 fois**, séquentiellement.
@@ -359,8 +366,22 @@ fois**, séquentiellement.
 3. Le message part **un opérateur après l'autre**, avec une ligne de progression ;
    un récapitulatif indique le nombre d'envois réussis.
 
-Les listes sont **sauvegardées sur l'appareil** et réutilisables à volonté.
+**Depuis l'annuaire (1.0.41).** Le bouton **Liste**, à droite du champ de
+recherche de l'écran **Annuaire**, ouvre directement l'envoi à une liste — sans
+passer par l'écran Diffusion. S'il n'y a qu'une seule liste enregistrée, le
+dialogue d'envoi s'ouvre sans étape de choix.
 
+**Modifier une liste (1.0.41).** Chaque liste enregistrée porte trois boutons
+empilés : **Envoyer**, **Éditer**, **Suppr.** *Éditer* recharge la liste dans le
+formulaire du bas — nom repris, membres cochés. Cochez pour **ajouter** un
+opérateur, décochez pour le **retirer**, puis *Enregistrer les modifications*.
+Le renommage remplace la liste en place, sans créer de doublon.
+
+> Un membre dont le contact a disparu des contacts (supprimé, indicatif changé)
+> reste affiché et coché pendant l'édition, avec le nom mémorisé dans la liste :
+> vous voyez ce que vous retirez, rien ne disparaît en silence.
+
+Les listes sont **sauvegardées sur l'appareil** et réutilisables à volonté.
 
 <div align="center">
 <img src="images/RATspeak_Liste.png" alt="RWLoRa" width="320">
