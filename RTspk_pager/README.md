@@ -31,7 +31,7 @@ quantique est un format propre à TCQ, illisible par tout autre client LXMF.
 
 ## Téléchargement et installation (Android)
 
-1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.41.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.41/RTspk_pager-1.0.41.apk)**.
+1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.42.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.42/RTspk_pager-1.0.42.apk)**.
 2. Sur le téléphone, autoriser l'installation depuis cette source (« sources
    inconnues » / « Installer des applications inconnues »).
 3. Ouvrir le fichier APK et installer.
@@ -41,6 +41,13 @@ quantique est un format propre à TCQ, illisible par tout autre client LXMF.
 ---
 
 ## Nouveautés
+
+1.0.42 — Radar : case « Carte » et fond de carte sombre. Cochez Carte dans les réglages du radar : le scope se centre sur le centre de la carte au moment de l'ouverture au lieu du GPS — on cadre le secteur qui intéresse, on ouvre le radar, et on regarde le trafic là-bas. Seconde case, Fond de carte sombre : un disque de carte assombri se glisse sous le PPI, calé au pixel près sur le cercle de portée, à partir des tuiles déjà en cache (aucune requête supplémentaire).
+
+<div align="center">
+<img src="images/RATspeak_RADAR_display_carto.png" alt="RWLoRa" width="480">
+<img src="images/RATspeak_RADAR_display_carto_setup.png" alt="RWLoRa" width="340">
+</div>
 
 **1.0.41 — Listes de diffusion modifiables.** Un bouton **Éditer** sous
 **Envoyer** recharge une liste existante dans le formulaire : cochez pour
@@ -366,12 +373,12 @@ fois**, séquentiellement.
 3. Le message part **un opérateur après l'autre**, avec une ligne de progression ;
    un récapitulatif indique le nombre d'envois réussis.
 
-**Depuis l'annuaire (1.0.41).** Le bouton **Liste**, à droite du champ de
+**Depuis l'annuaire (1.0.42).** Le bouton **Liste**, à droite du champ de
 recherche de l'écran **Annuaire**, ouvre directement l'envoi à une liste — sans
 passer par l'écran Diffusion. S'il n'y a qu'une seule liste enregistrée, le
 dialogue d'envoi s'ouvre sans étape de choix.
 
-**Modifier une liste (1.0.41).** Chaque liste enregistrée porte trois boutons
+**Modifier une liste (1.0.42).** Chaque liste enregistrée porte trois boutons
 empilés : **Envoyer**, **Éditer**, **Suppr.** *Éditer* recharge la liste dans le
 formulaire du bas — nom repris, membres cochés. Cochez pour **ajouter** un
 opérateur, décochez pour le **retirer**, puis *Enregistrer les modifications*.
