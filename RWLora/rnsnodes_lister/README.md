@@ -18,13 +18,13 @@ Reticulum.
 
 ## Téléchargement
 
-**[⬇ Télécharger RNSnodes_lister (dernière version)](https://github.com/f1gbd/F1GBD/releases/download/rnsnodeslister-v1.0.2/RNSnodes_lister.7z)**
+**[⬇ Télécharger RNSnodes_lister (dernière version)](https://github.com/f1gbd/F1GBD/releases/latest/download/RNSnodes_lister.7z)**
 
-Version épinglée : [RNSnodes_lister v1.0.2](https://github.com/f1gbd/F1GBD/releases/download/rnsnodeslister-v1.0.2/RNSnodes_lister.7z) · [page de la release](https://github.com/f1gbd/F1GBD/releases/tag/rnsnodeslister-v1.0.2)
+Version épinglée : [RNSnodes_lister v2.0.1](https://github.com/f1gbd/F1GBD/releases/download/rnsnodeslister-v2.0.1/RNSnodes_lister.7z) · [page de la release](https://github.com/f1gbd/F1GBD/releases/tag/rnsnodeslister-v2.0.1)
 
 - Archive : `RNSnodes_lister.7z` (7-Zip) — Windows 64 bits
-- Taille : 8,55 Mo
-- SHA-256 : `80f3e05b32103942ed023cf46b9d00763cd15872fbd7c0564157c2bb70557662`
+- Taille : 9,16 Mo
+- SHA-256 : `b7c7dec2eb55d9c0925096ddb4c306d68b2874ee5a994e6e9f3f47812c9a01c3`
 
 ## Installation
 
