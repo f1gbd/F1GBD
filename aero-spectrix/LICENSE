@@ -1,0 +1,157 @@
+AERO-SPECTRIX — LICENCE D'UTILISATION
+Version 1.0 — août 2026
+
+Copyright © 2026 Jean-Louis NAUDIN (F1GBD) — ADRASEC 77 / FNRASEC
+Tous droits réservés.
+
+
+PRÉAMBULE
+
+AERO-SPECTRIX est un logiciel gratuit mais non libre. Le présent document
+définit ce que vous avez le droit d'en faire. Il ne s'applique QU'AU logiciel
+AERO-SPECTRIX lui-même : les composants tiers qu'il embarque restent régis par
+leurs propres licences, énumérées dans le fichier THIRD-PARTY-NOTICES, et ces
+licences-là prévalent sur celle-ci pour ce qui les concerne (article 6).
+
+
+1. DÉFINITIONS
+
+« Le Logiciel » désigne le programme AERO-SPECTRIX, son exécutable, ses
+ressources, sa documentation et tout fichier livré dans la même archive de
+distribution.
+
+« L'Auteur » désigne Jean-Louis Naudin (indicatif F1GBD).
+
+
+2. DROIT D'USAGE
+
+L'Auteur vous accorde, à titre gratuit, non exclusif et sans limitation de
+durée, le droit d'installer et d'utiliser le Logiciel sur autant de postes que
+vous le souhaitez, à des fins personnelles, associatives, pédagogiques,
+professionnelles ou opérationnelles.
+
+Aucune redevance, aucun enregistrement et aucune déclaration ne sont exigés.
+
+
+3. DROIT DE REDISTRIBUTION
+
+Vous pouvez copier et redistribuer le Logiciel, à condition que :
+
+  a) la redistribution soit faite à titre gratuit ;
+  b) l'archive soit redistribuée COMPLÈTE et NON MODIFIÉE, y compris le
+     présent fichier LICENSE et le fichier THIRD-PARTY-NOTICES ;
+  c) la paternité de l'Auteur ne soit ni supprimée ni masquée ;
+  d) aucune ambiguïté ne soit entretenue sur l'origine du Logiciel.
+
+La mise à disposition sur un site personnel, un serveur associatif, une clé USB
+ou un support de formation entre dans ce cadre.
+
+
+4. RESTRICTIONS
+
+Sauf accord écrit préalable de l'Auteur, il vous est interdit :
+
+  a) de vendre ou de louer le Logiciel, de le céder à titre onéreux, ou de
+     l'inclure dans une offre payante, un abonnement ou une prestation
+     facturée dont il constituerait un élément déterminant ;
+  b) de modifier, adapter, traduire ou créer une œuvre dérivée du Logiciel ;
+  c) de le décompiler, le désassembler ou de procéder à son ingénierie
+     inverse ;
+  d) de le redistribuer sous un autre nom, sous une autre marque, ou intégré à
+     un autre produit ;
+  e) d'utiliser la dénomination « AERO-SPECTRIX », le logo ou l'indicatif de
+     l'Auteur pour promouvoir un produit ou un service dérivé.
+
+Les interdictions b) et c) ne s'appliquent PAS :
+
+  — dans la mesure où le droit applicable les rend inopérantes, notamment
+    l'article L. 122-6-1 du code de la propriété intellectuelle ;
+  — aux composants tiers sous licence LGPL embarqués dans le Logiciel : leurs
+    propres conditions vous autorisent expressément à les modifier, à les
+    remplacer et à procéder à l'ingénierie inverse nécessaire à cette fin, et
+    la présente licence ne restreint en rien ce droit (voir l'article 6).
+
+
+5. PROPRIÉTÉ
+
+Le Logiciel est protégé par le droit d'auteur. La présente licence vous
+concède un droit d'usage ; elle ne vous transfère aucun droit de propriété
+intellectuelle sur le Logiciel, son code, son architecture, ses algorithmes,
+son interface, sa dénomination ou son logo.
+
+
+6. COMPOSANTS TIERS
+
+Le Logiciel embarque des bibliothèques tierces, listées avec leurs licences
+respectives dans le fichier THIRD-PARTY-NOTICES livré avec l'archive.
+
+Il utilise en particulier Qt, au travers de PySide6, sous licence GNU LGPL
+version 3. Conformément à cette licence, le Logiciel est distribué en mode
+dossier : les bibliothèques Qt y sont des fichiers distincts, que vous pouvez
+remplacer par une version modifiée. Le code source correspondant de Qt et de
+PySide6 est mis à disposition par The Qt Company ; les adresses figurent dans
+THIRD-PARTY-NOTICES, et l'Auteur s'engage à le fournir sur simple demande.
+
+Pour chacun de ces composants, les conditions de sa propre licence prévalent
+sur celles du présent document.
+
+
+7. ABSENCE DE GARANTIE
+
+LE LOGICIEL EST FOURNI « EN L'ÉTAT », SANS AUCUNE GARANTIE D'AUCUNE SORTE,
+EXPRESSE OU IMPLICITE, Y COMPRIS SANS QUE CETTE ÉNUMÉRATION SOIT LIMITATIVE
+LES GARANTIES DE QUALITÉ MARCHANDE, D'ADÉQUATION À UN USAGE PARTICULIER,
+D'EXACTITUDE DES RÉSULTATS ET D'ABSENCE DE CONTREFAÇON.
+
+L'Auteur ne garantit ni que le Logiciel détectera un aéronef donné, ni
+l'exactitude des directions, portées, niveaux ou alarmes qu'il affiche.
+
+
+8. LIMITATION DE RESPONSABILITÉ
+
+Dans la limite permise par le droit applicable, l'Auteur ne pourra en aucun cas
+être tenu responsable d'un dommage direct, indirect, accessoire, spécial ou
+consécutif résultant de l'usage ou de l'impossibilité d'usage du Logiciel, y
+compris la perte de données, la perte d'exploitation, ou toute décision prise
+sur la foi d'une information affichée par le Logiciel.
+
+
+9. CONDITIONS D'EMPLOI
+
+Le Logiciel est destiné à l'étude, à la formation et aux opérations de sécurité
+civile.
+
+Il ne constitue pas un équipement de sûreté certifié et ne saurait se
+substituer aux moyens réglementaires de surveillance de l'espace aérien. Sa
+mise en œuvre relève de la seule responsabilité de l'utilisateur, qui demeure
+tenu de respecter la réglementation en vigueur, notamment en matière de
+détection, d'enregistrement sonore et de protection de la vie privée.
+
+
+10. RÉSILIATION
+
+Le non-respect de l'une des conditions ci-dessus met fin de plein droit et sans
+formalité aux droits qui vous sont concédés. Vous devez alors cesser d'utiliser
+le Logiciel et en détruire toutes les copies. Les articles 5, 7 et 8 survivent
+à cette résiliation.
+
+
+11. DROIT APPLICABLE
+
+La présente licence est régie par le droit français. Tout litige relatif à son
+interprétation ou à son exécution relève de la compétence des juridictions
+françaises.
+
+
+12. CONTACT
+
+Pour toute demande d'autorisation particulière — usage commercial, intégration,
+version modifiée, ou obtention du code source des composants LGPL — écrivez à
+l'Auteur, F1GBD, ADRASEC 77 / FNRASEC.
+
+
+--------------------------------------------------------------------------
+En installant ou en utilisant le Logiciel, vous acceptez la présente licence.
+Si vous n'en acceptez pas les termes, n'installez pas le Logiciel et détruisez
+les copies en votre possession.
+--------------------------------------------------------------------------
