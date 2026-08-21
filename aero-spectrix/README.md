@@ -2,13 +2,13 @@
 
 <img src="images/AERO-SPECTRIX.png" alt="AERO-SPECTRIX" width="200">
 
-# AERO-SPECTRIX
+# AERO-SPECTRIX — ASPX
 
 **Radar acoustique de détection, de localisation et de poursuite d'aéronefs sans pilote**
 
-![version](https://img.shields.io/badge/version-1.3.0-0B3B57)
+![version](https://img.shields.io/badge/version-1.4.0-0B3B57)
 ![plateforme](https://img.shields.io/badge/plateforme-Windows%2010%20%2F%2011%20x64-0B3B57)
-![tests](https://img.shields.io/badge/tests-42%2F42-1B7F4F)
+![tests](https://img.shields.io/badge/tests-73%2F73-1B7F4F)
 ![licence](https://img.shields.io/badge/licence-gratuite%20%E2%80%94%20usage%20libre-D2600F)
 
 *par F1GBD — ADRASEC 77 / FNRASEC*
@@ -18,8 +18,8 @@
 ---
 
 Quatre microphones disposés en tétraèdre, et un écran de type radar.
-AERO-SPECTRIX détecte, localise et suit un drone ou un avion léger **à son
-seul bruit** : ni radio, ni radar, ni caméra. Un aéronef silencieux du point
+AERO-SPECTRIX — **ASPX** en abrégé, *Aero-SpectriX* — détecte, localise et
+suit un drone ou un avion léger **à son seul bruit** : ni radio, ni radar, ni caméra. Un aéronef silencieux du point
 de vue radio, sans télémétrie et de nuit, reste parfaitement audible.
 
 Le principe tient en une phrase : le son n'arrive pas exactement au même
@@ -42,12 +42,14 @@ d'arête, l'écart maximal entre deux microphones vaut 2 047 µs, soit
 - [Performances](#performances)
 - [Installation](#installation)
 - [Prise en main en cinq minutes](#prise-en-main-en-cinq-minutes)
+- [Scénarios de démonstration](#scénarios-de-démonstration)
 - [Fonctionnalités](#fonctionnalités)
 - [Lire le scope](#lire-le-scope)
 - [Le matériel](#le-matériel)
 - [Version d'évaluation à bas coût](#version-dévaluation-à-bas-coût)
 - [Documentation](#documentation)
 - [Validation](#validation)
+- [Nouveautés de la version 1.4.0](#nouveautés-de-la-version-140)
 - [Nouveautés de la version 1.3.0](#nouveautés-de-la-version-130)
 - [Architecture](#architecture)
 - [Licence](#licence)
@@ -94,18 +96,28 @@ du logiciel : elles tiennent à la physique de la mesure acoustique passive.
 
 ## Performances
 
-Portées de détection prévues par le bilan de liaison, en campagne de jour
-(bruit de fond 34 dB(A), vent 2,5 m/s, antenne de 70 cm) :
+Portées de détection prévues par le bilan de liaison, en campagne calme
+(bruit de fond 32 dB(A), vent 2 m/s, antenne de 70 cm) :
 
-| Aéronef | Niveau à 1 m | Fréquence suivie | Portée |
-|---|---:|---:|---:|
-| Mini quadricoptère (DJI Mini) | 68 dB(A) | 273 Hz | 128 m |
-| Quadricoptère moyen (Phantom) | 76 dB(A) | 207 Hz | 258 m |
-| Gros hexacoptère | 84 dB(A) | 140 Hz | 400 m |
-| Aile / hélice unique électrique | 79 dB(A) | 233 Hz | 615 m |
-| Avion thermique 4 temps, 4 cyl. | 90 dB(A) | 167 Hz | 1 071 m |
-| Avion thermique 2 temps, 2 cyl. | 92 dB(A) | 233 Hz | 1 391 m |
-| Avion thermique 2 temps, 4 cyl. | 95 dB(A) | 400 Hz | 1 974 m |
+| Aéronef | Niveau à 1 m | Fréquence suivie | Trame seule | Fenêtre adaptative |
+|---|---:|---:|---:|---:|
+| Mini quadricoptère (DJI Mini) | 68 dB(A) | 273 Hz | 128 m | **215 m** |
+| Quadricoptère moyen (Phantom) | 76 dB(A) | 207 Hz | 258 m | **415 m** |
+| Gros hexacoptère | 84 dB(A) | 140 Hz | 400 m | **632 m** |
+| Aile / hélice unique électrique | 79 dB(A) | 233 Hz | 615 m | **931 m** |
+| Avion thermique 4 temps, 4 cyl. | 90 dB(A) | 167 Hz | 1 071 m | **1 540 m** |
+| Avion thermique 2 temps, 2 cyl. | 92 dB(A) | 233 Hz | 1 391 m | **1 930 m** |
+| Avion thermique 2 temps, 4 cyl. | 95 dB(A) | 400 Hz | 1 974 m | **2 627 m** |
+| **Shahed-136 / Geran-2** | 101 dB(A) | 433 Hz | 2 715 m | **3 472 m** |
+
+> La colonne de gauche est celle des versions jusqu'à la 1.3.0. Celle de
+> droite est la 1.4.0 avec sa fenêtre de détection adaptative — même
+> matériel, même seuil, même taux de fausse alarme.
+>
+> *Les chiffres publiés jusqu'ici annonçaient « campagne de jour, 34 dB(A),
+> vent 2,5 m/s ». La légende était fausse : ils étaient calculés avec la
+> configuration par défaut, 32 dB(A) et 2 m/s. Les valeurs, elles, sont
+> exactes et se reproduisent au mètre près.*
 
 **Précision angulaire** : 0,14° dans les meilleures configurations, 0,70° dans
 les plus défavorables, avec une arête de 70 cm. Erreur médiane mesurée sur le
@@ -127,13 +139,13 @@ en fonction de la distance.</em>
 
 ## Installation
 
-Téléchargez **`aero-spectrix.7z`** (environ 119 Mio): https://github.com/f1gbd/F1GBD/releases/download/v1.30/AERO-SPECTRIX.7z puis décompressez-la
+Téléchargez **`ASPX.7z`** : https://github.com/f1gbd/F1GBD/releases/download/v1.40/ASPX.7z puis décompressez-la
 où vous voulez — [7-Zip](https://www.7-zip.org/) ou tout autre outil sachant
-lire ce format. Vous obtenez un dossier `AERO-SPECTRIX\` contenant :
+lire ce format. Vous obtenez un dossier `ASPX\` contenant :
 
 | Élément | |
 |---|---|
-| `AERO-SPECTRIX.exe` | l'application — c'est le fichier à lancer |
+| `ASPX.exe` | l'application — c'est le fichier à lancer |
 | `_internal\` | les bibliothèques dont elle a besoin |
 | `AERO-SPECTRIX_fiche_technique.pdf` | la fiche technique |
 | `LICENSE` | la licence d'utilisation |
@@ -188,6 +200,42 @@ Get-FileHash -Algorithm SHA256 aero-spectrix.7z
 
 Le rond ○ est la piste estimée, la croix × orange la position vraie. L'écart
 entre les deux est l'erreur réelle, affichée en chiffres.
+
+## Scénarios de démonstration
+
+Le dossier `scenarios/` de l'archive contient cinq configurations prêtes à
+charger — *Fichier → Charger une configuration…* — placées dans la bande où
+la trame seule décroche et où la fenêtre adaptative tient encore. Elles sont
+là pour être **rejouées** : la graine aléatoire est fixée, le bruit et la
+trajectoire sont identiques d'une passe à l'autre, et la seule variable est
+le réglage *Fenêtre de détection*.
+
+Toutes tournent dans les conditions **par défaut** — 32 dB(A), vent 2 m/s,
+18 °C, 60 % HR, antenne de 70 cm — celles du tableau de portée ci-dessus.
+
+| # | Scénario | 1ʳᵉ détection | Préavis gagné | Trames détectées | Erreur médiane |
+|---|---|---:|---:|---:|---:|
+| 1 | Quadricoptère moyen, approche depuis 440 m | 343 → **414 m** | +8,9 s | 45,9 → 55,9 % | 0,29° |
+| 2 | Gros hexacoptère, passage latéral à 480 m | 542 m d'emblée | — | 50,4 → **80,7 %** | 1,13° |
+| 3 | Aile électrique, approche depuis 960 m | 605 → **723 m** | +5,7 s | 49,6 → 52,2 % | 0,60° |
+| 4 | Avion thermique 2 temps 4 cyl., depuis 2,4 km | 2 042 → **2 406 m** | +7,0 s | 63,6 → 76,0 % | 0,75° |
+| 5 | **Shahed-136 / Geran-2**, de front depuis 3,15 km | 2 267 → **3 164 m** | +20,2 s | 56,8 → 73,9 % | 0,60° |
+
+*Format : `trame seule` → `fenêtre adaptative`. Ces valeurs sont mesurées sur
+la simulation, non prédites par le bilan de liaison. L'erreur angulaire est
+comptée contre la position d'**émission** : à 3 km le son met neuf secondes à
+parvenir à l'antenne.*
+
+Le scénario 2 est celui à montrer quand la question est « la piste
+tient-elle ? » plutôt que « jusqu'où voit-on ? » : à distance constante la
+fenêtre longue ne recule aucun seuil, mais la piste passe de 70 % à 95 % du
+temps. Le scénario 5 est le plus démonstratif : vingt secondes de préavis
+supplémentaires, soit un kilomètre à 185 km/h.
+
+Le `README.md` du dossier détaille chaque cas, y compris ce qu'il **ne**
+montre pas — deux scénarios acquièrent la cible dès son entrée en scène et ne
+mesurent donc pas le seuil réel, et sur l'aile électrique le bilan de liaison
+se révèle optimiste de 22 %.
 
 ## Fonctionnalités
 
@@ -382,7 +430,7 @@ série vers le PC et procédure de mesure des écarts résiduels entre voies.
 
 ## Validation
 
-Chaque version est soumise à **42 tests de non-régression** avant publication,
+Chaque version est soumise à **73 tests de non-régression** avant publication,
 comparés à des références **indépendantes** du logiciel — un simulateur vérifié
 contre lui-même ne prouve rien :
 
@@ -394,13 +442,104 @@ contre lui-même ne prouve rien :
 - raies d'un moteur à pistons : allumage = rotation × cylindres × 2/temps ;
 - logique d'alarme : cinq tests vérifient qu'elle **refuse** de partir sur un
   signal fort mais incohérent ;
-- intégrité des WAV écrits au fil de l'eau, comparaison bit à bit.
+- intégrité des WAV écrits au fil de l'eau, comparaison bit à bit ;
+- préréglage Shahed-136 : allumage, excursion Doppler et vitesse en bout de
+  pale confrontés à la fiche du moteur ;
+- fenêtre de détection adaptative : le plancher de bruit du score ne doit pas
+  bouger d'une longueur de fenêtre à l'autre, sans quoi le gain de portée
+  serait payé en fausses alarmes.
 
 ```
 ==========================================================================
-  42/42 tests réussis
+  73/73 tests réussis
 ==========================================================================
 ```
+
+## Nouveautés de la version 1.4.0
+
+**ASPX**, abréviation d'*Aero-SpectriX*, devient le nom court : titre de
+fenêtre, exécutable, archive. **AERO-SPECTRIX reste le nom officiel** — il
+figure dans la licence, les mentions de composants tiers et la ressource de
+version Windows. Ce n'est pas un changement de nom, c'est un raccourci : le
+nom complet est pénible à prononcer en phonie, et les stations du réseau 2.0
+s'appellent déjà ASPX. Même produit, même logo.
+
+### Fenêtre de détection adaptative
+
+La trame de 171 ms est un compromis : assez courte pour que la cible ne bouge
+pas pendant l'analyse, trop courte pour extraire une raie noyée dans le bruit
+à trois kilomètres. Le détecteur allonge désormais sa fenêtre — jusqu'à
+683 ms — tant que la raie n'est pas solidement tenue, et la raccourcit dès
+qu'elle dérive.
+
+**La trame du GCC-PHAT, elle, ne change jamais.** La mesure de retard a besoin
+d'une cible immobile pendant l'analyse : l'erreur angulaire médiane est
+inchangée au centième de degré sur les cinq scénarios de non-régression.
+
+Mesuré sur un scénario complet, un Shahed-136 en approche de front, campagne
+de nuit calme :
+
+| Distance | Trame seule | Fenêtre adaptative |
+|---|---:|---:|
+| 2 800 – 3 200 m | 7 % des trames | **55 %** |
+| 2 200 – 2 800 m | 41 % | **86 %** |
+| 1 500 – 2 200 m | 97 % | **99,5 %** |
+
+Soit **+25 % de portée** sur un moteur thermique et **+55 %** sur un
+quadricoptère, à taux de fausse alarme égal, pour **3 %** de temps de calcul
+en plus. Réglable dans *Chaîne de traitement → Fenêtre de détection*.
+
+Cinq configurations `.json` sont livrées dans `scenarios/` pour rejouer la
+comparaison sans rien avoir à saisir — voir
+[Scénarios de démonstration](#scénarios-de-démonstration).
+
+> Deux pistes ont été mesurées puis **écartées**, et il vaut mieux le dire.
+> Resserrer le peigne sur ses premières harmoniques semblait donner +32 % de
+> portée : à fausse alarme égale il n'en reste que +16 %, et la preuve tombe
+> à deux harmoniques. Une règle de combinaison ne pénalisant plus les
+> harmoniques absorbées s'est révélée neutre à −13 %. Un gain qui n'a pas été
+> vérifié à fausse alarme constante n'est pas un gain.
+
+### Préréglage Shahed-136 / Geran-2
+
+Munition rôdeuse à moteur MD-550, copie du Limbach L550E : quatre cylindres à
+plat, **deux temps**, 548 cm³, 50 ch à 7 500 tr/min, hélice bipale
+propulsive. À 6 500 tr/min de croisière, l'allumage tombe à **433 Hz** avec un
+peigne serré à 108 Hz en dessous — le « bruit de cyclomoteur » que décrivent
+les témoins.
+
+Deux scénarios à 185 km/h, plus une approche lointaine qui détecte au-delà de
+3 km, et un fichier de configuration prêt à importer.
+
+Ce que la fiche du moteur documente : cylindrée, architecture, nombre de
+temps, puissance et régime de puissance maximale. Ce qui est **déduit** : le
+régime de croisière, le rapport de réduction et le niveau à 1 m. Aucune mesure
+acoustique publique n'existe pour cet engin ; ces trois valeurs se règlent
+dans l'interface.
+
+### Garde-fou sur la plage du détecteur
+
+Une raie hors du peigne ne produit aucune erreur : le calcul tourne et ne
+trouve rien. L'interface annonce désormais le décrochage **avant** de lancer
+la simulation. Le plafond réel n'est d'ailleurs pas `f0_max` mais
+`min(f0_max, comb_f_max / 4)` — il faut quatre harmoniques pour qu'un candidat
+compte. À 51 m/s en approche de front, le Doppler porte la raie du Shahed à
+510 Hz pour un plafond de 520 : il reste 2 % de marge, et l'écran le dit.
+
+### Corrections
+
+- La vérité-terrain Doppler renvoyait la fréquence de **rotation** au lieu de
+  l'allumage. Le bilan comparait 508 Hz mesurés à 127 Hz « attendus » et
+  annonçait un écart de +381 Hz sur une chaîne parfaitement saine.
+- Le niveau à 1 m était borné à 100 dB(A), ce qui rognait en silence tout
+  moteur thermique de forte puissance. Borne portée à 110.
+- La borne de recherche du bilan de liaison était figée à 4 000 m. À
+  101 dB(A) sur un site calme, la portée dépasse 4 300 m et la fonction
+  renvoyait exactement 4 000 — une saturation indiscernable d'un vrai
+  résultat. Borne portée à 20 km, saturation désormais annoncée.
+- `run_sim.py` accepte `--preset` et `--scenario` : les préréglages ne
+  vivaient que dans l'interface graphique.
+- 42 → **73 tests** de non-régression.
 
 ## Nouveautés de la version 1.3.0
 
@@ -467,7 +606,7 @@ des licences accompagne l'archive.
 
 <div align="center">
 
-**AERO-SPECTRIX 1.3.0** par **F1GBD** — ADRASEC 77 / FNRASEC
+**AERO-SPECTRIX (ASPX) 1.4.0** par **F1GBD** — ADRASEC 77 / FNRASEC
 
 *Destiné à l'étude, à la formation et aux opérations de sécurité civile.
 L'emploi de moyens de détection est soumis à la réglementation en vigueur.*

@@ -1,0 +1,110 @@
+{
+  "acq": {
+    "fs": 48000,
+    "oversample": 2,
+    "duration": 45.0,
+    "n_mics": 4
+  },
+  "atmo": {
+    "temp_c": 18.0,
+    "humidity_pct": 60.0,
+    "pressure_kpa": 101.325,
+    "wind_speed": 2.0,
+    "ground_reflection": true,
+    "ground_reflect_coef": 0.55
+  },
+  "array": {
+    "edge": 0.7,
+    "height_agl": 1.6,
+    "sensitivity_mv_per_pa": 40.0,
+    "self_noise_dba": 14.0
+  },
+  "drone": {
+    "source_type": "multirotor",
+    "n_rotors": 4,
+    "n_blades": 2,
+    "rpm_mean": 6200.0,
+    "rpm_spread": 0.018,
+    "rpm_wander": 0.02,
+    "n_harmonics": 26,
+    "harmonic_rolloff": 0.6,
+    "broadband_ratio_db": -7.0,
+    "broadband_am_depth": 0.45,
+    "spl_1m_dba": 76.0,
+    "n_cylinders": 4,
+    "gear_ratio": 2.5,
+    "engine_orders": 44,
+    "engine_rolloff": 0.5,
+    "cyl_imbalance": 0.3,
+    "prop_level": 0.45
+  },
+  "noise": {
+    "ambient_spl_dba": 32.0,
+    "ambient_slope_db_oct": -5.0,
+    "wind_ref_db": 6.0,
+    "wind_exponent": 5.5,
+    "wind_corner_hz": 80.0,
+    "wind_slope_db_oct": -13.0
+  },
+  "proc": {
+    "frame": 8192,
+    "hop": 3072,
+    "band_lo": 140.0,
+    "band_hi": 4200.0,
+    "gcc_interp": 16,
+    "f0_min": 90.0,
+    "f0_max": 520.0,
+    "comb_harmonics": 12,
+    "comb_f_max": 2200.0,
+    "detect_threshold_db": 3.5,
+    "detect_frame_mult": 4,
+    "detect_adaptive": true,
+    "detect_trust_margin_db": 4.0,
+    "init_threshold_db": 3.5,
+    "init_m": 3,
+    "init_n": 7,
+    "init_spread_deg": 10.0,
+    "max_resid_us": 60.0,
+    "srp_grid_deg": 2.0,
+    "max_tdoa_residual": 6e-05,
+    "kf_accel_std": 0.35,
+    "kf_gate_chi2": 13.8,
+    "kf_max_coast": 12
+  },
+  "traj": {
+    "waypoints": [
+      [
+        0.0,
+        311.1,
+        311.1,
+        130.0
+      ],
+      [
+        11.2,
+        247.5,
+        247.5,
+        120.0
+      ],
+      [
+        22.5,
+        183.8,
+        183.8,
+        110.0
+      ],
+      [
+        33.8,
+        120.2,
+        120.2,
+        100.0
+      ],
+      [
+        45.0,
+        56.6,
+        56.6,
+        90.0
+      ]
+    ]
+  },
+  "seed": 20260821,
+  "outdir": "out_01_quadricoptere_moyen_400m"
+}
