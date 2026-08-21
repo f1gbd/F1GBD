@@ -6,7 +6,8 @@
 
 **Radar acoustique de détection, de localisation et de poursuite d'aéronefs sans pilote**
 
-![version](https://img.shields.io/badge/version-1.4.0-0B3B57)
+![version](https://img.shields.io/badge/ASPX-1.4.0-0B3B57)
+![ASPXmulti](https://img.shields.io/badge/ASPXmulti-2.0.0-5B2C83)
 ![plateforme](https://img.shields.io/badge/plateforme-Windows%2010%20%2F%2011%20x64-0B3B57)
 ![tests](https://img.shields.io/badge/tests-73%2F73-1B7F4F)
 ![licence](https://img.shields.io/badge/licence-gratuite%20%E2%80%94%20usage%20libre-D2600F)
@@ -33,6 +34,13 @@ d'arête, l'écart maximal entre deux microphones vaut 2 047 µs, soit
 <br><em>Poursuite en cours. Le bandeau rouge signale une signature acoustique confirmée : azimut 360°, élévation 19°, BPF 213 Hz, score 4,9 dB.</em>
 </div>
 
+> **Deux applications, une seule archive.** Depuis la 1.4.0, le téléchargement
+> contient aussi **ASPXmulti v2.0** : quatre stations ASPX réparties autour
+> d'un site, leurs relèvements croisés en direct, la position consolidée au
+> PCO et sa transmission en LXMF vers TCQ ou RATspeak. Une antenne seule
+> mesure une **direction** ; il en faut deux pour obtenir un **point**.
+> [Aller à ASPXmulti](#aspxmulti--le-réseau-à-quatre-stations)
+
 ---
 
 ## Sommaire
@@ -43,6 +51,7 @@ d'arête, l'écart maximal entre deux microphones vaut 2 047 µs, soit
 - [Installation](#installation)
 - [Prise en main en cinq minutes](#prise-en-main-en-cinq-minutes)
 - [Scénarios de démonstration](#scénarios-de-démonstration)
+- [ASPXmulti — le réseau à quatre stations](#aspxmulti--le-réseau-à-quatre-stations)
 - [Fonctionnalités](#fonctionnalités)
 - [Lire le scope](#lire-le-scope)
 - [Le matériel](#le-matériel)
@@ -139,21 +148,26 @@ en fonction de la distance.</em>
 
 ## Installation
 
-Téléchargez **`ASPX.7z`** : https://github.com/f1gbd/F1GBD/releases/download/v1.40/ASPX.7z puis décompressez-la
+Téléchargez **`ASPX.7z`** : https://github.com/f1gbd/F1GBD/releases/download/v1.41/ASPX.7z puis décompressez-la
 où vous voulez — [7-Zip](https://www.7-zip.org/) ou tout autre outil sachant
 lire ce format. Vous obtenez un dossier `ASPX\` contenant :
 
 | Élément | |
 |---|---|
-| `ASPX.exe` | l'application — c'est le fichier à lancer |
-| `_internal\` | les bibliothèques dont elle a besoin |
+| `ASPX.exe` | **la station** v1.4.0 — une antenne, détection et poursuite |
+| `ASPXmulti.exe` | **le réseau** v2.0.0 — quatre stations, fusion au PCO |
+| `_internal\` | les bibliothèques, communes aux deux |
+| `scenarios\` | cinq configurations prêtes à charger |
 | `AERO-SPECTRIX_fiche_technique.pdf` | la fiche technique |
 | `LICENSE` | la licence d'utilisation |
 | `THIRD-PARTY-NOTICES.txt` | les licences des composants tiers |
 
-**Distribuez et déplacez le dossier entier**, jamais le seul `.exe` : les
+Les deux exécutables partagent le même `_internal\` : Qt, numpy et scipy ne
+sont livrés qu'une fois, et une seule archive porte l'ensemble.
+
+**Distribuez et déplacez le dossier entier**, jamais un seul `.exe` : les
 bibliothèques posées à côté de lui sont indispensables. Rien à installer, rien
-à désinstaller : pour supprimer l'application, supprimez le dossier.
+à désinstaller : pour supprimer les applications, supprimez le dossier.
 
 | Élément | Détail |
 |---|---|
@@ -162,7 +176,7 @@ bibliothèques posées à côté de lui sont indispensables. Rien à installer, 
 | Espace disque | environ 400 Mo, dossier décompressé |
 | Écran | 1 366 × 768 minimum |
 | Droits | aucun droit d'administrateur nécessaire |
-| Réseau | aucun — l'application ne communique avec rien |
+| Réseau | **`ASPX.exe` : aucun**, la station ne communique avec rien. `ASPXmulti.exe` : uniquement si vous cochez *Fond de carte* (tuiles OpenStreetMap, mises en cache) ou *Transmettre en LXMF* (Reticulum). Décochées, il ne sort rien non plus. |
 | Carte son | uniquement pour le mode Direct |
 
 Comptez **2 à 4 secondes** avant l'affichage de la fenêtre ; un écran de
@@ -180,7 +194,7 @@ permettre de vérifier vous-même que le fichier téléchargé est bien celui qu
 été publié :
 
 ```powershell
-Get-FileHash -Algorithm SHA256 aero-spectrix.7z
+Get-FileHash -Algorithm SHA256 ASPX.7z
 ```
 </details>
 
@@ -236,6 +250,88 @@ Le `README.md` du dossier détaille chaque cas, y compris ce qu'il **ne**
 montre pas — deux scénarios acquièrent la cible dès son entrée en scène et ne
 mesurent donc pas le seuil réel, et sur l'aile électrique le bilan de liaison
 se révèle optimiste de 22 %.
+
+## ASPXmulti — le réseau à quatre stations
+
+`ASPXmulti.exe`, livré dans la même archive, est une **seconde application**.
+Elle répond à la limite que la station seule ne peut pas franchir : une
+antenne mesure une direction, jamais une distance. Quatre stations réparties
+autour d'un site croisent leurs relèvements, et l'intersection donne un
+**point**.
+
+<div align="center">
+<img src="images/ASPXmulti_v2.png" alt="ASPXmulti, réseau à quatre stations" width="960">
+<br><em>Scénario Shahed-136, maillage de 4 km au sud de Melun. P3 et P4 tiennent
+la cible, la position consolidée est donnée à ± 49 m, et le bandeau rouge
+signale l'aéronef confirmé. Fond OpenStreetMap à l'échelle de la simulation.</em>
+</div>
+
+### Ce qui est simulé, et ce qui ne l'est pas
+
+Seule la **scène** est simulée : la trajectoire de l'aéronef, et le relèvement
+bruité que chaque station en tire. Tout le reste est le code réel. Les
+messages sont encodés par le vrai format de télémétrie, soumis à la vraie
+politique de cadence, comptés dans le vrai budget de canal LoRa, décodés,
+puis croisés par la vraie fusion. Ce que l'écran montre est produit par ce qui
+tournerait sur le terrain, pas par une maquette.
+
+### L'échelle du terrain dépend de la cible
+
+C'est le point le moins intuitif du dispositif, et le plus important à
+comprendre avant de déployer quoi que ce soit.
+
+| Cible | Portée d'une station | Écartement des postes | Sous écoute | Où **deux** postes se recoupent |
+|---|---:|---:|---:|---:|
+| Quadricoptère moyen | 258 m | carré de 300 m | 0,5 km² | 0,24 km² |
+| **Shahed-136 / Geran-2** | 3 100 m | 4 km × 3 km | **83 km²** | **31,8 km²** |
+
+Même logiciel, même protocole, même fusion : seul le maillage change. La
+surface où l'on obtient une position — et non une simple direction — est
+multipliée par 131.
+
+Sur le scénario Shahed livré, P4 acquiert seul à **t = 20 s** — direction, pas
+de position — puis P3 ferme le point à **t = 55 s**, 2,5 km avant le PCO.
+Erreur médiane sur la position consolidée : **26 m**, p90 55 m, pour
+45 messages sur le canal LoRa en 140 s.
+
+### Cinq scénarios
+
+Approche simple · deux aéronefs (le cas des **fantômes**) · perte d'un poste ·
+vent fort · Shahed-136 en maillage 4 km.
+
+Le scénario des fantômes mérite un mot. Deux aéronefs de même altitude et de
+même régime rotor, entendus par deux postes seulement, produisent quatre
+relèvements et **deux appariements également crédibles** : celui qui est vrai
+et celui qui croise en diagonale. ASPXmulti affiche alors les **deux
+hypothèses** plutôt qu'une position fausse — et l'alarme, si elle était déjà
+déclenchée, retire sa position tout en continuant de sonner. Quelque chose est
+bien là ; c'est le point qui n'est plus sûr.
+
+### Trois options, par case à cocher
+
+| | |
+|---|---|
+| **Alerte** | bandeau clignotant et sirène sur position confirmée par le réseau. Une fusion ambiguë ne déclenche rien : deux appariements également crédibles ne valent pas une alarme, ils valent une question. |
+| **Son** | ce qu'on entendrait au PCO, calculé : retard de propagation, effet Doppler qui en découle, absorption de l'atmosphère harmonique par harmonique. Le bruit de fond est calé pour que l'aéronef **émerge à la portée annoncée** — on l'entend arriver quand la carte le détecte. |
+| **Fond de carte** | tuiles OpenStreetMap au niveau de zoom qui fait correspondre un pixel de tuile à un pixel écran : le terrain est à l'échelle de la simulation. Glissez la carte pour amener votre site sous le dispositif. |
+
+Aucune des trois n'influe sur la simulation : les compteurs de messages, les
+ambiguïtés et les positions fusionnées sont identiques qu'elles soient cochées
+ou non.
+
+### La liaison LXMF
+
+ASPXmulti transmet les relèvements en **LXMF sur Reticulum**, vers une station
+TCQ ou RATspeak désignée par son adresse. La fenêtre « Liaison… » écoute les
+annonces du réseau et présente les stations entendues, comme le fait l'onglet
+« Annonces LXMF » de TCQ.
+
+> **LXMF ne diffuse pas.** Il n'existe ni adresse de groupe, ni clé partagée :
+> ce que TCQ et RATspeak appellent « groupe » est une liste de diffusion tenue
+> côté client, qui envoie un message par destinataire. À quatre stations en
+> alerte, viser plusieurs destinataires multiplie l'occupation du canal
+> d'autant. L'architecture tenable est donc **un seul destinataire direct — la
+> station de fusion —** qui redistribue ensuite hors radio.
 
 ## Fonctionnalités
 
@@ -463,6 +559,20 @@ figure dans la licence, les mentions de composants tiers et la ressource de
 version Windows. Ce n'est pas un changement de nom, c'est un raccourci : le
 nom complet est pénible à prononcer en phonie, et les stations du réseau 2.0
 s'appellent déjà ASPX. Même produit, même logo.
+
+### ASPXmulti v2.0 — le réseau à quatre stations
+
+Nouvelle application livrée dans la même archive : `ASPXmulti.exe`. Quatre
+stations autour d'un site, relèvements croisés, position consolidée au PCO,
+liaison LXMF vers TCQ ou RATspeak. Cinq scénarios, alerte sonore et visuelle,
+simulation sonore calculée, fond de carte OpenStreetMap à l'échelle et
+déplaçable. Voir [le chapitre qui lui est
+consacré](#aspxmulti--le-réseau-à-quatre-stations).
+
+Son numéro suit celui du **réseau**, pas celui de la station : une station
+1.4.0 parle le protocole réseau 2.0, comme un poste de radio d'un millésime
+donné parle une norme d'un autre. Les deux exécutables portent chacun sa
+version dans ses propriétés Windows.
 
 ### Fenêtre de détection adaptative
 
