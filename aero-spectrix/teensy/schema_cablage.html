@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<title>Antenne acoustique 4 micros — montage et câblage</title>
+<style>
+ body { background:#080d10; color:#c9e8dc; margin:0; padding:26px 30px 60px;
+        font-family:"Segoe UI",system-ui,sans-serif; }
+ h1 { color:#37c98a; font-size:23px; margin:0 0 4px; letter-spacing:.5px; }
+ h2 { color:#2fae7f; font-size:15px; margin:34px 0 10px;
+       text-transform:uppercase; letter-spacing:1.6px; }
+ .sub { color:#6f9488; font-size:13px; margin-bottom:22px; }
+ .wrap { max-width:1120px; margin:0 auto; }
+ table { border-collapse:collapse; width:100%; font-size:13px;
+          font-family:Consolas,monospace; }
+ th { background:#111b1f; color:#37c98a; text-align:left; padding:7px 10px;
+       font-size:11px; letter-spacing:1px; text-transform:uppercase; }
+ td { padding:6px 10px; border-top:1px solid #16302a; }
+ tr:nth-child(even) td { background:#0b1518; }
+ .grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+ .card { background:#0d1418; border:1px solid #16302a; border-radius:6px;
+          padding:14px 18px; }
+ .card h3 { margin:0 0 8px; font-size:13px; color:#37c98a;
+             text-transform:uppercase; letter-spacing:1.2px; }
+ .card p { margin:6px 0; font-size:12.5px; line-height:1.55; color:#b6d6c9; }
+ .crit { border-color:#5a2020; background:#160e0e; }
+ .crit h3 { color:#ff5c5c; }
+ ul { margin:6px 0 0 18px; padding:0; font-size:12.5px; line-height:1.7;
+       color:#b6d6c9; }
+ b.hl { color:#37c98a; }
+ td.ok { color:#37c98a; font-weight:600; }
+ td.no, b.no { color:#ff5c5c; font-weight:600; }
+ code { background:#0a1417; padding:1px 5px; border-radius:3px;
+         color:#4fc3f7; font-size:12px; }
+ footer { margin-top:40px; color:#6f9488; font-size:11.5px;
+           border-top:1px solid #16302a; padding-top:14px; }
+</style></head><body><div class="wrap">
+
+<h1>Antenne acoustique 4 microphones — montage et câblage</h1>
+<div class="sub">Tétraèdre régulier d'arête 70 cm ·
+célérité du son 342.0 m/s à 18 °C ·
+schéma généré depuis la configuration courante</div>
+
+<h2>1 · Géométrie et construction</h2>
+<div id="fig-geom"><svg viewBox="0 0 1200 480" width="100%">
+<rect width="1200" height="480" fill="#0d1418" rx="6"/>
+<text x="30" y="34" fill="#37c98a" font-size="15" font-weight="700" letter-spacing="1.5">VUE ISOMÉTRIQUE</text>
+<text x="30" y="53" fill="#6f9488" font-size="11">LES DEUX BARRES SONT HORIZONTALES. M1 et M4 sont à la même</text>
+<text x="30" y="67" fill="#6f9488" font-size="11">hauteur, M2 et M3 aussi : leur écart à l'écran est un effet de la</text>
+<text x="30" y="81" fill="#6f9488" font-size="11">projection, pas une pente. Les ellipses pointillées sont les</text>
+<text x="30" y="95" fill="#6f9488" font-size="11">cercles horizontaux dans lesquels chaque barre repose.</text>
+<line x1="270" y1="250" x2="270" y2="360" stroke="#6f9488" stroke-width="6" stroke-linecap="round" opacity="0.65"/>
+<path d="M259,334 L281,342 M259,346 L281,354" stroke="#0d1418" stroke-width="7"/>
+<path d="M259,334 L281,342 M259,346 L281,354" stroke="#6f9488" stroke-width="1.6"/>
+<line x1="175" y1="360" x2="365" y2="360" stroke="#1f7a5a" stroke-width="2"/>
+<line x1="182" y1="360" x2="173" y2="370" stroke="#1f7a5a" stroke-width="1.2" opacity="0.7"/>
+<line x1="204" y1="360" x2="195" y2="370" stroke="#1f7a5a" stroke-width="1.2" opacity="0.7"/>
+<line x1="226" y1="360" x2="217" y2="370" stroke="#1f7a5a" stroke-width="1.2" opacity="0.7"/>
+<line x1="248" y1="360" x2="239" y2="370" stroke="#1f7a5a" stroke-width="1.2" opacity="0.7"/>
+<line x1="270" y1="360" x2="261" y2="370" stroke="#1f7a5a" stroke-width="1.2" opacity="0.7"/>
+<line x1="292" y1="360" x2="283" y2="370" stroke="#1f7a5a" stroke-width="1.2" opacity="0.7"/>
+<line x1="314" y1="360" x2="305" y2="370" stroke="#1f7a5a" stroke-width="1.2" opacity="0.7"/>
+<line x1="336" y1="360" x2="327" y2="370" stroke="#1f7a5a" stroke-width="1.2" opacity="0.7"/>
+<line x1="358" y1="360" x2="349" y2="370" stroke="#1f7a5a" stroke-width="1.2" opacity="0.7"/>
+<text x="374" y="365" fill="#6f9488" font-size="11">sol</text>
+<text x="270" y="390" fill="#ff9f43" font-size="11.5" text-anchor="middle">↕ 160 cm du sol au centre</text>
+<line x1="214.4" y1="105.1" x2="389.3" y2="293.9" stroke="#2fae7f" stroke-width="1.6" opacity="0.7"/>
+<line x1="214.4" y1="105.1" x2="150.7" y2="358.1" stroke="#2fae7f" stroke-width="1.6" opacity="0.7"/>
+<line x1="214.4" y1="105.1" x2="325.6" y2="242.9" stroke="#2fae7f" stroke-width="1.6" opacity="0.7"/>
+<line x1="389.3" y1="293.9" x2="150.7" y2="358.1" stroke="#2fae7f" stroke-width="1.6" opacity="0.7"/>
+<line x1="389.3" y1="293.9" x2="325.6" y2="242.9" stroke="#2fae7f" stroke-width="1.6" opacity="0.7"/>
+<line x1="150.7" y1="358.1" x2="325.6" y2="242.9" stroke="#2fae7f" stroke-width="1.6" opacity="0.7"/>
+<ellipse cx="270" cy="174.0" rx="165.9" ry="95.8" fill="none" stroke="#37c98a" stroke-width="1.1" stroke-dasharray="4 5" opacity="0.42"/>
+<ellipse cx="270" cy="326.0" rx="165.9" ry="95.8" fill="none" stroke="#4fc3f7" stroke-width="1.1" stroke-dasharray="4 5" opacity="0.42"/>
+<line x1="214.4" y1="105.1" x2="325.6" y2="242.9" stroke="#37c98a" stroke-width="7" stroke-linecap="round"/>
+<line x1="389.3" y1="293.9" x2="150.7" y2="358.1" stroke="#4fc3f7" stroke-width="7" stroke-linecap="round"/>
+<circle cx="270" cy="250" r="4.5" fill="none" stroke="#ff9f43" stroke-width="1.8"/>
+<text x="262" y="270" fill="#ff9f43" font-size="10.5" text-anchor="end">centre</text>
+<text x="96" y="152.0" fill="#6f9488" font-size="10" text-anchor="middle">hauteur / sol</text>
+<line x1="96" y1="174.0" x2="96" y2="326.0" stroke="#6f9488" stroke-width="1.2"/>
+<line x1="90" y1="174.0" x2="102" y2="174.0" stroke="#37c98a" stroke-width="2"/>
+<text x="85" y="178.0" fill="#37c98a" font-size="10.5" text-anchor="end">184,7 cm</text>
+<line x1="90" y1="250.0" x2="102" y2="250.0" stroke="#ff9f43" stroke-width="2"/>
+<text x="85" y="254.0" fill="#ff9f43" font-size="10.5" text-anchor="end">160,0 cm</text>
+<line x1="90" y1="326.0" x2="102" y2="326.0" stroke="#4fc3f7" stroke-width="2"/>
+<text x="85" y="330.0" fill="#4fc3f7" font-size="10.5" text-anchor="end">135,3 cm</text>
+<text x="107" y="254" fill="#4fc3f7" font-size="10.5">↕ 49,5 cm</text>
+<circle cx="214.4" cy="105.1" r="9" fill="#0d1418" stroke="#c9e8dc" stroke-width="2"/>
+<circle cx="214.4" cy="105.1" r="3.5" fill="#c9e8dc"/>
+<text x="200.4" y="110.1" fill="#c9e8dc" font-size="15" font-weight="700" text-anchor="end">M1</text>
+<text x="200.4" y="126.1" fill="#37c98a" font-size="10.5" text-anchor="end">184,7 cm</text>
+<circle cx="389.3" cy="293.9" r="9" fill="#0d1418" stroke="#c9e8dc" stroke-width="2"/>
+<circle cx="389.3" cy="293.9" r="3.5" fill="#c9e8dc"/>
+<text x="403.3" y="298.9" fill="#c9e8dc" font-size="15" font-weight="700" text-anchor="start">M2</text>
+<text x="403.3" y="314.9" fill="#4fc3f7" font-size="10.5" text-anchor="start">135,3 cm</text>
+<circle cx="150.7" cy="358.1" r="9" fill="#0d1418" stroke="#c9e8dc" stroke-width="2"/>
+<circle cx="150.7" cy="358.1" r="3.5" fill="#c9e8dc"/>
+<text x="136.7" y="363.1" fill="#c9e8dc" font-size="15" font-weight="700" text-anchor="end">M3</text>
+<text x="136.7" y="379.1" fill="#4fc3f7" font-size="10.5" text-anchor="end">135,3 cm</text>
+<circle cx="325.6" cy="242.9" r="9" fill="#0d1418" stroke="#c9e8dc" stroke-width="2"/>
+<circle cx="325.6" cy="242.9" r="3.5" fill="#c9e8dc"/>
+<text x="339.6" y="247.9" fill="#c9e8dc" font-size="15" font-weight="700" text-anchor="start">M4</text>
+<text x="339.6" y="263.9" fill="#37c98a" font-size="10.5" text-anchor="start">184,7 cm</text>
+<text x="520" y="34" fill="#37c98a" font-size="15" font-weight="700" letter-spacing="1.5">VUE DE DESSUS</text>
+<circle cx="638" cy="215" r="142" fill="none" stroke="#1f7a5a" stroke-width="0.8" opacity="0.35"/>
+<line x1="712.2" y1="140.8" x2="563.8" y2="289.2" stroke="#37c98a" stroke-width="7" stroke-linecap="round"/>
+<line x1="712.2" y1="289.2" x2="563.8" y2="140.8" stroke="#4fc3f7" stroke-width="7" stroke-linecap="round" opacity="0.9"/>
+<circle cx="712.2" cy="140.8" r="7.5" fill="#0d1418" stroke="#37c98a" stroke-width="2.2"/>
+<text x="737.5" y="119.5" fill="#37c98a" font-size="12" font-weight="700" text-anchor="middle">M1</text>
+<circle cx="712.2" cy="289.2" r="7.5" fill="#0d1418" stroke="#4fc3f7" stroke-width="2.2"/>
+<text x="737.5" y="318.5" fill="#4fc3f7" font-size="12" font-weight="700" text-anchor="middle">M2</text>
+<circle cx="563.8" cy="140.8" r="7.5" fill="#0d1418" stroke="#4fc3f7" stroke-width="2.2"/>
+<text x="538.5" y="119.5" fill="#4fc3f7" font-size="12" font-weight="700" text-anchor="middle">M3</text>
+<circle cx="563.8" cy="289.2" r="7.5" fill="#0d1418" stroke="#37c98a" stroke-width="2.2"/>
+<text x="538.5" y="318.5" fill="#37c98a" font-size="12" font-weight="700" text-anchor="middle">M4</text>
+<line x1="638" y1="215" x2="638" y2="78" stroke="#ff9f43" stroke-width="1" opacity="0.55"/>
+<line x1="638" y1="215" x2="774" y2="215" stroke="#ff9f43" stroke-width="1" opacity="0.55"/>
+<text x="638" y="66" fill="#ff9f43" font-size="12" font-weight="700" text-anchor="middle">N</text>
+<text x="796" y="219" fill="#ff9f43" font-size="12" font-weight="700" text-anchor="middle">E</text>
+<text x="638" y="391" fill="#37c98a" font-size="11.5" text-anchor="middle">barre HAUTE : M1–M4</text>
+<text x="638" y="409" fill="#4fc3f7" font-size="11.5" text-anchor="middle">barre BASSE : M2–M3</text>
+<text x="810" y="34" fill="#37c98a" font-size="15" font-weight="700" letter-spacing="1.5">COTES</text>
+<text x="810" y="60" fill="#c9e8dc" font-size="12.5">Le tétraèdre se ramène à deux barres identiques,</text>
+<text x="810" y="78" fill="#c9e8dc" font-size="12.5">croisées à 90°, TOUTES DEUX HORIZONTALES,</text>
+<text x="810" y="96" fill="#c9e8dc" font-size="12.5">et décalées en hauteur. Aucune pièce n'est inclinée.</text>
+<text x="810" y="118" fill="#6f9488" font-size="12">Longueur de chaque barre</text>
+<text x="810" y="144" fill="#37c98a" font-size="21" font-weight="700" font-family="monospace">70,0 cm</text>
+<text x="810" y="180" fill="#6f9488" font-size="12">Décalage vertical</text>
+<text x="810" y="206" fill="#4fc3f7" font-size="21" font-weight="700" font-family="monospace">49,5 cm</text>
+<text x="810" y="242" fill="#6f9488" font-size="12">Hauteur du centre au sol</text>
+<text x="810" y="268" fill="#ff9f43" font-size="21" font-weight="700" font-family="monospace">160,0 cm</text>
+<text x="810" y="304" fill="#6f9488" font-size="12">Écart de temps maximal</text>
+<text x="810" y="330" fill="#c9e8dc" font-size="21" font-weight="700" font-family="monospace">±2047 µs</text>
+<text x="810" y="348" fill="#6f9488" font-size="10.5" font-family="monospace">soit ±98 échantillons à 48 kHz</text>
+<text x="810" y="410" fill="#ff9f43" font-size="11.5">Tolérance : viser ±2 mm.</text>
+<text x="810" y="428" fill="#ff9f43" font-size="11.5">Une erreur de 5 mm sur une barre de 70 cm</text>
+<text x="810" y="446" fill="#ff9f43" font-size="11.5">introduit ~0.4° de biais systématique,</text>
+<text x="810" y="464" fill="#ff9f43" font-size="11.5">qui ne se moyenne pas avec le temps.</text>
+</svg></div>
+
+<h2>2 · Correspondance des voies</h2>
+<p style="color:#6f9488;font-size:12.5px;margin:0 0 10px">
+L'ordre des voies n'est pas décoratif : le programme suppose que l'entrée
+<i>n</i> correspond au micro M<i>n</i> ci-dessous. Les intervertir revient à
+retourner le ciel. En cas de doute, tapez dans les mains à côté d'un micro et
+vérifiez le niveau sur le vu-mètre correspondant.</p>
+<table>
+<tr><th>Micro</th><th>Barre</th><th>Est (m)</th><th>Nord (m)</th>
+<th>Vertical (m)</th><th>Entrée</th></tr>
+<tr><td><b>M1</b></td><td>haute</td><td>+0.2475</td><td>+0.2475</td><td>+0.2475</td><td>entrée 1</td></tr>
+<tr><td><b>M2</b></td><td>basse</td><td>+0.2475</td><td>-0.2475</td><td>-0.2475</td><td>entrée 2</td></tr>
+<tr><td><b>M3</b></td><td>basse</td><td>-0.2475</td><td>+0.2475</td><td>-0.2475</td><td>entrée 3</td></tr>
+<tr><td><b>M4</b></td><td>haute</td><td>-0.2475</td><td>-0.2475</td><td>+0.2475</td><td>entrée 4</td></tr>
+</table>
+
+<h2>3 · Câblage analogique</h2>
+<div id="fig-analog"><svg viewBox="0 0 1080 400" width="100%">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2fae7f"/></marker></defs>
+<rect width="1080" height="400" fill="#0d1418" rx="6"/>
+<text x="30" y="34" fill="#37c98a" font-size="15" font-weight="700" letter-spacing="1.5">CHAÎNE ANALOGIQUE — LA PLUS SIMPLE À RÉUSSIR</text>
+<rect x="40" y="70" width="132" height="44" rx="5" fill="#0d1418" stroke="#2fae7f" stroke-width="1.6"/>
+<text x="106.0" y="88.0" fill="#c9e8dc" font-size="13" font-weight="700" text-anchor="middle">M1 — EM272</text>
+<text x="106.0" y="105.0" fill="#6f9488" font-size="10.5" text-anchor="middle">électret, 40 mV/Pa</text>
+<line x1="172" y1="92" x2="300" y2="92" stroke="#2fae7f" stroke-width="2" marker-end="url(#ar)"/>
+<text x="236.0" y="85.0" fill="#6f9488" font-size="10.5" text-anchor="middle">câble blindé</text>
+<text x="236" y="108" fill="#6f9488" font-size="9.5" text-anchor="middle">entrée 1</text>
+<rect x="40" y="128" width="132" height="44" rx="5" fill="#0d1418" stroke="#2fae7f" stroke-width="1.6"/>
+<text x="106.0" y="155.0" fill="#c9e8dc" font-size="13" font-weight="700" text-anchor="middle">M2 — EM272</text>
+<line x1="172" y1="150" x2="300" y2="150" stroke="#2fae7f" stroke-width="2" marker-end="url(#ar)"/>
+<text x="236" y="166" fill="#6f9488" font-size="9.5" text-anchor="middle">entrée 2</text>
+<rect x="40" y="186" width="132" height="44" rx="5" fill="#0d1418" stroke="#2fae7f" stroke-width="1.6"/>
+<text x="106.0" y="213.0" fill="#c9e8dc" font-size="13" font-weight="700" text-anchor="middle">M3 — EM272</text>
+<line x1="172" y1="208" x2="300" y2="208" stroke="#2fae7f" stroke-width="2" marker-end="url(#ar)"/>
+<text x="236" y="224" fill="#6f9488" font-size="9.5" text-anchor="middle">entrée 3</text>
+<rect x="40" y="244" width="132" height="44" rx="5" fill="#0d1418" stroke="#2fae7f" stroke-width="1.6"/>
+<text x="106.0" y="271.0" fill="#c9e8dc" font-size="13" font-weight="700" text-anchor="middle">M4 — EM272</text>
+<line x1="172" y1="266" x2="300" y2="266" stroke="#2fae7f" stroke-width="2" marker-end="url(#ar)"/>
+<text x="236" y="282" fill="#6f9488" font-size="9.5" text-anchor="middle">entrée 4</text>
+<rect x="300" y="70" width="210" height="218" rx="5" fill="#0d1418" stroke="#37c98a" stroke-width="1.6"/>
+<text x="405.0" y="96" fill="#c9e8dc" font-size="13" font-weight="700" text-anchor="middle">INTERFACE 4 PRÉAMPLIS MICRO</text>
+<text x="405" y="146" fill="#c9e8dc" font-size="11.5" text-anchor="middle">UMC404HD · MOTU M6</text>
+<text x="405" y="163" fill="#c9e8dc" font-size="11.5" text-anchor="middle">Zoom F4/F6 · Scarlett 18i8</text>
+<text x="405" y="188" fill="#37c98a" font-size="12" font-weight="700" text-anchor="middle">UNE SEULE HORLOGE</text>
+<text x="405" y="205" fill="#6f9488" font-size="10.5" text-anchor="middle">les 4 convertisseurs sont</text>
+<text x="405" y="220" fill="#6f9488" font-size="10.5" text-anchor="middle">cadencés ensemble</text>
+<text x="405" y="244" fill="#ff9f43" font-size="10.5" text-anchor="middle">4 PRÉAMPLIS, pas 2 :</text>
+<text x="405" y="259" fill="#ff9f43" font-size="10.5" text-anchor="middle">une entrée « ligne » n'a ni gain</text>
+<text x="405" y="274" fill="#ff9f43" font-size="10.5" text-anchor="middle">micro ni alimentation</text>
+<text x="574" y="158" fill="#6f9488" font-size="10.5" text-anchor="middle">USB</text>
+<text x="574" y="173" fill="#6f9488" font-size="10.5" text-anchor="middle">4 voies synchrones</text>
+<line x1="510" y1="182" x2="638" y2="182" stroke="#37c98a" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="640" y="152" width="190" height="62" rx="5" fill="#0d1418" stroke="#37c98a" stroke-width="1.6"/>
+<text x="735.0" y="179.0" fill="#c9e8dc" font-size="13" font-weight="700" text-anchor="middle">PC</text>
+<text x="735.0" y="196.0" fill="#6f9488" font-size="10.5" text-anchor="middle">ASPX.exe</text>
+<text x="735" y="234" fill="#6f9488" font-size="10.5" text-anchor="middle">mode Direct</text>
+<rect x="860" y="70" width="190" height="312" rx="5" fill="#1a0d0d" stroke="#ff5c5c" stroke-width="1.6"/>
+<text x="955" y="94" fill="#ff5c5c" font-size="12.5" font-weight="700" text-anchor="middle">À NE PAS FAIRE</text>
+<rect x="40" y="312" width="790" height="70" rx="5" fill="#12201a" stroke="#ff9f43" stroke-width="1.2" opacity="0.9"/>
+<text x="58" y="334" fill="#ff9f43" font-size="11.5" font-weight="700">ALIMENTATION DES CAPSULES</text>
+<text x="58" y="352" fill="#c9e8dc" font-size="10.5">Un électret a besoin de 3 à 5 V sur sa broche de signal (alimentation « plug-in »). Les interfaces ci-dessus fournissent du 48 V fantôme,</text>
+<text x="58" y="368" fill="#c9e8dc" font-size="10.5">destiné aux micros statiques : il faut donc un adaptateur à résistance de charge, ou des capsules déjà montées en module « fantôme ».</text>
+<text x="875" y="110" fill="#ffbdbd" font-size="10">Deux interfaces stéréo</text>
+<text x="875" y="122" fill="#ffbdbd" font-size="10">séparées : leurs horloges</text>
+<text x="875" y="135" fill="#ffbdbd" font-size="10">dérivent de dizaines de</text>
+<text x="875" y="147" fill="#ffbdbd" font-size="10">ppm, la direction dérive</text>
+<text x="875" y="160" fill="#ffbdbd" font-size="10">avec elles.</text>
+<text x="875" y="172" fill="#ffbdbd" font-size="10"></text>
+<text x="875" y="184" fill="#ffbdbd" font-size="10">Une interface « 4 entrées »</text>
+<text x="875" y="197" fill="#ffbdbd" font-size="10">dont seules DEUX ont un</text>
+<text x="875" y="209" fill="#ffbdbd" font-size="10">préampli micro (MOTU M4 :</text>
+<text x="875" y="222" fill="#ffbdbd" font-size="10">voies 3-4 en ligne seule).</text>
+<text x="875" y="234" fill="#ffbdbd" font-size="10"></text>
+<text x="875" y="246" fill="#ffbdbd" font-size="10">Low-cut, compresseur ou</text>
+<text x="875" y="259" fill="#ffbdbd" font-size="10">DSP activé sur une seule</text>
+<text x="875" y="271" fill="#ffbdbd" font-size="10">voie : les temps d'arrivée</text>
+<text x="875" y="284" fill="#ffbdbd" font-size="10">sont faussés.</text>
+<text x="875" y="296" fill="#ffbdbd" font-size="10"></text>
+<text x="875" y="308" fill="#ffbdbd" font-size="10">Pilote WDM générique sous</text>
+<text x="875" y="321" fill="#ffbdbd" font-size="10">Windows : il n'expose que</text>
+<text x="875" y="333" fill="#ffbdbd" font-size="10">2 voies. Il faut l'ASIO du</text>
+<text x="875" y="346" fill="#ffbdbd" font-size="10">constructeur.</text>
+</svg></div>
+
+<h2>4 · Choix de l'interface audio</h2>
+<p style="color:#6f9488;font-size:12.5px;margin:0 0 12px;line-height:1.6">
+Le critère décisif n'est pas le nombre d'entrées annoncé sur la boîte, mais le
+nombre de <b class="hl">préamplis microphone</b>. Plusieurs interfaces vendues
+comme « 4 entrées » n'ont que deux préamplis : les deux autres entrées sont au
+niveau ligne, sans gain micro ni alimentation. Elles conviennent pour brancher
+un clavier, pas un microphone.</p>
+<table id="tab-interfaces">
+<tr><th>Modèle</th><th>Préamplis micro</th><th>Alim. fantôme</th>
+<th>Pilote Windows 11</th><th>Verdict</th></tr>
+<tr><td><b>Behringer UMC404HD</b></td><td>4 combos XLR/TRS</td>
+<td>globale, un seul interrupteur</td><td>ASIO Behringer UMC</td>
+<td class="ok">convient</td></tr>
+<tr><td><b>MOTU M6</b></td><td>4 combos XLR/TRS</td>
+<td>par voie</td><td>pilote MOTU M Series</td>
+<td class="ok">convient, meilleure latence</td></tr>
+<tr><td><b>MOTU M4</b></td><td><b class="no">2 seulement</b> — voies 3-4 au
+niveau ligne</td><td>voies 1-2 uniquement</td><td>pilote MOTU M Series</td>
+<td class="no">à écarter pour 4 micros</td></tr>
+<tr><td><b>Zoom PodTrak P4next</b></td><td>4 XLR, gain jusqu'à +70 dB</td>
+<td>globale +48 V</td><td>pilote ZOOM P4next (ASIO)</td>
+<td class="ok">convient — 12 voies USB, mode Multi&nbsp;Track</td></tr>
+<tr><td>Zoom F4 / F6</td><td>4 à 6</td><td>par voie</td>
+<td>ASIO Zoom</td><td class="ok">convient, autonome sur carte SD</td></tr>
+<tr><td>2 × interface stéréo</td><td>2 + 2</td><td>—</td><td>—</td>
+<td class="no">horloges indépendantes : inutilisable</td></tr>
+</table>
+
+<div class="grid" style="margin-top:16px">
+ <div class="card"><h3>Enregistreurs de podcast : la question du mode USB</h3>
+  <p>Un enregistreur de podcast n'expose pas forcément ses entrées séparément.
+  Beaucoup ne présentent à l'ordinateur qu'un <b class="hl">mixage stéréo</b> des
+  micros — parfait pour diffuser une émission, inutilisable ici : les quatre
+  voies y sont additionnées, et les écarts de temps disparaissent dans
+  l'addition.</p>
+  <p>Le PodTrak P4next offre les deux : un mode <i>Stereo Mix</i> et un mode
+  <b class="hl">Multi Track</b> qui envoie les entrées 1 à 4 séparément, en
+  mono. C'est ce second mode qu'il faut choisir — menu <i>USB Audio
+  Interface → Mode → Multi Track</i>.</p>
+  <p>Vérifiez toujours ce point avant d'acheter : c'est lui, et non le nombre
+  de prises XLR, qui décide.</p></div>
+ <div class="card"><h3>Les traitements à couper</h3>
+  <p>Ces appareils sont conçus pour la voix et arrivent avec des traitements
+  <b class="hl">activés par défaut</b>. Sur le P4next : coupe-bas et limiteur
+  actifs sur chaque micro, plus TONE, COMP et AI&nbsp;NOISE&nbsp;REDUCTION en
+  façade.</p>
+  <p>Il faut TOUT désactiver. Un limiteur agit voie par voie, avec sa propre
+  attaque : il se déclenche sur une voie et pas sur l'autre. La réduction de
+  bruit par IA est pire encore — elle est faite pour supprimer exactement ce
+  que nous cherchons, un bruit de fond ténu, et elle ne conserve aucune
+  cohérence de phase entre voies.</p>
+  <p>Un coupe-bas identique sur les quatre voies serait inoffensif — son
+  retard de groupe est commun. Actif sur trois voies et pas la quatrième, il
+  fausse les temps d'arrivée. Dans le doute : tout à l'arrêt.</p></div>
+</div>
+
+<div class="grid" style="margin-top:16px">
+ <div class="card"><h3>Pilotes sous Windows 11</h3>
+  <p>Le pilote générique « USB Audio Codec » de Windows n'expose que
+  <b class="hl">deux</b> voies d'entrée, quelle que soit l'interface. Les
+  quatre voies n'apparaissent qu'à travers le pilote ASIO du constructeur —
+  et c'est vrai des deux marques.</p>
+  <p>MOTU demande explicitement d'installer le pilote <i>avant</i> de brancher
+  l'interface ; Behringer fournit un pilote ASIO séparé du pilote de classe.
+  Dans les deux cas, installez d'abord, branchez ensuite.</p>
+  <p>L'application force le chargement de la bibliothèque PortAudio compilée
+  avec ASIO et place les périphériques ASIO à 4 voies en tête de la liste :
+  si votre interface n'y apparaît pas, c'est le pilote qui manque, pas le
+  programme.</p></div>
+ <div class="card"><h3>Ce que le nombre de voies change</h3>
+  <p>Avec deux microphones seulement, on ne mesure qu'<b>un</b> écart de temps :
+  il définit un cône de directions possibles, pas une direction. Le ciel entier
+  reste ambigu.</p>
+  <p>Il faut au minimum quatre microphones non coplanaires pour lever
+  l'ambiguïté haut/bas et résoudre azimut et élévation. C'est une contrainte
+  géométrique, pas un choix de confort : aucun traitement ne la contourne.</p>
+  <p>Les six paires que forment quatre micros donnent trois mesures
+  redondantes, d'où le <b class="hl">résidu TDOA</b> — le seul indicateur qui
+  sache dire qu'une direction affichée n'a pas de sens.</p></div>
+</div>
+
+<h2>5 · Câblage numérique</h2>
+<div id="fig-digital"><svg viewBox="0 0 1080 330" width="100%">
+<defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#4fc3f7"/></marker></defs>
+<rect width="1080" height="330" fill="#0d1418" rx="6"/>
+<text x="30" y="34" fill="#4fc3f7" font-size="15" font-weight="700" letter-spacing="1.5">VARIANTE NUMÉRIQUE — MEMS I²S</text>
+<text x="30" y="56" fill="#6f9488" font-size="11.5">Pas de préampli ni de câble analogique à soigner. En contrepartie, toute la difficulté se déplace sur le partage des horloges.</text>
+<rect x="40" y="84" width="118" height="40" rx="5" fill="#0d1418" stroke="#37c98a" stroke-width="1.6"/>
+<text x="99.0" y="100.0" fill="#c9e8dc" font-size="13" font-weight="700" text-anchor="middle">M1</text>
+<text x="99.0" y="117.0" fill="#6f9488" font-size="10.5" text-anchor="middle">L/R = GND</text>
+<rect x="40" y="136" width="118" height="40" rx="5" fill="#0d1418" stroke="#37c98a" stroke-width="1.6"/>
+<text x="99.0" y="152.0" fill="#c9e8dc" font-size="13" font-weight="700" text-anchor="middle">M2</text>
+<text x="99.0" y="169.0" fill="#6f9488" font-size="10.5" text-anchor="middle">L/R = VDD</text>
+<path d="M158,104 L200,104 L200,130 L250,130" fill="none" stroke="#37c98a" stroke-width="2"/>
+<path d="M158,156 L200,156 L200,130" fill="none" stroke="#37c98a" stroke-width="2"/>
+<text x="178" y="98" fill="#6f9488" font-size="9.5">SD</text>
+<rect x="40" y="196" width="118" height="40" rx="5" fill="#0d1418" stroke="#4fc3f7" stroke-width="1.6"/>
+<text x="99.0" y="212.0" fill="#c9e8dc" font-size="13" font-weight="700" text-anchor="middle">M3</text>
+<text x="99.0" y="229.0" fill="#6f9488" font-size="10.5" text-anchor="middle">L/R = GND</text>
+<rect x="40" y="248" width="118" height="40" rx="5" fill="#0d1418" stroke="#4fc3f7" stroke-width="1.6"/>
+<text x="99.0" y="264.0" fill="#c9e8dc" font-size="13" font-weight="700" text-anchor="middle">M4</text>
+<text x="99.0" y="281.0" fill="#6f9488" font-size="10.5" text-anchor="middle">L/R = VDD</text>
+<path d="M158,216 L200,216 L200,242 L250,242" fill="none" stroke="#4fc3f7" stroke-width="2"/>
+<path d="M158,268 L200,268 L200,242" fill="none" stroke="#4fc3f7" stroke-width="2"/>
+<text x="178" y="210" fill="#6f9488" font-size="9.5">SD</text>
+<rect x="250" y="84" width="230" height="164" rx="5" fill="#0d1418" stroke="#4fc3f7" stroke-width="1.6"/>
+<text x="365.0" y="110" fill="#c9e8dc" font-size="13" font-weight="700" text-anchor="middle">RASPBERRY PI / TEENSY</text>
+<text x="365" y="146" fill="#c9e8dc" font-size="11.5" text-anchor="middle">2 lignes de données</text>
+<text x="365" y="172" fill="#37c98a" font-size="12.5" font-weight="700" text-anchor="middle">1 SEULE BCLK</text>
+<text x="365" y="192" fill="#37c98a" font-size="12.5" font-weight="700" text-anchor="middle">1 SEUL WS</text>
+<text x="365" y="216" fill="#6f9488" font-size="10.5" text-anchor="middle">partagés par les 4 capsules</text>
+<text x="365" y="234" fill="#6f9488" font-size="10.5" text-anchor="middle">→ synchronisation à l'échantillon</text>
+<line x1="480" y1="166" x2="600" y2="166" stroke="#4fc3f7" stroke-width="2" marker-end="url(#ar2)"/>
+<text x="540" y="158" fill="#6f9488" font-size="10.5" text-anchor="middle">réseau / USB</text>
+<rect x="600" y="132" width="180" height="68" rx="5" fill="#0d1418" stroke="#4fc3f7" stroke-width="1.6"/>
+<text x="690.0" y="162.0" fill="#c9e8dc" font-size="13" font-weight="700" text-anchor="middle">PC</text>
+<text x="690.0" y="179.0" fill="#6f9488" font-size="10.5" text-anchor="middle">ASPX.exe</text>
+<rect x="812" y="84" width="238" height="164" rx="5" fill="#0d1a22" stroke="#4fc3f7" stroke-width="1.6"/>
+<text x="931" y="108" fill="#4fc3f7" font-size="12.5" font-weight="700" text-anchor="middle">LE POINT CLÉ</text>
+<text x="828" y="130" fill="#bde0f5" font-size="10">Une capsule I²S occupe une</text>
+<text x="828" y="143" fill="#bde0f5" font-size="10">moitié de trame : la broche L/R</text>
+<text x="828" y="156" fill="#bde0f5" font-size="10">choisit laquelle. Deux capsules</text>
+<text x="828" y="169" fill="#bde0f5" font-size="10">partagent donc une ligne SD.</text>
+<text x="828" y="182" fill="#bde0f5" font-size="10"></text>
+<text x="828" y="195" fill="#bde0f5" font-size="10">Pour quatre micros il faut deux</text>
+<text x="828" y="208" fill="#bde0f5" font-size="10">lignes SD, mais toujours UNE</text>
+<text x="828" y="221" fill="#bde0f5" font-size="10">seule BCLK et UN seul WS.</text>
+<text x="828" y="234" fill="#bde0f5" font-size="10"></text>
+<text x="828" y="247" fill="#bde0f5" font-size="10">C'est ce partage qui garantit</text>
+<text x="828" y="260" fill="#bde0f5" font-size="10">l'échantillonnage simultané.</text>
+</svg></div>
+
+<div class="grid" style="margin-top:16px">
+ <div class="card"><h3>Longueur des câbles : libre</h3>
+  <p>Le calculateur se place <b class="hl">sous la barre basse</b> — une boîte
+  au centre du tétraèdre diffracterait entre les micros, et le modèle de
+  propagation ne connaît pas cet obstacle. Les liaisons vers les micros hauts
+  sont donc plus longues que celles vers les bas, d'exactement le décalage des
+  deux barres : 65 cm contre 114 cm.</p>
+  <p>Cet écart de 49.5 cm ne coûte rien. La capsule numérise
+  <b>sur place</b> : ce qui descend le câble, ce sont des bits déjà cadencés
+  par la BCLK commune. Le retard de propagation ne change pas l'échantillon
+  auquel le son est attribué.</p>
+  <p><b class="hl">2.5 ns</b> de retard, contre
+  20.8 µs pour un échantillon à 48 kHz — soit
+  <b class="hl">0.012 %</b> d'un échantillon, ou
+  0.9 µm de trajet acoustique équivalent.</p>
+  <p>À comparer aux ±2 mm de tolérance déjà admis sur les barres, qui valent
+  5.85 µs : <b class="hl">2337 fois plus</b>. Il faudrait
+  1157 m d'écart entre deux câbles pour peser autant que 2 mm d'erreur
+  sur une barre.</p></div>
+ <div class="card"><h3>Ce qui est réellement contraint</h3>
+  <p>Pas la différence de longueur : <b class="hl">la plus longue liaison</b>.
+  À 48 kHz la BCLK bat à 3.072 MHz, soit 163 ns de
+  demi-période. L'aller-retour horloge puis donnée sur 114 cm en
+  consomme 11.6 ns, soit 7 % du budget. Large.</p>
+  <p>Une paire torsadée par signal, chacune avec <b>son</b> retour de masse :
+  <code>BCLK+GND</code>, <code>WS+GND</code>, <code>SD+GND</code>,
+  <code>3V+GND</code>. Un câble Ethernet F/UTP fournit exactement les quatre
+  paires. Jamais BCLK et SD dans la même paire.</p>
+  <p>La broche L/R ne descend pas dans le câble : on la strape sur la platine,
+  vers GND ou vers VDD. Une entrée CMOS laissée flottante au bout de 50 cm
+  peut basculer, et deux capsules sur la même demi-trame donnent deux voies
+  identiques.</p>
+  <p><b class="hl">Échantillonnez à 48 kHz, pas à 44,1.</b> À 44,1 kHz les
+  harmoniques 5, 10 et 18 de la BCLK tombent dans les bandes amateur 20 m,
+  10 m et 6 m. À 48 kHz, aucune n'y tombe jusqu'au 6 m.</p></div>
+</div>
+
+<h2>6 · Ce qui fait échouer un montage</h2>
+<div class="grid">
+ <div class="card crit"><h3>Erreurs fatales</h3><ul>
+  <li><b>Deux périphériques audio distincts.</b> Leurs horloges dérivent de
+      quelques dizaines de ppm, soit des dizaines de microsecondes par
+      seconde. La direction dérive donc continûment. Le résidu TDOA
+      le détecte — mesuré : 10 µs avec une horloge unique, 106 µs après
+      une minute pour deux quartz écartés de 5 ppm — mais la chaîne
+      rejette alors les mesures et vous n'avez plus de piste du tout.
+      Sous 3 ppm, l'erreur atteint plusieurs degrés en restant sous le
+      seuil de rejet.</li>
+  <li><b>Deux préamplis au lieu de quatre.</b> Une entrée « ligne » atténue
+      un électret de 40 dB et ne l'alimente pas : les voies 3 et 4 ne
+      contiennent alors que du bruit de préampli. La chaîne trouve quand
+      même une direction — fausse.</li>
+  <li><b>Traitement activé sur une seule voie</b> (low-cut, compresseur, DSP
+      de l'interface). Un filtre change le retard de groupe : les temps
+      d'arrivée sont faussés.</li>
+  <li><b>Voies interverties.</b> Le ciel est retourné, la piste part à
+      l'opposé, et la chaîne ne peut pas le détecter.</li>
+ </ul></div>
+ <div class="card"><h3>Erreurs coûteuses</h3><ul>
+  <li><b>Pas de bonnette.</b> Le vent est le premier facteur limitant.
+      Mousse + fourrure sur chaque capsule, sans exception.</li>
+  <li><b>Antenne trop basse.</b> Sous 1,5 m, le trajet réfléchi par le sol
+      biaise les temps d'arrivée. 1.6 m est un
+      minimum raisonnable.</li>
+  <li><b>Barres imprécises.</b> Viser ±2 mm sur
+      70 cm. Au-delà, le biais est systématique et
+      ne se moyenne pas.</li>
+  <li><b>Câbles non blindés</b> près d'une alimentation à découpage :
+      ronflette à 50 Hz et harmoniques, en plein dans la bande utile.</li>
+ </ul></div>
+</div>
+
+<h2>7 · Vérification avant la première mesure</h2>
+<div class="grid">
+ <div class="card"><h3>Contrôle des voies</h3>
+  <p>Lancez le mode Direct. Tapez dans les mains à 30 cm de M1 : seul le
+  vu-mètre M1 doit bondir nettement. Répétez pour M2, M3, M4.</p>
+  <p>Si deux vu-mètres réagissent identiquement, vous avez dupliqué une voie
+  au lieu d'en lire quatre.</p></div>
+ <div class="card"><h3>Contrôle de la synchronisation</h3>
+  <p>Toujours en mode Direct, produisez un bruit sec à une dizaine de mètres,
+  dans une direction connue. Le <b class="hl">résidu TDOA</b> affiché doit
+  tomber sous 50 µs.</p>
+  <p>Un résidu qui <i>croît régulièrement</i> au fil des secondes est la
+  signature caractéristique de deux horloges indépendantes.</p></div>
+</div>
+
+<h2>8 · Budget indicatif — variante analogique</h2>
+<table>
+<tr><th>Poste</th><th>Choix</th><th>Ordre de prix</th></tr>
+<tr><td>Microphones</td><td>4 × Primo EM272Z1</td><td>100 €</td></tr>
+<tr><td>Interface</td><td>4 <b>préamplis micro</b>, une seule horloge</td>
+<td>100–350 €</td></tr>
+<tr><td>Structure</td><td>2 barres carbone de
+70 cm + mât</td><td>50–90 €</td></tr>
+<tr><td>Bonnettes</td><td>mousse + fourrure × 4</td><td>40–80 €</td></tr>
+<tr><td>Câblage</td><td>blindé, longueurs égales
+<i>— consigne propre à l'analogique, voir §5</i></td><td>30 €</td></tr>
+<tr><td><b>Total</b></td><td>—</td><td><b>320–650 €</b></td></tr>
+</table>
+
+<footer>
+Généré par <code>schema_cablage.py</code> à partir de <code>config.py</code>.
+Si vous changez l'arête de l'antenne ou sa hauteur, régénérez ce schéma :
+toutes les cotes suivent automatiquement.
+</footer>
+</div></body></html>

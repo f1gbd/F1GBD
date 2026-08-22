@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="margin:0">
+<title>Antenne tétraédrique ASPX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --ground:#E4E9ED;
+  --surface:#FBFCFD;
+  --surface-2:#EDF1F4;
+  --line:#C3CED6;
+  --line-soft:#D7DFE5;
+  --ink:#141C22;
+  --ink-2:#3E4C56;
+  --muted:#67757F;
+  --haut:#C85C12;
+  --bas:#1B7EA6;
+  --grid3d:#9FAFBA;
+  --mast:#7C8B95;
+  --dim:#5A6B76;
+  --shadow:0 1px 2px rgba(20,28,34,.06),0 8px 26px rgba(20,28,34,.07);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0D1318;
+    --surface:#141C23;
+    --surface-2:#1B242C;
+    --line:#2B3841;
+    --line-soft:#222D35;
+    --ink:#DEE7EC;
+    --ink-2:#A9B8C2;
+    --muted:#7A8B96;
+    --haut:#F2914E;
+    --bas:#4FB7DE;
+    --grid3d:#3A4A55;
+    --mast:#6A7B86;
+    --dim:#8FA1AC;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.34);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0D1318;
+  --surface:#141C23;
+  --surface-2:#1B242C;
+  --line:#2B3841;
+  --line-soft:#222D35;
+  --ink:#DEE7EC;
+  --ink-2:#A9B8C2;
+  --muted:#7A8B96;
+  --haut:#F2914E;
+  --bas:#4FB7DE;
+  --grid3d:#3A4A55;
+  --mast:#6A7B86;
+  --dim:#8FA1AC;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.34);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:Archivo,"Helvetica Neue",Arial,sans-serif;
+  font-size:15px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{margin:0;text-wrap:balance;letter-spacing:-.012em}
+.mono{font-family:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;font-variant-numeric:tabular-nums}
+
+/* ---------- ossature ---------- */
+.shell{display:grid;grid-template-columns:minmax(0,1fr) 372px;min-height:100vh}
+@media (max-width:960px){.shell{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- visionneuse ---------- */
+.stage{position:relative;background:var(--surface);border-right:1px solid var(--line);min-height:100vh}
+@media (max-width:960px){.stage{min-height:0;height:74vh;border-right:none;border-bottom:1px solid var(--line)}}
+#vue{display:block;width:100%;height:100%;touch-action:none;outline:none}
+#vue:focus-visible{outline:2px solid var(--haut);outline-offset:-2px}
+
+.cartouche{
+  position:absolute;top:18px;left:18px;max-width:min(340px,calc(100% - 36px));
+  background:color-mix(in srgb,var(--surface) 88%,transparent);
+  backdrop-filter:blur(7px);
+  border:1px solid var(--line);padding:13px 15px 12px;pointer-events:none;
+}
+.cartouche .eyebrow{
+  font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:5px}
+.cartouche h1{font-size:19px;font-weight:700;line-height:1.2}
+.cartouche p{margin:7px 0 0;font-size:12.5px;color:var(--ink-2);line-height:1.5}
+
+.aide{
+  position:absolute;bottom:16px;left:18px;font-size:11.5px;color:var(--muted);
+  pointer-events:none;letter-spacing:.01em}
+
+.pilote{position:absolute;top:18px;right:18px;display:flex;flex-direction:column;gap:9px;align-items:flex-end}
+/* Étroit : le cartouche prend toute la largeur, les commandes descendent —
+   superposés en haut, ils se recouvraient. */
+@media (max-width:700px){
+  .cartouche{top:12px;left:12px;max-width:calc(100% - 24px)}
+  .cartouche h1{font-size:17px}
+  .pilote{top:auto;bottom:12px;left:12px;right:12px;
+          flex-direction:row;flex-wrap:wrap;justify-content:flex-end;gap:7px}
+  .aide{display:none}
+}
+.groupe{display:flex;gap:0;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)}
+.groupe button{
+  font:inherit;font-size:11.5px;font-weight:600;letter-spacing:.03em;
+  padding:7px 11px;border:0;border-left:1px solid var(--line);
+  background:transparent;color:var(--ink-2);cursor:pointer}
+.groupe button:first-child{border-left:0}
+.groupe button:hover{background:var(--surface-2);color:var(--ink)}
+.groupe button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.groupe button:focus-visible{outline:2px solid var(--haut);outline-offset:-2px}
+
+/* ---------- rail ---------- */
+.rail{background:var(--surface);padding:26px 26px 40px;display:flex;flex-direction:column;gap:26px;
+      max-height:100vh;overflow-y:auto}
+@media (max-width:960px){.rail{max-height:none;overflow:visible}}
+.bloc>h2{
+  font-size:10.5px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--muted);padding-bottom:7px;border-bottom:1px solid var(--line);margin-bottom:12px}
+
+/* verdict */
+.cle{border-left:3px solid var(--haut);padding:2px 0 2px 14px}
+.cle strong{font-weight:700}
+.cle p{margin:0;font-size:14px;line-height:1.6}
+.cle p+p{margin-top:9px;color:var(--ink-2);font-size:13px}
+
+/* table de cotes */
+table{width:100%;border-collapse:collapse}
+td{padding:6px 0;border-bottom:1px solid var(--line-soft);vertical-align:baseline;font-size:13px}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink-2);padding-right:12px}
+td.v{text-align:right;white-space:nowrap;font-family:"IBM Plex Mono",monospace;
+     font-variant-numeric:tabular-nums;font-weight:500;font-size:12.5px}
+
+/* micros */
+.micros{display:flex;flex-direction:column;gap:1px;background:var(--line-soft);border:1px solid var(--line-soft)}
+.mic{display:grid;grid-template-columns:9px 1fr auto;gap:11px;align-items:center;
+     background:var(--surface);padding:9px 11px}
+.pastille{width:9px;height:9px;border-radius:50%}
+.mic .nom{font-size:13px;font-weight:600}
+.mic .sous{font-size:11.5px;color:var(--muted);font-family:"IBM Plex Mono",monospace}
+.mic .cote{text-align:right;font-family:"IBM Plex Mono",monospace;font-size:12px;
+           font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.niveau{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.1em;
+        padding:1px 5px;border:1px solid currentColor;margin-left:6px;vertical-align:1px}
+
+/* notes */
+.notes{display:flex;flex-direction:column;gap:14px}
+.note{display:grid;grid-template-columns:auto 1fr;gap:11px;align-items:start}
+.note .rep{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;
+           color:var(--surface);background:var(--ink-2);width:19px;height:19px;
+           display:grid;place-items:center;margin-top:2px}
+.note p{margin:0;font-size:13px;line-height:1.55;color:var(--ink-2)}
+.note p b{color:var(--ink);font-weight:600}
+code{font-family:"IBM Plex Mono",monospace;font-size:.9em;background:var(--surface-2);
+     padding:1px 4px;border:1px solid var(--line-soft)}
+.pied{font-size:11.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+</style>
+
+<div class="shell">
+  <div class="stage">
+    <canvas id="vue" tabindex="0" aria-label="Vue 3D de l'antenne tétraédrique, pivotable et zoomable"></canvas>
+
+    <div class="cartouche">
+      <div class="eyebrow">AERO-SPECTRIX · F1GBD</div>
+      <h1>Antenne tétraédrique 70 cm</h1>
+      <p>Deux barres droites, toutes deux horizontales, croisées à 90° et décalées de 49,5 cm en hauteur. Géométrie lue dans <code>config.py</code>.</p>
+    </div>
+
+    <div class="pilote">
+      <div class="groupe" role="group" aria-label="Points de vue">
+        <button data-vue="perspective" aria-pressed="true">Perspective</button>
+        <button data-vue="dessus" aria-pressed="false">Dessus</button>
+        <button data-vue="face" aria-pressed="false">Élévation</button>
+      </div>
+      <div class="groupe" role="group" aria-label="Calques">
+        <button data-calque="cotes" aria-pressed="true">Cotes</button>
+        <button data-calque="aretes" aria-pressed="true">Arêtes</button>
+        <button data-calque="sol" aria-pressed="true">Sol</button>
+        <button data-calque="mat" aria-pressed="true">Mât</button>
+      </div>
+    </div>
+
+    <div class="aide">Glisser pour pivoter · molette ou pincer pour zoomer · flèches du clavier</div>
+  </div>
+
+  <aside class="rail">
+
+    <section class="bloc">
+      <h2>Ce que le dessin corrige</h2>
+      <div class="cle">
+        <p><strong>Il n'y a aucun bras incliné.</strong> Le tétraèdre se construit avec <strong>deux barres droites de 70 cm, l'une et l'autre parfaitement horizontales</strong>, croisées à 90° vu de dessus et séparées de 49,5 cm en hauteur.</p>
+        <p>Le fameux angle de 35,26° est celui de la direction centre→micro. C'est une conséquence de la géométrie, pas une cote de montage : aucune pièce n'est à couper à cet angle.</p>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <h2>Les quatre micros</h2>
+      <div class="micros" id="listeMicros"></div>
+    </section>
+
+    <section class="bloc">
+      <h2>Cotes de montage</h2>
+      <table>
+        <tr><td class="k">Arête du tétraèdre (les six)</td><td class="v">70,0 cm</td></tr>
+        <tr><td class="k">Longueur de chaque barre</td><td class="v">70,0 cm</td></tr>
+        <tr><td class="k">Écart vertical des deux barres</td><td class="v">49,5 cm</td></tr>
+        <tr><td class="k">Angle des barres, vu de dessus</td><td class="v">90,0°</td></tr>
+        <tr><td class="k">Débord de chaque micro / mât</td><td class="v">35,0 cm</td></tr>
+        <tr><td class="k">Barre haute au-dessus du sol</td><td class="v">1,847 m</td></tr>
+        <tr><td class="k">Barre basse au-dessus du sol</td><td class="v">1,353 m</td></tr>
+        <tr><td class="k">Centre acoustique / sol</td><td class="v">1,600 m</td></tr>
+        <tr><td class="k">Centre → micro</td><td class="v">42,9 cm</td></tr>
+        <tr><td class="k">Angle centre→micro / horizontale</td><td class="v">±35,26°</td></tr>
+        <tr><td class="k">Angle entre deux directions</td><td class="v">109,47°</td></tr>
+      </table>
+    </section>
+
+    <section class="bloc">
+      <h2>À respecter au montage</h2>
+      <div class="notes">
+        <div class="note"><span class="rep">N</span><p><b>Orientez la barre haute NE–SW à la boussole.</b> Les azimuts qu'ASPX calcule sont référencés au Nord (<code>atan2(Est, Nord)</code>) et aucun paramètre de réglage ne rattrape une rotation du support. L'antenne posée de travers, tous les relèvements le seront d'autant.</p></div>
+        <div class="note"><span class="rep">2</span><p><b>Seules deux pièces existent.</b> Les quatre arêtes obliques du dessin sont géométriques : elles relient les extrémités des deux barres et ne correspondent à aucun tube. Les ajouter rigidifierait le montage, mais mettrait de la matière au milieu du champ acoustique.</p></div>
+        <div class="note"><span class="rep">3</span><p><b>Le mât traverse le réseau — gardez-le fin.</b> À 500 Hz la longueur d'onde vaut 69 cm ; un tube de 30 mm fait λ/23 et sa diffraction reste négligeable. Un mât de 60 mm, lui, commencerait à compter.</p></div>
+        <div class="note"><span class="rep">4</span><p><b>Le boîtier électronique se fixe sous la barre basse</b>, pas au centre. Une boîte au milieu du tétraèdre diffracterait entre les micros — un effet que le modèle de propagation d'ASPX ne connaît pas et ne corrigera pas.</p></div>
+        <div class="note"><span class="rep">5</span><p><b>Câblage en étoile, pas en guirlande.</b> Les quatre câbles remontent chacun au Teensy ; les deux DOUT d'une même ligne se rejoignent sur le bornier. Dans un tétraèdre régulier, les six paires de micros sont exactement à 70 cm — il n'y a pas de « micros voisins » à apparier, contrairement à ce que je vous avais dit.</p></div>
+        <div class="note"><span class="rep">6</span><p><b>Le point à reporter, c'est l'orifice acoustique</b>, sur la face opposée au MEMS, et non le centre de la platine. Sous 3 kHz le boîtier de 4 mm est omnidirectionnel : l'orientation de la platine importe peu, sa position importe beaucoup.</p></div>
+      </div>
+    </section>
+
+    <div class="pied">
+      Positions issues de <code>ArrayConfig.positions()</code> — quatre sommets alternés d'un cube de 49,5 cm de côté, centroïde à l'origine. Les platines sont dessinées à une échelle exagérée pour rester visibles ; le point exact du micro est le petit repère central.
+    </div>
+  </aside>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ==================================================================
+   GÉOMÉTRIE — recopiée de ArrayConfig.positions(), pas redessinée
+   Quatre sommets alternés d'un cube d'arête a = edge/sqrt(2).
+   ================================================================== */
+var EDGE = 0.70;
+var H_AGL = 1.60;
+var a2 = EDGE / Math.SQRT2 / 2;              // 0,247487 m
+
+var MICS = [
+  {rep:"M1", canal:0, carte:"A", p:[ +a2, +a2, +a2], az:45,  cardinal:"NE", haut:true },
+  {rep:"M2", canal:1, carte:"B", p:[ +a2, -a2, -a2], az:135, cardinal:"SE", haut:false},
+  {rep:"M3", canal:2, carte:"C", p:[ -a2, +a2, -a2], az:315, cardinal:"NW", haut:false},
+  {rep:"M4", canal:3, carte:"D", p:[ -a2, -a2, +a2], az:225, cardinal:"SW", haut:true }
+];
+MICS.forEach(function(m){ m.w = [m.p[0], m.p[1], m.p[2] + H_AGL]; });
+
+var BARRE_HAUTE = [0,3];      // M1 – M4, horizontale, axe NE–SW
+var BARRE_BASSE = [1,2];      // M2 – M3, horizontale, axe SE–NW
+var OBLIQUES = [[0,1],[0,2],[3,1],[3,2]];   // arêtes géométriques, pas des pièces
+
+var Z_HAUT = H_AGL + a2, Z_BAS = H_AGL - a2;
+
+/* ---------- légende latérale ---------- */
+(function(){
+  var h = "";
+  MICS.forEach(function(m){
+    var c = m.haut ? "var(--haut)" : "var(--bas)";
+    h += '<div class="mic">'
+       + '<span class="pastille" style="background:' + c + '"></span>'
+       + '<span><span class="nom">' + m.rep + ' · micro ' + m.carte + '</span>'
+       + '<span class="niveau" style="color:' + c + '">' + (m.haut ? "HAUT" : "BAS") + '</span>'
+       + '<br><span class="sous">canal ' + m.canal + ' · ' + m.az + '° ' + m.cardinal + '</span></span>'
+       + '<span class="cote">' + (m.haut ? "1,847" : "1,353") + ' m</span></div>';
+  });
+  document.getElementById("listeMicros").innerHTML = h;
+})();
+
+/* ==================================================================
+   MOTEUR 3D — projection perspective sur canvas 2D, tri en profondeur
+   ================================================================== */
+var cv = document.getElementById("vue"), cx2 = cv.getContext("2d");
+var DEG = Math.PI / 180;
+var CIBLE = [0, 0, H_AGL];
+var cam = {az:168, el:21, d:3.10};
+var VUE_DEFAUT = {az:168, el:21, d:3.10};
+var calques = {cotes:true, aretes:true, sol:true, mat:true};
+var W = 0, Hh = 0, dpr = 1;
+
+function sub(a,b){return [a[0]-b[0],a[1]-b[1],a[2]-b[2]];}
+function dot(a,b){return a[0]*b[0]+a[1]*b[1]+a[2]*b[2];}
+function cross(a,b){return [a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];}
+function norm(v){var n=Math.hypot(v[0],v[1],v[2])||1;return [v[0]/n,v[1]/n,v[2]/n];}
+function lerp3(a,b,t){return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t];}
+
+var eye, ax, ay, az_, k;
+var NEAR = 0.08;
+
+function majCamera(){
+  var A = cam.az*DEG, E = cam.el*DEG;
+  var dir = [Math.cos(E)*Math.sin(A), Math.cos(E)*Math.cos(A), Math.sin(E)];
+  eye = [CIBLE[0]+cam.d*dir[0], CIBLE[1]+cam.d*dir[1], CIBLE[2]+cam.d*dir[2]];
+  az_ = norm(sub(CIBLE, eye));                 // avant
+  ax  = norm(cross(az_, [0,0,1]));             // droite écran
+  ay  = cross(ax, az_);                        // haut écran
+  k   = (Hh/2) / Math.tan(26*DEG);             // champ vertical 52°
+}
+
+function vue(p){                                // monde -> repère caméra
+  var d = sub(p, eye);
+  return [dot(d,ax), dot(d,ay), dot(d,az_)];
+}
+function ecran(c){
+  return [W/2 + c[0]*k/c[2], Hh/2 - c[1]*k/c[2]];
+}
+function proj(p){
+  var c = vue(p);
+  if (c[2] < NEAR) return null;
+  return {x:W/2 + c[0]*k/c[2], y:Hh/2 - c[1]*k/c[2], z:c[2]};
+}
+/* Segment coupé au plan proche : sans cela un trait qui passe derrière
+   l'observateur ressort projeté à l'envers, en travers de l'image. */
+function projSeg(p1, p2){
+  var c1 = vue(p1), c2 = vue(p2);
+  if (c1[2] < NEAR && c2[2] < NEAR) return null;
+  if (c1[2] < NEAR){ var t=(NEAR-c1[2])/(c2[2]-c1[2]); c1=[c1[0]+(c2[0]-c1[0])*t, c1[1]+(c2[1]-c1[1])*t, NEAR]; }
+  else if (c2[2] < NEAR){ var u=(NEAR-c2[2])/(c1[2]-c2[2]); c2=[c2[0]+(c1[0]-c2[0])*u, c2[1]+(c1[1]-c2[1])*u, NEAR]; }
+  var s1 = ecran(c1), s2 = ecran(c2);
+  return {a:s1, b:s2, z:(c1[2]+c2[2])/2};
+}
+
+/* ---------- couleurs, relues à chaque changement de thème ---------- */
+var C = {};
+function relireCouleurs(){
+  var s = getComputedStyle(document.documentElement);
+  ["ink","ink-2","muted","haut","bas","grid3d","mast","dim","surface","line"].forEach(function(n){
+    C[n] = s.getPropertyValue("--" + n).trim();
+  });
+}
+
+/* ---------- file d'affichage triée en profondeur ---------- */
+var file = [], fileTexte = [];
+function pousse(z, fn){ file.push({z:z, fn:fn}); }
+
+function trait(p1, p2, col, larg, tirets, alpha){
+  var s = projSeg(p1, p2); if (!s) return;
+  pousse(s.z, function(g){
+    g.save();
+    g.globalAlpha = alpha === undefined ? 1 : alpha;
+    g.strokeStyle = col; g.lineWidth = larg; g.lineCap = "round";
+    if (tirets) g.setLineDash(tirets);
+    g.beginPath(); g.moveTo(s.a[0], s.a[1]); g.lineTo(s.b[0], s.b[1]); g.stroke();
+    g.restore();
+  });
+}
+function pastille(p, rayonM, remplissage, contour, largeur){
+  var q = proj(p); if (!q) return;
+  var r = Math.max(2, rayonM * k / q.z);
+  pousse(q.z, function(g){
+    g.beginPath(); g.arc(q.x, q.y, r, 0, 6.2832);
+    if (remplissage){ g.fillStyle = remplissage; g.fill(); }
+    if (contour){ g.strokeStyle = contour; g.lineWidth = largeur || 1.5; g.stroke(); }
+  });
+}
+function texte(p, txt, col, dx, dy, taille, poids, fond){
+  var q = proj(p); if (!q) return;
+  fileTexte.push(function(g){
+    g.font = (poids||600) + " " + (taille||12) + 'px "IBM Plex Mono",monospace';
+    g.textAlign = "left"; g.textBaseline = "middle";
+    var x = q.x + dx, y = q.y + dy;
+    if (fond){
+      var w = g.measureText(txt).width;
+      g.fillStyle = C.surface; g.globalAlpha = .82;
+      g.fillRect(x - 3, y - (taille||12)/2 - 2.5, w + 6, (taille||12) + 5);
+      g.globalAlpha = 1;
+    }
+    g.fillStyle = col; g.fillText(txt, x, y);
+  });
+}
+
+/* Décalage de cote horizontal, calculé dans le repère ÉCRAN : une cote posée
+   à un décalage fixe en coordonnées monde finit tôt ou tard par se superposer
+   au montage quand on tourne. Ici elle reste toujours à côté du mât. */
+function lateral(signe, dist){
+  var h = [ax[0], ax[1], 0], n = Math.hypot(h[0], h[1]) || 1;
+  return [signe*dist*h[0]/n, signe*dist*h[1]/n, 0];
+}
+
+/* Cercle horizontal : en perspective il devient une ellipse, et rend visible
+   d'un coup d'oeil que la barre est bien de niveau. */
+function cercleNiveau(z, r, col){
+  var n = 36, prec = null;
+  for (var i = 0; i <= n; i++){
+    var t = i/n*6.2832, q = [r*Math.cos(t), r*Math.sin(t), z];
+    if (prec) trait(prec, q, col, 1, [3,4], .38);
+    prec = q;
+  }
+}
+
+/* ---------- pièces ---------- */
+function dessinerSol(g){
+  var R = 1.55, pas = 0.25;
+  g.save(); g.lineWidth = 1;
+  for (var i = -R/pas; i <= R/pas + 0.001; i++){
+    var t = i*pas, fort = Math.abs(t % 1) < 1e-6;
+    g.globalAlpha = fort ? 0.5 : 0.22;
+    g.strokeStyle = C.grid3d;
+    [[[t,-R,0],[t,R,0]], [[-R,t,0],[R,t,0]]].forEach(function(seg){
+      var s = projSeg(seg[0], seg[1]); if (!s) return;
+      g.beginPath(); g.moveTo(s.a[0], s.a[1]); g.lineTo(s.b[0], s.b[1]); g.stroke();
+    });
+  }
+  /* rose des vents : le Nord n'est pas décoratif ici, il fixe les azimuts */
+  g.globalAlpha = 1;
+  var n0 = proj([0, R+0.1, 0]), n1 = proj([0, R+0.42, 0]);
+  if (n0 && n1){
+    g.strokeStyle = C["ink-2"]; g.lineWidth = 1.6;
+    g.beginPath(); g.moveTo(n0.x, n0.y); g.lineTo(n1.x, n1.y); g.stroke();
+    g.fillStyle = C["ink-2"];
+    g.font = '700 13px "IBM Plex Mono",monospace';
+    g.textAlign = "center"; g.textBaseline = "middle";
+    g.fillText("N", n1.x, n1.y - 11);
+  }
+  g.restore();
+}
+
+function dessinerMat(){
+  trait([0,0,0], [0,0,Z_HAUT], C.mast, 7, null, 0.55);
+  trait([0,0,0], [0,0,Z_HAUT], C.mast, 2, null, 0.9);
+  /* embase */
+  var n = 22, prec = null;
+  for (var i = 0; i <= n; i++){
+    var t = i/n*6.2832, p = [0.13*Math.cos(t), 0.13*Math.sin(t), 0];
+    if (prec) trait(prec, p, C.mast, 1.4, null, 0.7);
+    prec = p;
+  }
+  /* boîtier électronique, sous la barre basse */
+  var zb = Z_BAS - 0.30, hb = 0.16, lb = 0.085;
+  var coins = [[-lb,-lb],[lb,-lb],[lb,lb],[-lb,lb]];
+  for (var j = 0; j < 4; j++){
+    var A = coins[j], B = coins[(j+1)%4];
+    trait([A[0],A[1],zb], [B[0],B[1],zb], C.mast, 1.6, null, .85);
+    trait([A[0],A[1],zb+hb], [B[0],B[1],zb+hb], C.mast, 1.6, null, .85);
+    trait([A[0],A[1],zb], [A[0],A[1],zb+hb], C.mast, 1.6, null, .85);
+  }
+  texte([lb, -lb, zb + hb/2], "Teensy", C.muted, 9, 0, 10.5, 500, true);
+}
+
+function dessinerMicro(m){
+  var col = m.haut ? C.haut : C.bas;
+  var w = m.w;
+  /* platine, à échelle exagérée pour rester lisible */
+  var dirH = norm([w[0], w[1], 0]);
+  var tang = [-dirH[1], dirH[0], 0];
+  var s = 0.055;
+  var q = [
+    [w[0]+tang[0]*s, w[1]+tang[1]*s, w[2]+s*0.72],
+    [w[0]-tang[0]*s, w[1]-tang[1]*s, w[2]+s*0.72],
+    [w[0]-tang[0]*s, w[1]-tang[1]*s, w[2]-s*0.72],
+    [w[0]+tang[0]*s, w[1]+tang[1]*s, w[2]-s*0.72]
+  ];
+  for (var i = 0; i < 4; i++) trait(q[i], q[(i+1)%4], col, 1.8, null, .95);
+  /* position exacte du micro */
+  pastille(w, 0.017, col, null, 0);
+  pastille(w, 0.030, null, col, 1.4);
+  texte(w, m.rep + " · " + m.carte, col, 13, -11, 12.5, 700, true);
+  texte(w, "canal " + m.canal + " · " + m.az + "°", C.muted, 13, 3, 10.5, 500, true);
+}
+
+function cote(p1, p2, txt, col, decal){
+  var d = decal || [0,0,0];
+  var a = [p1[0]+d[0], p1[1]+d[1], p1[2]+d[2]];
+  var b = [p2[0]+d[0], p2[1]+d[1], p2[2]+d[2]];
+  trait(a, b, col, 1.3, [5,4], .95);
+  trait(p1, a, col, 1, [2,3], .5);
+  trait(p2, b, col, 1, [2,3], .5);
+  var mid = lerp3(a, b, 0.5);
+  texte(mid, txt, col, 8, 0, 11.5, 600, true);
+}
+
+function scene(){
+  file.length = 0; fileTexte.length = 0;
+
+  if (calques.mat) dessinerMat();
+
+  /* arêtes géométriques : pas des pièces, d'où le pointillé */
+  if (calques.aretes){
+    OBLIQUES.forEach(function(e){
+      trait(MICS[e[0]].w, MICS[e[1]].w, C.grid3d, 1.5, [4,5], .9);
+    });
+  }
+
+  /* les deux barres : les seules pièces réelles */
+  trait(MICS[BARRE_BASSE[0]].w, MICS[BARRE_BASSE[1]].w, C.bas, 9, null, 1);
+  trait(MICS[BARRE_HAUTE[0]].w, MICS[BARRE_HAUTE[1]].w, C.haut, 9, null, 1);
+
+  /* centre acoustique */
+  pastille(CIBLE, 0.022, null, C.dim, 1.6);
+
+  MICS.forEach(dessinerMicro);
+
+  if (calques.cotes){
+    cercleNiveau(Z_HAUT, 0.44, C.haut);
+    cercleNiveau(Z_BAS,  0.44, C.bas);
+    cote(MICS[0].w, MICS[3].w, "70,0 cm", C.haut, [0, 0, 0.26]);
+    /* Vues du dessus : une cote VERTICALE s'y écrase en un trait horizontal
+       parasite. On ne la trace que lorsqu'elle veut encore dire quelque chose. */
+    if (Math.abs(cam.el) < 70){
+      cote([0,0,Z_BAS], [0,0,Z_HAUT], "49,5 cm", C.dim, lateral(+1, 0.66));
+      if (calques.mat) cote([0,0,0], CIBLE, "1,60 m", C.dim, lateral(-1, 0.66));
+    }
+  }
+}
+
+function rendre(){
+  majCamera();
+  cx2.setTransform(dpr, 0, 0, dpr, 0, 0);
+  cx2.clearRect(0, 0, W, Hh);
+  if (calques.sol) dessinerSol(cx2);
+  scene();
+  file.sort(function(p, q){ return q.z - p.z; });      // du plus loin au plus près
+  for (var i = 0; i < file.length; i++) file[i].fn(cx2);
+  for (var j = 0; j < fileTexte.length; j++) fileTexte[j](cx2);
+}
+
+/* ---------- dimensionnement ---------- */
+function redimensionner(){
+  var r = cv.parentNode.getBoundingClientRect();
+  dpr = Math.min(window.devicePixelRatio || 1, 2);
+  W = Math.max(320, r.width); Hh = Math.max(280, r.height);
+  cv.width = Math.round(W*dpr); cv.height = Math.round(Hh*dpr);
+  cv.style.width = W + "px"; cv.style.height = Hh + "px";
+  rendre();
+}
+
+/* ---------- pilotage ---------- */
+var glisse = false, lx = 0, ly = 0, pid = null;
+cv.addEventListener("pointerdown", function(e){
+  glisse = true; pid = e.pointerId; lx = e.clientX; ly = e.clientY;
+  cv.setPointerCapture(pid); auto = false;
+});
+cv.addEventListener("pointermove", function(e){
+  if (!glisse || e.pointerId !== pid) return;
+  cam.az -= (e.clientX - lx) * 0.42;
+  cam.el = Math.max(-24, Math.min(87, cam.el + (e.clientY - ly) * 0.34));
+  lx = e.clientX; ly = e.clientY;
+  majBoutonsVue(null); rendre();
+});
+["pointerup","pointercancel"].forEach(function(t){
+  cv.addEventListener(t, function(e){
+    if (e.pointerId === pid){ glisse = false; pid = null; }
+  });
+});
+cv.addEventListener("wheel", function(e){
+  e.preventDefault(); auto = false;
+  cam.d = Math.max(1.15, Math.min(7.5, cam.d * (1 + Math.sign(e.deltaY) * 0.11)));
+  rendre();
+}, {passive:false});
+
+/* pincement à deux doigts */
+var tactiles = {}, ecart0 = 0, d0 = 0;
+cv.addEventListener("touchstart", function(e){
+  if (e.touches.length === 2){
+    ecart0 = Math.hypot(e.touches[0].clientX - e.touches[1].clientX,
+                        e.touches[0].clientY - e.touches[1].clientY);
+    d0 = cam.d; auto = false;
+  }
+}, {passive:true});
+cv.addEventListener("touchmove", function(e){
+  if (e.touches.length === 2 && ecart0 > 0){
+    e.preventDefault();
+    var d = Math.hypot(e.touches[0].clientX - e.touches[1].clientX,
+                       e.touches[0].clientY - e.touches[1].clientY);
+    cam.d = Math.max(1.15, Math.min(7.5, d0 * ecart0 / Math.max(d, 1)));
+    rendre();
+  }
+}, {passive:false});
+cv.addEventListener("touchend", function(){ ecart0 = 0; }, {passive:true});
+
+cv.addEventListener("keydown", function(e){
+  var pris = true;
+  if (e.key === "ArrowLeft")       cam.az -= 6;
+  else if (e.key === "ArrowRight") cam.az += 6;
+  else if (e.key === "ArrowUp")    cam.el = Math.min(87, cam.el + 5);
+  else if (e.key === "ArrowDown")  cam.el = Math.max(-24, cam.el - 5);
+  else if (e.key === "+" || e.key === "=") cam.d = Math.max(1.15, cam.d*0.9);
+  else if (e.key === "-" || e.key === "_") cam.d = Math.min(7.5, cam.d*1.1);
+  else if (e.key === "0") cam = Object.assign({}, VUE_DEFAUT);
+  else pris = false;
+  if (pris){ e.preventDefault(); auto = false; majBoutonsVue(null); rendre(); }
+});
+
+var VUES = {
+  perspective:{az:168, el:21,   d:3.10},
+  /* Le dessus doit contenir la rose des vents, l'élévation doit contenir le
+     pied du mât : ces deux vues ont besoin de plus de recul que la première. */
+  dessus:     {az:180, el:86.5, d:3.85},
+  face:       {az:180, el:3.0,  d:4.30}
+};
+function majBoutonsVue(nom){
+  document.querySelectorAll("[data-vue]").forEach(function(b){
+    b.setAttribute("aria-pressed", b.dataset.vue === nom ? "true" : "false");
+  });
+}
+document.querySelectorAll("[data-vue]").forEach(function(b){
+  b.addEventListener("click", function(){
+    cam = Object.assign({}, VUES[b.dataset.vue]);
+    auto = false; majBoutonsVue(b.dataset.vue); rendre();
+  });
+});
+document.querySelectorAll("[data-calque]").forEach(function(b){
+  b.addEventListener("click", function(){
+    var n = b.dataset.calque;
+    calques[n] = !calques[n];
+    b.setAttribute("aria-pressed", calques[n] ? "true" : "false");
+    rendre();
+  });
+});
+
+/* ---------- rotation d'accueil, coupée dès qu'on touche ---------- */
+/* Une brève arrivée en rotation dit « ça se tourne » sans imposer un
+   tourniquet permanent — qui finirait de toute façon par présenter la barre
+   haute par le bout, c'est-à-dire l'angle le moins lisible. */
+var reduit = window.matchMedia("(prefers-reduced-motion: reduce)");
+var auto = !reduit.matches, t0 = null, AZ_FIN = VUE_DEFAUT.az, DUREE = 850;
+if (auto) cam.az = AZ_FIN - 26;
+function boucle(t){
+  if (auto){
+    if (t0 === null) t0 = t;
+    var u = Math.min(1, (t - t0)/DUREE);
+    cam.az = AZ_FIN - 26 * (1 - (1 - Math.pow(1-u, 3)));
+    rendre();
+    if (u >= 1) auto = false;
+  }
+  if (!auto) return;
+  requestAnimationFrame(boucle);
+}
+
+/* ---------- thème ---------- */
+relireCouleurs();
+window.matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", function(){ relireCouleurs(); rendre(); });
+new MutationObserver(function(){ relireCouleurs(); rendre(); })
+    .observe(document.documentElement, {attributes:true, attributeFilter:["data-theme"]});
+
+if (window.ResizeObserver) new ResizeObserver(redimensionner).observe(cv.parentNode);
+window.addEventListener("resize", redimensionner);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(rendre);
+redimensionner();
+if (auto) requestAnimationFrame(boucle); else rendre();
+})();
+</script>
+
+</body>
+</html>
