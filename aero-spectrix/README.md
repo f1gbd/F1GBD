@@ -551,6 +551,9 @@ pour une arête de 70 cm : deux barres de 70,0 cm, décalage de 49,5 cm.
 > 70 cm introduit 0,4° de biais **systématique** — il ne se moyenne pas avec le
 > temps et aucun filtrage ne l'élimine.
 
+**[Vue 3D interactive de l'antenne](https://f1gbd.github.io/aero-spectrix/teensy/Antenne_3D_ASPX.html)**
+— tétraèdre 70 cm, pivotable et zoomable, cotes de montage.
+
 ### La contrainte qui commande tout
 
 > [!IMPORTANT]
