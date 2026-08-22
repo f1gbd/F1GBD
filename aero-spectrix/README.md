@@ -6,7 +6,7 @@
 
 **Radar acoustique de détection, de localisation et de poursuite d'aéronefs sans pilote**
 
-![version](https://img.shields.io/badge/ASPX-1.4.0-0B3B57)
+![version](https://img.shields.io/badge/ASPX-1.4.1-0B3B57)
 ![ASPXmulti](https://img.shields.io/badge/ASPXmulti-2.0.0-5B2C83)
 ![plateforme](https://img.shields.io/badge/plateforme-Windows%2010%20%2F%2011%20x64-0B3B57)
 ![tests](https://img.shields.io/badge/tests-73%2F73-1B7F4F)
@@ -52,12 +52,14 @@ d'arête, l'écart maximal entre deux microphones vaut 2 047 µs, soit
 - [Prise en main en cinq minutes](#prise-en-main-en-cinq-minutes)
 - [Scénarios de démonstration](#scénarios-de-démonstration)
 - [ASPXmulti — le réseau à quatre stations](#aspxmulti--le-réseau-à-quatre-stations)
+- [La station transmet en LXMF](#la-station-transmet-en-lxmf)
 - [Fonctionnalités](#fonctionnalités)
 - [Lire le scope](#lire-le-scope)
 - [Le matériel](#le-matériel)
 - [Version d'évaluation à bas coût](#version-dévaluation-à-bas-coût)
 - [Documentation](#documentation)
 - [Validation](#validation)
+- [Nouveautés de la version 1.4.1](#nouveautés-de-la-version-141)
 - [Nouveautés de la version 1.4.0](#nouveautés-de-la-version-140)
 - [Nouveautés de la version 1.3.0](#nouveautés-de-la-version-130)
 - [Architecture](#architecture)
@@ -154,7 +156,7 @@ lire ce format. Vous obtenez un dossier `ASPX\` contenant :
 
 | Élément | |
 |---|---|
-| `ASPX.exe` | **la station** v1.4.0 — une antenne, détection et poursuite |
+| `ASPX.exe` | **la station** v1.4.1 — une antenne, détection, poursuite, liaison LXMF |
 | `ASPXmulti.exe` | **le réseau** v2.0.0 — quatre stations, fusion au PCO |
 | `_internal\` | les bibliothèques, communes aux deux |
 | `scenarios\` | cinq configurations prêtes à charger |
@@ -332,6 +334,106 @@ annonces du réseau et présente les stations entendues, comme le fait l'onglet
 > alerte, viser plusieurs destinataires multiplie l'occupation du canal
 > d'autant. L'architecture tenable est donc **un seul destinataire direct — la
 > station de fusion —** qui redistribue ensuite hors radio.
+
+## La station transmet en LXMF
+
+*Nouveau en 1.4.1.* Jusqu'ici, seul ASPXmulti parlait sur le réseau, et il
+simulait ses quatre stations. La **station réelle** sait désormais émettre
+ses propres relèvements — vers un poste de commandement, ou, en attendant que
+celui-ci existe, vers une station TCQ ou RATspeak pour vérifier la chaîne de
+bout en bout.
+
+Le groupe **Liaison LXMF** apparaît dans le panneau d'état, sous l'alarme :
+*Destinataire…* liste les stations entendues sur le maillage Reticulum, avec
+un filtre ; la case *Transmettre* ouvre la liaison ; trois champs portent la
+position du poste.
+
+### Le point d'émission est celui de l'alarme
+
+Un seul endroit du code alimente à la fois la logique d'alarme et la liaison,
+et il sert aux **deux modes** — relecture de simulation comme acquisition
+directe. Ce qui déclenche l'alarme ici est donc exactement ce qui part vers
+le PCO. Deux chemins distincts finiraient par diverger, et l'écart entre « ce
+qui sonne ici » et « ce qui part là-bas » est précisément celui qu'on ne peut
+pas se permettre.
+
+Conséquence utile : **rien n'est émis tant que la chaîne ne tourne pas.** Une
+liaison qui émettrait sur son propre minuteur occuperait le canal pour rien.
+
+### Ce qui part sur l'air
+
+Un relèvement ne pèse que **24 octets** ; le paquet réellement émis en fait
+**227**. L'écart n'est pas du gaspillage : signature Ed25519, chiffrement à
+clé éphémère, en-tête de transport. C'est le prix d'un message signé, chiffré
+et routable, et il se paie en temps d'antenne.
+
+| | charge utile | sur l'air | SF7 | 4 postes à 1 msg / 5 s |
+|---|---:|---:|---:|---:|
+| relèvement | 24 o | 227 o | 358,7 ms | 28,7 % |
+| avec position | 34 o | 237 o | 374,0 ms | 29,9 % |
+
+Au-delà de **18 %** d'occupation, un accès aléatoire perd plus de messages par
+collision qu'il n'en gagne en fraîcheur. La cadence s'adapte donc d'elle-même :
+un relèvement toutes les **5 s** en piste confirmée, **10 s** quand le canal
+sature, un battement de vie toutes les **300 s** au repos. Chaque poste mesure
+l'occupation réelle et ralentit seul — aucun coordinateur, et le dispositif se
+règle quand un poste s'ajoute ou disparaît.
+
+### La position du poste — format v3
+
+La station transmet **sa propre position** : latitude et longitude au
+1e-7 degré (convention NMEA, 1,1 cm, entier signé 32 bits), altitude au mètre.
+Dix octets, qui portent la charge utile à 34 et la version de format à 3.
+
+Elle n'est pas dans chaque relèvement. Elle part avec le **premier message**
+après l'ouverture de la liaison — le PCO doit pouvoir placer la station dès le
+premier relèvement, pas au bout des cinq minutes du battement — puis toutes
+les **60 s**. À la cadence confirmée, cela fait un message sur douze : le
+surcoût de 4,3 % se dilue à **0,4 %**.
+
+Le budget de canal, lui, est calculé sur le paquet **avec** position, le plus
+gros des deux. Surestimer de 4 % fait ralentir un peu tôt ; sous-estimer
+ferait émettre au-delà de ce que le canal tient, et une collision ne se voit
+pas — elle se traduit seulement par un relèvement qui n'arrive jamais.
+
+`decode()` accepte 24 **ou** 34 octets : une station restée au format
+précédent reste exploitable, il lui manquera seulement la position.
+
+### Nom d'annonce
+
+Chaque station s'annonce sous **`TCQ-ASPX`** suivi des quatre premiers
+caractères de son adresse LXMF — `TCQ-ASPX3f2a`. Le suffixe est dérivé de
+l'identité : différent pour chaque station, stable dans le temps. Deux
+stations qui feraient tourner le même logiciel seraient sinon indiscernables
+dans la liste de TCQ, et l'opérateur qui en coche une n'aurait aucun moyen de
+savoir laquelle. ASPXmulti s'annonce sous `TCQ-ASPXmulti…`, le futur poste de
+commandement sous `TCQ-ASPXcontrol…`.
+
+L'identité qui signe est **créée une fois et conservée**. C'est elle que le
+PCO inscrira sur sa liste blanche ; régénérée à chaque lancement, elle
+obligerait à ré-autoriser la station à chaque vacation.
+
+### Trois refus délibérés
+
+| | |
+|---|---|
+| **Une trame sans direction n'est pas émise.** | Un azimut indéterminé, encodé, finirait à zéro et enverrait le PCO plein Nord. |
+| **Une position à (0, 0) n'est pas transmise.** | C'est un point réel au large du golfe de Guinée, mais c'est surtout la valeur d'un champ qu'on n'a pas rempli. |
+| **Plusieurs PCO entendus : aucun n'est choisi.** | Deviner enverrait les relèvements d'une opération à un poste qui n'est pas le sien, sans que personne ne s'en aperçoive. L'opérateur tranche. |
+
+### Ce que la station ne fait pas encore
+
+Elle **émet**, elle ne reçoit pas. Le poste de commandement — **ASPXcontrol
+v1.0** — fusionnera les relèvements de plusieurs stations et affichera la
+position consolidée ; il est en conception, et la liaison décrite ici est la
+première brique posée. En attendant, le destinataire d'essai est une station
+TCQ ou RATspeak, qui affiche le texte lisible du message.
+
+> **LXMF ne diffuse pas.** Il n'existe ni adresse de groupe ni clé partagée :
+> ce que TCQ et RATspeak appellent « groupe » est une liste tenue côté client,
+> qui émet **un message par destinataire**. Viser quatre destinataires
+> quadruple l'occupation du canal. La station émet donc vers **un seul**
+> destinataire direct, qui redistribue ensuite hors radio.
 
 ## Fonctionnalités
 
@@ -550,6 +652,43 @@ contre lui-même ne prouve rien :
   73/73 tests réussis
 ==========================================================================
 ```
+
+## Nouveautés de la version 1.4.1
+
+### La station émet ses relèvements en LXMF
+
+Voir [le chapitre qui lui est consacré](#la-station-transmet-en-lxmf) :
+panneau *Liaison LXMF*, format v3 avec la position du poste, nom d'annonce
+`TCQ-ASPX…`, et l'émission prise au même point que l'alarme. C'est la
+première brique d'**ASPXcontrol v1.0**, le poste de commandement, dont la
+conception est engagée.
+
+### Champs de configuration lisibles
+
+Trois causes se cumulaient, et la troisième était la principale :
+
+* les 40 champs numériques étaient alignés **à droite** — le chiffre se collait
+  au bord, c'est-à-dire à l'endroit exact que le panneau rogne. Le libellé
+  restait lisible, la valeur disparaissait : on croyait le champ vide ;
+* le panneau interdisait sa barre de défilement horizontale et **coupait sans
+  rien dire** dès qu'il était plus étroit que son contenu ;
+* la répartition des panneaux plafonnait la largeur à 400 px, et **sortait
+  avant de répartir** quand la fenêtre était maximisée ou en plein écran. On
+  agrandissait, rien ne s'élargissait.
+
+Les valeurs sont désormais alignées à gauche, le plafond est à 520 px, la
+répartition s'applique aussi en plein écran, et un libellé de préréglage trop
+long porte son texte entier en infobulle — une troncature silencieuse dans une
+liste de préréglages fait croire qu'on a choisi autre chose.
+
+### Panneau d'alarme épuré
+
+Deux pavés explicatifs débordaient de la hauteur réservée et recouvraient les
+réglages suivants : on lisait trois lignes sur cinq, par-dessus un libellé. Ils
+sont passés en infobulle, où ils ont toute la place — les quatre critères y
+sont numérotés, et le délai de confirmation y est recalculé à chaque
+changement (« 4 trames de 64 ms, soit 0,26 s »). Le groupe est passé de 450 à
+239 px.
 
 ## Nouveautés de la version 1.4.0
 
