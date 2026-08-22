@@ -261,7 +261,7 @@ autour d'un site croisent leurs relèvements, et l'intersection donne un
 
 <div align="center">
 <img src="images/ASPXmulti_v2.png" alt="ASPXmulti, réseau à quatre stations" width="960">
-<br><em>Scénario Shahed-136, maillage de 4 km au sud de Melun. P3 et P4 tiennent
+<br><em>Scénario Shahed-136, maillage de 4 km au nord de Melun. P3 et P4 tiennent
 la cible, la position consolidée est donnée à ± 49 m, et le bandeau rouge
 signale l'aéronef confirmé. Fond OpenStreetMap à l'échelle de la simulation.</em>
 </div>
