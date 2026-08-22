@@ -148,7 +148,7 @@ en fonction de la distance.</em>
 
 ## Installation
 
-Téléchargez **`ASPX.7z`** : https://github.com/f1gbd/F1GBD/releases/download/v1.41/ASPX.7z puis décompressez-la
+Téléchargez **`ASPX.7z`** : https://github.com/f1gbd/F1GBD/releases/download/v1.42/ASPX.7z puis décompressez-la
 où vous voulez — [7-Zip](https://www.7-zip.org/) ou tout autre outil sachant
 lire ce format. Vous obtenez un dossier `ASPX\` contenant :
 
