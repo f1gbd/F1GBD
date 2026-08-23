@@ -339,6 +339,7 @@ comprendre avant de déployer quoi que ce soit.
 |---|---:|---:|---:|---:|
 | Quadricoptère moyen | 258 m | carré de 300 m | 0,5 km² | 0,24 km² |
 | **Shahed-136 / Geran-2** | 3 100 m | 4 km × 3 km | **83 km²** | **31,8 km²** |
+| **Robin DR-400** | 8 182 m | 4 km × 3 km | **337 km²** | **247 km²** |
 
 Même logiciel, même protocole, même fusion : seul le maillage change. La
 surface où l'on obtient une position — et non une simple direction — est
