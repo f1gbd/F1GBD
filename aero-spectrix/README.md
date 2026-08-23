@@ -45,25 +45,50 @@ d'arête, l'écart maximal entre deux microphones vaut 2 047 µs, soit
 
 ## Sommaire
 
-- [Ce que le système fait](#ce-que-le-système-fait)
-- [Ce qu'il ne fait pas](#ce-quil-ne-fait-pas)
-- [Performances](#performances)
-- [Installation](#installation)
-- [Prise en main en cinq minutes](#prise-en-main-en-cinq-minutes)
-- [Scénarios de démonstration](#scénarios-de-démonstration)
-- [ASPXmulti — le réseau à quatre stations](#aspxmulti--le-réseau-à-quatre-stations)
-- [La station transmet en LXMF](#la-station-transmet-en-lxmf)
-- [Fonctionnalités](#fonctionnalités)
-- [Lire le scope](#lire-le-scope)
-- [Le matériel](#le-matériel)
-- [Version d'évaluation à bas coût](#version-dévaluation-à-bas-coût)
-- [Documentation](#documentation)
-- [Validation](#validation)
-- [Nouveautés de la version 1.4.1](#nouveautés-de-la-version-141)
-- [Nouveautés de la version 1.4.0](#nouveautés-de-la-version-140)
-- [Nouveautés de la version 1.3.0](#nouveautés-de-la-version-130)
-- [Architecture](#architecture)
-- [Licence](#licence)
+- [AERO-SPECTRIX — ASPX](#aero-spectrix--aspx)
+  - [Sommaire](#sommaire)
+  - [Ce que le système fait](#ce-que-le-système-fait)
+  - [Ce qu'il ne fait pas](#ce-quil-ne-fait-pas)
+  - [Performances](#performances)
+  - [Installation](#installation)
+  - [Prise en main en cinq minutes](#prise-en-main-en-cinq-minutes)
+  - [Scénarios de démonstration](#scénarios-de-démonstration)
+  - [ASPXmulti — le réseau à quatre stations](#aspxmulti--le-réseau-à-quatre-stations)
+    - [Ce qui est simulé, et ce qui ne l'est pas](#ce-qui-est-simulé-et-ce-qui-ne-lest-pas)
+    - [L'échelle du terrain dépend de la cible](#léchelle-du-terrain-dépend-de-la-cible)
+    - [Cinq scénarios](#cinq-scénarios)
+    - [Trois options, par case à cocher](#trois-options-par-case-à-cocher)
+    - [La liaison LXMF](#la-liaison-lxmf)
+  - [La station transmet en LXMF](#la-station-transmet-en-lxmf)
+    - [Le point d'émission est celui de l'alarme](#le-point-démission-est-celui-de-lalarme)
+    - [Ce qui part sur l'air](#ce-qui-part-sur-lair)
+    - [La position du poste — format v3](#la-position-du-poste--format-v3)
+    - [Nom d'annonce](#nom-dannonce)
+    - [Trois refus délibérés](#trois-refus-délibérés)
+    - [Ce que la station ne fait pas encore](#ce-que-la-station-ne-fait-pas-encore)
+  - [Fonctionnalités](#fonctionnalités)
+    - [L'alarme, en détail](#lalarme-en-détail)
+  - [Lire le scope](#lire-le-scope)
+  - [Le matériel](#le-matériel)
+    - [La contrainte qui commande tout](#la-contrainte-qui-commande-tout)
+    - [Les microphones](#les-microphones)
+  - [Version d'évaluation à bas coût](#version-dévaluation-à-bas-coût)
+  - [Documentation](#documentation)
+  - [Validation](#validation)
+  - [Nouveautés de la version 1.4.1](#nouveautés-de-la-version-141)
+    - [La station émet ses relèvements en LXMF](#la-station-émet-ses-relèvements-en-lxmf)
+    - [Champs de configuration lisibles](#champs-de-configuration-lisibles)
+    - [Panneau d'alarme épuré](#panneau-dalarme-épuré)
+  - [Nouveautés de la version 1.4.0](#nouveautés-de-la-version-140)
+    - [ASPXmulti v2.0 — le réseau à quatre stations](#aspxmulti-v20--le-réseau-à-quatre-stations)
+    - [Fenêtre de détection adaptative](#fenêtre-de-détection-adaptative)
+    - [Préréglage Shahed-136 / Geran-2](#préréglage-shahed-136--geran-2)
+    - [Garde-fou sur la plage du détecteur](#garde-fou-sur-la-plage-du-détecteur)
+    - [Corrections](#corrections)
+  - [Nouveautés de la version 1.3.0](#nouveautés-de-la-version-130)
+  - [Architecture](#architecture)
+  - [Licence](#licence)
+    - [Composants tiers](#composants-tiers)
 
 ---
 
@@ -551,8 +576,16 @@ pour une arête de 70 cm : deux barres de 70,0 cm, décalage de 49,5 cm.
 > 70 cm introduit 0,4° de biais **systématique** — il ne se moyenne pas avec le
 > temps et aucun filtrage ne l'élimine.
 
+<div align="center">
+<img src="images/antenne_radar_3D.jpg" alt="Vue d'ensemble d'un passage au zénith" width="900">
+</div>
+
 **[Vue 3D interactive de l'antenne](https://f1gbd.github.io/F1GBD/aero-spectrix/teensy/Antenne_3D_ASPX.html)**
 — tétraèdre 70 cm, pivotable et zoomable, cotes de montage.
+
+<div align="center">
+<img src="images/capteur_3D.jpg" alt="Vue d'ensemble d'un passage au zénith" width="900">
+</div>
 
 **[Vue 3D interactive du support du Capteur MEMS](https://f1gbd.github.io/F1GBD/aero-spectrix/teensy/Capteur_3D_ASPX.html)**
 — Capteur MEMS ICS 43434, pivotable et zoomable, cotes de montage.
@@ -620,9 +653,23 @@ synchronisation découle du **câblage**, pas d'un réglage qu'on pourrait rater
 C'est ce qui rend un montage à 70 € valable pour de la mesure de temps
 d'arrivée, alors que bien des solutions plus chères ne le sont pas.
 
+<div align="center">
+<img src="images/teensy_mms.jpg" alt="Teensy v4.1 et Capteurs MMS" width="900">
+<br><em>Ici la version <strong>Low-Cost</strong> avec une carte Teensy v4.1 et 4 capteurs I2S MEMS-43434.</em>
+
+<br>
+</div>
+
 Le document *Version d'évaluation à bas coût* détaille les deux montages :
 schémas de câblage, nomenclatures chiffrées, croquis Teensy quatre voies, pont
 série vers le PC et procédure de mesure des écarts résiduels entre voies.
+
+<div align="center">
+<img src="images/Antenne_Radar_Teensy.jpg" alt="Schéma de câblage du Teensy v4.1 avec les Capteurs MMS" width="900">
+<br><em>Schéma de câblage du Teensy v4.1 avec les Capteurs MMS.</em>
+
+<br>
+</div>
 
 > **En campagne de jour, le montage à 70 € perd 6 % de portée** face à la chaîne
 > de mesure à 500 €. Le facteur limitant n'est pas le microphone, c'est le site :
