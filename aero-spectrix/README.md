@@ -6,8 +6,8 @@
 
 **Radar acoustique de détection, de localisation et de poursuite d'aéronefs sans pilote**
 
-![version](https://img.shields.io/badge/ASPX-1.4.1-0B3B57)
-![ASPXmulti](https://img.shields.io/badge/ASPXmulti-2.0.0-5B2C83)
+![version](https://img.shields.io/badge/ASPX-1.4.2-0B3B57)
+![ASPXmulti](https://img.shields.io/badge/ASPXmulti-2.1.0-5B2C83)
 ![plateforme](https://img.shields.io/badge/plateforme-Windows%2010%20%2F%2011%20x64-0B3B57)
 ![tests](https://img.shields.io/badge/tests-73%2F73-1B7F4F)
 ![licence](https://img.shields.io/badge/licence-gratuite%20%E2%80%94%20usage%20libre-D2600F)
@@ -35,7 +35,7 @@ d'arête, l'écart maximal entre deux microphones vaut 2 047 µs, soit
 </div>
 
 > **Deux applications, une seule archive.** Depuis la 1.4.0, le téléchargement
-> contient aussi **ASPXmulti v2.0** : quatre stations ASPX réparties autour
+> contient aussi **ASPXmulti v2.1** : quatre stations ASPX réparties autour
 > d'un site, leurs relèvements croisés en direct, la position consolidée au
 > PCO et sa transmission en LXMF vers TCQ ou RATspeak. Une antenne seule
 > mesure une **direction** ; il en faut deux pour obtenir un **point**.
@@ -56,7 +56,7 @@ d'arête, l'écart maximal entre deux microphones vaut 2 047 µs, soit
   - [ASPXmulti — le réseau à quatre stations](#aspxmulti--le-réseau-à-quatre-stations)
     - [Ce qui est simulé, et ce qui ne l'est pas](#ce-qui-est-simulé-et-ce-qui-ne-lest-pas)
     - [L'échelle du terrain dépend de la cible](#léchelle-du-terrain-dépend-de-la-cible)
-    - [Cinq scénarios](#cinq-scénarios)
+    - [Sept scénarios](#sept-scénarios)
     - [Trois options, par case à cocher](#trois-options-par-case-à-cocher)
     - [La liaison LXMF](#la-liaison-lxmf)
   - [La station transmet en LXMF](#la-station-transmet-en-lxmf)
@@ -75,6 +75,9 @@ d'arête, l'écart maximal entre deux microphones vaut 2 047 µs, soit
   - [Version d'évaluation à bas coût](#version-dévaluation-à-bas-coût)
   - [Documentation](#documentation)
   - [Validation](#validation)
+  - [Nouveautés de la version 1.4.2](#nouveautés-de-la-version-142)
+    - [Le son de synthèse ressemble enfin à un moteur](#le-son-de-synthèse-ressemble-enfin-à-un-moteur)
+    - [ASPXmulti v2.1 — le DR400 et le piège de l'harmonique](#aspxmulti-v21--le-dr400-et-le-piège-de-lharmonique)
   - [Nouveautés de la version 1.4.1](#nouveautés-de-la-version-141)
     - [La station émet ses relèvements en LXMF](#la-station-émet-ses-relèvements-en-lxmf)
     - [Champs de configuration lisibles](#champs-de-configuration-lisibles)
@@ -145,6 +148,7 @@ Portées de détection prévues par le bilan de liaison, en campagne calme
 | Avion thermique 2 temps, 2 cyl. | 92 dB(A) | 233 Hz | 1 391 m | **1 930 m** |
 | Avion thermique 2 temps, 4 cyl. | 95 dB(A) | 400 Hz | 1 974 m | **2 627 m** |
 | **Shahed-136 / Geran-2** | 101 dB(A) | 433 Hz | 2 715 m | **3 472 m** |
+| **Robin DR400** (cible d'entraînement) | 120 dB(A) | 80 Hz | 6 523 m | **8 182 m** |
 
 > La colonne de gauche est celle des versions jusqu'à la 1.3.0. Celle de
 > droite est la 1.4.0 avec sa fenêtre de détection adaptative — même
@@ -154,6 +158,17 @@ Portées de détection prévues par le bilan de liaison, en campagne calme
 > vent 2,5 m/s ». La légende était fausse : ils étaient calculés avec la
 > configuration par défaut, 32 dB(A) et 2 m/s. Les valeurs, elles, sont
 > exactes et se reproduisent au mètre près.*
+
+Le **Robin DR400** figure en dernier parce qu'un avion léger s'entend de très
+loin : c'est justement ce qui en fait la cible d'entraînement idéale. Deux
+réserves, cependant. Son niveau de 120 dB(A) est un **équivalent de source
+ponctuelle à 1 m**, pas une mesure au pied de l'appareil. Et sa fréquence
+suivie de 80 Hz tombe **sous le plancher du peigne**, réglé à 90 Hz par
+défaut : le bilan de liaison ne modélise pas cette borne, donc les 8,2 km
+supposent que l'on descende le plancher à 55 Hz, comme le fait le scénario
+livré. Au réglage par défaut la détection fonctionne quand même — le peigne
+s'accroche à un harmonique plus haut de la même famille — mais la fréquence
+annoncée devient ambiguë.
 
 **Précision angulaire** : 0,14° dans les meilleures configurations, 0,70° dans
 les plus défavorables, avec une arête de 70 cm. Erreur médiane mesurée sur le
@@ -175,16 +190,16 @@ en fonction de la distance.</em>
 
 ## Installation
 
-Téléchargez **`ASPX.7z`** : https://github.com/f1gbd/F1GBD/releases/download/v1.42/ASPX.7z puis décompressez-la
+Téléchargez **`ASPX.7z`** : https://github.com/f1gbd/F1GBD/releases/download/v1.43/ASPX.7z puis décompressez-la
 où vous voulez — [7-Zip](https://www.7-zip.org/) ou tout autre outil sachant
 lire ce format. Vous obtenez un dossier `ASPX\` contenant :
 
 | Élément | |
 |---|---|
-| `ASPX.exe` | **la station** v1.4.1 — une antenne, détection, poursuite, liaison LXMF |
-| `ASPXmulti.exe` | **le réseau** v2.0.0 — quatre stations, fusion au PCO |
+| `ASPX.exe` | **la station** v1.4.2 — une antenne, détection, poursuite, liaison LXMF |
+| `ASPXmulti.exe` | **le réseau** v2.1.0 — quatre stations, fusion au PCO |
 | `_internal\` | les bibliothèques, communes aux deux |
-| `scenarios\` | cinq configurations prêtes à charger |
+| `scenarios\` | six configurations prêtes à charger |
 | `AERO-SPECTRIX_fiche_technique.pdf` | la fiche technique |
 | `LICENSE` | la licence d'utilisation |
 | `THIRD-PARTY-NOTICES.txt` | les licences des composants tiers |
@@ -244,7 +259,7 @@ entre les deux est l'erreur réelle, affichée en chiffres.
 
 ## Scénarios de démonstration
 
-Le dossier `scenarios/` de l'archive contient cinq configurations prêtes à
+Le dossier `scenarios/` de l'archive contient six configurations prêtes à
 charger — *Fichier → Charger une configuration…* — placées dans la bande où
 la trame seule décroche et où la fenêtre adaptative tient encore. Elles sont
 là pour être **rejouées** : la graine aléatoire est fixée, le bruit et la
@@ -272,6 +287,17 @@ tient-elle ? » plutôt que « jusqu'où voit-on ? » : à distance constante la
 fenêtre longue ne recule aucun seuil, mais la piste passe de 70 % à 95 % du
 temps. Le scénario 5 est le plus démonstratif : vingt secondes de préavis
 supplémentaires, soit un kilomètre à 185 km/h.
+
+**Le sixième scénario ne démontre rien** — et c'est pour cela qu'il compte.
+`06_robin_dr400_entrainement.json` reproduit un passage de **Robin DR400**
+d'aéroclub à 300 m sol : la cible avec laquelle on valide une station en
+conditions réelles, sur rendez-vous avec un pilote, sans faire voler quoi que
+ce soit d'inhabituel. Détection sur 100 % des trames, piste sur 99,8 %, erreur
+médiane 0,43°, portée prévue 8,2 km. Il a révélé au passage une limite que
+personne n'avait vue venir : l'hélice étant **en prise directe**, l'allumage
+du quatre-cylindres et le passage des deux pales tombent tous deux à 80 Hz —
+sous le plancher du peigne. La direction reste juste, c'est
+l'**identification** qui se perd.
 
 Le `README.md` du dossier détaille chaque cas, y compris ce qu'il **ne**
 montre pas — deux scénarios acquièrent la cible dès son entrée en scène et ne
@@ -321,10 +347,11 @@ de position — puis P3 ferme le point à **t = 55 s**, 2,5 km avant le PCO.
 Erreur médiane sur la position consolidée : **26 m**, p90 55 m, pour
 45 messages sur le canal LoRa en 140 s.
 
-### Cinq scénarios
+### Sept scénarios
 
 Approche simple · deux aéronefs (le cas des **fantômes**) · perte d'un poste ·
-vent fort · Shahed-136 en maillage 4 km.
+vent fort · Shahed-136 en maillage 4 km · **Robin DR400 en validation de
+réseau** · **le piège de l'harmonique**.
 
 Le scénario des fantômes mérite un mot. Deux aéronefs de même altitude et de
 même régime rotor, entendus par deux postes seulement, produisent quatre
@@ -685,6 +712,8 @@ série vers le PC et procédure de mesure des écarts résiduels entre voies.
 | **Version d'évaluation à bas coût** | 18 pages : montages Teensy et électret, schémas, nomenclatures |
 | **Étude de coûts** | 18 pages : sept paliers chiffrés, du simulateur au poste opérationnel |
 | **Schéma de câblage** | Page HTML autonome, cotes calculées depuis la configuration |
+| [**Vue 3D de l'antenne**](https://f1gbd.github.io/F1GBD/aero-spectrix/teensy/Antenne_3D_ASPX.html) | Le tétraèdre de 70 cm, pivotable et zoomable, avec ses cotes de montage |
+| [**Vue 3D de l'extrémité de bras**](https://f1gbd.github.io/F1GBD/aero-spectrix/teensy/Capteur_3D_ASPX.html) | Le montage de la plaque MEMS : débord, orifice acoustique, orientation |
 
 ## Validation
 
@@ -712,6 +741,85 @@ contre lui-même ne prouve rien :
   73/73 tests réussis
 ==========================================================================
 ```
+
+## Nouveautés de la version 1.4.2
+
+### Le son de synthèse ressemble enfin à un moteur
+
+Un utilisateur écoutant le passage du DR400 a signalé que le rendu sonore ne
+ressemblait pas à un vrai moteur à pistons. Il avait raison, et le défaut
+tenait à une ligne : chaque harmonique recevait **sa propre phase tirée au
+hasard**.
+
+Or l'échappement d'un quatre-temps est un **train d'impulsions** — une par
+détente. Ses harmoniques sont solidaires en phase, et c'est précisément ce
+qui fait le « pot-pot » que l'oreille identifie comme un moteur. En leur
+donnant à chacune une phase indépendante, la somme tend vers un bruit
+gaussien par le théorème central limite : même spectre, mais un jeu d'orgue.
+
+Mesuré sur les harmoniques du DR400, profondeur de modulation de l'enveloppe :
+
+| | facteur de crête | à 40 Hz (rotation) | à 80 Hz (allumage) |
+|---|---:|---:|---:|
+| phases aléatoires (≤ 1.4.1) | 9,2 dB | 0,031 | 0,136 |
+| phases cohérentes (1.4.2) | **13,1 dB** | **0,277** | **0,577** |
+
+Second défaut corrigé dans la foulée : l'échappement et l'hélice recevaient
+chacun leur tirage d'errance de régime. Sur un moteur **en prise directe**
+c'est physiquement faux — l'hélice *est* le vilebrequin. Les groupes de raies
+portent désormais un identifiant d'**arbre mécanique** ; deux groupes du même
+arbre partagent la même errance. Les rotors d'un multirotor restent
+indépendants, comme il se doit.
+
+> **Aucune portée ne change.** Le module du spectre est identique à **0,01 dB**
+> près sur les raies fortes, et le niveau efficace à 0,04 %. Le détecteur à
+> peigne travaille sur le module, GCC-PHAT blanchit : la correction est
+> strictement perceptive. Aucun scénario n'est à re-mesurer.
+
+Le comportement reste réversible : `coherence_phase = 0` dans la configuration
+de source restitue exactement le rendu de la 1.4.1.
+
+### ASPXmulti v2.1 — le DR400 et le piège de l'harmonique
+
+Deux scénarios s'ajoutent aux cinq précédents.
+
+**6 — Robin DR400 : valider le réseau en vrai.** Le même maillage de 4 × 3 km
+que le Shahed, mais 8,2 km de portée au lieu de 3,1. La couverture change de
+nature :
+
+| | Shahed 3,1 km | DR400 8,2 km |
+|---|---:|---:|
+| au moins un poste entend | 83 km² | **337 km²** |
+| au moins deux postes | 32 km² | **247 km²** |
+| les quatre postes | 1 km² | **109 km²** |
+
+Ce n'est plus la portée qui limite le dispositif, c'est la géométrie. Et
+comme un passage de DR400 se demande à un pilote d'aéroclub, c'est la cible
+qui permet de valider un réseau entier en conditions réelles.
+
+**7 — Robin DR400 : le piège de l'harmonique.** Le même vol, mais deux postes
+sur quatre accrochent 160 Hz là où les deux autres accrochent 80. Rien
+d'artificiel : l'échappement d'un quatre-temps émet une raie tous les 40 Hz,
+et 120 ou 160 expliquent le peigne aussi bien que 80.
+
+La fusion apparie à `ECART_F0_MAX_HZ = 8 Hz` près. Résultat **mesuré** en
+faisant tourner la vraie fusion, aux instants où l'avion traverse le site :
+
+| | t = 55 s | t = 69 s | t = 85 s |
+|---|---|---|---|
+| scénario 6, tous à 80 Hz | 1 point, **4 postes**, erreur 0 m | idem | idem |
+| scénario 7 | 1 point, **paire P2-P3 seule** | **aucun point** | paire P2-P3 |
+
+À 69 s l'avion est à la verticale du PCO — la géométrie la plus favorable qui
+soit — et la fusion répond *« aucun groupe ne passe les filtres »*. Les quatre
+postes entendent parfaitement l'appareil ; le réseau perd la moitié de ses
+relèvements et se troue au meilleur moment.
+
+Ce scénario ne montre pas une panne mais **une limite de conception**, celle
+qu'un essai en vol réel ferait découvrir sur le terrain. La trancher demande
+de décider si l'association doit accepter les rapports harmoniques (×2, ×1,5,
+÷2) — une question laissée ouverte, et désormais visible à l'écran plutôt
+qu'en note de bas de page.
 
 ## Nouveautés de la version 1.4.1
 
