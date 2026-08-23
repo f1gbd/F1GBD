@@ -235,6 +235,7 @@ code{font-family:"IBM Plex Mono",monospace;font-size:.9em;background:var(--surfa
         <div class="note"><span class="rep">3</span><p><b>Le mât traverse le réseau — gardez-le fin.</b> À 500 Hz la longueur d'onde vaut 69 cm ; un tube de 30 mm fait λ/23 et sa diffraction reste négligeable. Un mât de 60 mm, lui, commencerait à compter.</p></div>
         <div class="note"><span class="rep">4</span><p><b>Le boîtier électronique se fixe sous la barre basse</b>, pas au centre. Une boîte au milieu du tétraèdre diffracterait entre les micros — un effet que le modèle de propagation d'ASPX ne connaît pas et ne corrigera pas.</p></div>
         <div class="note"><span class="rep">5</span><p><b>Câblage en étoile, pas en guirlande.</b> Les quatre câbles remontent chacun au Teensy ; les deux DOUT d'une même ligne se rejoignent sur le bornier. Dans un tétraèdre régulier, les six paires de micros sont exactement à 70 cm — il n'y a pas de « micros voisins » à apparier, contrairement à ce que je vous avais dit.</p></div>
+        <div class="note"><span class="rep">O</span><p><b>Les quatre plaques sont parallèles entre elles</b>, grand côté parallèle à la <b>barre haute (NE–SW)</b> — et non « radiales sur leur bras ». Concrètement : dans l'axe du bras pour M1 et M4, en travers pour M2 et M3. Les bras pointent à 45, 135, 225 et 315° : une plaque radiale sur chacun donne quatre orientations différentes dans l'espace. Le déphasage que la plaque introduit vaut alors une chose différente sur chaque voie au lieu de s'annuler dans la différence des temps d'arrivée — de l'ordre de 3,5 µs, soit 0,10° de biais systématique sur une base de 70 cm.</p></div>
         <div class="note"><span class="rep">6</span><p><b>Le point à reporter, c'est l'orifice acoustique</b>, sur la face opposée au MEMS, et non le centre de la platine. Sous 3 kHz le boîtier de 4 mm est omnidirectionnel : l'orientation de la platine importe peu, sa position importe beaucoup.</p></div>
       </div>
     </section>
@@ -459,17 +460,31 @@ function dessinerMat(){
 function dessinerMicro(m){
   var col = m.haut ? C.haut : C.bas;
   var w = m.w;
-  /* platine, à échelle exagérée pour rester lisible */
-  var dirH = norm([w[0], w[1], 0]);
-  var tang = [-dirH[1], dirH[0], 0];
-  var s = 0.055;
-  var q = [
-    [w[0]+tang[0]*s, w[1]+tang[1]*s, w[2]+s*0.72],
-    [w[0]-tang[0]*s, w[1]-tang[1]*s, w[2]+s*0.72],
-    [w[0]-tang[0]*s, w[1]-tang[1]*s, w[2]-s*0.72],
-    [w[0]+tang[0]*s, w[1]+tang[1]*s, w[2]-s*0.72]
-  ];
+  /* LA PLAQUE. Deux propriétés que ce dessin doit rendre exactes, parce que
+     l'oeil les retiendra : elle est HORIZONTALE, et les quatre ont la MÊME
+     ORIENTATION ABSOLUE — grand côté vers l'est, quel que soit le bras.
+     « Radiale sur son bras » semble régulier mais donne quatre orientations
+     différentes dans l'espace, puisque les bras pointent à 45, 135, 225 et
+     315° : c'est exactement le défaut qui ne s'annule plus dans le TDOA.
+     Dimensions volontairement exagérées pour rester lisibles. */
+  /* Grand côté PARALLÈLE À LA BARRE HAUTE (axe NE–SW). Ce choix d'orientation
+     absolue vaut mieux qu'un axe est-ouest : les plaques de M1 et M4 tombent
+     alors dans l'axe de leur bras, celles de M2 et M3 en travers du leur.
+     Deux poses naturelles à l'atelier, au lieu de quatre plaques de biais —
+     et les quatre restent bien parallèles entre elles, ce qui est la seule
+     chose qui compte pour que le déphasage de la plaque s'annule. */
+  var r = Math.SQRT1_2, la = 0.048, lb = 0.040;
+  var u = [ r,  r, 0], v = [-r, r, 0];
+  function coin(su, sv){
+    return [w[0] + su*la*u[0] + sv*lb*v[0],
+            w[1] + su*la*u[1] + sv*lb*v[1], w[2]];
+  }
+  var q = [coin(-1,-1), coin(+1,-1), coin(+1,+1), coin(-1,+1)];
   for (var i = 0; i < 4; i++) trait(q[i], q[(i+1)%4], col, 1.8, null, .95);
+  trait(q[0], q[2], col, 1, null, .30);
+  /* le boîtier MEMS, sur le dessus, du même côté sur les quatre */
+  var cm = coin(0.45, 0);
+  trait(cm, [cm[0], cm[1], cm[2]+0.012], col, 3, null, .8);
   /* position exacte du micro */
   pastille(w, 0.017, col, null, 0);
   pastille(w, 0.030, null, col, 1.4);

@@ -126,7 +126,7 @@ code{font-family:"IBM Plex Mono",monospace;font-size:.9em;background:var(--surfa
     <div class="cartouche">
       <div class="eyebrow">AERO-SPECTRIX · F1GBD</div>
       <h1>Extrémité de bras — plaque MEMS</h1>
-      <p>Le sommet du tétraèdre, c'est <b>le trou acoustique</b> : ni la puce, ni le bord de la plaque. Cotes tirées de <code>schema_montage.py</code>.</p>
+      <p>Le sommet du tétraèdre, c'est <b>le trou acoustique</b> : ni la puce, ni le bord de la plaque. Ce bras est un <b>NE–SW (M1 ou M4)</b> — voir la note sur l'orientation. Cotes tirées de <code>schema_montage.py</code>.</p>
     </div>
 
     <div class="pilote">
@@ -179,6 +179,7 @@ code{font-family:"IBM Plex Mono",monospace;font-size:.9em;background:var(--surfa
       <div class="regles">
         <div class="regle oui"><span class="m">✓</span><p><b>Trou vers le bas.</b> La diffraction autour d'une plaque de 15 mm coûte moins de 0,1 dB à 520 Hz ; un orifice de 0,25 mm tourné vers le ciel se bouche à la première pluie.</p></div>
         <div class="regle oui"><span class="m">✓</span><p><b>À plat, dans le plan de sa barre</b>, jamais basculée vers l'extérieur du tétraèdre.</p></div>
+        <div class="regle non"><span class="m">✗</span><p><b>Pas « radiale sur son bras ».</b> Ici la plaque est dans l'axe du bras parce que ce bras est un NE–SW. Sur les bras SE–NW elle se pose <b>en travers</b> — même orientation dans l'espace, pose différente. Voir la note ci-dessous.</p></div>
         <div class="regle oui"><span class="m">✓</span><p><b>Les quatre du même modèle</b>, même lot si possible, montées de façon identique.</p></div>
         <div class="regle oui"><span class="m">✓</span><p><b>Air libre sous le trou</b>, et câble plaqué le long du bras.</p></div>
         <div class="regle non"><span class="m">✗</span><p><b>Rien au droit du trou</b> : ni colle, ni ruban, ni support, ni vis.</p></div>
@@ -187,8 +188,16 @@ code{font-family:"IBM Plex Mono",monospace;font-size:.9em;background:var(--surfa
     </section>
 
     <section class="bloc">
-      <h2>Deux points à trancher sur votre platine</h2>
+      <h2>Points à trancher sur votre platine</h2>
       <div class="note att"><span class="rep">!</span><p><b>Les trous de fixation de la platine Adafruit tombent du mauvais côté.</b> Sur la photo, l'orifice acoustique est au milieu du circuit, entre les deux perçages de fixation et le connecteur. Visser dans les deux mettrait de la matière dans la zone de débord, sous l'orifice. Deux issues : n'utiliser que le perçage côté connecteur, complété d'un point de colle côté connecteur également ; ou élargir la platine nylon <i>latéralement</i>, jamais sous le trou. Vérifiez la position réelle de l'orifice avant de percer.</p></div>
+      <div class="note"><span class="rep">O</span><p><b>L'orientation qui compte est l'orientation ABSOLUE, pas celle par rapport au bras.</b> Les quatre bras pointent à 45, 135, 225 et 315° : monter chaque plaque « radialement sur son bras » donne quatre orientations différentes dans l'espace — la faute même que la section C du document signale.</p>
+      <p style="margin-top:9px"><b>La convention retenue : grand côté parallèle à la barre haute (NE–SW), sur les quatre.</b> Elle vaut mieux qu'un axe arbitraire, parce qu'elle ne demande que deux poses, toutes deux naturelles à l'atelier :</p>
+      <table style="margin-top:8px">
+        <tr><td class="k">M1 (45° NE) et M4 (225° SW)</td><td class="v">dans l'axe du bras</td></tr>
+        <tr><td class="k">M2 (135° SE) et M3 (315° NW)</td><td class="v">en travers du bras</td></tr>
+      </table>
+      <p style="margin-top:9px">Les quatre restent parallèles entre elles, ce qui est la seule condition pour que le déphasage de la plaque s'annule dans la différence des temps d'arrivée. Le câble se cintre différemment selon le bras — un conducteur de 2 mm est un obstacle négligeable devant la plaque.</p></div>
+      <div class="note"><span class="rep">3</span><p><b>Ce que coûte l'erreur, en chiffres.</b> Le document donne l'effet de la plaque en amplitude : moins de 0,1 dB à 520 Hz. Une perturbation de 1,2 % correspond à un déphasage du même ordre, soit <b>≈ 3,5 µs</b> — 1,2 mm de trajet, 0,17 échantillon à 48 kHz, et <b>0,10° de biais</b> sur une base de 70 cm. Identique sur les quatre voies, cela disparaît dans la différence des temps d'arrivée. Différent d'une voie à l'autre, cela reste — et c'est un biais systématique, qui ne se moyenne pas. À comparer aux ±2 mm de tolérance mécanique déjà admis, qui valent 0,16°.</p></div>
       <div class="note"><span class="rep">2</span><p><b>Le trou se retrouve 8 mm au-dessus de l'axe de sa barre</b> — 6 mm de demi-tube plus 2 mm de platine. Sans conséquence <i>si</i> les quatre sont montées du même côté : le tétraèdre est alors simplement translaté de 8 mm vers le haut, ce qui ne change aucune distance relative. Deux plaques dessus et deux dessous donneraient en revanche 16 mm de déformation, et là le réseau est faux.</p></div>
     </section>
 
