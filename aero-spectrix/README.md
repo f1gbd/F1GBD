@@ -148,7 +148,7 @@ Portées de détection prévues par le bilan de liaison, en campagne calme
 | Avion thermique 2 temps, 2 cyl. | 92 dB(A) | 233 Hz | 1 391 m | **1 930 m** |
 | Avion thermique 2 temps, 4 cyl. | 95 dB(A) | 400 Hz | 1 974 m | **2 627 m** |
 | **Shahed-136 / Geran-2** | 101 dB(A) | 433 Hz | 2 715 m | **3 472 m** |
-| **Robin DR400** (cible d'entraînement) | 120 dB(A) | 80 Hz | 6 523 m | **8 182 m** |
+| **Robin DR400** (entraînement et tests) | 120 dB(A) | 80 Hz | 6 523 m | **8 182 m** |
 
 > La colonne de gauche est celle des versions jusqu'à la 1.3.0. Celle de
 > droite est la 1.4.0 avec sa fenêtre de détection adaptative — même
