@@ -148,7 +148,7 @@ Portées de détection prévues par le bilan de liaison, en campagne calme
 | Avion thermique 2 temps, 2 cyl. | 92 dB(A) | 233 Hz | 1 391 m | **1 930 m** |
 | Avion thermique 2 temps, 4 cyl. | 95 dB(A) | 400 Hz | 1 974 m | **2 627 m** |
 | **Shahed-136 / Geran-2** | 101 dB(A) | 433 Hz | 2 715 m | **3 472 m** |
-| **Robin DR400** (entraînement et tests) | 120 dB(A) | 80 Hz | 6 523 m | **8 182 m** |
+| **Robin DR400** (cible d'entraînement) | 120 dB(A) | 80 Hz | 6 523 m | **8 182 m** |
 
 > La colonne de gauche est celle des versions jusqu'à la 1.3.0. Celle de
 > droite est la 1.4.0 avec sa fenêtre de détection adaptative — même
@@ -276,11 +276,14 @@ Toutes tournent dans les conditions **par défaut** — 32 dB(A), vent 2 m/s,
 | 3 | Aile électrique, approche depuis 960 m | 605 → **723 m** | +5,7 s | 49,6 → 52,2 % | 0,60° |
 | 4 | Avion thermique 2 temps 4 cyl., depuis 2,4 km | 2 042 → **2 406 m** | +7,0 s | 63,6 → 76,0 % | 0,75° |
 | 5 | **Shahed-136 / Geran-2**, de front depuis 3,15 km | 2 267 → **3 164 m** | +20,2 s | 56,8 → 73,9 % | 0,60° |
+| 6 | **Robin DR400**, passage d'entraînement à 300 m sol | — | — | **100 %** (piste 99,8 %) | 0,43° |
 
 *Format : `trame seule` → `fenêtre adaptative`. Ces valeurs sont mesurées sur
 la simulation, non prédites par le bilan de liaison. L'erreur angulaire est
 comptée contre la position d'**émission** : à 3 km le son met neuf secondes à
-parvenir à l'antenne.*
+parvenir à l'antenne. Le scénario 6 porte deux tirets parce qu'il n'oppose pas
+les deux réglages : la cible est acquise dès la première trame dans les deux
+cas, il n'y a donc ni seuil reculé ni préavis gagné à mesurer.*
 
 Le scénario 2 est celui à montrer quand la question est « la piste
 tient-elle ? » plutôt que « jusqu'où voit-on ? » : à distance constante la
@@ -291,13 +294,12 @@ supplémentaires, soit un kilomètre à 185 km/h.
 **Le sixième scénario ne démontre rien** — et c'est pour cela qu'il compte.
 `06_robin_dr400_entrainement.json` reproduit un passage de **Robin DR400**
 d'aéroclub à 300 m sol : la cible avec laquelle on valide une station en
-conditions réelles, sur rendez-vous avec un pilote, sans faire voler quoi que
-ce soit d'inhabituel. Détection sur 100 % des trames, piste sur 99,8 %, erreur
-médiane 0,43°, portée prévue 8,2 km. Il a révélé au passage une limite que
-personne n'avait vue venir : l'hélice étant **en prise directe**, l'allumage
-du quatre-cylindres et le passage des deux pales tombent tous deux à 80 Hz —
-sous le plancher du peigne. La direction reste juste, c'est
-l'**identification** qui se perd.
+conditions réelles, sans avoir besoin de faire voler un drone. Portée prévue 8,2 km — la cible est acquise d'un bout à
+l'autre du passage, ce qui est exactement l'intérêt d'un étalon de terrain.
+Il a révélé au passage une limite que personne n'avait vue venir : l'hélice
+étant **en prise directe**, l'allumage du quatre-cylindres et le passage des
+deux pales tombent tous deux à 80 Hz — sous le plancher du peigne. La
+direction reste juste, c'est l'**identification** qui se perd.
 
 Le `README.md` du dossier détaille chaque cas, y compris ce qu'il **ne**
 montre pas — deux scénarios acquièrent la cible dès son entrée en scène et ne
