@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="margin:0">
+<title>Extrémité de bras ASPX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --ground:#E4E9ED; --surface:#FBFCFD; --surface-2:#EDF1F4;
+  --line:#C3CED6; --line-soft:#D7DFE5;
+  --ink:#141C22; --ink-2:#3E4C56; --muted:#67757F;
+  --trou:#C85C12;        /* le datum : l'orifice acoustique */
+  --pcb:#1D7A57;         /* la plaque */
+  --nylon:#8A7048;       /* platine et vis nylon */
+  --metal:#67787F;       /* le bras */
+  --cable:#1B7EA6;
+  --grid3d:#9FAFBA; --dim:#5A6B76; --alerte:#9E2B18;
+  --shadow:0 1px 2px rgba(20,28,34,.06),0 8px 26px rgba(20,28,34,.07);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0D1318; --surface:#141C23; --surface-2:#1B242C;
+    --line:#2B3841; --line-soft:#222D35;
+    --ink:#DEE7EC; --ink-2:#A9B8C2; --muted:#7A8B96;
+    --trou:#F2914E; --pcb:#3FBE8C; --nylon:#C6A570; --metal:#8B9BA4;
+    --cable:#4FB7DE; --grid3d:#3A4A55; --dim:#8FA1AC; --alerte:#E8705A;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.34);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0D1318; --surface:#141C23; --surface-2:#1B242C;
+  --line:#2B3841; --line-soft:#222D35;
+  --ink:#DEE7EC; --ink-2:#A9B8C2; --muted:#7A8B96;
+  --trou:#F2914E; --pcb:#3FBE8C; --nylon:#C6A570; --metal:#8B9BA4;
+  --cable:#4FB7DE; --grid3d:#3A4A55; --dim:#8FA1AC; --alerte:#E8705A;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.34);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-size:15px;
+  line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2{margin:0;text-wrap:balance;letter-spacing:-.012em}
+
+.shell{display:grid;grid-template-columns:minmax(0,1fr) 378px;min-height:100vh}
+@media (max-width:960px){.shell{grid-template-columns:minmax(0,1fr)}}
+
+.stage{position:relative;background:var(--surface);border-right:1px solid var(--line);min-height:100vh}
+@media (max-width:960px){.stage{min-height:0;height:74vh;border-right:none;border-bottom:1px solid var(--line)}}
+#vue{display:block;width:100%;height:100%;touch-action:none;outline:none}
+#vue:focus-visible{outline:2px solid var(--trou);outline-offset:-2px}
+
+.cartouche{position:absolute;top:18px;left:18px;max-width:min(352px,calc(100% - 36px));
+  background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(7px);
+  border:1px solid var(--line);padding:13px 15px 12px;pointer-events:none}
+.cartouche .eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.cartouche h1{font-size:19px;font-weight:700;line-height:1.2}
+.cartouche p{margin:7px 0 0;font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.aide{position:absolute;bottom:16px;left:18px;font-size:11.5px;color:var(--muted);pointer-events:none}
+
+.pilote{position:absolute;top:18px;right:18px;display:flex;flex-direction:column;gap:9px;align-items:flex-end}
+@media (max-width:700px){
+  .cartouche{top:12px;left:12px;max-width:calc(100% - 24px)}
+  .cartouche h1{font-size:17px}
+  .pilote{top:auto;bottom:12px;left:12px;right:12px;flex-direction:row;
+          flex-wrap:wrap;justify-content:flex-end;gap:7px}
+  .aide{display:none}
+}
+.groupe{display:flex;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)}
+.groupe button{font:inherit;font-size:11.5px;font-weight:600;letter-spacing:.03em;
+  padding:7px 11px;border:0;border-left:1px solid var(--line);background:transparent;
+  color:var(--ink-2);cursor:pointer}
+.groupe button:first-child{border-left:0}
+.groupe button:hover{background:var(--surface-2);color:var(--ink)}
+.groupe button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.groupe button:focus-visible{outline:2px solid var(--trou);outline-offset:-2px}
+
+.rail{background:var(--surface);padding:26px 26px 40px;display:flex;flex-direction:column;
+  gap:26px;max-height:100vh;overflow-y:auto}
+@media (max-width:960px){.rail{max-height:none;overflow:visible}}
+.bloc>h2{font-size:10.5px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--muted);padding-bottom:7px;border-bottom:1px solid var(--line);margin-bottom:12px}
+
+.cle{border-left:3px solid var(--trou);padding:2px 0 2px 14px}
+.cle p{margin:0;font-size:14px;line-height:1.6}
+.cle p+p{margin-top:9px;color:var(--ink-2);font-size:13px}
+
+table{width:100%;border-collapse:collapse}
+td{padding:6px 0;border-bottom:1px solid var(--line-soft);vertical-align:baseline;font-size:13px}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink-2);padding-right:12px}
+td.v{text-align:right;white-space:nowrap;font-family:"IBM Plex Mono",monospace;
+  font-variant-numeric:tabular-nums;font-weight:500;font-size:12.5px}
+
+.regles{display:flex;flex-direction:column;gap:9px}
+.regle{display:grid;grid-template-columns:16px 1fr;gap:10px;align-items:start;font-size:13px}
+.regle .m{font-weight:700;line-height:1.35}
+.oui .m{color:var(--pcb)} .non .m{color:var(--alerte)}
+.regle p{margin:0;line-height:1.5;color:var(--ink-2)}
+.regle p b{color:var(--ink);font-weight:600}
+
+.note{display:grid;grid-template-columns:auto 1fr;gap:11px;align-items:start;margin-bottom:14px}
+.note .rep{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;
+  color:var(--surface);background:var(--ink-2);width:19px;height:19px;
+  display:grid;place-items:center;margin-top:2px}
+.note p{margin:0;font-size:13px;line-height:1.55;color:var(--ink-2)}
+.note p b{color:var(--ink);font-weight:600}
+.note.att .rep{background:var(--alerte)}
+
+code{font-family:"IBM Plex Mono",monospace;font-size:.9em;background:var(--surface-2);
+  padding:1px 4px;border:1px solid var(--line-soft)}
+.pied{font-size:11.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+</style>
+
+<div class="shell">
+  <div class="stage">
+    <canvas id="vue" tabindex="0" aria-label="Vue 3D de l'extrémité d'un bras portant la plaque MEMS, pivotable et zoomable"></canvas>
+
+    <div class="cartouche">
+      <div class="eyebrow">AERO-SPECTRIX · F1GBD</div>
+      <h1>Extrémité de bras — plaque MEMS</h1>
+      <p>Le sommet du tétraèdre, c'est <b>le trou acoustique</b> : ni la puce, ni le bord de la plaque. Cotes tirées de <code>schema_montage.py</code>.</p>
+    </div>
+
+    <div class="pilote">
+      <div class="groupe" role="group" aria-label="Points de vue">
+        <button data-vue="perspective" aria-pressed="true">Perspective</button>
+        <button data-vue="dessous" aria-pressed="false">Dessous</button>
+        <button data-vue="coupe" aria-pressed="false">Coupe</button>
+        <button data-vue="dessus" aria-pressed="false">Dessus</button>
+      </div>
+      <div class="groupe" role="group" aria-label="Calques">
+        <button data-calque="cotes" aria-pressed="true">Cotes</button>
+        <button data-calque="bonnette" aria-pressed="false">Bonnette</button>
+        <button data-calque="cable" aria-pressed="true">Câble</button>
+        <button data-calque="plan" aria-pressed="true">Plan des barres</button>
+      </div>
+    </div>
+
+    <div class="aide">Glisser pour pivoter · molette ou pincer pour zoomer · flèches du clavier</div>
+  </div>
+
+  <aside class="rail">
+
+    <section class="bloc">
+      <h2>Le point de mesure</h2>
+      <div class="cle">
+        <p>Les 350 mm se comptent du centre des barres <b>jusqu'au trou</b>. La plaque déborde de la platine pour que rien ne se trouve sous l'orifice — c'est le sens de la cote « débord ≥ 8 mm ».</p>
+        <p>Longueur du tube à couper = 350 − débord. Coupez le bras d'autant plus court que la plaque déborde.</p>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <h2>Cotes</h2>
+      <table>
+        <tr><td class="k">Centre des barres → trou</td><td class="v">350,0 mm</td></tr>
+        <tr><td class="k">Tolérance sur cette cote</td><td class="v">±2 mm</td></tr>
+        <tr><td class="k">Débord de la plaque</td><td class="v">≥ 8 mm</td></tr>
+        <tr><td class="k">Trou → bord extérieur <i>(e)</i></td><td class="v">5,0 mm *</td></tr>
+        <tr><td class="k">Plaque, réf. document</td><td class="v">18 × 15 mm</td></tr>
+        <tr><td class="k">Épaisseur du circuit</td><td class="v">1,6 mm</td></tr>
+        <tr><td class="k">Boîtier MEMS</td><td class="v">4,7 × 3,8 mm</td></tr>
+        <tr><td class="k">Platine nylon</td><td class="v">2,0 mm</td></tr>
+        <tr><td class="k">Section du bras</td><td class="v">12 mm</td></tr>
+        <tr><td class="k">Vis nylon, côté connecteur</td><td class="v">2 × M2</td></tr>
+      </table>
+      <p style="font-size:11.5px;color:var(--muted);margin:10px 0 0">* <b>À relever sur votre plaque.</b> 5,0 mm est la valeur de référence du document ; la platine Adafruit n'a pas les mêmes cotes. C'est <i>e</i> qui fixe la longueur du tube.</p>
+    </section>
+
+    <section class="bloc">
+      <h2>À respecter</h2>
+      <div class="regles">
+        <div class="regle oui"><span class="m">✓</span><p><b>Trou vers le bas.</b> La diffraction autour d'une plaque de 15 mm coûte moins de 0,1 dB à 520 Hz ; un orifice de 0,25 mm tourné vers le ciel se bouche à la première pluie.</p></div>
+        <div class="regle oui"><span class="m">✓</span><p><b>À plat, dans le plan de sa barre</b>, jamais basculée vers l'extérieur du tétraèdre.</p></div>
+        <div class="regle oui"><span class="m">✓</span><p><b>Les quatre du même modèle</b>, même lot si possible, montées de façon identique.</p></div>
+        <div class="regle oui"><span class="m">✓</span><p><b>Air libre sous le trou</b>, et câble plaqué le long du bras.</p></div>
+        <div class="regle non"><span class="m">✗</span><p><b>Rien au droit du trou</b> : ni colle, ni ruban, ni support, ni vis.</p></div>
+        <div class="regle non"><span class="m">✗</span><p><b>Aucune plaque tournée vers l'extérieur.</b> Un défaut identique sur les quatre s'annule dans la différence des temps d'arrivée ; le même défaut orienté autrement ne s'annule plus.</p></div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <h2>Deux points à trancher sur votre platine</h2>
+      <div class="note att"><span class="rep">!</span><p><b>Les trous de fixation de la platine Adafruit tombent du mauvais côté.</b> Sur la photo, l'orifice acoustique est au milieu du circuit, entre les deux perçages de fixation et le connecteur. Visser dans les deux mettrait de la matière dans la zone de débord, sous l'orifice. Deux issues : n'utiliser que le perçage côté connecteur, complété d'un point de colle côté connecteur également ; ou élargir la platine nylon <i>latéralement</i>, jamais sous le trou. Vérifiez la position réelle de l'orifice avant de percer.</p></div>
+      <div class="note"><span class="rep">2</span><p><b>Le trou se retrouve 8 mm au-dessus de l'axe de sa barre</b> — 6 mm de demi-tube plus 2 mm de platine. Sans conséquence <i>si</i> les quatre sont montées du même côté : le tétraèdre est alors simplement translaté de 8 mm vers le haut, ce qui ne change aucune distance relative. Deux plaques dessus et deux dessous donneraient en revanche 16 mm de déformation, et là le réseau est faux.</p></div>
+    </section>
+
+    <div class="pied">
+      Géométrie reprise de <code>lowcost/schema_montage.py</code>, section A. La platine est dessinée d'après votre photo ; relevez <i>e</i> et les cotes hors-tout sur la vôtre avant de couper les tubes.
+    </div>
+  </aside>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ==================================================================
+   Repère : x le long du bras, +x vers l'EXTÉRIEUR de l'antenne.
+            y en travers.  z vers le haut.
+            ORIGINE = LE TROU ACOUSTIQUE, face inférieure du circuit.
+   Tout est en millimètres réels.
+   ================================================================== */
+var E_MM   = 5.0;         // trou -> bord extérieur (à relever sur sa plaque)
+var PCB_L  = 18.0, PCB_W = 15.0, PCB_E = 1.6;
+var MEMS_L = 4.7, MEMS_W = 3.8, MEMS_H = 1.05;
+var DEBORD = 8.0;         // la platine s'arrête 8 mm avant le trou
+var PLAT_E = 2.0;         // épaisseur platine nylon
+var BRAS   = 12.0;        // section du bras
+var TROU_D = 1.0;         // diamètre de l'orifice
+
+var X_EXT = +E_MM;                 // bord extérieur du circuit
+var X_INT = X_EXT - PCB_L;         // bord intérieur, côté connecteur
+var X_PLAT = -DEBORD;              // bout de la platine nylon
+var X_FIN = -50;                   // là où le dessin s'interrompt
+var X_PLAT0 = X_PLAT - 26;         // la platine est une pièce courte, pas un rail
+
+var cv = document.getElementById("vue"), ctx = cv.getContext("2d");
+var DEG = Math.PI/180;
+var VUE_DEFAUT = {az:126, el:19, d:56, c:[-8,0,-3]};
+var CIBLE = VUE_DEFAUT.c.slice();
+var cam = {az:VUE_DEFAUT.az, el:VUE_DEFAUT.el, d:VUE_DEFAUT.d};
+var calques = {cotes:true, bonnette:false, cable:true, plan:true};
+var W=0, H=0, dpr=1;
+
+function sub(a,b){return [a[0]-b[0],a[1]-b[1],a[2]-b[2]];}
+function add(a,b){return [a[0]+b[0],a[1]+b[1],a[2]+b[2]];}
+function dot(a,b){return a[0]*b[0]+a[1]*b[1]+a[2]*b[2];}
+function cross(a,b){return [a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];}
+function norm(v){var n=Math.hypot(v[0],v[1],v[2])||1;return [v[0]/n,v[1]/n,v[2]/n];}
+function mid(a,b){return [(a[0]+b[0])/2,(a[1]+b[1])/2,(a[2]+b[2])/2];}
+
+var eye, ax, ay, af, k, NEAR = 2.0;
+function majCamera(){
+  var A=cam.az*DEG, E=cam.el*DEG;
+  var dir=[Math.cos(E)*Math.sin(A), Math.cos(E)*Math.cos(A), Math.sin(E)];
+  eye=[CIBLE[0]+cam.d*dir[0], CIBLE[1]+cam.d*dir[1], CIBLE[2]+cam.d*dir[2]];
+  af=norm(sub(CIBLE,eye));
+  ax=norm(cross(af,[0,0,1]));
+  ay=cross(ax,af);
+  k=(H/2)/Math.tan(24*DEG);
+}
+function vue3(p){var d=sub(p,eye);return [dot(d,ax),dot(d,ay),dot(d,af)];}
+function ecr(c){return [W/2+c[0]*k/c[2], H/2-c[1]*k/c[2]];}
+function proj(p){var c=vue3(p); if(c[2]<NEAR) return null;
+  return {x:W/2+c[0]*k/c[2], y:H/2-c[1]*k/c[2], z:c[2]};}
+function projSeg(p1,p2){
+  var c1=vue3(p1), c2=vue3(p2);
+  if(c1[2]<NEAR && c2[2]<NEAR) return null;
+  if(c1[2]<NEAR){var t=(NEAR-c1[2])/(c2[2]-c1[2]);
+    c1=[c1[0]+(c2[0]-c1[0])*t, c1[1]+(c2[1]-c1[1])*t, NEAR];}
+  else if(c2[2]<NEAR){var u=(NEAR-c2[2])/(c1[2]-c2[2]);
+    c2=[c2[0]+(c1[0]-c2[0])*u, c2[1]+(c1[1]-c2[1])*u, NEAR];}
+  return {a:ecr(c1), b:ecr(c2), z:(c1[2]+c2[2])/2};
+}
+
+var C={};
+function relire(){
+  var s=getComputedStyle(document.documentElement);
+  ["ink","ink-2","muted","trou","pcb","nylon","metal","cable","grid3d","dim",
+   "surface","alerte","line"].forEach(function(n){
+    C[n]=s.getPropertyValue("--"+n).trim();
+  });
+}
+/* Assombrit une couleur hex pour figurer les faces latérales : sans cette
+   nuance un solide projeté à plat se lit comme une découpe de papier. */
+function ombre(hex, f){
+  var h=hex.replace("#",""); if(h.length===3) h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
+  var r=parseInt(h.slice(0,2),16), g=parseInt(h.slice(2,4),16), b=parseInt(h.slice(4,6),16);
+  return "rgb("+Math.round(r*f)+","+Math.round(g*f)+","+Math.round(b*f)+")";
+}
+
+var file=[], fileTexte=[];
+function pousse(z,fn){file.push({z:z,fn:fn});}
+
+function trait(p1,p2,col,larg,tirets,alpha){
+  var s=projSeg(p1,p2); if(!s) return;
+  pousse(s.z, function(g){
+    g.save(); g.globalAlpha=alpha===undefined?1:alpha;
+    g.strokeStyle=col; g.lineWidth=larg; g.lineCap="round";
+    if(tirets) g.setLineDash(tirets);
+    g.beginPath(); g.moveTo(s.a[0],s.a[1]); g.lineTo(s.b[0],s.b[1]); g.stroke();
+    g.restore();
+  });
+}
+/* Face convexe, avec élimination des faces cachées : sur des solides convexes
+   non sécants cela suffit, et évite les artefacts du tri par profondeur. */
+function face(pts, remp, contour, alpha){
+  var n=norm(cross(sub(pts[1],pts[0]), sub(pts[2],pts[0])));
+  var c=pts.reduce(function(a,p){return add(a,p);},[0,0,0]);
+  c=[c[0]/pts.length,c[1]/pts.length,c[2]/pts.length];
+  if(dot(n, sub(eye,c)) <= 0) return;                  // face détournée
+  var pr=[], zs=0;
+  for(var i=0;i<pts.length;i++){
+    var q=proj(pts[i]); if(!q) return; pr.push(q); zs+=q.z;
+  }
+  pousse(zs/pts.length, function(g){
+    g.save(); g.globalAlpha=alpha===undefined?1:alpha;
+    g.beginPath(); g.moveTo(pr[0].x,pr[0].y);
+    for(var i=1;i<pr.length;i++) g.lineTo(pr[i].x,pr[i].y);
+    g.closePath();
+    if(remp){g.fillStyle=remp; g.fill();}
+    if(contour){g.strokeStyle=contour; g.lineWidth=1; g.lineJoin="round"; g.stroke();}
+    g.restore();
+  });
+}
+/* Boîte alignée sur les axes, décrite par ses deux coins opposés. */
+function boite(a, b, col, alpha){
+  var x0=Math.min(a[0],b[0]), x1=Math.max(a[0],b[0]);
+  var y0=Math.min(a[1],b[1]), y1=Math.max(a[1],b[1]);
+  var z0=Math.min(a[2],b[2]), z1=Math.max(a[2],b[2]);
+  var P=function(x,y,z){return [x,y,z];};
+  var haut=col, cote=ombre(col,0.78), bas=ombre(col,0.58);
+  face([P(x0,y0,z1),P(x1,y0,z1),P(x1,y1,z1),P(x0,y1,z1)], haut, null, alpha);
+  face([P(x0,y1,z0),P(x1,y1,z0),P(x1,y0,z0),P(x0,y0,z0)], bas,  null, alpha);
+  face([P(x0,y0,z0),P(x1,y0,z0),P(x1,y0,z1),P(x0,y0,z1)], cote, null, alpha);
+  face([P(x1,y1,z0),P(x0,y1,z0),P(x0,y1,z1),P(x1,y1,z1)], cote, null, alpha);
+  face([P(x1,y0,z0),P(x1,y1,z0),P(x1,y1,z1),P(x1,y0,z1)], ombre(col,0.86), null, alpha);
+  face([P(x0,y1,z0),P(x0,y0,z0),P(x0,y0,z1),P(x0,y1,z1)], ombre(col,0.70), null, alpha);
+}
+function cercle(centre, r, axe, col, larg, tirets, alpha, n){
+  n=n||40; var prec=null;
+  for(var i=0;i<=n;i++){
+    var t=i/n*6.2832, c=Math.cos(t)*r, s=Math.sin(t)*r, p;
+    if(axe==="z") p=[centre[0]+c, centre[1]+s, centre[2]];
+    else if(axe==="x") p=[centre[0], centre[1]+c, centre[2]+s];
+    else p=[centre[0]+c, centre[1], centre[2]+s];
+    if(prec) trait(prec,p,col,larg,tirets,alpha);
+    prec=p;
+  }
+}
+function texte(p, txt, col, dx, dy, taille, poids, fond){
+  var q=proj(p); if(!q) return;
+  fileTexte.push(function(g){
+    g.font=(poids||600)+" "+(taille||12)+'px "IBM Plex Mono",monospace';
+    g.textAlign="left"; g.textBaseline="middle";
+    var x=q.x+dx, y=q.y+dy;
+    if(fond){
+      var w=g.measureText(txt).width;
+      g.fillStyle=C.surface; g.globalAlpha=.84;
+      g.fillRect(x-3, y-(taille||12)/2-2.5, w+6, (taille||12)+5);
+      g.globalAlpha=1;
+    }
+    g.fillStyle=col; g.fillText(txt,x,y);
+  });
+}
+function lateral(signe, d){
+  var h=[ax[0],ax[1],0], n=Math.hypot(h[0],h[1])||1;
+  return [signe*d*h[0]/n, signe*d*h[1]/n, 0];
+}
+function cote(p1, p2, txt, col, dec){
+  var d=dec||[0,0,0];
+  var a=add(p1,d), b=add(p2,d);
+  trait(a,b,col,1.2,[4,3],.95);
+  trait(p1,a,col,.9,[2,3],.45);
+  trait(p2,b,col,.9,[2,3],.45);
+  texte(mid(a,b), txt, col, 7, 0, 11, 600, true);
+}
+
+/* ================= les pièces ================= */
+function bras(){
+  var h=BRAS/2;
+  boite([X_FIN, -h, -PLAT_E-BRAS], [X_PLAT, h, -PLAT_E], C.metal, 1);
+  texte([X_FIN+2, 0, -PLAT_E-BRAS], "↞ vers le centre (350 mm)",
+        C.muted, 4, 15, 11, 600, true);
+}
+function platine(){
+  boite([X_PLAT0, -PCB_W/2, -PLAT_E], [X_PLAT, PCB_W/2, 0], C.nylon, 1);
+}
+function circuit(){
+  /* face composants dessus, face nue dessous : c'est elle qui porte le trou */
+  boite([X_INT, -PCB_W/2, 0], [X_EXT, PCB_W/2, PCB_E], C.pcb, 1);
+  /* boîtier MEMS, sur la face du dessus, à l'aplomb du trou */
+  boite([-MEMS_L/2, -MEMS_W/2, PCB_E], [MEMS_L/2, MEMS_W/2, PCB_E+MEMS_H],
+        ombre(C.metal,1.18), 1);
+  /* Perçages d'origine de la platine : sur la Adafruit ils tombent près du
+     bord extérieur, donc DANS la zone de débord. Les montrer, c'est montrer
+     pourquoi on ne peut pas simplement visser dedans. */
+  [[1.0,-5.5],[1.0,5.5]].forEach(function(t){
+    cercle([t[0], t[1], PCB_E+0.02], 1.5, "z", C.alerte, 1.4, null, .85, 22);
+  });
+  texte([1.0, 5.5, PCB_E], "perçages d'origine", C.alerte, 9, -11, 10, 600, true);
+  /* rangée de pastilles, côté intérieur */
+  for(var i=0;i<6;i++){
+    var yy=-5.0+i*2.0;
+    cercle([X_INT+1.8, yy, PCB_E+0.02], 0.62, "z", ombre(C.pcb,.45), 1.1, null, .95, 14);
+  }
+  /* L'ORIFICE : traversant, débouchant vers le bas. Double cercle pour qu'on
+     le distingue d'une simple pastille. */
+  cercle([0,0,-0.01], TROU_D/2, "z", C.trou, 2.2, null, 1, 26);
+  cercle([0,0,-0.01], TROU_D/2+1.6, "z", C.trou, 1.1, null, .8, 30);
+  trait([-2.6,0,-0.01],[2.6,0,-0.01], C.trou, .9, null, .8);
+  trait([0,-2.6,-0.01],[0,2.6,-0.01], C.trou, .9, null, .8);
+}
+function vis(){
+  [-5.9, 5.9].forEach(function(y){
+    var x=X_INT+4.2;                   // CÔTÉ CONNECTEUR, jamais vers le trou
+    boite([x-1, y-1, -PLAT_E-1], [x+1, y+1, PCB_E], C.nylon, 1);
+    boite([x-1.9, y-1.9, PCB_E], [x+1.9, y+1.9, PCB_E+1.1], ombre(C.nylon,1.12), 1);
+  });
+}
+function cable(){
+  var zt = -PLAT_E-BRAS-0.9;
+  var p=[[X_INT+1.8, 0, PCB_E+1.0],[X_INT-3.5, 0, PCB_E+2.4],
+         [X_INT-9, 0, -PLAT_E-2.0],[X_INT-15, 0, zt],[X_FIN+3, 0, zt]];
+  for(var i=1;i<p.length;i++) trait(p[i-1],p[i],C.cable,2.4,null,.95);
+  [X_INT-13, X_INT-25].forEach(function(x){
+    cercle([x,0,-PLAT_E-BRAS/2], BRAS/2+1.3, "x", C.cable, 1.3, [3,3], .7, 26);
+  });
+  texte([X_INT-17, 0, zt], "câble plaqué, attaché", C.cable, -8, 15, 10.5, 600, true);
+}
+function bonnette(){
+  ["x","y","z"].forEach(function(a){
+    cercle([0,0,0], 18, a, C.grid3d, 1, [4,5], .5, 52);
+  });
+  texte([0,0,-18], "bonnette mousse + fourrure  Ø 36", C.muted, -104, 16, 10.5, 600, true);
+}
+function planBarres(){
+  var R=34;
+  for(var i=-3;i<=3;i++){
+    var t=i*R/3;
+    trait([-R+X_PLAT/2, t, 0],[R+X_PLAT/2, t, 0], C.grid3d, .8, [3,5], .30);
+    trait([t+X_PLAT/2, -R, 0],[t+X_PLAT/2, R, 0], C.grid3d, .8, [3,5], .30);
+  }
+  texte([X_PLAT/2-R, -R, 0], "plan de la barre", C.muted, 4, 12, 10.5, 600, true);
+}
+
+function scene(){
+  file.length=0; fileTexte.length=0;
+
+  if(calques.plan) planBarres();
+  bras(); platine(); circuit(); vis();
+  if(calques.cable) cable();
+  if(calques.bonnette) bonnette();
+
+  /* Zone à laisser libre : la règle « rien au droit du trou », dessinée. */
+  cercle([0,0,-0.02], 6.0, "z", C.alerte, 1.1, [3,4], .55, 34);
+  /* air libre sous le trou : la raison d'être du débord */
+  trait([0,0,-1.5],[0,0,-11], C.trou, 1.6, null, .9);
+  [[-1.8,-8.4],[1.8,-8.4]].forEach(function(t){
+    trait([0,0,-11],[t[0]*0.9, 0, t[1]-1.0], C.trou, 1.6, null, .9);
+  });
+  texte([0,0,-11], "air libre sous le trou", C.trou, 9, 5, 10.5, 600, true);
+  texte([0,0,0], "LE TROU = le sommet", C.trou, 11, -13, 12, 700, true);
+
+  if(calques.cotes){
+    cote([X_EXT,0,PCB_E],[0,0,PCB_E], "e = 5,0 mm", C.trou, [0,0,7]);
+    cote([X_PLAT,0,0],[0,0,0], "débord ≥ 8 mm", C.dim, add(lateral(-1,11),[0,0,-1]));
+    cote([X_INT,0,0],[X_INT,0,PCB_E], "1,6", C.dim, lateral(1,9));
+    cote([X_FIN,0,-PLAT_E-BRAS],[X_FIN,0,-PLAT_E], "bras 12", C.dim, lateral(-1,7));
+    cote([X_PLAT0,0,-PLAT_E],[X_PLAT0,0,0], "2,0", C.nylon, lateral(-1,6));
+  }
+}
+
+function rendre(){
+  majCamera();
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,W,H);
+  scene();
+  file.sort(function(p,q){return q.z-p.z;});
+  for(var i=0;i<file.length;i++) file[i].fn(ctx);
+  for(var j=0;j<fileTexte.length;j++) fileTexte[j](ctx);
+}
+
+function redim(){
+  var r=cv.parentNode.getBoundingClientRect();
+  dpr=Math.min(window.devicePixelRatio||1,2);
+  W=Math.max(320,r.width); H=Math.max(280,r.height);
+  cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr);
+  cv.style.width=W+"px"; cv.style.height=H+"px";
+  rendre();
+}
+
+var glisse=false,lx=0,ly=0,pid=null;
+cv.addEventListener("pointerdown",function(e){
+  glisse=true; pid=e.pointerId; lx=e.clientX; ly=e.clientY;
+  cv.setPointerCapture(pid); auto=false;
+});
+cv.addEventListener("pointermove",function(e){
+  if(!glisse||e.pointerId!==pid) return;
+  cam.az-=(e.clientX-lx)*0.42;
+  cam.el=Math.max(-88,Math.min(88,cam.el+(e.clientY-ly)*0.34));
+  lx=e.clientX; ly=e.clientY; majBoutons(null); rendre();
+});
+["pointerup","pointercancel"].forEach(function(t){
+  cv.addEventListener(t,function(e){if(e.pointerId===pid){glisse=false;pid=null;}});
+});
+cv.addEventListener("wheel",function(e){
+  e.preventDefault(); auto=false;
+  cam.d=Math.max(30,Math.min(230,cam.d*(1+Math.sign(e.deltaY)*0.11)));
+  rendre();
+},{passive:false});
+
+var ec0=0,d0=0;
+cv.addEventListener("touchstart",function(e){
+  if(e.touches.length===2){
+    ec0=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,
+                   e.touches[0].clientY-e.touches[1].clientY);
+    d0=cam.d; auto=false;
+  }
+},{passive:true});
+cv.addEventListener("touchmove",function(e){
+  if(e.touches.length===2&&ec0>0){
+    e.preventDefault();
+    var d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,
+                     e.touches[0].clientY-e.touches[1].clientY);
+    cam.d=Math.max(30,Math.min(230,d0*ec0/Math.max(d,1))); rendre();
+  }
+},{passive:false});
+cv.addEventListener("touchend",function(){ec0=0;},{passive:true});
+
+cv.addEventListener("keydown",function(e){
+  var pris=true;
+  if(e.key==="ArrowLeft") cam.az-=6;
+  else if(e.key==="ArrowRight") cam.az+=6;
+  else if(e.key==="ArrowUp") cam.el=Math.min(88,cam.el+5);
+  else if(e.key==="ArrowDown") cam.el=Math.max(-88,cam.el-5);
+  else if(e.key==="+"||e.key==="=") cam.d=Math.max(30,cam.d*0.9);
+  else if(e.key==="-"||e.key==="_") cam.d=Math.min(230,cam.d*1.1);
+  else if(e.key==="0"){cam={az:VUE_DEFAUT.az,el:VUE_DEFAUT.el,d:VUE_DEFAUT.d};
+                       CIBLE=VUE_DEFAUT.c.slice();}
+  else pris=false;
+  if(pris){e.preventDefault(); auto=false; majBoutons(null); rendre();}
+});
+
+/* La vue « dessous » est celle qui compte : c'est de là qu'on voit l'orifice,
+   et qu'on vérifie que rien ne se trouve dans son axe. */
+var VUES={
+  perspective:{az:126, el:19,  d:56, c:[-8,0,-3]},
+  dessous:    {az:180, el:-74, d:48, c:[-4,0,-1]},
+  coupe:      {az:180, el:2,   d:70, c:[-14,0,-4]},
+  dessus:     {az:180, el:84,  d:40, c:[-3,0,1]}
+};
+function majBoutons(nom){
+  document.querySelectorAll("[data-vue]").forEach(function(b){
+    b.setAttribute("aria-pressed", b.dataset.vue===nom?"true":"false");
+  });
+}
+document.querySelectorAll("[data-vue]").forEach(function(b){
+  b.addEventListener("click",function(){
+    var v=VUES[b.dataset.vue];
+    cam={az:v.az, el:v.el, d:v.d}; CIBLE=v.c.slice();
+    auto=false; majBoutons(b.dataset.vue); rendre();
+  });
+});
+document.querySelectorAll("[data-calque]").forEach(function(b){
+  b.addEventListener("click",function(){
+    var n=b.dataset.calque;
+    calques[n]=!calques[n];
+    b.setAttribute("aria-pressed", calques[n]?"true":"false");
+    rendre();
+  });
+});
+
+var reduit=window.matchMedia("(prefers-reduced-motion: reduce)");
+var auto=!reduit.matches, t0=null, AZ=VUE_DEFAUT.az, DUREE=850;
+if(auto) cam.az=AZ-26;
+function boucle(t){
+  if(auto){
+    if(t0===null) t0=t;
+    var u=Math.min(1,(t-t0)/DUREE);
+    cam.az=AZ-26*Math.pow(1-u,3);
+    rendre();
+    if(u>=1) auto=false;
+  }
+  if(!auto) return;
+  requestAnimationFrame(boucle);
+}
+
+relire();
+window.matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change",function(){relire(); rendre();});
+new MutationObserver(function(){relire(); rendre();})
+    .observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+if(window.ResizeObserver) new ResizeObserver(redim).observe(cv.parentNode);
+window.addEventListener("resize", redim);
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(rendre);
+redim();
+if(auto) requestAnimationFrame(boucle); else rendre();
+})();
+</script>
+
+</body>
+</html>

@@ -554,6 +554,13 @@ pour une arête de 70 cm : deux barres de 70,0 cm, décalage de 49,5 cm.
 **[Vue 3D interactive de l'antenne](https://f1gbd.github.io/F1GBD/aero-spectrix/teensy/Antenne_3D_ASPX.html)**
 — tétraèdre 70 cm, pivotable et zoomable, cotes de montage.
 
+**[Vue 3D interactive du support du Capteur MEMS](https://f1gbd.github.io/F1GBD/aero-spectrix/teensy/Capteur_3D_ASPX.html)**
+— Capteur MEMS ICS 43434, pivotable et zoomable, cotes de montage.
+
+<div align="center">
+<img src="images/ICS-43434.png" alt="Le scope dôme céleste" width="240">
+</div>
+
 **[Schéma de montage et de câblage](https://f1gbd.github.io/F1GBD/aero-spectrix/teensy/schema_cablage.html)**
 — géométrie, correspondance des voies, chaînes analogique et numérique.
 
