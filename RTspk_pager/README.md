@@ -31,7 +31,7 @@ quantique est un format propre à TCQ, illisible par tout autre client LXMF.
 
 ## Téléchargement et installation (Android)
 
-1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.42.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.42/RTspk_pager-1.0.42.apk)**.
+1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.50.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.50/RTspk_pager-1.0.50.apk)**.
 2. Sur le téléphone, autoriser l'installation depuis cette source (« sources
    inconnues » / « Installer des applications inconnues »).
 3. Ouvrir le fichier APK et installer.
@@ -41,6 +41,26 @@ quantique est un format propre à TCQ, illisible par tout autre client LXMF.
 ---
 
 ## Nouveautés
+
+**1.0.50 — Couche météo AROME, règle des 3×30 et zones à surveiller.** Un bouton
+🌦 **sous le bouton radar** allume une couche météo alimentée par le modèle
+**AROME de Météo-France** via **Open-Meteo — gratuit et sans clé**. La carte se
+couvre d'un **champ de vent** (une flèche par maille, pointe vers où souffle le
+vent, couleur selon la vitesse), des **zones « règle des 3×30 »** (jaune =
+2 critères sur 3, rouge = les 3 réunis, danger feux de forêt extrême), et d'un
+**bulletin station** au point GPS de l'opérateur. On peut en plus **tracer des
+zones à surveiller** au doigt : dès que les seuils y sont atteints, la zone
+passe au rouge clignotant, un **bandeau d'alerte** barre le haut de la carte et
+une **sirène montante** retentit. Les zones **s'échangent par LXMF** avec TCQ,
+dans les deux sens. Réglages par appui long, aux **valeurs par défaut de TCQ** :
+grille 6 × 5, flèches ×1,5, seuils 30 °C / 30 km/h / 30 %, rafraîchissement
+15 min. Détails dans la section **Couche météo** plus bas.
+
+<div align="center">
+<img src="images/METEO_Zone3-30.png" alt="Surveillance Zone Risques Incendies Règle des 3x30" width="800320">
+
+  <em>Surveillance d'une Zone à Risques Incendies selon la **<strong>Règle des 3x30</em>
+</strong>**</div>
 
 1.0.42 — Radar : case « Carte » et fond de carte sombre. Cochez Carte dans les réglages du radar : le scope se centre sur le centre de la carte au moment de l'ouverture au lieu du GPS — on cadre le secteur qui intéresse, on ouvre le radar, et on regarde le trafic là-bas. Seconde case, Fond de carte sombre : un disque de carte assombri se glisse sous le PPI, calé au pixel près sur le cercle de portée, à partir des tuiles déjà en cache (aucune requête supplémentaire).
 
@@ -331,6 +351,122 @@ prix de son quota (400 crédits/jour sans compte, 4000 avec).
 
 > Le radar consomme du réseau : aucune requête n'est émise quand le scope est
 > fermé.
+
+## Couche météo — vent et règle des 3×30 🌦
+
+Bouton **🌦 juste sous le bouton radar**, en haut à droite de la carte. Il allume
+une couche météo posée **sur la carte elle-même** (contrairement au radar, qui
+ouvre un écran séparé). Les données viennent du modèle **AROME de Météo-France**,
+servi par **[Open-Meteo](https://open-meteo.com) — gratuit, sans compte ni clé**.
+C'est le portage de la couche météo de **TCQ**, avec ses réglages par défaut.
+
+### Ce qui s'affiche
+
+**Champ de vent.** Une flèche par maille de la grille. La **pointe indique où va
+le vent** (et non d'où il vient, comme le veut la convention météo) ; la couleur
+donne la vitesse — **vert** sous 20 km/h, **orange** de 20 à 30, **rouge** au-delà
+— et la longueur croît avec elle. Le chiffre sous la flèche est la vitesse en km/h.
+
+**Zones « règle des 3×30 ».** La règle des trois 30 signale un **danger de feu de
+forêt extrême** quand trois conditions sont réunies **en même temps** :
+
+| Critère | Seuil |
+|---|---|
+| Température | **≥ 30 °C** |
+| Vent | **≥ 30 km/h** |
+| Humidité relative | **≤ 30 %** |
+
+La maille se colore en **jaune** dès que **2 critères sur 3** sont atteints
+(vigilance) et en **rouge** quand **les 3** le sont (danger). Les mailles
+débordent légèrement pour se fondre en zones continues. Une légende rappelle en
+bas de carte les seuils effectivement en vigueur.
+
+**Bulletin station.** Encadré en haut à gauche : température, humidité, vent et
+direction, rafales, pression, et l'état de la règle 3×30 (`2/3`, ou
+`⚠️ DANGER`) **au point GPS de l'opérateur** — le centre de la carte prend le
+relais tant qu'il n'y a pas de fix.
+
+**Détail d'un point.** Un appui sur la carte près d'une flèche ouvre la fiche du
+point : température, humidité, vent, rafales, pression, précipitations, et le
+détail des critères 3×30 remplis.
+
+### Réglages (appui long sur 🌦)
+
+| | Défaut (= TCQ) |
+|---|---|
+| Modèle | **AROME France HD (~1,5 km)** — aussi AROME ~2,5 km et ARPEGE Europe ~11 km |
+| Grille | **6 × 5** colonnes × lignes (max 10 × 10 = 100 points) |
+| Taille des flèches | **×1,5** (0,5 = petites … 3,0 = grandes) |
+| Seuils 3×30 | **30 °C / 30 km/h / 30 %** — réglables (test, adaptation locale) |
+| Rafraîchissement | **15 min** (5 min à 60 min) |
+| Calques | champ de vent, zones 3×30, bulletin station — activables séparément |
+
+Le panneau affiche en permanence l'**estimation du budget de requêtes**
+(`≈ 31 pts/cycle → ~2 976 requêtes/jour`, zones surveillées comprises) et
+avertit au-delà de 10 000.
+
+### Zones à surveiller et alertes 🚨
+
+Au-delà de la lecture d'ambiance, la couche sait **surveiller des secteurs
+précis** et prévenir toute seule. Depuis les réglages météo, bouton **🚨 Alertes
+météo & zones à surveiller…**.
+
+**Tracer une zone.** Bouton **➕ Tracer une zone** : le panneau s'efface, on
+pose les sommets **au doigt** sur la carte (3 minimum). Une barre en bas indique
+le nombre de sommets et propose **↶ Point** (retirer le dernier), **✓ Terminer**
+et **✕** (abandonner). On donne enfin un nom à la zone — « Forêt de
+Fontainebleau », « Massif des Trois Pignons »…
+
+**Ce qui est surveillé.** À chaque interrogation, le **centroïde** de chaque zone
+part dans la même requête que la grille : aucune requête supplémentaire par zone
+au-delà de ce point. La condition de déclenchement se choisit :
+
+| Condition | Déclenche quand |
+|---|---|
+| **Règle 3×30 complète** (défaut) | les **3** critères sont réunis |
+| **Vigilance** | **au moins 2** critères sur 3 |
+
+**Quand ça déclenche.** La zone passe en **rouge dense avec un contour
+clignotant**, son nom se préfixe d'un ⚠️, un **bandeau rouge** barre le haut de
+la carte (les boutons descendent pour rester accessibles), et une **sirène
+montante type FR-Alert** retentit — volontairement différente de la sirène
+bitonale RASEC, pour qu'on sache à l'oreille de quoi il s'agit. Le nombre de
+répétitions est réglable, avec un bouton **🔊 Test**.
+
+**Acquitter** : un appui sur le bandeau coupe le son et le clignotement. **La
+surveillance continue** — la zone reste suivie et re-signalera un nouveau
+franchissement.
+
+**Partage avec TCQ.** Bouton **📤 Envoyer les zones (LXMF)** : on choisit les
+destinataires (contacts et nœuds vus, comme pour la synchro NEM) et les zones
+partent en message **« ZONE1: »** — exactement le format de TCQ, dans les deux
+sens. À la réception, on choisit **Fusionner** (les zones de même nom sont
+remplacées, les nouvelles ajoutées), **Remplacer** (tout est écrasé) ou
+**Ignorer** ; ce choix peut être automatisé une fois pour toutes.
+
+> Le message est émis dans **le plus court des deux formats** que TCQ sait lire :
+> base64 + zlib, ou JSON en clair. Sur une ou deux zones le base64 coûte plus
+> cher que ce que la compression fait gagner — le brut passe alors en moins
+> d'octets sur l'air, ce qui compte en VHF 1200 bauds. Au-delà d'une poignée de
+> zones, la compression reprend l'avantage (30 zones : 640 octets contre 2 943).
+
+### Quota Open-Meteo
+
+L'offre gratuite d'Open-Meteo tourne autour de **10 000 requêtes par jour**, et
+**chaque point de grille compte pour une requête** — même si toute la grille part
+en un seul appel. Une grille 6 × 5 rafraîchie tous les quarts d'heure reste très
+en dessous de la limite.
+
+Si le quota est épuisé, l'API répond **HTTP 429** : la couche se met alors en
+**pause 30 minutes** au lieu d'insister, exactement comme TCQ. Le bouton
+**🩺 Diagnostic Quota** du panneau interroge un point unique et dit où l'on en
+est — *quota OK* (la pause éventuelle est levée sur-le-champ), *quota dépassé*
+(remise à zéro à 00:00 UTC, soit ~2 h du matin en France), ou *Open-Meteo
+injoignable*.
+
+> La couche ne consomme rien quand elle est éteinte. Allumée, elle se rafraîchit
+> à la cadence réglée, et au plus une fois toutes les 30 s lorsqu'on déplace ou
+> zoome la carte.
 
 ---
 
