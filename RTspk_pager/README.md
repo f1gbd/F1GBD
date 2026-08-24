@@ -62,6 +62,12 @@ grille 6 × 5, flèches ×1,5, seuils 30 °C / 30 km/h / 30 %, rafraîchissement
   <em>Surveillance d'une Zone à Risques Incendies selon la **<strong>Règle des 3x30</em>
 </strong>**</div>
 
+<div align="center">
+<img src="images/METEO_zone_setup.png" alt="Surveillance Zone Risques Incendies Règle des 3x30" width=640">
+
+  <em>Paramétrage de la météo et de zone la zone à surveiller</em>
+</strong>**</div>
+
 1.0.42 — Radar : case « Carte » et fond de carte sombre. Cochez Carte dans les réglages du radar : le scope se centre sur le centre de la carte au moment de l'ouverture au lieu du GPS — on cadre le secteur qui intéresse, on ouvre le radar, et on regarde le trafic là-bas. Seconde case, Fond de carte sombre : un disque de carte assombri se glisse sous le PPI, calé au pixel près sur le cercle de portée, à partir des tuiles déjà en cache (aucune requête supplémentaire).
 
 <div align="center">
