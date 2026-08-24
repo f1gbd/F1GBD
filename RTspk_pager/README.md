@@ -57,7 +57,7 @@ grille 6 × 5, flèches ×1,5, seuils 30 °C / 30 km/h / 30 %, rafraîchissement
 15 min. Détails dans la section **Couche météo** plus bas.
 
 <div align="center">
-<img src="images/METEO_Zone3-30.png" alt="Surveillance Zone Risques Incendies Règle des 3x30" width="800320">
+<img src="images/METEO_Zone3-30.png" alt="Surveillance Zone Risques Incendies Règle des 3x30" width="640">
 
   <em>Surveillance d'une Zone à Risques Incendies selon la **<strong>Règle des 3x30</em>
 </strong>**</div>
