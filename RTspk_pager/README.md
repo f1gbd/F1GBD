@@ -31,7 +31,7 @@ quantique est un format propre à TCQ, illisible par tout autre client LXMF.
 
 ## Téléchargement et installation (Android)
 
-1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.50.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.50/RTspk_pager-1.0.50.apk)**.
+1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.51.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.51/RTspk_pager-1.0.51.apk)**.
 2. Sur le téléphone, autoriser l'installation depuis cette source (« sources
    inconnues » / « Installer des applications inconnues »).
 3. Ouvrir le fichier APK et installer.
@@ -42,7 +42,7 @@ quantique est un format propre à TCQ, illisible par tout autre client LXMF.
 
 ## Nouveautés
 
-**1.0.50 — Couche météo AROME, règle des 3×30 et zones à surveiller.** Un bouton
+**1.0.51 — Couche météo AROME, règle des 3×30 et zones à surveiller.** Un bouton
 🌦 **sous le bouton radar** allume une couche météo alimentée par le modèle
 **AROME de Météo-France** via **Open-Meteo — gratuit et sans clé**. La carte se
 couvre d'un **champ de vent** (une flèche par maille, pointe vers où souffle le
