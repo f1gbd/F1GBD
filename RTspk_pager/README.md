@@ -31,7 +31,7 @@ quantique est un format propre à TCQ, illisible par tout autre client LXMF.
 
 ## Téléchargement et installation (Android)
 
-1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.60.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.60/RTspk_pager-1.0.60.apk)**.
+1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.61.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.60/RTspk_pager-1.0.61.apk)**.
 2. Sur le téléphone, autoriser l'installation depuis cette source (« sources
    inconnues » / « Installer des applications inconnues »).
 3. Ouvrir le fichier APK et installer.
