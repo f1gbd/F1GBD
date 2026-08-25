@@ -9,9 +9,9 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.68.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.70.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.68/TCQ.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.70/TCQ.7z)
 
 ### ⚡ Installation rapide en 1 commande PowerShell
 
@@ -24,6 +24,181 @@ iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:
 [**📜 Toutes les releases TCQ**](https://github.com/f1gbd/F1GBD/releases?q=tcq) • [**📚 Documentation**](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations)
 
 </div>
+
+## 🆕 Nouveautés v12.67 → v12.70 — Couverture LoRa et placement de relais RRLoRa
+
+Carte des stations APRS → deux nouveaux boutons : **📡 LoRa** et **🗼 Relais**.
+
+C'est le portage sur poste fixe de la fonction publiée sur téléphone dans
+**RTspk Pager ADRASEC v1.0.60** — même moteur, mêmes chiffres.
+
+En arrivant sur une opération, deux questions se posaient et se tranchaient à
+l'estime : *jusqu'où porte ma station ?* — on le découvrait en perdant le
+contact — et *où poser le relais ?* — on montait sur le point haut le plus
+proche, ce qui est parfois le pire choix possible. TCQ répond aux deux, sur le
+**relief réel**, sans compte ni clé d'API.
+
+### 📡 Couverture LoRa — la portée en quatre couleurs
+
+Le bouton **📡 LoRa** trace autour de la station la portée prévisible, sur la
+fréquence et les paramètres radio **réellement réglés** — rien à ressaisir.
+
+| Classe | Marge | Lecture sur le terrain |
+|---|---|---|
+| 🟩 Confortable | ≥ 20 dB | tolère l'imprévu |
+| 🟢 Correcte | 10 – 20 dB | fiable en usage normal |
+| 🟧 Juste | 0 – 10 dB | ça passe, mais rien ne pardonne |
+| 🟥 Limite | −6 – 0 dB | à ne pas compter dessus |
+
+Au-delà, rien n'est tracé : la liaison ne se ferme pas.
+
+<p align="center">
+  <img src="images/Couverture_LoRa.png" alt="Couverture LoRa prévisionnelle et bilan de liaison au curseur" width="1024"/>
+  <br><i>Couverture depuis Fontainebleau à 867,500 MHz / SF9 / 250 kHz. En haut à gauche, le bilan du point survolé : à 26,41 km dans l'azimut 89°, la marge tombe à −3,5 dB et la zone de Fresnel est obstruée (−2,12 F1) — la liaison ne passe pas. Les cartouches donnent ce que reçoit chaque nœud d'un relais posé entre A et B.</i>
+</p>
+
+**Au survol du curseur**, un encart donne le bilan du point visé : distance,
+azimut, affaiblissement en espace libre, diffraction éventuelle, puissance
+reçue, seuil de sensibilité, **marge**, et l'état du dégagement de Fresnel.
+
+Réglages par **clic droit sur le bouton** ou par le **⚙** voisin : fréquence,
+puissance, SF, largeur de bande, gains et hauteurs d'antenne, pertes de câble,
+marge d'évanouissement, rayon étudié, finesse de la grille, source du relief.
+
+### 🗼 Relais RRLoRa — où poser le répéteur
+
+Deux stations qui ne s'entendent pas : posez **A** et **B** d'un clic (A prend
+d'emblée la position de votre station). TCQ explore un corridor autour de l'axe
+A–B, dégrossit sur une grille, puis **recalcule les meilleurs candidats sur des
+profils d'altitude réels** — seul classement qui compte, car une crête étroite
+peut passer entre les mailles du dégrossissage.
+
+Le résultat est tracé sur la carte : les deux bonds **A→R** et **R→B**, colorés
+**chacun par sa propre marge**, la pastille du relais adopté, et les
+emplacements de repli en petit. Un **cartouche de réception** est posé à côté du
+relais et à côté de B — chacun donne le bilan du **bond entrant**, c'est-à-dire
+ce que ce nœud-là reçoit.
+
+Si aucun emplacement unique ne referme la liaison, TCQ cherche une **chaîne de
+deux relais** avant de déclarer forfait.
+
+### 🖱️ Choisir un autre emplacement que le mieux classé
+
+Le classement se fait sur **un seul critère : la marge du maillon faible**,
+`min(A→R, R→B)`. C'est le bon arbitrage pour une liaison à double sens — mais le
+calcul **ignore tout ce qui décide sur le terrain** : accès routier,
+alimentation, autorisation, pylône existant, propriétaire joignable un dimanche.
+
+Les emplacements sont donc **proposés, pas imposés** :
+
+| Geste sur une pastille | Effet |
+|---|---|
+| Survol | infobulle de détail : rang, position, altitude, les deux bonds avec distance / affaiblissement / marge / Fresnel, le maillon faible, le rappel de la liaison directe, la distance depuis votre station |
+| Appui bref | adopte cet emplacement |
+| **Appui long** (0,6 s) | l'adopte **et** ouvre ses réglages : hauteur et gain d'antenne du relais |
+| Glisser | ni l'un ni l'autre — c'est un déplacement de carte |
+
+Le **⚙ Relais** ouvre en plus une **liste comparative** — une ligne par
+emplacement, avec maillon faible, position, altitude, longueur et marge de
+chaque bond, **dégagement de Fresnel des deux bonds**, et distance depuis votre
+station. Une ligne cliquée est adoptée.
+
+> Fresnel ≥ 0,6 = dégagé, négatif = obstrué. **À marge égale, le mieux dégagé
+> encaisse mieux la pluie et la feuillaison.** Et si plusieurs sites tiennent,
+> prenez celui où vous pouvez réellement monter, pas celui qui a 2 dB de plus :
+> le journal chiffre ce que coûte le choix.
+
+<p align="center">
+  <img src="images/Relais_RRLora.png" alt="Placement de relais RRLoRa : infobulle de détail et liste comparative" width="1024"/>
+  <br><i>18,56 km entre A et B : <b>+10,1 dB en direct</b>, contre <b>+21,2 dB</b> par un relais posé à 95 m — la marge double. L'infobulle détaille les deux bonds du site adopté ; la liste en propose quatre autres, de +18,8 à +15,1 dB, entre lesquels on tranche sur l'accès plutôt que sur le décibel.</i>
+</p>
+
+### ⛰️ Le relief : d'où viennent les altitudes
+
+Trois sources en cascade, **sans compte ni clé** :
+
+| Source | Résolution | Quota |
+|---|---|---|
+| OpenTopoData **EU-DEM 25 m** *(défaut, Europe)* | 25 m | 100 points/appel, 1 appel/s, 1000 appels/jour |
+| OpenTopoData **SRTM 30 m** *(repli mondial)* | 30 m | idem |
+| Open-Meteo **Copernicus 90 m** *(dernier recours)* | 90 m | facturé au **point** : 600/min, 10 000/jour |
+
+Les altitudes obtenues sont **conservées sur disque** (`~/.tcq_cache/`) : une
+seconde étude sur le même secteur ne redemande rien. Un compteur d'appels tient
+le quota du jour et **attend** plutôt que de se faire refuser.
+
+Bouton **🩺 Tester les sources d'altitude** dans les réglages : interroge les
+trois et dit laquelle répond *depuis ce poste*. C'est le seul moyen honnête de
+savoir ce que laisse passer le réseau local — cela dépend du réseau et d'un
+éventuel proxy, deux choses qui ne se devinent pas.
+
+> **OpenStreetMap ne contient aucune altitude** — c'est une carte de voies et de
+> nœuds. Le relief vient d'un modèle numérique de terrain, ce qui est autre
+> chose.
+
+### 🔬 Un seul moteur pour TCQ et RTspk Pager
+
+Le calcul vit dans **`lora_lib.py`** (compagnon, bibliothèque standard seule,
+comme `meteo_lib` et `carto_lib`). C'est le portage fidèle du moteur JavaScript
+de RTspk Pager v1.0.60, confronté à lui sur neuf cas identiques dont trois avec
+relief :
+
+```
+ÉCART MAXIMAL entre le moteur JavaScript (RTspk) et le moteur Python (TCQ) : 0.000e+00 dB
+```
+
+Ce n'est pas un détail de confort : deux applications ouvertes côte à côte sur
+le terrain qui annonceraient des marges différentes pour la même liaison, et
+plus personne n'accorderait de crédit ni à l'une ni à l'autre.
+
+Physique employée : espace libre **ITU-R P.525-3**, ellipsoïde de **Fresnel**,
+diffraction sur arête **ITU-R P.526**, bombement terrestre avec *k* = 4/3,
+sensibilité LoRa `−174 + 10·log₁₀(BW) + NF + SNR_min(SF)`.
+
+### 💡 Quatre choses que ce calcul apprend
+
+- **Un mât sert à voir par-dessus, pas à porter plus loin.** Sur un trajet
+  obstrué : +12 dB. Sur un trajet déjà dégagé : **rien du tout**.
+- **Un obstacle près du relais coûte bien plus cher qu'un obstacle à
+  mi-chemin.** Le paramètre de diffraction `v = h·√(2(d₁+d₂)/λd₁d₂)` diverge
+  quand `d₁ → 0` : un creux bien placé reste un mauvais site.
+- **Le point le plus haut du corridor peut être le pire emplacement** s'il se
+  trouve juste derrière une crête. La signature : des bonds très déséquilibrés.
+- Un **RRLoRa est un nœud de transport Reticulum**, pas un répéteur RF :
+  A→relais→B, ce sont **deux bonds indépendants**, et c'est le maillon faible
+  qui gouverne. Le **PA du Heltec V4.3** (+11 dB mesurés au banc) n'émet qu'en
+  transmission : en liaison à double sens, chaque bond est gouverné par le plus
+  faible des deux émetteurs — donc la station, jamais le relais. TCQ le dit au
+  lieu de laisser compter dessus.
+
+### ⚠️ Une prévision, pas une mesure
+
+Ni bâti, ni végétation, ni brouillage. Le relief est échantillonné, pas intégré.
+**Sur le terrain, seul un essai radio fait foi** : le calcul dit où aller
+regarder. Sans aucune source d'altitude joignable, la couverture reste tracée
+**en espace libre** — la légende l'écrit en toutes lettres, car un tracé
+optimiste qui ne se signale pas est pire que pas de tracé du tout. La recherche
+de relais, elle, refuse de s'exécuter : sans relief, elle conclurait
+« n'importe où convient ».
+
+### 🔧 Aussi dans ces versions
+
+- **v12.67** — la fenêtre **🌐 RNS Nodes List** rebascule sur **RMAP**
+  (`rmap.world`), `rns.fyi` étant hors service ; celui-ci reste sélectionnable
+  en secours. Les colonnes du tableau suivent la source réellement servie, et
+  une **santé dérivée** (0–100) remplace les métriques que RMAP ne publie pas.
+  Sont écartés du listage les nœuds sans endpoint TCP joignable : sur un relevé
+  typique, **632 nœuds annoncés → 242 exploitables**.
+- **v12.68** — **le tracé de zone redevient possible après réouverture de la
+  carte**. Zone, route coupée, flèche et zone d'alerte météo : à partir de la
+  **deuxième** ouverture de la fenêtre carte dans une même session, les clics ne
+  donnaient plus rien et le clic droit ne terminait plus le tracé. Découvert en
+  traçant une zone d'alerte météo, qui ne pouvait donc pas être enregistrée.
+
+✅ Vérifié par **76 contrôles** sur le moteur et **98 contrôles d'interface**
+sous Tk réel, sur quatre tailles d'écran (800×600 → 1920×1080).
+
+---
 
 ## 🆕 Nouveautés v12.63 → v12.66 — Interopérabilité RTspk Pager : PING, images, radar
 
@@ -374,10 +549,11 @@ Conçu pour les opérations ADRASEC et les exercices de sécurité civile, TCQ p
 
 | Icône | Fonctionnalité | Description |
 |:---:|---|---|
-| 📨 | **LXMF / Reticulum** | Messagerie chiffrée bout-en-bout (X25519 + AES-128 + HMAC-SHA256), multi-saut, résiliente. Compatible TCP, série, LoRa, packet AX.25 et passerelle VARA. **RNS Nodes List** : sélection des points d'accès Reticulum du moment (rns.fyi) et mise à jour assistée de `~/.reticulum/config`. |
+| 📨 | **LXMF / Reticulum** | Messagerie chiffrée bout-en-bout (X25519 + AES-128 + HMAC-SHA256), multi-saut, résiliente. Compatible TCP, série, LoRa, packet AX.25 et passerelle VARA. **RNS Nodes List** : sélection des points d'accès Reticulum du moment (**RMAP**, repli rns.fyi) et mise à jour assistée de `~/.reticulum/config`. |
 | 📡 | **VARA HF / FM / SAT** | Modems ARQ haute performance (EA5HVK) intégrés avec protection idle/timeout, suspension/reprise des transferts, détection automatique du chemin VARA. |
 | 📻 | **TNC Packet (AX.25)** | Direwolf lancé automatiquement avec configuration adaptée à votre carte son. Modes KISS et AGWPE. Support BBS et PDF radio. |
 | 🌐 | **MeshCore LoRa** | Protocole mesh LoRa natif pour communications de proximité en zone d'exercice ou d'intervention. Messagerie, BBS, **transferts de radiogrammes / fichiers diffusés sur canal** (Public, Urgence) et **canaux privés protégé par clé secrète** — création, partage par **QR Code / URL `meshcore://`**, mémorisation de la clé et vérification du **hash on-air**. Compatibles firmware MeshCore récent (≥ v1.6). |
+| 🗼 | **Couverture LoRa & relais RRLoRa** | Sur la carte : portée prévisible de la station en **quatre classes de marge**, tracée sur la fréquence et les paramètres radio réellement réglés, avec bilan de liaison au curseur. **Placement de relais RRLoRa** entre deux stations : TCQ explore le corridor sur le relief réel et propose les emplacements exploitables, classés par maillon faible. Altitudes EU-DEM 25 m (OpenTopoData), **sans compte ni clé**. Même moteur de calcul que RTspk Pager — écart mesuré **nul** entre les deux. |
 | 🖼️ | **SSTV temps réel** | Décodeur porté de slowrx — Scottie (S1/S2/SDX), Martin (M1/M2), Robot (36/72), PD (50→240). Waterfall + visualiseur plein écran + bouton Resync. |
 | 🎵 | **CW / Morse** | Décodeur DSP avec seuillage adaptatif et clustering K-means. **QSObrain** pour QSO CW entièrement autonomes (CSMA, WPM adaptatif, anti-self-CQ). |
 | 📬 | **BBS Multi-modes** | Bulletin Board System sur TNC Packet et MeshCore avec compteur paquets, réassemblage automatique, persistance SQLite. |
@@ -919,7 +1095,7 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**Version v12.68.0 — 24/08/2026**
+**Version v12.70.0 — 25/08/2026**
 
 ---
 
