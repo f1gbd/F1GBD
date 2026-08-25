@@ -31,7 +31,7 @@ quantique est un format propre à TCQ, illisible par tout autre client LXMF.
 
 ## Téléchargement et installation (Android)
 
-1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.60.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.60/RTspk_pager-1.0.60.apk)**.
+1. Télécharger l'APK (lien direct) : **[RTspk_pager-1.0.53.apk](https://github.com/f1gbd/F1GBD/releases/download/1.0.53/RTspk_pager-1.0.53.apk)**.
 2. Sur le téléphone, autoriser l'installation depuis cette source (« sources
    inconnues » / « Installer des applications inconnues »).
 3. Ouvrir le fichier APK et installer.
@@ -42,33 +42,7 @@ quantique est un format propre à TCQ, illisible par tout autre client LXMF.
 
 ## Nouveautés
 
-**1.0.60 — Couverture LoRa prévisionnelle et placement de relais RRLoRa.**
-Un bouton **🗼 pylône** cherche **où poser un répéteur [RRLoRa](https://github.com/f1gbd/F1GBD/tree/master/RRLora)** pour relier deux
-stations qui ne s'entendent pas : profil réel de la liaison directe, grille d'altitudes
-sur le corridor, six meilleurs sites recalculés sur profils réels, et une **chaîne de deux
-relais** quand un seul ne suffit pas. RRLoRa étant un **nœud Transport Reticulum**, la liaison
-compte **deux bonds indépendants** : c'est le **maillon faible** qui est affiché. La position de
-la station se choisit désormais entre **GPS et curseur**, et un appui sur l'encart de bilan
-ouvre les réglages.
-
-<div align="center">
-<img src="images/Couverture_LoRa_Relais.png" alt="Couverture LoRa prévisionnelle et placement de relais RRLoRa" width="640">
-
-  <em>Couverture LoRa prévisionnelle et placement de relais **<strong>RRLoRa</em>
-</strong>**</div>
-**Pour plus d'info sur les relais RRLoRa:** https://github.com/f1gbd/F1GBD/tree/master/RRLora
-
- Un bouton **📡 antenne**, sous les
-réglages météo, trace la **portée radio de la station** en quatre couleurs sur la
-**fréquence réellement configurée dans le RNode** (867,500 MHz par défaut), et
-affiche le **bilan de liaison au point visé** : distance, azimut, affaiblissement,
-puissance reçue, sensibilité, marge et dégagement de la zone de Fresnel. Le calcul
-tient compte du **relief réel** (altitudes Open-Meteo, sans clé), de la **courbure
-terrestre** et de la **diffraction sur arête** — une crête dégrade la liaison
-progressivement au lieu de la couper net. À lire comme une prévision, jamais
-comme une garantie : sur le terrain, seul un essai radio fait foi.
-
-**1.0.50 — Couche météo AROME, règle des 3×30 et zones à surveiller.** Un bouton
+**1.0.53 — Couche météo AROME, règle des 3×30 et zones à surveiller.** Un bouton
 🌦 **sous le bouton radar** allume une couche météo alimentée par le modèle
 **AROME de Météo-France** via **Open-Meteo — gratuit et sans clé**. La carte se
 couvre d'un **champ de vent** (une flèche par maille, pointe vers où souffle le
@@ -81,7 +55,6 @@ une **sirène montante** retentit. Les zones **s'échangent par LXMF** avec TCQ,
 dans les deux sens. Réglages par appui long, aux **valeurs par défaut de TCQ** :
 grille 6 × 5, flèches ×1,5, seuils 30 °C / 30 km/h / 30 %, rafraîchissement
 15 min. Détails dans la section **Couche météo** plus bas.
-✅ Interopérable **TCQ v12.68** — zones échangées et affichées dans les deux sens.
 
 <div align="center">
 <img src="images/METEO_Zone3-30.png" alt="Surveillance Zone Risques Incendies Règle des 3x30" width="640">
@@ -95,7 +68,7 @@ grille 6 × 5, flèches ×1,5, seuils 30 °C / 30 km/h / 30 %, rafraîchissement
   <em>Paramétrage de la météo et de zone la zone à surveiller</em>
 </strong>**</div>
 
-**1.0.42 — Radar** : case « Carte » et fond de carte sombre. Cochez Carte dans les réglages du radar : le scope se centre sur le centre de la carte au moment de l'ouverture au lieu du GPS — on cadre le secteur qui intéresse, on ouvre le radar, et on regarde le trafic là-bas. Seconde case, Fond de carte sombre : un disque de carte assombri se glisse sous le PPI, calé au pixel près sur le cercle de portée, à partir des tuiles déjà en cache (aucune requête supplémentaire).
+1.0.42 — Radar : case « Carte » et fond de carte sombre. Cochez Carte dans les réglages du radar : le scope se centre sur le centre de la carte au moment de l'ouverture au lieu du GPS — on cadre le secteur qui intéresse, on ouvre le radar, et on regarde le trafic là-bas. Seconde case, Fond de carte sombre : un disque de carte assombri se glisse sous le PPI, calé au pixel près sur le cercle de portée, à partir des tuiles déjà en cache (aucune requête supplémentaire).
 
 <div align="center">
 <img src="images/RATspeak_RADAR_display_carto.png" alt="RWLoRa" width="480">
@@ -423,7 +396,7 @@ relais tant qu'il n'y a pas de fix.
 point : température, humidité, vent, rafales, pression, précipitations, et le
 détail des critères 3×30 remplis.
 
-### Réglages (bouton ⚙, ou appui long sur 🌦)
+### Réglages (appui long sur 🌦)
 
 | | Défaut (= TCQ) |
 |---|---|
@@ -477,16 +450,6 @@ sens. À la réception, on choisit **Fusionner** (les zones de même nom sont
 remplacées, les nouvelles ajoutées), **Remplacer** (tout est écrasé) ou
 **Ignorer** ; ce choix peut être automatisé une fois pour toutes.
 
-**Vérifié dans les deux sens** avec **TCQ v12.68** : une zone tracée sur le
-téléphone apparaît sur la carte TCQ, et une zone tracée dans TCQ arrive sur le
-téléphone avec le choix Fusionner / Remplacer / Ignorer.
-
-> **Côté TCQ, la couche météo doit être allumée pour voir les zones reçues.**
-> TCQ les enregistre dès la réception — son journal affiche « Zones d'alerte
-> météo reçues de … » — mais il ne les dessine que dans sa couche météo : tant
-> que le bouton **🌦️ Météo** de sa carte est éteint, rien n'apparaît. Allumez-le
-> et les zones se tracent au premier relevé.
-
 > Le message est émis dans **le plus court des deux formats** que TCQ sait lire :
 > base64 + zlib, ou JSON en clair. Sur une ou deux zones le base64 coûte plus
 > cher que ce que la compression fait gagner — le brut passe alors en moins
@@ -510,289 +473,6 @@ injoignable*.
 > La couche ne consomme rien quand elle est éteinte. Allumée, elle se rafraîchit
 > à la cadence réglée, et au plus une fois toutes les 30 s lorsqu'on déplace ou
 > zoome la carte.
-
----
-
-## Couverture LoRa prévisionnelle 📡
-
-Bouton **📡 antenne**, **sous les réglages météo**, en haut à droite de la carte.
-Il répond à la question qu'on se pose en arrivant sur une opération : *d'ici, je
-porte jusqu'où ?* — et à sa vraie question jumelle : *si je monte sur la butte
-d'à côté, je gagne quoi ?*
-
-Porté de **[lora-mesh-planner](https://github.com/opticgroup/lora-mesh-planner)**,
-adapté à la bande européenne et au balayage tous azimuts.
-
-![Couverture LoRa et placement de relais RRLoRa](images/Couverture_LoRa_Relais.png)
-
-*Les deux couches allumées ensemble, secteur Fontainebleau — Le Châtelet-en-Brie.
-En fond, la **tache de couverture** de la station A. Par-dessus, la liaison
-**A → relais → B** : 15,87 km en direct pour +9,4 dB seulement, que le relais
-proposé à 102 m d'altitude porte à **+17,9 dB** sur son maillon faible. Les
-cercles blancs sont les autres emplacements retenus. L'encart en bas à droite
-donne le bilan au curseur, la fiche en haut celui du point touché.*
-
-### La carte se colore en quatre niveaux
-
-| Couleur | Marge | Ce que ça vaut sur le terrain |
-|---|---|---|
-| 🟢 vert foncé | ≥ 20 dB | Liaison confortable, tient malgré la pluie et les masques |
-| 🟩 vert clair | 10 – 20 dB | Correcte, marge normale d'exploitation |
-| 🟠 orange | 0 – 10 dB | Juste — ça passe, mais le moindre aléa la coupe |
-| 🔴 rouge | −6 – 0 dB | Limite : paquets perdus, à ne pas compter dessus |
-
-La **marge** est ce qui reste au-dessus de la sensibilité du récepteur **une
-fois provisionnés 10 dB d'évanouissement**. Une marge de 0 dB n'est donc pas la
-limite de portée : c'est le point où il ne reste plus que la provision.
-
-La couverture est calculée sur **36 azimuts** (un rayon tous les 10°) et **24
-points de relief par rayon** jusqu'à **15 km** — soit 865 points d'altitude.
-Tout est réglable.
-
-### Le bilan suit le curseur
-
-Un encart en bas à droite suit le **centre de la carte** — le même point que la
-croix centrale et le bandeau de coordonnées. Il se lit sans rien toucher, en
-faisant glisser la carte :
-
-```
-📡 867.500 MHz · SF9 · 250 kHz
-Distance 7.42 km · Az 118°
-FSPL 108.6 dB · diffr. 14.5 dB
-Reçu -105.1 dBm · seuil -126.5 dBm
-Marge +11.4 dB — Correcte
-Fresnel : partiellement obstrué (0.31 F1)
-```
-
-Un **appui sur la carte** ouvre la même fiche en infobulle, au point touché.
-
-### Les paramètres viennent du RNode
-
-Fréquence, puissance, facteur d'étalement et largeur de bande sont **repris de
-l'interface RNode active** de l'application. Rien à ressaisir — et surtout rien
-à laisser diverger : une fréquence recopiée à la main finit toujours par ne plus
-correspondre à la radio. Sans RNode configuré : **867,500 MHz, SF9, 250 kHz,
-17 dBm**.
-
-**Appui long sur 📡** (ou clic droit) ouvre les réglages : fréquence, puissance,
-SF, bande, gains et **hauteurs d'antenne**, pertes de câble, marge
-d'évanouissement, rayon étudié, finesse du calcul. Un réglage saisi à la main
-prime sur la valeur du RNode. Le panneau annonce d'avance **combien de requêtes
-d'altitude** le calcul demandera.
-
-### Le modèle
-
-* **Espace libre — ITU-R P.525-3** : `FSPL = 20·log₁₀(d_km) + 20·log₁₀(f_MHz) + 32,44`
-* **Zone de Fresnel** : `r = √(n·λ·d₁·d₂ / (d₁+d₂))` — 29,4 m de rayon au milieu
-  d'un trajet de 10 km à 867,5 MHz
-* **Diffraction sur arête — ITU-R P.526** : une crête ne coupe pas la liaison,
-  elle la dégrade progressivement (6 dB quand elle affleure la visée, 14 dB à
-  v = 1, 19 dB à v = 2)
-* **Courbure terrestre** avec rayon effectif **k = 4/3** : 13,2 m de bombement au
-  milieu d'un trajet de 30 km
-* **Sensibilité LoRa** : `S = −174 + 10·log₁₀(BW) + NF + SNR_min(SF)` — soit
-  −126,5 dBm en SF9/250 kHz et −137,0 dBm en SF12/125 kHz, conforme à la fiche
-  du SX1276
-
-Le **relief réel** vient de l'**API d'altitude d'Open-Meteo** — même hôte que la
-couche météo, déjà autorisé, toujours **sans clé**. Les altitudes sont mises en
-cache : déplacer la carte ne les redemande pas.
-
-### Monter l'antenne rapporte plus que monter la puissance
-
-Sur terrain **parfaitement plat**, un mât de 3 m vers un portatif tenu à 1,5 m
-perd déjà **5 dB à 5 km** : ce n'est pas un obstacle, c'est **le sol lui-même**
-qui mord dans la zone de Fresnel — il n'en reste que 9 % de dégagée. Les mêmes
-5 km avec les deux antennes à 30 m ne perdent **rien du tout**.
-
-Autrement dit : +27 m d'antenne valent ici exactement autant que +5 dB
-d'émission — sauf que les 5 dB, on ne les a pas.
-
-### ⚠️ Ce que ce calcul n'est pas
-
-**Une prévision, pas une mesure.** Le relief est échantillonné, **sans bâti ni
-végétation** ; le modèle suppose **une arête unique** par trajet ; la marge
-d'évanouissement est forfaitaire. À prendre comme une aide au choix d'un point
-haut — **sur le terrain, seul un essai radio fait foi**. La légende le rappelle
-à l'écran, sous les quatre couleurs.
-
-### Sans réseau
-
-Case **« Tenir compte du relief »** décochée : le tracé se fait en **espace
-libre**, **sans une seule requête**. La couverture est alors optimiste — c'est le
-cercle théorique — mais elle reste utilisable pour comparer deux SF ou deux
-puissances. Si les altitudes ne répondent pas, l'application **retombe d'elle-même
-sur ce mode et le dit** plutôt que de ne rien tracer.
-
-### Choisir d'où part le calcul : GPS ou curseur
-
-Le GPS répond *« d'ici, je porte jusqu'où ? »*. Le **curseur** répond *« et si je
-montais là-bas ? »* — la question qu'on se pose devant une carte, et qu'on peut
-désormais poser sans se déplacer. Le choix est en tête des réglages, avec les
-**deux positions affichées côte à côte** : on choisit sur des chiffres, pas sur
-un pari.
-
-Une couverture tracée depuis le curseur **le dit** dans l'encart
-(*« ◎ Station : centre de la carte »*) — sans quoi on la lirait comme « d'ici »,
-et on se tromperait de conclusion. De même, un calcul demandé en GPS **sans
-fix** part du centre de la carte et l'annonce, plutôt que de tracer en silence
-depuis un point supposé.
-
-### Les paramètres sont à un appui sur l'encart
-
-L'encart de bilan est ce que l'on regarde : c'est donc de là qu'on veut corriger
-une hauteur d'antenne ou un facteur d'étalement. **Un appui dessus** ouvre les
-mêmes réglages que l'appui long sur le bouton — qui, lui, ne se devine pas.
-
-> Rien n'est calculé ni demandé au réseau quand la couche est éteinte.
-
-### Le relief, le quota, et pourquoi OSM n'y suffit pas
-
-**OpenStreetMap ne fournit aucune altitude** : c'est une carte de voies et de
-nœuds, sans modèle de terrain. Le relief vient de l'**API d'altitude
-d'Open-Meteo**, adossée au **Copernicus DEM GLO-90** — 90 m de résolution,
-mondial, sans clé.
-
-Open-Meteo **facture au point, pas à l'appel** : une requête de 100 coordonnées
-pèse 100. Les plafonds gratuits sont de **600 points par minute**, 5 000 par
-heure, 10 000 par jour. Les réglages par défaut sont calibrés pour qu'un calcul
-complet tienne dans une minute : **385 points** pour une couverture, **429**
-pour une recherche de relais.
-
-Trois conséquences pratiques :
-
-* les altitudes sont **conservées d'une session à l'autre** — sur une opération
-  on travaille longtemps sur le même secteur, et la deuxième recherche dans la
-  même zone ne coûte souvent rien ;
-* si la minute est déjà chargée, l'application **patiente et l'annonce** au lieu
-  de se faire refuser ;
-* si le quota est malgré tout épuisé (HTTP 429), une **pause de 30 minutes** est
-  armée et le message le dit clairement. *Le relief n'est pas manquant : il est
-  rationné.* Ce qui est en cache reste servi.
-
-Monter la finesse dans ⚙ augmente le nombre de points demandés — le panneau
-annonce d'avance combien, et ce qu'il reste dans la minute.
-
-Depuis, **[Open Topo Data](https://www.opentopodata.org/)** est la source
-principale, et le calcul est bien plus à l'aise : ce service compte **à l'appel**
-(100 points), avec 1 000 appels par jour — soit ~100 000 points quotidiens contre
-10 000 — et sert **EU-DEM en 25 m** sur l'Europe au lieu du Copernicus 90 m.
-
-L'ordre est **EU-DEM 25 m → SRTM 30 m → Open-Meteo 90 m**, avec repli automatique
-sur réseau coupé, refus CORS, quota atteint ou absence de couverture. Un point
-sans donnée n'est jamais pris pour du niveau de la mer : il passe à la source
-suivante.
-
-Le bouton **🩺 Tester les sources**, dans les réglages de la couverture,
-interroge un point sur chacune et dit laquelle répond depuis votre appareil —
-avec l'altitude et le temps de réponse. Le bouton **🗑** oublie les altitudes
-conservées, pour forcer un nouveau relevé si une meilleure source devient
-joignable.
-
-Le bouton **🩺** figure dans **les deux panneaux** — couverture (📡) et relais
-(🗼) — puisque les deux couches partagent le même relief. Chacun annonce aussi
-quelle source sert en ce moment, et le signale quand le repli a joué.
-
-La source retenue **périme au bout de 20 minutes** : une coupure passagère ne
-condamne pas l'application à rester sur le 90 m alors que le 25 m est redevenu
-joignable. Un test 🩺 concluant rend la main immédiatement à la meilleure source.
-
-> **Attribution.** EU-DEM : produit à partir de données Copernicus, financé par
-> l'Union européenne. SRTM : NASA. Open Topo Data : Andrew Nisbet.
----
-
-## Où poser un relais RRLoRa 🗼
-
-Un quatrième bouton, un **pylône**, sous celui de la couverture. Il répond à la
-question d'après : *deux stations ne s'entendent pas — où faut-il poser le
-relais ?*
-
-**[RRLoRa](https://github.com/f1gbd/F1GBD/tree/master/RRLora)** est un **nœud
-Transport Reticulum autonome** sur Heltec WiFi LoRa 32 V3/V4 : il reçoit, décide
-et retransmet seul, sans PC. Conséquence directe pour le calcul : A → relais → B
-n'est pas un bond radio unique mais **deux bonds indépendants**, qui doivent se
-boucler chacun de leur côté. C'est le **maillon le plus faible** qui fait la
-liaison, et c'est lui que l'application affiche.
-
-### Comment on s'en sert
-
-1. **A est prérempli** depuis la même source que la couverture — GPS ou curseur.
-   Touchez « A » pour le reposer ailleurs.
-2. **Touchez la carte** pour poser **B**.
-3. **↻** cherche. **✋** évalue à la place un point que vous désignez vous-même.
-
-Le résultat s'affiche en bas :
-
-```
-A ↔ B  20.02 km — direct −4.4 dB : ne passe pas.
-Relais proposé  48.47333, 2.72000 — 309 m
-A → relais 5.93 km +37.3 dB · relais → B 14.08 km +29.8 dB
-Maillon faible +29.8 dB — Confortable
-```
-
-Cinq autres emplacements restent marqués sur la carte : touchez-en un pour lire
-son bilan. Si **aucun relais unique** ne referme la liaison, une **chaîne de
-deux** est cherchée et proposée.
-
-### Comment il cherche
-
-1. **Profil réel A–B** : faut-il seulement un relais ? Si la liaison directe
-   passe, l'application le dit avant toute autre chose.
-2. **Grille d'altitudes sur le corridor A–B**, en une seule salve — chaque point
-   est évalué comme relais possible. C'est un **dégrossissage** : les profils y
-   sont interpolés entre mailles, une crête étroite peut passer entre elles.
-3. Les **six meilleurs sites** sont recalculés sur des **profils d'altitude
-   réels**. Le classement final ne repose que sur ceux-là.
-4. Faute de relais unique, une **chaîne de deux** est cherchée parmi les
-   meilleurs sites du dégrossissage.
-
-Le modèle de propagation n'est pas redéfini : c'est celui de la couche de
-couverture, cache d'altitudes compris.
-
-### Deux choses que ce calcul apprend
-
-**Le mât sert à voir par-dessus, pas à porter plus loin.** Sur un site obstrué,
-passer le mât du relais de 6 m à 30 m rapporte une douzaine de décibels. Sur un
-trajet déjà dégagé, il ne rapporte **rien du tout**. La hauteur achète du
-dégagement, pas de la puissance.
-
-**Un creux bien placé reste un mauvais site.** Un relais posé au fond d'un col,
-pile dans l'axe, fait moins bien qu'un relais sur l'épaule haute à côté. La
-raison est dans la formule de Fresnel : `v = h·√(2(d₁+d₂)/λd₁d₂)` diverge quand
-`d₁ → 0`, donc **un obstacle proche du relais coûte bien plus cher que le même
-obstacle à mi-parcours**. Le terrain qui remonte juste à côté du mât pénalise un
-seul des deux bonds — et c'est le maillon faible qui décide.
-
-### Le PA du V4.3 ne fait pas ce qu'on croit
-
-Le firmware V4.3 pilote un FEM KCT8103L, **11 dB mesurés au banc**. Ces 11 dB
-n'agissent qu'à l'**émission du relais**. Or, pour du trafic à double sens,
-chaque bond est gouverné par le **plus faible des deux émetteurs** — donc par la
-station, jamais par le relais.
-
-**Le PA ne rattrape pas une station qui n'atteint pas le relais.** Le calcul
-retient `min(Ptx)` sur chaque bond, et le panneau le dit quand vous l'activez,
-plutôt que de vous laisser compter sur un gain qui n'arrivera pas. Il compte en
-revanche pleinement pour de l'**alerte à sens unique**, relais → station.
-
-### Réglages (appui long sur 🗼)
-
-Hauteur et gain d'antenne du relais (**6 m, 3 dBi** par défaut), hauteurs des
-deux stations, PA V4.3, sens de la liaison, finesse du corridor. La **radio** —
-fréquence, SF, bande, puissance — est reprise telle quelle de la couche de
-couverture : RRLoRa impose les mêmes réglages sur tous les nœuds du réseau, « un
-seul écart et rien ne passe ».
-
-> Sans altitudes, la recherche ne se fait pas : le relief **est** le sujet.
-> L'application le dit au lieu de proposer un résultat en espace libre qui
-> conclurait « n'importe où convient ».
-
-### ⚠️ La même réserve que la couverture
-
-Relief échantillonné, **ni bâti ni végétation**, une arête unique par trajet.
-Le calcul dit **où aller regarder** — il ne dispense pas d'y monter. Un site
-retenu se vérifie sur place, à la radio.
-
 
 ---
 
