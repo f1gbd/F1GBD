@@ -1,1090 +1,214 @@
 <div align="center">
 
-<img src="images/TCQ_logo.png" alt="TCQ" width="300">
+<img src="images/TCQ_logo.png" alt="TCQ" width="260">
 
-### La plateforme de communications radio multi-modes pour les opérateurs ADRASEC
+# TCQ
 
-*LXMF/Reticulum — VARA HF/FM/SAT — Packet AX.25 — MeshCore LoRa — SSTV — CW/Morse — BBS — PDF Radio — Gonio SATER / APRS-IS*
+### La plateforme de communications radio multi-modes des opérateurs ADRASEC
+
+*Une seule application Windows pour LXMF/Reticulum · VARA HF/FM/SAT · Packet AX.25 · MeshCore LoRa · SSTV · CW · BBS · PDF radio · gonio SATER — et une carte opérationnelle.*
 
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
 [![Version TCQ](https://img.shields.io/badge/version-tcq--v12.70.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.70/TCQ.7z)
+## 📥 [Télécharger la dernière version](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.70/TCQ.7z)
 
-### ⚡ Installation rapide en 1 commande PowerShell
+**Ou en une seule commande PowerShell *(en administrateur)* :**
 
 ```powershell
 iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:TEMP\Install-TCQ.ps1; & $env:TEMP\Install-TCQ.ps1
 ```
 
-*(à lancer en PowerShell administrateur — l'installeur télécharge automatiquement la dernière version de TCQ disponible)*
+*L'installeur télécharge et met à jour tout seul. Binaire autonome — aucune installation Python.*
 
-[**📜 Toutes les releases TCQ**](https://github.com/f1gbd/F1GBD/releases?q=tcq) • [**📚 Documentation**](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations)
+[📜 Toutes les releases](https://github.com/f1gbd/F1GBD/releases?q=tcq) · [📚 Documentation](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations) · [🕘 Historique détaillé](HISTORIQUE.md)
 
 </div>
 
-## 🆕 Nouveautés v12.67 → v12.70 — Couverture LoRa et placement de relais RRLoRa
-
-Carte des stations APRS → deux nouveaux boutons : **📡 LoRa** et **🗼 Relais**.
-
-C'est le portage sur poste fixe de la fonction publiée sur téléphone dans
-**RTspk Pager ADRASEC v1.0.60** — même moteur, mêmes chiffres.
-
-En arrivant sur une opération, deux questions se posaient et se tranchaient à
-l'estime : *jusqu'où porte ma station ?* — on le découvrait en perdant le
-contact — et *où poser le relais ?* — on montait sur le point haut le plus
-proche, ce qui est parfois le pire choix possible. TCQ répond aux deux, sur le
-**relief réel**, sans compte ni clé d'API.
-
-### 📡 Couverture LoRa — la portée en quatre couleurs
-
-Le bouton **📡 LoRa** trace autour de la station la portée prévisible, sur la
-fréquence et les paramètres radio **réellement réglés** — rien à ressaisir.
-
-| Classe | Marge | Lecture sur le terrain |
-|---|---|---|
-| 🟩 Confortable | ≥ 20 dB | tolère l'imprévu |
-| 🟢 Correcte | 10 – 20 dB | fiable en usage normal |
-| 🟧 Juste | 0 – 10 dB | ça passe, mais rien ne pardonne |
-| 🟥 Limite | −6 – 0 dB | à ne pas compter dessus |
-
-Au-delà, rien n'est tracé : la liaison ne se ferme pas.
-
-<p align="center">
-  <img src="images/Couverture_LoRa.png" alt="Couverture LoRa prévisionnelle et bilan de liaison au curseur" width="1024"/>
-  <br><i>Couverture depuis Fontainebleau à 867,500 MHz / SF9 / 250 kHz. En haut à gauche, le bilan du point survolé : à 26,41 km dans l'azimut 89°, la marge tombe à −3,5 dB et la zone de Fresnel est obstruée (−2,12 F1) — la liaison ne passe pas. Les cartouches donnent ce que reçoit chaque nœud d'un relais posé entre A et B.</i>
-</p>
-
-**Au survol du curseur**, un encart donne le bilan du point visé : distance,
-azimut, affaiblissement en espace libre, diffraction éventuelle, puissance
-reçue, seuil de sensibilité, **marge**, et l'état du dégagement de Fresnel.
-
-Réglages par **clic droit sur le bouton** ou par le **⚙** voisin : fréquence,
-puissance, SF, largeur de bande, gains et hauteurs d'antenne, pertes de câble,
-marge d'évanouissement, rayon étudié, finesse de la grille, source du relief.
-
-### 🗼 Relais RRLoRa — où poser le répéteur
-
-Deux stations qui ne s'entendent pas : posez **A** et **B** d'un clic (A prend
-d'emblée la position de votre station). TCQ explore un corridor autour de l'axe
-A–B, dégrossit sur une grille, puis **recalcule les meilleurs candidats sur des
-profils d'altitude réels** — seul classement qui compte, car une crête étroite
-peut passer entre les mailles du dégrossissage.
-
-Le résultat est tracé sur la carte : les deux bonds **A→R** et **R→B**, colorés
-**chacun par sa propre marge**, la pastille du relais adopté, et les
-emplacements de repli en petit. Un **cartouche de réception** est posé à côté du
-relais et à côté de B — chacun donne le bilan du **bond entrant**, c'est-à-dire
-ce que ce nœud-là reçoit.
-
-Si aucun emplacement unique ne referme la liaison, TCQ cherche une **chaîne de
-deux relais** avant de déclarer forfait.
-
-### 🖱️ Choisir un autre emplacement que le mieux classé
-
-Le classement se fait sur **un seul critère : la marge du maillon faible**,
-`min(A→R, R→B)`. C'est le bon arbitrage pour une liaison à double sens — mais le
-calcul **ignore tout ce qui décide sur le terrain** : accès routier,
-alimentation, autorisation, pylône existant, propriétaire joignable un dimanche.
-
-Les emplacements sont donc **proposés, pas imposés** :
-
-| Geste sur une pastille | Effet |
-|---|---|
-| Survol | infobulle de détail : rang, position, altitude, les deux bonds avec distance / affaiblissement / marge / Fresnel, le maillon faible, le rappel de la liaison directe, la distance depuis votre station |
-| Appui bref | adopte cet emplacement |
-| **Appui long** (0,6 s) | l'adopte **et** ouvre ses réglages : hauteur et gain d'antenne du relais |
-| Glisser | ni l'un ni l'autre — c'est un déplacement de carte |
-
-Le **⚙ Relais** ouvre en plus une **liste comparative** — une ligne par
-emplacement, avec maillon faible, position, altitude, longueur et marge de
-chaque bond, **dégagement de Fresnel des deux bonds**, et distance depuis votre
-station. Une ligne cliquée est adoptée.
-
-> Fresnel ≥ 0,6 = dégagé, négatif = obstrué. **À marge égale, le mieux dégagé
-> encaisse mieux la pluie et la feuillaison.** Et si plusieurs sites tiennent,
-> prenez celui où vous pouvez réellement monter, pas celui qui a 2 dB de plus :
-> le journal chiffre ce que coûte le choix.
-
-<p align="center">
-  <img src="images/Relais_RRLora.png" alt="Placement de relais RRLoRa : infobulle de détail et liste comparative" width="1024"/>
-  <br><i>18,56 km entre A et B : <b>+10,1 dB en direct</b>, contre <b>+21,2 dB</b> par un relais posé à 95 m — la marge double. L'infobulle détaille les deux bonds du site adopté ; la liste en propose quatre autres, de +18,8 à +15,1 dB, entre lesquels on tranche sur l'accès plutôt que sur le décibel.</i>
-</p>
-
-### ⛰️ Le relief : d'où viennent les altitudes
-
-Trois sources en cascade, **sans compte ni clé** :
-
-| Source | Résolution | Quota |
-|---|---|---|
-| OpenTopoData **EU-DEM 25 m** *(défaut, Europe)* | 25 m | 100 points/appel, 1 appel/s, 1000 appels/jour |
-| OpenTopoData **SRTM 30 m** *(repli mondial)* | 30 m | idem |
-| Open-Meteo **Copernicus 90 m** *(dernier recours)* | 90 m | facturé au **point** : 600/min, 10 000/jour |
-
-Les altitudes obtenues sont **conservées sur disque** (`~/.tcq_cache/`) : une
-seconde étude sur le même secteur ne redemande rien. Un compteur d'appels tient
-le quota du jour et **attend** plutôt que de se faire refuser.
-
-Bouton **🩺 Tester les sources d'altitude** dans les réglages : interroge les
-trois et dit laquelle répond *depuis ce poste*. C'est le seul moyen honnête de
-savoir ce que laisse passer le réseau local — cela dépend du réseau et d'un
-éventuel proxy, deux choses qui ne se devinent pas.
-
-> **OpenStreetMap ne contient aucune altitude** — c'est une carte de voies et de
-> nœuds. Le relief vient d'un modèle numérique de terrain, ce qui est autre
-> chose.
-
-### 🔬 Un seul moteur pour TCQ et RTspk Pager
-
-Le calcul vit dans **`lora_lib.py`** (compagnon, bibliothèque standard seule,
-comme `meteo_lib` et `carto_lib`). C'est le portage fidèle du moteur JavaScript
-de RTspk Pager v1.0.60, confronté à lui sur neuf cas identiques dont trois avec
-relief :
-
-```
-ÉCART MAXIMAL entre le moteur JavaScript (RTspk) et le moteur Python (TCQ) : 0.000e+00 dB
-```
-
-Ce n'est pas un détail de confort : deux applications ouvertes côte à côte sur
-le terrain qui annonceraient des marges différentes pour la même liaison, et
-plus personne n'accorderait de crédit ni à l'une ni à l'autre.
-
-Physique employée : espace libre **ITU-R P.525-3**, ellipsoïde de **Fresnel**,
-diffraction sur arête **ITU-R P.526**, bombement terrestre avec *k* = 4/3,
-sensibilité LoRa `−174 + 10·log₁₀(BW) + NF + SNR_min(SF)`.
-
-### 💡 Quatre choses que ce calcul apprend
-
-- **Un mât sert à voir par-dessus, pas à porter plus loin.** Sur un trajet
-  obstrué : +12 dB. Sur un trajet déjà dégagé : **rien du tout**.
-- **Un obstacle près du relais coûte bien plus cher qu'un obstacle à
-  mi-chemin.** Le paramètre de diffraction `v = h·√(2(d₁+d₂)/λd₁d₂)` diverge
-  quand `d₁ → 0` : un creux bien placé reste un mauvais site.
-- **Le point le plus haut du corridor peut être le pire emplacement** s'il se
-  trouve juste derrière une crête. La signature : des bonds très déséquilibrés.
-- Un **RRLoRa est un nœud de transport Reticulum**, pas un répéteur RF :
-  A→relais→B, ce sont **deux bonds indépendants**, et c'est le maillon faible
-  qui gouverne. Le **PA du Heltec V4.3** (+11 dB mesurés au banc) n'émet qu'en
-  transmission : en liaison à double sens, chaque bond est gouverné par le plus
-  faible des deux émetteurs — donc la station, jamais le relais. TCQ le dit au
-  lieu de laisser compter dessus.
-
-### ⚠️ Une prévision, pas une mesure
-
-Ni bâti, ni végétation, ni brouillage. Le relief est échantillonné, pas intégré.
-**Sur le terrain, seul un essai radio fait foi** : le calcul dit où aller
-regarder. Sans aucune source d'altitude joignable, la couverture reste tracée
-**en espace libre** — la légende l'écrit en toutes lettres, car un tracé
-optimiste qui ne se signale pas est pire que pas de tracé du tout. La recherche
-de relais, elle, refuse de s'exécuter : sans relief, elle conclurait
-« n'importe où convient ».
-
-### 🔧 Aussi dans ces versions
-
-- **v12.67** — la fenêtre **🌐 RNS Nodes List** rebascule sur **RMAP**
-  (`rmap.world`), `rns.fyi` étant hors service ; celui-ci reste sélectionnable
-  en secours. Les colonnes du tableau suivent la source réellement servie, et
-  une **santé dérivée** (0–100) remplace les métriques que RMAP ne publie pas.
-  Sont écartés du listage les nœuds sans endpoint TCP joignable : sur un relevé
-  typique, **632 nœuds annoncés → 242 exploitables**.
-- **v12.68** — **le tracé de zone redevient possible après réouverture de la
-  carte**. Zone, route coupée, flèche et zone d'alerte météo : à partir de la
-  **deuxième** ouverture de la fenêtre carte dans une même session, les clics ne
-  donnaient plus rien et le clic droit ne terminait plus le tracé. Découvert en
-  traçant une zone d'alerte météo, qui ne pouvait donc pas être enregistrée.
-
-✅ Vérifié par **76 contrôles** sur le moteur et **98 contrôles d'interface**
-sous Tk réel, sur quatre tailles d'écran (800×600 → 1920×1080).
-
 ---
 
-## 🆕 Nouveautés v12.63 → v12.66 — Interopérabilité RTspk Pager : PING, images, radar
+## Qu'est-ce que TCQ ?
 
-Quatre chantiers d'interopérabilité avec **RTspk Pager ADRASEC v1.0.39**
-(Android). Tout ce qui suit fonctionne **dans les deux sens**.
+Sur une opération ADRASEC, on ne sait jamais à l'avance quel lien tiendra. Le
+réseau cellulaire est tombé, la VHF passe mal dans la vallée, le HF est
+capricieux, et l'équipe d'à côté n'a que du LoRa. **TCQ réunit tous ces modes
+dans une seule fenêtre**, avec la même messagerie chiffrée au-dessus, et une
+carte qui montre où tout le monde se trouve.
 
-### 📡 PING LXMF — vérifier qu'une station répond
+C'est une application **Windows autonome**, pensée pour le terrain : robuste,
+tolérante aux ruptures de liaison, et utilisable par un opérateur qui a autre
+chose à faire que de la configuration.
 
-Le bouton **« Test LXMF »** de l'onglet LXMF envoie une requête et attend la
-réponse automatique du correspondant :
-
-| | |
-|---|---|
-| Requête | `TEST QUANTUM LXMF - <STATION> - HH:MM:SS` |
-| Réponse | `TEST LXMF OK - <STATION> - HH:MM:SS` |
-
-TCQ **répond automatiquement** à toute requête reçue, et enregistre dans son
-annuaire toute station qui lui renvoie un `TEST LXMF OK`. RTspk Pager applique
-exactement le même protocole, avec un bouton **Ping** dans la fiche contact et
-une entrée **Ping LXMF** dans le menu ⋮ de la conversation. Le ping passe donc
-**TCQ ⇄ RTspk** dans les deux sens, et affiche le temps d'aller-retour.
-
-> **v12.64** — le PING partait jusque-là en téléportation quantique lorsque le
-> mode ⚛ était actif : le correspondant recevait une enveloppe de résultats de
-> Bell au lieu du texte, et ne pouvait pas répondre. Le PING est désormais
-> toujours envoyé en **LXMF texte ordinaire**.
-
-### 📷 Images et photos — même compresseur des deux côtés
-
-RTspk Pager reprend **à l'identique** les réglages de `_process_and_send_image`
-de TCQ :
-
-| Qualité | Taille max | Format |
-|---|---|---|
-| Basse | 320 px | WebP q22 |
-| Moyenne | 640 px | WebP q66 |
-| Haute | 1280 px | WebP q75 |
-
-L'image est réduite pour **tenir** dans le carré en conservant ses proportions
-et n'est jamais agrandie (équivalent de `PIL.Image.thumbnail()`). Le transport
-est le champ LXMF standard `FIELD_IMAGE 0x06 = [format, octets]` — celui
-qu'attendent aussi **Sideband**, **Columba** et **MeshChat**.
-
-**Transfert bidirectionnel validé** : une photo prise sur le smartphone
-s'affiche dans TCQ, et une image envoyée depuis TCQ s'affiche dans la
-conversation RTspk.
-
-### ⚛ Le mode quantique ne s'invite plus dans les envois automatiques
-
-> **v12.66** — `send_via_lxmf()` envoyait **toujours** en téléportation
-> quantique, sans consulter la case ⚛ Quantique. Or cette méthode sert aux
-> **accusés de réception LXMF** et aux réponses **@rmail** — des envois
-> automatiques vers des correspondants quelconques. Un client non-TCQ recevait
-> alors `⚛ Téléportation Quantique / Station: … / Taille: 45 octets / Fidélité:
-> 1.0000 / Checksum: …` au lieu du texte. L'envoi est désormais **direct par
-> défaut** ; la téléportation reste disponible entre stations TCQ, sur demande
-> explicite.
-
-### ◉ Radar aéronefs sur le smartphone
-
-Le suivi d'aéronefs de TCQ (v12.46) a son pendant sur RTspk Pager : un bouton
-**◉** en haut à droite de la carte ouvre un **scope radar plein écran** en
-balayage PPI, centré sur la position GPS, rayon **0,2° ≈ 22 km**,
-rafraîchissement **22 s**. Il reprend la **classification de TCQ** —
-bombardiers d'eau Pélican/Canadair/Milan, hélicoptères Dragon/SAMU, Sécurité
-Civile, Douane, Gendarmerie, militaires — par préfixe d'indicatif et par plage
-d'adresse ICAO24. Source **adsb.lol** par défaut, **OpenSky** au choix.
-
-### 🔧 Aussi dans ces versions
-
-- **v12.63** — la liste des points d'accès Reticulum recensés par **rns.fyi**
-  refonctionne (le service ne publie plus le drapeau « recommandé » : filtrage
-  local avec repli sur la liste complète). Synchro **NEM par Internet** accélérée :
-  morceaux de 4000 octets au lieu de 50 et plus d'attente entre deux envois, la
-  cadence radio restant inchangée.
-- **v12.65** — les **annonces LXMF** de RTspk Pager sont à nouveau lisibles :
-  le nom de station est encodé en tableau msgpack par les clients récents, TCQ
-  le décodait en UTF-8 brut et affichait `TCQ-F1GBD/rtspk16chat,voices`.
-
-✅ Interopérable **RTspk Pager v1.0.39**.
-
----
-
-## 🆕 Nouveautés v12.62 — Synchro NEM ULTRA-COMPACTE (marqueurs en binaire)
-
-### 🛰️ Un symbole en ~1 trame au lieu de ~3
-Après le delta (v12.61), TCQ v12.62 compresse encore : les **marqueurs** sont sérialisés en **binaire compact** au lieu du JSON. Le symbole tient sur **1 octet** (index dans le catalogue des 118 symboles), la position sur **3+3 octets** (~1–2 m), plus l'horodatage — un marqueur passe ainsi dans **une seule trame** radio.
-
-- **Exemple mesuré** : 2 marqueurs = un jeton de 44 caractères → **3 morceaux** transmis, contre **28** auparavant. Transferts **~10× plus courts** sur VHF packet 1200 bauds.
-- **Repli JSON automatique** pour les lignes, zones, marqueurs à options, ou face à une version antérieure.
-- **Recentrage** de la carte à la réception d'un delta : les objets reçus apparaissent directement dans la vue.
-
-✅ Interopérable avec le couple **TCQ v12.62 ⇄ RTspk Pager v1.0.36** (même table de 118 symboles `carto_lib`, empreinte `3714`). Validé ⇄ dans les deux sens sur radio VHF 1200 bauds.
-
----
-
-## 🆕 Nouveautés v12.61 — Synchro NEM DELTA (n'échange que la différence)
-
-### 🛰️ SYNCHRO NEM DELTA — beaucoup moins de données sur VHF packet
-La synchro NEM ne retransmet plus toute la carte à chaque fois. TCQ v12.61 compare d'abord les deux cartes (empreinte compacte) et **n'échange que la DIFFÉRENCE** — la vraie cure d'amaigrissement pour la radio lente 1200 bauds.
-
-- **Cartes déjà identiques** → un simple accusé d'environ **20 octets**, rien à retransmettre (jusqu'à **~97 % de données en moins** en synchro de contrôle sur VHF packet).
-- **Objet déplacé / modifié** → seul cet objet circule, et il est **repositionné sur place au lieu d'être dupliqué** : réconciliation par **clé naturelle** (même nom + même symbole = même objet). En cas de divergence, la **modification la plus récente gagne** (horodatage) — plus de doublons ni de retour en arrière.
-- **Repli automatique** vers la synchro complète si le correspondant est en version antérieure : **aucune rupture de compatibilité**.
-
-✅ Delta de bout en bout avec le couple **TCQ v12.61 ⇄ RTspk Pager (Android/Adrasec) v1.0.35**. Face à une version plus ancienne (v12.60 / v1.0.34 et antérieures), la synchro **retombe automatiquement en transfert complet** — rien ne casse. Testé ⇄ dans les deux sens sur radio VHF 1200 bauds.
-
----
-
-## 🆕 Nouveautés v12.60 — Transmission LXMF par radio VHF packet fiabilisée (VR-N76)
-
-### 📻 LXMF/Reticulum PAR RADIO VHF — LA VRAIE VALEUR AJOUTÉE
-TCQ v12.60 achemine la messagerie **LXMF/Reticulum de façon totalement autonome, sans Internet ni infrastructure**, directement **par radio VHF en packet AX.25** avec un simple **VGC VR-N76** (TNC KISS Bluetooth intégré, AFSK 1200 bauds). Textes, relèvements SATER, positions carto et **synchros NEM complètes** transitent de poste à poste sur la seule liaison radio — l'atout décisif en situation ADRASEC dégradée, là où aucun réseau ne fonctionne. ✅ Interopérable **TCQ ⇄ RTspk Pager (Android/Adrasec v1.0.34+)** dans les deux sens.
-
-### 🛰️ SYNCHRO NEM par packet VHF — fiabilité renforcée
-La synchro NEM (symboles + zones + tracés) est désormais **fiabilisée sur liaison packet VHF** : émission découpée (chunks NEMC) avec **reprise sur erreur (ARQ / NEMR)** et **résolution de chemin robuste**. Fini les **temps morts** (~35 s) et les *write timeouts* lors d'une perte de chemin : la recherche de route est relancée activement et l'envoi opportuniste part sans attendre inutilement. Résultat : transferts **nettement plus rapides et sûrs**, testés ⇄ dans les deux sens.
-
-### ✅ À utiliser impérativement pour l'interop packet AX.25
-Pour garantir la **compatibilité de transmission Packet AX.25 en LXMF**, utilisez **TCQ v12.60** côté poste fixe et **RTspk Pager v1.0.34+** côté Android : c'est le couple validé pour la messagerie LXMF et la synchro NEM par radio VHF.
-
-### 🪟 Correctif d'interface
-Bouton **Fermer** replacé et centré sur une seconde ligne dans les boîtes de dialogue pour rester toujours accessible.
-
-## 🆕 Nouveautés v12.51 — Compatibilité NEM avec RATspeak Android version Adrasec
-
-### 🛰️ SYNCHRO NEM (Numérisation de l'Espace de Mission) PAR RADIO LoRa — INTEROP TCQ
-Partage TOUTE la situation (symboles + zones + tracés) par LXMF, au protocole NEM de TCQ <-> RATspeak. Reçue 
-➡️ la carte s'ouvre et se recadre automatiquement. **Optimisée pour la LoRa** : émission découpée pour ne pas faire décrocher un RNode Bluetooth. ✅ Testé Ratspeak ⇄ TCQ dans les deux sens.
-(Réception des synchros découpées côté TCQ : v12.51.)
-
-## 🆕 Nouveautés v12.50 — Couche « Live feux » (EFFIS + FIRMS + unités ADS-B)
-
-**TCQ-CARTO** ajoute une **couche cartographique temps réel des feux de forêt**, alimentée par des **données GIS ouvertes** (les mêmes sources que GISFire) : périmètres officiels de **zones brûlées EFFIS/Copernicus**, **points chauds satellite NASA FIRMS** (VIIRS 375 m + MODIS) et **position en direct des unités aériennes** (Canadair/Dash/Dragon) via **ADS-B**.
-
-### 🛰️ Bouton « Live feux » sur la carte
-
-Un nouveau bouton **« 🛰️ Live feux »** (barre d'outils de la carte, à côté de « ✈️ OpenSky » et « 🌦️ Météo ») active/désactive une couche qui superpose trois sources GIS ouvertes :
-
-- **🟤 Zones brûlées EFFIS/Copernicus** — périmètres officiels validés (couche WFS `ms:modis.ba.poly`), en polygones marron ;
-- **🔴 Foyers FIRMS** — détections satellite VIIRS 375 m + MODIS, agrégées en foyers avec enveloppe et **flèche de propagation** orientée selon le vent Open-Meteo ;
-- **✈️ Unités aériennes en direct** — bombardiers d'eau et hélicoptères suivis en **ADS-B** (airplanes.live), positionnés à leur emplacement réel avec indicatif.
+**100 % local.** Aucune télémétrie, aucune connexion externe non sollicitée.
 
 <p align="center">
-  <img src="images/TCQ_Carto_ZoneFeu.png" alt="Affichage des zone à risque incendies" width="1024"/>
-  <br><i>Affichage Zones à Risques Incendie (Règle des trois 30, voir ( https://fr.wikipedia.org/wiki/R%C3%A8gle_des_trois_30 )</i>
-</p>
-
-### 🔑 Clé FIRMS + intervalle persistés
-
-Clic droit sur le bouton (ou l'engrenage **⚙**) ouvre les réglages : la **clé NASA FIRMS (MAP_KEY)** — gratuite — et l'**intervalle de rafraîchissement** (défaut **30 min**) sont **enregistrés dans `setup.json`** (section `feux_live`) et **rechargés au démarrage**. Sans clé, la couche affiche quand même les **zones brûlées EFFIS et les aéronefs** (EFFIS et ADS-B ne nécessitent aucune clé). Un bouton **« 🧪 Tester maintenant »** lance un cycle immédiat et affiche un **récapitulatif** (zones brûlées / foyers / aéronefs / vent).
-
-### 🎛️ Filtres d'affichage & carte épurée
-
-Le dialogue de réglages propose **quatre cases** pour afficher/masquer indépendamment les **zones brûlées**, les **foyers FIRMS**, les **unités aériennes** et les **flèches de propagation**. L'affichage est **épuré par défaut** (icônes et polygones sans texte ; seuls les aéronefs portent un **indicatif court**) pour ne pas surcharger la carte, même avec des dizaines de foyers.
-
-### 🧱 Couche dédiée, non destructive & centrage manuel
----
-## 🆕 Nouveautés v12.49
-**TCQ-CARTO** : Un outil d'aide à la décision pour la communauté ADRASEC et les équipes de sécurité civile.
-
-### 🔥 Ajout de la persistance (sauvegarde/reprise) des Zones à Risque Incendie (Règle des Trois 30) sur la Cartographie
-
-### ✈️ Filtre des types d'aéronefs — suivi OpenSky
-
-Le suivi avion (bouton **« ✈️ OpenSky »**) dispose désormais d'un **filtre des types d'aéronefs affichés** : par défaut, TCQ **n'affiche que les aéronefs d'État et de secours** et **masque les avions civils**, pour ne garder à l'écran que ce qui est pertinent en opération. La reconnaissance combine l'**indicatif** (callsign) et l'**adresse ICAO24 militaire**.
-
-Dans **Réglages OpenSky** (clic droit sur le bouton ✈️ OpenSky), une case maîtresse active le filtre, avec une **case à cocher par catégorie** :
-
-- **Bombardiers d'eau** — Pélican (Canadair CL-415), Milan (Dash-8), Morane ;
-- **Hélicoptères de secours** — Dragon (Sécurité Civile), SAMU / HéliSMUR ;
-- **Sécurité Civile / Douane / Gendarmerie / Police** ;
-- **Aéronefs militaires** — FAF, COTAM, CTM, NATO… + plages ICAO24 réputées militaires ;
-- **Autres aéronefs d'État**.
-
-Le compteur en bas de carte indique alors **« N/Total (filtre État) »**, l'**infobulle au survol** précise le **type reconnu**, et le réglage est **enregistré dans `setup.json`** et **appliqué immédiatement**.
-
-### 🩺 Diagnostic Quota Open-Meteo — couche météo
-
-Les **Réglages météo** intègrent un bouton **« 🩺 Diagnostic Quota Open-Meteo »** qui interroge le service et affiche clairement l'état du quota journalier gratuit :
-
-- **✅ « Quota Open-Meteo OK »** — le service répond, la couche météo doit fonctionner (une éventuelle pause automatique est levée) ;
-- **🚫 « Quota Open-Meteo Dépassé »** — quota épuisé (HTTP 429), avec rappel de la remise à zéro (**00:00 UTC ≈ 2 h en France**) et des réglages recommandés (grille **6×5**, intervalle **15 min**) ;
-- **⚠️** un message dédié en cas d'indisponibilité réseau.
-
-Le test tourne **en arrière-plan** (interface non figée) et le résultat est aussi consigné dans le journal.
-
----
-## 🆕 Nouveautés v12.47
-
-- **🖱️ Infobulle météo au survol** : passez la souris sur un vecteur de vent pour afficher une **infobulle fugitive** avec les données du point — température, humidité, vent (vitesse + direction), rafales, pression, et l'état de la **règle 3×30**.
-
-<p align="center">
-  <img src="images/TCQ_Carto_donnéesMéteo.png" alt=Données météo" width="400"/>
-  <br><i>Affichage des données météo sous le curseur</i>
-</p>
-
-### Bouton **« 🌦️ Météo »** sur la carte récupère la météo AROME (Météo-France) via **Open-Meteo** (gratuit, **sans clé**) sur la **zone affichée** et affiche trois éléments :
-
-- **📋 Bulletin au point de la station** : température, humidité relative, vent (vitesse + direction) et rafales, pression.
-- **💨 Champ de vent** : une grille de flèches sur l'emprise visible, orientées vers où souffle le vent et **colorées selon la vitesse** (vert < 20, orange 20–30, rouge ≥ 30 km/h).
-- ### **🔥 Zones « règle des 3×30 »** : colorisation des mailles selon le **danger feux de forêt** — **rouge** quand les trois critères sont réunis (**T ≥ 30 °C, vent ≥ 30 km/h, humidité ≤ 30 %**), **jaune** pour 2 critères sur 3 (vigilance). Les mailles se fondent en zones continues, avec légende.
-
-**Réglages** (bouton ⚙ ou clic droit sur « Météo »), **enregistrés dans `setup.json`** :
-
-- **Modèle** : AROME France HD (~1,5 km), AROME France, ou ARPEGE Europe.
-- **Densité de la grille** : de 1×1 à **10×10** (défaut **10×10**, jusqu'à 100 points en une seule requête).
-- **Taille des flèches** : facteur d'échelle réglable de 0,5 à 3,0 (défaut **1,5**).
-- **Seuils de la règle 3×30** réglables (T≥ / vent≥ / HR≤) — par défaut **30 / 30 / 30** (la vraie règle) ; abaissables pour tester le rendu ou s'adapter à une doctrine locale. La légende affiche les seuils actifs.
-- **Intervalle** de rafraîchissement, et **activation/désactivation** de chaque calque (vent, zones 3×30, bulletin).
-
-<p align="center">
-  <img src="images/TCQ_Carto_3x30_SDIS.png" alt="Affichage des zone à risque incendies" width="1024"/>
-  <br><i>Affichage Zones à Risques Incendie (Règle des trois 30, voir ( https://fr.wikipedia.org/wiki/R%C3%A8gle_des_trois_30 )</i>
-</p>
-
-- **🗺️ Zones d'alerte météo** : définissez une **zone à surveiller** (par exemple une forêt) en la **traçant à la souris**, exactement comme une zone de symbole (clic gauche = points, clic droit = terminer, Échap = annuler). Chaque zone reçoit un nom et est **enregistrée dans `setup.json`**.
-
-<p align="center">
-  <img src="images/TCQ_Carto_3x30_ZoneAlert2.png" alt="Affichage des zone à risque incendies" width="1024"/>
-  <br><i>Définition Zones à Risques Incendie (Règle des trois 30, voir ( https://fr.wikipedia.org/wiki/R%C3%A8gle_des_trois_30 )</i>
-</p>
-
-- **🚨 Alerte automatique** : TCQ surveille en continu la météo AROME **dans chaque zone** ; lorsque les **seuils d'alerte sont dépassés** — règle des **3×30** complète (T ≥ 30 °C, vent ≥ 30 km/h, HR ≤ 30 %), ou **vigilance** (2 critères sur 3, au choix) — la carte affiche un **bandeau « ⚠️ ALERTE MÉTÉO » clignotant**, la zone passe en rouge, et une **tonalité d'alerte** retentit (sonorité montante **type FR-Alert**, distincte de la sirène RASEC-ALERT). L'alerte s'**acquitte d'un clic** sur le bandeau (la surveillance reste active).
-- **⚙️ Dialogue « Paramètres d'alerte météo »** (depuis les réglages météo) : activation des alertes, condition de déclenchement (3×30 complète ou vigilance), tonalité + nombre de répétitions (avec bouton de test), et **gestion des zones** (tracer / supprimer). Tout est **persisté dans `setup.json`**.
-
-
-## 🆕 TCQ v12.46 — Synchro NEM (Numérisation de l'Espace de Mission) et suivi d'aéronefs en temps réel
-
-### ✈️ Suivi avion temps réel — bouton « OpenSky »
-
-Affiche les **avions présents dans la zone visible**, rafraîchis à l'intervalle choisi (~15 s par défaut), dessinés **en bleu foncé**, **orientés selon leur cap**, avec **indicatif** et **niveau de vol (FL)**. **Trois sources au choix** :
-
-- **OpenSky Network** (en ligne). **Authentification OAuth2** automatique : placez votre fichier **`credentials.json`** (clientId / clientSecret, téléchargé depuis votre compte OpenSky) **dans le dossier TCQ** — il est détecté et utilisé tout seul, le jeton est renouvelé automatiquement, ce qui **lève la limite de débit** de l'accès anonyme (4 000 crédits/jour).
-- **Récepteur ADS-B local** (dump1090 / readsb / Virtual Radar Server), lecteur **tolérant aux formats** avec **auto-détection** du bon `aircraft.json` et bouton **« Tester le récepteur local »**.
-- **SDR direct** : décodage ADS-B 1090 MHz **directement depuis la clé RTL-SDR en Python**, **sans dump1090.exe**. Bouton **« Tester le SDR »** pour valider l'antenne en ~5 s.
-
-Modes **Auto** (local puis OpenSky), **OpenSky seul**, **local seul** ou **SDR direct**. **Dialogue de réglages** (bouton ⚙ ou clic droit) : mode, URL dump1090, identifiants OpenSky, index/gain de la clé SDR, intervalle — **enregistrés dans `setup.json`**. 
-
-**Infobulle au survol** : passez la souris sur un avion pour afficher ses données (indicatif, code ICAO, altitude + niveau de vol, vitesse sol en kt/km/h, cap, position).
-
-<p align="center">
-  <img src="images/TCQ_Carto_OpenSky.png" alt="Affichage Traffic aérien en Temps Réel" width="1024"/>
-  <br><i>Affichage Traffic aérien en Temps Réel avec OpenSky</i>
-</p>
-
-> **✋ Déplacer un objet** : un nouveau bouton **« ✋ Déplacer »** dans la palette **« 🚩 Symboles »** active un mode où le clic gauche maintenu **saisit l'objet le plus proche** (symbole en priorité, sinon route, sinon zone) et le fait **suivre le curseur**. Un symbole se repositionne au point ; une route ou une zone est **translatée en bloc**. Le déplacement est **annulable** via « ↶ Annuler » (retour à la position d'origine). En dehors de ce mode, le glisser continue de déplacer la carte.
->
-> **☑️ Case « Auto Synchro »** (cochée par défaut), à droite du bouton **« 🛰️ Synchro NEM »** de la carte, qui pilote le comportement à la **réception** d'une synchro NEM :
-- **📚 Archivage horodaté** : la carte courante (symboles, zones, routes **et** relevés) est d'abord **sauvegardée localement** avec horodatage dans le sous-dossier **`carto_history`** (fichier `NEM_avant_AAAAMMJJ_HHMMSS.json`, à côté de `carto_symbols.json`), pour garder un **historique**.
-- **♻️ Remplacement automatique** : la carte est ensuite **effacée puis rechargée intégralement** avec les données reçues, et **recentrée** sur la zone concernée.
- - **➕ Mode fusion** : si la case est **décochée**, les données reçues sont **fusionnées** (ajoutées) à la carte existante, comme dans les versions précédentes.
-- Le message de notification (chat + log) précise désormais si la carte a été **« remplacée »** ou **« fusionnée »**.
->
-> **🛰️ Partage de la situation cartographique via LXMF** — un nouveau bouton **« 🛰️ Synchro NEM »** (à droite de « Émettre relevé » sur la carte) partage **toute la situation affichée** — symboles, zones de feu, routes coupées **et** relevés goniométriques — dans un message LXMF spécial (`NEM1:`) envoyé à un **Groupe LXMF**. Toute une équipe partage ainsi la même *Numérisation de l'Espace de Mission* en un clic.
->
-> **📥 Réception et recentrage automatiques** — à la réception d'un message de **synchronisation NEM**, les données sont **fusionnées et affichées** sur la carte du destinataire, avec **recentrage automatique** sur la zone concernée (notification dans le chat + signal sonore). Si la carte est fermée, les données sont mémorisées et s'affichent, recentrées, à la prochaine ouverture.
->
-> **🎯 Recentrage au chargement** — au rechargement d'une carte de symboles (JSON) ou de relevés SATER, l'affichage se **recentre et ajuste le zoom** automatiquement sur l'emprise des données.
->
-> **🛰️ Bouton « Synchro NEM » dans la palette**: le partage LXMF de la situation cartographique est désormais accessible directement depuis la fenêtre « 🚩 Symboles cartographiques », sur une nouvelle ligne sous le bouton « 💾
->
-> **🔍 Zoom sur une zone au clic central** : maintenez le **bouton central** de la souris et **étirez un rectangle** sur la carte ; au relâchement, la carte **s'agrandit exactement sur la zone encadrée** (recentrage automatique + meilleur niveau de zoom).
->
-> **📐 Surface des zones en hectares** : à la fin du tracé d'une zone, sa **surface est affichée en hectares** directement sur la carte (au centre de la zone, avec le libellé). Le calcul utilise une formule d'aire sphérique et se **met à jour automatiquement** au rechargement d'une carte ou après déplacement d'une zone.
-
-<p align="center">
-  <img src="images/TCQ_Carto_OVERLORD.png" alt="Reproduction de l'opération Overlord" width="1024"/>
-  <br><i>Reproduction de l'opération Overlord (débarquement du 6 juin 1944) au format OTAN/APP-6 (NEB)</i>
+  <img src="images/TCQ_main_interface.png" alt="Interface principale de TCQ" width="880"/>
+  <br><i>Une fenêtre, un onglet par mode : Messages, Annonces et Annuaire LXMF, TNC Packet, VARA Modem, MeshCore, Station CW, SSTV. Ici, le modem VARA FM en service.</i>
 </p>
 
 ---
 
-## 🆕 TCQ v12.40 — Cartographie opérationnelle & symboles normalisés
+## À quoi ça sert, concrètement
 
-> **🗺️ Bouton « CARTE » sur la page principale** — accès direct à la carte APRS / SATER depuis la pile de boutons (les boutons **VFT** *(TEST / ENVOI)* et **vidéo** *(MEMO / JVFT)* ont été regroupés sur une ligne chacun pour ne pas allonger la pile).
->
-> **🚩 Palette de symboles normalisés (carto_lib)** — dépose sur la carte des **symboles opérationnels** : engins et personnels **SDIS** (FPT, CCF, VSAV, VSR, EPA, VTU, PC, CODIS, COD/COZ/COGIC…), **moyens aériens** (Dragon, hélico bombardier d'eau, Canadair, Dash, Tracker), symbologie **OTAN / APP-6** pour la **NEB** (unités par appartenance ami/hostile/neutre/inconnu, échelons, fonctions, graphiques tactiques) et **SATER** (balise ELT/EPIRB 406 MHz, relevé goniométrique, datum, PC, équipe). Filtre par catégorie, aperçu, étiquette.
->
-> **🔥 Zones vectorielles & circulation** — trace des **zones de feu** translucides (feu, front actif, risque, exclusion…) façon carte SDIS, et des **routes coupées** (barrière « route barrée », déviation, accident, route inondée). Dépôt au clic, **gomme**, **annulation** du dernier élément, confirmation avant « tout effacer ».
+### 🛰️ Retrouver une balise de détresse
+
+Les relèvements goniométriques des équipes arrivent sur une carte commune,
+partagés en direct par **APRS-IS** avec l'EPIRBdecoder et SATERfinder Android.
+TCQ croise les azimuts et donne la position estimée de la balise **avec son rayon
+de probabilité** — pas un point qui ferait croire à une certitude qu'on n'a pas.
 
 <p align="center">
-  <img src="images/TCQ_Carto_SDIS.png" alt="Interface principale TCQ v10.13" width="1024"/>
-  <br><i>Cartographie avec symbôles opérationnels SDIS</i>
+  <img src="images/TCQ_Carto_SATER.png" alt="Triangulation d'une balise ELT à partir des relèvements goniométriques" width="880"/>
+  <br><i>25 relèvements retenus sur 26, position estimée à ±511 m (CEP 95 %). Chaque équipe voit les azimuts des autres au fur et à mesure.</i>
 </p>
 
->
-> **💾 Enregistrer / Charger / 🖨️ Imprimer** — sauvegarde la carte (JSON rechargeable, **KML** pour Google Earth, **GeoJSON** pour QGIS), recharge un scénario, et exporte une **image PNG** de la carte finale prête à imprimer ou à joindre à un SITREP. La couche de symboles est **rechargée automatiquement au démarrage** (`carto_symbols.json`).
->
+### 🗺️ Tenir la situation d'un exercice ou d'une intervention
+
+Symboles normalisés **SDIS, OTAN et SATER**, zones, routes coupées, limites
+d'unités — le tout enregistrable, rechargeable et imprimable. La carte se
+**synchronise entre postes par radio** (LXMF/LoRa ou packet VHF), y compris sans
+Internet.
 
 <p align="center">
-  <img src="images/TCQ_Carto_OTAN_NEB.png" alt="Opération ORION-26 dépt 56" width="1024"/>
-  <br><i>Reconstitution d'un débarquement amphibie interarmées dans le Morbihan (Exercice ORION‑26 (56)). Format OTA - APP6 (NEB)</i>
+  <img src="images/TCQ_Carto_OTAN_NEB.png" alt="Symbologie normalisée sur la carte opérationnelle" width="880"/>
+  <br><i>Exercice ORION-26 dans le Morbihan : compagnies, objectifs, zone réglementée, appui feu, PMA. La palette de symboles est à gauche.</i>
 </p>
 
----
+### 📡 Savoir jusqu'où on porte, et où poser un relais
 
-## 🆕 TCQ v12.35 — RASEC-ALERT, CHAPPE26 & Groupes LXMF
-
-> **🚨 RASEC-ALERT — alerte déclenchée à distance** — un correspondant envoie un simple message (LXMF, TNC Packet ou VARA) contenant `#ra <code>` pour déclencher sur votre station une **alerte plein écran clignotante + sirène sonore forte + accusé de réception**. Acquittement par clic ou Échap / Entrée / Espace. Le code d'activation (défaut `ADRASEC77`) se change à distance par `#rapass <ancien> <nouveau>`, et le nombre de répétitions de la sirène par `#b <n>` (`#b 0` = sirène **continue** jusqu'à acquittement). Nouveau bouton **« 🚨 RASEC-ALERT »** dans la barre d'outils pour régler le code, la sirène et **tester** l'alerte localement. L'accusé (« *Pager OK - alerte bien recue* ») ne contient **jamais** le code, pour éviter toute boucle d'auto-déclenchement.
->
-> **📟 CHAPPE26 — décodage automatique en clair** — à la réception d'un message LXMF contenant des codes **CHAPPE26** (répertoire des **1000 codes** ADRASEC/FNRASEC, format `!1000 !1024 !1990`), TCQ affiche automatiquement la **traduction en clair** juste sous le message reçu. Nouveau bouton **« 📟 CHAPPE26 »** ouvrant un décodeur de test (saisie d'un message, décodage, tableau détaillé code / page / ligne / domaine / signification).
->
-> **👥 Gestion des Groupes LXMF depuis l'Annuaire** — la gestion des groupes est désormais intégrée à l'onglet **« 📒 Annuaire LXMF »** via un bouton **« 👥 Groupes LXMF »** placé à droite du filtre. On **crée / renomme / supprime** un groupe et on **ajoute / retire ses membres par simple sélection dans l'annuaire** (double liste annuaire ↔ membres, filtre de recherche, ascenseurs, double-clic, adresses LXMF complètes).
->
-> **⚛️ Mode quantique désactivé par défaut** — pour que la transmission LXMF **en clair** (codes CHAPPE26, messages standard) parte telle quelle sans altération de la charge utile, la téléportation quantique est désormais **désactivée par défaut** (réactivable à tout moment via la case **« ⚛ Quantique »**).
-
----
-
-## 🆕 TCQ v12.34 — RNS Nodes List (nodes Reticulum en direct)
-
-> **🌐 Liste des nodes Reticulum du moment** — l'onglet **« 📢 Annonce LXMF »** dispose d'un nouveau bouton **« 🌐 RNS Nodes List »** qui récupère **en direct** les points d'accès Reticulum recensés par le service communautaire [rns.fyi](https://rns.fyi) : **santé, uptime 30 j, fiabilité, sauts et localisation** de chaque relais.
->
-> **🔍 Tester la disponibilité** — un clic sonde chaque node en **TCP** (en parallèle) et affiche son état 🟢 joignable / 🔴 injoignable, pour ne retenir que les relais réellement actifs *du moment*.
->
-> **💾 Mettre à jour la config Reticulum** — cochez les nodes à utiliser et TCQ écrit les interfaces `TCPClientInterface` dans `~/.reticulum/config`, dans un **bloc géré** dédié : vos **interfaces manuelles sont préservées**, les doublons ignorés, et une **sauvegarde horodatée** est créée automatiquement.
->
-> **🗄️ Sauvegarder les RNS actifs** — copie horodatée du fichier `config` **+** export **JSON** des interfaces TCP actives, pour figer et archiver l'état du réseau avant un exercice.
->
-> **📝 Éditer Config / 📡 Config Répéteur LoRa** — ouverture directe du fichier `config` dans **Notepad**, et insertion en un clic d'un bloc **`[[RNode LoRa]]`** préréglé (**867.5 MHz / BW 125 kHz / SF8 / CR 4:5**, port `COM3`) pour se raccorder au **répéteur RRLoRa**.
->
-> **📒 Auto Ajout Annuaire** — nouvelle case dans l'onglet Annonce LXMF : les nouvelles stations **TCQ\*** reçues par annonce LXMF sont **ajoutées automatiquement à l'annuaire** en mémoire si elles n'y figurent pas encore.
-
----
-
-## 🎯 Qu'est-ce que TCQ ?
-
-**TCQ** (TransCommunication Quantique) est une plateforme intégrée de communications radio numériques qui réunit dans une seule application Windows tous les modes utilisés en exercice et en intervention réelle par les opérateurs ADRASEC :
-
-- 📨 **Messagerie chiffrée résiliente** sur Reticulum/LXMF (multi-saut, multi-transport)
-- 📡 **Modems haute performance** VARA HF, VARA FM et VARA SAT
-- 📻 **Packet radio AX.25** via Direwolf intégré (KISS et AGWPE)
-- 🌐 **Réseaux maillés LoRa** via MeshCore natif
-- 🖼️ **Réception SSTV temps réel** avec waterfall et templates `.stt`
-- 🎵 **Décodage et QSO CW automatiques** (QSObrain)
-- 📬 **Bulletin Board System** (BBS) sur TNC Packet et MeshCore
-- 📄 **Transmission PDF par radio** avec compression LZMA et fragmentation
-
-Conçu pour les opérations ADRASEC et les exercices de sécurité civile, TCQ privilégie la **robustesse**, la **tolérance aux ruptures de liaison** et la **simplicité d'utilisation sur le terrain**. Le binaire est autonome (PyInstaller) — **aucune installation Python requise**.
+Deux questions qu'on tranchait à l'estime. La carte calcule la **portée LoRa
+prévisible** de votre station sur le relief réel, et vous dit **où poser un relais
+RRLoRa** pour relier deux stations qui ne s'entendent pas.
 
 <p align="center">
-  <img src="images/TCQ_main_interface.png" alt="Interface principale TCQ v10.13" width="800"/>
-  <br><i>Interface principale de TCQ v10.13</i>
+  <img src="images/Couverture_LoRa.png" alt="Couverture LoRa prévisionnelle et bilan de liaison" width="880"/>
+  <br><i>Portée en quatre couleurs, sur la fréquence réellement configurée. L'encart donne le bilan du point survolé : ici −3,5 dB à 26,4 km, Fresnel obstrué — ça ne passe pas.</i>
+</p>
+
+<p align="center">
+  <img src="images/Relais_RRLora.png" alt="Placement automatique d'un relais RRLoRa" width="880"/>
+  <br><i>18,56 km entre A et B : <b>+10,1 dB en direct, +21,2 dB avec un relais posé à 95 m</b>. Quatre autres emplacements sont proposés — le calcul ignore l'accès routier, c'est à vous de trancher.</i>
+</p>
+
+### 🔥 Anticiper le risque et suivre ce qui vole
+
+Météo **AROME** sur la zone affichée, zones à risque incendie selon la **règle des
+trois 30**, foyers actifs **EFFIS/FIRMS**, et suivi des aéronefs en temps réel —
+bombardiers d'eau, hélicoptères Dragon et SAMU, Sécurité Civile — identifiés par
+indicatif et par adresse ICAO.
+
+<p align="center">
+  <img src="images/TCQ_Carto_ZoneFeu.png" alt="Zones à risque incendie sur la carte" width="880"/>
+  <br><i>Zones à risque incendie selon la règle des trois 30 — température ≥ 30 °C, vent ≥ 30 km/h, humidité ≤ 30 %.</i>
 </p>
 
 ---
 
-## ⭐ Fonctionnalités principales
+## Ce que TCQ sait faire
 
-| Icône | Fonctionnalité | Description |
+| | Fonction | En deux mots |
 |:---:|---|---|
-| 📨 | **LXMF / Reticulum** | Messagerie chiffrée bout-en-bout (X25519 + AES-128 + HMAC-SHA256), multi-saut, résiliente. Compatible TCP, série, LoRa, packet AX.25 et passerelle VARA. **RNS Nodes List** : sélection des points d'accès Reticulum du moment (**RMAP**, repli rns.fyi) et mise à jour assistée de `~/.reticulum/config`. |
-| 📡 | **VARA HF / FM / SAT** | Modems ARQ haute performance (EA5HVK) intégrés avec protection idle/timeout, suspension/reprise des transferts, détection automatique du chemin VARA. |
-| 📻 | **TNC Packet (AX.25)** | Direwolf lancé automatiquement avec configuration adaptée à votre carte son. Modes KISS et AGWPE. Support BBS et PDF radio. |
-| 🌐 | **MeshCore LoRa** | Protocole mesh LoRa natif pour communications de proximité en zone d'exercice ou d'intervention. Messagerie, BBS, **transferts de radiogrammes / fichiers diffusés sur canal** (Public, Urgence) et **canaux privés protégé par clé secrète** — création, partage par **QR Code / URL `meshcore://`**, mémorisation de la clé et vérification du **hash on-air**. Compatibles firmware MeshCore récent (≥ v1.6). |
-| 🗼 | **Couverture LoRa & relais RRLoRa** | Sur la carte : portée prévisible de la station en **quatre classes de marge**, tracée sur la fréquence et les paramètres radio réellement réglés, avec bilan de liaison au curseur. **Placement de relais RRLoRa** entre deux stations : TCQ explore le corridor sur le relief réel et propose les emplacements exploitables, classés par maillon faible. Altitudes EU-DEM 25 m (OpenTopoData), **sans compte ni clé**. Même moteur de calcul que RTspk Pager — écart mesuré **nul** entre les deux. |
-| 🖼️ | **SSTV temps réel** | Décodeur porté de slowrx — Scottie (S1/S2/SDX), Martin (M1/M2), Robot (36/72), PD (50→240). Waterfall + visualiseur plein écran + bouton Resync. |
-| 🎵 | **CW / Morse** | Décodeur DSP avec seuillage adaptatif et clustering K-means. **QSObrain** pour QSO CW entièrement autonomes (CSMA, WPM adaptatif, anti-self-CQ). |
-| 📬 | **BBS Multi-modes** | Bulletin Board System sur TNC Packet et MeshCore avec compteur paquets, réassemblage automatique, persistance SQLite. |
-| 📄 | **PDF Radio** | Transmission de documents (SITREP, MEMO) avec compression LZMA, fragmentation adaptative, CRC par fragment, ACK et reprise sélective. Recomposition fidèle : cadres et couleurs de tableaux préservés, PDF scannés ou tournés gérés automatiquement (`pdf_trans` v1.0.6). |
-| 📹 | **Journal Vidéo (MEMO / JVFT)** | Capture webcam + voix pour SITREP audiovisuel. **MEMO VIDEO** compressé (160×120) sur transport natif (VARA/LXMF) — clip A/V ≤ 20 s ou mémo vocal ≤ 30 s. **JVFT** pleine qualité (320×240, ≤ 90 s) via canal QIT/VFT. Lecteur intégré à taille native, aperçu avant envoi, annonce horodatée. |
-| 🛰️ | **Gonio SATER / APRS-IS** | Carte des relèvements goniométriques avec **partage bidirectionnel APRS-IS** (protocole `EPIRB-GONIO` commun à l'EPIRBdecoder v5.6 et SATERfinder Android), **triangulation ELT** (CEP 95 %), affichage des stations APRS reçues via APRS-IS, et import/export CSV interopérable. |
-| 🚨 | **RASEC-ALERT** | Déclenchement d'alerte à distance par message LXMF / TNC Packet / VARA (`#ra <code>`) : écran plein écran clignotant + sirène sonore forte + accusé de réception. Code d'activation persistant (défaut `ADRASEC77`), sirène réglable (`#b`, 0 = continu), acquittement clic/clavier. Bouton de réglage et de test intégré. |
-| 📟 | **CHAPPE26** | Décodage automatique en clair des messages LXMF codés CHAPPE26 (répertoire des 1000 codes ADRASEC/FNRASEC). Traduction affichée sous le message ; décodeur de test intégré. |
-| 🔐 | **100% local** | Aucune télémétrie, aucune connexion externe non sollicitée. Toutes les communications restent sous le contrôle de l'opérateur. |
+| 📨 | **LXMF / Reticulum** | Messagerie chiffrée bout-en-bout, multi-saut, résiliente. Passe par TCP, série, LoRa, packet AX.25 ou VARA. Annuaire, groupes, accusés de réception. |
+| 📡 | **VARA HF / FM / SAT** | Modems ARQ haute performance, avec suspension et reprise des transferts. |
+| 📻 | **Packet AX.25** | Direwolf lancé et configuré automatiquement. KISS et AGWPE. |
+| 🌐 | **MeshCore LoRa** | Mesh LoRa natif : messagerie, BBS, fichiers diffusés, **canaux privés à clé secrète** partagés par QR code. |
+| 🗺️ | **Carte opérationnelle** | Symboles SDIS / OTAN / SATER, zones, routes coupées, **synchronisation par radio** entre postes. |
+| 🛰️ | **Gonio SATER** | Relèvements partagés par APRS-IS, **triangulation ELT** avec rayon de probabilité, import/export CSV. |
+| 🗼 | **Couverture LoRa & relais** | Portée prévisible sur relief réel, bilan de liaison au curseur, **placement de relais RRLoRa**. Fonctionne sans réseau. |
+| 🌦️ | **Météo & feux** | AROME, règle des trois 30, foyers EFFIS/FIRMS, aéronefs de lutte en direct. |
+| 🖼️ | **SSTV** | Décodeur temps réel : Scottie, Martin, Robot, PD. Waterfall et plein écran. |
+| 🎵 | **CW / Morse** | Décodeur DSP adaptatif, et **QSObrain** pour des QSO CW autonomes. |
+| 📬 | **BBS multi-modes** | Sur TNC Packet et MeshCore, avec réassemblage et persistance. |
+| 📄 | **PDF radio** | Documents transmis par radio : compression, fragmentation, ACK, reprise sélective. |
+| 📹 | **Journal vidéo** | SITREP audiovisuel : MEMO VIDEO compressé, JVFT pleine qualité. |
+| 🚨 | **RASEC-ALERT** | Alerte à distance par LXMF, packet ou VARA : plein écran clignotant, sirène, accusé. |
+| 📟 | **CHAPPE26** | Décodage automatique des messages codés ADRASEC/FNRASEC. |
 
 ---
 
-## 🌌 TCQ : du concept Quantique au programme multi-modes
+## Installer
 
-Le projet TCQ est né d'une exploration de la **TransCommunication Quantique** appliquée aux réseaux radio résilients : une couche éducative sur Reticulum permettant de simuler des principes de communication quantique (Super Dense Coding, téléportation quantique) dans le contexte des messageries radio chiffrées LXMF.
+### En une commande *(recommandé)*
 
-À partir de la version 10.x, TCQ s'est étoffé pour devenir une **plateforme opérationnelle multi-modes** intégrant tous les outils nécessaires aux communications d'urgence ADRASEC, tout en conservant le module quantique éducatif (`qsim_lib`, `qit_lib`) comme couche pédagogique au-dessus de la messagerie LXMF.
-
-> 💡 La présente documentation couvre le **programme TCQ v10.13** (plateforme opérationnelle). Les fondements conceptuels et le mémo TCQ Quantique original sont documentés dans le dossier [TCQ Documentations](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations).
-
----
-
-## 🚀 Pourquoi un opérateur ADRASEC y gagne
-
-> **Une seule application pour tous les modes**
-> Plus besoin de jongler entre 6 logiciels différents : LXMF, VARA, Direwolf, MeshCore, SSTV, CW — tout est intégré dans une interface cohérente.
-
-> **Configuration zéro-friction**
-> Direwolf est lancé et configuré automatiquement. La carte son est détectée. La passerelle VARA s'auto-installe. Plus de `direwolf.conf` à éditer à la main.
-
-> **Robustesse opérationnelle**
-> Reprise sur erreur sans retransmission complète des fichiers. Anti-collision CSMA sur CW. Protection des transferts VARA contre les déconnexions. Pensé pour le terrain.
-
-> **Mise à disposition de la base ADRASEC**
-> Compatible avec les protocoles standards (LXMF, AX.25, VARA, MeshCore) — interopère avec les autres stations ADRASEC et la FNRASEC sans configuration spécifique.
-
-> **Confidentialité totale**
-> Chiffrement bout-en-bout natif sur LXMF. Aucune télémétrie, aucun cloud. Vos communications restent strictement locales et chiffrées.
-
-> **Compatible toutes architectures Windows**
-> Binaires natifs x86_64 ET ARM64 (Surface Pro, mini-PC ARM). Détection automatique de la DLL PortAudio adaptée. Aucune manipulation manuelle nécessaire.
-
----
-
-## 💼 Cas d'usage concrets
-
-### 📡 Communications d'exercice ADRASEC
-
-```
-• Diffusion d'un SITREP en PDF compressé via VARA HF (départemental)
-• Messagerie LXMF bidirectionnelle entre PC ADRASEC et stations mobiles
-• Activation d'un BBS de section sur fréquence packet régionale
-• Réception d'images SSTV en provenance d'une station portable
-```
-
-### 🚨 Opérations réelles
-
-```
-• Liaison résiliente Reticulum sur LoRa lors d'une coupure des réseaux conventionnels
-• Transmission de documents formels par radio (SITREP, fiches d'intervention)
-• Recherche de balises ELT 121.5 MHz avec module SDR (RTL-SDR)
-• QSO CW automatisé pour maintien de liaison faible signal
-```
-
-### 🎓 Formation et entraînement
-
-```
-• Démonstration des modes numériques pour nouveaux opérateurs
-• Exercices CW automatisés contre QSObrain (mode AUTO)
-• Tests de chaîne PDF radio entre deux stations
-• Apprentissage du protocole AX.25 via TNC Packet intégré
-```
-
----
-
-## 🛠 Comment commencer ?
-
-### ⚡ Méthode automatique *(recommandée)*
-
-Un script PowerShell **fait toute l'installation pour vous** : recherche de la dernière release TCQ, téléchargement de `TCQ.7z`, vérification SHA-256, décompression dans `C:\TCQ\`, création du raccourci bureau.
-
-> 🔍 **Important** : le dépôt F1GBD héberge plusieurs applications (TCQ, IAbrain, etc.). Le script identifie automatiquement la **dernière release dont le tag commence par `tcq-`** parmi toutes les releases du dépôt — il ne se trompe jamais d'application, même si la dernière release publiée est IAbrain.
-
-**1. Ouvrez PowerShell en mode administrateur**
-
-**2. Lancez la commande** :
+PowerShell **en administrateur** :
 
 ```powershell
-# Autoriser l'exécution des scripts (cette session uniquement)
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
-
-# Télécharger et lancer l'installeur officiel TCQ
-iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:TEMP\Install-TCQ.ps1
-& $env:TEMP\Install-TCQ.ps1
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:TEMP\Install-TCQ.ps1; & $env:TEMP\Install-TCQ.ps1
 ```
 
-Le script :
-- Installe 7-Zip via winget si absent
-- Interroge l'API GitHub pour trouver la dernière release au tag `tcq-vX.Y.Z`
-- Télécharge l'archive `TCQ.7z` depuis l'URL exacte de cette release
-- Vérifie le SHA-256 publié dans la description de la release
-- Sauvegarde l'installation existante (le cas échéant) avant écrasement
-- Crée un raccourci bureau
+L'installeur récupère la dernière version, l'installe dans `C:\TCQ` et crée les
+raccourcis. Relancez la même commande pour mettre à jour.
 
-### 🛠 Méthode manuelle *(utilisateurs avancés)*
+### À la main
 
-Si vous préférez télécharger manuellement (par exemple sur un poste sans accès Internet en PowerShell) :
-
-**1. Allez sur la [page des Releases TCQ filtrées](https://github.com/f1gbd/F1GBD/releases?q=tcq)** *(le filtre `?q=tcq` n'affiche que les releases TCQ, pas IAbrain)*
-
-**2. Cliquez sur la dernière release** *(la plus en haut, tag au format `tcq-vX.Y.Z`)*
-
-**3. Téléchargez `TCQ.7z`** et notez le SHA-256 publié dans la description
-
-**4. Vérifiez l'intégrité et installez** :
-
-```powershell
-# Vérifier l'intégrité
-Get-FileHash -Algorithm SHA256 TCQ.7z
-
-# Décompresser dans C:\
-# (clic droit sur l'archive → 7-Zip → Extraire vers "C:\")
-
-# Lancer C:\TCQ\TCQ.exe
-```
-
-> 💡 **Astuce** : créez un raccourci de `TCQ.exe` sur votre bureau pour un lancement rapide.
-
-### 🚀 Première utilisation
-
-Au premier démarrage :
-
-1. **Paramètres → Identité opérateur** : renseignez votre indicatif, locator et nom
-2. **Paramètres → Audio** : sélectionnez votre carte son (entrée/sortie radio)
-3. **Paramètres → Reticulum** : laissez les valeurs par défaut, ou ajustez selon votre interface RNode/LoRa
-4. **Paramètres → VARA** : indiquez le chemin de `VARA.exe` (HF/FM/SAT) si installé
-5. Sélectionnez un mode dans la barre d'onglets et commencez à émettre/recevoir
-
-> ⏱ Comptez **5 minutes** pour la première configuration, ensuite TCQ est utilisable au quotidien sans réglage supplémentaire.
-
----
-
-## 🆕 Nouveautés v12.47
-
-### 🛰️ Synchronisation NEM — partage de la situation par LXMF de Groupe
-
-La **Numérisation de l'Espace de Mission (NEM)** permet à toute une équipe de partager la même situation cartographique. Le bouton **« 🛰️ Synchro NEM »** (à droite de « Émettre relevé » sur la carte) sérialise **l'ensemble des données affichées** — symboles SDIS / OTAN / SATER, zones de feu, routes coupées et relevés goniométriques — et les diffuse dans un message LXMF dédié (`NEM1:`) vers un **Groupe LXMF** (sélection du groupe à l'émission).
-
-À la **réception**, TCQ reconnaît le message, **fusionne** les symboles et les relevés reçus, affiche une notification (chat + son), et **recentre automatiquement** la carte sur la zone concernée. Si la carte est fermée, les données sont mémorisées et affichées, recentrées, dès la réouverture de la CARTE.
-
-Le format d'échange réutilise le format natif `carto_lib` (rechargeable à l'identique) : les cartes NEM sont donc interchangeables avec l'enregistrement / chargement JSON, TCQ et l'EPIRB-decoder.
-
-### 🎯 Recentrage automatique au chargement
-
-Au rechargement d'une **carte de symboles (JSON)** ou de **relevés SATER**, l'affichage se recentre et ajuste le zoom sur l'emprise complète des données, pour retrouver immédiatement la zone de travail.
+1. [Téléchargez `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.70/TCQ.7z)
+2. Vérifiez l'empreinte : `Get-FileHash -Algorithm SHA256 TCQ.7z` — elle est publiée avec la release
+3. Décompressez dans `C:\` *(clic droit → 7-Zip → Extraire vers `C:\`)*
+4. Lancez `C:\TCQ\TCQ.exe`
 
 <p align="center">
-  <img src="images/TCQ_Carto_OTAN_NEB.png" alt="Opération Orion-26 dept 56" width="1024"/>
-  <br><i>Reconstitution d'un débarquement amphibie interarmées dans le Morbihan (Exercice ORION‑26 (56)) au format OTAN/APP-6 (NEB)</i>
-</p>
-
-
----
-
-## 🆕 Nouveautés v12.40
-
-### 🗺️ Carte opérationnelle et symboles normalisés (carto_lib)
-
-TCQ intègre une bibliothèque de **symboles cartographiques normalisés** que l'on dépose directement sur la carte APRS / SATER. Un bouton **« 🗺️ CARTE »** a été ajouté sur la page principale, et les boutons VFT et vidéo ont été regroupés pour préserver la hauteur de la pile.
-
-La palette **« 🚩 Symboles »** (bouton dans la barre d'outils de la carte) propose plus de cent symboles répartis en catégories :
-
-- **SDIS** — engins (FPT, FPTL, CCF, CCGC, VSAV, VSR, VTU, EPA/EPS/EA, BEA, FMOGP, VLSM, VSU…), commandement (PC, PCM, PCO, PCC, PCS, CODIS, COD, COZ, COGIC, COS, DOS…), **moyens aériens** avec silhouettes (Dragon, HBE / hélico bombardier d'eau, Canadair, Dash, Tracker), personnels (binôme, équipe, chefs d'agrès / groupe / colonne / site, ISP, MSP) ;
-- **OTAN / APP-6 (NEB)** — cadres par appartenance (ami / hostile / neutre / inconnu), marqueurs d'échelon (équipe → armée), fonctions (infanterie, blindés, artillerie, génie, santé, transmissions, PC, reconnaissance…) et graphiques tactiques (objectif, axe d'effort, limite, zone de regroupement, zone minée…) ;
-- **SATER** — balise ELT/EPIRB 406 MHz, relevé goniométrique, datum (position triangulée), PC, équipe de recherche ;
-- **Circulation & sinistre** — route barrée / coupée, barrage, sens interdit, déviation, accident, route inondée, foyer d'incendie.
-
-### 🔥 Zones vectorielles et tracés
-
-On trace à la souris des **zones de feu** vectorielles translucides (styles feu, front actif, risque, exclusion, soutien…) et des **routes coupées**, exactement comme sur les cartes « Zone Feu Forêt » du SDIS. Dépôt au clic, mode **gomme** (retire un symbole, une zone ou une route), **annulation** du dernier élément, et confirmation avant « tout effacer ».
-
-### 💾 Enregistrer, charger, imprimer
-
-La carte se **sauvegarde** en JSON (rechargeable à l'identique), **KML** (Google Earth) ou **GeoJSON** (QGIS), se **recharge** (ajout ou remplacement), et s'exporte en **image PNG** prête à imprimer ou à joindre à un SITREP. La couche de symboles est **rechargée automatiquement au démarrage** (fichier `carto_symbols.json`, à côté de `setup.json`). Les mêmes fonctions équipent l'onglet Carte de l'EPIRB-decoder.
-
----
-
-## 🆕 Nouveautés v12.35
-
-### 🚨 RASEC-ALERT — déclenchement d'alerte à distance (LXMF / TNC / VARA)
-
-Un opérateur distant peut **déclencher une alerte sur votre station** en envoyant un simple message texte depuis n'importe quel nœud Reticulum/LXMF (RTspk Pager, Ratspeak, MeshChat…), ou depuis une station **TNC Packet** ou **VARA** (réception flash). À réception de la commande, TCQ affiche un **écran d'alerte plein écran clignotant** (rouge/jaune), fait retentir une **sirène sonore forte et bi-tonale** pour avertir l'opérateur, et renvoie un **accusé de réception** sur le même transport que le déclencheur.
-
-| Commande | Effet |
-|---|---|
-| `#ra ADRASEC77` | Déclenche l'alerte (écran clignotant + sirène + ACK). |
-| `#rapass <ancien> <nouveau>` | Change le code d'activation (vérifie l'ancien, persiste le nouveau). |
-| `#b <n>` | Règle le nombre de répétitions de la sirène. `#b 0` = alarme **continue** jusqu'à acquittement. Plage : 0–20. |
-
-- **Code d'activation par défaut : `ADRASEC77`** (modifiable via `#rapass` ou depuis le bouton **RASEC-ALERT**).
-- **Acquittement** : cliquer l'écran d'alerte, ou appuyer sur **Échap / Entrée / Espace** — ce qui arrête la sirène et ferme l'écran.
-- L'accusé renvoyé (« *Pager OK - alerte bien recue* ») **ne contient jamais le code**, pour éviter toute boucle d'auto-déclenchement. L'ACK repart sur le même canal : réponse LXMF pour un déclencheur LXMF, trame vers l'indicatif+SSID en TNC, broadcast `send_chat` en VARA.
-- Le **message déclencheur reste affiché normalement** dans la conversation.
-- Nouveau bouton **« 🚨 RASEC-ALERT »** dans la barre d'outils : réglage du **code d'activation**, du **nombre de répétitions de la sirène** (0 = continu) et **test local** de l'alerte.
-
-### 📟 CHAPPE26 — décodage automatique des messages codés
-
-À la réception d'un message **LXMF** contenant des codes **CHAPPE26** au format transmission (`!1000 !1024 !1376 … !1990`), TCQ décode automatiquement le message et affiche la **traduction en clair** juste sous le message reçu. Le décodeur s'appuie sur le **répertoire complet des 1000 codes** ADRASEC/FNRASEC (10 domaines × 100 lignes), embarqué dans le module compagnon `chappe26_lib`. Chaque code à 4 chiffres correspond à une **page** (domaine) et une **ligne** (expression) — par exemple `1204` = *Santé · Ambulance requise*.
-
-La détection est robuste (elle n'agit que sur les codes préfixés « ! » présents au répertoire, ce qui évite les faux positifs). Un nouveau bouton **« 📟 CHAPPE26 »** ouvre un **décodeur de test** : saisie d'un message, décodage en clair, et tableau détaillé (code / page / ligne / domaine / signification, codes inconnus signalés).
-
-### 👥 Gestion des Groupes LXMF depuis l'Annuaire
-
-La gestion des **groupes LXMF** est désormais intégrée à l'onglet **« 📒 Annuaire LXMF »** : un bouton **« 👥 Groupes LXMF »**, placé à droite du champ *Filtre*, ouvre un gestionnaire à double liste. À gauche, la liste des groupes (boutons **Nouveau / Renommer / Supprimer**) ; au centre, l'**annuaire LXMF** des stations disponibles avec son filtre de recherche ; à droite, les **membres du groupe** sélectionné. On **ajoute / retire un membre par simple sélection** dans l'annuaire (boutons **Ajouter ▶ / ◀ Retirer** ou double-clic), sans avoir à copier-coller d'adresses hexadécimales. Chaque station est affichée avec son **nom d'annuaire et son adresse complète**, et des ascenseurs verticaux/horizontaux permettent de tout consulter. Un bouton **« ✓ Utiliser comme destination »** place `@nom_groupe` dans le champ de destination. Toute modification est **enregistrée immédiatement** dans `setup.json` (`lxmf.groups`), et l'envoi `@nom_groupe` continue de fonctionner à l'identique.
-
-### ⚛️ Mode quantique désactivé par défaut
-
-La **téléportation quantique** (couche pédagogique QIT) modifiait la charge utile des messages LXMF, ce qui empêchait l'envoi d'un message **en clair** tel qu'attendu par les codes CHAPPE26 ou par un correspondant standard. Le mode quantique est désormais **désactivé par défaut** : la case **« ⚛ Quantique »** du chat est décochée à l'ouverture, et les messages LXMF partent en clair. Elle reste activable manuellement pour un envoi quantique ponctuel.
-
----
-
-## 🆕 Nouveautés v12.34
-
-### 🌐 RNS Nodes List — points d'accès Reticulum en direct (rns.fyi)
-
-L'onglet **« 📢 Annonce LXMF »** intègre un bouton **« 🌐 RNS Nodes List »** qui ouvre une fenêtre dédiée à la gestion des **points d'accès Reticulum** (nodes TCP publics), à partir de la liste tenue à jour par le service communautaire **[rns.fyi](https://rns.fyi)**. La fonction repose sur le module compagnon **`rnslister_lib`**, embarqué automatiquement dans le binaire.
-
-#### 📡 Lister et trier les nodes disponibles
-
-La fenêtre récupère en direct les nodes joignables en TCP et les présente dans un tableau : **nom**, **adresse `host:port`**, **santé**, **uptime 30 j**, **fiabilité**, **nombre de sauts** et **localisation**. Filtres intégrés : santé minimale, nodes **recommandés** (*floor pass*), nom, nombre maximal affiché. Tri automatique par qualité décroissante.
-
-#### 🔍 Tester la disponibilité *du moment*
-
-Le bouton **« 🔍 Tester dispo »** sonde chaque node en **TCP**, en parallèle, et affiche son état : 🟢 joignable / 🔴 injoignable — pour ne retenir que les relais réellement actifs à l'instant T.
-
-#### 💾 Mettre à jour la configuration Reticulum
-
-Cochez les nodes souhaités puis **« 💾 Mettre à jour config Reticulum »** : les interfaces `TCPClientInterface` correspondantes sont écrites dans `~/.reticulum/config`, à l'intérieur d'un **bloc géré** dédié. Les **interfaces manuelles** (RNode, TCPServer, hubs personnels…) sont **intégralement préservées**, les doublons ignorés, et une **sauvegarde horodatée** du fichier est créée avant toute écriture. Le chemin du fichier `config` est modifiable dans la fenêtre.
-
-#### 🗄️ Sauvegarder les RNS actifs
-
-Le bouton **« 🗄 Sauvegarder RNS actifs »** archive l'état courant : copie horodatée du fichier `config` **+** export **JSON** détaillé des interfaces TCP actuellement actives (et de la sélection) — pratique pour figer une configuration réseau validée avant un exercice.
-
-#### 📝 Éditer Config & 📡 Config Répéteur LoRa
-
-- **« 📝 Éditer Config »** ouvre directement le fichier `config` Reticulum dans **Notepad** (éditeur système en secours hors Windows).
-- **« 📡 Config Répéteur LoRa »** insère — s'il est absent — un bloc **`[[RNode LoRa]]`** préréglé (**867.5 MHz / BW 125 kHz / SF8 / CR 4:5**, port `COM3`) juste après la section `[interfaces]`, avec sauvegarde horodatée. Ce préréglage correspond **exactement** au répéteur **RRLoRa** : un seul paramètre différent et la liaison ne passe pas.
-
-### 📒 Auto Ajout Annuaire — collecte automatique des stations TCQ
-
-L'onglet **« 📢 Annonce LXMF »** dispose d'une nouvelle case **« 📒 Auto Ajout Annuaire (stations TCQ\*) »**, **décochée par défaut**. Lorsqu'elle est activée, toute **nouvelle station** dont le nom commence par **`TCQ`**, reçue par **annonce LXMF**, est **ajoutée automatiquement à l'index de l'annuaire LXMF en mémoire** si elle n'y figure pas déjà — l'annuaire se constitue tout seul pendant la vacation. L'ajout se fait en mémoire ; utilisez la **sauvegarde manuelle** de l'annuaire pour le figer sur disque.
-
----
-
-## 🆕 Nouveautés v12.21 → v12.33
-
-### 🔒 Canaux MeshCore privés protégés par clé secrète
-
-Le mode **MeshCore LoRa** gère désormais des **canaux privés chiffrés**, à l'image de l'application MeshCore officielle. Toute la gestion se fait depuis l'onglet **« 📡 Canaux »** du panneau de gauche.
-
-#### Principe
-
-Sur l'air, un canal MeshCore est identifié **uniquement par sa clé secrète** de 16 octets : le firmware en dérive un *hash de canal*. Le **nom** du canal n'est qu'une étiquette locale, propre à chaque poste. Deux stations communiquent donc sur un canal privé **si — et seulement si — elles partagent exactement la même clé**.
-
-#### ➕ Créer un canal privé
-
-Bouton **➕** : choisir un **emplacement** libre, un **nom**, cocher **« Canal PRIVÉ »** et saisir une clé — ou la **générer aléatoirement** d'un clic (**🎲**, 32 caractères hexadécimaux). Le canal apparaît dans la liste avec un cadenas **🔒** (clé enregistrée) ou une clé **🔑** (clé encore à saisir).
-
-#### 🔑 Partager la clé entre opérateurs
-
-Bouton **🔑** (Partager) : TCQ affiche un **QR Code**, la **clé secrète** et l'**URL de partage** au format `meshcore://channel/add?name=...&secret=...`. Les autres opérateurs **scannent le QR Code** depuis l'application MeshCore (*Menu → Ajouter un canal*), ou importent l'URL. Boutons **📋 Copier l'URL** et **💾 QR PNG** pour transmettre la clé par Winlink, e-mail ou messagerie.
-
-#### 📥 Rejoindre un canal
-
-Bouton **📥** (Importer) : coller l'URL `meshcore://` reçue, TCQ pré-remplit le nom et la clé. À la **première sélection** d'un canal privé sans clé enregistrée, la clé est **demandée une seule fois**, puis **mémorisée** dans `setup.json` — plus aucune ressaisie aux connexions suivantes.
-
-#### ℹ️ Vérifier la cohérence des clés
-
-Bouton **ℹ️** : relit l'emplacement **dans le module** (nom, clé stockée et **hash de canal on-air**) et signale tout écart avec la clé connue de TCQ. Pour qu'un canal privé fonctionne entre stations, le **hash on-air doit être identique sur tous les postes**.
-
-#### 🛡️ Programmation automatique du firmware
-
-Dès la création/sélection d'un canal privé et à chaque connexion, TCQ **programme la clé dans le module** MeshCore (l'emplacement **Public** n'est jamais modifié). Cette programmation locale est indispensable : sans elle, le firmware ne peut ni chiffrer ni déchiffrer le trafic du canal.
-
-> 📘 Voir la fiche pratique **« Canaux privés MeshCore dans TCQ »** dans le dossier [TCQ Documentations](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations).
-
-#### Détail des versions
-
-- **v12.21** — création, partage (QR Code / URL `meshcore://`) et import des canaux privés ; mémorisation de la clé à la première sélection.
-- **v12.22** — correctif **émission/réception sur les canaux non publics** : la clé est désormais programmée dans le firmware avant tout envoi (l'emplacement Public reste géré par défaut), condition indispensable pour que le trafic de canal soit déchiffrable par les autres postes.
-- **v12.33** — outil de **vérification ℹ️** (relecture de la clé dans le module et affichage du **hash de canal on-air**) pour confirmer que tous les postes partagent la même clé.
-
----
-
-## 🆕 Nouveautés v12
-
-### 📹 Journal de Bord vidéo : MEMO VIDEO & JVFT (SITREP VIDEO)
-
-TCQ intègre un **Journal de Bord vidéo** : capture d'un clip **webcam + voix** directement depuis l'interface pour transmettre un point de situation **audiovisuel** par radio. Deux boutons (**📹 MEMO VIDEO** et **🎥 JVFT**) sont disponibles en bas de chaque mode compatible.
-
-#### 📹 MEMO VIDEO — transport natif, compressé
-
-Clip court émis **directement sur le canal du mode** (trame **VBIN** en VARA, **fichier natif** en LXMF ; grisé en Packet, faute de transport binaire AX.25). Encodage **VP9 + Opus** en **160×120**, à débit **cible** : la **taille suit la durée** (plafond de sécurité pour borner le temps d'antenne). Deux sous-modes :
-
-- **Clip vidéo + son** — séquence animée jusqu'à **20 s**.
-- **Mémo vocal + photo** — message **vocal jusqu'à 30 s** + photo fixe (presque tout le débit va à la voix).
-
-#### 🎥 JVFT — Journal Vidéo en VFT (pleine qualité)
-
-Clip **320×240** jusqu'à **90 s**, acheminé par le **canal latéral QIT/VFT** (sans la contrainte de taille du canal radio), avec signal **&QV&** sur le mode actif. Disponible sur tous les modes (VARA, Packet, MeshCore, LXMF).
-
-#### 🕒 Horodatage incrusté
-
-La **date et l'heure** sont **gravées en bas de chaque image** au moment de la capture — toute image extraite reste datée.
-
-#### 🗂️ Journal de Bord (archive)
-
-À chaque enregistrement, une **copie** du clip est archivée dans le sous-dossier **`Journal/`** sous le nom **`JVFT_<horodatage>.webm`** (le fichier d'envoi garde, lui, le nom `<INDICATIF>.webm`). L'onglet **« 📁 Fichiers/Journal »** comporte un cadre **« 🎬 Journal VIDEO »** : liste scrollable (nom, date, taille), **▶ Rejouer**, **🗑 Supprimer**, **🔄 Actualiser**, **📁 Dossier**. Double-clic = rejouer.
-
-#### ✅ VALIDER / 📤 ENVOYER (enregistrer maintenant, envoyer plus tard)
-
-Après l'enregistrement, deux boutons distincts : **VALIDER** encode le clip et l'archive au Journal **sans l'émettre** ; **ENVOYER** l'émet (s'il a déjà été validé, il part tel quel, sans ré-encodage). On peut ainsi préparer un clip et l'expédier plus tard via **« 📂 Recharger une vidéo du Journal »**. Un bouton **« 👁 OUVRIR VIDÉO »** permet de prévisualiser le clip exact avant émission.
-
-#### 🖼️ Trace dans la main courante (imagette)
-
-À la **réception** d'une vidéo (`.webm`), une **imagette** (1re image) suivie d'un lien **« ▶ Visionner la vidéo »** est insérée dans le **chat de tous les modes** (VARA, Packet, MeshCore, LXMF) : la main courante garde une trace visuelle. Un clic rejoue la vidéo dans le **lecteur intégré à taille native** (avec le son), au lieu du lecteur système qui l'agrandissait.
-
-#### 🔔 Annonce horodatée
-
-TCQ émet un court texte « *<date heure> Réception d'un MEMO VIDEO / JVFT de <indicatif>* ». Pour le **MEMO VIDEO**, l'annonce est **différée jusqu'à l'ACK** du fichier : émise pendant le transfert, elle s'intercalerait devant le dernier paquet et empêcherait le décodage.
-
-### 📋 Main courante en mode Packet
-
-Le mode **TNC Packet** dispose d'un bouton **« Sauver le Log »** qui enregistre toute la conversation (main courante **horodatée**) dans un fichier texte — comme en VARA.
-
----
-
-## 🆕 Nouveautés v11.0.0 / v11.0.1
-
-### 🛰️ Partage des relèvements goniométriques APRS-IS — interopérable EPIRBdecoder v5.6 & SATERfinder Android *(v11.0.0)*
-
-La fenêtre **CARTE** du mode **TNC Packet** intègre désormais un bandeau **APRS-IS** complet, identique au client APRS-IS de l'**EPIRBdecoder v5.6** et de l'application Android **SATERfinder**. TCQ utilise exactement le même protocole `EPIRB-GONIO`, ce qui permet à toutes ces stations de **partager leurs relèvements en temps réel** pendant une recherche SATER / COSPAS-SARSAT — postes PC (TCQ, EPIRBdecoder) et équipes terrain (SATERfinder Android) sur un même fil APRS-IS.
-
-- 📡 **Connexion APRS-IS** : indicatif + passcode (bouton *Calc* de calcul automatique), serveur/port (`euro.aprs2.net:14580` par défaut), bouton *Se connecter / Se déconnecter*.
-- 🔁 **Partage BIDIRECTIONNEL des relevés** au format `EPIRB-GONIO` : les relèvements émis par TCQ sont reçus et tracés par l'EPIRBdecoder et SATERfinder, et **réciproquement** — la carte de TCQ affiche en direct les relevés des autres équipes.
-- ⚙️ Case **« Partage auto »** (émission automatique d'un relevé dès sa saisie ou modification) + bouton **« 📤 Émettre relevé »** pour pousser manuellement le relevé sélectionné.
-- 📶 **Force du signal** (fort / moyen / faible / nul) ajoutée au dialogue de relevé d'azimut — transmise sur APRS-IS et exportée en CSV.
-- 🎯 Bouton **« BALISE ELT »** : calcul de la **position présumée de la balise** par triangulation des relèvements (moindres carrés + rejet d'aberrants MAD), avec tracé du marqueur et du **cercle de probabilité CEP 95 %** sur la carte. Algorithme identique à celui de l'EPIRBdecoder v5.6.
-- 💾 **Import / export CSV des relevés compatibles EPIRBdecoder v5.6** : un fichier produit par TCQ se relit dans l'EPIRBdecoder (et inversement), avec indicatif, position, azimut, force du signal et horodatage.
-
-
-<p align="center">
-  <img src="images/TCQ_sstv_decoder.png" alt="Décodeur SSTV avec waterfall" width="800"/>
-  <br><i>Décodeur SSTV avec waterfall spectrogramme et visualiseur image</i>
-</p>
-
-### Module VARA / PDF radio
-
-- ✅ Protection des transferts PDF/image/fichier (suspension idle/timeout)
-- ✅ Système de transmission PDF radio (LZMA + fragmentation TNC, frame unique VARA)
-- ✅ Application intégrée **PDFteleporter**
-
-### Module BBS
-
-- ✅ Intégration BBS pour modes **TNC Packet** et **MeshCore LoRa**
-- ✅ Compteur de paquets et réassemblage automatique
-- ✅ Debug BBS MeshCore LoRa testé sur matériel réel
-
-### Plateforme
-
-- ✅ Détection automatique des DLL PortAudio ARM64 / x86_64
-- ✅ Correctifs DPI scaling Windows 10 vs Windows 11
-- ✅ Personnalisation du spec PyInstaller pour build optimisé
-- ✅ Intégration GPS NMEA via port COM
-- ✅ Améliorations thèmes clair / sombre
-
----
-
-## 📚 Documentation complète
-
-L'ensemble de la documentation TCQ (manuels, mémos techniques, notes techniques) est rassemblée dans le dossier [**TCQ Documentations**](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations) du dépôt.
-
-### 📘 Notes Techniques (NT) — référence opérationnelle
-
-- 📘 [**NT100 TCQ — Pour une Communication Résiliente**](TCQ%20Documentations/NT100%20TCQ%20-%20Pour%20une%20Communication%20R%C3%A9siliente.pdf) — Note de cadrage : pourquoi et comment TCQ assure la résilience des communications ADRASEC
-- 📘 [**NT101 TCQ — Station MORSE CW**](TCQ%20Documentations/NT101%20TCQ%20-%20Station%20MORSE%20CW.pdf) — Configuration et exploitation du module CW/Morse de TCQ
-- 📘 [**NT103 TCQ-BBS Multimodes**](TCQ%20Documentations/NT103%20TCQ-BBS_Multimodes.pdf) — Architecture du BBS multi-modes (TNC Packet + MeshCore LoRa)
-- 📘 [**NT105 TCQ — Manuel Module SSTV**](TCQ%20Documentations/NT105%20TCQ%20-Manuel%20Module%20SSTV.pdf) — Manuel utilisateur complet du module SSTV (décodeur, templates, RSV)
-
-### 📋 MEMOs techniques — guides pratiques
-
-- 📋 [**MEMO — Fiche Technique TCQ-APRS-SATER**](TCQ%20Documentations/MEMO%20-%20Fiche%20Technique%20TCQ-APRS-SATER.pdf) — Mise en œuvre du module APRS/SATER pour la recherche de balises
-- 📋 [**MEMO — TCQ-BBS**](TCQ%20Documentations/MEMO%20-%20TCQ-BBS.pdf) — Référence des commandes et fonctionnement du BBS TCQ
-- 📋 [**MEMO — TCQ-CW QSO AUTO**](TCQ%20Documentations/MEMO%20-%20TCQ-CW_QSO_AUTO.pdf) — Configuration du mode QSObrain pour QSO CW autonomes
-- 📋 [**MEMO — TCQ-Packet BBS**](TCQ%20Documentations/MEMO%20-%20TCQ-Packet_BBS.pdf) — Procédure d'accès au BBS via TNC Packet
-- 📋 [**MEMO — TCQ-Packet Script-MTL**](TCQ%20Documentations/MEMO%20-%20TCQ-Packet_Script-MTL.pdf) — Scripts MTL pour automatisation packet radio
-
-> 📂 **[Accéder au dossier complet TCQ Documentations](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations)**
-
-### 🔗 Ressources externes
-
-- [Reticulum Network Stack](https://reticulum.network/) (Mark Qvist)
-- [LXMF Specification](https://github.com/markqvist/LXMF)
-- [Direwolf SoundCard TNC](https://github.com/wb2osz/direwolf) (John Langner WB2OSZ)
-- [VARA Modem](https://rosmodem.wordpress.com/) (José Alberto Nieto Ros, EA5HVK)
-- [slowrx SSTV decoder](https://github.com/windytan/slowrx) (Oona Räisänen)
-
----
-
-## 🌐 Architecture technique
-
-```
-┌──────────────────────────────────────────────────┐
-│  TCQ.exe (binaire PyInstaller autonome)          │
-│  - GUI Tkinter, multi-onglets                    │
-│  - DSP audio NumPy/SciPy/PortAudio               │
-│  - Cryptographie Reticulum native                │
-└─┬─────────┬───────────┬───────────┬───────────┬──┘
-  │         │           │           │           │
-  │         │           │           │           │
-┌─▼──────┐ ┌▼────────┐ ┌▼────────┐ ┌▼────────┐ ┌▼─────┐
-│ LXMF / │ │ VARA    │ │ TNC     │ │ MeshCore│ │ SSTV │
-│ Reticu │ │ HF/FM/  │ │ Packet  │ │  LoRa   │ │  CW  │
-│ lum    │ │ SAT     │ │ (Dire-  │ │         │ │ BBS  │
-│        │ │         │ │ wolf)   │ │         │ │ PDF  │
-└────────┘ └─────────┘ └─────────┘ └─────────┘ └──────┘
-
-┌──────────────────────────────────────────────────┐
-│  Configuration locale (C:\TCQ\config\)           │
-│  - tcq_settings.json (callsign, locator, ...)    │
-│  - reticulum/config (interfaces RNS)             │
-│  - sstv_templates/*.stt (overlays SSTV)          │
-│  - bbs/messages.db (base BBS SQLite)             │
-└──────────────────────────────────────────────────┘
-```
-
----
-
-## 🔧 Prérequis
-
-| Élément | Spécification |
-|---|---|
-| **OS** | Windows 10 (build 19041+) ou Windows 11 |
-| **Architecture** | x86_64 ou ARM64 (binaires natifs) |
-| **RAM** | 4 Go minimum, 8 Go recommandé |
-| **Disque** | ~500 Mo pour TCQ + dépendances |
-| **Python** | **Non requis** (binaire PyInstaller autonome) |
-| **Direwolf** | Téléchargé et configuré automatiquement par TCQ |
-| **VARA** | À installer séparément depuis [le site éditeur](https://rosmodem.wordpress.com/) |
-| **Reticulum** | Configuration `.reticulum/config` créée automatiquement |
-
-### Matériel radio
-
-| Usage | Matériel recommandé |
-|---|---|
-| **Modes HF numériques** | Transceiver HF + interface CAT/audio (SignaLink, RIGblaster, FT-991A intégré, IC-7300) |
-| **Packet VHF/UHF** | TNC matériel ou carte son + transceiver FM |
-| **MeshCore LoRa** | Module LoRa USB/série compatible MeshCore |
-| **SSTV** | Entrée audio reliée à la sortie casque du transceiver |
-| **GPS** *(optionnel)* | Récepteur GPS NMEA sur port COM |
-| **SDR** *(optionnel)* | RTL-SDR pour réception 121.5 MHz / écoute panoramique |
-
-<p align="center">
-  <img src="images/TCQ_hardware_setup.jpg" alt="Configuration matérielle ADRASEC" width="700"/>
-  <br><i>Exemple de configuration de station ADRASEC avec TCQ</i>
+  <img src="images/TCQ_hardware_setup.jpg" alt="Configuration matérielle type" width="620"/>
+  <br><i>Configuration type : PC, interface son, RNode LoRa et transceiver.</i>
 </p>
 
 ---
 
-## 🛠️ Dépannage
+## Premiers pas
 
-### TCQ ne démarre pas
+1. **Renseignez votre station** — indicatif et position, onglet CONFIG. La position sert à la carte et aux relèvements.
+2. **Choisissez vos transports** — TCP pour commencer, puis LoRa, packet ou VARA selon le matériel branché.
+3. **Ouvrez la carte** et faites *Centrer* : vous devez vous y voir.
+4. **Testez une liaison** — bouton *Test LXMF* vers un correspondant : la réponse revient automatiquement, avec le temps d'aller-retour.
+5. **Avant une sortie sans réseau** — préchargez les tuiles de la zone *(⬇️ Précharger)* et le relief *(📡 LoRa → ⚙ → Préparer le relief)*.
 
-- Vérifiez que vous avez bien décompressé l'archive dans `C:\` (pas sur un autre lecteur)
-- Lancez `TCQ.exe` en mode administrateur la première fois
-- Vérifiez les journaux dans `C:\TCQ\logs\`
-
-### Direwolf ne démarre pas en mode Packet
-
-- Vérifiez qu'aucune autre instance de Direwolf ne tourne
-- Vérifiez la sélection de la carte son dans **Paramètres → Audio**
-- Le pare-feu Windows peut bloquer l'AGWPE — autorisez Direwolf
-
-### VARA n'est pas détecté
-
-- VARA HF / VARA FM doit être installé **séparément** depuis le site éditeur
-- Indiquez le chemin de `VARA.exe` dans **Paramètres → VARA**
-- Vérifiez que le port TCP local (8300 par défaut) n'est pas utilisé
-
-### Décodage SSTV de mauvaise qualité
-
-- Niveau audio d'entrée recommandé : -3 dB à -6 dB en crête
-- Utilisez le bouton **Resync** pour re-décoder le WAV de debug
-- Vérifiez que le mode sélectionné correspond bien au mode émis (Scottie S1 ≠ S2)
-- Écartez tout filtre numérique du transceiver qui découperait au-dessus de 2400 Hz
-
-### DPI scaling sur Windows 11
-
-Si l'interface apparaît floue ou trop petite : Clic droit sur `TCQ.exe` → **Propriétés → Compatibilité → Modifier les paramètres de PPP élevés** → cocher **Remplacer le comportement de mise à l'échelle PPP élevés** → **Application**.
-
-### Reticulum/LXMF ne reçoit pas les messages
-
-- Vérifiez la configuration `.reticulum/config` (interfaces actives)
-- Lancez `rnstatus -v` en parallèle pour diagnostiquer les chemins
-- Vérifiez que votre identité LXMF a été annoncée (`Announce` dans le menu Reticulum)
-
-> 📘 Pour les configurations avancées et la mise en œuvre opérationnelle, consultez [**NT100 — Pour une Communication Résiliente**](TCQ%20Documentations/NT100%20TCQ%20-%20Pour%20une%20Communication%20R%C3%A9siliente.pdf).
+> 📘 Le manuel de cartographie et la fiche réflexe « couverture LoRa et relais »
+> détaillent chaque fonction — voir le [dossier documentation](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations).
 
 ---
 
-## 🤝 Communauté
+## 🆕 Dernières mises à jour
 
-TCQ est un **projet open développé pour la communauté ADRASEC**, proposé librement aux opérateurs ADRASEC départementales et à la FNRASEC.
+### Version courante : **v12.70** — *25 août 2026*
 
-Toute contribution, retour d'expérience ou proposition d'amélioration est bienvenue via les [**Issues du dépôt GitHub**](https://github.com/f1gbd/F1GBD/issues).
+**Couverture LoRa et placement de relais RRLoRa sur la carte.** Deux boutons :
+📡 **LoRa** trace la portée prévisible de votre station en quatre couleurs sur le
+relief réel et donne le bilan de liaison au curseur ; 🗼 **Relais** explore le
+corridor entre deux stations et propose cinq emplacements de répéteur, classés
+par maillon faible.
 
----
+**Utilisable sans réseau** : préparez le relief de la zone avant de partir, et
+tout continue de fonctionner sur le terrain. L'application écrit alors
+« Relief INTERPOLÉ » plutôt que de faire passer une valeur reconstruite pour une
+valeur mesurée.
 
-## 🏆 Crédits
+Même moteur de calcul que **RTspk Pager** sur Android — écart mesuré **nul**
+entre les deux applications, en ligne comme hors ligne.
 
-TCQ s'appuie sur l'excellent travail de la communauté open source :
-
-| Composant | Auteur(s) | Licence |
+| Version | Date | Ce qui change |
 |---|---|---|
-| **Reticulum / LXMF** | Mark Qvist | Reticulum License |
-| **Direwolf** | John Langner WB2OSZ | GPL |
-| **VARA** | José Alberto Nieto Ros (EA5HVK) | Propriétaire (gratuit en bas débit) |
-| **slowrx** (SSTV) | Oona Räisänen | MIT |
-| **MeshCore** | Projet open source | GPL |
+| **v12.70** | 25/08/2026 | Couverture LoRa et relais RRLoRa, hors ligne compris |
+| v12.68 | 24/08/2026 | Tracé de zone à nouveau possible après réouverture de la carte |
+| v12.67 | 19/08/2026 | « RNS Nodes List » bascule sur RMAP, `rns.fyi` étant hors service |
+| v12.63 → v12.66 | 15–16/08/2026 | Interopérabilité RTspk Pager : PING LXMF, images, radar aéronefs |
+| v12.60 → v12.62 | 11–14/08/2026 | LXMF par radio VHF packet fiabilisé ; synchro de carte en delta, puis en binaire |
+| v12.50 | 28/07/2026 | Couche « Live feux » : EFFIS, FIRMS et aéronefs de lutte |
+| v12.46 → v12.47 | 26/07/2026 | Météo AROME sur la carte, suivi d'aéronefs en temps réel |
+| v12.40 | 24/07/2026 | Cartographie opérationnelle et symboles normalisés |
 
-Tous les modules intégrés respectent les licences de leurs auteurs originaux.
+📖 **[Historique détaillé de toutes les versions →](HISTORIQUE.md)**
+
+---
+
+## Documentation
+
+| | Contenu |
+|---|---|
+| [📚 Dossier documentation](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations) | Manuels utilisateur et fiches techniques |
+| [🕘 Historique des versions](HISTORIQUE.md) | Le détail de chaque version |
+| [📜 Releases](https://github.com/f1gbd/F1GBD/releases?q=tcq) | Binaires et notes de version |
 
 ---
 
@@ -1092,15 +216,15 @@ Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 
 ### 📡 Auteur
 
-**Jean-Louis (F1GBD / F4JHW)**
+**Jean-Louis — F1GBD / F4JHW**
 *ADRASEC 77 — FNRASEC*
 
-**Version v12.70.0 — 25/08/2026**
+**TCQ v12.70.0 — 25/08/2026**
 
----
+Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 
 *Pour toute question, contactez votre référent ADRASEC départemental.*
 
-📡 **TCQ** — *La plateforme de communications radio multi-modes au service de la sécurité civile*
+📡 **TCQ** — *au service de la sécurité civile*
 
 </div>
