@@ -72,8 +72,8 @@ d'unités — le tout enregistrable, rechargeable et imprimable. La carte se
 Internet.
 
 <p align="center">
-  <img src="images/TCQ_Carto_OTAN_NEB.png" alt="Symbologie normalisée sur la carte opérationnelle" width="880"/>
-  <br><i>Exercice ORION-26 dans le Morbihan : compagnies, objectifs, zone réglementée, appui feu, PMA. La palette de symboles est à gauche.</i>
+  <img src="images/TCQ_Carto_SDIS.png" alt="Symbologie normalisée sur la carte opérationnelle" width="880"/>
+  <br><i>Cartographie avec la Symbologie SDIS.</i>
 </p>
 
 ### 📡 Savoir jusqu'où on porte, et où poser un relais
@@ -100,9 +100,15 @@ bombardiers d'eau, hélicoptères Dragon et SAMU, Sécurité Civile — identifi
 indicatif et par adresse ICAO.
 
 <p align="center">
-  <img src="images/TCQ_Carto_ZoneFeu.png" alt="Zones à risque incendie sur la carte" width="880"/>
+  <img src="images/TCQ_Carto_3x30_ZoneAlert2.png" alt="Zones à risque incendie sur la carte" width="880"/>
   <br><i>Zones à risque incendie selon la règle des trois 30 — température ≥ 30 °C, vent ≥ 30 km/h, humidité ≤ 30 %.</i>
 </p>
+
+<p align="center">
+  <img src="images/TCQ_Carto_OpenSky.png" alt="Suivi du traffic aérien local en temps réel" width="880"/>
+  <br><i>Suivi du traffic aérien local en temps réel avec filtrage possible.</i>
+</p>
+
 
 ---
 
