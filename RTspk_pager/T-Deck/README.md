@@ -1,5 +1,3 @@
-# RATspeak ADRASEC — T-Deck
-
 <p align="center">
   <img src="images/RatSpeak_Adrasec_Logo.png" alt="RatSpeak — ADRASEC" width="190">
 </p>
