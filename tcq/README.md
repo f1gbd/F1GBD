@@ -76,6 +76,11 @@ Internet.
   <br><i>Cartographie avec la Symbologie SDIS.</i>
 </p>
 
+<p align="center">
+  <img src="images/TCQ_Carto_OTAN_NEB.png" alt="Symbologie normalisée sur la carte opérationnelle" width="880"/>
+  <br><i>Exercice ORION-26 dans le Morbihan : compagnies, objectifs, zone réglementée, appui feu, PMA. La palette de symboles est à gauche.</i>
+</p>
+
 ### 📡 Savoir jusqu'où on porte, et où poser un relais
 
 Deux questions qu'on tranchait à l'estime. La carte calcule la **portée LoRa
