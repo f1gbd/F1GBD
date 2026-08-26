@@ -13,7 +13,7 @@
 [![Licence](https://img.shields.io/badge/licence-AGPL--3.0--or--later-green.svg)](https://github.com/ratspeak/Ratspeak)
 [![Interop](https://img.shields.io/badge/interop-TCQ%20v12.70-orange.svg)](https://github.com/f1gbd/F1GBD/tree/master/tcq)
 
-## 📥 [Télécharger l'APK](https://github.com/f1gbd/F1GBD/releases)
+## 📥 [Télécharger l'APK](https://github.com/f1gbd/F1GBD/releases/download/1.0.61/RTspk_pager-1.0.61.apk)
 
 *Autorisez l'installation « depuis cette source » sur le téléphone, ouvrez le fichier, installez.*
 
