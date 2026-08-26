@@ -1,12 +1,12 @@
 {
-  "name": "rsDeck T-Deck — RASEC-ALERT + MAIL ADRAlink + CHAPPE26 + Carte OSM (ADRASEC 77)",
-  "version": "3.0.0-rasec-f1gbd",
+  "name": "rsDeck T-Deck — RASEC-ALERT + MAIL ADRAlink + CHAPPE26 (ADRASEC 77)",
+  "version": "3.1.0-rasec-f1gbd",
   "new_install_prompt_erase": false,
   "builds": [
     {
       "chipFamily": "ESP32-S3",
       "parts": [
-        { "path": "rsdeck-mail-adralink-3.0.0.bin", "offset": 0 }
+        { "path": "rsdeck-adrasec-3.1.0.bin", "offset": 0 }
       ]
     }
   ]
