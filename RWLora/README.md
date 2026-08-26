@@ -149,11 +149,15 @@ l'écosystème (RNSnodes_lister, TCQ).
 Le mot de passe WiFi n'est jamais relu depuis la passerelle : il est écrit en
 champ secret. Le laisser vide conserve celui déjà enregistré.
 
+<div align="center">
+<img src="images/RWLora_conf_screen.png" alt="RWLoRa configurateur" width="640">
+</div>
+
 ## Démarrer
 
 <div align="center">
 
-## 📥 [Télécharger la dernière version de RWLoRa](https://github.com/f1gbd/F1GBD/releases/download/rwlora-v2.1.0/RWLoRa-v2.1.0-win64.7z)
+## 📥 [Télécharger la dernière version de RWLoRa](https://github.com/f1gbd/F1GBD/releases/download/rwlora-v2.1.1/RWLoRa-v2.1.1-win64.7z)
 
 ### **Flasheur et firmware inclus**
 
