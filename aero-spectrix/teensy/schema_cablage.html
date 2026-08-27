@@ -353,11 +353,19 @@ niveau ligne</td><td>voies 1-2 uniquement</td><td>pilote MOTU M Series</td>
 
 <div class="grid" style="margin-top:16px">
  <div class="card"><h3>Longueur des câbles : libre</h3>
-  <p>Le calculateur se place <b class="hl">sous la barre basse</b> — une boîte
-  au centre du tétraèdre diffracterait entre les micros, et le modèle de
-  propagation ne connaît pas cet obstacle. Les liaisons vers les micros hauts
-  sont donc plus longues que celles vers les bas, d'exactement le décalage des
-  deux barres : 65 cm contre 114 cm.</p>
+  <p>Le calculateur se place <b class="hl">sous la barre basse</b>,
+  presse-étoupes vers le haut, à 5 cm de la barre : son point
+  le plus haut est alors au niveau des micros bas. Rien ne se trouve donc plus
+  haut qu'un micro, et <b>aucun objet ne peut s'interposer entre un micro et
+  une source située au-dessus de l'horizon</b> — ce n'est pas une atténuation,
+  c'est une impossibilité géométrique. Une boîte au centre de gravité, elle,
+  serait 24,8 cm au-dessus des micros bas et à 35,26° de leur horizontale :
+  exactement l'élévation d'un avion léger à 300 m sol vu à 430 m.</p>
+  <p>Les liaisons vers les micros hauts sont plus longues que celles vers les
+  bas, d'exactement le décalage des deux barres : <b class="hl">40
+  cm</b> contre <b class="hl">89.5 cm</b> — soit des cordons du
+  commerce de <b>50 cm</b> et <b>1 m</b>, avec 10 cm de boucle de service à
+  chaque bout.</p>
   <p>Cet écart de 49.5 cm ne coûte rien. La capsule numérise
   <b>sur place</b> : ce qui descend le câble, ce sont des bits déjà cadencés
   par la BCLK commune. Le retard de propagation ne change pas l'échantillon
@@ -373,14 +381,14 @@ niveau ligne</td><td>voies 1-2 uniquement</td><td>pilote MOTU M Series</td>
  <div class="card"><h3>Ce qui est réellement contraint</h3>
   <p>Pas la différence de longueur : <b class="hl">la plus longue liaison</b>.
   À 48 kHz la BCLK bat à 3.072 MHz, soit 163 ns de
-  demi-période. L'aller-retour horloge puis donnée sur 114 cm en
-  consomme 11.6 ns, soit 7 % du budget. Large.</p>
+  demi-période. L'aller-retour horloge puis donnée sur 89.5 cm en
+  consomme 9.0 ns, soit 6 % du budget. Large.</p>
   <p>Une paire torsadée par signal, chacune avec <b>son</b> retour de masse :
   <code>BCLK+GND</code>, <code>WS+GND</code>, <code>SD+GND</code>,
   <code>3V+GND</code>. Un câble Ethernet F/UTP fournit exactement les quatre
   paires. Jamais BCLK et SD dans la même paire.</p>
   <p>La broche L/R ne descend pas dans le câble : on la strape sur la platine,
-  vers GND ou vers VDD. Une entrée CMOS laissée flottante au bout de 50 cm
+  vers GND ou vers VDD. Une entrée CMOS laissée flottante au bout d'un mètre
   peut basculer, et deux capsules sur la même demi-trame donnent deux voies
   identiques.</p>
   <p><b class="hl">Échantillonnez à 48 kHz, pas à 44,1.</b> À 44,1 kHz les
