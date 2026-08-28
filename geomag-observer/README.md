@@ -8,11 +8,16 @@
 
 Version 1.0.0 — F1GBD / F4JHW — ADRASEC 77
 
+### [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/geomag-observer-v1.0.0/GEOMAG-Observer.7z)
+
+`GEOMAG-Observer.7z` — v1.0.0 — 38 Mo — Windows 10/11 64 bits
+[Notes de version](https://github.com/f1gbd/F1GBD/releases/tag/geomag-observer-v1.0.0)
+
 </div>
 
 ---
 
-## Ce que c'est
+## Ce que GEOMAG-Observer ?
 
 Un poste de surveillance géomagnétique complet bâti autour d'un **PNI RM3100** à 31 €. Il mesure les variations du champ magnétique terrestre, en tire un **indice K local**, détecte les orages géomagnétiques, et vous dit ce que ça change pour la propagation HF.
 
@@ -162,7 +167,7 @@ Le plancher de bruit visé étant de 1 à 3 nT : **30 cm minimum, 50 cm de préf
 
 ## Installation
 
-Télécharger l'archive de la [dernière version](../../releases), décompresser dans un dossier accessible en écriture, lancer `GEOMAG-Observer.exe`.
+Télécharger [**GEOMAG-Observer.7z**](https://github.com/f1gbd/F1GBD/releases/download/geomag-observer-v1.0.0/GEOMAG-Observer.7z) (v1.0.0, 38 Mo), décompresser dans un dossier accessible en écriture, lancer `GEOMAG-Observer.exe`.
 
 Aucune installation, aucune dépendance, aucun droit administrateur. Windows 10 ou 11, 64 bits.
 
