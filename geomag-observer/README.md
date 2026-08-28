@@ -17,7 +17,7 @@ Version 1.0.0 — F1GBD / F4JHW — ADRASEC 77
 
 ---
 
-## Ce que GEOMAG-Observer ?
+## Qu'est-ce que GEOMAG-Observer ?
 
 Un poste de surveillance géomagnétique complet bâti autour d'un **PNI RM3100** à 31 €. Il mesure les variations du champ magnétique terrestre, en tire un **indice K local**, détecte les orages géomagnétiques, et vous dit ce que ça change pour la propagation HF.
 
