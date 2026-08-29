@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="margin:0">
+<title>Tête magnétique GEOMAG-Observer — vue 3D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --ground:#E4E9ED; --surface:#FBFCFD; --surface-2:#EDF1F4;
+  --line:#C3CED6; --line-soft:#D7DFE5;
+  --ink:#141C22; --ink-2:#3E4C56; --muted:#67757F;
+  --nord:#C85C12;        /* le datum : le nord magnétique */
+  --pcb:#1D7A57;         /* le circuit RM3100 */
+  --pvc:#8A7048;         /* le manchon */
+  --berceau:#67787F;     /* les cales collées */
+  --cable:#1B7EA6;
+  --champ:#7B4FA8;       /* le vecteur champ */
+  --grid3d:#9FAFBA; --dim:#5A6B76; --alerte:#9E2B18;
+  --shadow:0 1px 2px rgba(20,28,34,.06),0 8px 26px rgba(20,28,34,.07);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0D1318; --surface:#141C23; --surface-2:#1B242C;
+    --line:#2B3841; --line-soft:#222D35;
+    --ink:#DEE7EC; --ink-2:#A9B8C2; --muted:#7A8B96;
+    --nord:#F2914E; --pcb:#3FBE8C; --pvc:#C6A570; --berceau:#8B9BA4;
+    --cable:#4FB7DE; --champ:#B98FE0; --grid3d:#3A4A55; --dim:#8FA1AC; --alerte:#E8705A;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.34);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0D1318; --surface:#141C23; --surface-2:#1B242C;
+  --line:#2B3841; --line-soft:#222D35;
+  --ink:#DEE7EC; --ink-2:#A9B8C2; --muted:#7A8B96;
+  --nord:#F2914E; --pcb:#3FBE8C; --pvc:#C6A570; --berceau:#8B9BA4;
+  --cable:#4FB7DE; --champ:#B98FE0; --grid3d:#3A4A55; --dim:#8FA1AC; --alerte:#E8705A;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.34);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-size:15px;
+  line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2{margin:0;text-wrap:balance;letter-spacing:-.012em}
+
+.shell{display:grid;grid-template-columns:minmax(0,1fr) 378px;min-height:100vh}
+@media (max-width:960px){.shell{grid-template-columns:minmax(0,1fr)}}
+
+.stage{position:relative;background:var(--surface);border-right:1px solid var(--line);min-height:100vh}
+@media (max-width:960px){.stage{min-height:0;height:74vh;border-right:none;border-bottom:1px solid var(--line)}}
+#vue{display:block;width:100%;height:100%;touch-action:none;outline:none}
+#vue:focus-visible{outline:2px solid var(--nord);outline-offset:-2px}
+
+.cartouche{position:absolute;top:18px;left:18px;max-width:min(352px,calc(100% - 36px));
+  background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(7px);
+  border:1px solid var(--line);padding:13px 15px 12px;pointer-events:none}
+.cartouche .eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.cartouche h1{font-size:19px;font-weight:700;line-height:1.2}
+.cartouche p{margin:7px 0 0;font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.aide{position:absolute;bottom:16px;left:18px;font-size:11.5px;color:var(--muted);pointer-events:none}
+
+.pilote{position:absolute;top:18px;right:18px;display:flex;flex-direction:column;gap:9px;align-items:flex-end}
+@media (max-width:700px){
+  .cartouche{top:12px;left:12px;max-width:calc(100% - 24px)}
+  .cartouche h1{font-size:17px}
+  .pilote{top:auto;bottom:12px;left:12px;right:12px;flex-direction:row;
+          flex-wrap:wrap;justify-content:flex-end;gap:7px}
+  .aide{display:none}
+}
+.groupe{display:flex;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)}
+.groupe button{font:inherit;font-size:11.5px;font-weight:600;letter-spacing:.03em;
+  padding:7px 11px;border:0;border-left:1px solid var(--line);background:transparent;
+  color:var(--ink-2);cursor:pointer}
+.groupe button:first-child{border-left:0}
+.groupe button:hover{background:var(--surface-2);color:var(--ink)}
+.groupe button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.groupe button:focus-visible{outline:2px solid var(--nord);outline-offset:-2px}
+
+.rail{background:var(--surface);padding:26px 26px 40px;display:flex;flex-direction:column;
+  gap:26px;max-height:100vh;overflow-y:auto}
+@media (max-width:960px){.rail{max-height:none;overflow:visible}}
+.bloc>h2{font-size:10.5px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--muted);padding-bottom:7px;border-bottom:1px solid var(--line);margin-bottom:12px}
+
+.cle{border-left:3px solid var(--nord);padding:2px 0 2px 14px}
+.cle p{margin:0;font-size:14px;line-height:1.6}
+.cle p+p{margin-top:9px;color:var(--ink-2);font-size:13px}
+
+table{width:100%;border-collapse:collapse}
+td{padding:6px 0;border-bottom:1px solid var(--line-soft);vertical-align:baseline;font-size:13px}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink-2);padding-right:12px}
+td.v{text-align:right;white-space:nowrap;font-family:"IBM Plex Mono",monospace;
+  font-variant-numeric:tabular-nums;font-weight:500;font-size:12.5px}
+
+.regles{display:flex;flex-direction:column;gap:9px}
+.regle{display:grid;grid-template-columns:16px 1fr;gap:10px;align-items:start;font-size:13px}
+.regle .m{font-weight:700;line-height:1.35}
+.oui .m{color:var(--pcb)} .non .m{color:var(--alerte)}
+.regle p{margin:0;line-height:1.5;color:var(--ink-2)}
+.regle p b{color:var(--ink);font-weight:600}
+
+.note{display:grid;grid-template-columns:auto 1fr;gap:11px;align-items:start;margin-bottom:14px}
+.note .rep{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;
+  color:var(--surface);background:var(--ink-2);width:19px;height:19px;
+  display:grid;place-items:center;margin-top:2px}
+.note p{margin:0;font-size:13px;line-height:1.55;color:var(--ink-2)}
+.note p b{color:var(--ink);font-weight:600}
+.note.att .rep{background:var(--alerte)}
+
+code{font-family:"IBM Plex Mono",monospace;font-size:.9em;background:var(--surface-2);
+  padding:1px 4px;border:1px solid var(--line-soft)}
+.pied{font-size:11.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+</style>
+
+<div class="shell">
+  <div class="stage">
+    <canvas id="vue" tabindex="0" aria-label="Vue 3D de la tête magnétique RM3100 dans son manchon PVC, pivotable et zoomable"></canvas>
+
+    <div class="cartouche">
+      <div class="eyebrow">GEOMAG-Observer · F1GBD</div>
+      <h1>Tête magnétique — RM3100 dans son manchon</h1>
+      <p>Le circuit de <b>16 × 15 mm</b> se pose <b>debout</b> dans un manchon PVC de 20, son plan dans le <b>méridien magnétique</b>. Ce qui compte n'est pas l'aplomb — le logiciel le corrige — mais le <b>cap</b>, que rien ne peut retrouver après coup.</p>
+    </div>
+
+    <div class="pilote">
+      <div class="groupe" role="group" aria-label="Points de vue">
+        <button data-vue="perspective" aria-pressed="true">Perspective</button>
+        <button data-vue="nord" aria-pressed="false">Face du circuit</button>
+        <button data-vue="dessus" aria-pressed="false">Dessus</button>
+        <button data-vue="ensemble" aria-pressed="false">Ensemble</button>
+      </div>
+      <div class="groupe" role="group" aria-label="Calques">
+        <button data-calque="cotes" aria-pressed="true">Cotes</button>
+        <button data-calque="manchon" aria-pressed="true">Manchon</button>
+        <button data-calque="axes" aria-pressed="true">Axes et champ</button>
+        <button data-calque="rose" aria-pressed="true">Rose</button>
+        <button data-calque="cordon" aria-pressed="true">Cordon</button>
+      </div>
+    </div>
+
+    <div class="aide">Glisser pour pivoter · molette ou pincer pour zoomer · flèches du clavier · 0 pour revenir</div>
+  </div>
+
+  <aside class="rail">
+
+    <section class="bloc">
+      <h2>Ce que la pose décide</h2>
+      <div class="cle">
+        <p>Aligner un vecteur sur un autre ne fixe que <b>deux</b> des trois degrés de liberté d'une rotation. La mise en service corrige donc le <b>basculement</b> — exactement, même de 15° — et <b>jamais le cap</b>.</p>
+        <p>Le manchon protège et donne la verticale. Il ne fixe ni l'un ni l'autre : un circuit de 16 mm dans un alésage de 20 tourne librement. <b>C'est le berceau collé qui fait l'orientation.</b></p>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <h2>Cotes</h2>
+      <table>
+        <tr><td class="k">Circuit RM3100</td><td class="v">16,0 × 15,1 mm</td></tr>
+        <tr><td class="k">Épaisseur du circuit</td><td class="v">1,6 mm</td></tr>
+        <tr><td class="k">Manchon PVC Ø 20, intérieur</td><td class="v">≈ 20,4 mm</td></tr>
+        <tr><td class="k">Jeu latéral de part et d'autre</td><td class="v">≈ 2,2 mm</td></tr>
+        <tr><td class="k">Déport jusqu'au Heltec</td><td class="v">500 mm</td></tr>
+        <tr><td class="k">Champ total |F| (Melun)</td><td class="v">≈ 47 000 nT</td></tr>
+        <tr><td class="k">Composante horizontale H</td><td class="v">20 603 nT</td></tr>
+        <tr><td class="k">Composante verticale Z</td><td class="v">42 243 nT</td></tr>
+        <tr><td class="k">Inclinaison I</td><td class="v">64°</td></tr>
+        <tr><td class="k">Une minute d'arc vaut</td><td class="v">12,3 nT</td></tr>
+      </table>
+    </section>
+
+    <section class="bloc">
+      <h2>À respecter</h2>
+      <div class="regles">
+        <div class="regle oui"><span class="m">✓</span><p><b>Circuit debout, plan dans le méridien magnétique.</b> Les deux bobines qui sont <i>dans le plan</i> du circuit portent alors H et Z ; la troisième, perpendiculaire et mécaniquement la moins bien tenue, porte E — qui vaut ≈ 0. Une dérive de gain sur une voie qui lit zéro ne coûte rien.</p></div>
+        <div class="regle oui"><span class="m">✓</span><p><b>Un axe sur le nord MAGNÉTIQUE</b>, à la boussole, ±5° confortable. Le nord géographique mettrait 791 nT d'offset constant sur E — invisible à K, mais faux pour l'IAGA.</p></div>
+        <div class="regle oui"><span class="m">✓</span><p><b>Berceau collé, qui immobilise le circuit en rotation.</b> Deux cales de part et d'autre, ou une fente. Sans elles le circuit tourne dans le manchon, et le cap avec lui.</p></div>
+        <div class="regle oui"><span class="m">✓</span><p><b>Repérez le nord au marqueur</b> sur le manchon. Une tête ressortie doit revenir dans la <i>même</i> position, pas dans une position équivalente.</p></div>
+        <div class="regle non"><span class="m">✗</span><p><b>Pas d'obsession de l'aplomb.</b> Un degré au niveau à bulle suffit : la mise en service absorbe le reste. Ce qui tue, c'est un aplomb qui <i>change</i>.</p></div>
+        <div class="regle non"><span class="m">✗</span><p><b>Pas de connecteur ici.</b> Le cordon Cat6 est soudé directement, queue non torsadée sous 10 mm. Le nickel des contacts RJ45 vaut quelques dizaines de nT à 2 cm.</p></div>
+        <div class="regle non"><span class="m">✗</span><p><b>Rien de ferreux dans le manchon</b> : ni vis acier, ni ressort, ni collier. Colle et PVC seulement.</p></div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <h2>Ce que coûte une erreur, en chiffres</h2>
+      <div class="note"><span class="rep">1</span><p><b>Le basculement est gratuit — après mise en service.</b> Un basculement de 15° dans le plan méridien est corrigé <i>exactement</i> : la fuite d'une variation de H vers E tombe sous 0,01 nT sur 50. Sans mise en service, ce même basculement fait passer <b>26 %</b> d'une variation de Z dans les voies horizontales, et fait <i>sur-lire</i> la station.</p></div>
+      <div class="note att"><span class="rep">!</span><p><b>Le cap se paie, et il a une forme close.</b> Seule la projection de l'erreur sur le champ survit au calcul, et la fuite de H vers E vaut alors <code>sin²(I) × ε</code>, soit <b>0,81 ε</b> sous nos latitudes. Dix degrés d'azimut : <b>14 %</b> après mise en service, 17 % sans. La mise en service ne gagne presque rien là-dessus — elle n'est pas faite pour ça.</p></div>
+      <div class="note"><span class="rep">K</span><p><b>L'indice K, lui, ne bouge pas.</b> Sur un orage synthétique de 3 h, aucune de ces erreurs — 30° de cap, 15° de basculement — ne change K d'un cran. K est une statistique de plage sur le vecteur horizontal : une rotation le redistribue entre les voies sans en changer la longueur. Ce sont les <b>relèvements du Radar</b> et la <b>déclinaison</b> qui paient, pas l'alarme.</p></div>
+      <div class="note"><span class="rep">2</span><p><b>Le manchon ne tient pas le cap.</b> 16 mm de circuit dans 20,4 mm d'alésage : la rotation autour de l'axe est <i>totalement</i> libre. C'est le berceau qui l'immobilise, et lui seul. Deux cales de 2,2 mm collées à l'époxy suffisent — mais elles doivent être collées, pas coincées.</p></div>
+    </section>
+
+    <section class="bloc">
+      <h2>La mise en service, en pratique</h2>
+      <div class="note"><span class="rep">8</span><p>Tête posée à sa place définitive, immobile, cap fait à la boussole. Onglet <b>Capteur</b> → <b>Mesurer 8 s</b>. Le programme lit huit secondes, calcule la rotation et la range dans <code>geomag_observer.json</code>.</p>
+      <p style="margin-top:9px">Deux contrôles, tous deux <i>indépendants de l'orientation</i> — contrairement au résidu E, qui vaut zéro par construction et ne prouve rien :</p>
+      <table style="margin-top:8px">
+        <tr><td class="k">|F| mesuré contre l'IGRF</td><td class="v">&lt; 2 %</td></tr>
+        <tr><td class="k">Dispersion de E</td><td class="v">&lt; 3 × plancher</td></tr>
+      </table>
+      <p style="margin-top:9px">Un écart de plus de 5 % sur |F| : cycle count faux (CC=800 attendu, 200 en sortie d'usine) ou masse ferromagnétique proche. Une dispersion élevée : queue non torsadée trop longue, cordon lové, ou soudure froide.</p></div>
+    </section>
+
+    <div class="pied">
+      Cotes relevées sur la platine et le manchon photographiés. Les positions des trois bobines sont <b>indicatives</b> : les platines de revendeurs varient, repérez les vôtres avant de conclure quel axe porte quoi. Voir <code>documentations/FICHE_CABLAGE_RJ45_Cat6.pdf</code> pour le câblage.
+    </div>
+  </aside>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ==================================================================
+   Repère GÉOMAGNÉTIQUE, et non mécanique — c'est tout le propos :
+        x = EST        y = NORD MAGNÉTIQUE        z = vers le HAUT
+   ORIGINE = le centre du circuit RM3100.
+   Le circuit est DEBOUT : son plan contient y et z, donc le méridien
+   magnétique. Son épaisseur est portée par x, l'est.
+   Tout est en millimètres réels, relevés sur la platine et le manchon.
+   ================================================================== */
+var PCB_L = 16.0;         // le long du nord
+var PCB_H = 15.1;         // hauteur du corps vert, hors broches
+var PCB_E = 1.6;          // épaisseur, portée par l'est
+
+var R_INT = 10.2;         // manchon PVC Ø 20 : alésage relevé ≈ 20,4
+var R_EXT = 12.5;
+var Z_MANCH0 = -48, Z_MANCH1 = 22;
+
+var cv = document.getElementById("vue"), ctx = cv.getContext("2d");
+var DEG = Math.PI/180;
+var VUE_DEFAUT = {az:128, el:17, d:120, c:[0,0,-12]};
+var CIBLE = VUE_DEFAUT.c.slice();
+var cam = {az:VUE_DEFAUT.az, el:VUE_DEFAUT.el, d:VUE_DEFAUT.d};
+var calques = {cotes:true, manchon:true, axes:true, rose:true, cordon:true, ensemble:false};
+var W=0, H=0, dpr=1;
+
+function sub(a,b){return [a[0]-b[0],a[1]-b[1],a[2]-b[2]];}
+function add(a,b){return [a[0]+b[0],a[1]+b[1],a[2]+b[2]];}
+function dot(a,b){return a[0]*b[0]+a[1]*b[1]+a[2]*b[2];}
+function cross(a,b){return [a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];}
+function norm(v){var n=Math.hypot(v[0],v[1],v[2])||1;return [v[0]/n,v[1]/n,v[2]/n];}
+function mid(a,b){return [(a[0]+b[0])/2,(a[1]+b[1])/2,(a[2]+b[2])/2];}
+
+var eye, ax, ay, af, k, NEAR = 2.0;
+function majCamera(){
+  var A=cam.az*DEG, E=cam.el*DEG;
+  var dir=[Math.cos(E)*Math.sin(A), Math.cos(E)*Math.cos(A), Math.sin(E)];
+  eye=[CIBLE[0]+cam.d*dir[0], CIBLE[1]+cam.d*dir[1], CIBLE[2]+cam.d*dir[2]];
+  af=norm(sub(CIBLE,eye));
+  ax=norm(cross(af,[0,0,1]));
+  ay=cross(ax,af);
+  k=(H/2)/Math.tan(24*DEG);
+}
+function vue3(p){var d=sub(p,eye);return [dot(d,ax),dot(d,ay),dot(d,af)];}
+function ecr(c){return [W/2+c[0]*k/c[2], H/2-c[1]*k/c[2]];}
+function proj(p){var c=vue3(p); if(c[2]<NEAR) return null;
+  return {x:W/2+c[0]*k/c[2], y:H/2-c[1]*k/c[2], z:c[2]};}
+function projSeg(p1,p2){
+  var c1=vue3(p1), c2=vue3(p2);
+  if(c1[2]<NEAR && c2[2]<NEAR) return null;
+  if(c1[2]<NEAR){var t=(NEAR-c1[2])/(c2[2]-c1[2]);
+    c1=[c1[0]+(c2[0]-c1[0])*t, c1[1]+(c2[1]-c1[1])*t, NEAR];}
+  else if(c2[2]<NEAR){var u=(NEAR-c2[2])/(c1[2]-c2[2]);
+    c2=[c2[0]+(c1[0]-c2[0])*u, c2[1]+(c1[1]-c2[1])*u, NEAR];}
+  return {a:ecr(c1), b:ecr(c2), z:(c1[2]+c2[2])/2};
+}
+
+var C={};
+function relire(){
+  var s=getComputedStyle(document.documentElement);
+  ["ink","ink-2","muted","nord","pcb","pvc","berceau","cable","champ",
+   "grid3d","dim","surface","alerte","line"].forEach(function(n){
+    C[n]=s.getPropertyValue("--"+n).trim();
+  });
+  /* Deux alias : ink2 s'ecrit sans tiret dans le code, et le boitier du
+     capteur emprunte la teinte des cales. */
+  C.ink2 = C["ink-2"];
+  C.metal = C.berceau;
+}
+/* Assombrit une couleur hex pour figurer les faces latérales : sans cette
+   nuance un solide projeté à plat se lit comme une découpe de papier. */
+function ombre(hex, f){
+  var h=hex.replace("#",""); if(h.length===3) h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
+  var r=parseInt(h.slice(0,2),16), g=parseInt(h.slice(2,4),16), b=parseInt(h.slice(4,6),16);
+  return "rgb("+Math.round(r*f)+","+Math.round(g*f)+","+Math.round(b*f)+")";
+}
+
+var file=[], fileTexte=[];
+function pousse(z,fn){file.push({z:z,fn:fn});}
+
+function trait(p1,p2,col,larg,tirets,alpha){
+  var s=projSeg(p1,p2); if(!s) return;
+  pousse(s.z, function(g){
+    g.save(); g.globalAlpha=alpha===undefined?1:alpha;
+    g.strokeStyle=col; g.lineWidth=larg; g.lineCap="round";
+    if(tirets) g.setLineDash(tirets);
+    g.beginPath(); g.moveTo(s.a[0],s.a[1]); g.lineTo(s.b[0],s.b[1]); g.stroke();
+    g.restore();
+  });
+}
+/* Face convexe, avec élimination des faces cachées : sur des solides convexes
+   non sécants cela suffit, et évite les artefacts du tri par profondeur. */
+function face(pts, remp, contour, alpha){
+  var n=norm(cross(sub(pts[1],pts[0]), sub(pts[2],pts[0])));
+  var c=pts.reduce(function(a,p){return add(a,p);},[0,0,0]);
+  c=[c[0]/pts.length,c[1]/pts.length,c[2]/pts.length];
+  if(dot(n, sub(eye,c)) <= 0) return;                  // face détournée
+  var pr=[], zs=0;
+  for(var i=0;i<pts.length;i++){
+    var q=proj(pts[i]); if(!q) return; pr.push(q); zs+=q.z;
+  }
+  pousse(zs/pts.length, function(g){
+    g.save(); g.globalAlpha=alpha===undefined?1:alpha;
+    g.beginPath(); g.moveTo(pr[0].x,pr[0].y);
+    for(var i=1;i<pr.length;i++) g.lineTo(pr[i].x,pr[i].y);
+    g.closePath();
+    if(remp){g.fillStyle=remp; g.fill();}
+    if(contour){g.strokeStyle=contour; g.lineWidth=1; g.lineJoin="round"; g.stroke();}
+    g.restore();
+  });
+}
+/* Boîte alignée sur les axes, décrite par ses deux coins opposés. */
+function boite(a, b, col, alpha){
+  var x0=Math.min(a[0],b[0]), x1=Math.max(a[0],b[0]);
+  var y0=Math.min(a[1],b[1]), y1=Math.max(a[1],b[1]);
+  var z0=Math.min(a[2],b[2]), z1=Math.max(a[2],b[2]);
+  var P=function(x,y,z){return [x,y,z];};
+  var haut=col, cote=ombre(col,0.78), bas=ombre(col,0.58);
+  face([P(x0,y0,z1),P(x1,y0,z1),P(x1,y1,z1),P(x0,y1,z1)], haut, null, alpha);
+  face([P(x0,y1,z0),P(x1,y1,z0),P(x1,y0,z0),P(x0,y0,z0)], bas,  null, alpha);
+  face([P(x0,y0,z0),P(x1,y0,z0),P(x1,y0,z1),P(x0,y0,z1)], cote, null, alpha);
+  face([P(x1,y1,z0),P(x0,y1,z0),P(x0,y1,z1),P(x1,y1,z1)], cote, null, alpha);
+  face([P(x1,y0,z0),P(x1,y1,z0),P(x1,y1,z1),P(x1,y0,z1)], ombre(col,0.86), null, alpha);
+  face([P(x0,y1,z0),P(x0,y0,z0),P(x0,y0,z1),P(x0,y1,z1)], ombre(col,0.70), null, alpha);
+}
+function cercle(centre, r, axe, col, larg, tirets, alpha, n){
+  n=n||40; var prec=null;
+  for(var i=0;i<=n;i++){
+    var t=i/n*6.2832, c=Math.cos(t)*r, s=Math.sin(t)*r, p;
+    if(axe==="z") p=[centre[0]+c, centre[1]+s, centre[2]];
+    else if(axe==="x") p=[centre[0], centre[1]+c, centre[2]+s];
+    else p=[centre[0]+c, centre[1], centre[2]+s];
+    if(prec) trait(prec,p,col,larg,tirets,alpha);
+    prec=p;
+  }
+}
+function texte(p, txt, col, dx, dy, taille, poids, fond){
+  var q=proj(p); if(!q) return;
+  fileTexte.push(function(g){
+    g.font=(poids||600)+" "+(taille||12)+'px "IBM Plex Mono",monospace';
+    g.textAlign="left"; g.textBaseline="middle";
+    var x=q.x+dx, y=q.y+dy;
+    if(fond){
+      var w=g.measureText(txt).width;
+      g.fillStyle=C.surface; g.globalAlpha=.84;
+      g.fillRect(x-3, y-(taille||12)/2-2.5, w+6, (taille||12)+5);
+      g.globalAlpha=1;
+    }
+    g.fillStyle=col; g.fillText(txt,x,y);
+  });
+}
+function lateral(signe, d){
+  var h=[ax[0],ax[1],0], n=Math.hypot(h[0],h[1])||1;
+  return [signe*d*h[0]/n, signe*d*h[1]/n, 0];
+}
+function cote(p1, p2, txt, col, dec){
+  var d=dec||[0,0,0];
+  var a=add(p1,d), b=add(p2,d);
+  trait(a,b,col,1.2,[4,3],.95);
+  trait(p1,a,col,.9,[2,3],.45);
+  trait(p2,b,col,.9,[2,3],.45);
+  texte(mid(a,b), txt, col, 7, 0, 11, 600, true);
+}
+
+/* ================= les pièces ================= */
+
+/* Cylindre en fil de fer : deux cercles et quelques génératrices. Un solide
+   opaque cacherait le circuit, qui est justement ce qu'on vient voir. */
+function cylindre(z0, z1, r, col, larg, alpha, gen){
+  cercle([0,0,z0], r, "z", col, larg, null, alpha, 44);
+  cercle([0,0,z1], r, "z", col, larg, null, alpha, 44);
+  var n=gen||10;
+  for(var i=0;i<n;i++){
+    var t=i/n*6.2832;
+    trait([Math.cos(t)*r, Math.sin(t)*r, z0],
+          [Math.cos(t)*r, Math.sin(t)*r, z1], col, larg*0.8, null, alpha*0.55);
+  }
+}
+
+function manchon(){
+  cylindre(Z_MANCH0, Z_MANCH1, R_INT, C.pvc, 1.3, .9, 8);
+  cylindre(Z_MANCH0, Z_MANCH1, R_EXT, C.pvc, 1.0, .38, 8);
+  texte([0, R_EXT, Z_MANCH1], "manchon PVC Ø 20  —  intérieur 20,4",
+        C.pvc, 8, -12, 10.5, 600, true);
+}
+
+/* Le circuit est DEBOUT, son plan dans le méridien magnétique : il contient
+   la verticale et le nord. Épaisseur portée par x, c'est-à-dire par l'est. */
+function circuit(){
+  boite([-PCB_E/2, -PCB_L/2, -PCB_H/2], [PCB_E/2, PCB_L/2, PCB_H/2],
+        C.pcb, 1);
+
+  /* Face composants, côté est. Positions INDICATIVES : les platines de
+     revendeurs ne posent pas les bobines au même endroit. */
+  var xc = PCB_E/2;
+  boite([xc, -2.2, -1.0], [xc+0.9, 2.3, 3.5], ombre(C.metal,1.05), 1);  // ASIC
+  boite([xc, -3.6, 4.4],  [xc+1.6, 3.2, 6.4], ombre(C.ink2,1.35), 1);   // bobine A
+  boite([xc, 3.6, 0.8],   [xc+3.4, 6.9, 4.6], ombre(C.ink2,1.15), 1);   // bobine B
+  texte([xc, -7.4, 6.6], "bobines (position indicative)", C.muted, -128,
+        -8, 10, 600, true);
+
+  /* La rangée de huit pastilles, sur l'arête basse : c'est là que le cordon
+     est soudé, et c'est la seule chose qui sorte de la tête. */
+  for(var i=0;i<8;i++){
+    var y = -7.0 + i*2.0;
+    cercle([0, y, -PCB_H/2+0.9], 0.55, "x", ombre(C.pcb,.42), 1.2, null, .95, 14);
+  }
+  texte([0, -7.0, -PCB_H/2], "1", C.ink2, -9, 9, 10, 700, true);
+  texte([0,  7.0, -PCB_H/2], "8", C.ink2,  6, 9, 10, 700, true);
+}
+
+/* Deux cales collées de part et d'autre : c'est LA pièce qui fait
+   l'orientation. Sans elles, 16 mm de circuit dans 20,4 mm d'alésage
+   tournent librement, et le cap avec. */
+function berceau(){
+  [[-1,-9.6],[1,9.6]].forEach(function(s){
+    var x0 = s[0]>0 ? PCB_E/2+0.2 : s[1];
+    var x1 = s[0]>0 ? s[1] : -PCB_E/2-0.2;
+    [[-12.6,-9.2],[9.2,12.6]].forEach(function(zz){
+      boite([x0, -6.5, zz[0]], [x1, 6.5, zz[1]], C.berceau, .5);
+    });
+  });
+  texte([9.6, 0, -12], "berceau collé — il immobilise le circuit en rotation",
+        C.berceau, 9, 6, 10.5, 600, true);
+}
+
+function cordon(){
+  var p=[[0,0,-PCB_H/2-1.0],[-1.5,0,-16],[-4.0,0,-26],[-4.0,0,-44],
+         [-1.0,0,Z_MANCH0-6],[0,0,Z_MANCH0-14]];
+  for(var i=1;i<p.length;i++) trait(p[i-1],p[i],C.cable,2.6,null,.95);
+  /* La torsade, figurée : c'est elle qui fait tomber la surface de boucle
+     d'un facteur 67, pas le blindage. */
+  for(var t=-27;t>-44;t-=2.2){
+    cercle([-4.0,0,t], 1.5, "z", C.cable, 1.0, null, .55, 12);
+  }
+  texte([-4.0,0,-35], "cordon Cat6 soudé  —  torsadé jusqu'au bout",
+        C.cable, -168, 0, 10.5, 600, true);
+}
+
+/* La rose : le seul repère que le calcul ne peut pas retrouver. */
+function rose(){
+  var z=Z_MANCH0-3, R=26;
+  cercle([0,0,z], R, "z", C.grid3d, 1.1, [4,5], .55, 60);
+  [[0,1,"N"],[1,0,"E"],[0,-1,"S"],[-1,0,"O"]].forEach(function(d){
+    var col = d[2]==="N" ? C.nord : C.grid3d;
+    trait([0,0,z],[d[0]*R, d[1]*R, z], col, d[2]==="N"?2.0:1.0, null,
+          d[2]==="N"?.95:.4);
+    texte([d[0]*R, d[1]*R, z], d[2], col, 6, -6, d[2]==="N"?13:11,
+          700, true);
+  });
+  texte([0, R, z], "nord MAGNÉTIQUE  —  à la boussole, ±5°", C.nord,
+        -46, 16, 10.5, 600, true);
+  /* Le plan méridien, celui qui doit contenir le circuit. */
+  var zh=z+66, R2=21;
+  trait([0,-R2,z],[0,-R2,zh], C.nord, .9, [3,4], .30);
+  trait([0, R2,z],[0, R2,zh], C.nord, .9, [3,4], .30);
+  trait([0,-R2,zh],[0,R2,zh], C.nord, .9, [3,4], .30);
+  texte([0,-R2,zh], "plan méridien magnétique", C.nord, -12, -11, 10, 600, true);
+}
+
+/* Les trois axes de mesure, et le champ. C'est la figure entière du
+   problème : F pique de 64° dans ce plan, H et Z sont dans le circuit,
+   E lui est perpendiculaire et vaut zéro. */
+function axes(){
+  var L=30;
+  function fleche(v, col, lab, larg){
+    var p=[v[0]*L, v[1]*L, v[2]*L];
+    trait([0,0,0], p, col, larg||2.2, null, .95);
+    var u=norm(p), o=[u[1],-u[0],0];
+    if(Math.hypot(o[0],o[1])<0.1) o=[1,0,0];
+    o=norm(o);
+    [1,-1].forEach(function(s){
+      trait(p, [p[0]-u[0]*3.4+o[0]*s*1.7, p[1]-u[1]*3.4+o[1]*s*1.7,
+                p[2]-u[2]*3.4+o[2]*s*1.7], col, larg||2.2, null, .95);
+    });
+    texte(p, lab, col, 7, -7, 12, 700, true);
+  }
+  fleche([0,1,0], C.pcb, "H  nord  20 603 nT");
+  fleche([0,0,-0.72], C.pcb, "Z  bas  42 243 nT");
+  fleche([1,0,0], C.alerte, "E  est  ≈ 0", 1.8);
+
+  var i=64*Math.PI/180;
+  var f=[0, Math.cos(i), -Math.sin(i)];
+  var p=[f[0]*L*1.5, f[1]*L*1.5, f[2]*L*1.5];
+  trait([0,0,0], p, C.champ, 3.0, null, .95);
+  texte(p, "F  47 000 nT  —  I = 64°", C.champ, 8, 8, 12, 700, true);
+  cercle([0,0,0], 9, "x", C.champ, 1.0, [3,4], .5, 30);
+  texte([0, 9*Math.cos(i*0.5), -9*Math.sin(i*0.5)], "64°", C.champ,
+        7, 0, 10.5, 600, true);
+}
+
+/* Le Heltec : 500 mm plus bas, au pied. Visible dans la vue d'ensemble. */
+function coffret(){
+  var z=-500;
+  boite([-50,-35,z-22],[50,35,z+22], ombre(C.berceau,1.15), 1);
+  boite([-25.5,-4.5,z-4.6],[25.5,4.5,z+4.6], C.pcb, 1);
+  texte([0,35,z+22], "Heltec V4 ou V3, en coffret", C.muted, 8, -10,
+        11, 600, true);
+  trait([0,0,Z_MANCH0-14],[0,0,z+22], C.cable, 2.0, [6,4], .55);
+  cote([0,-42,z],[0,-42,0], "500 mm", C.dim, [0,0,0]);
+}
+
+function scene(){
+  file.length=0; fileTexte.length=0;
+
+  if(calques.rose) rose();
+  if(calques.manchon) manchon();
+  berceau();
+  circuit();
+  if(calques.cordon) cordon();
+  if(calques.axes) axes();
+  if(calques.ensemble) coffret();
+
+  if(calques.cotes){
+    cote([0,-PCB_L/2,PCB_H/2],[0,PCB_L/2,PCB_H/2], "16,0",
+         C.dim, add(lateral(-1,6),[0,0,3]));
+    cote([0,PCB_L/2,-PCB_H/2],[0,PCB_L/2,PCB_H/2], "15,1",
+         C.dim, lateral(1,7));
+    cote([-R_INT,0,Z_MANCH1],[R_INT,0,Z_MANCH1], "Ø int. 20,4",
+         C.pvc, [0,0,5]);
+    cote([PCB_E/2,0,-PCB_H/2-3],[R_INT,0,-PCB_H/2-3], "jeu 2,2",
+         C.berceau, [0,0,0]);
+  }
+}
+function rendre(){
+  majCamera();
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,W,H);
+  scene();
+  file.sort(function(p,q){return q.z-p.z;});
+  for(var i=0;i<file.length;i++) file[i].fn(ctx);
+  for(var j=0;j<fileTexte.length;j++) fileTexte[j](ctx);
+}
+
+function redim(){
+  var r=cv.parentNode.getBoundingClientRect();
+  dpr=Math.min(window.devicePixelRatio||1,2);
+  W=Math.max(320,r.width); H=Math.max(280,r.height);
+  cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr);
+  cv.style.width=W+"px"; cv.style.height=H+"px";
+  rendre();
+}
+
+var glisse=false,lx=0,ly=0,pid=null;
+cv.addEventListener("pointerdown",function(e){
+  glisse=true; pid=e.pointerId; lx=e.clientX; ly=e.clientY;
+  cv.setPointerCapture(pid); auto=false;
+});
+cv.addEventListener("pointermove",function(e){
+  if(!glisse||e.pointerId!==pid) return;
+  cam.az-=(e.clientX-lx)*0.42;
+  cam.el=Math.max(-88,Math.min(88,cam.el+(e.clientY-ly)*0.34));
+  lx=e.clientX; ly=e.clientY; majBoutons(null); rendre();
+});
+["pointerup","pointercancel"].forEach(function(t){
+  cv.addEventListener(t,function(e){if(e.pointerId===pid){glisse=false;pid=null;}});
+});
+cv.addEventListener("wheel",function(e){
+  e.preventDefault(); auto=false;
+  cam.d=Math.max(34,Math.min(1600,cam.d*(1+Math.sign(e.deltaY)*0.11)));
+  rendre();
+},{passive:false});
+
+var ec0=0,d0=0;
+cv.addEventListener("touchstart",function(e){
+  if(e.touches.length===2){
+    ec0=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,
+                   e.touches[0].clientY-e.touches[1].clientY);
+    d0=cam.d; auto=false;
+  }
+},{passive:true});
+cv.addEventListener("touchmove",function(e){
+  if(e.touches.length===2&&ec0>0){
+    e.preventDefault();
+    var d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,
+                     e.touches[0].clientY-e.touches[1].clientY);
+    cam.d=Math.max(34,Math.min(1600,d0*ec0/Math.max(d,1))); rendre();
+  }
+},{passive:false});
+cv.addEventListener("touchend",function(){ec0=0;},{passive:true});
+
+cv.addEventListener("keydown",function(e){
+  var pris=true;
+  if(e.key==="ArrowLeft") cam.az-=6;
+  else if(e.key==="ArrowRight") cam.az+=6;
+  else if(e.key==="ArrowUp") cam.el=Math.min(88,cam.el+5);
+  else if(e.key==="ArrowDown") cam.el=Math.max(-88,cam.el-5);
+  else if(e.key==="+"||e.key==="=") cam.d=Math.max(34,cam.d*0.9);
+  else if(e.key==="-"||e.key==="_") cam.d=Math.min(1600,cam.d*1.1);
+  else if(e.key==="0"){cam={az:VUE_DEFAUT.az,el:VUE_DEFAUT.el,d:VUE_DEFAUT.d};
+                       CIBLE=VUE_DEFAUT.c.slice(); calques.ensemble=false;}
+  else pris=false;
+  if(pris){e.preventDefault(); auto=false; majBoutons(null); rendre();}
+});
+
+/* La vue « dessous » est celle qui compte : c'est de là qu'on voit l'orifice,
+   et qu'on vérifie que rien ne se trouve dans son axe. */
+/* « Face du circuit » est la vue qui compte : vue de l'est, le circuit se
+   presente de face et le vecteur champ tombe dans le plan de l'ecran. On y
+   voit d'un coup que H et Z sont DANS le circuit, et E perpendiculaire. */
+var VUES={
+  perspective:{az:128, el:17, d:120, c:[0,0,-12]},
+  nord:       {az:90,  el:6,  d:96,  c:[0,0,-8]},
+  dessus:     {az:180, el:84, d:92,  c:[0,0,0]},
+  ensemble:   {az:128, el:12, d:900, c:[0,0,-250]}
+};
+function majBoutons(nom){
+  document.querySelectorAll("[data-vue]").forEach(function(b){
+    b.setAttribute("aria-pressed", b.dataset.vue===nom?"true":"false");
+  });
+}
+document.querySelectorAll("[data-vue]").forEach(function(b){
+  b.addEventListener("click",function(){
+    var v=VUES[b.dataset.vue];
+    cam={az:v.az, el:v.el, d:v.d}; CIBLE=v.c.slice();
+    /* Chaque vue amene ses calques. Le coffret est a 500 mm : le montrer
+       de pres ecraserait la tete, et de loin les cotes de la tete se
+       tassent en un paquet illisible. Une vue d'ensemble ne montre donc
+       que l'ensemble. */
+    var pre = (b.dataset.vue==="ensemble")
+      ? {cotes:false, manchon:true, axes:false, rose:false, cordon:true,
+         ensemble:true}
+      : {cotes:true, manchon:true, axes:true, rose:true, cordon:true,
+         ensemble:false};
+    Object.keys(pre).forEach(function(k){ calques[k]=pre[k]; });
+    document.querySelectorAll("[data-calque]").forEach(function(x){
+      x.setAttribute("aria-pressed", calques[x.dataset.calque]?"true":"false");
+    });
+    auto=false; majBoutons(b.dataset.vue); rendre();
+  });
+});
+document.querySelectorAll("[data-calque]").forEach(function(b){
+  b.addEventListener("click",function(){
+    var n=b.dataset.calque;
+    calques[n]=!calques[n];
+    b.setAttribute("aria-pressed", calques[n]?"true":"false");
+    rendre();
+  });
+});
+
+var reduit=window.matchMedia("(prefers-reduced-motion: reduce)");
+var auto=!reduit.matches, t0=null, AZ=VUE_DEFAUT.az, DUREE=850;
+if(auto) cam.az=AZ-26;
+function boucle(t){
+  if(auto){
+    if(t0===null) t0=t;
+    var u=Math.min(1,(t-t0)/DUREE);
+    cam.az=AZ-26*Math.pow(1-u,3);
+    rendre();
+    if(u>=1) auto=false;
+  }
+  if(!auto) return;
+  requestAnimationFrame(boucle);
+}
+
+relire();
+window.matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change",function(){relire(); rendre();});
+new MutationObserver(function(){relire(); rendre();})
+    .observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+if(window.ResizeObserver) new ResizeObserver(redim).observe(cv.parentNode);
+window.addEventListener("resize", redim);
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(rendre);
+redim();
+if(auto) requestAnimationFrame(boucle); else rendre();
+})();
+</script>
+
+</body>
+</html>
