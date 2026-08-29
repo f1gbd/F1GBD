@@ -10,7 +10,7 @@ Version 1.0.0 — F1GBD / F4JHW — ADRASEC 77
 
 ### [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/geomag-observer-v1.0.0/GEOMAG-Observer.7z)
 
-`GEOMAG-Observer.7z` — v1.0.0 — 38 Mo — Windows 10/11 64 bits
+`GEOMAG-Observer.7z` — v1.0.0 — 37 Mo — Windows 10/11 64 bits
 [Notes de version](https://github.com/f1gbd/F1GBD/releases/tag/geomag-observer-v1.0.0)
 
 </div>
@@ -89,11 +89,12 @@ En scénario de crise avec coupure Internet, vous n'avez plus accès au Kp plan�
 
 Moyenné à la minute, on atteint **±3 nT** — largement sous le seuil K1 de 5 nT. L'instrument résout donc toute l'échelle K utile.
 
-### Quatre montages
+### Cinq montages
 
 | Montage | Liaison | Pour qui |
 |---|---|---|
 | **Heltec LoRa 868** *(recommandé)* | LoRa vers une passerelle USB | Poste ADRASEC. Aucun câble à tirer, tête autonome sur batterie et solaire |
+| **Heltec WiFi** | UDP sur le réseau local | Terrasse ou jardin, **avec le secteur à portée**. Une carte au lieu de deux, une trame par seconde au lieu d'une par minute |
 | **Tête Teensy 4.1** | USB série, Ethernet UDP, carte SD | Station fixe câblée. L'Ethernet franchit 100 m — le SPI, lui, ne passe pas 30 m |
 | **Raspberry Pi direct** | SPI ou I2C local | Capteur à moins d'un mètre du calculateur |
 | **Simulateur** | aucune | Mise au point, formation, démonstration |
@@ -140,16 +141,61 @@ Le capteur va au **fond d'un puits en PVC 40 mm**, à 70 cm, où l'amplitude the
 
 Sur terrasse, quand on ne peut pas creuser : 24 cm hors socle **maximum**, socle lourd posé et jamais fixé au mur, abri blanc ombrant le capteur *et la totalité du mât*. Le détail chiffré est dans `documentations/FICHE_CABLAGE_RM3100_Heltec-V4.docx`.
 
+## La variante WiFi — quand le secteur est à portée
+
+Même carte, même capteur, même câblage. Ce qui change est le transport, et ce que ce transport permet.
+
+**Ce que le WiFi apporte.** Il n'y a plus de rapport cyclique à respecter : la tête émet **une trame par seconde** au lieu d'une par minute. Le dB/dt y gagne — 3,00 nT/min sur une rampe de référence à 3 nT/min, contre 3,43 à la minute — et l'onglet Santé reçoit enfin un flux continu sur lequel calculer un spectre. Et il n'y a plus de passerelle : la tête parle directement au PC, une carte au lieu de deux. Le V3 convient aussi bien que le V4, puisque l'entrée solaire ne sert plus.
+
+**Ce que le WiFi coûte**, et qu'il ne faut pas se cacher :
+
+| | LoRa | WiFi |
+|---|---|---|
+| Autonomie sur 3000 mAh | 5,6 j (une trame/min) | **1,5 j** |
+| Courant moyen | ~18 mA | ~65 mA |
+| Cadence | 1 trame/min | 1 trame/s |
+| Fenêtrage d'émission | complet, à la microseconde | **partiel** |
+| Déport minimum | 30 cm | **41 cm** |
+| Cartes nécessaires | 2 (tête + passerelle) | 1 |
+
+Deux points méritent d'être compris plutôt que subis.
+
+*Le fenêtrage n'est plus complet.* La tête LoRa sait à la microseconde près quand elle émet et jette les échantillons concernés. Une station WiFi associée, elle, reçoit les balises de son point d'accès, les ARP et les retransmissions **sur l'horloge du point d'accès** — 1 à 3 % du temps, imprévisible. On fenêtre ce qu'on maîtrise, sa propre émission, et on ne prétend pas fenêtrer le reste.
+
+*Ce n'est pas grave si le déport suffit.* Le WiFi tire ~350 mA en crête contre ~135 mA pour le SX1262 : facteur 2,6 en courant, donc **1,37 en distance**, le champ d'une boucle décroissant en 1/r³. Les 30 cm minimum de la tête LoRa deviennent 41 cm ici ; les 50 cm recommandés conviennent aux deux.
+
+**Une coupure réseau est un trou dans la donnée.** Rien n'est mis en réserve pour être réémis : rejouer des minutes anciennes en vrac désordonnerait la série pour rattraper des points que l'opérateur aurait de toute façon vus manquer. Le journal de la tête compte les trames perdues.
+
+### La règle de choix
+
+Ce sont deux usages, pas deux camps.
+
+- Capteur sur terrasse ou en jardin, **secteur à portée** → WiFi, 1 Hz, déport 50 cm.
+- Capteur éloigné, **sur accu ou solaire** → LoRa.
+
+### Configurer la tête WiFi
+
+La tête doit connaître le réseau. Cela s'écrit par le port USB, depuis l'onglet **Firmware**, panneau *Configuration WiFi du capteur* : SSID, mot de passe, hôte, port — puis *Écrire et sauvegarder* et *Redémarrer la tête*.
+
+Le dialogue est **celui de la console RWLoRa**, trait pour trait : trame KISS sur le port série, charge utile MsgPack, namespace 101 « réseau ». Un opérateur qui a configuré une passerelle RWLoRa retrouve les mêmes champs et les mêmes messages.
+
+> **Hôte vide : la tête diffuse sur le sous-réseau.** C'est le réglage à laisser tant que tout va bien — l'adresse du PC change au gré du bail DHCP, la diffusion non. Si rien n'arrive, certains points d'accès filtrent la diffusion entre clients WiFi : saisir alors l'adresse du PC.
+
+> **Le mot de passe ne se relit jamais.** Il part vers la tête, jamais l'inverse. Une console capable de le relire serait un moyen d'extraire la clé WiFi de toute tête à laquelle on a un accès physique — et une tête magnétique passe sa vie dehors, sur un mât. Le champ revient donc vide à chaque lecture, et n'est écrit que si vous en saisissez un.
+
+Côté application, choisir le capteur **Heltec WiFi (UDP)** et le port de l'onglet *Capteur*. La tête émet la même trame de 36 octets que le firmware Teensy : le décodeur, son CRC et son autotest servent tels quels.
+
 ## L'onglet Firmware
 
 Un opérateur n'a pas à installer PlatformIO pour poser une station. L'onglet **Firmware** écrit les images livrées dans `firmware\` directement sur la carte.
 
-Rôle (**STATION** / **CAPTEUR**) × carte (**V4** / **V3**) → port → *Détecter la carte* → *FLASHER*, avec journal et barre d'avancement.
+Rôle (**STATION** / **CAPTEUR LoRa** / **CAPTEUR WiFi**) × carte (**V4** / **V3**) → port → *Détecter la carte* → *FLASHER*, avec journal et barre d'avancement.
 
 - Une carte qui n'est **pas un ESP32-S3** est refusée avant écriture.
 - Le V3 et le V4 portent **tous deux** un ESP32-S3 : aucune lecture ne les distingue. L'interface le dit franchement — c'est votre déclaration qui fait foi.
 - Une seule image de passerelle sert le V3 **et** le V4 : pour ce rôle les deux cartes sont électriquement équivalentes.
-- Pas d'image CAPTEUR pour le V3 : la tête s'appuie sur l'entrée solaire dédiée du V4.
+- Pas d'image **CAPTEUR LoRa** pour le V3 : cette tête s'appuie sur l'entrée solaire dédiée du V4.
+- La **CAPTEUR WiFi**, elle, sert le V3 **et** le V4 avec une seule image : elle tourne sur secteur, l'entrée solaire ne lui sert pas — c'est précisément ce qui rend le V3 utilisable ici.
 - Refus argumentés si l'acquisition occupe déjà le port, si l'image est absente, tronquée, ou de nom non conforme.
 
 ### Propreté magnétique — à lire avant de câbler
@@ -167,7 +213,7 @@ Le plancher de bruit visé étant de 1 à 3 nT : **30 cm minimum, 50 cm de préf
 
 ## Installation
 
-Télécharger [**GEOMAG-Observer.7z**](https://github.com/f1gbd/F1GBD/releases/download/geomag-observer-v1.0.0/GEOMAG-Observer.7z) (v1.0.0, 38 Mo), décompresser dans un dossier accessible en écriture, lancer `GEOMAG-Observer.exe`.
+Télécharger [**GEOMAG-Observer.7z**](https://github.com/f1gbd/F1GBD/releases/download/geomag-observer-v1.0.0/GEOMAG-Observer.7z) (v1.0.0, 37 Mo), décompresser dans un dossier accessible en écriture, lancer `GEOMAG-Observer.exe`.
 
 Aucune installation, aucune dépendance, aucun droit administrateur. Windows 10 ou 11, 64 bits.
 
@@ -188,14 +234,15 @@ Le fichier de réglages `geomag_observer.json` se crée tout seul au premier lan
 
 ### Les firmwares
 
-Le sous-dossier [`osjt_maghead_lora/`](osjt_maghead_lora/) contient le projet PlatformIO des deux cartes Heltec — nœud et passerelle, un seul arbre de sources, deux environnements :
+Le sous-dossier [`osjt_maghead_lora/`](osjt_maghead_lora/) contient le projet PlatformIO des trois rôles — un seul arbre de sources, trois environnements :
 
 ```powershell
-pio run -e heltec_v4_gateway
-pio run -e heltec_v4_node
+pio run -e heltec_v4_gateway     # passerelle LoRa
+pio run -e heltec_v4_node        # tête LoRa
+pio run -e heltec_v4_node_wifi   # tête WiFi
 ```
 
-Les images produites sont livrées dans `firmware\`, prêtes à flasher depuis l'onglet Firmware. `osjt_lora_frame.h` est la seule définition de la trame ; `GEOMAG-Observer.exe --selftest` en rejoue la structure côté Python, 18 contrôles dont le CRC et le budget réglementaire.
+Les images produites sont livrées dans `firmware\`, prêtes à flasher depuis l'onglet Firmware. `osjt_lora_frame.h` définit la trame radio, `osjt_teensy_frame.h` celle de 36 octets qui arrive au PC — une seule définition chacune, partagée par les trois rôles.
 
 ### Le firmware de la tête Teensy
 
@@ -270,6 +317,10 @@ Ces trois défauts ont été trouvés et corrigés pendant le développement. Il
 
 - [`documentations/FICHE_TECHNIQUE_GEOMAG-Observer.pdf`](documentations/) — fiche technique
 - [`documentations/MANUEL_GEOMAG-Observer.pdf`](documentations/) — manuel professionnel
+- [`documentations/FICHE_CABLAGE_RM3100_Heltec-V4.pdf`](documentations/) — câblage, montage mécanique et budget thermique
+- [`documentations/FICHE_CABLAGE_RJ45_Cat6.pdf`](documentations/) — la liaison capteur ↔ carte par cordon Cat6 de 50 cm, V4 et V3
+
+Chaque fiche existe en `.docx` et en `.pdf`.
 
 ## Sources et références
 
