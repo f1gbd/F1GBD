@@ -109,6 +109,7 @@ Deux **Heltec WiFi LoRa 32 V4**, la même carte que RWLoRa et RRLoRa : mêmes ou
 | **STATION** | Heltec V4 ou V3 en passerelle USB sur le PC. Elle reçoit les trames et les rend au format série que le programme parle déjà. |
 
 ![Câblage RM3100 vers Heltec V4 (pinout identique pour le V3)](images/cablage_rm3100_heltec.png)
+**Pinout Identique pour le Heltec V3 et le V4**
 
 Quatre fils de signal et deux d'alimentation, sur **J3-14 à J3-17** — quatre GPIO contigus sur le connecteur *et* dans l'ordre des broches du module : la nappe part droite, sans un seul croisement. DRDY n'est pas câblé : à 10 Hz, interroger le registre d'état ne fait rien perdre.
 
@@ -140,6 +141,14 @@ L'acier statique — blindage USB-C, ressorts IPEX — n'est pas un problème : 
 Le capteur va au **fond d'un puits en PVC 40 mm**, à 70 cm, où l'amplitude thermique quotidienne tombe sous 0,1 °C. Le tube de 20 mm est un **fourreau de câble**, pas un mât porteur : le module RM3100 (25 mm) n'y entre pas, et un mât de 20 mm fléchit au soleil de **2218 nT à 1,50 m** — 1′ d'arc, soit 0,3 mm de flexion, vaut déjà 12 nT.
 
 Sur terrasse, quand on ne peut pas creuser : 24 cm hors socle **maximum**, socle lourd posé et jamais fixé au mur, abri blanc ombrant le capteur *et la totalité du mât*. Le détail chiffré est dans `documentations/FICHE_CABLAGE_RM3100_Heltec-V4.docx`.
+
+<div align="center">
+
+| | |
+|:---:|:---:|
+| ![VUE 3D Capteur](images/Tete_Magnétique_3D.png) | ![Capteur RM3100 et Manchon PVC 20mm](images/Capteur-RM3100_manchon_PVC20mm.jpg) |
+
+</div>
 
 ### [Vue 3D interactive du montage de la tête](https://f1gbd.github.io/F1GBD/geomag-observer/Capteur_3D_GEOMAG.html)
 
