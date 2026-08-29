@@ -6,24 +6,29 @@
 
 **Observatoire magnétique amateur et détecteur de perturbation géomagnétique locale**
 
-Version 1.1.0 — F1GBD / F4JHW — ADRASEC 77
+Version 1.1.2 — F1GBD / F4JHW — ADRASEC 77
 
-### [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/geomag-observer-v1.1.0/GEOMAG-Observer.7z)
+### [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/geomag-observer-v1.1.2/GEOMAG-Observer.7z)
 
-`GEOMAG-Observer.7z` — v1.1.0 — 38 Mo — Windows 10/11 64 bits
-[Notes de version](https://github.com/f1gbd/F1GBD/releases/tag/geomag-observer-v1.1.0)
+`GEOMAG-Observer.7z` — v1.1.2 — 38 Mo — Windows 10/11 64 bits
+[Notes de version](https://github.com/f1gbd/F1GBD/releases/tag/geomag-observer-v1.1.2)
 
 </div>
 
 ---
 
-## Ce que c'est
+## Qu'est-ce que GEOMAG-Observer ?
 
 Un poste de surveillance géomagnétique complet bâti autour d'un **PNI RM3100** à 31 €. Il mesure les variations du champ magnétique terrestre, en tire un **indice K local**, détecte les orages géomagnétiques, et vous dit ce que ça change pour la propagation HF.
 
 En scénario de crise avec coupure Internet, vous n'avez plus accès au Kp planétaire du NOAA. Votre station devient alors **votre seule source de conditions géomagnétiques** — et donc le seul moyen de savoir que vos liaisons HF sont en train de tomber avant qu'elles ne tombent.
 
 ![Tableau de bord temps réel](images/geomag-observer_main.png)
+
+<p align="center">
+  <img src="images/GEOMAG-Observer_v1_1.jpg" alt="GEOMAG-Observer v1.1.2 en action" width="480"/>
+  <br><i>GEOMAG-Observer v1.1.2 en action</b>.</i>
+</p>
 
 ## Ce que ça mesure — et ce que ça ne mesure pas
 
