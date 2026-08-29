@@ -6,18 +6,18 @@
 
 **Observatoire magnétique amateur et détecteur de perturbation géomagnétique locale**
 
-Version 1.0.0 — F1GBD / F4JHW — ADRASEC 77
+Version 1.1.0 — F1GBD / F4JHW — ADRASEC 77
 
-### [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/geomag-observer-v1.0.0/GEOMAG-Observer.7z)
+### [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/geomag-observer-v1.1.0/GEOMAG-Observer.7z)
 
-`GEOMAG-Observer.7z` — v1.0.0 — 37 Mo — Windows 10/11 64 bits
-[Notes de version](https://github.com/f1gbd/F1GBD/releases/tag/geomag-observer-v1.0.0)
+`GEOMAG-Observer.7z` — v1.1.0 — 38 Mo — Windows 10/11 64 bits
+[Notes de version](https://github.com/f1gbd/F1GBD/releases/tag/geomag-observer-v1.1.0)
 
 </div>
 
 ---
 
-## Qu'est-ce que GEOMAG-Observer ?
+## Ce que c'est
 
 Un poste de surveillance géomagnétique complet bâti autour d'un **PNI RM3100** à 31 €. Il mesure les variations du champ magnétique terrestre, en tire un **indice K local**, détecte les orages géomagnétiques, et vous dit ce que ça change pour la propagation HF.
 
@@ -108,7 +108,7 @@ Deux **Heltec WiFi LoRa 32 V4**, la même carte que RWLoRa et RRLoRa : mêmes ou
 | **CAPTEUR** | Heltec V4 + RM3100, dans le tube. Batterie 3000 mAh, panneau 5 W sur l'entrée solaire dédiée du V4. ~12 mA moyens, donc autonome. |
 | **STATION** | Heltec V4 ou V3 en passerelle USB sur le PC. Elle reçoit les trames et les rend au format série que le programme parle déjà. |
 
-![Câblage RM3100 vers Heltec V4](images/cablage_rm3100_heltec.png)
+![Câblage RM3100 vers Heltec V4 (pinout identique pour le V3)](images/cablage_rm3100_heltec.png)
 
 Quatre fils de signal et deux d'alimentation, sur **J3-14 à J3-17** — quatre GPIO contigus sur le connecteur *et* dans l'ordre des broches du module : la nappe part droite, sans un seul croisement. DRDY n'est pas câblé : à 10 Hz, interroger le registre d'état ne fait rien perdre.
 
@@ -140,6 +140,10 @@ L'acier statique — blindage USB-C, ressorts IPEX — n'est pas un problème : 
 Le capteur va au **fond d'un puits en PVC 40 mm**, à 70 cm, où l'amplitude thermique quotidienne tombe sous 0,1 °C. Le tube de 20 mm est un **fourreau de câble**, pas un mât porteur : le module RM3100 (25 mm) n'y entre pas, et un mât de 20 mm fléchit au soleil de **2218 nT à 1,50 m** — 1′ d'arc, soit 0,3 mm de flexion, vaut déjà 12 nT.
 
 Sur terrasse, quand on ne peut pas creuser : 24 cm hors socle **maximum**, socle lourd posé et jamais fixé au mur, abri blanc ombrant le capteur *et la totalité du mât*. Le détail chiffré est dans `documentations/FICHE_CABLAGE_RM3100_Heltec-V4.docx`.
+
+### [Vue 3D interactive du montage de la tête](https://f1gbd.github.io/F1GBD/geomag-observer/Capteur_3D_GEOMAG.html)
+
+Le circuit RM3100 de 16 × 15 mm, debout dans un manchon PVC de 20, son plan dans le méridien magnétique — avec les trois axes de mesure, le vecteur champ à 64°, le berceau et le cordon Cat6. Pivotable, zoomable, et chiffrée : ce que coûte une erreur de cap, ce que la mise en service corrige, et ce qu'elle ne corrigera jamais.
 
 ## La variante WiFi — quand le secteur est à portée
 
@@ -185,6 +189,18 @@ Le dialogue est **celui de la console RWLoRa**, trait pour trait : trame KISS su
 
 Côté application, choisir le capteur **Heltec WiFi (UDP)** et le port de l'onglet *Capteur*. La tête émet la même trame de 36 octets que le firmware Teensy : le décodeur, son CRC et son autotest servent tels quels.
 
+## L'orientation de la tête, et la mise en service
+
+Un magnétomètre vectoriel est d'abord un instrument mécanique. Trois questions se posent au montage, et elles n'ont pas le même poids.
+
+**L'aplomb est presque gratuit.** L'onglet **Capteur** porte un bouton *Mesurer 8 s* : le programme lit huit secondes, en tire la rotation capteur → HEZ et la range dans `geomag_observer.json`. Un basculement dans le plan méridien est alors corrigé **exactement**, même de 15°. Un degré au niveau à bulle suffit donc — ce qui compte est qu'il ne *change* plus, une minute d'arc valant 12,3 nT.
+
+**Le cap, lui, se paie.** Aligner un vecteur sur un autre ne fixe que deux des trois degrés de liberté d'une rotation : celle autour du champ reste indéterminée, et c'est presque exactement un azimut. Aucun calcul ne peut le retrouver. La fuite d'une variation de H vers la voie E a une forme close — `sin²(I) × ε`, soit 0,81 ε sous nos latitudes : dix degrés d'erreur mettent 14 % de H dans E après mise en service, 17 % sans. **±5° à la boussole, sur le nord magnétique**, et le repère marqué au feutre sur le manchon.
+
+**L'indice K, lui, ne bouge pas.** Sur un orage synthétique de 3 h, ni 30° de cap ni 15° de basculement ne le changent d'un cran : K est une statistique de plage sur le vecteur horizontal, et une rotation le redistribue entre les voies sans en changer la longueur. Ce sont les relèvements du **Radar** et la **déclinaison** qui paient, pas l'alarme.
+
+La mise en service rend deux contrôles, tous deux indépendants de l'orientation : l'écart entre le `|F|` mesuré et celui de l'IGRF — qui attrape un cycle count faux ou une masse ferromagnétique proche — et la dispersion de E, qui mesure le bruit du câblage.
+
 ## L'onglet Firmware
 
 Un opérateur n'a pas à installer PlatformIO pour poser une station. L'onglet **Firmware** écrit les images livrées dans `firmware\` directement sur la carte.
@@ -213,7 +229,7 @@ Le plancher de bruit visé étant de 1 à 3 nT : **30 cm minimum, 50 cm de préf
 
 ## Installation
 
-Télécharger [**GEOMAG-Observer.7z**](https://github.com/f1gbd/F1GBD/releases/download/geomag-observer-v1.0.0/GEOMAG-Observer.7z) (v1.0.0, 37 Mo), décompresser dans un dossier accessible en écriture, lancer `GEOMAG-Observer.exe`.
+Télécharger [**GEOMAG-Observer.7z**](https://github.com/f1gbd/F1GBD/releases/download/geomag-observer-v1.1.0/GEOMAG-Observer.7z) (v1.1.0, 38 Mo), décompresser dans un dossier accessible en écriture, lancer `GEOMAG-Observer.exe`.
 
 Aucune installation, aucune dépendance, aucun droit administrateur. Windows 10 ou 11, 64 bits.
 
@@ -243,6 +259,7 @@ pio run -e heltec_v4_node_wifi   # tête WiFi
 ```
 
 Les images produites sont livrées dans `firmware\`, prêtes à flasher depuis l'onglet Firmware. `osjt_lora_frame.h` définit la trame radio, `osjt_teensy_frame.h` celle de 36 octets qui arrive au PC — une seule définition chacune, partagée par les trois rôles.
+
 
 ### Le firmware de la tête Teensy
 
@@ -321,6 +338,8 @@ Ces trois défauts ont été trouvés et corrigés pendant le développement. Il
 - [`documentations/FICHE_CABLAGE_RJ45_Cat6.pdf`](documentations/) — la liaison capteur ↔ carte par cordon Cat6 de 50 cm, V4 et V3
 
 Chaque fiche existe en `.docx` et en `.pdf`.
+
+- [**Vue 3D interactive du montage de la tête**](https://f1gbd.github.io/F1GBD/geomag-observer/Capteur_3D_GEOMAG.html) — orientation, berceau, axes de mesure et vecteur champ
 
 ## Sources et références
 
