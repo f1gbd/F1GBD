@@ -6,12 +6,12 @@
 
 **Observatoire magnétique amateur et détecteur de perturbation géomagnétique locale**
 
-Version 1.2.2 — F1GBD / F4JHW — ADRASEC 77
+Version 1.2.3 — F1GBD / F4JHW — ADRASEC 77
 
-### [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/geomag-observer-v1.2.2/GEOMAG-Observer.7z)
+### [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/geomag-observer-v1.2.3/GEOMAG-Observer.7z)
 
-`GEOMAG-Observer.7z` — v1.2.2 — 38 Mo — Windows 10/11 64 bits
-[Notes de version](https://github.com/f1gbd/F1GBD/releases/tag/geomag-observer-v1.2.2)
+`GEOMAG-Observer.7z` — v1.2.3 — 38 Mo — Windows 10/11 64 bits
+[Notes de version](https://github.com/f1gbd/F1GBD/releases/tag/geomag-observer-v1.2.3)
 
 </div>
 
