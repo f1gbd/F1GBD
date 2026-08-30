@@ -6,12 +6,12 @@
 
 **Observatoire magnétique amateur et détecteur de perturbation géomagnétique locale**
 
-Version 1.2.3 — F1GBD / F4JHW — ADRASEC 77
+Version 1.3.0 — firmware 0.3.0 — F1GBD / F4JHW — ADRASEC 77
 
-### [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/geomag-observer-v1.2.3/GEOMAG-Observer.7z)
+### [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/geomag-observer-v1.3.0/GEOMAG-Observer.7z)
 
-`GEOMAG-Observer.7z` — v1.2.3 — 38 Mo — Windows 10/11 64 bits
-[Notes de version](https://github.com/f1gbd/F1GBD/releases/tag/geomag-observer-v1.2.3)
+`GEOMAG-Observer.7z` — v1.3.0 — 38 Mo — Windows 10/11 64 bits
+[Notes de version](https://github.com/f1gbd/F1GBD/releases/tag/geomag-observer-v1.3.0)
 
 </div>
 
@@ -48,8 +48,13 @@ En scénario de crise avec coupure Internet, vous n'avez plus accès au Kp plan�
 
 ### Tableau de bord temps réel
 
-- **Cadran gradué en indice K**, pas en nanoteslas. L'échelle K est quasi géométrique (5, 10, 20, 40, 70, 120, 200, 330, 500 nT) : une graduation linéaire écraserait toute la partie utile contre le zéro. Chaque niveau reçoit un secteur angulaire égal.
-- **Oscillogramme à deux tracés** — perturbation et dB/dt, chacun avec sa ligne de seuil. Deux grandeurs de nature différente ne se superposent pas sur une seule échelle.
+**Trois instruments empilés, une grandeur chacun.** Un cadran portant quatre grandeurs de trois natures différentes oblige à savoir laquelle on regarde avant de pouvoir la lire.
+
+1. **PERTURBATION (nT)** — aiguille sur une échelle à secteurs égaux calée sur K9. L'échelle K est quasi géométrique (5, 10, 20, 40, 70, 120, 200, 330, 500 nT) : une graduation linéaire écraserait toute la partie utile contre le zéro. Le seuil d'alarme est un trait rouge sur l'arc — le seuil se règle, les bandes ne bougent pas.
+2. **VITESSE dB/dt (nT/min)** — **zéro central** : à gauche le champ descend, à droite il monte. L'aiguille dit la vitesse, la moitié de cadran dit le sens. L'alarme compare la valeur *absolue* au seuil, qui est donc tracé des deux côtés.
+3. **INDICE K** — un bargraphe de dix segments, pas une aiguille : K est un **niveau entier**, et une aiguille suggérerait une lecture au dixième qui n'existe pas. La fenêtre est annoncée partielle tant qu'elle n'a pas ses 3 h.
+
+- **Oscillogramme à deux tracés** — perturbation et dB/dt, chacun avec sa ligne de seuil et, pour le dB/dt, sa ligne de zéro. Deux grandeurs de nature différente ne se superposent pas sur une seule échelle.
 - **Alarme visuelle et sonore** à seuils paramétrables, avec délai de confirmation et mémorisation jusqu'à acquittement.
 
 ### Analyse
@@ -175,6 +180,7 @@ Même carte, même capteur, même câblage. Ce qui change est le transport, et c
 | Fenêtrage d'émission | complet, à la microseconde | **partiel** |
 | Déport minimum | 30 cm | **41 cm** |
 | Cartes nécessaires | 2 (tête + passerelle) | 1 |
+| Cartes compatibles | V4 seulement | **V3 et V4** |
 
 Deux points méritent d'être compris plutôt que subis.
 
@@ -193,7 +199,7 @@ Ce sont deux usages, pas deux camps.
 
 ### Configurer la tête WiFi
 
-La tête doit connaître le réseau. Cela s'écrit par le port USB, depuis l'onglet **Firmware**, panneau *Configuration WiFi du capteur* : SSID, mot de passe, hôte, port — puis *Écrire et sauvegarder* et *Redémarrer la tête*.
+La tête se configure par le port USB, depuis l'onglet **Firmware**, panneau *Configuration WiFi du capteur* : SSID, mot de passe, hôte, port, **mode réseau** et passphrase du point d'accès — puis *Écrire et sauvegarder* et *Redémarrer la tête*.
 
 Le dialogue est **celui de la console RWLoRa**, trait pour trait : trame KISS sur le port série, charge utile MsgPack, namespace 101 « réseau ». Un opérateur qui a configuré une passerelle RWLoRa retrouve les mêmes champs et les mêmes messages.
 
@@ -202,6 +208,24 @@ Le dialogue est **celui de la console RWLoRa**, trait pour trait : trame KISS su
 > **Le mot de passe ne se relit jamais.** Il part vers la tête, jamais l'inverse. Une console capable de le relire serait un moyen d'extraire la clé WiFi de toute tête à laquelle on a un accès physique — et une tête magnétique passe sa vie dehors, sur un mât. Le champ revient donc vide à chaque lecture, et n'est écrit que si vous en saisissez un.
 
 Côté application, choisir le capteur **Heltec WiFi (UDP)** et le port de l'onglet *Capteur*. La tête émet la même trame de 36 octets que le firmware Teensy : le décodeur, son CRC et son autotest servent tels quels.
+
+### Trois modes réseau — depuis le firmware 0.3.0
+
+La tête ne se contente plus de rejoindre un réseau : elle sait créer le sien. C'est le mode de déploiement de terrain, celui qui ne demande **ni box, ni identifiants, ni bail DHCP à attendre**. Le mode est un réglage de provisionnement — champ 5 du namespace 101 — donc il se change depuis l'onglet Firmware, sans recompiler ni ouvrir le boîtier.
+
+| Mode | Ce qu'il fait |
+|---|---|
+| **0 — Station** | La tête rejoint le réseau configuré. C'est le **défaut**, et une tête mise à jour depuis un firmware antérieur y reste : le comportement ne change pas sous les pieds de l'opérateur. |
+| **1 — Point d'accès** | La tête crée son propre réseau, WPA2, et se trouve toujours en **192.168.4.1**. |
+| **2 — Les deux** | `AP_STA`. La tête rejoint le réseau configuré quand il est là **et** porte son point d'accès. Une seule configuration pour l'atelier et le terrain. |
+
+**Le SSID créé est `OSJT-XXXX`**, dérivé de l'adresse MAC — non configurable, et **affiché à l'écran de la tête au démarrage**. Deux têtes posées côte à côte ne portent donc pas le même nom, et il n'y a pas de second champ « SSID » à confondre avec celui du réseau rejoint.
+
+En AP_STA, la trame part sur **les deux interfaces** : rien ne dit de quel côté est le PC, et 36 octets en double par seconde coûtent moins cher qu'une soirée à le chercher. En point d'accès, la tête n'émet **que si un client est associé** ; les échantillons sans auditeur sont comptés à part — ce ne sont pas des pertes de liaison.
+
+> **Ce que le mode point d'accès coûte.** Un point d'accès ne dort jamais : il émet une balise toutes les 100 ms et reste à l'écoute. Comptez environ **le tiers de l'autonomie en moins** — invisible sur une tête secteur, décisif sur une tête solaire. Et le PC associé à la tête **perd son accès Internet**, sauf ethernet ou second adaptateur : la vérification du Kp officiel en dépend.
+
+> **WPA2 obligatoire.** Une passphrase de moins de 8 caractères est refusée des deux côtés : le pilote se rabattrait *silencieusement* sur un réseau ouvert, et les trames n'ont qu'un CRC — sur un réseau ouvert, n'importe qui peut en injecter dans l'application.
 
 ## L'orientation de la tête, et la mise en service
 
@@ -214,6 +238,14 @@ Un magnétomètre vectoriel est d'abord un instrument mécanique. Trois question
 **L'indice K, lui, ne bouge pas.** Sur un orage synthétique de 3 h, ni 30° de cap ni 15° de basculement ne le changent d'un cran : K est une statistique de plage sur le vecteur horizontal, et une rotation le redistribue entre les voies sans en changer la longueur. Ce sont les relèvements du **Radar** et la **déclinaison** qui paient, pas l'alarme.
 
 La mise en service rend deux contrôles, tous deux indépendants de l'orientation : l'écart entre le `|F|` mesuré et celui de l'IGRF — qui attrape un cycle count faux ou une masse ferromagnétique proche — et la dispersion de E, qui mesure le bruit du câblage.
+
+### Le zéro, et les seuils
+
+**La base n'est pas posée sur le premier échantillon venu.** Au démarrage de l'acquisition, le programme attend que le champ soit stable : il mesure la dérive par moindres carrés et ne clôt la fenêtre que sous **8 nT/min**, ou au bout de **300 s** en le signalant. La moyenne est prise sur la queue de la fenêtre, 30 s, et l'alarme reste inhibée 60 s après la pose — la médiane glissante et le dB/dt regardent en arrière, les armer aussitôt les déclencherait sur la marche que le zéro vient lui-même de créer.
+
+**Les seuils se calibrent sur le bruit du site, pas au jugé.** L'onglet *Alarme* porte un bouton qui mesure le bruit sur la voie d'alarme — médiane glissante, écart absolu médian — propose des seuils cohérents, et dit **quel indice K le site permet de détecter**. Des seuils posés sous le bruit laissent l'alarme allumée en permanence : elle ne dit alors plus rien, et le programme signale cet état comme tel.
+
+> **C'est l'implantation qui fixe la sensibilité réelle.** Sur la station OSJT, le plancher court terme mesuré est de 36 nT — dix fois celui du capteur — et il suit l'heure des humains : 9,4 nT à minuit, 54 nT à 20 h, 85 nT à 4 h 43. Les seuils calibrés valent alors 316 nT et 407 nT/min, et à ce niveau la station ne détecte plus rien en dessous de K7. Aucun réglage logiciel ne rattrape cela.
 
 ## L'onglet Firmware
 
@@ -243,7 +275,7 @@ Le plancher de bruit visé étant de 1 à 3 nT : **30 cm minimum, 50 cm de préf
 
 ## Installation
 
-Télécharger [**GEOMAG-Observer.7z**](https://github.com/f1gbd/F1GBD/releases/download/geomag-observer-v1.1.0/GEOMAG-Observer.7z) (v1.1.0, 38 Mo), décompresser dans un dossier accessible en écriture, lancer `GEOMAG-Observer.exe`.
+Télécharger [**GEOMAG-Observer.7z**](https://github.com/f1gbd/F1GBD/releases/download/geomag-observer-v1.3.0/GEOMAG-Observer.7z) (v1.3.0, 38 Mo), décompresser dans un dossier accessible en écriture, lancer `GEOMAG-Observer.exe`.
 
 Aucune installation, aucune dépendance, aucun droit administrateur. Windows 10 ou 11, 64 bits.
 
@@ -257,10 +289,18 @@ Le fichier de réglages `geomag_observer.json` se crée tout seul au premier lan
 |---|---|
 | `GEOMAG-Observer.exe` | L'application |
 | `_internal\` | Bibliothèques et données embarquées — ne rien y modifier |
-| `documentations\` | Fiche technique et manuel |
+| `documentations\` | Fiche technique, manuel, fiches réflexe et câblage, support de formation |
 | `firmware\` | Images à flasher sur les cartes Heltec |
 | `teensy\` | Source du firmware de la tête filaire Teensy |
 | `LICENSE` | Conditions de diffusion (MIT) |
+
+### Sonde de température DS18B20 — optionnelle
+
+1-Wire sur **GPIO47** (J2-13, libre sur le V3 comme sur le V4), résistance de rappel de 4,7 kΩ entre DQ et 3V3. Soit sur la broche 8 du cordon RJ45, soit sur un cordon séparé à trois conducteurs. Sans sonde au bout, la tête l'annonce absente et le champ température de la trame reste vide : aucun risque à laisser l'option active.
+
+La conversion dure 750 ms, pendant lesquelles la mesure du champ est volontairement suspendue — la sonde tire 1,5 mA. À 30 s de période, cela coûte **2,5 % des échantillons**.
+
+Ce qu'elle apporte n'est **pas** une correction du capteur : les mesures du RM3100 sont stables en température par construction, la magnéto-inductance compte une période et n'a pas de gain analogique à dériver. Elle apporte le **diagnostic de la dérive mécanique du montage** — un mât PVC de 20 mm fléchit au soleil de 2 218 nT à 1,50 m. Sans température, une ondulation diurne a trois causes possibles — la Sq, le site, le support — et aucun moyen de les séparer.
 
 ### Les firmwares
 
@@ -287,8 +327,9 @@ Ouvrir dans l'IDE Arduino équipé de **Teensyduino**, choisir la carte *Teensy 
 
 1. Lancer le programme. Backend **Simulateur** par défaut : rien à brancher.
 2. **Démarrer l'acquisition**. Le cadran bouge, l'oscillogramme se remplit.
-3. Onglet **Alarme** : régler le seuil. 40 nT correspond à K4 pour un K9 de 500 nT.
+3. Onglet **Alarme** : *Mesurer le bruit du site et proposer les seuils*. C'est le bouton qui remplace le réglage au jugé — 40 nT correspond à K4 pour un K9 de 500 nT, mais un site bruyant ne permet pas de descendre si bas.
 4. Au bout d'un quart d'heure, les onglets d'analyse se remplissent tout seuls.
+5. Avant d'annoncer quoi que ce soit : **vérifier le Kp officiel**. Un K local que la planète ne confirme pas n'est pas un orage.
 
 Pour passer au matériel : onglet **Firmware**, flasher les deux cartes, puis choisir le backend **Teensy (série)** et saisir le port de la passerelle — elle rend les trames au format que ce backend parle déjà, il n'y a rien d'autre à changer.
 
@@ -308,6 +349,16 @@ Lecture opérationnelle HF :
 - **K 5** — MUF effondrée aux hautes latitudes, absorption aurorale, prévoir un repli
 - **K 6-7** — liaisons HF longue distance peu fiables, basculer vers un chemin alternatif
 - **K ≥ 8** — panne HF généralisée, risque de courants induits sur les longues lignes conductrices
+
+### Le contrôle croisé n'est pas optionnel
+
+Un orage magnétique est **planétaire**. Un K local élevé que le Kp officiel ne confirme pas n'est pas un orage : c'est une source locale, ou une tête qui a bougé.
+
+Le cas est documenté. Le 29 août 2026, la station OSJT a annoncé **K8 « orage sévère »** sur deux blocs consécutifs — 1 007 puis 711 nT d'étendue — alors que le Kp officiel du GFZ valait **3,67 puis 2,00**. L'écart de cinq niveaux *était* le diagnostic : la source était locale, et le magnétogramme le confirmait par sa forme — des sauts brutaux revenant aussitôt à la ligne de base, là où un orage réel varie lentement et continûment.
+
+Kp officiel, mis à jour toutes les 3 h : [kp.gfz.de](https://kp.gfz.de/) et [spaceweather.gov](https://www.spaceweather.gov/products/planetary-k-index).
+
+> Une mesure qu'on ne sait pas expliquer n'est pas un phénomène — c'est une mesure qu'on ne sait pas expliquer.
 
 ## Trois pièges, et comment ils sont traités
 
@@ -346,10 +397,14 @@ Ces trois défauts ont été trouvés et corrigés pendant le développement. Il
 
 ## Documentation
 
-- [`documentations/FICHE_TECHNIQUE_GEOMAG-Observer.pdf`](documentations/) — fiche technique
-- [`documentations/MANUEL_GEOMAG-Observer.pdf`](documentations/) — manuel professionnel
-- [`documentations/FICHE_CABLAGE_RM3100_Heltec-V4.pdf`](documentations/) — câblage, montage mécanique et budget thermique
-- [`documentations/FICHE_CABLAGE_RJ45_Cat6.pdf`](documentations/) — la liaison capteur ↔ carte par cordon Cat6 de 50 cm, V4 et V3
+| Document | Ce qu'il couvre |
+|---|---|
+| [`FICHE_TECHNIQUE_GEOMAG-Observer.pdf`](documentations/) | Caractéristiques, montages, performances, méthodes |
+| [`MANUEL_GEOMAG-Observer.pdf`](documentations/) | Le manuel d'utilisation complet |
+| [`FICHE_REFLEXE_GEOMAG.pdf`](documentations/) | **Mise en station et interprétation**, à lire debout dehors : chaque étape porte un critère chiffré, chaque signature de défaut renvoie à une action |
+| [`SUPPORT_FORMATION_GEOMAG.pdf`](documentations/) | **Vulgarisation pour opérateurs ADRASEC débutants** : principe, utilité en radiocommunication, lecture des indicateurs, cas d'école sur mesures réelles |
+| [`FICHE_CABLAGE_RJ45_Cat6.pdf`](documentations/) | La liaison capteur ↔ carte par cordon Cat6 de 50 cm, V3 et V4 |
+| [`FICHE_CABLAGE_RM3100_Heltec-V4.pdf`](documentations/) | Câblage, montage mécanique et budget thermique |
 
 Chaque fiche existe en `.docx` et en `.pdf`.
 
