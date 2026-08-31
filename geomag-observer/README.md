@@ -6,11 +6,11 @@
 
 **Observatoire magnétique amateur et détecteur de perturbation géomagnétique locale**
 
-Version 1.3.0 — firmware 0.3.0 — F1GBD / F4JHW — ADRASEC 77
+Version 1.3.0 — firmware 0.3.1 — F1GBD / F4JHW — ADRASEC 77
 
 ### [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/download/geomag-observer-v1.3.0/GEOMAG-Observer.7z)
 
-`GEOMAG-Observer.7z` — v1.3.0 — 38 Mo — Windows 10/11 64 bits
+`GEOMAG-Observer.7z` — v1.3.0 — 40 Mo — Windows 10/11 64 bits
 [Notes de version](https://github.com/f1gbd/F1GBD/releases/tag/geomag-observer-v1.3.0)
 
 </div>
@@ -209,7 +209,7 @@ Le dialogue est **celui de la console RWLoRa**, trait pour trait : trame KISS su
 
 Côté application, choisir le capteur **Heltec WiFi (UDP)** et le port de l'onglet *Capteur*. La tête émet la même trame de 36 octets que le firmware Teensy : le décodeur, son CRC et son autotest servent tels quels.
 
-### Trois modes réseau — depuis le firmware 0.3.0
+### Trois modes réseau — depuis le firmware 0.3.1
 
 La tête ne se contente plus de rejoindre un réseau : elle sait créer le sien. C'est le mode de déploiement de terrain, celui qui ne demande **ni box, ni identifiants, ni bail DHCP à attendre**. Le mode est un réglage de provisionnement — champ 5 du namespace 101 — donc il se change depuis l'onglet Firmware, sans recompiler ni ouvrir le boîtier.
 
@@ -223,7 +223,9 @@ La tête ne se contente plus de rejoindre un réseau : elle sait créer le sien.
 
 En AP_STA, la trame part sur **les deux interfaces** : rien ne dit de quel côté est le PC, et 36 octets en double par seconde coûtent moins cher qu'une soirée à le chercher. En point d'accès, la tête n'émet **que si un client est associé** ; les échantillons sans auditeur sont comptés à part — ce ne sont pas des pertes de liaison.
 
-> **Ce que le mode point d'accès coûte.** Un point d'accès ne dort jamais : il émet une balise toutes les 100 ms et reste à l'écoute. Comptez environ **le tiers de l'autonomie en moins** — invisible sur une tête secteur, décisif sur une tête solaire. Et le PC associé à la tête **perd son accès Internet**, sauf ethernet ou second adaptateur : la vérification du Kp officiel en dépend.
+> **Ce que le mode point d'accès coûte — mesuré.** Il **multiplie par 2 la dispersion des mesures**, en plus du tiers d'autonomie. Un point d'accès ne dort jamais : il émet une balise toutes les 100 ms, et le garde d'émission `txBlank` n'encadre que vos propres trames UDP, pas les balises. Le couplage n'est d'ailleurs **pas magnétique mais conduit** — la salve tire ~350 mA et fait plonger le rail 3V3, qui descend par le cordon jusqu'au capteur. C'est pourquoi éloigner le boîtier de 30 à 50 cm, ce qui aurait divisé un couplage magnétique par 4,6, n'a produit aucun changement mesurable. Chiffres au § *Le site et le mode, mesurés*.
+>
+> Et le PC associé à la tête **perd son accès Internet**, sauf ethernet ou second adaptateur : la vérification du Kp officiel en dépend.
 
 > **WPA2 obligatoire.** Une passphrase de moins de 8 caractères est refusée des deux côtés : le pilote se rabattrait *silencieusement* sur un réseau ouvert, et les trames n'ont qu'un CRC — sur un réseau ouvert, n'importe qui peut en injecter dans l'application.
 
@@ -246,6 +248,34 @@ La mise en service rend deux contrôles, tous deux indépendants de l'orientatio
 **Les seuils se calibrent sur le bruit du site, pas au jugé.** L'onglet *Alarme* porte un bouton qui mesure le bruit sur la voie d'alarme — médiane glissante, écart absolu médian — propose des seuils cohérents, et dit **quel indice K le site permet de détecter**. Des seuils posés sous le bruit laissent l'alarme allumée en permanence : elle ne dit alors plus rien, et le programme signale cet état comme tel.
 
 > **C'est l'implantation qui fixe la sensibilité réelle.** Sur la station OSJT, le plancher court terme mesuré est de 36 nT — dix fois celui du capteur — et il suit l'heure des humains : 9,4 nT à minuit, 54 nT à 20 h, 85 nT à 4 h 43. Les seuils calibrés valent alors 316 nT et 407 nT/min, et à ce niveau la station ne détecte plus rien en dessous de K7. Aucun réglage logiciel ne rattrape cela.
+
+### Le site et le mode, mesurés
+
+Le 1er septembre 2026, les deux facteurs ont été croisés sur la même tête, le même jour : deux emplacements, deux modes réseau, quatre mises en service. Ce ne sont plus des recommandations raisonnées, ce sont des nombres.
+
+| Dispersion de E | **Terrasse** — dalle béton armé | **Jardin** — herbe, trépied |
+|---|---|---|
+| **Point d'accès + station** | 187,24 nT · \|F\| à −12,00 % | 46,54 nT · \|F\| à −3,85 % |
+| **Station seule** | 88,92 nT · \|F\| à −11,20 % | **19,90 nT · \|F\| à −3,75 %** |
+
+*Plancher visé : 3,39 nT à CC = 800.*
+
+Les deux effets sont **constants d'une ligne à l'autre** — pas d'interaction, chaque facteur agit pour son compte :
+
+| Effet | Mesuré | Facteur |
+|---|---|---|
+| **Le mode**, à site constant | terrasse 187,24 → 88,92 | ÷ 2,11 |
+| | jardin 46,54 → 19,90 | ÷ 2,34 |
+| | intérieur 264,3 → 77,4 | ÷ 3,42 |
+| **Le site**, à mode constant | AP+STA 187,24 → 46,54 | ÷ 4,02 |
+| | station 88,92 → 19,90 | ÷ 4,47 |
+
+**Deux règles en découlent :**
+
+1. **Une dalle en béton armé disqualifie un site.** −11 à −12 % sur trois mesures indépendantes espacées de deux jours : ce n'est pas de l'incertitude de mesure, ce sont les fers de la dalle. Et le bruit y est quatre fois plus élevé qu'à dix mètres de là, sur l'herbe.
+2. **Le mode point d'accès se réserve au terrain.** Là où il n'y a pas de réseau, il est irremplaçable. Une station à demeure tourne en mode **station**.
+
+Les deux facteurs réunis, la mise en service passe : `|F|` à −2,71 % et dispersion de E à 32,5 nT — deux « à surveiller », aucun défaut. Le même matériel, le même jour, donnait 187 nT et −12 % quatre essais plus tôt.
 
 ## L'onglet Firmware
 
@@ -275,7 +305,7 @@ Le plancher de bruit visé étant de 1 à 3 nT : **30 cm minimum, 50 cm de préf
 
 ## Installation
 
-Télécharger [**GEOMAG-Observer.7z**](https://github.com/f1gbd/F1GBD/releases/download/geomag-observer-v1.3.0/GEOMAG-Observer.7z) (v1.3.0, 38 Mo), décompresser dans un dossier accessible en écriture, lancer `GEOMAG-Observer.exe`.
+Télécharger [**GEOMAG-Observer.7z**](https://github.com/f1gbd/F1GBD/releases/download/geomag-observer-v1.3.0/GEOMAG-Observer.7z) (v1.3.0, 40 Mo), décompresser dans un dossier accessible en écriture, lancer `GEOMAG-Observer.exe`.
 
 Aucune installation, aucune dépendance, aucun droit administrateur. Windows 10 ou 11, 64 bits.
 
