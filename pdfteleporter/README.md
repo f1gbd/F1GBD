@@ -8,7 +8,7 @@
 
 *Pour les opérateurs ADRASEC / FNRASEC — TNC Packet, VARA HF/FM/SAT, Winlink Express*
 
-[![Version](https://img.shields.io/badge/version-v2.0.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-v2.0.0)
+[![Version](https://img.shields.io/badge/version-v2.0.1-blue)](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-v2.0.1)
 [![Plateforme](https://img.shields.io/badge/Windows-10%20%2F%2011-lightgrey.svg)]()
 [![Taille](https://img.shields.io/badge/installeur-34%20Mo-blueviolet.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%20%2F%20FNRASEC-green.svg)]()
@@ -16,9 +16,9 @@
 
 ### 📥 Télécharger
 
-**[⬇ Installeur Windows — PDFteleporter-2.0.0-setup.exe (34 Mo)](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v2.0.0/PDFteleporter-2.0.0-setup.exe)**
+**[⬇ Installeur Windows — PDFteleporter-2.0.1-setup.exe (34 Mo)](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v2.0.1/PDFteleporter-2.0.1-setup.exe)**
 
-[Archive 7z portable (32 Mo)](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v2.0.0/PDFteleporter.7z) · [Version Linux](linux/) · [Toutes les versions](https://github.com/f1gbd/F1GBD/releases?q=pdfteleporter)
+[Archive 7z portable (32 Mo)](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v2.0.1/PDFteleporter.7z) · [Version Linux](linux/) · [Toutes les versions](https://github.com/f1gbd/F1GBD/releases?q=pdfteleporter)
 
 </div>
 
@@ -225,7 +225,7 @@ dépôt.
 **Jean-Louis Naudin (F1GBD)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 2.0.0 — Août 2026**
+**Version 2.0.1 — Septembre 2026**
 
 *Pour toute question, contactez votre référent ADRASEC départemental.*
 
