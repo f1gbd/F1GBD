@@ -8,7 +8,7 @@
 
 *Pour les opérateurs ADRASEC / FNRASEC — TNC Packet, VARA HF/FM/SAT, Winlink Express*
 
-[![Version](https://img.shields.io/badge/version-v2.0.1-blue)](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-v2.0.1)
+[![Version](https://img.shields.io/badge/version-v2.1.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-v2.1.0)
 [![Plateforme](https://img.shields.io/badge/Windows-10%20%2F%2011-lightgrey.svg)]()
 [![Taille](https://img.shields.io/badge/installeur-34%20Mo-blueviolet.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%20%2F%20FNRASEC-green.svg)]()
@@ -16,9 +16,9 @@
 
 ### 📥 Télécharger
 
-**[⬇ Installeur Windows — PDFteleporter-2.0.1-setup.exe (34 Mo)](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v2.0.1/PDFteleporter-2.0.1-setup.exe)**
+**[⬇ Installeur Windows — PDFteleporter-2.1.0-setup.exe (34 Mo)](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v2.1.0/PDFteleporter-2.1.0-setup.exe)**
 
-[Archive 7z portable (32 Mo)](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v2.0.1/PDFteleporter.7z) · [Version Linux](linux/) · [Toutes les versions](https://github.com/f1gbd/F1GBD/releases?q=pdfteleporter)
+[Archive 7z portable (32 Mo)](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v2.1.0/PDFteleporter.7z) · [🐧 Linux v1.1.0](linux/) · [Toutes les versions](https://github.com/f1gbd/F1GBD/releases?q=pdfteleporter)
 
 </div>
 
@@ -66,7 +66,7 @@ de 120 Ko et affiche la procédure d'envoi pas à pas.*
 
 ### Installeur Windows *(recommandé)*
 
-1. Téléchargez **[PDFteleporter-2.0.0-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v2.0.0/PDFteleporter-2.0.0-setup.exe)**
+1. Téléchargez **[PDFteleporter-2.1.0-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v2.1.0/PDFteleporter-2.1.0-setup.exe)**
 2. Lancez-le et suivez l'assistant, en français. Il propose deux options utiles :
    le raccourci sur le Bureau, et **l'association des archives `.psdi`**.
 3. Lancez l'application depuis le Menu Démarrer.
@@ -77,12 +77,12 @@ L'installation ne demande **pas de droits administrateur** si le poste est verro
 > l'exécutable n'est pas signé par un certificat commercial. Cliquez sur
 > *Informations complémentaires* → *Exécuter quand même*. Le SHA-256 est publié dans la
 > release pour ceux qui veulent vérifier avant :
-> `Get-FileHash -Algorithm SHA256 PDFteleporter-2.0.0-setup.exe`
+> `Get-FileHash -Algorithm SHA256 PDFteleporter-2.1.0-setup.exe`
 
 ### Archive portable
 
 Pour une clé USB opérationnelle ou un poste sur lequel rien ne doit être installé :
-téléchargez **[PDFteleporter.7z](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v2.0.0/PDFteleporter.7z)**,
+téléchargez **[PDFteleporter.7z](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-v2.1.0/PDFteleporter.7z)**,
 décompressez-la où vous voulez, lancez `PDFteleporter\PDFteleporter.exe`. Aucun raccourci
 ni association de fichier n'est créé dans ce mode.
 
@@ -108,31 +108,32 @@ format d'archive et sont interopérables dans les deux sens.
 
 ---
 
-## 🆕 Nouveau en v2.0.0
+## 🆕 Nouveau
 
-> **Un vrai installeur, et huit fois plus léger.**
+> ### ⚠️ v2.1.0 — mise à jour recommandée à tous les postes
 >
-> 💿 **Programme d'installation Windows** — plus besoin de décompresser une archive dans
-> `C:\`. Raccourcis, désinstalleur, assistant en français, installation possible sans
-> droits administrateur.
+> Un PDF **annoté sous Okular** — ou avec tout outil dont la fonte n'a pas de
+> table ToUnicode — ressortait de la recomposition avec **ses valeurs saisies
+> remplacées par des chapelets de « ti »** : `F4LTV` devenait `tititititi`.
+> Le reste de la page était parfait ; seules les valeurs saisies par l'opérateur
+> disparaissaient, sans aucun signe d'erreur.
 >
-> 📬 **Un `.psdi` reçu s'ouvre d'un double-clic** — l'archive arrive par VARA ou Winlink,
-> vous double-cliquez, l'application s'ouvre avec le fichier chargé et son CRC déjà
-> vérifié. Et un clic droit sur un PDF propose « Compacter avec PDF Teleporter ».
+> Corrigé côté compression. Le format d'archive ne change pas, mais **une archive
+> `.psdi` déjà produite à partir d'un tel PDF doit être recompactée depuis
+> l'original** — les « ti » y sont figés. Le même défaut existe dans **TCQ**.
 >
-> 🪶 **882 Mo → 106 Mo installée, 261 Mo → 34 Mo à télécharger.** Le binaire de la v1.0.6
-> embarquait tout l'environnement de développement de TCQ — bibliothèques de calcul
-> scientifique, pile radio, générateurs de documents — dont l'application n'utilise rien.
-> La v2.0 est compilée dans un environnement dédié réduit au strict nécessaire.
->
-> 🖥 **Interface refondue (PyQt6)** — rendu net sur écrans haute résolution, barre de
-> progression réelle, glisser-déposer d'un `.pdf` ou d'un `.psdi` sur la fenêtre.
->
-> 🔄 **Le format `.psdi` ne change pas.** Les archives des versions v1.0.0 à v1.0.6 et
-> celles de TCQ se recomposent telles quelles, et inversement. Aucune coordination de
-> mise à jour n'est nécessaire au sein d'une section.
+> [Détails →](CHANGELOG.md#v210)
 
-[Détail complet de la v2.0.0 →](CHANGELOG.md#v200)
+**🐧 v1.1.0 Linux** — la version Linux est reconstruite sur les **mêmes sources
+PyQt6** que la version Windows et contient le correctif ci-dessus. Fin de la
+double maintenance Tkinter / PyQt6. [Détails →](CHANGELOG.md#v110) ·
+[README Linux](linux/)
+
+**v2.0.1** — mise en page corrigée pour les écrans de portable 1360×768, journal
+déplacé dans une fenêtre séparée (**Ctrl+J**). [Détails →](CHANGELOG.md#v201)
+
+**v2.0.0** — installeur Windows, association du type `.psdi`, interface PyQt6, et
+application ramenée de 882 Mo à 106 Mo. [Détails →](CHANGELOG.md#v200)
 
 ---
 
@@ -146,7 +147,7 @@ format d'archive et sont interopérables dans les deux sens.
 | ✅ | **Validation CRC** | Signature, version et checksum sont vérifiés dès l'ouverture d'une archive. Un fichier corrompu en transfert est détecté avant toute tentative de recomposition. |
 | 📧 | **Préparation Winlink** | Copie de l'archive dans `Documents\PDFteleporter\`, alerte au-delà de la limite de 120 Ko, procédure d'envoi affichée pas à pas. |
 | 📐 | **Rendu fidèle** | Tableaux, couleurs de cellule, cases à cocher des formulaires AcroForm, accents des PDF LibreOffice, fontes ~4 pt d'Excel. Chaque cas a fait l'objet d'un correctif dédié. |
-| 🖥 | **Interface PyQt6** | Thème sombre cohérent avec TCQ, rendu net en haute résolution, barre de progression, glisser-déposer, journal opérationnel horodaté. |
+| 🖥 | **Interface PyQt6** | Thème sombre cohérent avec TCQ, rendu net en haute résolution, barre de progression, glisser-déposer. Journal horodaté dans une fenêtre séparée (Ctrl+J), et mise en page adaptée aux écrans de portable 1360×768. |
 | 🔒 | **100 % local** | Aucune donnée ne quitte le poste, aucune connexion Internet, aucun compte. Adapté aux documents opérationnels sensibles et aux zones blanches. |
 
 ---
@@ -183,8 +184,11 @@ Le détail complet est dans le **[CHANGELOG](CHANGELOG.md)**.
 
 | Version | Date | En bref | |
 |---|---|---|:---:|
-| **v2.0.0** | août 2026 | Installeur Windows, association `.psdi`, interface PyQt6, 882 → 106 Mo | [détails](CHANGELOG.md#v200) · [release](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-v2.0.0) |
-| v1.0.7 | juin 2026 | Binaire Linux x86_64 | [détails](CHANGELOG.md#v107) · [linux/](linux/) |
+| **v2.1.0** | sept. 2026 | Correctif : texte saisi corrompu sur les PDF annotés (Okular) | [détails](CHANGELOG.md#v210) · [release](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-v2.1.0) |
+| **v1.1.0** Linux | sept. 2026 | Version Linux reconstruite sur les sources communes PyQt6 | [détails](CHANGELOG.md#v110) · [linux/](linux/) |
+| v2.0.1 | sept. 2026 | Mise en page corrigée sur 1360×768, journal en fenêtre séparée | [détails](CHANGELOG.md#v201) |
+| v2.0.0 | août 2026 | Installeur Windows, association `.psdi`, interface PyQt6, 882 → 106 Mo | [détails](CHANGELOG.md#v200) · [release](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-v2.0.0) |
+| v1.0.7 | juin 2026 | Binaire Linux x86_64 (Tkinter) | [détails](CHANGELOG.md#v107) |
 | v1.0.6 | juin 2026 | Auto-bascule en rendu image pour les PDF scannés ou tournés | [détails](CHANGELOG.md#v106) |
 | v1.0.5 | mai 2026 | Accents LibreOffice, cases à cocher AcroForm, fontes ~4 pt d'Excel | [détails](CHANGELOG.md#v105) |
 | v1.0.4 | mai 2026 | Interligne des PDF à très petites fontes | [détails](CHANGELOG.md#v104) |
@@ -225,7 +229,7 @@ dépôt.
 **Jean-Louis Naudin (F1GBD)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 2.0.1 — Septembre 2026**
+**Version 2.1.0 — Septembre 2026**
 
 *Pour toute question, contactez votre référent ADRASEC départemental.*
 

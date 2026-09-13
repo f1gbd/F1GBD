@@ -1,192 +1,240 @@
 <div align="center">
 
-<img src="../doc/images/PDFteleporter_logo.png" alt="PDF Teleporter" width="200">
+<img src="../doc/images/PDFteleporter_logo.png" alt="PDF Teleporter" width="180">
 
-# PDF Teleporter — Linux Edition
+# PDF Teleporter — Linux
 
-### Téléportation radio de documents PDF pour les opérateurs ADRASEC — version Linux
+### Envoyer un document PDF par radio, et le retrouver intact à l'arrivée
 
-*Compression structurée — Transmission TNC Packet & VARA — Recomposition fidèle — Compatibilité Winlink Express — 5 niveaux de qualité — Mode rendu image — Estimation temps de transfert — Validation CRC — 100% hors-ligne*
+*Pour les opérateurs ADRASEC / FNRASEC — TNC Packet, VARA HF/FM/SAT, Winlink Express*
 
-[![Version](https://img.shields.io/badge/version-pdfteleporter--linux--v1.0.7-blue)](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-linux-v1.0.7)
-[![Plateforme](https://img.shields.io/badge/plateforme-Linux%20x86__64-orange.svg)]()
-[![Distros](https://img.shields.io/badge/testé-Ubuntu%20%7C%20Debian%20%7C%20Mint%20%7C%20Fedora-success.svg)]()
-[![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
-[![100% local](https://img.shields.io/badge/100%25-hors--ligne-brightgreen.svg)]()
+[![Version](https://img.shields.io/badge/paquet-v1.1.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-linux-v1.1.0)
+[![Application](https://img.shields.io/badge/application-v2.1.0-blueviolet.svg)]()
+[![Plateforme](https://img.shields.io/badge/Linux-x86__64-orange.svg)]()
+[![glibc](https://img.shields.io/badge/glibc-%E2%89%A5%202.39-critical.svg)]()
+[![Licence](https://img.shields.io/badge/usage-ADRASEC%20%2F%20FNRASEC-green.svg)]()
+[![Hors-ligne](https://img.shields.io/badge/100%25-hors--ligne-brightgreen.svg)]()
 
-### 🐧 [**Télécharger la dernière version Linux**](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.7/PDFteleporter-1.0.7-linux-x86_64.tar.gz)
+### 🐧 Télécharger
 
-*Version Windows disponible dans le [dossier parent](https://github.com/f1gbd/F1GBD/tree/master/pdfteleporter)*
+**[⬇ PDFteleporter-1.1.0-linux-x86_64.tar.gz (78 Mo)](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.1.0/PDFteleporter-1.1.0-linux-x86_64.tar.gz)**
+
+[Version Windows](../README.md) · [Toutes les versions](https://github.com/f1gbd/F1GBD/releases?q=pdfteleporter)
 
 </div>
 
----
-
-## 🆕 Quoi de neuf en v1.0.7
-
-> **Amélioration du tracé géométrique des cases à cocher AcroForm** — Cette version intègre `pdf_trans` v1.0.7 qui affine le rendu des coches sur les PDF formulaires (SITREP ADRASEC, fiches COD/SIDPC, etc.) :
+> ### ❗ Vérifiez votre glibc avant de télécharger
 >
-> La v1.0.5 avait introduit la préservation de l'état coché/non coché des cases (`AcroForm /AP /N` widget — qui disparaissait auparavant car ni `get_text` ni `get_drawings` ne l'extraient). La v1.0.7 affine le tracé du V de la coche en passant de `draw_line` à `draw_polyline`, ce qui donne un V net même sur les très petites tailles de case et évite l'effet « deux traits qui ne se touchent pas » sur les coches inférieures à 8 pt.
+> Ce binaire est compilé sur **Ubuntu 24.04 LTS**. PyInstaller lie l'exécutable à
+> la glibc de la machine de compilation : il **ne démarrera pas** sur une
+> distribution plus ancienne — Ubuntu 22.04, Debian 12, Mint 21 — avec un message
+> du type `GLIBC_2.39 not found`.
 >
-> **Action recommandée** : mettez à jour si vous transmettez des SITREP ou formulaires opérationnels remplis avec des cases à cocher. Les archives `.psdi` produites par les versions antérieures restent **entièrement lisibles** et bénéficient automatiquement de l'amélioration côté recomposition.
+> ```bash
+> ldd --version | head -1
+> ```
 >
-> **Linux** : aucun changement spécifique côté Linux. Le correctif est entièrement dans `pdf_trans.py`. Le binaire Linux v1.0.7 est compilé avec les nouvelles sources.
+> **2.39 ou plus** → cette archive convient.
+> **Moins de 2.39** → [recompilez sur votre poste](#compiler-depuis-les-sources),
+> c'est une seule commande.
 
 ---
 
-## 🎯 À qui s'adresse cette version ?
+<a id="correctif-okular"></a>
 
-La version **Linux** de PDF Teleporter est destinée aux opérateurs ADRASEC qui :
+## ⚠️ Correctif important en v1.1.0
 
-- 🐧 Utilisent **Linux** comme système principal sur leur poste opérationnel (Ubuntu, Debian, Linux Mint, Fedora…)
-- 🔋 Disposent d'un **laptop léger** ou d'un mini-PC pour leurs sorties terrain
-- 🔒 Privilégient **l'indépendance vis-à-vis de Microsoft** pour leurs documents sensibles ADRASEC
-- 🎓 Préparent des **VM Linux** de formation pour leur section départementale
+Un PDF **annoté sous Okular** — cas courant d'un « Point de situation » rempli
+sous Linux — ressortait de la recomposition avec **ses valeurs saisies
+remplacées par des chapelets de « ti »** : `F4LTV` devenait `tititititi`,
+`09h00` devenait `tititititi`.
 
-**100 % des fonctionnalités** de la version Windows sont disponibles sous Linux : c'est exactement la même application, recompilée pour Linux.
+Tout le reste de la page — tableaux, couleurs de cellule, libellés, totaux —
+était parfaitement restitué. C'est ce qui rendait le défaut si déroutant :
+**seules les valeurs saisies par l'opérateur disparaissaient**, sans aucun signe
+d'erreur. Toutes les versions jusqu'à la v1.0.7 incluse sont concernées, ainsi
+que **TCQ**.
 
----
+> 📌 Le correctif agit à la **compression**. Une archive `.psdi` déjà produite à
+> partir d'un tel PDF contient les « ti » et **ne peut pas être réparée** : il
+> faut recompacter le PDF d'origine.
 
-## 📦 Ce que contient l'archive
-
-```
-PDFteleporter-1.0.7-linux-x86_64.tar.gz       (59 Mo compressé / 146 Mo extrait)
-└── PDFteleporter-1.0.7-linux-x86_64/
-    ├── bin/                    Binaire PyInstaller autonome
-    │   ├── PDFteleporter       Exécutable ELF 64-bit
-    │   └── _internal/          Python 3.12 + PyMuPDF + Pillow + Tkinter
-    ├── PDFteleporter.png       Icône 256×256
-    ├── install.sh              Script d'installation (utilisateur / système)
-    ├── pdfteleporter           Lanceur direct (sans installation)
-    └── README-LINUX.md         Documentation détaillée
-```
-
-**Aucune dépendance Python à installer** — tout est embarqué dans le binaire.
+[Détail technique →](../CHANGELOG.md#v210)
 
 ---
 
-## 🚀 Installation en 3 étapes
+## 🖥 Nouveauté : la même application que sous Windows
 
-### Étape 1 — Télécharger
+La v1.1.0 marque la **convergence des deux plateformes**. Linux et Windows sont
+désormais produits à partir des **mêmes sources** : l'ancienne interface Tkinter
+laisse la place à l'interface **PyQt6** déjà en service côté Windows.
 
-👉 **[PDFteleporter-1.0.7-linux-x86_64.tar.gz](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.7/PDFteleporter-1.0.7-linux-x86_64.tar.gz)** (~59 Mo)
+| | |
+|---|---|
+| 🔍 **Rendu haute résolution** | net sur les écrans 4K et les postes à mise à l'échelle |
+| ⏳ **Barre de progression réelle** | pendant la compression et la recomposition |
+| 🖱 **Glisser-déposer** | un `.pdf` ou un `.psdi` déposé sur la fenêtre part dans le bon panneau |
+| 📋 **Journal en fenêtre séparée** | **Ctrl+J**, redimensionnable, à laisser ouverte à côté |
+| ↕ **Mise en page adaptée** | tient sur un 1360×768, l'écran des portables de terrain |
 
-Ou en ligne de commande :
+L'ergonomie ne change pas : deux panneaux, cinq niveaux de qualité, deux modes
+d'extraction, bouton Winlink. Un opérateur formé sur la v1.0.x retrouve ses
+repères immédiatement.
 
-```bash
-wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.7/PDFteleporter-1.0.7-linux-x86_64.tar.gz
-```
-
-### Étape 2 — Extraire
-
-```bash
-tar xzf PDFteleporter-1.0.7-linux-x86_64.tar.gz
-cd PDFteleporter-1.0.7-linux-x86_64
-```
-
-### Étape 3 — Installer (au choix selon votre besoin)
-
-#### Option A — Lancer sans rien installer *(le plus rapide)*
-
-```bash
-./pdfteleporter
-```
-
-L'application démarre immédiatement. Idéal pour tester ou pour un usage ponctuel depuis une clé USB.
-
-#### Option B — Installation utilisateur *(recommandée)*
-
-```bash
-chmod +x install.sh
-./install.sh
-```
-
-Cela installe PDFteleporter dans `~/.local/share/PDFteleporter/`, crée un raccourci dans le **menu Applications** et la commande terminal `pdfteleporter`. **Pas de droits root requis**.
-
-Après cette étape, vous pouvez lancer PDFteleporter :
-
-- 🖱 Depuis le **menu Applications** → chercher « PDF Teleporter »
-- 💻 Depuis un **terminal** → taper `pdfteleporter`
-- 📌 En **épinglant l'icône** au dock ou à la barre des tâches
-
-#### Option C — Installation système *(pour postes partagés)*
-
-```bash
-chmod +x install.sh
-sudo ./install.sh --system
-```
-
-Installe dans `/opt/PDFteleporter/`, raccourci pour tous les utilisateurs. Utile pour les **postes opérationnels partagés** en cellule de coordination.
-
-#### Désinstallation
-
-```bash
-./install.sh --uninstall                  # mode utilisateur
-sudo ./install.sh --uninstall --system    # mode système
-```
+Pour la maintenance, c'est un changement de fond : **un correctif écrit une fois
+vaut désormais pour les deux plateformes**.
 
 ---
 
-## 🐧 Distributions testées
-
-| Distribution | Version | Statut |
-|---|---|---|
-| **Ubuntu** | 22.04 LTS / 24.04 LTS / 24.10 | ✅ Fonctionne |
-| **Debian** | 12 (Bookworm) / 13 (Trixie) | ✅ Fonctionne |
-| **Linux Mint** | 21.x / 22.x | ✅ Fonctionne |
-| **Fedora** | 39 / 40 / 41 | ✅ Fonctionne |
-
-### Dépendances système
-
-Le binaire embarque Python et toutes ses libs, mais il a besoin des bibliothèques X11 / Tkinter de base. Normalement déjà présentes sur tout système graphique :
+## 🚀 Installation
 
 ```bash
-# Ubuntu / Debian / Linux Mint
-sudo apt install libxcb-shape0 libxcb-cursor0 libxcb-icccm4 \
-                 libxcb-keysyms1 libxkbcommon-x11-0 libfontconfig1
+wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.1.0/PDFteleporter-1.1.0-linux-x86_64.tar.gz
+tar xzf PDFteleporter-1.1.0-linux-x86_64.tar.gz
+cd PDFteleporter
+./pdfteleporter.sh
+```
+
+Aucune dépendance Python à installer : Python, PyQt6, PyMuPDF et Pillow sont
+embarqués dans le binaire.
+
+> 💡 **Lancez toujours par `pdfteleporter.sh`**, pas par le binaire directement.
+> Le lanceur nettoie `LD_LIBRARY_PATH` : sans cela, l'ouverture du PDF recomposé
+> par `xdg-open` échoue, parce que le gestionnaire de fichiers hérite des
+> bibliothèques embarquées au lieu de celles du système.
+
+### Raccourci dans le menu Applications
+
+```bash
+cp PDFteleporter.desktop ~/.local/share/applications/
+update-desktop-database ~/.local/share/applications/ 2>/dev/null || true
+```
+
+Le fichier `.desktop` contient des **chemins absolus** : éditez-le si vous
+déplacez le dossier. Pour un poste partagé, copiez-le dans
+`/usr/share/applications/` après avoir placé l'application dans `/opt/`.
+
+### Bibliothèques système requises par Qt
+
+```bash
+# Debian / Ubuntu / Mint
+sudo apt install libxcb-cursor0 libxkbcommon-x11-0 libegl1
 
 # Fedora / RHEL
-sudo dnf install libxcb xcb-util-cursor xcb-util-wm \
-                 libxkbcommon-x11 fontconfig
+sudo dnf install xcb-util-cursor libxkbcommon-x11 mesa-libEGL
 ```
 
-En pratique, sur un poste avec un environnement de bureau (GNOME, KDE, XFCE, Cinnamon, MATE…), tout est déjà installé.
+Sur un poste avec un environnement de bureau, l'essentiel est déjà là —
+`libxcb-cursor0` est le seul qui manque régulièrement. Si l'application ne
+démarre pas, lancez-la depuis un terminal : Qt nomme précisément la
+bibliothèque absente.
 
----
-
-
-
----
-
-## 🔍 Vérification d'intégrité
-
-Le SHA-256 de l'archive est publié sur la page de release GitHub :
+### Vérification d'intégrité
 
 ```bash
-sha256sum PDFteleporter-1.0.7-linux-x86_64.tar.gz
-```
-
-Comparez avec la valeur publiée sur :
-👉 https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-linux-v1.0.7
-
-Ou via le fichier `.sha256` joint à la release :
-
-```bash
-wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.0.7/PDFteleporter-1.0.7-linux-x86_64.tar.gz.sha256
-sha256sum -c PDFteleporter-1.0.7-linux-x86_64.tar.gz.sha256
+wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.1.0/PDFteleporter-1.1.0-linux-x86_64.tar.gz.sha256
+sha256sum -c PDFteleporter-1.1.0-linux-x86_64.tar.gz.sha256
 ```
 
 ---
 
-## 🎨 Captures d'écran
+## 📦 Contenu de l'archive
 
-L'interface Linux est **strictement identique** à la version Windows : même thème sombre TCQ, mêmes boutons, mêmes panneaux, même journal opérationnel.
+```
+PDFteleporter-1.1.0-linux-x86_64.tar.gz        78 Mo compressé / 196 Mo extrait
+└── PDFteleporter/
+    ├── PDFteleporter            binaire ELF 64 bits autonome
+    ├── pdfteleporter.sh         lanceur recommandé (nettoie LD_LIBRARY_PATH)
+    ├── PDFteleporter.desktop    raccourci menu Applications
+    ├── INSTALL.txt              installation et prérequis
+    ├── LICENSE
+    └── _internal/               Python + PyQt6 + PyMuPDF + Pillow embarqués
+```
+
+> L'archive v1.0.7 fournissait un `install.sh`. Il a disparu avec le passage aux
+> sources communes : l'installation se résume désormais aux deux commandes
+> ci-dessus. Si ce script vous manquait, ouvrez une *Issue* — il est facile de le
+> réintroduire dans le script de build.
+
+---
+
+## 🐧 Compatibilité des distributions
+
+Le critère décisif est la **version de glibc**, pas le nom de la distribution.
+
+| Distribution | glibc | Cette archive |
+|---|---|---|
+| **Ubuntu 24.04 LTS / 24.10 / 25.04** | 2.39+ | ✅ |
+| **Debian 13 (Trixie)** | 2.41 | ✅ |
+| **Fedora 40+** | 2.39+ | ✅ |
+| **Linux Mint 22.x** | 2.39 | ✅ |
+| Ubuntu 22.04 LTS | 2.35 | ❌ à recompiler |
+| Debian 12 (Bookworm) | 2.36 | ❌ à recompiler |
+| Linux Mint 21.x | 2.35 | ❌ à recompiler |
+
+Recompiler prend quelques minutes et donne un binaire taillé pour vos postes —
+voir ci-dessous.
+
+---
+
+<a id="compiler-depuis-les-sources"></a>
+
+## 🔧 Compiler depuis les sources
+
+Utile dans trois cas : votre distribution est plus ancienne que la glibc du
+binaire publié, vous êtes sur **ARM64** (Raspberry Pi), ou vous voulez auditer
+ce que vous déployez.
+
+```bash
+# Sources : dossier PDFteleporter_v2 du projet
+chmod +x Build-PDFteleporter-linux.sh
+./Build-PDFteleporter-linux.sh -p 1.1.0 -c -s
+```
+
+Le script crée un environnement virtuel **dédié** (PyQt6, PyMuPDF, Pillow,
+PyInstaller — et rien d'autre, pour que PyInstaller n'embarque pas la moitié de
+vos `site-packages`), compile, purge les modules Qt inutiles, teste le
+démarrage, et produit l'archive `.tar.gz` avec son SHA-256.
+
+| Option | Effet |
+|---|---|
+| `-p <version>` | numéro du paquet (défaut 1.1.0) |
+| `-c` | repart de zéro |
+| `-s` | supprime aussi les bibliothèques devenues orphelines (~10 Mo) |
+| `-d <chemin>` | dossier de sortie |
+| `-y <python>` | force l'interpréteur utilisé pour créer le venv |
+
+Prérequis : `python3` ≥ 3.9 avec le module venv
+(`sudo apt install python3-venv`).
+
+**Compilez sur la distribution la plus ancienne que vous voulez supporter** :
+le binaire obtenu fonctionnera sur toutes les plus récentes, l'inverse n'est pas
+vrai.
+
+### Raspberry Pi (ARM64)
+
+L'archive publiée est compilée pour **x86_64**. Sur un Pi 4/5 sous Raspberry Pi
+OS aarch64, le script de build fonctionne tel quel et produit un binaire ARM64.
+Pour un essai rapide, sans compilation :
+
+```bash
+pip install PyQt6 pymupdf Pillow
+python3 PDFteleporter.py
+```
+
+---
+
+## 🎨 L'interface
 
 <div align="center">
 
-<img src="../doc/images/pdfteleporter_linux.png" alt="PDFteleporter sous Linux" width="900">
+<!-- TODO : remplacer par une capture prise sous Linux avec la v1.1.0.
+     Celle-ci vient de la version Windows ; l'interface est identique, seuls
+     les décors de fenêtre du gestionnaire de bureau diffèrent. -->
+<img src="../doc/images/PDFteleporter-working.png" alt="PDF Teleporter v2.1 en fonctionnement" width="900">
 
-*PDFteleporter v1.0.7 tournant nativement sous Linux — interface identique à Windows*
+*Un SITREP ADRASEC de 49 161 octets compacté en 5 704 octets (11,6 %, 45 trames
+TNC), puis recomposé à droite — cases à cocher et tableaux intacts.*
 
 </div>
 
@@ -194,124 +242,110 @@ L'interface Linux est **strictement identique** à la version Windows : même th
 
 ## ⭐ Fonctionnalités
 
-Identiques à la version Windows :
+Strictement identiques à la version Windows — c'est le même code.
 
-| Icône | Fonctionnalité |
+| | |
 |:---:|---|
-| 📦 | **Compression structurée** PDF → `.psdi` (5 niveaux de qualité) |
-| 📬 | **Recomposition fidèle** `.psdi` → PDF |
-| ⚡ | **5 niveaux de qualité** calibrés par mode radio (Ultra Low à High + Sans image) |
-| 🎨 | **2 modes** : Structuré (texte + images) ou Rendu image (pages JPEG) |
-| ⏱ | **Estimation du temps de transfert** pour chaque mode radio |
-| ✅ | **Validation CRC** automatique à l'ouverture |
-| 🛡 | **Compatibilité Microsoft Print To PDF / Word LTSC** (correctif fond noir v1.0.1) |
-| 📐 | **Rendu fidèle des tableaux** *(v1.0.2)* — les libellés ne débordent plus des cellules colorées (Bilan humain, Moyens engagés…) |
-| 🌍 | **Compatibilité LibreOffice et Excel densifié** *(v1.0.5)* — les caractères accentués des PDF LibreOffice (Situation, Éducation, lutte…) sont restaurés correctement et les tableaux Excel à très petites fontes (~4 pt) ne débordent plus de leurs cellules |
-| ☑️ | **Cases à cocher AcroForm préservées** *(nouveau v1.0.7)* — l'état coché/non coché des cases à cocher et boutons radio des formulaires (SITREP ADRASEC, fiches COD/SIDPC remplies) survit désormais à la recomposition, avec un tracé géométrique du V net même sur les très petites cases |
-| 📧 | **Bouton « Préparer pour Winlink »** avec procédure adaptée à Linux |
-| 📋 | **Journal opérationnel** horodaté avec code couleur |
-| 🌐 | **Compatible TCQ et Winlink Express** — format `.psdi` partagé |
-| 🔒 | **100 % local** — aucune connexion Internet, aucune télémétrie |
+| 📦 | **Compression PDF → `.psdi`**, 5 niveaux calibrés par mode radio |
+| 📬 | **Recomposition `.psdi` → PDF** avec la mise en forme d'origine |
+| 🎨 | **2 modes d'extraction** : Structuré ou Rendu image, avec bascule automatique pour les PDF scannés ou tournés |
+| ⏱ | **Estimation du temps de transfert** — Packet 1200/9600, VARA HF/FM/SAT, ARDOP, LoRa |
+| ✅ | **Validation CRC** dès l'ouverture d'une archive reçue |
+| ☑️ | **Cases à cocher AcroForm préservées** — SITREP ADRASEC, fiches COD/SIDPC remplies |
+| 📐 | **Rendu fidèle** des tableaux, accents LibreOffice, fontes ~4 pt d'Excel |
+| 📧 | **Préparation Winlink** avec alerte au-delà de 120 Ko |
+| 🔒 | **100 % local** — aucune connexion, aucune télémétrie |
 
 ### Différences avec la version Windows
 
 | Point | Windows | Linux |
 |---|---|---|
-| Dossier de travail Winlink | `%USERPROFILE%\Documents\PDFteleporter\` | `~/Documents/PDFteleporter/` |
-| Ouverture de fichier / dossier | `os.startfile()` (Explorer) | `xdg-open` (gestionnaire de fichiers du DE) |
-| Console au démarrage | Masquée automatiquement | Aucune console — c'est un binaire GUI |
-| DPI awareness | Géré pour Windows 10/11 | Géré nativement par X11 / Wayland |
+| Installation | installeur `.exe` | archive `tar.gz` |
+| Association `.psdi` | automatique | via le fichier `.desktop` |
+| Dossier Winlink | `%USERPROFILE%\Documents\PDFteleporter\` | `~/Documents/PDFteleporter/` |
+| Ouverture de fichier | `os.startfile()` | `xdg-open`, d'où le lanceur `pdfteleporter.sh` |
+| Taille installée | 106 Mo | 196 Mo — Qt sous Linux embarque ICU (~40 Mo) |
+
+---
+
+## 🔄 Interopérabilité
+
+Le format `.psdi` est **inchangé depuis la v1.0.0**. Une archive produite ici se
+recompose sous Windows, avec les versions v1.0.x, et avec le module PDF de
+**TCQ** — et réciproquement. Aucune coordination de mise à jour n'est nécessaire
+au sein d'une section : les postes en v1.1.0 et ceux restés en v1.0.7 continuent
+de travailler ensemble.
 
 ---
 
 ## 🐛 Dépannage
 
-### `error while loading shared libraries: libXxx.so`
+**`GLIBC_2.39 not found`** — votre distribution est plus ancienne que celle de
+compilation. [Recompilez sur votre poste](#compiler-depuis-les-sources).
 
-Une bibliothèque X11 manque. Installez les dépendances listées dans la section *Distributions testées*.
+**`qt.qpa.plugin: Could not load the Qt platform plugin "xcb"`** — il manque une
+bibliothèque X11. Relancez avec `QT_DEBUG_PLUGINS=1 ./pdfteleporter.sh` : la
+sortie nomme la bibliothèque absente. Dans neuf cas sur dix, c'est
+`libxcb-cursor0`.
 
-### `cannot open display`
+**`cannot open display`** — vous êtes en SSH sans display. L'application est
+graphique : il faut un bureau local, ou `ssh -X`.
 
-Vous êtes connecté en SSH sans display X11. PDFteleporter est une application graphique — il faut soit un environnement de bureau local, soit un SSH avec X11 forwarding (`ssh -X user@host`).
+**`Permission denied`** — `chmod +x PDFteleporter pdfteleporter.sh`.
 
-### Le binaire ne s'exécute pas (`Permission denied`)
+**Le PDF recomposé ne s'ouvre pas à la fin** — vous avez lancé le binaire
+directement au lieu de `pdfteleporter.sh`. Le lanceur nettoie `LD_LIBRARY_PATH`,
+sans quoi `xdg-open` hérite des bibliothèques embarquées.
 
-```bash
-chmod +x bin/PDFteleporter install.sh pdfteleporter
-```
+**L'icône n'apparaît pas dans le menu** —
+`update-desktop-database ~/.local/share/applications`, puis reconnectez la
+session. Vérifiez aussi que les chemins du `.desktop` pointent bien où le
+dossier se trouve.
 
-### L'icône ne s'affiche pas dans le menu après installation
+**Les valeurs saisies ressortent en « ti »** — vous utilisez une version
+antérieure à la v1.1.0. Voir le [correctif ci-dessus](#correctif-okular).
+Les archives déjà produites doivent être recompactées depuis le PDF d'origine.
 
-Forcez la mise à jour des caches :
-
-```bash
-update-desktop-database ~/.local/share/applications
-gtk-update-icon-cache -f -t ~/.local/share/icons/hicolor
-```
-
-Puis déconnectez et reconnectez votre session.
-
-### Le PDF recomposé apparaît avec un fond noir
-
-Vous utilisez une version antérieure à 1.0.1. Téléchargez la dernière version — la v1.0.1 a introduit le correctif pour les PDF générés par Microsoft Print To PDF et Microsoft Word LTSC (la v1.0.7 le conserve).
-
-### Les textes débordent des cellules de tableaux à la recomposition
-
-Vous utilisez une version antérieure à 1.0.2. Téléchargez la dernière version — la v1.0.2 a introduit le correctif du débordement des libellés dans les cellules colorées (Bilan humain, Moyens engagés, Activité de secours…). Les archives `.psdi` produites par les versions antérieures sont automatiquement rendues correctement par la v1.0.7.
-
-### Les textes débordent encore sur les PDF Excel à très petites fontes
-
-Spécifique aux PDF Excel à fontes ~4 pt avec des cellules optimisées au pixel près. La v1.0.5 (et v1.0.7) ajoute une compensation de la marge interne de l'engine HTML PyMuPDF (élargissement de 0.5 pt de chaque côté du bbox) et un mécanisme d'auto-réduction de la taille de police (`scale_low=0.5`) pour faire tenir le texte sans le tronquer.
-
-### Caractères accentués corrompus (Situa�on, qui�é, Éduca�on, lu�e…)
-
-Spécifique aux PDF générés par **LibreOffice** qui utilise des glyphes de ligature non standard (Ɵ pour `ti`, Ʃ pour `tt`) que PyMuPDF convertit en `U+FFFD` (caractère de remplacement). La v1.0.5 (et v1.0.7) décompose automatiquement ces ligatures et restaure les mots français corrects (Situation, quitté, Éducation, lutte, routier, pollution…) via une heuristique contextuelle.
-
-### Les cases à cocher des formulaires (AcroForm) disparaissent à la recomposition
-
-Spécifique aux PDF formulaires opérationnels remplis (SITREP ADRASEC, fiches COD/SIDPC, BRM Winlink…). Vous utilisez une version antérieure à 1.0.5 : l'état coché/non coché vit dans l'apparence `/AP /N` du widget que ni `get_text` ni `get_drawings` n'extraient. La v1.0.5 a introduit la conservation de la position des cases cochées dans le manifeste (clé `ck`) et le redessin vectoriel à la recomposition. La v1.0.7 affine le tracé géométrique du V (`draw_polyline` à la place de `draw_line`) pour un rendu net même sur les très petites cases.
+**Fond noir, texte débordant des cellules, accents corrompus, cases à cocher
+disparues** — correctifs des v1.0.1 à v1.0.7, tous présents ici. Si vous les
+observez encore, vous utilisez une version antérieure : voir le
+[CHANGELOG](../CHANGELOG.md).
 
 ---
 
+## 📚 Documentation
 
-## 📚 Documentation associée
-
-- 📘 **[Manuel utilisateur (MEMO-PDFteleporter_MANUEL.pdf)](../doc/MEMO-PDFteleporter_MANUEL.pdf)** — Guide pas-à-pas (Windows + Linux)
-- 📋 **[Fiche de présentation](../doc/PDFteleporter_FICHE_PRESENTATION.pdf)** — Synthèse opérationnelle
-- 🪟 **[Version Windows](https://github.com/f1gbd/F1GBD/tree/master/pdfteleporter)** — README et téléchargement Windows
+- 📘 **[Manuel utilisateur](../doc/MEMO-PDFteleporter_MANUEL.pdf)** — guide pas-à-pas
+- 📋 **[Fiche de présentation](../doc/PDFteleporter_FICHE_PRESENTATION.pdf)** — synthèse d'une page
+- 📝 **[CHANGELOG](../CHANGELOG.md)** — historique complet des versions
+- 🪟 **[Version Windows](../README.md)** — README et téléchargement
 
 ---
 
 ## 🤝 Communauté
 
-PDF Teleporter est un **projet open développé pour la communauté ADRASEC**, proposé librement aux opérateurs ADRASEC départementales et à la FNRASEC.
+PDF Teleporter est un projet ouvert développé pour la communauté ADRASEC,
+proposé librement aux ADRASEC départementales et à la FNRASEC. Il complète
+l'écosystème **TCQ / IAbrain / SATER SIM**.
 
-L'application complète l'écosystème **TCQ / IAbrain / SATER SIM** dans la chaîne d'outils de communications d'urgence en sécurité civile.
+La version Linux est particulièrement adaptée aux **stations de campagne** (en
+complément de direwolf, fldigi, hamlib), aux **opérateurs migrés sous Linux**,
+aux **VM de formation** distribuées en section, et aux **postes mutualisés** des
+cellules de coordination.
 
-La version Linux est particulièrement adaptée :
-
-- 🥧 Aux **stations Raspberry Pi de campagne** (déjà utilisées pour direwolf, fldigi, hamlib)
-- 💻 Aux **opérateurs migrés sous Linux** pour leur poste personnel
-- 🎓 Aux **VM de formation** distribuées en section
-- 🏢 Aux **postes mutualisés** sous Linux des cellules de coordination FNRASEC
-
-Toute contribution, retour d'expérience et proposition d'amélioration sont bienvenus via les *Issues* du dépôt GitHub.
+Retours d'expérience et propositions sont bienvenus via les *Issues* du dépôt.
 
 ---
 
 <div align="center">
 
-### 📡 Auteur
-
-**Jean-Louis Naudin (F1GBD / F4JHW)**
+**Jean-Louis Naudin (F1GBD)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.0.7 Linux — Juin 2026**
-
----
+**Paquet Linux v1.1.0 — Septembre 2026** · *application v2.1.0*
 
 *Pour toute question, contactez votre référent ADRASEC départemental.*
 
-🐧 **PDF Teleporter Linux** — *La téléportation radio des documents au service de la sécurité civile*
+🐧 **PDF Teleporter** — *La téléportation radio des documents au service de la sécurité civile*
 
 </div>
