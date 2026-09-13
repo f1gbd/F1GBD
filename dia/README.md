@@ -4,9 +4,9 @@
 
 ### Dialogue autonome entre deux IA, arbitré par un troisième — un outil d'aide à la recherche par IA
 
-*Conversation scientifique guidée — Investigateur & Analyste — **Génération de preset depuis un PDF — SCENARIO/SITREP → preset auto / JDR / Vibe Research (v1.9)** — **Question directe au LLM1 (v1.9)** — **Mode CHAT — l'opérateur (ou la protagoniste) joué en direct par un humain dans le scénario (v1.8)** — **Mode Jeu de Rôle / Simulation — narrateur · joueur · injecteur d'événements, rôles personnalisables par preset (v1.7)** — **Curseur Créativité / innovation 0–100 % qui fait proposer de nouveaux concepts (v1.5)** — **Rendu Markdown du dialogue + synthèse vocale assainie (v1.4)** — **Enrichissement par le web de l'Investigateur — DuckDuckGo / SearXNG (v1.3)** — **Auto-export des fiches vers IAbrain (v1.3)** — **Modérateur conversationnel qui fait converger le dialogue vers une solution (v1.2)** — Presets de sujet importables/exportables (v1.2) — Mode ADRASEC enrichi (modérateur RAG) — Ollama local & cloud — Mémoire glissante — Détection de dérive linguistique — Synthèse vocale SAPI5 deux voix — Synchronisation dialogue/voix — Export JSON / Markdown / RTF — Thèmes secondaires guidés — Configuration persistante*
+*Conversation scientifique guidée — Investigateur & Analyste — **Plugins d'entrées-sorties Python — les LLM lisent des mesures réelles (v1.10)** — **Actions, mesures et attentes — un LLM déclenche un acte, attend un état, puis reprend (v1.11)** — **Plugin météo AROME France HD et règle des 3 × 30 (v1.11)** — **Génération de preset depuis un PDF — SCENARIO/SITREP → preset auto / JDR / Vibe Research (v1.9)** — **Question directe au LLM1 (v1.9)** — **Mode CHAT — l'opérateur (ou la protagoniste) joué en direct par un humain dans le scénario (v1.8)** — **Mode Jeu de Rôle / Simulation — narrateur · joueur · injecteur d'événements, rôles personnalisables par preset (v1.7)** — **Curseur Créativité / innovation 0–100 % qui fait proposer de nouveaux concepts (v1.5)** — **Rendu Markdown du dialogue + synthèse vocale assainie (v1.4)** — **Enrichissement par le web de l'Investigateur — DuckDuckGo / SearXNG (v1.3)** — **Auto-export des fiches vers IAbrain (v1.3)** — **Modérateur conversationnel qui fait converger le dialogue vers une solution (v1.2)** — Presets de sujet importables/exportables (v1.2) — Mode ADRASEC enrichi (modérateur RAG) — Ollama local & cloud — Mémoire glissante — Détection de dérive linguistique — Synthèse vocale SAPI5 deux voix — Synchronisation dialogue/voix — Export JSON / Markdown / RTF — Thèmes secondaires guidés — Configuration persistante*
 
-[![Version](https://img.shields.io/badge/version-dia--v1.9.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/dia-v1.9.0)
+[![Version](https://img.shields.io/badge/version-dia--v1.11.3-blue)](https://github.com/f1gbd/F1GBD/releases/tag/dia-v1.11.3)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![Local / Cloud](https://img.shields.io/badge/Ollama-local%20%2F%20cloud-brightgreen.svg)]()
@@ -15,11 +15,13 @@
 [![Jeu de Rôle](https://img.shields.io/badge/v1.7-mode%20jeu%20de%20r%C3%B4le-9b59b6.svg)]()
 [![Mode CHAT](https://img.shields.io/badge/v1.8-mode%20CHAT%20op%C3%A9rateur%20r%C3%A9el-7a2e8a.svg)]()
 [![PDF vers preset](https://img.shields.io/badge/v1.9-preset%20depuis%20PDF-2ea44f.svg)]()
+[![Plugins](https://img.shields.io/badge/v1.10-plugins%20E%2FS%20Python-0b7285.svg)]()
+[![Actions](https://img.shields.io/badge/v1.11-actions%20%C2%B7%20mesures%20%C2%B7%20attentes-c0392b.svg)]()
 [![Modérateur](https://img.shields.io/badge/mode-mod%C3%A9rateur%20conversationnel-teal.svg)]()
 [![RAG](https://img.shields.io/badge/mode-ADRASEC%20enrichi-orange.svg)]()
 [![Web](https://img.shields.io/badge/v1.3-enrichissement%20web-blue.svg)]()
 
-### 📥 [**Télécharger la dernière version (v1.9.0)**](https://github.com/f1gbd/F1GBD/releases/download/dia-v1.9.0/d-IA.7z)
+### 📥 [**Télécharger la dernière version (v1.11.3)**](https://github.com/f1gbd/F1GBD/releases/download/dia-v1.11.3/d-IA.7z)
 
 </div>
 
@@ -44,6 +46,97 @@ Tout tourne **localement** par défaut (modèles Ollama auto-hébergés), avec u
 [**Créer son Serveur IAbrain pour la gestion des connaissances et qui fonctionne 100% hors-ligne.**](https://github.com/f1gbd/F1GBD/blob/master/iabrain/Documentations%20IAbrain/MEMO%20-%20Cr%C3%A9er_un_Serveur_IA_M1A_IAbrain.pdf)
 
 > 💡 **La différence clé de la v1.2** : jusqu'ici, deux IA pouvaient explorer un sujet sans jamais conclure. Désormais, un modérateur garde le cap et **force la convergence vers une solution** — d-IA devient un véritable assistant de recherche, pas seulement un générateur de dialogue.
+
+---
+
+## 🔌 Nouveautés v1.10 & v1.11 — Plugins d'entrées-sorties : d-IA regarde le réel, agit, et attend
+
+Jusqu'à la v1.9, les trois LLM ne connaissaient du monde que ce que l'opérateur avait tapé dans le sujet et les thèmes. Un exercice restait une fiction close : la météo du scénario était celle du scénario, pas celle du jour.
+
+Les **plugins d'entrées-sorties** ouvrent cette boucle. Un plugin est un **simple fichier Python** déposé dans le dossier `plugins_dia\`, à côté de l'application. d-IA le charge au démarrage, l'appelle à chaque tour, et **injecte ce qu'il rapporte dans le prompt des trois modèles**, sous un bloc `DONNÉES DE SITUATION`.
+
+### 📥 v1.10 — Les variables de situation
+
+Un plugin déclare ses variables et les remplit à chaque tour :
+
+```python
+PLUGIN_NAME = "Propagation HF"
+
+def list_variables():
+    return [("SFI", "Flux solaire 10,7 cm"), ("KP", "Indice geomagnetique Kp")]
+
+def collect(ctx):
+    return {"SFI": "128", "KP": "3 (calme)"}
+```
+
+Les trois LLM lisent ces valeurs comme ils liraient un point de situation, et raisonnent dessus. Le contrat reprend celui des **plugins IAbrain**, pour que ce qui est appris d'un côté serve de l'autre. Deux hooks : `collect(ctx)` avant chaque prise de parole (**l'entrée**), `on_message(msg, ctx)` après (**la sortie** — notation automatique d'un SITREP, écriture d'une main courante…).
+
+Trois plugins d'exemple sont livrés : `exemple_minimal.py`, `propagation_vars.py` (entrée) et `sitrep_scoring.py` (sortie).
+
+Sans écrire une ligne de Python, le menu **🔌 Plugins E/S → Variables de session** permet aussi de saisir ses propres variables à la main — l'équivalent du `/set` d'IAbrain.
+
+### ⚡ v1.11 — Actions, mesures et attentes
+
+Un plugin peut désormais **exposer des actions**, et un LLM les appeler en écrivant une **directive seule sur sa ligne** :
+
+```
+ACTION: mesure_meteo(lieu=melun)
+ATTENDRE: RELEVE_AGE_MIN < 2 delai=300
+```
+
+- **`ACTION:` / `MESURE:`** — déclencher un acte ou une mesure. Le résultat **devient une variable**, donc il est relu par les trois LLM au tour suivant.
+- **`ATTENDRE: VARIABLE <op> valeur delai=N`** — suspendre le dialogue jusqu'à ce qu'une condition soit vraie (opérateurs `>`, `>=`, `<`, `<=`, `=`, `!=`, `contient`), puis reprendre. L'attente est **interruptible** et **bornée**.
+
+Trois modes d'exécution, au choix de l'opérateur (menu **🔌 Plugins E/S**, clé de preset `plugins_actions_mode`) :
+
+| Mode | Effet |
+|---|---|
+| `auto` | L'action est exécutée. |
+| `confirmer` | Une boîte de dialogue demande votre accord **avant chaque action**. |
+| `off` | La directive est journalisée, **rien n'est exécuté** — le mode à imposer dans un preset d'exercice. |
+
+> ⚠️ **Un scénario de crise est fait de consignes d'action.** Tant qu'un exercice fictif partage le même dispositif qu'un pilotage réel, c'est le dispositif qui doit trancher : mettez `"plugins_actions_mode": "off"` dans vos presets d'exercice, et retirez de `plugins_dia\` les plugins qui commandent du matériel pendant les séances.
+
+Les plugins sont aussi actifs **en mode recherche** (Investigateur / Analyste / Modérateur), et plus seulement en Jeu de Rôle : un dialogue scientifique peut conduire une campagne de mesures — demander un relevé, attendre, comparer, demander une variation.
+
+### 🌡️ Le plugin météo livré — AROME France HD et la règle des 3 × 30
+
+`meteo_3x30.py` injecte la **température, le vent, les rafales et l'humidité** réels d'un site, issus du modèle **AROME France HD de Météo-France** (~1,5 km, via Open-Meteo), et l'état de la **règle des 3 × 30** — T ≥ 30 °C **et** vent ≥ 30 km/h **et** HR ≤ 30 %, qui caractérise un danger extrême de feu de végétation :
+
+```
+REGLE_3X30     = 2 critere(s) sur 3 - vigilance elevee
+                 [regle : T >= 30 C ET vent >= 30 km/h ET HR <= 30 %]
+CRITERES_3X30  = temperature 31.4 C (seuil >= 30) OUI /
+                 vent 33 km/h (seuil >= 30) OUI /
+                 humidite 36 % (seuil <= 30) non
+LIEU_METEO     = Melun (prefecture 77) (48.61, 2.68)
+RELEVE_AGE_MIN = 4
+```
+
+Le calcul n'est pas réécrit : quand la bibliothèque `meteo_lib.py` de **TCQ** est accessible, le plugin l'importe et appelle sa fonction `rule_3x30()` — une seule implémentation de la règle pour les deux applications.
+
+Le plugin **ne va jamais sur le réseau** (un plugin dispose de 2 secondes par appel) : il lit un fichier local écrit par son collecteur `meteo_3x30_collecte.py`, lançable à la main, en tâche planifiée, ou **par le LLM lui-même** via une action.
+
+**Une variable se suffit à elle-même.** Chaque valeur est publiée avec son unité, son lieu, son âge et **le seuil selon lequel on la juge**. Un modèle de langage comble ce qu'on ne lui donne pas : privé du critère, il en invente un plausible pour justifier son verdict.
+
+**Règle de lieu (v1.11.2)** : un relevé appartient à un seul site. Si l'on demande `mesure_meteo(lieu=melun)` alors que le dernier relevé concerne Nangeville, le plugin **ne publie aucune de ses valeurs** — il lance l'acquisition de Melun et le dit. Attribuer à une commune des mesures faites ailleurs, sur une règle de danger de feu, n'est pas une approximation acceptable.
+
+### 🛡️ Garde-fous
+
+| Garde-fou | Valeur |
+|---|---|
+| Temps accordé à un plugin par appel | **2 s** (10 s pour une action) |
+| Deux dépassements de suite | Le plugin est **désactivé pour la séance** |
+| Directives par message | **3 au maximum** |
+| Variables publiées / longueur d'une valeur | **12** / **160 caractères** |
+| Attente | **bornée**, interruptible, scrutée par appels courts |
+| Plugin en erreur | **Jamais bloquant** : le dialogue continue, l'incident est journalisé |
+
+### 📘 Documentation de formation
+
+- 📄 [**MÉMO — d-IA v1.11.3 : tutoriel plugins Python**](formation/MEMO_d-IA_v1.11.3_tutoriel_plugins.pdf) — 41 pages : architecture, contrat d'interface, deux cas d'étude complets, actions et attentes, retour de séance sur la fidélité des données, **12 exercices avec corrigés**.
+- 📄 [**Tutoriel — rédiger un preset d-IA (scénario HÉLIOS NOIR 26)**](formation/Tutoriel_preset_d-IA_v1.9_HELIOS_NOIR_26.pdf) — de la lecture du scénario au preset jouable à 3 LLM ou à 2 LLM + un opérateur humain.
+- 📄 `plugins_dia\README.md` — le contrat d'interface en version courte, livré avec l'application.
 
 ---
 
@@ -226,6 +319,8 @@ IAbrain /index ou /reindex → interrogeable en langage naturel
 
 | Icône | Fonctionnalité | Description |
 |:---:|---|---|
+| 🔌 | **Plugins d'entrées-sorties Python (v1.10)** | Un simple fichier `.py` déposé dans `plugins_dia\` injecte des **variables de situation réelles** dans le prompt des trois LLM (bloc `DONNÉES DE SITUATION`) : propagation HF, météo, état d'un relais… Deux hooks — `collect(ctx)` avant chaque prise de parole, `on_message(msg, ctx)` après — et **le même contrat que les plugins IAbrain**. Variables de session saisissables à la main, sans code. Plugins livrés : `exemple_minimal.py`, `propagation_vars.py`, `sitrep_scoring.py`, `meteo_3x30.py`. |
+| ⚡ | **Actions, mesures et attentes (v1.11)** | Un LLM peut **agir** et **attendre** : `ACTION: mesure_meteo(lieu=melun)` déclenche un acte ou une mesure dont le résultat devient une variable, `ATTENDRE: RELEVE_AGE_MIN < 2 delai=300` suspend le dialogue jusqu'à ce que la condition soit vraie, puis le relance. Trois modes — `auto`, `confirmer` (validation humaine avant chaque action), `off` (journalisé, non exécuté) — transportés par les presets. Actif **aussi en mode recherche**. Timeouts, plafonds et désactivation automatique d'un plugin défaillant : un plugin ne bloque jamais le dialogue. |
 | 🎙️ | **Mode CHAT — opérateur acteur réel (v1.8)** | Bascule **opt-in** : **vous jouez le LLM2** (Analyste = opérateur ADRASEC de terrain ou protagoniste du récit). À votre tour, une **zone de saisie** s'ouvre sous la conversation et le dialogue attend votre message (Ctrl+Entrée pour envoyer). Le **LLM1** (COD / Maître du Jeu) répond, le **LLM3** injecte les événements : vraie interactivité pour l'entraînement au trafic radio ou le jeu de rôle. Message étiqueté **« (vous) »**, jamais lu par le TTS. Persisté et transporté par les presets (`chat_humain_actif`). |
 | 🎭 | **Mode Jeu de Rôle / Simulation (v1.7)** | Bascule **opt-in** qui détourne le trio de LLM : **LLM1 anime/ouvre**, **LLM2 réagit**, **LLM3 injecte un événement** tous les K tours (au lieu d'arbitrer). Sans preset, rôles de **fiction** (Maître du Jeu / Joueur / Injecteur) ; un preset peut définir des **rôles personnalisés** via `jdr_profil` — ex. **simulation ADRASEC** (COD / opérateur de terrain / injecteur de crise, scénario HÉLIOS NOIR). Réutilise le modérateur conversationnel comme injecteur. Décochée : comportement strictement identique à la v1.5. |
 | ✨ | **Créativité / innovation pilotable (v1.5)** | Un curseur **0–100 %** qui fait **proposer de nouveaux concepts** à partir de la requête initiale : boost *additif* de température/top_p **et** directive d'innovation **adaptée au rôle** (Investigateur bref, Analyste moteur à concepts, Modérateur qui chiffre). Pistes préfixées `PISTE INNOVANTE :` (qui devient `ACTION :` en jeu de rôle pur ou `DEMANDE POUR ACTION :` en simulation ADRASEC, v1.7), signalées exploratoires et évaluées. **Budget de tokens auto-ajusté** (anti-troncature). À **0 %** : comportement opérationnel strict, identique à la v1.4. |
@@ -611,6 +706,41 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 ---
 
 ## 📜 Historique des versions
+
+### v1.11.3 — Septembre 2026 — Le balisage retiré ne doit pas être du contenu
+
+- 🛠️ **L'assainissement des valeurs de plugin changeait leur sens.** Pour éviter que les modèles n'imitent du Markdown, toute valeur était privée des caractères `` ` `` `*` `_` `#` `>` `|`. Deux d'entre eux sont du contenu, pas du balisage : le **souligné** (« attendre `RELEVE_AGE_MIN < 2` » arrivait au modèle en « attendre RELEVEAGEMIN < 2 », un nom de variable inexistant qu'il recopiait dans une directive impossible à satisfaire) et le **chevron** (`>= 30` devenait `= 30`, un seuil minimal transformé en égalité — un contresens sur une règle de vigilance). Seuls `` ` `` `*` `|` sont désormais retirés partout ; `>` et `#` seulement en **début** de valeur, là où ils ouvriraient une citation ou un titre.
+- 🛠️ **Plugin `meteo_3x30` v1.8 — les seuils accompagnent les valeurs.** `CRITERES_3X30` donnait la valeur et le verdict mais pas le critère : le modèle en fabriquait un pour justifier sa conclusion (« l'humidité est inférieure à 80 % », seuil qui n'existe nulle part). `REGLE_3X30` rappelle la règle complète, et chaque critère porte son seuil.
+- 🛠️ **Plugin `meteo_3x30` v1.7 — toute attente doit pouvoir aboutir.** Un relevé du bon site jugé « assez frais » ne déclenchait aucune acquisition, alors que le catalogue prescrivait d'attendre `RELEVE_AGE_MIN < 2` : le dialogue scrutait 600 s un compteur qui ne pouvait que monter. `MESURE_RESULTAT` dit désormais s'il faut attendre ou répondre, le catalogue prescrit de le lire, et le seuil de fraîcheur passe de 20 min à 2 min.
+
+### v1.11.2 — Septembre 2026 — Fidélité des données affichées
+
+- 🛠️ **Le souligné intra-mot n'est plus interprété comme de l'italique** : `RELEVE_AGE_MIN` s'affichait `RELEVEAGEMIN` dans le fil. La directive s'exécutait correctement — seul l'affichage mentait — mais en formation, l'opérateur qui recopiait la ligne projetée obtenait un nom de variable faux. Le souligné n'ouvre désormais une emphase qu'**en bordure de mot** (règle de CommonMark, déjà appliquée par le nettoyage TTS depuis la v1.4).
+- 🛠️ **Plugin `meteo_3x30` v1.6 — règle de lieu** : `mesure_meteo(lieu=…)` résout le site demandé et **ne rend jamais le relevé d'un autre site** ; il déclenche l'acquisition du bon site et le signale. Nouvelle variable `LIEU_DEMANDE`, distincte de `LIEU_METEO`. Vent et rafales publiés avec leur décimale, comme la température : un arrondi est une information perdue, qu'un modèle comble volontiers de lui-même.
+
+### v1.11.1 — Septembre 2026 — La question au LLM1 voit les plugins
+
+- 🛠️ **La question directe au LLM1 était aveugle aux plugins** : son prompt était construit à part, sans les variables, et ses directives n'étaient pas traitées. Demander « relève la météo » ne déclenchait rien.
+- ⚙️ Extraction d'une classe **`MoteurPlugins`** partagée par la boucle de dialogue et les appels hors dialogue : une seule implémentation des variables, des actions et des attentes.
+- ➕ **Relance automatique** : si la réponse contenait des directives qui ont produit un résultat, d-IA réinterroge **une** fois le modèle avec les données fraîches, pour qu'il réponde à la question au lieu de redemander une mesure.
+
+### v1.11.0 — Septembre 2026 — Le LLM agit, mesure et attend
+
+- ➕ **Actions et mesures demandées par les LLM** : `list_actions()` / `execute_action()` — même contrat que les plugins IAbrain. Le catalogue est injecté dans le prompt ; le modèle appelle une action par une directive seule sur sa ligne. Le résultat devient une variable.
+- ➕ **Attente d'une mesure ou d'un état** : `ATTENDRE: TEMPERATURE_C >= 30 delai=600`, opérateurs `>`, `>=`, `<`, `<=`, `=`, `!=`, `contient`. Attente bornée, interruptible, scrutée par appels courts — le timeout de 2 s par appel de plugin reste intact.
+- ➕ **Trois modes d'exécution** (`auto`, `confirmer`, `off`), persistés et transportés par les presets (`plugins_actions_mode`, `plugins_attente_max_s`).
+- ➕ **Plugins actifs aussi en mode recherche** : le bloc de variables est injecté dans les gabarits Investigateur / Analyste / Modérateur, et plus seulement en Jeu de Rôle.
+- ➕ **Plugin `meteo_3x30.py`** : météo réelle **AROME France HD** (Météo-France, via Open-Meteo) et **règle des 3 × 30**. Réutilise `meteo_lib.py` de **TCQ** quand elle est accessible. Livré avec son collecteur `meteo_3x30_collecte.py` (options `--simuler`, `--boucle`, `--sortie`).
+
+### v1.10.0 — Septembre 2026 — Plugins d'entrées-sorties Python
+
+- ➕ **Dossier `plugins_dia\`** créé au démarrage, chargé automatiquement. Un plugin est un fichier `.py` isolé : `list_variables()`, `collect(ctx)`, `on_message(msg, ctx)`.
+- ➕ **Bloc `DONNÉES DE SITUATION`** injecté dans les prompts des trois rôles (emplacement `{variables}` des gabarits).
+- ➕ **Variables de session** : saisie manuelle de variables sans écrire de code (équivalent du `/set` d'IAbrain).
+- ➕ Menu **🔌 Plugins E/S** : activation, liste, rechargement à chaud, variables de session.
+- ➕ Plugins d'exemple livrés : `exemple_minimal.py`, `propagation_vars.py` (entrée), `sitrep_scoring.py` (sortie, notation automatique des SITREP en RETEX).
+- 🛡️ **Garde-fous** : 2 s par appel, désactivation après deux dépassements, plafonds de nombre et de longueur, assainissement des valeurs. Un plugin en erreur ne bloque jamais le dialogue.
+- ✅ Sans plugin dans le dossier, **comportement strictement identique à la v1.9**.
 
 ### v1.9.0 — Juin 2026 — Génération de preset depuis un PDF & question au LLM1
 
