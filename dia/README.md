@@ -45,6 +45,8 @@ Tout tourne **localement** par défaut (modèles Ollama auto-hébergés), avec u
 
 [**Créer son Serveur IAbrain pour la gestion des connaissances et qui fonctionne 100% hors-ligne.**](https://github.com/f1gbd/F1GBD/blob/master/iabrain/Documentations%20IAbrain/MEMO%20-%20Cr%C3%A9er_un_Serveur_IA_M1A_IAbrain.pdf)
 
+<img src="images/d-IA_COD.png" alt="Serveur dédié IA" width="1024">
+
 > 💡 **La différence clé de la v1.2** : jusqu'ici, deux IA pouvaient explorer un sujet sans jamais conclure. Désormais, un modérateur garde le cap et **force la convergence vers une solution** — d-IA devient un véritable assistant de recherche, pas seulement un générateur de dialogue.
 
 ---
@@ -112,6 +114,8 @@ CRITERES_3X30  = temperature 31.4 C (seuil >= 30) OUI /
 LIEU_METEO     = Melun (prefecture 77) (48.61, 2.68)
 RELEVE_AGE_MIN = 4
 ```
+
+<img src="images/d-IA_plugins.png" alt="Serveur dédié IA" width="1024">
 
 Le calcul n'est pas réécrit : quand la bibliothèque `meteo_lib.py` de **TCQ** est accessible, le plugin l'importe et appelle sa fonction `rule_3x30()` — une seule implémentation de la règle pour les deux applications.
 
