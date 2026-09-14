@@ -60,7 +60,7 @@ C'est mot pour mot ce que d-IA sait faire depuis la v1.7 — à une chose près,
 
 La **v1.11.11** apporte le chaînon manquant : le plugin **`chronogramme.py`**. d-IA cesse d'improviser et tient le rôle du **DIRANIM** — le directeur de l'animation.
 
-<img src="images/d-IA_COD.png" alt="d-IA en exercice cadre — point de situation au gabarit de la Sécurité Civile" width="1024">
+<img src="images/d-IA_COD.png" alt="d-IA en exercice cadre — point de situation au gabarit de la Sécurité Civile" width="2048">
 
 *Séquence 1 d'HÉLIOS NOIR 26 : le COD ouvre le trafic par une directive numérotée, l'opérateur du PCO répond par un **point de situation au gabarit de l'annexe 1** — situation générale, situation par sites, impacts collatéraux, bilan des victimes, décisions prises — et termine par la formule de trafic réglementaire.*
 
@@ -209,6 +209,7 @@ CRITERES_3X30  = temperature 31.4 C (seuil >= 30) OUI /
 LIEU_METEO     = Melun (prefecture 77) (48.61, 2.68)
 RELEVE_AGE_MIN = 4
 ```
+<img src="images/d-IA_plugins.png" alt="d-IA Metéo AROME" width="2048">
 
 Le calcul n'est pas réécrit : quand la bibliothèque `meteo_lib.py` de **TCQ** est accessible, le plugin l'importe et appelle sa fonction `rule_3x30()` — une seule implémentation de la règle pour les deux applications.
 
