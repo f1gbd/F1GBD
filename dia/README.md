@@ -232,8 +232,8 @@ Le plugin **ne va jamais sur le réseau** (un plugin dispose de 2 secondes par a
 
 ### 📘 Documentation de formation
 
-- 📄 [**MÉMO — d-IA v1.11.3 : tutoriel plugins Python**](formation/MEMO_d-IA_v1.11.3_tutoriel_plugins.pdf) — 41 pages : architecture, contrat d'interface, deux cas d'étude complets, actions et attentes, retour de séance sur la fidélité des données, **12 exercices avec corrigés**.
-- 📄 [**Tutoriel — rédiger un preset d-IA (scénario HÉLIOS NOIR 26)**](formation/Tutoriel_preset_d-IA_v1.9_HELIOS_NOIR_26.pdf) — de la lecture du scénario au preset jouable à 3 LLM ou à 2 LLM + un opérateur humain.
+- 📄 [**MÉMO — d-IA v1.11.11 : tutoriel plugins Python**](formation/MEMO_d-IA_v1.11.11_tutoriel_plugins.pdf) — 41 pages : architecture, contrat d'interface, deux cas d'étude complets, actions et attentes, retour de séance sur la fidélité des données, **12 exercices avec corrigés**.
+- 📄 [**Tutoriel — rédiger un preset d-IA (scénario HÉLIOS NOIR 26)**](formation/Tutoriel_preset_d-IA_v1.11.11_HELIOS_NOIR_26.pdf) — de la lecture du scénario au preset jouable à 3 LLM ou à 2 LLM + un opérateur humain.
 - 📄 [**Note de conformité — HÉLIOS NOIR 26 et la doctrine « exercice cadre »**](formation/HELIOS_NOIR_26_conformite_exercice_cadre.pdf) — 16 pages : ce que la doctrine exige, ce que la simulation fait déjà, ce qu'il fallait corriger — et le cahier des charges pré-rempli au modèle officiel.
 - 📄 [**Fiche réflexe — lancer l'exercice cadre HÉLIOS NOIR 26**](formation/FICHE_REFLEXE_HELIOS_NOIR_26.pdf) — 5 pages à poser au poste du DIRANIM : armement en sept étapes, pupitre, FINEX, RETEX, dépannage.
 - 📄 `plugins_dia\README.md` — le contrat d'interface en version courte, livré avec l'application.
