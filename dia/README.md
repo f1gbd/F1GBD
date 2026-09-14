@@ -140,7 +140,6 @@ Les deux presets de formation ont été mis en conformité :
 
 ### 📘 Les documents livrés
 
-- 📄 [**Note de conformité — HÉLIOS NOIR 26 et la doctrine « exercice cadre »**](formation/HELIOS_NOIR_26_conformite_exercice_cadre.pdf) — 16 pages : analyse d'écart point par point, cahier des charges pré-rempli au modèle officiel, et un extrait de chronogramme au format doctrine (en paysage, comme le guide l'exige).
 - 📄 [**Fiche réflexe — lancer l'exercice cadre HÉLIOS NOIR 26**](formation/FICHE_REFLEXE_HELIOS_NOIR_26.pdf) — 5 pages à poser au poste : montage à J-7, poste à J-1, armement à H-15 en sept étapes, pupitre du DIRANIM, FINEX, RETEX et dépannage.
 - 📄 `plugins_dia\chronogramme_helios_noir_26.csv` — le chronogramme complet de la séquence 7 : 9 injects et 5 incidents de réserve.
 
