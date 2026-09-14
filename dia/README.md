@@ -4,9 +4,9 @@
 
 ### Dialogue autonome entre deux IA, arbitré par un troisième — un outil d'aide à la recherche par IA
 
-*Conversation scientifique guidée — Investigateur & Analyste — **Plugins d'entrées-sorties Python — les LLM lisent des mesures réelles (v1.10)** — **Actions, mesures et attentes — un LLM déclenche un acte, attend un état, puis reprend (v1.11)** — **Plugin météo AROME France HD et règle des 3 × 30 (v1.11)** — **Génération de preset depuis un PDF — SCENARIO/SITREP → preset auto / JDR / Vibe Research (v1.9)** — **Question directe au LLM1 (v1.9)** — **Mode CHAT — l'opérateur (ou la protagoniste) joué en direct par un humain dans le scénario (v1.8)** — **Mode Jeu de Rôle / Simulation — narrateur · joueur · injecteur d'événements, rôles personnalisables par preset (v1.7)** — **Curseur Créativité / innovation 0–100 % qui fait proposer de nouveaux concepts (v1.5)** — **Rendu Markdown du dialogue + synthèse vocale assainie (v1.4)** — **Enrichissement par le web de l'Investigateur — DuckDuckGo / SearXNG (v1.3)** — **Auto-export des fiches vers IAbrain (v1.3)** — **Modérateur conversationnel qui fait converger le dialogue vers une solution (v1.2)** — Presets de sujet importables/exportables (v1.2) — Mode ADRASEC enrichi (modérateur RAG) — Ollama local & cloud — Mémoire glissante — Détection de dérive linguistique — Synthèse vocale SAPI5 deux voix — Synchronisation dialogue/voix — Export JSON / Markdown / RTF — Thèmes secondaires guidés — Configuration persistante*
+*Conversation scientifique guidée — Investigateur & Analyste — **Simulation d'EXERCICE CADRE de la Sécurité Civile — chronogramme déroulé, réactions attendues, relance automatique et RETEX chiffré (v1.11.11)** — **Plugins d'entrées-sorties Python — les LLM lisent des mesures réelles (v1.10)** — **Actions, mesures et attentes — un LLM déclenche un acte, attend un état, puis reprend (v1.11)** — **Plugin météo AROME France HD et règle des 3 × 30 (v1.11)** — **Génération de preset depuis un PDF — SCENARIO/SITREP → preset auto / JDR / Vibe Research (v1.9)** — **Question directe au LLM1 (v1.9)** — **Mode CHAT — l'opérateur (ou la protagoniste) joué en direct par un humain dans le scénario (v1.8)** — **Mode Jeu de Rôle / Simulation — narrateur · joueur · injecteur d'événements, rôles personnalisables par preset (v1.7)** — **Curseur Créativité / innovation 0–100 % qui fait proposer de nouveaux concepts (v1.5)** — **Rendu Markdown du dialogue + synthèse vocale assainie (v1.4)** — **Enrichissement par le web de l'Investigateur — DuckDuckGo / SearXNG (v1.3)** — **Auto-export des fiches vers IAbrain (v1.3)** — **Modérateur conversationnel qui fait converger le dialogue vers une solution (v1.2)** — Presets de sujet importables/exportables (v1.2) — Mode ADRASEC enrichi (modérateur RAG) — Ollama local & cloud — Mémoire glissante — Détection de dérive linguistique — Synthèse vocale SAPI5 deux voix — Synchronisation dialogue/voix — Export JSON / Markdown / RTF — Thèmes secondaires guidés — Configuration persistante*
 
-[![Version](https://img.shields.io/badge/version-dia--v1.11.3-blue)](https://github.com/f1gbd/F1GBD/releases/tag/dia-v1.11.3)
+[![Version](https://img.shields.io/badge/version-dia--v1.11.11-blue)](https://github.com/f1gbd/F1GBD/releases/tag/dia-v1.11.11)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![Local / Cloud](https://img.shields.io/badge/Ollama-local%20%2F%20cloud-brightgreen.svg)]()
@@ -17,11 +17,12 @@
 [![PDF vers preset](https://img.shields.io/badge/v1.9-preset%20depuis%20PDF-2ea44f.svg)]()
 [![Plugins](https://img.shields.io/badge/v1.10-plugins%20E%2FS%20Python-0b7285.svg)]()
 [![Actions](https://img.shields.io/badge/v1.11-actions%20%C2%B7%20mesures%20%C2%B7%20attentes-c0392b.svg)]()
+[![Exercice cadre](https://img.shields.io/badge/v1.11.11-exercice%20cadre%20S%C3%A9curit%C3%A9%20Civile-1f3864.svg)]()
 [![Modérateur](https://img.shields.io/badge/mode-mod%C3%A9rateur%20conversationnel-teal.svg)]()
 [![RAG](https://img.shields.io/badge/mode-ADRASEC%20enrichi-orange.svg)]()
 [![Web](https://img.shields.io/badge/v1.3-enrichissement%20web-blue.svg)]()
 
-### 📥 [**Télécharger la dernière version (v1.11.3)**](https://github.com/f1gbd/F1GBD/releases/download/dia-v1.11.3/d-IA.7z)
+### 📥 [**Télécharger la dernière version (v1.11.11)**](https://github.com/f1gbd/F1GBD/releases/download/dia-v1.11.11/d-IA.7z)
 
 </div>
 
@@ -45,9 +46,103 @@ Tout tourne **localement** par défaut (modèles Ollama auto-hébergés), avec u
 
 [**Créer son Serveur IAbrain pour la gestion des connaissances et qui fonctionne 100% hors-ligne.**](https://github.com/f1gbd/F1GBD/blob/master/iabrain/Documentations%20IAbrain/MEMO%20-%20Cr%C3%A9er_un_Serveur_IA_M1A_IAbrain.pdf)
 
-<img src="images/d-IA_COD.png" alt="Serveur dédié IA" width="1024">
-
 > 💡 **La différence clé de la v1.2** : jusqu'ici, deux IA pouvaient explorer un sujet sans jamais conclure. Désormais, un modérateur garde le cap et **force la convergence vers une solution** — d-IA devient un véritable assistant de recherche, pas seulement un générateur de dialogue.
+
+---
+
+## 🚨 Nouveauté v1.11.11 — Simuler un **EXERCICE CADRE** de la Sécurité Civile
+
+Un **exercice cadre**, au sens du [guide méthodologique de la Direction de la Sécurité Civile](https://www.interieur.gouv.fr/content/download/31255/233926/file/Exercices_cadre_et_terrain.pdf), c'est un exercice *sur table*, en salle de crise, sans engagement de moyens sur le terrain :
+
+> « Les joueurs reçoivent des informations par radio, téléphone, fax, télévision, messagerie internet et doivent **analyser, synthétiser, puis réagir, rendre compte, faire des propositions, définir des priorités et faire des choix**. »
+
+C'est mot pour mot ce que d-IA sait faire depuis la v1.7 — à une chose près, et elle est décisive : **l'animation improvisait**. Le LLM3 tirait un événement au sort dans un répertoire, tous les K tours, sans lien avec un objectif. La doctrine fait exactement l'inverse : le tableau d'animation **se remplit de la droite vers la gauche**, en partant de la **réaction attendue** des joueurs. On choisit ensuite le destinataire, puis l'animateur émetteur, puis seulement on rédige l'événement, et enfin on décide du vecteur et de l'heure.
+
+La **v1.11.11** apporte le chaînon manquant : le plugin **`chronogramme.py`**. d-IA cesse d'improviser et tient le rôle du **DIRANIM** — le directeur de l'animation.
+
+<img src="images/d-IA_COD.png" alt="d-IA en exercice cadre — point de situation au gabarit de la Sécurité Civile" width="1024">
+
+*Séquence 1 d'HÉLIOS NOIR 26 : le COD ouvre le trafic par une directive numérotée, l'opérateur du PCO répond par un **point de situation au gabarit de l'annexe 1** — situation générale, situation par sites, impacts collatéraux, bilan des victimes, décisions prises — et termine par la formule de trafic réglementaire.*
+
+### 🧠 La configuration de modèles
+
+Celle de la capture ci-dessus, et celle des deux presets de formation :
+
+| Rôle | Modèle Ollama | Pourquoi celui-là |
+|---|---|---|
+| **LLM1 — COD Vaubourg** | `ministral-3:14b` | Il tient le registre opérationnel français et produit un point de situation structuré sur sept rubriques sans dériver. C'est le rôle le plus exigeant : il arbitre, priorise et alloue. |
+| **LLM2 — Opérateur PCO Nangeville** | `ministral-3:14b` | Même modèle, même exigence de forme : SITREP formaté, demandes chiffrées, discipline de trafic. En mode CHAT, c'est un stagiaire humain qui prend ce rôle. |
+| **LLM3 — Animation basse** | `qwen2.5:7b` | L'injecteur n'écrit que 2 à 4 phrases par intervention, et le chronogramme lui a retiré la conduite du scénario : un modèle léger suffit, et il laisse la VRAM aux deux joueurs. |
+
+Réglages transportés par les presets : `num_ctx` **16384**, `num_predict` **1400**, créativité **45 %**, fenêtre mémoire **10 tours**. Le `num_ctx` de 16384 n'est pas du confort : le prompt d'un joueur pèse environ 6 700 tokens une fois le persona, la mise en ambiance, la séquence et les variables de situation réunis.
+
+### 📅 Le chronogramme, écrit avant la séance
+
+Le formateur écrit son tableau dans un tableur, une ligne par événement, et le dépose dans `plugins_dia\` :
+
+```
+#EXERCICE=HELIOS NOIR 26 - sequence 7
+#DEBEX=2026-07-11 14:00
+#MINUTES_PAR_TOUR=5
+groupe_horaire;vecteur;emetteur;recepteur;evenement;reaction_attendue;detection;relance
+H+5;VARA FM;ANIBAS jouant l'EHPAD;LLM2;EXERCICE. Climatisation a l'arret depuis 11h,
+deux residents en hyperthermie.;SITREP formate et demande chiffree de carburant;
+carburant|litres|evacuation;EXERCICE. La directrice rappelle, un troisieme resident
+est en hyperthermie.
+```
+
+Le texte de l'événement accepte des **accolades** : `{TEMPERATURE_C}`, `{VENT_KMH}`, `{HUMIDITE_PCT}` sont remplies par le plugin météo. La mise en ambiance type du guide — *« il fait 25 degrés à l'ombre, le vent souffle à 5 km/h »* — se remplit donc toute seule avec des relevés **AROME France HD réels**.
+
+### ⏱️ Ce que le chronogramme change
+
+| | |
+|---|---|
+| **Une horloge d'exercice** | Les prises de parole deviennent des minutes de jeu. `HEURE_JEU` vaut `11/07 14h20 (H+20)` : les joueurs **lisent** l'heure au lieu de l'inventer. C'est la double colonne « groupe horaire (réel et H+X mn) » du guide. |
+| **Un inject, un destinataire** | Une ligne n'est publiée **qu'au tour du joueur désigné**. Le COD ne voit pas ce que reçoit le PCO : il l'apprendra si — et seulement si — l'information circule. C'est précisément ce qu'un exercice cadre cherche à tester dans un centre opérationnel. |
+| **La réaction attendue ne sort jamais** | Elle est lue, journalisée et pointée automatiquement, mais **jamais publiée** aux joueurs. C'est la règle « pas de divulgation » : *« un exercice faussé n'a aucun intérêt »*. |
+| **Pas de constat d'échec** | Si la réaction attendue ne vient pas au bout de 4 tours, l'événement **repart tout seul par un autre vecteur**. Le guide : *« il est préférable de relancer l'événement […] pour faire prendre conscience aux joueurs qu'ils ont raté quelque chose mais qu'ils ont encore le temps de réagir comme dans la réalité »*. |
+| **Incidents de réserve** | Les lignes marquées `RESERVE` ne se jouent jamais seules. Le formateur les sort quand le jeu va trop vite. |
+
+### 🎛️ Le pupitre du DIRANIM
+
+Par **Plugins E/S ▼ → Variables de session…**, en pleine séance :
+
+| Variable | Effet |
+|---|---|
+| `DIRANIM_AVANCE = 1` | Pousse l'inject suivant sans attendre l'heure |
+| `DIRANIM_RESERVE = 2` | Injecte l'incident de réserve n° 2 |
+| `DIRANIM_PAUSE = oui` | Fige l'horloge de jeu |
+| `MINUTES_PAR_TOUR = 10` | Change la cadence |
+| `DIRANIM_FINEX = oui` | Prononce le FINEX |
+
+Aucune de ces commandes n'est une **action** au sens de d-IA. Le formateur garde donc la main complète alors même que le preset d'exercice impose, **comme il le doit**, `"plugins_actions_mode": "off"` — et la seule action déclarée par le plugin, `chronogramme_etat`, est en **lecture seule**. Un COD fictif ne pilote pas le chronogramme de son propre exercice.
+
+### 📊 L'exercice devient évaluable
+
+C'est le vrai apport. Jusqu'ici, une séance produisait un dialogue ; il n'y avait rien à confronter en débriefing. Le chronogramme portant les réactions attendues, le plugin écrit une **main courante de RETEX** — `logs\retex_chronogramme_AAAAMMJJ.csv` — avec, pour chaque événement : l'heure réelle, l'heure de jeu, le vecteur, l'émetteur, le destinataire, la réaction attendue, **son pointage**, et l'extrait du message du joueur qui l'a produite.
+
+Au FINEX, le bilan s'affiche dans le fil :
+
+```
+[Plugin Chronogramme : FINEX - 9 inject(s), 6 reaction(s) attendue(s)
+ obtenue(s) sur 9 pointable(s), 2 relance(s).]
+```
+
+### 🎯 Les presets HÉLIOS NOIR 26 passent en v2.0
+
+Les deux presets de formation ont été mis en conformité :
+
+- le `sujet` est devenu une **mise en ambiance** — ce que les joueurs savent au DEBEX, et rien de plus. Les conséquences à venir en ont été retirées : les joueurs les découvrent par les messages qu'ils reçoivent ;
+- les **conventions d'exercice** y sont écrites et énoncées aux joueurs ;
+- le **gabarit du point de situation** de l'annexe 1 est imposé aux deux joueurs, avec sa rubrique *évolution possible* qui oblige à anticiper au lieu de constater ;
+- `persona3` devient une **ANIBAS d'appoint**, subordonnée au chronogramme, qui ne pose que des *conséquences* ; l'animation haute (COZ, COGIC) est tenue par le chronogramme ;
+- `"plugins_actions_mode": "off"` y figure — ce n'est plus une précaution, c'est une **convention d'exercice**.
+
+### 📘 Les documents livrés
+
+- 📄 [**Note de conformité — HÉLIOS NOIR 26 et la doctrine « exercice cadre »**](formation/HELIOS_NOIR_26_conformite_exercice_cadre.pdf) — 16 pages : analyse d'écart point par point, cahier des charges pré-rempli au modèle officiel, et un extrait de chronogramme au format doctrine (en paysage, comme le guide l'exige).
+- 📄 [**Fiche réflexe — lancer l'exercice cadre HÉLIOS NOIR 26**](formation/FICHE_REFLEXE_HELIOS_NOIR_26.pdf) — 5 pages à poser au poste : montage à J-7, poste à J-1, armement à H-15 en sept étapes, pupitre du DIRANIM, FINEX, RETEX et dépannage.
+- 📄 `plugins_dia\chronogramme_helios_noir_26.csv` — le chronogramme complet de la séquence 7 : 9 injects et 5 incidents de réserve.
 
 ---
 
@@ -115,8 +210,6 @@ LIEU_METEO     = Melun (prefecture 77) (48.61, 2.68)
 RELEVE_AGE_MIN = 4
 ```
 
-<img src="images/d-IA_plugins.png" alt="Serveur dédié IA" width="1024">
-
 Le calcul n'est pas réécrit : quand la bibliothèque `meteo_lib.py` de **TCQ** est accessible, le plugin l'importe et appelle sa fonction `rule_3x30()` — une seule implémentation de la règle pour les deux applications.
 
 Le plugin **ne va jamais sur le réseau** (un plugin dispose de 2 secondes par appel) : il lit un fichier local écrit par son collecteur `meteo_3x30_collecte.py`, lançable à la main, en tâche planifiée, ou **par le LLM lui-même** via une action.
@@ -140,6 +233,8 @@ Le plugin **ne va jamais sur le réseau** (un plugin dispose de 2 secondes par a
 
 - 📄 [**MÉMO — d-IA v1.11.3 : tutoriel plugins Python**](formation/MEMO_d-IA_v1.11.3_tutoriel_plugins.pdf) — 41 pages : architecture, contrat d'interface, deux cas d'étude complets, actions et attentes, retour de séance sur la fidélité des données, **12 exercices avec corrigés**.
 - 📄 [**Tutoriel — rédiger un preset d-IA (scénario HÉLIOS NOIR 26)**](formation/Tutoriel_preset_d-IA_v1.9_HELIOS_NOIR_26.pdf) — de la lecture du scénario au preset jouable à 3 LLM ou à 2 LLM + un opérateur humain.
+- 📄 [**Note de conformité — HÉLIOS NOIR 26 et la doctrine « exercice cadre »**](formation/HELIOS_NOIR_26_conformite_exercice_cadre.pdf) — 16 pages : ce que la doctrine exige, ce que la simulation fait déjà, ce qu'il fallait corriger — et le cahier des charges pré-rempli au modèle officiel.
+- 📄 [**Fiche réflexe — lancer l'exercice cadre HÉLIOS NOIR 26**](formation/FICHE_REFLEXE_HELIOS_NOIR_26.pdf) — 5 pages à poser au poste du DIRANIM : armement en sept étapes, pupitre, FINEX, RETEX, dépannage.
 - 📄 `plugins_dia\README.md` — le contrat d'interface en version courte, livré avec l'application.
 
 ---
@@ -323,6 +418,7 @@ IAbrain /index ou /reindex → interrogeable en langage naturel
 
 | Icône | Fonctionnalité | Description |
 |:---:|---|---|
+| 📅 | **Exercice cadre — chronogramme et DIRANIM (v1.11.11)** | Le plugin `chronogramme.py` déroule un **chronogramme d'exercice cadre** écrit en CSV : horloge de jeu (`HEURE_JEU`), inject adressé à **un seul destinataire**, réaction attendue **jamais divulguée** aux joueurs mais pointée automatiquement, **relance par un autre vecteur** quand elle ne vient pas, incidents de réserve, et **main courante de RETEX en CSV** avec bilan chiffré au FINEX. Pupitre du formateur par variables de session (`DIRANIM_AVANCE`, `DIRANIM_RESERVE`, `DIRANIM_PAUSE`, `DIRANIM_FINEX`) — donc pleinement utilisable avec `plugins_actions_mode: off`. Conforme au guide méthodologique de la Direction de la Sécurité Civile. |
 | 🔌 | **Plugins d'entrées-sorties Python (v1.10)** | Un simple fichier `.py` déposé dans `plugins_dia\` injecte des **variables de situation réelles** dans le prompt des trois LLM (bloc `DONNÉES DE SITUATION`) : propagation HF, météo, état d'un relais… Deux hooks — `collect(ctx)` avant chaque prise de parole, `on_message(msg, ctx)` après — et **le même contrat que les plugins IAbrain**. Variables de session saisissables à la main, sans code. Plugins livrés : `exemple_minimal.py`, `propagation_vars.py`, `sitrep_scoring.py`, `meteo_3x30.py`. |
 | ⚡ | **Actions, mesures et attentes (v1.11)** | Un LLM peut **agir** et **attendre** : `ACTION: mesure_meteo(lieu=melun)` déclenche un acte ou une mesure dont le résultat devient une variable, `ATTENDRE: RELEVE_AGE_MIN < 2 delai=300` suspend le dialogue jusqu'à ce que la condition soit vraie, puis le relance. Trois modes — `auto`, `confirmer` (validation humaine avant chaque action), `off` (journalisé, non exécuté) — transportés par les presets. Actif **aussi en mode recherche**. Timeouts, plafonds et désactivation automatique d'un plugin défaillant : un plugin ne bloque jamais le dialogue. |
 | 🎙️ | **Mode CHAT — opérateur acteur réel (v1.8)** | Bascule **opt-in** : **vous jouez le LLM2** (Analyste = opérateur ADRASEC de terrain ou protagoniste du récit). À votre tour, une **zone de saisie** s'ouvre sous la conversation et le dialogue attend votre message (Ctrl+Entrée pour envoyer). Le **LLM1** (COD / Maître du Jeu) répond, le **LLM3** injecte les événements : vraie interactivité pour l'entraînement au trafic radio ou le jeu de rôle. Message étiqueté **« (vous) »**, jamais lu par le TTS. Persisté et transporté par les presets (`chat_humain_actif`). |
@@ -710,6 +806,17 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 ---
 
 ## 📜 Historique des versions
+
+### v1.11.11 — Septembre 2026 — L'exercice cadre : d-IA tient le rôle du DIRANIM
+
+- ➕ **Plugin `chronogramme.py`** : d-IA déroule un **chronogramme d'exercice cadre** écrit en CSV par le formateur, au lieu de laisser le LLM3 improviser. Horloge de jeu publiée (`HEURE_JEU`), inject adressé à **un seul destinataire**, **réaction attendue jamais publiée** aux joueurs (règle « pas de divulgation »), **relance automatique par un autre vecteur** quand elle ne vient pas (règle « pas de constat d'échec »), incidents de réserve, substitution des variables des autres plugins (`{TEMPERATURE_C}`…). Pupitre du formateur par variables de session, donc utilisable avec `plugins_actions_mode: off` ; la seule action déclarée est en **lecture seule**. Le plugin reste **muet** tant qu'aucun chronogramme n'est chargé.
+- ➕ **Main courante de RETEX** : `logs\retex_chronogramme_AAAAMMJJ.csv`, une ligne par événement avec la réaction attendue et son pointage, plus un **bilan chiffré au FINEX**. L'exercice devient évaluable.
+- ⚠️ **Presets HÉLIOS NOIR 26 v2.0** : le `sujet` devient une **mise en ambiance** (les conséquences à venir en sont retirées), les **conventions d'exercice** y sont écrites, le **gabarit du point de situation** de l'annexe 1 est imposé aux deux joueurs, `persona3` devient une **ANIBAS d'appoint** subordonnée au chronogramme, et `"plugins_actions_mode": "off"` y figure comme convention d'exercice.
+- ➕ **Diagnostic de troncature mesuré, plus estimé** (v1.11.10 / v1.11.11) : d-IA lit les compteurs réels d'Ollama (`prompt_eval_count`, `eval_count`) et **désigne le plafond atteint** — `num_ctx` ou `num_predict` — avec les deux nombres et la marche à suivre. Alerte préalable quand le prompt ne laisse plus la place d'écrire.
+- ➕ **Barre de progression d'activité** (v1.11.8) sous les boutons Démarrer / Pause / Arrêter : on voit quel modèle réfléchit, et depuis combien de temps.
+- 🛠️ **Directives tolérantes au balisage** (v1.11.4 / v1.11.5) : `` `ACTION: …` ``, `**MESURE :**`, un mot-clé isolé sur sa ligne suivi de l'appel, un commentaire en fin de ligne — toutes ces formes, que les modèles produisent naturellement, sont désormais reconnues.
+- 🛠️ **Formule de trafic** (v1.11.7) : en simulation ADRASEC, chaque message se termine par « A vous, parlez » au lieu de « rendez la main ». Affichage compacté, sans ligne vide inutile (v1.11.6 / v1.11.9).
+- 🛠️ **Plugin `meteo_3x30` v2.1 — multi-sites** : un fichier de relevé **par commune**, comparaison des sites voisins (`METEO_AUTRES_SITES`), rafraîchissement automatique en arrière-plan, et acquisition **synchrone** quand le réseau répond vite — la mesure est rendue dans la même réponse au lieu d'exiger une attente.
 
 ### v1.11.3 — Septembre 2026 — Le balisage retiré ne doit pas être du contenu
 
