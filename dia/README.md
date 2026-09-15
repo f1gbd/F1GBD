@@ -8,13 +8,13 @@
 
 *Simuler un exercice cadre de Sécurité Civile · Former des opérateurs · Faire converger une recherche technique pointue*
 
-[![Version](https://img.shields.io/badge/version-v1.11.23-blue)](https://github.com/f1gbd/F1GBD/releases/latest)
+[![Version](https://img.shields.io/badge/version-dia--v1.11.23-blue)](https://github.com/f1gbd/F1GBD/releases/tag/dia-v1.11.23)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Ollama](https://img.shields.io/badge/Ollama-local%20%2F%20LAN%20%2F%20cloud-brightgreen.svg)]()
 [![Hors-ligne](https://img.shields.io/badge/fonctionne-100%25%20hors--ligne-success.svg)]()
 [![Usage](https://img.shields.io/badge/usage-ADRASEC%20%2F%20FNRASEC-green.svg)]()
 
-### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/latest)
+### 📥 [**Télécharger la dernière version (v1.11.23)**](https://github.com/f1gbd/F1GBD/releases/download/dia-v1.11.23/d-IA.7z)
 
 </div>
 
@@ -164,7 +164,7 @@ Sans GPU, d-IA fonctionne : comptez 30–60 s par tour au lieu de 5–10 s. Et v
 
 ## 🚀 Installation
 
-1. Télécharger [`d-IA.7z`](https://github.com/f1gbd/F1GBD/releases/latest) depuis la page *Releases*
+1. Télécharger [`d-IA.7z`](https://github.com/f1gbd/F1GBD/releases/download/dia-v1.11.23/d-IA.7z) — ou la [dernière version publiée](https://github.com/f1gbd/F1GBD/releases/latest), quelle qu'elle soit
 2. Décompresser dans un dossier de votre choix, par exemple `C:\d-IA\`
 3. Lancer `d-IA.exe`
 4. **⚙ Paramètres IA…** → configurer l'IA 1 et l'IA 2 (host, « Tester la connexion », choisir un modèle), puis l'IA 3 si vous voulez le modérateur ou le DIRANIM
