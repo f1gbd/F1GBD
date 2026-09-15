@@ -20,23 +20,32 @@
 
 ---
 
-## En deux minutes
+## Pourquoi trois IA, et pas une ?
 
-Vous posez un sujet, ou vous chargez un scénario d'exercice. d-IA fait alors **parler trois modèles de langage entre eux**, chacun avec un rôle qui ne recouvre pas celui des autres :
+Le reproche le plus courant fait à l'intelligence artificielle est fondé : **elle répond avec aplomb, y compris quand elle se trompe, et personne dans la pièce ne la contredit.** Face à un assistant unique, vous n'avez aucun moyen de distinguer ce qu'il sait de ce qu'il improvise — sinon tout vérifier vous-même.
 
-| | Rôle | Ce qu'il doit faire, à chaque tour |
+d-IA prend le problème par l'autre bout. Il ne vous laisse pas seul en face d'une IA : **il en fait travailler trois, qui n'ont pas le même métier et qui se contrôlent mutuellement.** Vous n'êtes plus dans un tête-à-tête avec une machine, vous assistez à une réunion de travail.
+
+| | Qui | Ce qu'il est obligé de faire, à chaque tour |
 |:---:|---|---|
-| 🔬 | **L'Investigateur** | Questionner, creuser, douter. Il doit terminer par une question ouverte. |
-| 🧠 | **L'Analyste** | Répondre avec rigueur. Il doit apporter un élément neuf : un chiffre, un contre-exemple, une analogie. |
-| ⚖️ | **Le Modérateur** | Intervenir tous les K tours : bilan de l'acquis, point bloquant, **consigne de convergence chiffrée**. |
+| 🔬 | **Celui qui questionne** | Creuser, douter, demander des précisions. Il ne peut pas terminer sans poser une question ouverte. |
+| 🧠 | **Celui qui répond** | Argumenter, et **apporter à chaque fois un élément neuf** : un chiffre, un contre-exemple, une objection. Répéter lui est interdit. |
+| ⚖️ | **Celui qui préside** | Intervenir régulièrement pour faire le point : ce qui est acquis, ce qui bloque, et **ce qu'il faut trancher maintenant**. |
 
-Ces trois contraintes sont ce qui empêche la conversation de tourner en rond. Elles produisent une **démarche dirigée vers une conclusion**, et non un générateur de texte qui s'écoute parler.
+Ces trois obligations ne sont pas décoratives : ce sont elles qui produisent le résultat. Une affirmation fausse du deuxième devient la question du premier au tour suivant. Une discussion qui s'enlise est recadrée par le troisième, qui exige une conclusion chiffrée.
 
-Selon le preset chargé, le même trio change de métier : l'Investigateur devient le **COD**, l'Analyste devient l'**opérateur de terrain**, et le Modérateur devient le **DIRANIM** qui injecte les événements de l'exercice.
+**Ce que vous y gagnez, très concrètement :**
 
-<img src="images/d-IA_3LLM.png" alt="Les trois LLM de d-IA" width="900">
+- **Rien n'est affirmé sans être discuté.** Là où un assistant seul livre une réponse lisse, vous obtenez un débat contradictoire — et les points faibles apparaissent d'eux-mêmes, parce que les modèles ne sont pas d'accord entre eux.
+- **Vous ne dialoguez pas, vous lisez.** Pas de questions à savoir formuler, pas de « prompt » à maîtriser : vous posez un sujet, vous laissez tourner, et vous relisez. Tout est écrit, horodaté, exportable.
+- **Le désaccord est une information.** Quand les deux ne parviennent pas à s'accorder, cela se voit dans le fil — et c'est précisément là qu'il faut aller chercher un avis humain.
+- **La décision reste la vôtre.** d-IA ne conclut pas à votre place : il prépare le matériau, le met en forme et le chiffre. C'est vous qui tranchez, en connaissance de cause.
 
-**Tout tourne chez vous.** Modèles Ollama auto-hébergés sur un PC portable, sur un serveur du réseau local, ou les deux. Aucune donnée ne sort. Le cloud reste disponible pour les gros modèles, mais il est un choix, jamais une dépendance.
+Et pour un exercice, le même trio change simplement de métier : celui qui questionne devient le **COD**, celui qui répond devient l'**opérateur de terrain**, celui qui préside devient le **DIRANIM** qui déroule l'animation. Autrement dit : **trois postes que vous n'avez pas toujours les moyens d'armer, tenus par la machine, pendant que vos joueurs, eux, sont bien réels.**
+
+<img src="images/d-IA_3LLM.png" alt="Les trois IA de d-IA" width="900">
+
+**Et tout tourne chez vous.** Les modèles sont installés sur votre machine — un portable suffit — ou sur un serveur de votre réseau local. Rien ne part sur Internet, rien n'est envoyé à un prestataire, et l'ensemble fonctionne **sans aucune connexion**. C'est ce qui permet de s'en servir en salle de crise, là où précisément il n'y a plus de réseau.
 
 ---
 
@@ -66,7 +75,7 @@ Le **mode CHAT** vous met dans le fil. Vous jouez l'opérateur de terrain : à v
 
 C'est l'entraînement au trafic et au rendu compte sans mobiliser un correspondant humain à l'autre bout : on s'exerce seul, autant de fois qu'on veut, avec un interlocuteur qui ne se lasse pas et qui ne triche pas sur la cohérence.
 
-Les presets de formation livrés (HÉLIOS NOIR 26) transportent tout : rôles, scénario, chronogramme, réglages. Un opérateur les importe en un clic et démarre.
+Rien à préparer : un **preset** — un exercice complet dans un seul fichier, avec ses rôles, son scénario, son chronogramme et ses réglages — s'importe en un clic. Ceux d'HÉLIOS NOIR 26 sont livrés avec d-IA ; vous pouvez les modifier, en écrire d'autres, et les faire circuler entre ADRASEC.
 
 ### 3. Aider la R&D sur des sujets pointus
 
