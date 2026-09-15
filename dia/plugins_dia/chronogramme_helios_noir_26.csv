@@ -1,0 +1,22 @@
+#EXERCICE=HELIOS NOIR 26 - sequence 7 - Focus Nangeville, SITREP de reference
+#SEQUENCE=7
+#DEBEX=2026-07-11 14:00
+#MINUTES_PAR_TOUR=5
+#DIREX=a designer
+#DIRANIM=le formateur devant d-IA
+#REFERENCE=Guide DSC 2011, exercices Cadre et Terrain, section 3.1.3.3
+groupe_horaire;vecteur;emetteur;recepteur;evenement;reaction_attendue;detection;relance
+H-15;radio phonie;DIRANIM;TOUS;EXERCICE - EXERCICE - EXERCICE. Conventions : telephonie publique et Internet interdits, les joueurs s'autoalimentent dans la limite des moyens et delais reels. Il fait {TEMPERATURE_C} C, vent {VENT_KMH} km/h, humidite {HUMIDITE_PCT} pourcent. Essai de liaison, accusez reception.;Accuse de reception des deux stations et report en main courante;recu|accus|bien recu;
+H;VARA FM;ANIHAUT jouant le COZ;LLM1;EXERCICE. Le COZ demande au COD un point de situation complet de Nangeville pour 14h30, avec bilan des sites sensibles et besoins chiffres.;Le COD relaie la demande au PCO en fixant l'heure limite;point de situation|situation complet|pour 14h30;EXERCICE. Le COZ s'etonne de n'avoir rien recu de Nangeville et demande ou en est le COD.
+H+5;VARA FM;ANIBAS jouant l'EHPAD Les Tilleuls;LLM2;EXERCICE. La directrice de l'EHPAD signale la climatisation a l'arret depuis 11h, deux residents en hyperthermie, et un groupe electrogene a quatre heures d'autonomie.;SITREP formate au COD, demande chiffree de carburant et d'evacuation sanitaire;carburant|litres|evacuation;EXERCICE. La directrice de l'EHPAD rappelle, un troisieme resident est en hyperthermie, elle demande la conduite a tenir.
+H+12;plugin;donnee reelle AROME France HD;LLM1;EXERCICE. Releve meteo du plateau de la Manceliere disponible dans les donnees de situation.;Le COD verifie la regle des 3x30 avant d'arbitrer entre evacuation et maintien sur place;3x30|3 x 30|regle des;
+H+20;VARA FM;ANIHAUT jouant le COZ;LLM1;EXERCICE. Le convoi de carburant annonce est bloque, la station-service de Vaubourg est inoperante. Delai reporte de quatre heures au moins.;Mesures immediates de rationnement ET mesures differees - cadre espace-temps;rationn|immediat|en attendant|transitoire;EXERCICE. Le COZ demande au COD ce qui est fait dans les quatre heures qui viennent, pas dans quatre heures.
+H+28;HF NVIS;ANIBAS jouant le PDE du gymnase;LLM2;EXERCICE. Affluence au point de distribution d'eau du gymnase, la reserve tiendra deux heures, un agent municipal demande du renfort.;L'operateur transmet sans attendre et hierarchise avec l'EHPAD;PDE|gymnase|priorit;EXERCICE. Le maire de Nangeville appelle, il s'etonne que le COD n'ait pas repondu sur le PDE du gymnase.
+H+36;VARA FM;ANIBAS jouant la mairie;LLM2;EXERCICE. Le transpondeur VHF du plateau passe en fin de batterie, la liaison se degrade fortement.;Bascule annoncee sur HF NVIS ou QO-100, et information du COD;NVIS|QO-100|QO100|bascul;
+H+45;VARA FM;ANIHAUT jouant le COZ;LLM1;EXERCICE. Le COZ alloue 400 litres de carburant et deux vecteurs d'evacuation sanitaire, disponibles a Vaubourg dans trois heures.;Accuse de reception, repartition explicite entre EHPAD et hopital de jour, et instruction au PCO;400|repartition|accus;
+H+55;radio phonie;DIRANIM;TOUS;EXERCICE. Point de situation n2 attendu des deux stations avant le FINEX.;Point de situation structure, avec rubrique evolution possible;evolution possible|point de situation n;
+RESERVE;telephone;ANIBAS jouant le maire;LLM1;EXERCICE. Le maire de Nangeville, tres mecontent, invective le COD sur le delai du carburant.;Le COD garde son calme et maintient la discipline de trafic;;
+RESERVE;VARA FM;ANIBAS jouant l'hopital de jour;LLM2;EXERCICE. L'hopital de jour signale quatre patients en attente d'evacuation et un groupe electrogene en defaut.;SITREP complementaire et demande chiffree;;
+RESERVE;radio phonie;ANIBAS jouant le PCO;LLM1;EXERCICE. Depart de feu signale sur vegetation dessechee a deux kilometres du PCO.;Prise en compte et alerte des secours;;
+RESERVE;VARA FM;ANIHAUT jouant le COGIC;LLM1;EXERCICE. Le COGIC demande un point de situation national sous trente minutes.;Remontee d'information vers l'echelon superieur;;
+RESERVE;radio phonie;DIRANIM;LLM2;EXERCICE. L'operateur du PCO doit etre releve, aucun remplacant n'est disponible avant six heures.;Signalement de la contrainte de releve au COD;;

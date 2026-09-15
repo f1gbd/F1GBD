@@ -2,951 +2,243 @@
 
 <img src="images/d-ia_logo.jpg" alt="d-IA" width="300">
 
-### Dialogue autonome entre deux IA, arbitré par un troisième — un outil d'aide à la recherche par IA
+# d-IA
 
-*Conversation scientifique guidée — Investigateur & Analyste — **Simulation d'EXERCICE CADRE de la Sécurité Civile — chronogramme déroulé, réactions attendues, relance automatique et RETEX chiffré (v1.11.11)** — **Plugins d'entrées-sorties Python — les LLM lisent des mesures réelles (v1.10)** — **Actions, mesures et attentes — un LLM déclenche un acte, attend un état, puis reprend (v1.11)** — **Plugin météo AROME France HD et règle des 3 × 30 (v1.11)** — **Génération de preset depuis un PDF — SCENARIO/SITREP → preset auto / JDR / Vibe Research (v1.9)** — **Question directe au LLM1 (v1.9)** — **Mode CHAT — l'opérateur (ou la protagoniste) joué en direct par un humain dans le scénario (v1.8)** — **Mode Jeu de Rôle / Simulation — narrateur · joueur · injecteur d'événements, rôles personnalisables par preset (v1.7)** — **Curseur Créativité / innovation 0–100 % qui fait proposer de nouveaux concepts (v1.5)** — **Rendu Markdown du dialogue + synthèse vocale assainie (v1.4)** — **Enrichissement par le web de l'Investigateur — DuckDuckGo / SearXNG (v1.3)** — **Auto-export des fiches vers IAbrain (v1.3)** — **Modérateur conversationnel qui fait converger le dialogue vers une solution (v1.2)** — Presets de sujet importables/exportables (v1.2) — Mode ADRASEC enrichi (modérateur RAG) — Ollama local & cloud — Mémoire glissante — Détection de dérive linguistique — Synthèse vocale SAPI5 deux voix — Synchronisation dialogue/voix — Export JSON / Markdown / RTF — Thèmes secondaires guidés — Configuration persistante*
+### Trois IA qui travaillent ensemble : deux dialoguent, la troisième arbitre
 
-[![Version](https://img.shields.io/badge/version-dia--v1.11.11-blue)](https://github.com/f1gbd/F1GBD/releases/tag/dia-v1.11.11)
+*Simuler un exercice cadre de Sécurité Civile · Former des opérateurs · Faire converger une recherche technique pointue*
+
+[![Version](https://img.shields.io/badge/version-v1.11.23-blue)](https://github.com/f1gbd/F1GBD/releases/latest)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
-[![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
-[![Local / Cloud](https://img.shields.io/badge/Ollama-local%20%2F%20cloud-brightgreen.svg)]()
-[![Accessibilité](https://img.shields.io/badge/accessibilit%C3%A9-voix%20SAPI5-purple.svg)]()
-[![Créativité](https://img.shields.io/badge/v1.5-cr%C3%A9ativit%C3%A9%20pilotable-ff7a59.svg)]()
-[![Jeu de Rôle](https://img.shields.io/badge/v1.7-mode%20jeu%20de%20r%C3%B4le-9b59b6.svg)]()
-[![Mode CHAT](https://img.shields.io/badge/v1.8-mode%20CHAT%20op%C3%A9rateur%20r%C3%A9el-7a2e8a.svg)]()
-[![PDF vers preset](https://img.shields.io/badge/v1.9-preset%20depuis%20PDF-2ea44f.svg)]()
-[![Plugins](https://img.shields.io/badge/v1.10-plugins%20E%2FS%20Python-0b7285.svg)]()
-[![Actions](https://img.shields.io/badge/v1.11-actions%20%C2%B7%20mesures%20%C2%B7%20attentes-c0392b.svg)]()
-[![Exercice cadre](https://img.shields.io/badge/v1.11.11-exercice%20cadre%20S%C3%A9curit%C3%A9%20Civile-1f3864.svg)]()
-[![Modérateur](https://img.shields.io/badge/mode-mod%C3%A9rateur%20conversationnel-teal.svg)]()
-[![RAG](https://img.shields.io/badge/mode-ADRASEC%20enrichi-orange.svg)]()
-[![Web](https://img.shields.io/badge/v1.3-enrichissement%20web-blue.svg)]()
+[![Ollama](https://img.shields.io/badge/Ollama-local%20%2F%20LAN%20%2F%20cloud-brightgreen.svg)]()
+[![Hors-ligne](https://img.shields.io/badge/fonctionne-100%25%20hors--ligne-success.svg)]()
+[![Usage](https://img.shields.io/badge/usage-ADRASEC%20%2F%20FNRASEC-green.svg)]()
 
-### 📥 [**Télécharger la dernière version (v1.11.11)**](https://github.com/f1gbd/F1GBD/releases/download/dia-v1.11.11/d-IA.7z)
+### 📥 [**Télécharger la dernière version**](https://github.com/f1gbd/F1GBD/releases/latest)
 
 </div>
 
 ---
 
-## 🎯 Qu'est-ce que d-IA ?
+## En deux minutes
 
-**d-IA** est un **outil d'aide à la recherche par IA**. Il fait **dialoguer en autonomie deux modèles de langage** sur un sujet scientifique ou technique défini par l'utilisateur, pendant qu'un **troisième LLM arbitre la discussion pour la faire aboutir à une solution**.
+Vous posez un sujet, ou vous chargez un scénario d'exercice. d-IA fait alors **parler trois modèles de langage entre eux**, chacun avec un rôle qui ne recouvre pas celui des autres :
 
-- 🔬 L'un joue l'**Investigateur** : il pose des questions, creuse, doute, demande des précisions.
-- 🧠 L'autre joue l'**Analyste** : il répond avec rigueur et apporte systématiquement un élément neuf.
-- 🆕 Le troisième (**v1.2**) joue le **Modérateur conversationnel** : il intervient dans le fil tous les K tours pour faire le bilan, recadrer si la discussion dérive, et **poser une consigne de convergence chiffrée** qui pousse les deux IA vers un verdict.
+| | Rôle | Ce qu'il doit faire, à chaque tour |
+|:---:|---|---|
+| 🔬 | **L'Investigateur** | Questionner, creuser, douter. Il doit terminer par une question ouverte. |
+| 🧠 | **L'Analyste** | Répondre avec rigueur. Il doit apporter un élément neuf : un chiffre, un contre-exemple, une analogie. |
+| ⚖️ | **Le Modérateur** | Intervenir tous les K tours : bilan de l'acquis, point bloquant, **consigne de convergence chiffrée**. |
 
-Le résultat n'est plus seulement une conversation évolutive : c'est une **démarche de recherche dirigée vers une conclusion**. On pose une question ouverte (« peut-on communiquer par ondes gravitationnelles ? »), et d-IA déroule un raisonnement contradictoire et complémentaire qui converge vers une réponse argumentée et chiffrée.
+Ces trois contraintes sont ce qui empêche la conversation de tourner en rond. Elles produisent une **démarche dirigée vers une conclusion**, et non un générateur de texte qui s'écoute parler.
 
-Tout tourne **localement** par défaut (modèles Ollama auto-hébergés), avec une option **cloud** (gpt-oss:120b, deepseek-v3.1:671b, kimi-k2…) si on souhaite faire dialoguer, arbitrer ou modérer avec des modèles XL hébergés.
+Selon le preset chargé, le même trio change de métier : l'Investigateur devient le **COD**, l'Analyste devient l'**opérateur de terrain**, et le Modérateur devient le **DIRANIM** qui injecte les événements de l'exercice.
 
-### Création d'un serveur dédié IA pour la gestion des Connaissances
+<img src="images/d-IA_3LLM.png" alt="Les trois LLM de d-IA" width="900">
 
-<img src="images/IAbrain_M1A-server.jpeg" alt="Serveur dédié IA" width="800">
-
-[**Créer son Serveur IAbrain pour la gestion des connaissances et qui fonctionne 100% hors-ligne.**](https://github.com/f1gbd/F1GBD/blob/master/iabrain/Documentations%20IAbrain/MEMO%20-%20Cr%C3%A9er_un_Serveur_IA_M1A_IAbrain.pdf)
-
-> 💡 **La différence clé de la v1.2** : jusqu'ici, deux IA pouvaient explorer un sujet sans jamais conclure. Désormais, un modérateur garde le cap et **force la convergence vers une solution** — d-IA devient un véritable assistant de recherche, pas seulement un générateur de dialogue.
+**Tout tourne chez vous.** Modèles Ollama auto-hébergés sur un PC portable, sur un serveur du réseau local, ou les deux. Aucune donnée ne sort. Le cloud reste disponible pour les gros modèles, mais il est un choix, jamais une dépendance.
 
 ---
 
-## 🚨 Nouveauté v1.11.11 — Simuler un **EXERCICE CADRE** de la Sécurité Civile
+## 🚨 Trois usages, trois valeurs ajoutées
 
-Un **exercice cadre**, au sens du [guide méthodologique de la Direction de la Sécurité Civile](https://www.interieur.gouv.fr/content/download/31255/233926/file/Exercices_cadre_et_terrain.pdf), c'est un exercice *sur table*, en salle de crise, sans engagement de moyens sur le terrain :
+### 1. Simuler un EXERCICE CADRE de Sécurité Civile — sans mobiliser une équipe d'animation
+
+Un **exercice cadre** est un exercice sur table, en salle de crise, sans engagement de moyens sur le terrain. Le [guide méthodologique de la Direction de la Sécurité Civile](https://www.interieur.gouv.fr/content/download/31255/233926/file/Exercices_cadre_et_terrain.pdf) le décrit ainsi :
 
 > « Les joueurs reçoivent des informations par radio, téléphone, fax, télévision, messagerie internet et doivent **analyser, synthétiser, puis réagir, rendre compte, faire des propositions, définir des priorités et faire des choix**. »
 
-C'est mot pour mot ce que d-IA sait faire depuis la v1.7 — à une chose près, et elle est décisive : **l'animation improvisait**. Le LLM3 tirait un événement au sort dans un répertoire, tous les K tours, sans lien avec un objectif. La doctrine fait exactement l'inverse : le tableau d'animation **se remplit de la droite vers la gauche**, en partant de la **réaction attendue** des joueurs. On choisit ensuite le destinataire, puis l'animateur émetteur, puis seulement on rédige l'événement, et enfin on décide du vecteur et de l'heure.
+Monter un tel exercice demande normalement une **cellule d'animation** : des gens qui tiennent le chronogramme, jouent les correspondants, relancent les joueurs qui ne réagissent pas, et notent tout pour le RETEX. d-IA tient ce rôle.
 
-La **v1.11.11** apporte le chaînon manquant : le plugin **`chronogramme.py`**. d-IA cesse d'improviser et tient le rôle du **DIRANIM** — le directeur de l'animation.
+- **Le chronogramme est écrit avant la séance**, dans un simple fichier CSV. Chaque ligne porte une heure de jeu, un inject, un destinataire unique, et la **réaction attendue**. Conformément à la doctrine, le tableau se remplit **de la droite vers la gauche** : on part de la réaction que l'on veut observer, et on remonte jusqu'à l'événement qui la provoque.
+- **La réaction attendue n'est jamais divulguée aux joueurs.** d-IA la surveille en silence et la pointe automatiquement quand elle arrive.
+- **Quand elle ne vient pas, l'animation relance** — par un autre vecteur, comme le ferait un animateur, et non en répétant le même message.
+- **Le formateur garde la main** par un pupitre de variables : avancer l'horloge, injecter un incident de réserve, marquer une pause, prononcer le FINEX.
+- **Le RETEX est chiffré**, écrit au fil de l'eau dans une main courante CSV : combien d'injects, combien de réactions attendues obtenues, en combien de temps.
 
-<img src="images/d-IA_COD.png" alt="d-IA en exercice cadre — point de situation au gabarit de la Sécurité Civile" width="2048">
+<img src="images/d-IA_COD.png" alt="Exercice cadre en cours dans d-IA" width="900">
 
-*Séquence 1 d'HÉLIOS NOIR 26 : le COD ouvre le trafic par une directive numérotée, l'opérateur du PCO répond par un **point de situation au gabarit de l'annexe 1** — situation générale, situation par sites, impacts collatéraux, bilan des victimes, décisions prises — et termine par la formule de trafic réglementaire.*
+> **Ce que cela change concrètement** : un exercice cadre devient reproductible par une seule personne, sur un PC portable, en salle, hors-ligne. Le même scénario se rejoue autant de fois que nécessaire, avec des joueurs différents, et se compare chiffre à chiffre.
 
-### 🧠 La configuration de modèles
+### 2. Former — l'opérateur prend le micro
 
-Celle de la capture ci-dessus, et celle des deux presets de formation :
+Le **mode CHAT** vous met dans le fil. Vous jouez l'opérateur de terrain : à votre tour, une zone de saisie s'ouvre, et le COD simulé vous répond réellement pendant que l'animation continue d'injecter des aléas.
 
-| Rôle | Modèle Ollama | Pourquoi celui-là |
-|---|---|---|
-| **LLM1 — COD Vaubourg** | `ministral-3:14b` | Il tient le registre opérationnel français et produit un point de situation structuré sur sept rubriques sans dériver. C'est le rôle le plus exigeant : il arbitre, priorise et alloue. |
-| **LLM2 — Opérateur PCO Nangeville** | `ministral-3:14b` | Même modèle, même exigence de forme : SITREP formaté, demandes chiffrées, discipline de trafic. En mode CHAT, c'est un stagiaire humain qui prend ce rôle. |
-| **LLM3 — Animation basse** | `qwen2.5:7b` | L'injecteur n'écrit que 2 à 4 phrases par intervention, et le chronogramme lui a retiré la conduite du scénario : un modèle léger suffit, et il laisse la VRAM aux deux joueurs. |
+C'est l'entraînement au trafic et au rendu compte sans mobiliser un correspondant humain à l'autre bout : on s'exerce seul, autant de fois qu'on veut, avec un interlocuteur qui ne se lasse pas et qui ne triche pas sur la cohérence.
 
-Réglages transportés par les presets : `num_ctx` **16384**, `num_predict` **1400**, créativité **45 %**, fenêtre mémoire **10 tours**. Le `num_ctx` de 16384 n'est pas du confort : le prompt d'un joueur pèse environ 6 700 tokens une fois le persona, la mise en ambiance, la séquence et les variables de situation réunis.
+Les presets de formation livrés (HÉLIOS NOIR 26) transportent tout : rôles, scénario, chronogramme, réglages. Un opérateur les importe en un clic et démarre.
 
-### 📅 Le chronogramme, écrit avant la séance
+### 3. Aider la R&D sur des sujets pointus
 
-Le formateur écrit son tableau dans un tableur, une ligne par événement, et le dépose dans `plugins_dia\` :
+Posez une question ouverte — *« peut-on communiquer par ondes gravitationnelles ? »*, *« quelle architecture de maillage LoRa survit à un blackout de 72 h ? »* — et laissez le trio la traiter en contradictoire.
 
-```
-#EXERCICE=HELIOS NOIR 26 - sequence 7
-#DEBEX=2026-07-11 14:00
-#MINUTES_PAR_TOUR=5
-groupe_horaire;vecteur;emetteur;recepteur;evenement;reaction_attendue;detection;relance
-H+5;VARA FM;ANIBAS jouant l'EHPAD;LLM2;EXERCICE. Climatisation a l'arret depuis 11h,
-deux residents en hyperthermie.;SITREP formate et demande chiffree de carburant;
-carburant|litres|evacuation;EXERCICE. La directrice rappelle, un troisieme resident
-est en hyperthermie.
-```
+La valeur n'est pas dans la réponse d'un modèle : elle est dans le **frottement entre deux modèles** qu'un troisième oblige à conclure. L'Investigateur peut de plus **aller chercher des sources sur le web** (DuckDuckGo sans installation, ou SearXNG auto-hébergé) et les synthétiser avec esprit critique, tandis qu'un **curseur Créativité 0–100 %** fait passer d-IA d'un registre strictement opérationnel à la proposition de concepts inédits, signalés comme tels et évalués.
 
-Le texte de l'événement accepte des **accolades** : `{TEMPERATURE_C}`, `{VENT_KMH}`, `{HUMIDITE_PCT}` sont remplies par le plugin météo. La mise en ambiance type du guide — *« il fait 25 degrés à l'ombre, le vent souffle à 5 km/h »* — se remplit donc toute seule avec des relevés **AROME France HD réels**.
-
-### ⏱️ Ce que le chronogramme change
-
-| | |
-|---|---|
-| **Une horloge d'exercice** | Les prises de parole deviennent des minutes de jeu. `HEURE_JEU` vaut `11/07 14h20 (H+20)` : les joueurs **lisent** l'heure au lieu de l'inventer. C'est la double colonne « groupe horaire (réel et H+X mn) » du guide. |
-| **Un inject, un destinataire** | Une ligne n'est publiée **qu'au tour du joueur désigné**. Le COD ne voit pas ce que reçoit le PCO : il l'apprendra si — et seulement si — l'information circule. C'est précisément ce qu'un exercice cadre cherche à tester dans un centre opérationnel. |
-| **La réaction attendue ne sort jamais** | Elle est lue, journalisée et pointée automatiquement, mais **jamais publiée** aux joueurs. C'est la règle « pas de divulgation » : *« un exercice faussé n'a aucun intérêt »*. |
-| **Pas de constat d'échec** | Si la réaction attendue ne vient pas au bout de 4 tours, l'événement **repart tout seul par un autre vecteur**. Le guide : *« il est préférable de relancer l'événement […] pour faire prendre conscience aux joueurs qu'ils ont raté quelque chose mais qu'ils ont encore le temps de réagir comme dans la réalité »*. |
-| **Incidents de réserve** | Les lignes marquées `RESERVE` ne se jouent jamais seules. Le formateur les sort quand le jeu va trop vite. |
-
-### 🎛️ Le pupitre du DIRANIM
-
-Par **Plugins E/S ▼ → Variables de session…**, en pleine séance :
-
-| Variable | Effet |
-|---|---|
-| `DIRANIM_AVANCE = 1` | Pousse l'inject suivant sans attendre l'heure |
-| `DIRANIM_RESERVE = 2` | Injecte l'incident de réserve n° 2 |
-| `DIRANIM_PAUSE = oui` | Fige l'horloge de jeu |
-| `MINUTES_PAR_TOUR = 10` | Change la cadence |
-| `DIRANIM_FINEX = oui` | Prononce le FINEX |
-
-Aucune de ces commandes n'est une **action** au sens de d-IA. Le formateur garde donc la main complète alors même que le preset d'exercice impose, **comme il le doit**, `"plugins_actions_mode": "off"` — et la seule action déclarée par le plugin, `chronogramme_etat`, est en **lecture seule**. Un COD fictif ne pilote pas le chronogramme de son propre exercice.
-
-### 📊 L'exercice devient évaluable
-
-C'est le vrai apport. Jusqu'ici, une séance produisait un dialogue ; il n'y avait rien à confronter en débriefing. Le chronogramme portant les réactions attendues, le plugin écrit une **main courante de RETEX** — `logs\retex_chronogramme_AAAAMMJJ.csv` — avec, pour chaque événement : l'heure réelle, l'heure de jeu, le vecteur, l'émetteur, le destinataire, la réaction attendue, **son pointage**, et l'extrait du message du joueur qui l'a produite.
-
-Au FINEX, le bilan s'affiche dans le fil :
-
-```
-[Plugin Chronogramme : FINEX - 9 inject(s), 6 reaction(s) attendue(s)
- obtenue(s) sur 9 pointable(s), 2 relance(s).]
-```
-
-### 🎯 Les presets HÉLIOS NOIR 26 passent en v2.0
-
-Les deux presets de formation ont été mis en conformité :
-
-- le `sujet` est devenu une **mise en ambiance** — ce que les joueurs savent au DEBEX, et rien de plus. Les conséquences à venir en ont été retirées : les joueurs les découvrent par les messages qu'ils reçoivent ;
-- les **conventions d'exercice** y sont écrites et énoncées aux joueurs ;
-- le **gabarit du point de situation** de l'annexe 1 est imposé aux deux joueurs, avec sa rubrique *évolution possible* qui oblige à anticiper au lieu de constater ;
-- `persona3` devient une **ANIBAS d'appoint**, subordonnée au chronogramme, qui ne pose que des *conséquences* ; l'animation haute (COZ, COGIC) est tenue par le chronogramme ;
-- `"plugins_actions_mode": "off"` y figure — ce n'est plus une précaution, c'est une **convention d'exercice**.
-
-### 📘 Les documents livrés
-
-- 📄 [**Fiche réflexe — lancer l'exercice cadre HÉLIOS NOIR 26**](formation/FICHE_REFLEXE_HELIOS_NOIR_26.pdf) — 5 pages à poser au poste : montage à J-7, poste à J-1, armement à H-15 en sept étapes, pupitre du DIRANIM, FINEX, RETEX et dépannage.
-- 📄 `plugins_dia\chronogramme_helios_noir_26.csv` — le chronogramme complet de la séquence 7 : 9 injects et 5 incidents de réserve.
+Les fiches produites en chemin s'exportent vers **IAbrain** et alimentent une base de connaissance départementale réutilisable.
 
 ---
 
-## 🔌 Nouveautés v1.10 & v1.11 — Plugins d'entrées-sorties : d-IA regarde le réel, agit, et attend
+## 🔌 Le réel entre dans la simulation
 
-Jusqu'à la v1.9, les trois LLM ne connaissaient du monde que ce que l'opérateur avait tapé dans le sujet et les thèmes. Un exercice restait une fiction close : la météo du scénario était celle du scénario, pas celle du jour.
+C'est ce qui distingue d-IA d'un simple jeu de rôle entre modèles : **un LLM peut lire une mesure réelle, déclencher un acte, attendre un état, puis reprendre le dialogue.**
 
-Les **plugins d'entrées-sorties** ouvrent cette boucle. Un plugin est un **simple fichier Python** déposé dans le dossier `plugins_dia\`, à côté de l'application. d-IA le charge au démarrage, l'appelle à chaque tour, et **injecte ce qu'il rapporte dans le prompt des trois modèles**, sous un bloc `DONNÉES DE SITUATION`.
-
-### 📥 v1.10 — Les variables de situation
-
-Un plugin déclare ses variables et les remplit à chaque tour :
-
-```python
-PLUGIN_NAME = "Propagation HF"
-
-def list_variables():
-    return [("SFI", "Flux solaire 10,7 cm"), ("KP", "Indice geomagnetique Kp")]
-
-def collect(ctx):
-    return {"SFI": "128", "KP": "3 (calme)"}
-```
-
-Les trois LLM lisent ces valeurs comme ils liraient un point de situation, et raisonnent dessus. Le contrat reprend celui des **plugins IAbrain**, pour que ce qui est appris d'un côté serve de l'autre. Deux hooks : `collect(ctx)` avant chaque prise de parole (**l'entrée**), `on_message(msg, ctx)` après (**la sortie** — notation automatique d'un SITREP, écriture d'une main courante…).
-
-Trois plugins d'exemple sont livrés : `exemple_minimal.py`, `propagation_vars.py` (entrée) et `sitrep_scoring.py` (sortie).
-
-Sans écrire une ligne de Python, le menu **🔌 Plugins E/S → Variables de session** permet aussi de saisir ses propres variables à la main — l'équivalent du `/set` d'IAbrain.
-
-### ⚡ v1.11 — Actions, mesures et attentes
-
-Un plugin peut désormais **exposer des actions**, et un LLM les appeler en écrivant une **directive seule sur sa ligne** :
+Un fichier `.py` déposé dans `plugins_dia\` suffit. Il publie des **variables de situation** que les trois LLM voient dans leur prompt, et déclare des **actions** qu'ils peuvent demander en écrivant une ligne dans leur réponse :
 
 ```
 ACTION: mesure_meteo(lieu=melun)
 ATTENDRE: RELEVE_AGE_MIN < 2 delai=300
 ```
 
-- **`ACTION:` / `MESURE:`** — déclencher un acte ou une mesure. Le résultat **devient une variable**, donc il est relu par les trois LLM au tour suivant.
-- **`ATTENDRE: VARIABLE <op> valeur delai=N`** — suspendre le dialogue jusqu'à ce qu'une condition soit vraie (opérateurs `>`, `>=`, `<`, `<=`, `=`, `!=`, `contient`), puis reprendre. L'attente est **interruptible** et **bornée**.
+La première déclenche la mesure et en fait une variable. La seconde suspend le dialogue jusqu'à ce que la condition soit vraie, puis le relance — ou l'abandonne proprement, en le disant, si rien ne bouge.
 
-Trois modes d'exécution, au choix de l'opérateur (menu **🔌 Plugins E/S**, clé de preset `plugins_actions_mode`) :
+**Le plugin météo livré** interroge le modèle **AROME France HD de Météo-France** (~1,5 km) et publie l'état de la **règle des 3 × 30** — température ≥ 30 °C, vent ≥ 30 km/h, humidité ≤ 30 % — qui caractérise un danger extrême de feu de végétation. La donnée est vraie, horodatée, attachée à un lieu nommé : elle n'est **jamais inventée pour arranger le scénario**, et un lieu inconnu est refusé plutôt que remplacé par un autre.
 
-| Mode | Effet |
+**L'opérateur décide de ce qui est permis**, par un réglage porté par le preset :
+
+| Mode | Ce qui s'exécute |
 |---|---|
-| `auto` | L'action est exécutée. |
-| `confirmer` | Une boîte de dialogue demande votre accord **avant chaque action**. |
-| `off` | La directive est journalisée, **rien n'est exécuté** — le mode à imposer dans un preset d'exercice. |
+| `lecture` | Les consultations et les mesures seulement. Rien qui agisse sur le monde. |
+| `exercice` | Les mesures, **plus la signalisation d'ambiance** : sirène, gyrophare, lampe d'alerte de la salle. |
+| `confirmer` | Tout, mais chaque action attend une validation humaine. |
+| `auto` | Tout, sans confirmation. |
+| `off` | Rien n'est exécuté, tout est journalisé. |
 
-> ⚠️ **Un scénario de crise est fait de consignes d'action.** Tant qu'un exercice fictif partage le même dispositif qu'un pilotage réel, c'est le dispositif qui doit trancher : mettez `"plugins_actions_mode": "off"` dans vos presets d'exercice, et retirez de `plugins_dia\` les plugins qui commandent du matériel pendant les séances.
+Un plugin qui n'a rien déclaré est traité au niveau le plus strict : **on n'autorise jamais par oubli**.
 
-Les plugins sont aussi actifs **en mode recherche** (Investigateur / Analyste / Modérateur), et plus seulement en Jeu de Rôle : un dialogue scientifique peut conduire une campagne de mesures — demander un relevé, attendre, comparer, demander une variation.
+<img src="images/d-IA_plugins.png" alt="Plugins d'entrées-sorties de d-IA" width="900">
 
-### 🌡️ Le plugin météo livré — AROME France HD et la règle des 3 × 30
-
-`meteo_3x30.py` injecte la **température, le vent, les rafales et l'humidité** réels d'un site, issus du modèle **AROME France HD de Météo-France** (~1,5 km, via Open-Meteo), et l'état de la **règle des 3 × 30** — T ≥ 30 °C **et** vent ≥ 30 km/h **et** HR ≤ 30 %, qui caractérise un danger extrême de feu de végétation :
-
-```
-REGLE_3X30     = 2 critere(s) sur 3 - vigilance elevee
-                 [regle : T >= 30 C ET vent >= 30 km/h ET HR <= 30 %]
-CRITERES_3X30  = temperature 31.4 C (seuil >= 30) OUI /
-                 vent 33 km/h (seuil >= 30) OUI /
-                 humidite 36 % (seuil <= 30) non
-LIEU_METEO     = Melun (prefecture 77) (48.61, 2.68)
-RELEVE_AGE_MIN = 4
-```
-<img src="images/d-IA_plugins.png" alt="d-IA Metéo AROME" width="2048">
-
-Le calcul n'est pas réécrit : quand la bibliothèque `meteo_lib.py` de **TCQ** est accessible, le plugin l'importe et appelle sa fonction `rule_3x30()` — une seule implémentation de la règle pour les deux applications.
-
-Le plugin **ne va jamais sur le réseau** (un plugin dispose de 2 secondes par appel) : il lit un fichier local écrit par son collecteur `meteo_3x30_collecte.py`, lançable à la main, en tâche planifiée, ou **par le LLM lui-même** via une action.
-
-**Une variable se suffit à elle-même.** Chaque valeur est publiée avec son unité, son lieu, son âge et **le seuil selon lequel on la juge**. Un modèle de langage comble ce qu'on ne lui donne pas : privé du critère, il en invente un plausible pour justifier son verdict.
-
-**Règle de lieu (v1.11.2)** : un relevé appartient à un seul site. Si l'on demande `mesure_meteo(lieu=melun)` alors que le dernier relevé concerne Nangeville, le plugin **ne publie aucune de ses valeurs** — il lance l'acquisition de Melun et le dit. Attribuer à une commune des mesures faites ailleurs, sur une règle de danger de feu, n'est pas une approximation acceptable.
-
-### 🛡️ Garde-fous
-
-| Garde-fou | Valeur |
-|---|---|
-| Temps accordé à un plugin par appel | **2 s** (10 s pour une action) |
-| Deux dépassements de suite | Le plugin est **désactivé pour la séance** |
-| Directives par message | **3 au maximum** |
-| Variables publiées / longueur d'une valeur | **12** / **160 caractères** |
-| Attente | **bornée**, interruptible, scrutée par appels courts |
-| Plugin en erreur | **Jamais bloquant** : le dialogue continue, l'incident est journalisé |
-
-### 📘 Documentation de formation
-
-- 📄 [**MÉMO — d-IA v1.11.11 : tutoriel plugins Python**](formation/MEMO_d-IA_v1.11.11_tutoriel_plugins.pdf) — 41 pages : architecture, contrat d'interface, deux cas d'étude complets, actions et attentes, retour de séance sur la fidélité des données, **12 exercices avec corrigés**.
-- 📄 [**Tutoriel — rédiger un preset d-IA (scénario HÉLIOS NOIR 26)**](formation/Tutoriel_preset_d-IA_v1.11.11_HELIOS_NOIR_26.pdf) — de la lecture du scénario au preset jouable à 3 LLM ou à 2 LLM + un opérateur humain.
-- 📄 [**Fiche réflexe — lancer l'exercice cadre HÉLIOS NOIR 26**](formation/FICHE_REFLEXE_HELIOS_NOIR_26.pdf) — 5 pages à poser au poste du DIRANIM : armement en sept étapes, pupitre, FINEX, RETEX, dépannage.
-- 📄 `plugins_dia\README.md` — le contrat d'interface en version courte, livré avec l'application.
+Garde-fous : délais plafonnés, nombre et longueur des variables bornés, désactivation automatique d'un plugin défaillant. **Un plugin ne bloque jamais le dialogue**, et rien n'échoue en silence — un message nomme toujours ce qui ne va pas, où, et quoi faire.
 
 ---
 
-## 🆕 Nouveautés v1.9 — Génération de preset depuis un PDF & question directe au LLM1
+## ⭐ Les points forts, en un coup d'œil
 
-La **v1.9** accélère la préparation d'exercices et l'usage au quotidien.
-
-### 🧠 Générer un preset depuis un PDF (SCENARIO ou SITREP)
-
-Nouveau menu **📋 Preset de sujet → 🧠 Générer un preset depuis un PDF…** : d-IA lit un **document PDF** (scénario d'exercice ou SITREP), en extrait le texte et demande au **LLM1** d'en produire un **preset `.diapreset.json` prêt à l'emploi**, dans l'un des trois modes au choix :
-
-- 🎭 **Jeu de Rôle / Simulation** — simulation de crise jouée (COD / opérateur de terrain / injecteur d'événements), avec personas ADRASEC ;
-- 🔬 **Dialogue autonome** — les trois LLM analysent le document ;
-- 🛰️ **Vibe Research** — les 3 IA (LLM) collaborent avec vous pour mener une étude scientifique complète du début à la fin.
-
-Le preset est **appliqué immédiatement** (sujet, thèmes/phases, rôles, réglages) et peut être **enregistré** en `.diapreset.json`. Tout est **hors ligne** (modèle local + extraction PDF embarquée). Idéal pour transformer un **point de situation COD** ou un **SITREP réel** en exercice rejouable.
-
-### ❓ Question directe au LLM1
-
-Un bouton **❓ Question au LLM1** (colonne de gauche) ouvre la **zone de saisie** sous la conversation : tapez une question (multi-ligne, **Ctrl+Entrée** pour envoyer, **Échap** pour annuler) et le **LLM1** répond directement dans le fil — **sans lancer de dialogue**. Pratique pour interroger le COD / l'Investigateur à la volée pendant la préparation.
-
-
----
-
-## 🆕 Nouveautés v1.8 — Mode CHAT : l'opérateur devient acteur réel du scénario
-
-La **v1.8** introduit le **Mode CHAT** : au lieu de regarder deux (ou trois) LLM jouer entre eux, **vous prenez le clavier**. Une bascule **opt-in** (colonne de gauche) vous laisse **incarner le LLM2 (Analyste)** — c'est-à-dire, en simulation de Jeu de Rôle, l'**opérateur ADRASEC de terrain** ou la **protagoniste** du récit.
-
-### 🎙️ Vous jouez, les autres rôles restent automatiques
-
-Quand le mode CHAT est actif, le tour du LLM2 **n'est plus généré par un modèle**. À chaque fois que c'est à vous de jouer, une **zone de saisie s'ouvre sous la conversation** et le dialogue **attend votre message** (raccourci **Ctrl+Entrée** pour l'envoyer, pratique pour les SITREP multi-lignes). Pendant ce temps :
-
-- 🟦 le **LLM1** (COD / Maître du Jeu) vous **répond** ;
-- 🟩 le **LLM3** (injecteur) continue de **lancer ses événements** tous les K tours.
-
-On obtient une **vraie interactivité** : un entraînement de **trafic radio** où vous dialoguez avec un COD simulé et réagissez aux aléas injectés (panne, évacuation, feu…), ou une **partie de jeu de rôle** où vous incarnez le personnage face à un Maître du Jeu et au hasard.
-
-| | Sans Mode CHAT | **Avec Mode CHAT (v1.8)** |
-|---|---|---|
-| Le LLM2 (opérateur / protagoniste) | joué par un modèle | **joué par vous, en direct** |
-| LLM1 (COD / MJ) | automatique | automatique (vous répond) |
-| LLM3 (injecteur) | automatique | automatique (injecte les aléas) |
-| Usage | démonstration, capitalisation | **entraînement actif, immersion** |
-
-<img src="images/d-IA_3LLM.png" alt="Dialogue a 3 LLM" width="800">
-
-> 💡 Le message que vous tapez **n'est jamais lu par la synthèse vocale** (vous l'avez écrit) et apparaît étiqueté **« (vous) »** dans le fil et les exports. Le réglage est **persisté** et **transportable par les presets** (clé `chat_humain_actif`). Quand vous jouez le LLM2, ce dernier n'a même pas besoin d'un modèle ni d'une connexion cloud. Décoché : comportement strictement identique à la v1.7.
-
-### 🧯 Fiabilité (v1.8.1) — fini les messages coupés en plein mot
-
-Un correctif élimine la **troncature** des réponses du LLM1 (et du LLM2 en mode auto). Le modèle imitait parfois le format du contexte et se mettait à **rejouer le tour d'un autre interlocuteur**, produisant une fausse transcription qui dépassait le budget de tokens : d-IA ajoute désormais des **séquences d'arrêt** (un seul tour de parole par appel). Et si une réponse longue bute malgré tout sur `num_predict`, d-IA **détecte la coupure et relance proprement la suite** (recollage à la dernière phrase complète, **plus de coupure en plein mot**).
-
----
-
-## 🆕 Nouveautés v1.7 — Mode Jeu de Rôle & Simulation
-
-La **v1.7** ajoute un **mode Jeu de Rôle** optionnel qui détourne le trio de LLM en **fiction interactive** ou en **simulation d'exercice**. C'est une bascule **opt-in** : décochée, d-IA se comporte exactement comme avant (prompts vérifiés identiques à la v1.5).
-
-### 🎭 Trois rôles, une boucle déjà connue
-
-Le mode réaffecte les LLM et **réutilise la boucle du modérateur conversationnel** : **LLM1 anime et ouvre**, **LLM2 réagit**, et le **LLM3 devient un injecteur d'événements** qui lance une péripétie tous les K tours au lieu d'arbitrer. Son intervention est réinjectée dans le contexte des deux autres rôles.
-
-| LLM | Rôle générique | Exemple fiction | Exemple simulation ADRASEC |
-|-----|----------------|-----------------|----------------------------|
-| **LLM1** | anime / ouvre / structure | Maître du Jeu, narrateur | **COD** (centralise, alloue les moyens) |
-| **LLM2** | réagit / agit | Joueur, protagoniste | **Opérateur ADRASEC** de terrain (SITREP) |
-| **LLM3** | injecte les événements | imprévus, retournements | **Injecteur de crise** (panne, évacuation, feu…) |
-
-### 🧩 Rôles personnalisables par preset
-
-Sans profil, des **rôles de fiction** par défaut s'appliquent (Maître du Jeu / Joueur / Injecteur). Un preset `.diapreset.json` peut fournir une clé **`jdr_profil`** définissant l'**identité (persona)** et le **libellé** de chaque rôle — on rejoue alors n'importe quel cadre. Le **SUJET** porte le scénario, les **thèmes** les séquences (actes), et l'**objectif de convergence** la consigne d'injection.
-
-### 🏷️ Le libellé d'action s'adapte au mode
-
-Quand le curseur Créativité (v1.5) est au-dessus de zéro, les LLM préfixent leurs propositions audacieuses. **Ce préfixe change selon le mode :**
-
-| Mode | Préfixe injecté |
-|------|-----------------|
-| Recherche (mode JdR décoché) | `PISTE INNOVANTE :` — signalée exploratoire et évaluée de façon critique (garde-fou ADRASEC) |
-| Simulation ADRASEC (`jdr_profil` avec `"contexte": "adrasec"`) | `DEMANDE POUR ACTION :` — l'opérateur formule ses demandes au COD, dans un cadre opérationnel réaliste |
-| Jeu de rôle pur (fiction, par défaut) | `ACTION :` — **aucun cadrage ADRASEC**, libre de dériver en pure fiction |
-
-> En jeu de rôle pur, aucune mention d'ADRASEC n'est injectée dans les prompts : la consigne se contente de rester cohérente avec l'univers et le ton du récit.
-
-### 📦 Scénarios livrés en preset
-
-Trois sujets prêts à l'emploi sont fournis — **deux scénarios « joués »** (mode Jeu de Rôle, jouables en Mode CHAT) et **un sujet de recherche** :
-
-- 🚨 **`sim_helios_noir_26`** — **simulation ADRASEC**, exercice **HÉLIOS NOIR 26** (black-out électrique total sur canicule extrême). Le réseau radio ADRASEC est le seul lien entre les mairies isolées et le COD. Cinq séquences (J+1 → J+10), de la bascule des communications à la crise sanitaire. **LLM1 = COD** de Vaubourg-sur-Brèze, **LLM2 = opérateur du PCO de Nangeville**, **LLM3 = injecteur de crise** (panne de groupe électrogène, évacuation, départ de feu, rupture de carburant…). En **Mode CHAT**, vous tenez l'opérateur du PCO et vous entraînez au trafic formaté (SITREP, demandes de moyens chiffrées, accusés de réception).
-- 🛰️ **`jdr_premier_contact_qo100`** — **jeu de rôle réaliste**. Sur le transpondeur du satellite géostationnaire amateur **QO-100**, une opératrice capte une séquence de code dont la signature Doppler trahit une origine **non terrestre** : une tentative de premier contact. Huit actes mènent de la séquence étrange au décodage puis à la réponse, **dans le respect de la physique radio** (délai à la vitesse de la lumière, Doppler, bande passante réelle). **LLM1 = Maître du Jeu**, **LLM2 = Dr Léa Vasseur** (ingénieure traitement du signal et radioamateur), **LLM3 = injecteur d'événements**. En **Mode CHAT**, vous incarnez le Dr Vasseur.
-- 🔬 **« Communication par ondes gravitationnelles »** — **sujet de recherche** (hors JdR) : sept thèmes ordonnés mènent le trio Investigateur / Analyste / Modérateur de la faisabilité brute jusqu'au verdict chiffré.
-
-> 💡 Pour obtenir l'événementiel, activer **aussi** le modérateur conversationnel : en mode JdR il n'arbitre plus, **il injecte**. En fiction, couper le RAG et la recherche web et monter la créativité.
-
-> ⚠️ **Usage pédagogique** : en simulation, le COD et l'opérateur sont *joués par des LLM* ; leurs SITREP sont des **supports d'entraînement** pour faire réagir les stagiaires, **pas des modèles normatifs** à recopier.
-
----
-
-## 🆕 Nouveautés v1.5 — Créativité & innovation pilotables
-
-La **v1.5** ajoute un **curseur unique « Créativité / innovation » (0–100 %)** qui pousse d-IA à **proposer de nouveaux concepts** à partir de la requête initiale — sans jamais sacrifier la rigueur indispensable à un usage ADRASEC.
-
-### 🎚️ Deux leviers dans un seul réglage
-
-- **Échantillonnage** : boost *additif* de la `température` et du `top_p`, **par-dessus** les températures par-LLM existantes (qui restent le réglage fin de base). À **0 %**, le comportement est **strictement inchangé**.
-- **Prompts** : une **directive d'innovation graduée ET adaptée au rôle** est injectée dans le dialogue :
-  - 🔬 **Investigateur** — reste un questionneur : **au plus une** piste concise, puis sa question (il ne développe pas).
-  - 🧠 **Analyste** — c'est le **moteur à concepts** : il développe **1 à 3 pistes** au niveau élevé, avec évaluation critique.
-  - 🆕 **Modérateur** — pousse à rendre une piste **concrète et chiffrée** (il fait converger, il ne multiplie pas les idées).
-
-Chaque idée nouvelle est préfixée **`PISTE INNOVANTE :`**, **explicitement signalée comme exploratoire**, puis **évaluée de façon critique** (faisabilité, ordres de grandeur, conditions de validité).
-
-> 🛡️ **Garde-fou ADRASEC** : une spéculation n'est **jamais** présentée comme un fait. La créativité propose des concepts *à explorer* ; elle n'invente pas de certitudes. C'est ce qui rend le mode utilisable en préparation d'exercice, où la fiabilité prime.
-
-### 📈 Budget de tokens adaptatif (anti-troncature)
-
-Plus la créativité est élevée, plus les réponses sont riches. d-IA **augmente automatiquement `num_predict`** pour les tours de dialogue, afin que les réponses multi-concepts **ne soient plus coupées en plein milieu**. Le modérateur, lui, conserve un budget court (sa vocation est de converger).
-
-```
-Créativité 0 %   → directive vide, échantillonnage et budget inchangés (mode strict)
-Créativité 50 %  → +température/+top_p modérés, num_predict ≈ ×1,75, 1 piste développée
-Créativité 100 % → forte divergence, num_predict ≈ ×2,5 (plafonné), 1–3 pistes + évaluation
-```
-
-> 💡 À **0 %**, d-IA se comporte exactement comme en v1.4 : strict et opérationnel. Le curseur est dans **colonne de gauche → Paramètres avancés → « Créativité / innovation (%) »**.
-
-### 🖥️ Ergonomie — fenêtres défilantes (petits écrans)
-
-- La **fenêtre Paramètres IA** (tous les onglets) est désormais **défilante** : plus rien n'est coupé en bas, même sur un écran de portable.
-- La **colonne de configuration** (sujet, thèmes, paramètres avancés, recherche web) est **défilante** elle aussi ; les boutons **Démarrer / Pause / Arrêter** restent **fixes en haut**, toujours visibles. Les zones de texte (sujet, thèmes) conservent leur propre défilement.
-
----
-
-## 🆕 Nouveautés v1.4 — Rendu Markdown du dialogue & voix assainie
-
-- 🖋️ **Rendu Markdown** dans la zone de conversation : **gras**, *italique*, `code` et blocs de code, titres, citations, listes (à puces et numérotées), liens et barré sont désormais **interprétés et affichés proprement** — fini les `**`, `#` ou `\` bruts à l'écran.
-- 🎤 **Synthèse vocale assainie** : le nettoyage TTS retire intégralement les artefacts Markdown **avant lecture**, si bien que SAPI5 **ne prononce plus** les caractères de balisage (notamment l'antislash `\` et les séquences `***`). Le `snake_case` technique (ex. `IAbrain_rag`) est **préservé** à la lecture.
-- ⚙️ Implémentation **sans dépendance externe** (parseur Markdown maison), compatible autonomie hors-ligne et PyInstaller `--onedir`.
-
----
-
-## 🆕 Nouveautés v1.3 — Enrichissement par le web & auto-export IAbrain
-
-La **v1.3** ferme la boucle de l'aide à la recherche : l'Investigateur peut désormais **aller chercher des sources réelles sur le web** pour étayer le dialogue, et les fiches produites peuvent être **poussées automatiquement vers IAbrain** au fil de l'eau.
-
-### 🔎 Enrichissement par le web (l'Investigateur va chercher des sources)
-
-Avant son tour, le LLM1 (Investigateur) peut interroger le web et recevoir 2-3 extraits qu'il **synthétise en français, avec esprit critique**, pour nourrir sa relance. Deux fournisseurs interchangeables :
-
-- **DuckDuckGo** *(par défaut, aucune installation)* — `urllib` seul, aucune dépendance, aucune clé API, rien à héberger.
-- **SearXNG** *(souverain)* — interroge une instance auto-hébergée via son API JSON, pour garder la maîtrise totale des requêtes (idéal pour des sujets d'exercice sensibles).
-
-La recherche est **throttlée** (1 requête tous les N tours d'Investigateur), **dédupliquée par thème** (on ne relance que lorsque le planificateur change de thème), et surtout à **repli hors-ligne** : si elle échoue ou est désactivée, le dialogue se déroule exactement comme avant. d-IA reste donc utilisable en scénario blackout — la recherche est simplement inerte.
-
-```
-[Analyste répond] → l'Investigateur interroge le web (thème actif)
-        ↓ 2-3 extraits sourcés (titre + lien + résumé)
-[Investigateur] synthétise en français, cite, reste critique → relance argumentée
-```
-
-> 💡 La recherche web suppose une connexion Internet : c'est un outil de **préparation / formation**, pas de terrain en blackout.
-
-### ♻️ Auto-export des fiches vers IAbrain (au fil de l'eau)
-
-Quand le modérateur RAG extrait une fiche, d-IA peut l'**écrire immédiatement en Markdown** dans le dossier source d'IAbrain, prête à être indexée — sans passer par un export manuel. d-IA détecte automatiquement l'emplacement d'IAbrain (`rag_perso_sources`).
-
-**Garde-fou opérationnel** : les fiches sont déposées dans une **zone de staging `_a_valider/`**, *jamais* directement dans la base de confiance. Une **relecture humaine** valide avant exploitation en exercice. C'est la différence entre un outil de veille pratique et une base sur laquelle un opérateur s'appuierait en intervention.
-
-```
-d-IA (dialogue enrichi par le web) → modérateur extrait une fiche sourcée
-        ↓ auto-export .md
-IAbrain/rag_perso_sources/_a_valider/<DOMAINE>/<fiche>.md
-        ↓ relecture + validation humaine
-IAbrain /index ou /reindex → interrogeable en langage naturel
-```
-
----
-
-## ⭐ Fonctionnalités principales
-
-| Icône | Fonctionnalité | Description |
+| | | |
 |:---:|---|---|
-| 📅 | **Exercice cadre — chronogramme et DIRANIM (v1.11.11)** | Le plugin `chronogramme.py` déroule un **chronogramme d'exercice cadre** écrit en CSV : horloge de jeu (`HEURE_JEU`), inject adressé à **un seul destinataire**, réaction attendue **jamais divulguée** aux joueurs mais pointée automatiquement, **relance par un autre vecteur** quand elle ne vient pas, incidents de réserve, et **main courante de RETEX en CSV** avec bilan chiffré au FINEX. Pupitre du formateur par variables de session (`DIRANIM_AVANCE`, `DIRANIM_RESERVE`, `DIRANIM_PAUSE`, `DIRANIM_FINEX`) — donc pleinement utilisable avec `plugins_actions_mode: off`. Conforme au guide méthodologique de la Direction de la Sécurité Civile. |
-| 🔌 | **Plugins d'entrées-sorties Python (v1.10)** | Un simple fichier `.py` déposé dans `plugins_dia\` injecte des **variables de situation réelles** dans le prompt des trois LLM (bloc `DONNÉES DE SITUATION`) : propagation HF, météo, état d'un relais… Deux hooks — `collect(ctx)` avant chaque prise de parole, `on_message(msg, ctx)` après — et **le même contrat que les plugins IAbrain**. Variables de session saisissables à la main, sans code. Plugins livrés : `exemple_minimal.py`, `propagation_vars.py`, `sitrep_scoring.py`, `meteo_3x30.py`. |
-| ⚡ | **Actions, mesures et attentes (v1.11)** | Un LLM peut **agir** et **attendre** : `ACTION: mesure_meteo(lieu=melun)` déclenche un acte ou une mesure dont le résultat devient une variable, `ATTENDRE: RELEVE_AGE_MIN < 2 delai=300` suspend le dialogue jusqu'à ce que la condition soit vraie, puis le relance. Trois modes — `auto`, `confirmer` (validation humaine avant chaque action), `off` (journalisé, non exécuté) — transportés par les presets. Actif **aussi en mode recherche**. Timeouts, plafonds et désactivation automatique d'un plugin défaillant : un plugin ne bloque jamais le dialogue. |
-| 🎙️ | **Mode CHAT — opérateur acteur réel (v1.8)** | Bascule **opt-in** : **vous jouez le LLM2** (Analyste = opérateur ADRASEC de terrain ou protagoniste du récit). À votre tour, une **zone de saisie** s'ouvre sous la conversation et le dialogue attend votre message (Ctrl+Entrée pour envoyer). Le **LLM1** (COD / Maître du Jeu) répond, le **LLM3** injecte les événements : vraie interactivité pour l'entraînement au trafic radio ou le jeu de rôle. Message étiqueté **« (vous) »**, jamais lu par le TTS. Persisté et transporté par les presets (`chat_humain_actif`). |
-| 🎭 | **Mode Jeu de Rôle / Simulation (v1.7)** | Bascule **opt-in** qui détourne le trio de LLM : **LLM1 anime/ouvre**, **LLM2 réagit**, **LLM3 injecte un événement** tous les K tours (au lieu d'arbitrer). Sans preset, rôles de **fiction** (Maître du Jeu / Joueur / Injecteur) ; un preset peut définir des **rôles personnalisés** via `jdr_profil` — ex. **simulation ADRASEC** (COD / opérateur de terrain / injecteur de crise, scénario HÉLIOS NOIR). Réutilise le modérateur conversationnel comme injecteur. Décochée : comportement strictement identique à la v1.5. |
-| ✨ | **Créativité / innovation pilotable (v1.5)** | Un curseur **0–100 %** qui fait **proposer de nouveaux concepts** à partir de la requête initiale : boost *additif* de température/top_p **et** directive d'innovation **adaptée au rôle** (Investigateur bref, Analyste moteur à concepts, Modérateur qui chiffre). Pistes préfixées `PISTE INNOVANTE :` (qui devient `ACTION :` en jeu de rôle pur ou `DEMANDE POUR ACTION :` en simulation ADRASEC, v1.7), signalées exploratoires et évaluées. **Budget de tokens auto-ajusté** (anti-troncature). À **0 %** : comportement opérationnel strict, identique à la v1.4. |
-| 🖋️ | **Rendu Markdown + voix assainie (v1.4)** | Le dialogue affiche le **Markdown interprété** (gras, listes, code, titres, citations…) au lieu des balises brutes. La synthèse vocale **retire ces balises avant lecture** (plus de `\` ni `***` prononcés par SAPI5), tout en préservant le `snake_case`. Parseur maison, sans dépendance. |
-| 🤖 | **Deux LLM aux rôles asymétriques** | LLM1 (Investigateur) doit terminer chaque tour par une question ouverte. LLM2 (Analyste) doit introduire un élément nouveau dans chaque réponse (analogie, contre-exemple, chiffre…). Ces contraintes empêchent les boucles stériles et donnent un vrai rythme de dialogue. |
-| 🆕 | **Modérateur conversationnel (v1.2)** | Un 3ᵉ LLM **intervient directement dans le dialogue** tous les K tours : bilan de ce qui est acquis, point bloquant restant, et **consigne de convergence précise** (chiffre à établir, hypothèse à trancher, verdict à formuler). Son intervention est réinjectée dans le contexte des deux IA, ce qui crée la rétroaction qui **fait aboutir la recherche**. |
-| 📋 | **Presets de sujet (v1.2)** | Boutons **Importer / Exporter un preset** : un sujet de recherche complet (sujet principal + thèmes secondaires + objectif de convergence + réglages) se charge en un clic, se sauvegarde au format `.diapreset.json` et **se partage** entre opérateurs. Le format texte est aussi accepté à l'import. |
-| 🗂️ | **Modérateur RAG (mode ADRASEC enrichi)** | **v1.1** : un LLM observe le dialogue en arrière-plan et extrait des fiches structurées (JSON) tous les N échanges. Capitalisation automatique dans `rag_adrasec.json`, réutilisable pour exercices, RETEX, ou indexation dans IAbrain. **Compatible avec le modérateur conversationnel** : l'un parle, l'autre fiche. |
-| 🔎 | **Enrichissement par le web (v1.3)** | L'**Investigateur** interroge le web avant son tour et reçoit 2-3 extraits qu'il synthétise en français avec esprit critique. Deux fournisseurs : **DuckDuckGo** (sans installation) ou **SearXNG** (auto-hébergé, souverain). Recherche throttlée, dédupliquée par thème, et à **repli hors-ligne** (inerte si pas de réseau ou désactivée). |
-| ♻️ | **Auto-export vers IAbrain (v1.3)** | Les fiches du modérateur RAG sont écrites en Markdown directement dans le dossier source d'IAbrain, **au fil de l'eau**, dans une zone de **staging `_a_valider/`** (jamais dans la base de confiance). Relecture humaine puis `/index`. Détection automatique de l'emplacement d'IAbrain. |
-| 🌐 | **Ollama local OU cloud, par LLM** | Chaque IA (y compris le modérateur) peut être configurée indépendamment : LLM1 sur un serveur local LAN, LLM2 sur Ollama Cloud, modérateur ailleurs encore. Mixage possible : petit modèle local pose les questions, gros modèle cloud arbitre. |
-| 📚 | **Thèmes secondaires guidés** | L'utilisateur définit un sujet principal (fil rouge) + une liste de thèmes secondaires. Le moteur fait défiler les thèmes tous les N tours, garantissant une progression de la conversation sans dérive thématique — et, avec le modérateur, une trajectoire vers la conclusion. |
-| 🧠 | **Mémoire à fenêtre glissante** | Les N derniers échanges sont passés intégralement aux LLM ; les plus anciens sont condensés en un **résumé glissant** régénéré périodiquement. Évite l'explosion du contexte au-delà de 20-30 tours. |
-| 🔍 | **Détection de dérive linguistique** | Si un modèle bascule en chinois/cyrillique/arabe en cours de génération (bug fréquent de Qwen 2.5 sur les conversations longues), d-IA détecte automatiquement (ratio > 5% caractères non-latins), régénère avec température réduite, et tronque si nécessaire avec un avertissement. S'applique aussi au modérateur. |
-| 🎤 | **Synthèse vocale SAPI5 deux voix** | Activation optionnelle. Chaque IA a sa voix configurable parmi celles installées sur Windows ; le modérateur reprend la voix de l'Investigateur. **Le dialogue se synchronise sur la voix** : la génération du tour suivant se fait en parallèle pendant que le TTS parle, mais l'affichage n'arrive qu'à la fin de la lecture précédente. Vrai rythme conversationnel. |
-| ✨ | **Déblocage des voix OneCore Windows 10/11** | Bouton intégré qui rend accessibles à SAPI5 les voix modernes Windows (Henri Natural, Julie, Paul, Caroline, Claude, Hortense…) en copiant les clés de registre `Speech_OneCore` vers `Speech`. Opération réversible via un bouton « Restaurer ». |
-| ✏️ | **Configuration persistante** | Tous les paramètres (hosts, modèles, clés API offusquées en base64, sujet, thèmes, objectif de convergence, fréquence du modérateur, voix, températures…) sont sauvés dans `d-ia_setup.json` à côté de l'exécutable, et rechargés au démarrage. |
-| 📤 | **Export multi-format** | Bouton « Exporter la conversation » : **JSON** (données structurées pour retraitement / RETEX), **Markdown** (fichier `.md` lisible, parfait pour Notion/Obsidian/GitHub), **RTF** (couleurs LLM1 bleu, LLM2 violet et **Modérateur vert**, ouvre directement dans Word / LibreOffice). |
-| 🎨 | **Interface tricolore** | Zone de conversation avec messages **bleus pour LLM1**, **mauves pour LLM2** et **verts pour le Modérateur (v1.2)**. Lisibilité optimale, distinction immédiate des trois rôles. Méta-messages en gris italique. |
-| ⚙️ | **Fenêtre Paramètres IA modale** | Onglets : **IA 1 - Investigateur**, **IA 2 - Analyste**, **IA 3 - Modérateur**, **Mode ADRASEC** (activation du **mode Jeu de Rôle**, du modérateur conversationnel et du RAG), **Synthèse vocale**. |
+| 🔒 | **100 % hors-ligne** | Modèles auto-hébergés, aucune donnée transmise. Utilisable en salle de crise sans Internet — ce qui est précisément le cas d'usage. |
+| ⚙️ | **S'adapte tout seul à la machine** | d-IA **mesure** la VRAM réellement disponible et la géométrie des modèles chargés, puis règle sa fenêtre de contexte en conséquence — au démarrage et en cours de séance. Serveur du réseau local, portable, cloud : on change de machine, d-IA se réajuste sans qu'on lui demande. |
+| 📅 | **Chronogramme conforme à la doctrine** | Injects horodatés, destinataire unique, réaction attendue jamais divulguée, relance par vecteur alternatif, incidents de réserve, RETEX chiffré au FINEX. |
+| 🎛️ | **Le formateur garde la main** | Pupitre DIRANIM par variables de session : avancer, injecter une réserve, mettre en pause, prononcer le FINEX. Fonctionne même avec toutes les actions désactivées. |
+| 🌡️ | **Des mesures vraies dans un scénario fictif** | Le scénario est inventé ; la météo, la propagation HF, l'état d'un relais ne le sont pas. C'est ce mélange qui rend l'exercice crédible. |
+| 🎙️ | **Mode CHAT** | Vous tenez un rôle en direct, les autres restent automatiques. Votre message n'est pas lu par la synthèse vocale et s'affiche étiqueté « (vous) ». |
+| 🗣️ | **Synthèse vocale deux voix** | Voix SAPI5 distinctes par IA, dialogue synchronisé sur la lecture, balises Markdown retirées avant de parler, et **dates et heures dites correctement** — « 11/07 » se lit *onze juillet*, pas *novembre 2007*. |
+| 📋 | **Presets partageables** | Un `.diapreset.json` transporte le sujet, les thèmes, les rôles, le scénario, le mode d'actions et les réglages. On le passe à un collègue, il démarre. |
+| 🌐 | **Local, LAN ou cloud, LLM par LLM** | Petit modèle local qui questionne, gros modèle cloud qui arbitre : chaque IA se configure indépendamment. |
+| 🧠 | **Mémoire à fenêtre glissante** | Les derniers échanges passent intégralement, les plus anciens sont condensés. Des séances de 30 tours et plus, sans explosion du contexte. |
+| 🔍 | **Détection de dérive linguistique** | Un modèle qui bascule en chinois en cours de génération est détecté et régénéré automatiquement. |
+| 📤 | **Export JSON · Markdown · RTF** | Pour le retraitement, la documentation, ou le rapport ouvert directement dans Word. Le fil est aussi **sélectionnable et copiable** à la souris. |
 
----
-<img src="images/d-ia_main_screen.jpg" alt="d-IA main screen" width="1024">
-
-## 🆕 Nouveautés v1.2 — Le modérateur qui fait converger la recherche
-
-La **v1.2** transforme d-IA en **outil d'aide à la recherche dirigée**. Jusqu'à la v1.1, le 3ᵉ LLM observait passivement le dialogue pour en extraire des fiches. Désormais, il peut **prendre la parole dans la conversation** pour la piloter vers une solution.
-
-### Le principe
-
-```
-                  recadre / fait converger tous les K tours
-                  ┌─────────────────────────────────────────┐
-                  │                                          ▼
-LLM1 (Investigateur)  ⇄  LLM2 (Analyste)  ◄────  LLM3 (Modérateur conversationnel)
-                                                          │
-                            son intervention est réinjectée dans le contexte
-                            des deux IA → rétroaction → convergence vers la solution
-```
-
-### Ce que fait le modérateur conversationnel
-
-À chaque intervention (tous les K tours, K configurable), le modérateur produit une note courte et structurée :
-
-1. **Bilan** — ce qui est désormais acquis ou chiffré dans le dialogue.
-2. **Point bloquant** — ce qui reste flou, contradictoire ou non tranché.
-3. **Consigne de convergence** — une directive *précise et actionnable* pour les prochains tours.
-
-> *Exemple sur le sujet « communication par ondes gravitationnelles » :*
-> *« Bilan : la faisabilité de principe est établie. Point bloquant : aucun ordre de grandeur n'a été posé. Consigne : établissez le strain h produit par une masse de 1 t oscillant à 100 Hz, puis comparez-le au plancher de bruit d'un interféromètre type LIGO (~10⁻²¹). »*
-
-Le modérateur **ne répond pas à la place des deux IA** : il oriente, recadre, et exige une conclusion. Comme son message entre dans l'historique et donc dans le contexte du tour suivant, les deux IA en tiennent compte — c'est cette boucle qui les empêche de tourner en rond et les conduit au **verdict chiffré**.
-
-### Pourquoi c'est utile pour la recherche
-
-| Sans modérateur (v1.1) | Avec modérateur conversationnel (v1.2) |
-|---|---|
-| Deux IA explorent un sujet, parfois indéfiniment | Un arbitre garde le cap et impose une trajectoire |
-| Risque de digression ou de boucle | Recadrage explicite dès que le dialogue dérive |
-| Pas de conclusion garantie | Consignes de convergence → **verdict chiffré** |
-| Matière brute à relire | Démarche dirigée vers une solution exploitable |
-
-### Le modérateur conversationnel et le RAG, ensemble
-
-Les deux modes peuvent tourner **simultanément** : le LLM3 **parle** dans le dialogue (modérateur conversationnel) **et** capitalise en arrière-plan des fiches dans `rag_adrasec.json` (modérateur RAG). Les recadrages du modérateur ne sont pas fichés — seule la matière technique des deux IA l'est.
-
-### Configuration
-
-Dans **Paramètres IA → onglet « Mode ADRASEC »**, section **« Modérateur conversationnel (v1.2) »** :
-
-- **Activer** le modérateur conversationnel (case à cocher)
-- **Intervenir tous les K tours** (par défaut 6)
-- **Température** du modérateur (par défaut 0.4 — basse pour un recadrage factuel et directif)
-- **Objectif de convergence** (champ texte optionnel) : la cible que le modérateur cherchera à atteindre
-
-Le modérateur réutilise la cible (host / cloud / modèle) configurée dans l'onglet **« IA 3 - Modérateur »**. **Modèles recommandés** : `gpt-oss:120b` (Ollama Cloud) pour des consignes nettes, ou `gemma2:9b` / `mistral-nemo:12b` en local.
-
----
-
-## 📋 Nouveautés v1.2 — Presets de sujet de recherche
-
-Un **preset** capture un sujet de recherche complet et réutilisable : **sujet principal + thèmes secondaires + objectif de convergence + réglages** (tours par thème, fréquence du modérateur, températures, mode ADRASEC…).
-
-Dans la colonne de gauche, le menu **« 📋 Preset de sujet ▼ »** propose :
-
-- **📥 Importer un preset** — charge tout en un clic, avec un aperçu de confirmation. Accepte le format natif `.diapreset.json` **et** le format texte structuré (`.txt`).
-- **📤 Exporter le sujet courant** — sauvegarde l'état actuel dans un `.diapreset.json` partageable, nommé d'après le sujet.
-- **👁 Aperçu du sujet courant** — récapitulatif rapide sans rien exporter.
-
-### Pourquoi c'est utile
-
-- 🔁 **Reproductibilité** : relancer exactement la même investigation, ou la confier à un autre opérateur.
-- 🤝 **Partage** : un fichier preset unique, portable, versionnable (texte/JSON, diff lisible Git).
-- 📚 **Bibliothèque de sujets** : constituer une collection de sujets de recherche ADRASEC prêts à l'emploi (propagation, NVIS, blackout HF, communications alternatives…).
-
-### Exemple de preset fourni
-
-Un preset complet **« Communication par ondes gravitationnelles »** est livré (`.diapreset.json` + version texte). Il définit 7 thèmes secondaires ordonnés pour mener le dialogue de la faisabilité brute jusqu'au verdict chiffré, avec le modérateur conversationnel activé. Il suffit de l'importer, de choisir les modèles, et de cliquer Démarrer.
-
----
-
-## 🗂️ Mode ADRASEC enrichi — Modérateur RAG (v1.1, toujours présent)
-
-En complément du modérateur conversationnel, le **modérateur RAG** observe le dialogue et **extrait automatiquement des fiches documentaires** au format JSON structuré. Chaque dialogue devient une matière première directement réutilisable pour exercices, RETEX, formations ou base de connaissances.
-
-Pour un dialogue de 30 tours sur la propagation HF, on obtient typiquement **8 à 12 fiches structurées** comme celle-ci :
-
-```json
-{
-  "titre": "Variations diurnes de la couche F2",
-  "domaine": "HF_NVIS",
-  "tags": ["F2", "photoionisation", "vent neutre", "température thermosphérique"],
-  "resume": "La densité maximale NmF2 et la fréquence de coupure foF2 varient quotidiennement sous l'effet combiné de la photoionisation solaire et de la recombinaison...",
-  "faits": [
-    "Photoionisation crée des électrons, recombinaison avec O⁺ les détruit, pic NmF2 vers 14-16h locales",
-    "foF2 atteint 15 MHz en journée et 2-3 MHz le matin, retard de 2-3h dû au transport d'électrons",
-    "Hausse de 100 K de la température thermosphérique → temps de transport réduit de 15 min"
-  ],
-  "procedures": [],
-  "sources_citees": ["satellite DMSP", "radar incohérent de Saint-Santin"],
-  "confiance": "haute",
-  "source_dialogue": {
-    "type": "dialogue_d-IA",
-    "mode_extraction": "continue",
-    "tour_debut": 0,
-    "tour_fin": 7,
-    "theme": "La couche F2 et ses variations diurnes",
-    "moderateur_modele": "gpt-oss:120b"
-  },
-  "date": "2026-05-17T14:51:20"
-}
-```
-
-Chaque fiche contient :
-- **Métadonnées** : titre, domaine ADRASEC, tags, niveau de confiance
-- **Contenu** : résumé synthétique + faits techniques détaillés (avec chiffres, fréquences, seuils)
-- **Procédures** opérationnelles quand applicable
-- **Sources citées** par les LLM
-- **Traçabilité complète** : modèles utilisés, tours concernés, thème actif
-
-### Configuration
-
-L'**onglet « IA 3 — Modérateur »** dans Paramètres IA permet de configurer le LLM3 (host local ou cloud, modèle, clé API). L'**onglet « Mode ADRASEC »** permet d'activer le RAG, de choisir la **fréquence d'extraction** (tous les N échanges complets, par défaut 4), et de voir les **statistiques** (fiches en base, fiches cette session).
-
-**Modèles modérateurs recommandés** (par ordre de qualité pour l'extraction JSON) :
-- `gpt-oss:120b` (Ollama Cloud) — **excellent**, JSON très propre, bon respect des consignes
-- `qwen3-coder:480b` (Ollama Cloud) — excellent pour le format structuré
-- `gemma2:9b` (local) — bon compromis qualité/VRAM
-- `mistral-nemo:12b` (local) — très bon en français
-
-Le modérateur peut tourner sur Ollama Cloud pendant que les deux LLM principaux sont en local : configuration idéale pour profiter d'un gros modèle d'arbitrage et d'extraction sans charge GPU supplémentaire.
-
----
-
-## 🔗 Intégration avec IAbrain
-
-Les fiches générées par d-IA sont **directement consommables par le système RAG d'IAbrain** (autre projet F1GBD/ADRASEC 77). C'est le **chaînon manquant** entre génération de dialogues et interrogation en langage naturel.
-
-### Le scénario complet
-
-```
-1. d-IA génère des fiches lors d'un dialogue (arbitré par le modérateur,
-   et désormais enrichi par des sources web — v1.3)
-        ↓
-2. Export Markdown (manuel) OU auto-export au fil de l'eau vers le staging IAbrain (v1.3)
-        ↓
-3. Relecture / validation humaine (zone _a_valider/), puis /index dans IAbrain
-        ↓
-4. Vous interrogez IAbrain en langage naturel sur vos sujets ADRASEC
-```
-
-### Récupération des fiches dans IAbrain
-
-#### Méthode 1 — Export Markdown puis indexation manuelle (recommandée)
-
-1. **Localiser le fichier RAG** : `rag_adrasec.json` se trouve à côté de `d-IA.exe` (typiquement `C:\d-IA\`)
-2. **Convertir en Markdown** ou copier-coller le résumé + faits + procédures de chaque fiche dans un fichier `.md` dédié
-3. **Placer les fichiers** dans un dossier dédié, par exemple :
-   ```
-   C:\Users\<user>\Documents\IAbrain_RAG_perso\d-IA\
-   ├── 2026-05-17_propagation_F2.md
-   ├── 2026-05-17_eruptions_solaires.md
-   └── ...
-   ```
-4. **Indexer dans IAbrain** :
-   ```
-   /index C:\Users\<user>\Documents\IAbrain_RAG_perso\d-IA\
-   ```
-   IAbrain absorbe les fiches dans sa **base personnelle vectorielle** (pas dans la base principale ADRASEC, ce qui préserve son intégrité).
-5. **Interroger** IAbrain en langage naturel :
-   - *« Quelle est la fréquence de coupure foF2 typique et son cycle diurne ? »*
-   - *« Comment la propagation NVIS est affectée par les turbulences Kelvin-Helmholtz ? »*
-   - *« Quels paramètres surveiller pour anticiper un blackout HF après une éruption solaire ? »*
-
-#### Méthode 2 — Édition manuelle du JSON
-
-Ouvrir `rag_adrasec.json` avec un éditeur (Notepad++, VS Code) pour corriger, supprimer, enrichir ou fusionner des fiches. Le format JSON est documenté en commentaire en début de fichier et reste lisible à l'œil.
-
-#### Méthode 3 — Auto-export au fil de l'eau (v1.3, recommandée pour capitaliser vite)
-
-Dans **Paramètres IA → Mode ADRASEC → Auto-export vers IAbrain**, cochez **« Pousser les fiches vers IAbrain au fil de l'eau »**. À chaque fiche extraite par le modérateur RAG, d-IA écrit aussitôt le `.md` correspondant dans :
-
-```
-<IAbrain>/rag_perso_sources/_a_valider/<DOMAINE>/<fiche>.md
-```
-
-d-IA détecte automatiquement l'emplacement d'IAbrain (à défaut, un dossier `IAbrain_rag_perso/_a_valider/` est créé à côté de `d-IA.exe`). Un `_INDEX.md` est régénéré par domaine.
-
-> ⚠️ **Zone de staging `_a_valider/` volontaire** : les fiches sont auto-générées (et parfois issues du web). Elles passent par un **sas de relecture humaine** avant d'entrer dans la base de confiance d'IAbrain. Après validation, déplacez-les et lancez `/index` (ou `/reindex`). Ne jamais exposer une fiche non relue en exercice opérationnel.
-
-### Capitalisation départementale
-
-Le fichier `rag_adrasec.json` est **portable** (un seul fichier JSON), **versionnable** (compatible Git), **partageable** (envoyez votre base à un autre opérateur ADRASEC qui l'absorbe dans son IAbrain) et **indépendant** (les fiches restent exploitables même sans d-IA). Une ADRASEC départementale peut ainsi bâtir, dialogue après dialogue, une **mémoire technique structurée** propre à son territoire, partageable au sein de la FNRASEC.
+<img src="images/d-ia_main_screen.jpg" alt="Écran principal de d-IA" width="1000">
 
 ---
 
 ## 📋 Pré-requis
 
-### Logiciels
+**Logiciels**
 
-- **Windows 10 ou 11** (le TTS SAPI5 et le binaire pyttsx3 sont Windows-only)
-- **Ollama** installé localement : <https://ollama.com/download>
-  - ou compte **Ollama Cloud** avec clé API : <https://ollama.com/settings/keys>
-- *(v1.3, optionnel)* **Recherche web** pour enrichir l'Investigateur : **DuckDuckGo** ne demande **aucune installation** (juste une connexion Internet) ; **SearXNG** nécessite une instance auto-hébergée avec le format JSON activé.
-- **Au moins deux modèles** téléchargés via Ollama (trois si vous utilisez le modérateur conversationnel et/ou RAG) :
+- **Windows 10 ou 11** (la synthèse vocale SAPI5 est Windows-only)
+- **[Ollama](https://ollama.com/download)** en local — ou un serveur Ollama sur le réseau local, ou un compte [Ollama Cloud](https://ollama.com/settings/keys)
+- **Deux modèles** téléchargés, trois si vous utilisez le modérateur :
 
   ```powershell
   ollama pull mistral:7b
   ollama pull llama3.2:3b
-  ollama pull gemma2:9b      # pour le modérateur (conversationnel ou RAG)
+  ollama pull gemma2:9b      # pour le modérateur / DIRANIM
   ```
 
-  Recommandés pour le français : `mistral:7b`, `mistral-nemo:12b`, `llama3.1:8b`, `llama3.2:3b`, `gemma2:9b`. Éviter `qwen2.5` qui dérive vers le chinois sur les conversations longues (d-IA détecte et corrige mais c'est sous-optimal).
+  Recommandés pour le français : `mistral:7b`, `mistral-nemo:12b`, `llama3.1:8b`, `llama3.2:3b`, `gemma2:9b`. Éviter `qwen2.5`, qui dérive vers le chinois sur les conversations longues.
 
-### Matériel
+**Matériel**
 
-| Configuration | VRAM nécessaire |
+| Configuration | VRAM |
 |---|---|
-| 2 × modèles 3B (llama3.2:3b + gemma3:1b) | ~4 Go |
-| 1 × 3B + 1 × 7B (llama3.2:3b + mistral:7b) | ~10 Go |
+| 2 × modèles 3B | ~4 Go |
+| 1 × 3B + 1 × 7B | ~10 Go |
 | 2 × 7B | ~16 Go |
-| 1 × 7B + 1 × 12B (mistral:7b + mistral-nemo:12b) | ~20 Go |
-| 2 LLM principaux + modérateur sur Ollama Cloud | VRAM des deux principaux seulement |
-| Mode éco VRAM (déchargement entre tours) | Pas de minimum (CPU OK) |
+| 2 LLM locaux + modérateur sur Ollama Cloud | VRAM des deux locaux seulement |
+| Mode éco VRAM (déchargement entre tours) | pas de minimum, CPU accepté |
 
-Sans GPU, ça marche aussi mais chaque tour prend 30-60 s au lieu de 5-10 s.
-
-> 💡 **Astuce** : pour le modérateur conversationnel, basculer le LLM3 sur Ollama Cloud (`gpt-oss:120b`) laisse tout le GPU aux deux IA principales tout en bénéficiant d'un arbitre de très bonne qualité.
+Sans GPU, d-IA fonctionne : comptez 30–60 s par tour au lieu de 5–10 s. Et vous n'avez pas à calculer la taille de contexte — **d-IA la mesure et la règle lui-même**.
 
 ---
 
 ## 🚀 Installation
 
-1. Télécharger [`d-IA.7z`](https://github.com/f1gbd/F1GBD/releases/latest) depuis la page Releases
-2. Décompresser dans un dossier de votre choix (ex : `C:\d-IA\`)
+1. Télécharger [`d-IA.7z`](https://github.com/f1gbd/F1GBD/releases/latest) depuis la page *Releases*
+2. Décompresser dans un dossier de votre choix, par exemple `C:\d-IA\`
 3. Lancer `d-IA.exe`
-4. Cliquer sur **⚙ Paramètres IA…** pour configurer les deux (ou trois) IA
-5. *(Optionnel)* Importer un preset de sujet via **📋 Preset de sujet → Importer un preset**
-6. Cliquer sur **▶ Démarrer**
+4. **⚙ Paramètres IA…** → configurer l'IA 1 et l'IA 2 (host, « Tester la connexion », choisir un modèle), puis l'IA 3 si vous voulez le modérateur ou le DIRANIM
+5. *(Exercice)* **📋 Preset → Importer un preset**, et choisir un preset de formation
+6. **▶ Démarrer**
+
+Les plugins se déposent dans `plugins_dia\`, **à côté de l'exécutable**. Ils sont relus à chaque lancement : pas de recompilation, pas d'installation.
 
 ---
 
-## 📖 Utilisation
+## ❓ Questions fréquentes
 
-### Premier démarrage
+**Faut-il être développeur pour s'en servir ?**
+Non. Un exercice se prépare avec un preset et un fichier CSV de chronogramme, tous deux lisibles et modifiables dans un éditeur de texte ou un tableur. Écrire un plugin demande du Python, mais les plugins utiles sont déjà livrés.
 
-1. **Ouvrir Paramètres IA** (bouton en haut à droite) :
-   - **Onglet IA 1** : laisser `http://localhost:11434` si Ollama tourne localement. Cliquer « Tester la connexion », choisir un modèle (ex: `mistral:7b`)
-   - **Onglet IA 2** : idem avec un autre modèle (ex: `llama3.2:3b`)
-   - **Onglet IA 3 - Modérateur** *(optionnel)* : configurer un 3ᵉ LLM (local ou cloud). Recommandation : `gpt-oss:120b` sur Ollama Cloud
-   - **Onglet Mode ADRASEC** :
-     - *(v1.2)* Section **Modérateur conversationnel** : cocher « Activer », choisir la fréquence K (6 tours par défaut), la température (0.4), et éventuellement un objectif de convergence
-     - *(v1.1)* Section **Mode ADRASEC enrichi** : cocher pour activer l'extraction RAG (facultatif, cumulable)
-     - *(v1.3)* Section **Auto-export vers IAbrain** : cocher pour pousser les fiches vers le staging IAbrain `_a_valider/` au fil de l'eau
-   - **Colonne de gauche → Paramètres avancés → Créativité / innovation (%)** *(v1.5, optionnel)* : régler le curseur (0 % = strict/opérationnel ; plus on monte, plus d-IA propose de concepts inédits — pistes `PISTE INNOVANTE :` côté Analyste). Laisser à 0 % pour un dialogue purement factuel.
-   - **Colonne de gauche → Recherche web - Investigateur** *(v1.3, optionnel)* : cocher « Activer la recherche web », choisir le fournisseur (`duckduckgo` sans installation, ou `searxng`), la fréquence et le nombre de résultats
-   - **Onglet Synthèse vocale** : *(optionnel)* cocher « Activer la lecture vocale », choisir une voix pour chaque IA, tester
-2. **Fermer** la fenêtre Paramètres
-3. **Saisir un sujet principal** + une liste de **thèmes secondaires** (un par ligne) — ou **importer un preset**
-4. **Cliquer ▶ Démarrer**
+**Mes données sortent-elles de la machine ?**
+Pas en mode local, qui est le mode par défaut : les modèles tournent chez vous. En mode cloud, les prompts partent chez le fournisseur — à éviter pour des données opérationnelles, et d'autant plus pour le modérateur, qui voit l'intégralité du dialogue.
 
-### Pendant la conversation
+**Combien de VRAM me faut-il vraiment ?**
+Le tableau ci-dessus donne l'ordre de grandeur, mais vous n'avez rien à régler : d-IA mesure la VRAM libre au démarrage, interroge le serveur Ollama sur ce qu'il a réellement placé en mémoire, ajuste sa fenêtre de contexte, et annonce ce qu'il a décidé et pourquoi.
 
-- **Pause / Reprendre** : suspendre temporairement le dialogue
-- **Arrêter** : termine la conversation (et interrompt le TTS en cours). Si le modérateur RAG est actif, déclenche aussi la **synthèse finale** sur l'intégralité du dialogue.
-- **Exporter** : choix du format (JSON / Markdown / RTF) via le menu déroulant
-- La **colonne droite** affiche le tour courant, le thème actif et le résumé glissant
-- Les **interventions du modérateur conversationnel** apparaissent **en vert** dans le fil, avec leur bilan et leur consigne de convergence
-- Les **méta-messages du modérateur RAG** apparaissent en gris italique :
-  - `[Moderateur] Extraction continue en cours sur N messages...`
-  - `[Moderateur] 2 fiche(s) ajoutee(s) [continue] - Total base : 8 | Session : 2`
+**Erreur Ollama « failed to allocate compute pp buffers » ?**
+La VRAM est saturée. Cocher « Mode éco VRAM », prendre des modèles plus petits, ou basculer un LLM sur le cloud. Depuis la v1.11.13, d-IA prévient ce cas en réglant lui-même le contexte.
 
-### Configuration Ollama Cloud
+**Un LLM peut-il déclencher du matériel réel ?**
+Oui, si le plugin est prévu pour ça et si l'opérateur l'a autorisé — une sirène ou un gyrophare de salle améliorent beaucoup l'immersion. Le mode `exercice` autorise cette signalisation et rien d'autre ; le mode `confirmer` demande votre accord à chaque fois.
 
-1. Créer un compte sur <https://ollama.com> et générer une clé API
-2. Dans **Paramètres IA → Onglet IA 1** (ou 2, ou 3), cocher **« Utiliser Ollama Cloud »**
-3. Coller la clé dans le champ « API key »
-4. Cliquer « Tester la connexion » → la liste des modèles cloud apparaît avec ☁ devant chaque nom
+**Le mode Jeu de Rôle casse-t-il l'usage recherche ?**
+Non, c'est une bascule optionnelle. Décochée, d-IA se comporte exactement comme en mode recherche.
 
-> ⚠️ **Confidentialité** : en mode cloud, vos prompts sont envoyés à ollama.com. À ne pas utiliser pour des données opérationnelles confidentielles. C'est encore plus vrai pour le modérateur qui voit **l'intégralité** du dialogue.
-
----
-
-## 🎙️ Synthèse vocale et déblocage des voix OneCore
-
-Par défaut, **pyttsx3/SAPI5 ne voit que les voix « Desktop »** de Windows (typiquement Hortense Desktop en FR-FR + Zira Desktop en EN-US). Les voix modernes Windows 10/11 (Henri Natural, Julie, Paul, Caroline, Claude…) sont stockées sous une autre branche de registre (`Speech_OneCore`) et sont invisibles aux applications SAPI5 standards.
-
-**d-IA fournit un déblocage en un clic** :
-
-1. Aller dans **Paramètres IA → Onglet Synthèse vocale**
-2. La section « **Voix modernes Windows 10/11 (OneCore)** » détecte automatiquement les voix disponibles non débloquées
-3. Cliquer sur **✨ Activer les voix OneCore (admin)**
-4. Accepter le prompt UAC : un script PowerShell copie les clés de registre `Speech_OneCore\Voices\Tokens` vers `Speech\Voices\Tokens`
-5. Redémarrer d-IA : les nouvelles voix apparaissent dans les combobox
-
-**L'opération est réversible** : bouton « Restaurer » qui retire uniquement les copies, sans toucher aux voix Desktop d'origine.
-
----
-
-## ❓ FAQ
-
-**Quelle est la différence entre le modérateur conversationnel (v1.2) et le modérateur RAG (v1.1) ?**
-Le modérateur conversationnel **parle dans le dialogue** pour le piloter vers une solution (bilan + recadrage + consigne de convergence). Le modérateur RAG **observe en silence** et extrait des fiches documentaires en arrière-plan. Les deux utilisent le LLM3 (onglet IA 3) et peuvent être **actifs en même temps**.
-
-**Le modérateur conversationnel ne se déclenche pas.**
-Vérifier dans l'ordre : (1) l'onglet **IA 3 - Modérateur** est configuré (host + modèle testé) ; (2) la case « Activer le modérateur conversationnel » est cochée dans l'onglet Mode ADRASEC ; (3) le dialogue a dépassé K tours (par défaut 6) — en dessous, il n'intervient pas encore.
-
-**Peut-on vraiment faire converger un dialogue vers une solution ?**
-Oui, c'est l'objet de la v1.2. Le modérateur impose une trajectoire et exige une conclusion. Pour de meilleurs résultats : placez un thème de synthèse/verdict en dernier, renseignez un **objectif de convergence** explicite, et utilisez un modèle d'arbitrage solide (`gpt-oss:120b`, `gemma2:9b`).
-
-**Comment réutiliser un sujet de recherche d'une fois sur l'autre ?**
-Utilisez les **presets** (v1.2). « Exporter le sujet courant » produit un `.diapreset.json` que vous rechargez via « Importer un preset ». Le fichier transporte le sujet, les thèmes, l'objectif de convergence et les réglages.
-
-**La recherche web ne renvoie aucune source (« Aucune source exploitable »).**
-Avec **DuckDuckGo** : vérifiez la connexion Internet ; en cas d'usage soutenu DDG peut limiter le débit (on retombe alors sur le repli hors-ligne, sans gravité). Avec **SearXNG** : le format JSON doit être activé dans `settings.yml` (`search: formats: [html, json]`) et le `limiter` désactivé, sinon l'instance renvoie 403. Dans tous les cas, le dialogue se poursuit normalement sans source.
-
-**Erreur Ollama « failed to allocate compute pp buffers ».**
-Votre VRAM est saturée. Solutions : (1) cocher « Mode éco VRAM » ; (2) réduire `num_ctx` à 2048 ou 4096 ; (3) utiliser des modèles plus petits ; (4) basculer un des LLM sur Ollama Cloud ; (5) basculer le modérateur sur Ollama Cloud.
-
-**Les conversations en chinois apparaissent en plein milieu d'une réponse.**
-C'est Qwen 2.5 qui dérive vers sa langue dominante. d-IA détecte et régénère automatiquement. Préférez `mistral:7b`, `llama3.x`, `mistral-nemo` ou `gemma2:9b`, stables en français sur 20+ tours.
-
-**Les voix OneCore n'apparaissent pas après le déblocage.**
-Il faut **redémarrer d-IA** après l'activation (la liste est lue au lancement). Si elles n'apparaissent toujours pas, vérifier dans regedit que `HKLM\SOFTWARE\Microsoft\Speech\Voices\Tokens` contient bien les nouvelles voix.
-
-**Les fiches générées par d-IA peuvent-elles être réimportées dans IAbrain ?**
-Oui, c'est le cas d'usage principal du mode RAG. Voir la section [Intégration avec IAbrain](#-intégration-avec-iabrain). **Depuis la v1.3**, d-IA peut **pousser les fiches automatiquement** vers le dossier source d'IAbrain (zone de staging `_a_valider/`) au fil de l'eau ; il reste l'export manuel et l'édition du JSON pour les cas particuliers.
-
-**Comment jouer moi-même l'opérateur (ou le personnage) au lieu de regarder les IA dialoguer ?**
-Cochez **Mode CHAT** (colonne de gauche). Vous prenez alors la place du **LLM2** : à votre tour, une zone de saisie s'ouvre sous la conversation, vous tapez votre message et l'envoyez (bouton **Envoyer** ou **Ctrl+Entrée**). Le LLM1 (COD / Maître du Jeu) vous répond et le LLM3 continue d'injecter des événements. Idéal pour s'entraîner au trafic ADRASEC face à un COD simulé (preset HÉLIOS NOIR 26) ou pour jouer un personnage (preset « Premier contact QO-100 »). Votre message n'est pas lu par la synthèse vocale et s'affiche étiqueté « (vous) ». Décochez le mode pour revenir au dialogue 100 % automatique.
-
-**À quoi sert le « mode Jeu de Rôle » et casse-t-il l'usage recherche habituel ?**
-Non. C'est une bascule **optionnelle** (onglet Mode ADRASEC). Décochée, d-IA fonctionne exactement comme avant. Cochée, elle réaffecte les trois LLM : LLM1 anime, LLM2 réagit, et le modérateur conversationnel devient un **injecteur d'événements**. Elle sert à jouer des scénarios de fiction ou à **simuler un exercice ADRASEC** (COD ↔ opérateur de terrain, avec injection d'aléas).
-
-**Comment définir des rôles précis (par ex. COD / opérateur) au lieu des rôles de fiction ?**
-Via un preset `.diapreset.json` portant une clé `jdr_profil` : `persona1/2/3` (l'identité et le comportement de chaque LLM) et `label1/2/3` (les libellés affichés). Sans `jdr_profil`, les rôles de fiction par défaut s'appliquent. Le preset `sim_helios_noir_26` fourni en donne un exemple complet.
-
-**En mode JdR, l'injecteur d'événements ne se déclenche pas.**
-Il réutilise le **modérateur conversationnel** : il faut donc cocher *aussi* « Activer le modérateur conversationnel » (onglet Mode ADRASEC) et configurer l'onglet **IA 3**. L'injection survient ensuite tous les K tours.
-
-**Pourquoi importer un sujet de recherche décoche-t-il le mode Jeu de Rôle ?**
-Parce que l'état JdR voyage dans le preset. Un `.diapreset.json` qui contient le champ `mode_jdr` l'impose (activé ou non) et charge son `jdr_profil` ; un sujet de recherche — ou un preset `.txt` qui ne porte pas ce champ — est traité comme **non-JdR** : d-IA décoche alors le mode Jeu de Rôle et réinitialise les rôles, pour ne pas hériter d'une session précédente (ex. les personas d'un scénario ADRASEC joué juste avant). Pour rejouer un scénario en JdR, importez sa version `.diapreset.json` (qui transporte `mode_jdr` et le `jdr_profil`), ou recochez la case manuellement.
+**Comment jouer moi-même dans le scénario ?**
+Cocher **Mode CHAT** dans la colonne de gauche : vous prenez la place du LLM2. Une zone de saisie s'ouvre à votre tour, envoi par **Ctrl+Entrée**.
 
 ---
 
 ## 🤝 Communauté
 
-d-IA est un **projet ouvert développé pour la communauté ADRASEC**, mis à disposition librement aux opérateurs ADRASEC départementales, à la FNRASEC, et plus largement à toute personne intéressée par les dialogues autonomes entre LLM et l'aide à la recherche par IA.
+d-IA est un **projet ouvert développé pour la communauté ADRASEC**, mis à disposition des ADRASEC départementales, de la FNRASEC, et de toute personne intéressée par les dialogues autonomes entre LLM.
 
-Toute contribution, retour d'expérience ou proposition d'amélioration est bienvenue via les *Issues* du dépôt GitHub.
+Retours d'expérience, idées et corrections sont bienvenus via les *Issues* du dépôt.
 
-**Idées d'usage** :
-- **Aide à la recherche dirigée** : poser un problème scientifique ouvert et laisser le trio Investigateur/Analyste/Modérateur converger vers une solution chiffrée
-- **Simulation d'exercice ADRASEC (v1.7)** : rejouer un scénario de crise (ex. HÉLIOS NOIR) avec LLM1 = COD, LLM2 = opérateur de terrain et LLM3 = injecteur d'aléas, pour entraîner au trafic et au traitement de l'événementiel
-- **Jeu de rôle / fiction pédagogique (v1.7)** : narration interactive à deux voix avec injecteur d'événements, rôles personnalisables par preset
-- Préparation aux examens radioamateurs (un LLM joue le candidat, l'autre l'examinateur, le modérateur recadre et extrait des fiches de révision)
-- Génération de RETEX d'exercices fictifs pour la doc ADRASEC, capitalisés automatiquement
-- Exploration pédagogique de la propagation HF, NVIS, satellite, communications quantiques…
-- Comparaison qualitative de deux modèles sur le même sujet
-- Constitution progressive d'une **base RAG départementale ADRASEC**, réutilisable via IAbrain
-- Constitution d'une **bibliothèque de presets** de sujets de recherche partagés au sein de la FNRASEC
+Quelques usages déjà pratiqués : exercices cadre départementaux et leur RETEX chiffré · entraînement individuel au trafic et au rendu compte · préparation aux examens radioamateurs · exploration de la propagation HF, NVIS et satellite · comparaison qualitative de deux modèles sur un même sujet · constitution d'une base RAG départementale réutilisable via IAbrain.
 
 ---
 
-## 📜 Historique des versions
+## 📚 Pour aller plus loin
 
-### v1.11.11 — Septembre 2026 — L'exercice cadre : d-IA tient le rôle du DIRANIM
+**Prendre en main**
 
-- ➕ **Plugin `chronogramme.py`** : d-IA déroule un **chronogramme d'exercice cadre** écrit en CSV par le formateur, au lieu de laisser le LLM3 improviser. Horloge de jeu publiée (`HEURE_JEU`), inject adressé à **un seul destinataire**, **réaction attendue jamais publiée** aux joueurs (règle « pas de divulgation »), **relance automatique par un autre vecteur** quand elle ne vient pas (règle « pas de constat d'échec »), incidents de réserve, substitution des variables des autres plugins (`{TEMPERATURE_C}`…). Pupitre du formateur par variables de session, donc utilisable avec `plugins_actions_mode: off` ; la seule action déclarée est en **lecture seule**. Le plugin reste **muet** tant qu'aucun chronogramme n'est chargé.
-- ➕ **Main courante de RETEX** : `logs\retex_chronogramme_AAAAMMJJ.csv`, une ligne par événement avec la réaction attendue et son pointage, plus un **bilan chiffré au FINEX**. L'exercice devient évaluable.
-- ⚠️ **Presets HÉLIOS NOIR 26 v2.0** : le `sujet` devient une **mise en ambiance** (les conséquences à venir en sont retirées), les **conventions d'exercice** y sont écrites, le **gabarit du point de situation** de l'annexe 1 est imposé aux deux joueurs, `persona3` devient une **ANIBAS d'appoint** subordonnée au chronogramme, et `"plugins_actions_mode": "off"` y figure comme convention d'exercice.
-- ➕ **Diagnostic de troncature mesuré, plus estimé** (v1.11.10 / v1.11.11) : d-IA lit les compteurs réels d'Ollama (`prompt_eval_count`, `eval_count`) et **désigne le plafond atteint** — `num_ctx` ou `num_predict` — avec les deux nombres et la marche à suivre. Alerte préalable quand le prompt ne laisse plus la place d'écrire.
-- ➕ **Barre de progression d'activité** (v1.11.8) sous les boutons Démarrer / Pause / Arrêter : on voit quel modèle réfléchit, et depuis combien de temps.
-- 🛠️ **Directives tolérantes au balisage** (v1.11.4 / v1.11.5) : `` `ACTION: …` ``, `**MESURE :**`, un mot-clé isolé sur sa ligne suivi de l'appel, un commentaire en fin de ligne — toutes ces formes, que les modèles produisent naturellement, sont désormais reconnues.
-- 🛠️ **Formule de trafic** (v1.11.7) : en simulation ADRASEC, chaque message se termine par « A vous, parlez » au lieu de « rendez la main ». Affichage compacté, sans ligne vide inutile (v1.11.6 / v1.11.9).
-- 🛠️ **Plugin `meteo_3x30` v2.1 — multi-sites** : un fichier de relevé **par commune**, comparaison des sites voisins (`METEO_AUTRES_SITES`), rafraîchissement automatique en arrière-plan, et acquisition **synchrone** quand le réseau répond vite — la mesure est rendue dans la même réponse au lieu d'exiger une attente.
+- [Manuel utilisateur](documentations/MEMO%20-%20d-IA_Manuel_Utilisateur.pdf)
+- [Fiche technique](documentations/MEMO%20-%20d-IA_Fiche_Technique.pdf)
+- [Concept des presets](documentations/MEMO%20-%20Fiche_d-IA_Concept_Presets.pdf) · [Index des presets livrés](documentations/MEMO%20-%20d-IA_Index_Presets.pdf)
 
-### v1.11.3 — Septembre 2026 — Le balisage retiré ne doit pas être du contenu
+**Exercice cadre et formation**
 
-- 🛠️ **L'assainissement des valeurs de plugin changeait leur sens.** Pour éviter que les modèles n'imitent du Markdown, toute valeur était privée des caractères `` ` `` `*` `_` `#` `>` `|`. Deux d'entre eux sont du contenu, pas du balisage : le **souligné** (« attendre `RELEVE_AGE_MIN < 2` » arrivait au modèle en « attendre RELEVEAGEMIN < 2 », un nom de variable inexistant qu'il recopiait dans une directive impossible à satisfaire) et le **chevron** (`>= 30` devenait `= 30`, un seuil minimal transformé en égalité — un contresens sur une règle de vigilance). Seuls `` ` `` `*` `|` sont désormais retirés partout ; `>` et `#` seulement en **début** de valeur, là où ils ouvriraient une citation ou un titre.
-- 🛠️ **Plugin `meteo_3x30` v1.8 — les seuils accompagnent les valeurs.** `CRITERES_3X30` donnait la valeur et le verdict mais pas le critère : le modèle en fabriquait un pour justifier sa conclusion (« l'humidité est inférieure à 80 % », seuil qui n'existe nulle part). `REGLE_3X30` rappelle la règle complète, et chaque critère porte son seuil.
-- 🛠️ **Plugin `meteo_3x30` v1.7 — toute attente doit pouvoir aboutir.** Un relevé du bon site jugé « assez frais » ne déclenchait aucune acquisition, alors que le catalogue prescrivait d'attendre `RELEVE_AGE_MIN < 2` : le dialogue scrutait 600 s un compteur qui ne pouvait que monter. `MESURE_RESULTAT` dit désormais s'il faut attendre ou répondre, le catalogue prescrit de le lire, et le seuil de fraîcheur passe de 20 min à 2 min.
+- [Tutoriel du preset HÉLIOS NOIR 26](formation/Tutoriel_preset_d-IA_HELIOS_NOIR_26.pdf) — monter et animer l'exercice de bout en bout
+- [Fiche réflexe HÉLIOS NOIR 26](formation/FICHE_REFLEXE_HELIOS_NOIR_26.pdf) — l'essentiel sur une page, à imprimer
+- [Histoire de HÉLIOS NOIR 26](formation/Histoire_HELIOS_NOIR_26.pdf) — le scénario
 
-### v1.11.2 — Septembre 2026 — Fidélité des données affichées
+**Écrire ses propres plugins**
 
-- 🛠️ **Le souligné intra-mot n'est plus interprété comme de l'italique** : `RELEVE_AGE_MIN` s'affichait `RELEVEAGEMIN` dans le fil. La directive s'exécutait correctement — seul l'affichage mentait — mais en formation, l'opérateur qui recopiait la ligne projetée obtenait un nom de variable faux. Le souligné n'ouvre désormais une emphase qu'**en bordure de mot** (règle de CommonMark, déjà appliquée par le nettoyage TTS depuis la v1.4).
-- 🛠️ **Plugin `meteo_3x30` v1.6 — règle de lieu** : `mesure_meteo(lieu=…)` résout le site demandé et **ne rend jamais le relevé d'un autre site** ; il déclenche l'acquisition du bon site et le signale. Nouvelle variable `LIEU_DEMANDE`, distincte de `LIEU_METEO`. Vent et rafales publiés avec leur décimale, comme la température : un arrondi est une information perdue, qu'un modèle comble volontiers de lui-même.
+- [Tutoriel des plugins d'entrées-sorties](formation/MEMO_d-IA_tutoriel_plugins.pdf) — le contrat, les actions, les attentes, et 15 exercices
+- [Les plugins livrés](plugins_dia/) — dont `exemple_minimal.py`, le point de départ le plus court
 
-### v1.11.1 — Septembre 2026 — La question au LLM1 voit les plugins
+**Autour de d-IA**
 
-- 🛠️ **La question directe au LLM1 était aveugle aux plugins** : son prompt était construit à part, sans les variables, et ses directives n'étaient pas traitées. Demander « relève la météo » ne déclenchait rien.
-- ⚙️ Extraction d'une classe **`MoteurPlugins`** partagée par la boucle de dialogue et les appels hors dialogue : une seule implémentation des variables, des actions et des attentes.
-- ➕ **Relance automatique** : si la réponse contenait des directives qui ont produit un résultat, d-IA réinterroge **une** fois le modèle avec les données fraîches, pour qu'il réponde à la question au lieu de redemander une mesure.
+- [Serveur IAbrain — gestion des connaissances 100 % hors-ligne](https://github.com/f1gbd/F1GBD/blob/master/iabrain/Documentations%20IAbrain/MEMO%20-%20Cr%C3%A9er_un_Serveur_IA_M1A_IAbrain.pdf)
+- [d-IA Light pour Android](https://github.com/f1gbd/F1GBD/tree/master/dia/android)
+- [Ollama Vulkan sur iGPU](documentations/MEMO%20-%20Fiche_technique_Ollama_v0.30_Vulkan_iGPU.pdf)
 
-### v1.11.0 — Septembre 2026 — Le LLM agit, mesure et attend
+**Historique**
 
-- ➕ **Actions et mesures demandées par les LLM** : `list_actions()` / `execute_action()` — même contrat que les plugins IAbrain. Le catalogue est injecté dans le prompt ; le modèle appelle une action par une directive seule sur sa ligne. Le résultat devient une variable.
-- ➕ **Attente d'une mesure ou d'un état** : `ATTENDRE: TEMPERATURE_C >= 30 delai=600`, opérateurs `>`, `>=`, `<`, `<=`, `=`, `!=`, `contient`. Attente bornée, interruptible, scrutée par appels courts — le timeout de 2 s par appel de plugin reste intact.
-- ➕ **Trois modes d'exécution** (`auto`, `confirmer`, `off`), persistés et transportés par les presets (`plugins_actions_mode`, `plugins_attente_max_s`).
-- ➕ **Plugins actifs aussi en mode recherche** : le bloc de variables est injecté dans les gabarits Investigateur / Analyste / Modérateur, et plus seulement en Jeu de Rôle.
-- ➕ **Plugin `meteo_3x30.py`** : météo réelle **AROME France HD** (Météo-France, via Open-Meteo) et **règle des 3 × 30**. Réutilise `meteo_lib.py` de **TCQ** quand elle est accessible. Livré avec son collecteur `meteo_3x30_collecte.py` (options `--simuler`, `--boucle`, `--sortie`).
+- [CHANGELOG.md](CHANGELOG.md) — le détail de toutes les versions, de la v1.0 à la v1.11.23
 
-### v1.10.0 — Septembre 2026 — Plugins d'entrées-sorties Python
-
-- ➕ **Dossier `plugins_dia\`** créé au démarrage, chargé automatiquement. Un plugin est un fichier `.py` isolé : `list_variables()`, `collect(ctx)`, `on_message(msg, ctx)`.
-- ➕ **Bloc `DONNÉES DE SITUATION`** injecté dans les prompts des trois rôles (emplacement `{variables}` des gabarits).
-- ➕ **Variables de session** : saisie manuelle de variables sans écrire de code (équivalent du `/set` d'IAbrain).
-- ➕ Menu **🔌 Plugins E/S** : activation, liste, rechargement à chaud, variables de session.
-- ➕ Plugins d'exemple livrés : `exemple_minimal.py`, `propagation_vars.py` (entrée), `sitrep_scoring.py` (sortie, notation automatique des SITREP en RETEX).
-- 🛡️ **Garde-fous** : 2 s par appel, désactivation après deux dépassements, plafonds de nombre et de longueur, assainissement des valeurs. Un plugin en erreur ne bloque jamais le dialogue.
-- ✅ Sans plugin dans le dossier, **comportement strictement identique à la v1.9**.
-
-### v1.9.0 — Juin 2026 — Génération de preset depuis un PDF & question au LLM1
-
-- ➕ **Génération de preset depuis un PDF** (menu Preset de sujet → 🧠 Générer un preset depuis un PDF…) : lecture d'un **SCENARIO ou d'un SITREP PDF**, extraction du texte, et production par le **LLM1** d'un preset `.diapreset.json` dans l'un des trois modes — **Jeu de Rôle** (simulation ADRASEC), **Dialogue autonome 3 LLM** ou **Vibe Research**. Preset **appliqué immédiatement** et **enregistrable**. 100 % hors ligne (**pypdf** embarqué dans le binaire).
-- ➕ **Bouton « ❓ Question au LLM1 »** : pose une question directe au LLM1 via la **zone de saisie** de la conversation (multi-ligne, **Ctrl+Entrée** / **Échap**) ; la réponse s'affiche dans le fil, **sans lancer de dialogue**.
-- 🛠️ Ergonomie : fenêtres **« Type de preset à générer »** et **« Aperçu du preset courant »** redimensionnées (aperçu en **format large, défilant**).
-- ✅ Comportement de la v1.8 **inchangé** si ces fonctions ne sont pas utilisées.
-
-### v1.8.1 — Juin 2026 — Fiabilité : fin des messages tronqués
-
-- 🛠️ **Séquences d'arrêt** empêchant un rôle de **rejouer le tour d'un autre interlocuteur** (le modèle imitait le format `[INVESTIGATEUR]`/`[ANALYSTE]` du contexte et partait en fausse transcription → dépassement de `num_predict`)
-- 🛠️ **Relance automatique sur troncature** : détection de `done_reason == "length"` et reprise de la suite (jusqu'à 2 fois), avec **recollage propre à la dernière phrase complète** — **plus de coupure en plein mot**
-- 🛠️ Nettoyage d'un éventuel **préfixe de rôle** ajouté par le modèle en tête de message
-
-### v1.8 — Juin 2026 — Mode CHAT : l'opérateur acteur réel
-
-- ➕ **Mode CHAT (opt-in)** : l'utilisateur **joue lui-même le LLM2** (Analyste = opérateur ADRASEC de terrain / protagoniste JdR) ; à son tour, une **zone de saisie** s'ouvre sous la conversation et le moteur attend son message
-- ➕ Les autres rôles restent **automatiques** : LLM1 (COD / Maître du Jeu) répond, LLM3 (injecteur) lance ses événements tous les K tours
-- ➕ Message humain **jamais lu par la synthèse vocale**, étiqueté **« (vous) »** dans le fil et les exports ; raccourci **Ctrl+Entrée** pour envoyer
-- ➕ Réglage **persisté** (`chat_humain_actif`) et **transporté par les presets** ; validation assouplie (le LLM2 joué par l'humain n'a besoin ni de modèle ni de cloud)
-- ➕ Nouveau preset de scénario joué : **« Premier contact QO-100 »** (jeu de rôle réaliste, premier contact radio)
-- ✅ Bascule **décochée** : comportement strictement identique à la v1.7
-
-### v1.7 — Juin 2026 — Mode Jeu de Rôle & Simulation
-
-- ➕ **Mode Jeu de Rôle (opt-in)** : réaffecte les trois LLM — LLM1 anime/ouvre, LLM2 réagit, LLM3 devient **injecteur d'événements** (réutilise le modérateur conversationnel)
-- ➕ **Rôles personnalisables par preset** (`jdr_profil`) : persona + libellé par LLM ; sans profil, rôles de **fiction** par défaut
-- ➕ Deux presets fournis : **`jdr_cristaux_quantiques_auvergne`** (fiction) et **`sim_helios_noir_26`** (**simulation ADRASEC**, scénario HÉLIOS NOIR 26)
-- ➕ Re-libellé des rôles dans l'affichage, le bandeau et les exports ; `mode_jdr` et `jdr_profil` **persistés** et **transportés par les presets**
-- ➕ **Libellé d'action contextuel** : le préfixe de créativité devient « ACTION » (jeu de rôle pur) ou « DEMANDE POUR ACTION » (simulation ADRASEC) en mode JdR ; « PISTE INNOVANTE » reste en mode recherche
-- ✅ Bascule **décochée** : comportement strictement identique à la v1.5 (prompts vérifiés byte-identiques)
-
-### v1.5 — Juin 2026 — Créativité & innovation pilotables
-
-- ➕ **Curseur Créativité / innovation (0–100 %)** : pousse d-IA à proposer de nouveaux concepts à partir de la requête initiale
-- ➕ Double levier : boost **additif** de température/top_p **+** directive d'innovation **graduée et adaptée au rôle** (Investigateur bref / Analyste moteur à concepts / Modérateur convergence)
-- ➕ Pistes préfixées **`PISTE INNOVANTE :`**, signalées exploratoires et évaluées de façon critique — **garde-fou ADRASEC** : jamais présentées comme des faits
-- ➕ **Budget `num_predict` adaptatif** : les réponses riches en concepts ne sont plus tronquées ; le modérateur conserve un budget court
-- ➕ Réglage **persisté** dans `d-ia_setup.json` et **transporté** par les presets `.diapreset.json`
-- 🛠️ **Fenêtre Paramètres IA défilante** (onglets) — plus rien de coupé en bas sur petit écran ; boutons d'action maintenus visibles
-- 🛠️ **Colonne de configuration défilante** (sujet / thèmes / paramètres avancés / recherche web), boutons Démarrer / Pause / Arrêter fixes en haut
-- ✅ À **0 %** de créativité : comportement strictement identique à la v1.4
-
-### v1.4 — Juin 2026 — Rendu Markdown du dialogue & voix assainie
-
-- ➕ **Rendu Markdown** de la conversation : gras, italique, code et blocs de code, titres, citations, listes (puces et numérotées), liens, barré et règles horizontales **interprétés** (plus de balises brutes à l'écran)
-- ➕ **Nettoyage TTS renforcé** : les artefacts Markdown (antislash `\`, `***`, `` ` ``, `#`, `>`, `|`…) ne sont **plus prononcés** par SAPI5
-- ➕ `snake_case` technique **préservé** à la lecture vocale (ex. `IAbrain_rag`)
-- ⚙️ Implémentation **sans dépendance externe** (parseur Markdown maison), compatible PyInstaller `--onedir`
-
-### v1.3 — Juin 2026 — Enrichissement par le web & auto-export IAbrain
-
-- ➕ **Enrichissement par le web de l'Investigateur** : le LLM1 interroge le web avant son tour et synthétise 2-3 sources en français
-- ➕ Deux fournisseurs interchangeables : **DuckDuckGo** (sans installation, `urllib` seul) et **SearXNG** (auto-hébergé, souverain)
-- ➕ Recherche **throttlée** (1 / N tours), **dédupliquée par thème**, à **repli hors-ligne** (inerte sans réseau ou désactivée)
-- ➕ **Auto-export des fiches vers IAbrain** au fil de l'eau, dans une zone de **staging `_a_valider/`** (relecture humaine avant exploitation)
-- ➕ Détection automatique de l'emplacement d'IAbrain ; régénération de l'`_INDEX.md` par domaine
-- ➕ Persistance des nouveaux paramètres dans `d-ia_setup.json` et transport dans les presets `.diapreset.json`
-
-### v1.2 — Mai 2026 — Modérateur conversationnel & presets : l'aide à la recherche dirigée
-
-- ➕ **Modérateur conversationnel** : un 3ᵉ LLM intervient dans le fil tous les K tours pour faire un bilan, recadrer et poser une consigne de convergence — la conversation **aboutit à une solution**
-- ➕ Intervention réinjectée dans le contexte des deux IA (rétroaction → convergence)
-- ➕ **Compatible avec le modérateur RAG** : parler et ficher en même temps
-- ➕ Section **Modérateur conversationnel** dans l'onglet Mode ADRASEC (activation, fréquence K, température, objectif de convergence)
-- ➕ Affichage **vert** dédié au modérateur ; gestion dans les exports JSON / Markdown / RTF (couleur verte)
-- ➕ **Presets de sujet** : boutons Importer / Exporter / Aperçu ; format natif `.diapreset.json` + import du format texte
-- ➕ Preset d'exemple fourni : « Communication par ondes gravitationnelles »
-- ➕ Garde-fou langue appliqué aussi au modérateur ; persistance complète des nouveaux paramètres
-
-### v1.1 — Mai 2026 — Modérateur RAG ADRASEC
-
-- ➕ **Modérateur RAG** : un 3ᵉ LLM extrait des fiches structurées du dialogue en arrière-plan
-- ➕ **Mode ADRASEC enrichi** : activation via case à cocher, fréquence d'extraction configurable
-- ➕ Onglets « IA 3 - Modérateur » et « Mode ADRASEC » dans Paramètres IA
-- ➕ **Synthèse finale** déclenchée automatiquement au clic Arrêter
-- ➕ **Parseur JSON robuste** tolérant aux artefacts LLM ; détection de troncature
-- ➕ Format de stockage `rag_adrasec.json` portable ; **intégration IAbrain**
-
-### v1.0 — Mai 2026 — Première version stable
-
-- Dialogue entre deux LLM avec rôles asymétriques (Investigateur / Analyste)
-- Thèmes secondaires guidés, mémoire à fenêtre glissante, détection de dérive linguistique
-- Synthèse vocale SAPI5 deux voix avec synchronisation dialogue/voix
-- Déblocage des voix OneCore Windows 10/11
-- Export JSON / Markdown / RTF
-- Configuration persistante avec offuscation des clés API
-- Support Ollama local et cloud
-
----
-### NOUVEAU d-IA lite Pour ANDROID
-<div>
-  <img src="android/images/dia_android_mainscreen.jpg" alt="d-IA Android main screen" width="320">
-</div>
-
-[*d-IA Light Android*](https://github.com/f1gbd/F1GBD/tree/master/dia/android)
 ---
 
 <div align="center">
@@ -956,12 +248,10 @@ Toute contribution, retour d'expérience ou proposition d'amélioration est bien
 **Jean-Louis (F1GBD)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.9.0 — 2026**
+**d-IA v1.11.23 — 2026**
 
----
+*Deux IA cherchent, une troisième arbitre et fait converger. En exercice, le trio devient COD, opérateur et DIRANIM : le scénario est fictif, les mesures sont vraies, et le RETEX est chiffré.*
 
 *Pour toute question, contactez votre référent ADRASEC départemental.*
-
-🤖 **d-IA v1.9.0** — *Deux IA cherchent — l'une puise dans le web, l'autre invente sur commande —, un troisième arbitre et fait converger, et les fiches alimentent IAbrain. En mode Jeu de Rôle, le trio rejoue un scénario — fiction ou exercice ADRASEC — animé par un injecteur d'événements. Et en **Mode CHAT**, c'est **vous** qui tenez l'opérateur de terrain, en direct, dans le scénario.*
 
 </div>
