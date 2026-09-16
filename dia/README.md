@@ -8,13 +8,13 @@
 
 *Simuler un exercice cadre de Sécurité Civile · Former des opérateurs · Faire converger une recherche technique pointue*
 
-[![Version](https://img.shields.io/badge/version-dia--v1.11.28-blue)](https://github.com/f1gbd/F1GBD/releases/tag/dia-v1.11.28)
+[![Version](https://img.shields.io/badge/version-dia--v1.11.29-blue)](https://github.com/f1gbd/F1GBD/releases/tag/dia-v1.11.29)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Ollama](https://img.shields.io/badge/Ollama-local%20%2F%20LAN%20%2F%20cloud-brightgreen.svg)]()
 [![Hors-ligne](https://img.shields.io/badge/fonctionne-100%25%20hors--ligne-success.svg)]()
 [![Usage](https://img.shields.io/badge/usage-ADRASEC%20%2F%20FNRASEC-green.svg)]()
 
-### 📥 [**Télécharger la dernière version (v1.11.28)**](https://github.com/f1gbd/F1GBD/releases/download/dia-v1.11.28/d-IA.7z)
+### 📥 [**Télécharger la dernière version (v1.11.29)**](https://github.com/f1gbd/F1GBD/releases/download/dia-v1.11.29/d-IA.7z)
 
 </div>
 
