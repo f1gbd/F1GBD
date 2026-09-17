@@ -8,7 +8,7 @@ Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![TCQws](https://github.com/f1gbd/F1GBD/blob/master/tcqws/images/TCQws_intro.jpg)
 
-**MAJ du 17/09/2026** : [**TCQws: Sous le bruit, le message passe, au-dessus du silence, l'alerte. **](https://github.com/f1gbd/F1GBD/tree/master/tcqws)
+**MAJ du 17/09/2026** : [**TCQws: Sous le bruit, le message passe, au-dessus du silence, l'alerte**](https://github.com/f1gbd/F1GBD/tree/master/tcqws)
 
 ![«ADRAlink»](https://github.com/f1gbd/F1GBD/blob/master/ADRAlink/images/ADRAlink_intro.png)
 ![«ADRAlink»](https://github.com/f1gbd/F1GBD/blob/master/ADRAlink/images/ADRAlink_situ_expl.png)
