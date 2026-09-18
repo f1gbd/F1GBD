@@ -14,15 +14,15 @@
 [![Compatibilité](https://img.shields.io/badge/compatible-WSJT--X%20(ADIF%2C%20ALL.TXT)-teal.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
 [![Code civil](https://img.shields.io/badge/code%20civil-CHAPPE--26-b01818.svg)](doc/Chappe26_Livret_B5.pdf)
-[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.2.6-blue)](HISTORIQUE.md)
+[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.2.7-blue)](HISTORIQUE.md)
 
-## 📥 Télécharger TCQws v0.2.6 pour Windows
+## 📥 Télécharger TCQws v0.2.7 pour Windows
 
-### **[⬇ TCQws-0.2.6-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.2.6/TCQws-0.2.6-setup.exe)** — double-clic, et c'est installé
+### **[⬇ TCQws-0.2.7-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.2.7/TCQws-0.2.7-setup.exe)** — double-clic, et c'est installé
 
 *Aucun droit administrateur, aucune installation Python, aucune interférence avec TCQ. Raccourcis Bureau et menu Démarrer, manuel inclus, et une désinstallation qui conserve vos réglages, votre log ADIF, votre journal et vos radiogrammes.*
 
-**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.2.6/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
+**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.2.7/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
 
 [📜 Historique des versions](HISTORIQUE.md) · [📖 Manuel PDF](doc/MANUEL_TCQws.pdf) · [🚨 Alerte FLASH](#2-lalerte-flash--32-caractères-tout-de-suite) · [🗼 CHAPPE-26](#3-chappe-26--une-phrase-en-quatre-chiffres) · [🛰 Satellite](#4-satellite-et-activations) · [📨 Radiogrammes](#1-les-radiogrammes-adrasec--le-message-pas-seulement-le-qso)
 
