@@ -9,6 +9,23 @@ avec son programme d'installation, son archive et son empreinte SHA-256.
 ---
 
 
+## v0.2.7 — CAT des Yaesu : lignes DTR et RTS
+
+*18 septembre 2026*
+
+Sur un **FTX-1**, la radio ne changeait pas de fréquence alors que la vitesse (38400 bauds), le modèle et la commande étaient bons. En cause, les lignes de contrôle du port série, que ces postes exigent au niveau haut avant d'accepter le moindre dialogue CAT : le menu *CAT RTS* de la radio arme un contrôle de flux matériel.
+
+- **Deux cases « Lignes du port CAT » — DTR et RTS —** dans le cadre *CAT* de la Configuration. Ces lignes sont tenues au niveau haut pendant tout le dialogue CAT.
+  - **Yaesu FTX-1, FT-991 et apparentés** : cocher **DTR**, et **RTS** en plus si le menu *CAT RTS* de la radio est sur **ON**.
+  - **Icom, Kenwood, Elecraft sur port USB natif** : laisser les deux décochées, comme avant.
+  - **Interface CAT ancienne alimentée par le port série** (CT-17, montage maison) : cocher les deux.
+- **La ligne qui porte le PTT n'est jamais montée**, quel que soit le réglage : elle mettrait la radio en émission permanente dès l'ouverture du port.
+- Jusqu'ici, la case « RTS/DTR actifs en CAT » n'agissait **que si le PTT était lui-même en mode CAT** : elle était sans effet sur le réglage de fréquence, ce qui explique que le problème résistait à tous les réglages.
+- Le **manuel** décrit les deux cases au § 3.3, avec un exemple de réglage complet pour un FTX-1 à 38400 bauds.
+
+---
+
+
 ## v0.2.6 — Trafic satellite, activation LLOTA, commentaire du log
 
 *18 septembre 2026*
