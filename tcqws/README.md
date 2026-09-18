@@ -6,26 +6,25 @@
 
 ### Weak Signal Emergency Messaging — le FT4 / FT8 des opérateurs ADRASEC
 
-*Une application Windows autonome, sans WSJT-X : QSO FT4/FT8 et log ADIF · radiogrammes ADRASEC avec accusé de réception · alerte FLASH sonore et lumineuse · décodeur FT4 cohérent avec empilement des répétitions.*
+*Une application Windows autonome, sans WSJT-X : QSO FT4/FT8 et log ADIF · radiogrammes ADRASEC avec accusé de réception · alerte FLASH sonore et lumineuse · code civil CHAPPE-26 décodé en clair · décodeur FT4 cohérent avec empilement des répétitions.*
 
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64-orange.svg)]()
 [![Modes](https://img.shields.io/badge/modes-FT4%20%7C%20FT8-blueviolet.svg)]()
 [![Compatibilité](https://img.shields.io/badge/compatible-WSJT--X%20(ADIF%2C%20ALL.TXT)-teal.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.2.4-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcqws)
+[![Code civil](https://img.shields.io/badge/code%20civil-CHAPPE--26-b01818.svg)](doc/Chappe26_Livret_B5.pdf)
+[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.2.5-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcqws)
 
-## 📥 [Télécharger directement la dernière version Windows](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.2.4/TCQws.7z)
+## 📥 Télécharger TCQws v0.2.5 pour Windows
 
-**Ou en une seule commande PowerShell *(en administrateur)* :**
+### **[⬇ TCQws-0.2.5-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.2.5/TCQws-0.2.5-setup.exe)** — double-clic, et c'est installé
 
-```powershell
-iwr https://github.com/f1gbd/F1GBD/raw/master/tcqws/Install-TCQws.ps1 -OutFile $env:TEMP\Install-TCQws.ps1; & $env:TEMP\Install-TCQws.ps1
-```
+*Aucun droit administrateur, aucune installation Python, aucune interférence avec TCQ. Raccourcis Bureau et menu Démarrer, manuel inclus, et une désinstallation qui conserve vos réglages, votre log ADIF, votre journal et vos radiogrammes.*
 
-*L'installeur télécharge, vérifie le SHA-256 et met à jour tout seul, en conservant vos réglages, votre log et vos radiogrammes. Binaire autonome — aucune installation Python, et aucune interférence avec TCQ.*
+**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.2.5/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
 
-[📜 Toutes les releases](https://github.com/f1gbd/F1GBD/releases?q=tcqws) · [📚 Mode d'emploi](#installation-et-premiers-pas) · [🚨 Alerte FLASH](#2-lalerte-flash--32-caractères-tout-de-suite) · [📨 Radiogrammes](#1-les-radiogrammes-adrasec--le-message-pas-seulement-le-qso)
+[📜 Toutes les releases](https://github.com/f1gbd/F1GBD/releases?q=tcqws) · [📖 Manuel PDF](doc/MANUEL_TCQws.pdf) · [🚨 Alerte FLASH](#2-lalerte-flash--32-caractères-tout-de-suite) · [🗼 CHAPPE-26](#3-chappe-26--une-phrase-en-quatre-chiffres) · [📨 Radiogrammes](#1-les-radiogrammes-adrasec--le-message-pas-seulement-le-qso)
 
 </div>
 
@@ -50,6 +49,7 @@ Pour un QSO ordinaire, WSJT-X reste la référence. TCQws existe pour tout ce qu
 | **Messages libres longs** | 13 caractères par émission | **jusqu'à ~1 500 caractères**, comprimés et protégés (radiogramme ADRASEC) |
 | **Accusé de réception** | non | **oui** : trames manquantes redemandées, complétées, puis acquit |
 | **Alerte d'urgence** | non | **alerte FLASH** : 32 caractères, écran rouge + alarme sonore chez tous les destinataires |
+| **Code civil CHAPPE-26** | non | **1000 codes** : une phrase en 4 chiffres, décodée en clair à l'arrivée |
 | **Décodage FT4** | décodeur WSJT-X | **décodeur cohérent** : ≈ 0,4 dB de mieux, et **empilement** des répétitions jusqu'à ≈ −24 dB |
 | Tolérance d'horloge en FT4 | environ ±1 s | **−2 à +2 s** (deux PC désynchronisés continuent de se lire) |
 | Vérification de l'heure | externe | **NTP intégré** + calage **GPS NMEA** (utile sans Internet) |
@@ -57,7 +57,9 @@ Pour un QSO ordinaire, WSJT-X reste la référence. TCQws existe pour tout ce qu
 | Diagnostic audio | limité | **WAV de chaque émission et de chaque réception**, compteurs de périodes perdues, alerte de DT anormal |
 | Répondeur automatique | Auto-Seq + Call 1st | **AUTO QSO** : répond seul aux CQ, enchaîne, logue, et reprend l'écoute |
 | Pays et distance à l'écran | via JTAlert (externe) | **intégré** : pays et km depuis votre locator |
-| Filtre d'indicatifs | non | **exclusion par préfixe** (affichage et réponse auto) |
+| Filtre d'indicatifs | non | **exclusion par préfixe(s)**, séparés par des virgules (affichage et réponse auto) |
+| Thème d'écran | clair | **clair ou sombre**, au choix — plein jour sous la tente ou vidéoprojection |
+| Mise à jour | manuelle | **vérifiée depuis l'application** (bouton dans « À propos ») |
 
 > TCQws est une réalisation indépendante : **aucun code de WSJT-X n'y est repris**. Seuls les protocoles FT4 et FT8 (K1JT, K9AN, G4WJS) sont implémentés, à partir de la bibliothèque libre `ft8_lib` (Kārlis Goba, YL3JG, licence MIT) complétée d'un décodeur cohérent écrit pour TCQ.
 
@@ -95,7 +97,40 @@ C'est la fonction qui n'a aucun équivalent dans WSJT-X : elle transforme une st
 
 ---
 
-## 3. Décoder plus bas que le seuil habituel
+## 3. CHAPPE-26 — une phrase en quatre chiffres
+
+[![Livret CHAPPE-26](https://img.shields.io/badge/livret-1000%20codes-1f4e79.svg)](doc/Chappe26_Livret_B5.pdf)
+[![Fiche BLACK-OUT](https://img.shields.io/badge/fiche-BLACK--OUT-b01818.svg)](doc/TCQws-Chappe26_Fiche_BlackOut.pdf)
+
+Trente-deux caractères, c'est peu pour dire une situation. Le **livre de code civil CHAPPE-26** de l'ADRASEC résout le problème à la façon du télégraphe Chappe : **un nombre de quatre chiffres vaut une phrase entière**, lue dans un livret de poche que l'opérateur a sur lui.
+
+    1204 = Santé · Urgence · Ambulance requise
+    1376 = Sécurité civile · Coupure électricité
+    1990 = Fin de transmission
+
+Une alerte FLASH qui commence par **`!`** est reconnue comme du CHAPPE-26. Un seul `!` pour tout le message, et non un devant chaque code : chaque caractère gagné est un code de plus, et les 32 caractères portent ainsi **sept codes**, soit sept phrases.
+
+**À l'émission**, TCQws traduit les codes au fur et à mesure de la frappe et signale avant l'envoi un groupe incomplet, un code absent du livret ou l'oubli du `1990` final — une alerte part pour plus d'une minute, mieux vaut corriger avant.
+
+**À la réception**, l'alarme se déclenche comme pour toute alerte FLASH, et le message s'affiche **en clair, en très gros caractères** ; les codes reçus restent rappelés en dessous, pour contrôle sur le livret papier. Le fichier `radiogrammes\FLASH_*.txt` conserve les deux.
+
+![Alerte FLASH CHAPPE-26 décodée en clair](images/TCQws_CHAPPE26.png)
+
+Exemple complet — demande de moyens radio pendant un black-out, 29 caractères sur 32 :
+
+```
+!1000102413761380134913331990
+```
+
+> Début de transmission · Transmission urgente · Coupure électricité · Communication interrompue · Équipement requis · Besoin renfort · Fin transmission
+
+Le tout se relit à la main avec le seul livret, sans TCQws et sans électricité : retirer le `!`, découper en groupes de quatre, chercher chaque code. Le chiffrement Page/Ligne du livret (clé du jour) se fait avant la frappe et se défait après la réception — **TCQws ne détient aucune clé** et transporte le message tel qu'il est saisi.
+
+📄 **[Fiche d'exemple BLACK-OUT](doc/TCQws-Chappe26_Fiche_BlackOut.pdf)** · 📘 **[Livret des 1000 codes](doc/Chappe26_Livret_B5.pdf)**
+
+---
+
+## 4. Décoder plus bas que le seuil habituel
 
 TCQws embarque **deux décodeurs** : celui de `ft8_lib` (FT8) et un **décodeur cohérent FT4** écrit pour TCQ, avec OSD.
 
@@ -120,7 +155,7 @@ Avec 16 répétitions (2 à 4 minutes), un message passe **sous le seuil du FT8*
 
 ---
 
-## 4. Tenir sur le terrain
+## 5. Tenir sur le terrain
 
 ![Configuration](images/TCQws_setup.png)
 
@@ -129,11 +164,13 @@ Avec 16 répétitions (2 à 4 minutes), un message passe **sous le seuil du FT8*
 - **PTT et CAT séparés** : PTT par RTS, DTR, CAT, rigctld ou VOX sur un port, **fréquence par CAT sur un autre port** (vitesse et bits de stop propres). Les transceivers anciens, comme l'IC-737 (CI-V sans commande d'émission, 1200 bauds, 2 bits de stop), fonctionnent tels quels.
 - **Boutons de bande** SAT, 80 → 10 m : la radio se règle par CAT, la fréquence suit le mode FT4/FT8, chaque bouton se modifie au clic droit.
 - **Audio maîtrisé** : sortie 48 kHz 16 bits stéréo comme WSJT-X, latences réglables, et **enregistrement WAV de chaque émission et de chaque réception** pour diagnostiquer une chaîne audio douteuse au lieu de la deviner.
+- **Thème clair ou sombre**, d'un bouton : le thème clair pour un écran en plein jour, sous une tente ou en vidéoprojection, le sombre pour la veille de nuit. La chute d'eau reste sur fond noir dans les deux cas.
+- **Mise à jour vérifiée depuis l'application** : le bouton « ⭯ Vérifier la mise à jour » de la fenêtre « À propos » compare la version installée à la dernière publiée et propose le téléchargement. Sans Internet, il le dit et n'insiste pas.
 - **Un seul exécutable**, sans installation ni service, et un mode **`--demo`** avec bande simulée pour se former sans radio.
 
 ---
 
-## 5. Le trafic de tous les jours
+## 6. Le trafic de tous les jours
 
 ![QSO et log](images/TCQws_main.png)
 
@@ -161,10 +198,15 @@ TCQws n'a pas vocation à remplacer WSJT-X sur une station de trafic. Il est fai
 
 ## Installation et premiers pas
 
-### Installation automatique (recommandée)
+### Programme d'installation (le plus simple)
+
+Télécharger **`TCQws-x.y.z-setup.exe`** dans la dernière [release `tcqws-v…`](https://github.com/f1gbd/F1GBD/releases?q=tcqws) et le lancer. Aucun droit administrateur n'est demandé : l'installation se fait dans votre profil, avec les raccourcis (dont un raccourci **démonstration**) et le manuel. La désinstallation retire le programme et **conserve** vos réglages, votre log ADIF, votre journal et vos radiogrammes.
+
+### Installation automatique par script
+
+Pour déployer ou mettre à jour plusieurs postes sans cliquer, une commande PowerShell **en administrateur** :
 
 ```powershell
-# PowerShell administrateur
 iwr https://github.com/f1gbd/F1GBD/raw/master/tcqws/Install-TCQws.ps1 -OutFile $env:TEMP\Install-TCQws.ps1
 & $env:TEMP\Install-TCQws.ps1
 ```
@@ -173,8 +215,7 @@ Le script prend la dernière release **TCQws** (tag `tcqws-v…`), vérifie le S
 
 ### Installation manuelle
 
-1. Télécharger `TCQws.7z` dans la dernière [release `tcqws-v…`](https://github.com/f1gbd/F1GBD/releases), décompresser dans un dossier où l'on peut écrire (par exemple `C:\TCQws`).
-1. Télécharger `TCQws.7z` dans la dernière [release `tcqws-v…`](https://github.com/f1gbd/F1GBD/releases), décompresser dans un dossier où l'on peut écrire (par exemple `C:\TCQws`).
+1. Télécharger `TCQws.7z` dans la dernière [release `tcqws-v…`](https://github.com/f1gbd/F1GBD/releases?q=tcqws), décompresser dans un dossier où l'on peut écrire (par exemple `C:\TCQws`).
 2. Lancer **`TCQws.exe`**.
 3. Essayer d'abord **sans radio** : `TCQws.exe --demo` (bande simulée, stations automatiques, radiogramme et alerte FLASH d'exercice).
 4. Régler l'audio, le PTT, le CAT et l'heure dans l'onglet ⚙ Configuration, puis **💾 Enregistrer** et **✔ Appliquer**.
@@ -183,7 +224,15 @@ Le script prend la dernière release **TCQws** (tag `tcqws-v…`), vérifie le S
 
 **Fichiers créés à côté de l'exécutable :** `ft4_config.json` (réglages), `ft4_ALL.TXT` (journal), `wsjtx_log.adi` (log ADIF), `radiogrammes\` (messages reçus), `diag_tx\` (WAV de diagnostic).
 
-Le mode d'emploi complet est dans **`README_TCQws.md`**, livré avec l'application.
+### Documentation
+
+| Document | Contenu |
+|---|---|
+| [📖 Manuel de l'utilisateur](doc/MANUEL_TCQws.pdf) | Le mode d'emploi complet, avec exemples d'alerte FLASH et de radiogramme |
+| [📘 Livret CHAPPE-26](doc/Chappe26_Livret_B5.pdf) | Les 1000 codes du livre de code civil, format B5 à imprimer en recto/verso |
+| [📄 Fiche BLACK-OUT](doc/TCQws-Chappe26_Fiche_BlackOut.pdf) | Un message CHAPPE-26 de bout en bout, de la frappe à la réception |
+
+Le mode d'emploi est aussi livré avec l'application, dans **`README_TCQws.md`**.
 
 Windows 10/11 64 bits. Ce dépôt publie les **exécutables** ; les sources ne sont pas distribuées.
 
