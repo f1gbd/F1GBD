@@ -1,0 +1,118 @@
+# Historique des versions — TCQws
+
+Les nouveautés de chaque version, de la plus récente à la plus ancienne.
+Chaque version est aussi publiée comme [release GitHub](https://github.com/f1gbd/F1GBD/releases?q=tcqws),
+avec son programme d'installation, son archive et son empreinte SHA-256.
+
+[← Retour au README](README.md)
+
+---
+
+
+## v0.2.6 — Trafic satellite, activation LLOTA, commentaire du log
+
+*18 septembre 2026*
+
+### Trafic satellite (QO-100 et autres)
+
+- **Cadre « 🛰 Fréquences spéciales »** dans la Configuration, au-dessus du Log des QSO : **SAT Rx** (la descente, celle que la radio affiche et que l'on écoute) et **SAT Tx** (la montée), plus le nom et le mode du satellite.
+- Sur la **bande SAT**, TCQws règle la radio sur la descente et **logue la montée** : c'est la convention ADIF pour un QSO satellite. Sur QO-100 avec SAT Tx = 2400,040 MHz et un TX audio à 935 Hz, le log porte `<band:4>13cm <freq:11>2400.040935`.
+- Le QSO est marqué **`<prop_mode:3>SAT <sat_name:6>QO-100 <sat_mode:2>SX`**, le nom et le mode venant du cadre de configuration.
+- Le bouton **SAT** affiche les deux fréquences (`RX ↓ • TX ↑`) ; un clic droit ouvre directement le cadre de configuration.
+
+### Activation LLOTA
+
+- **Champ « LLOTA »** de 10 caractères sur la première ligne du cadre Émission, à droite de la fréquence. Rempli d'une référence comme `LLFR-0087`, il ajoute au log **`<operator:5>F1GBD <my_sig:5>LLOTA <my_sig_info:9>LLFR-0087`** — `operator` étant repris du champ **Opérateur** de la configuration.
+- Vide, aucun de ces champs n'apparaît : les QSO ordinaires ne changent pas.
+
+### Commentaire du log
+
+- **Champ « Commentaire »** à droite d'AUTO QSO, dans le cadre Émission. Vide, TCQws garde son commentaire habituel (`FT8  Sent: … Rcvd: …`) ; rempli, c'est son contenu qui part dans `<comment>` — par exemple `Thanks for this digital QSO via QO-100`.
+
+### Log ADIF
+
+- L'ordre des champs suit la ligne de référence : `operator` passe juste après `station_callsign`, suivi de `my_sig` / `my_sig_info`, et les champs satellite ferment l'enregistrement.
+- La fenêtre « Loguer le QSO » montre et laisse corriger les nouveaux champs (activation, référence, propagation, satellite, mode satellite).
+- Bandes **13 cm** et **3 cm** reconnues (elles l'étaient déjà) : `2400.040935` → `13cm`, `10489.540` → `3cm`.
+
+
+## v0.2.5 — Code civil CHAPPE-26, thème clair, installeur Windows
+
+*18 septembre 2026*
+
+### Urgence ADRASEC — le code civil CHAPPE-26
+
+- **Les alertes FLASH parlent CHAPPE-26.** Un message qui commence par **`!`** suivi de codes de 4 chiffres est reconnu comme du [livre de code civil CHAPPE-26](https://github.com/f1gbd/F1GBD/blob/master/tcqws/doc/Chappe26_Livret_B5.pdf) : à la réception, l'alarme se déclenche comme d'habitude, mais le message s'affiche **en clair, une ligne par code, en très gros caractères**. Les codes reçus restent rappelés en dessous, pour contrôle sur le livret papier.
+- **Un seul `!` pour tout le message**, et non un devant chaque code comme sur MeshPager : à 32 caractères, chaque caractère gagné est un code de plus. Une alerte porte ainsi **sept codes**, soit sept phrases.
+
+  ```
+  !1000102413761380134913331990
+  ```
+  > Début de transmission · Transmission urgente · Coupure électricité · Communication interrompue · Équipement requis · Besoin renfort · Fin transmission
+
+- **Relecture avant diffusion** : pendant la frappe, TCQws traduit les codes sous le champ de saisie et signale un groupe incomplet, un code absent du livret ou l'oubli du `1990` final. Une alerte part pour plus d'une minute, autant corriger avant.
+- Le fichier `radiogrammes\FLASH_*.txt` conserve les codes **et** leur traduction : il se relit avec ou sans le livret.
+- Le chiffrement Page/Ligne du livret (clé du jour) se fait à la main, avant la frappe : TCQws transporte le message tel qu'il est saisi et ne détient aucune clé.
+- Voir la [fiche d'exemple BLACK-OUT](https://github.com/f1gbd/F1GBD/blob/master/tcqws/doc/TCQws-Chappe26_Fiche_BlackOut.pdf), un message de bout en bout.
+
+### Confort d'utilisation
+
+- **Thème clair / sombre** : un bouton en haut à droite (`☀ Clair` / `🌙 Sombre`) bascule toute l'interface. Le thème clair est fait pour les écrans en plein jour, sous une tente ou en vidéoprojection ; le thème choisi est mémorisé. La chute d'eau reste sur fond sombre dans les deux cas, pour garder la lisibilité des traces.
+- **Filtre d'exclusion multi-préfixes** : le champ « Exclure » accepte maintenant plusieurs préfixes séparés par une virgule — par exemple `R, UA, K`. Les stations correspondantes ne sont ni affichées dans l'activité de bande, ni appelées par l'AUTO QSO.
+
+### Mises à jour
+
+- **Bouton « ⭯ Vérifier la mise à jour »** dans la fenêtre « À propos » : TCQws interroge GitHub, compare avec la version installée et propose d'ouvrir le téléchargement si une version plus récente est publiée. La vérification se fait en arrière-plan et ne bloque jamais le trafic en cours.
+
+### Installation
+
+- **Programme d'installation Windows** (`TCQws-0.2.5-setup.exe`) : installation par utilisateur, sans droits administrateur, avec licence, raccourcis (dont un raccourci « démonstration »), lien vers le manuel PDF et désinstallation qui **conserve vos réglages, votre log ADIF, votre journal et vos radiogrammes**.
+
+### Corrections
+
+- La vérification de mise à jour n'accède plus à l'interface depuis un fil secondaire (fermeture de la fenêtre pendant la vérification).
+- Le changement de thème respecte le rôle de chaque couleur : les champs de saisie gardent un fond clair et une encre sombre dans les deux thèmes.
+
+
+## v0.2.4 — Alerte FLASH, AUTO QSO, PTT et CAT séparés
+
+*17 septembre 2026*
+
+### Urgence ADRASEC
+
+- **Alerte FLASH** : message de 32 caractères diffusé à toutes les stations (≈ 75 s en FT4). À la réception : fenêtre rouge clignotante au premier plan, message en très gros caractères et alarme sonore jusqu'à l'acquittement. L'alerte est journalisée et enregistrée dans `radiogrammes\FLASH_*.txt`.
+- **Radiogrammes** : réception en arrière-plan quel que soit l'onglet affiché, bascule automatique vers l'onglet Radiogramme.
+
+### Décodage et horloge
+
+- **Fenêtre de DT du FT4 portée à −2 .. +2 s** : deux postes dont les horloges diffèrent de plus d'une seconde continuent de se décoder (WSJT-X s'arrête vers ±1 s).
+- **Vérification de l'heure par NTP** au démarrage et sur demande, avec correction proposée en un clic ; calage GPS NMEA toujours disponible pour le mode blackout.
+- Le journal signale toute station reçue avec un DT anormal et indique quoi corriger.
+
+### Trafic
+
+- **AUTO QSO** répond maintenant automatiquement aux CQ reçus (station la plus forte, pas encore contactée sur la bande et le mode), mène le QSO, l'enregistre, puis se remet à l'écoute.
+- **Double-clic** sur un décodage : passage en émission immédiat, comme dans WSJT-X.
+- **Boutons de bande** SAT, 80 → 10 m : la radio se règle par CAT, la fréquence suit le mode, clic droit pour modifier un bouton.
+- **Champ CQ** (POTA, SOTA, IOTA, WWFF…) pour les appels d'activité.
+- **Pays et distance** affichés dans l'activité de bande, et **filtre d'exclusion par préfixe** d'indicatif (affichage et réponse automatique).
+- Boutons 🗑 Effacer sur les listes de décodages ; les listes occupent désormais plus de place que la chute d'eau, la séparation se déplace à la souris.
+
+### Radio et diagnostic
+
+- **PTT et CAT sur deux ports COM distincts** : PTT par RTS/DTR/CAT/rigctld/VOX d'un côté, fréquence par CAT de l'autre (vitesse et bits de stop propres). Les transceivers anciens comme l'IC-737 (CI-V 1200 bauds, 2 bits de stop, sans commande d'émission) fonctionnent tels quels.
+- **Enregistrement WAV des réceptions** en plus des émissions, compteur de périodes non décodées dans la barre d'état.
+- Page de configuration **adaptée aux petits écrans** (défilement, boutons Enregistrer et Appliquer toujours visibles).
+
+
+---
+
+## Avant la v0.2.4
+
+Étapes de développement, sans release publiée : modem FT4/FT8 et décodeur cohérent
+(v0.1.x), planificateur temps réel et interface (v0.2.0 à v0.2.2), radiogrammes
+ADRASEC et log ADIF (v0.2.3).
+
+---
+
+*Jean-Louis (F1GBD / F4JHW) — ADRASEC 77 — FNRASEC*

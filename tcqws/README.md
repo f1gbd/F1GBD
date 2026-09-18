@@ -6,7 +6,7 @@
 
 ### Weak Signal Emergency Messaging — le FT4 / FT8 des opérateurs ADRASEC
 
-*Une application Windows autonome, sans WSJT-X : QSO FT4/FT8 et log ADIF · radiogrammes ADRASEC avec accusé de réception · alerte FLASH sonore et lumineuse · code civil CHAPPE-26 décodé en clair · décodeur FT4 cohérent avec empilement des répétitions.*
+*Une application Windows autonome, sans WSJT-X : QSO FT4/FT8 et log ADIF · radiogrammes ADRASEC avec accusé de réception · alerte FLASH sonore et lumineuse · code civil CHAPPE-26 décodé en clair · trafic satellite et activations · décodeur FT4 cohérent avec empilement des répétitions.*
 
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64-orange.svg)]()
@@ -14,17 +14,17 @@
 [![Compatibilité](https://img.shields.io/badge/compatible-WSJT--X%20(ADIF%2C%20ALL.TXT)-teal.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
 [![Code civil](https://img.shields.io/badge/code%20civil-CHAPPE--26-b01818.svg)](doc/Chappe26_Livret_B5.pdf)
-[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.2.5-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcqws)
+[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.2.6-blue)](HISTORIQUE.md)
 
-## 📥 Télécharger TCQws v0.2.5 pour Windows
+## 📥 Télécharger TCQws v0.2.6 pour Windows
 
-### **[⬇ TCQws-0.2.5-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.2.5/TCQws-0.2.5-setup.exe)** — double-clic, et c'est installé
+### **[⬇ TCQws-0.2.6-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.2.6/TCQws-0.2.6-setup.exe)** — double-clic, et c'est installé
 
 *Aucun droit administrateur, aucune installation Python, aucune interférence avec TCQ. Raccourcis Bureau et menu Démarrer, manuel inclus, et une désinstallation qui conserve vos réglages, votre log ADIF, votre journal et vos radiogrammes.*
 
-**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.2.5/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
+**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.2.6/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
 
-[📜 Toutes les releases](https://github.com/f1gbd/F1GBD/releases?q=tcqws) · [📖 Manuel PDF](doc/MANUEL_TCQws.pdf) · [🚨 Alerte FLASH](#2-lalerte-flash--32-caractères-tout-de-suite) · [🗼 CHAPPE-26](#3-chappe-26--une-phrase-en-quatre-chiffres) · [📨 Radiogrammes](#1-les-radiogrammes-adrasec--le-message-pas-seulement-le-qso)
+[📜 Historique des versions](HISTORIQUE.md) · [📖 Manuel PDF](doc/MANUEL_TCQws.pdf) · [🚨 Alerte FLASH](#2-lalerte-flash--32-caractères-tout-de-suite) · [🗼 CHAPPE-26](#3-chappe-26--une-phrase-en-quatre-chiffres) · [🛰 Satellite](#4-satellite-et-activations) · [📨 Radiogrammes](#1-les-radiogrammes-adrasec--le-message-pas-seulement-le-qso)
 
 </div>
 
@@ -58,6 +58,8 @@ Pour un QSO ordinaire, WSJT-X reste la référence. TCQws existe pour tout ce qu
 | Répondeur automatique | Auto-Seq + Call 1st | **AUTO QSO** : répond seul aux CQ, enchaîne, logue, et reprend l'écoute |
 | Pays et distance à l'écran | via JTAlert (externe) | **intégré** : pays et km depuis votre locator |
 | Filtre d'indicatifs | non | **exclusion par préfixe(s)**, séparés par des virgules (affichage et réponse auto) |
+| **Trafic satellite** | fréquence unique | **deux fréquences** (montée / descente), log ADIF `prop_mode` / `sat_name` / `sat_mode` |
+| **Activations** (LLOTA…) | non | champ dédié → `MY_SIG` / `MY_SIG_INFO` dans le log |
 | Thème d'écran | clair | **clair ou sombre**, au choix — plein jour sous la tente ou vidéoprojection |
 | Mise à jour | manuelle | **vérifiée depuis l'application** (bouton dans « À propos ») |
 
@@ -130,7 +132,31 @@ Le tout se relit à la main avec le seul livret, sans TCQws et sans électricit�
 
 ---
 
-## 4. Décoder plus bas que le seuil habituel
+## 4. Satellite et activations
+
+**La bande SAT sait que monter et descendre ne sont pas la même fréquence.** Le cadre *Fréquences spéciales* de la configuration porte les deux : **SAT Rx**, la descente — c'est elle que la radio affiche et que vous écoutez — et **SAT Tx**, la montée. Sur QO-100 : 10 489,540 et 2 400,040 MHz.
+
+Le QSO est alors logué **sur la montée**, offset audio compris, parce que c'est la convention ADIF d'un contact satellite : la bande d'un QSO QO-100 est le 13 cm, pas le 3 cm de la descente.
+
+```
+<band:4>13cm <freq:11>2400.040935 <prop_mode:3>SAT <sat_name:6>QO-100 <sat_mode:2>SX
+```
+
+TCQws ne pilote qu'un VFO, celui de la réception : la conversion vers la fréquence rayonnée reste l'affaire de votre transverter ou de votre SDR. Le nom et le mode du satellite se règlent, donc rien n'est figé sur QO-100.
+
+**Les activations vont dans le log, pas sur l'air.** Le champ **LLOTA**, à droite de la fréquence, reçoit une référence comme `LLFR-0087` ; chaque QSO logué porte alors :
+
+```
+<operator:5>F1GBD <my_sig:5>LLOTA <my_sig_info:9>LLFR-0087
+```
+
+Le protocole FT4/FT8 limite le modificateur d'appel à quatre lettres — « LLOTA » n'y tient pas — d'où un champ séparé de celui des CQ POTA/SOTA/WWFF. Champ vide, aucun de ces champs n'est écrit.
+
+Un champ **Commentaire** complète l'ensemble : vide, TCQws écrit son commentaire habituel ; rempli, votre texte part tel quel dans `<comment>`.
+
+---
+
+## 5. Décoder plus bas que le seuil habituel
 
 TCQws embarque **deux décodeurs** : celui de `ft8_lib` (FT8) et un **décodeur cohérent FT4** écrit pour TCQ, avec OSD.
 
@@ -155,7 +181,7 @@ Avec 16 répétitions (2 à 4 minutes), un message passe **sous le seuil du FT8*
 
 ---
 
-## 5. Tenir sur le terrain
+## 6. Tenir sur le terrain
 
 ![Configuration](images/TCQws_setup.png)
 
@@ -170,7 +196,7 @@ Avec 16 répétitions (2 à 4 minutes), un message passe **sous le seuil du FT8*
 
 ---
 
-## 6. Le trafic de tous les jours
+## 7. Le trafic de tous les jours
 
 ![QSO et log](images/TCQws_main.png)
 
@@ -231,6 +257,8 @@ Le script prend la dernière release **TCQws** (tag `tcqws-v…`), vérifie le S
 | [📖 Manuel de l'utilisateur](doc/MANUEL_TCQws.pdf) | Le mode d'emploi complet, avec exemples d'alerte FLASH et de radiogramme |
 | [📘 Livret CHAPPE-26](doc/Chappe26_Livret_B5.pdf) | Les 1000 codes du livre de code civil, format B5 à imprimer en recto/verso |
 | [📄 Fiche BLACK-OUT](doc/TCQws-Chappe26_Fiche_BlackOut.pdf) | Un message CHAPPE-26 de bout en bout, de la frappe à la réception |
+| [📊 Fiche topo — performances](doc/FICHE_TOPO_TCQws_performances.pdf) | Seuils de décodage mesurés et positionnement face aux autres modes |
+| [📜 Historique des versions](HISTORIQUE.md) | Les nouveautés de chaque version, de la plus récente à la plus ancienne |
 
 Le mode d'emploi est aussi livré avec l'application, dans **`README_TCQws.md`**.
 
