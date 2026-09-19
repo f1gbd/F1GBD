@@ -9,6 +9,38 @@ avec son programme d'installation, son archive et son empreinte SHA-256.
 ---
 
 
+## v0.3.0 — PING/PONG, carte des stations, éditeur de journal
+
+*19 septembre 2026*
+
+### 📡 PING / PONG — qui est là ?
+
+Un bouton **📡 PING** dans le cadre Émission, une case **PONG** cochée par défaut : on clique, et en deux périodes on sait qui est sur la bande, où, et avec quel rapport, sans engager de QSO.
+
+- PING = `CQ PING F1GBD JN18`, PONG = `CQ PONG F4JHW JN19` : des messages FT4/FT8 **standards** (un CQ avec modificateur, comme `CQ POTA`), donc **décodés normalement par WSJT-X**. Le PONG porte l'indicatif ET le locator.
+- Les réponses sont **étalées** : chaque répondant tire sa fréquence audio entre 500 et 2400 Hz à partir de son indicatif, et les réponses se répartissent sur deux périodes. Sans quoi vingt stations répondant ensemble seraient toutes perdues.
+- PING et PONG s'affichent en **bleu sur fond orange** dans l'activité de bande et en **triangles** sur la carte.
+- Un indicatif non standard (TM50SC) ne peut pas porter de modificateur de CQ : TCQws l'explique au lieu de refuser sans raison.
+
+### 🗺 Onglet Carte
+
+- Carte du monde des stations entendues, **entièrement hors ligne** : les contours sont embarqués (Natural Earth 110 m, domaine public), aucune tuile n'est téléchargée.
+- Rond coloré selon le rapport pour les stations reçues, triangle pour les stations TCQws vues au PING, croix pour la vôtre. Info-bulle au survol : pays, locator, distance, azimut, rapport, bande, ancienneté.
+- Zoom molette / ＋ − / double-clic, déplacement à la souris, raccourcis 🌍 Monde, 🎯 Ajuster, 🏠 Chez moi. Filtres par ancienneté et « TCQws seulement ».
+- **Grille des locators** : champs sur 2 lettres en vue générale, carrés de 4 caractères en zoomant. La projection équirectangulaire est choisie pour cela — les carrés Maidenhead y sont des rectangles réguliers.
+
+### 📒 Onglet Logbook
+
+- `wsjtx_log.adi` en tableau : **corriger** un QSO champ par champ, **supprimer** un doublon, **ajouter** un contact fait ailleurs. Tri par colonne, filtre, QSO satellite en cyan et activations en vert.
+- Trois précautions : rien n'est écrit avant le clic sur 💾 Enregistrer ; l'écriture passe par un fichier temporaire et garde la version précédente en `.bak` ; les QSO logués par TCQws **pendant** l'édition sont conservés au lieu d'être écrasés.
+
+### 🌍 Exclure par nom de pays
+
+Le champ **Exclure** prend « Russie, Bielorussie » plutôt que la liste des préfixes. Accents et casse ignorés, déclinaisons incluses (« Russie » couvre la Russie d'Asie ; Kaliningrad se nomme à part). Les préfixes bruts restent acceptés.
+
+---
+
+
 ## v0.2.7 — CAT des Yaesu : lignes DTR et RTS
 
 *18 septembre 2026*

@@ -14,17 +14,17 @@
 [![Compatibilité](https://img.shields.io/badge/compatible-WSJT--X%20(ADIF%2C%20ALL.TXT)-teal.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
 [![Code civil](https://img.shields.io/badge/code%20civil-CHAPPE--26-b01818.svg)](doc/Chappe26_Livret_B5.pdf)
-[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.2.7-blue)](HISTORIQUE.md)
+[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.3.0-blue)](HISTORIQUE.md)
 
-## 📥 Télécharger TCQws v0.2.7 pour Windows
+## 📥 Télécharger TCQws v0.3.0 pour Windows
 
-### **[⬇ TCQws-0.2.7-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.2.7/TCQws-0.2.7-setup.exe)** — double-clic, et c'est installé
+### **[⬇ TCQws-0.3.0-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.3.0/TCQws-0.3.0-setup.exe)** — double-clic, et c'est installé
 
 *Aucun droit administrateur, aucune installation Python, aucune interférence avec TCQ. Raccourcis Bureau et menu Démarrer, manuel inclus, et une désinstallation qui conserve vos réglages, votre log ADIF, votre journal et vos radiogrammes.*
 
-**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.2.7/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
+**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.3.0/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
 
-[📜 Historique des versions](HISTORIQUE.md) · [📖 Manuel PDF](doc/MANUEL_TCQws.pdf) · [🚨 Alerte FLASH](#2-lalerte-flash--32-caractères-tout-de-suite) · [🗼 CHAPPE-26](#3-chappe-26--une-phrase-en-quatre-chiffres) · [🛰 Satellite](#4-satellite-et-activations) · [📨 Radiogrammes](#1-les-radiogrammes-adrasec--le-message-pas-seulement-le-qso)
+[📜 Historique des versions](HISTORIQUE.md) · [📖 Manuel PDF](doc/MANUEL_TCQws.pdf) · [🚨 Alerte FLASH](#2-lalerte-flash--32-caractères-tout-de-suite) · [🗼 CHAPPE-26](#3-chappe-26--une-phrase-en-quatre-chiffres) · [📡 PING et carte](#5-ping--pong-et-la-carte-du-réseau) · [🛰 Satellite](#4-satellite-et-activations) · [📨 Radiogrammes](#1-les-radiogrammes-adrasec--le-message-pas-seulement-le-qso)
 
 </div>
 
@@ -57,7 +57,10 @@ Pour un QSO ordinaire, WSJT-X reste la référence. TCQws existe pour tout ce qu
 | Diagnostic audio | limité | **WAV de chaque émission et de chaque réception**, compteurs de périodes perdues, alerte de DT anormal |
 | Répondeur automatique | Auto-Seq + Call 1st | **AUTO QSO** : répond seul aux CQ, enchaîne, logue, et reprend l'écoute |
 | Pays et distance à l'écran | via JTAlert (externe) | **intégré** : pays et km depuis votre locator |
-| Filtre d'indicatifs | non | **exclusion par préfixe(s)**, séparés par des virgules (affichage et réponse auto) |
+| Filtre d'indicatifs | non | **exclusion par nom de pays** : « Russie, Bielorussie » (affichage, carte et réponse auto) |
+| **Appel de présence** | non | **PING / PONG** : qui est là, où, avec quel rapport — en deux périodes, sans QSO |
+| **Carte des stations** | non (PSKreporter, en ligne) | **carte du monde embarquée**, grille des locators, **sans aucun réseau** |
+| **Éditeur de journal** | log en écriture seule | **onglet Logbook** : corriger, supprimer, ajouter un QSO dans le `.adi` |
 | **Trafic satellite** | fréquence unique | **deux fréquences** (montée / descente), log ADIF `prop_mode` / `sat_name` / `sat_mode` |
 | **Activations** (LLOTA…) | non | champ dédié → `MY_SIG` / `MY_SIG_INFO` dans le log |
 | Thème d'écran | clair | **clair ou sombre**, au choix — plein jour sous la tente ou vidéoprojection |
@@ -156,7 +159,31 @@ Un champ **Commentaire** complète l'ensemble : vide, TCQws écrit son commentai
 
 ---
 
-## 5. Décoder plus bas que le seuil habituel
+## 5. PING / PONG et la carte du réseau
+
+**Une question simple : qui est là ?** Le bouton **📡 PING** émet `CQ PING F1GBD JN18`. Chaque station TCQws à l'écoute, case **PONG** cochée, répond `CQ PONG F4JHW JN19`. En deux périodes, l'inventaire du réseau est fait — sans engager un seul QSO, sans rien demander aux opérateurs.
+
+Ce sont des **messages FT4/FT8 standards** : un CQ avec modificateur, comme `CQ POTA`. Une station sous WSJT-X les décode donc normalement et peut répondre à la main. Rien de propriétaire, rien de caché. Et comme le PONG est un CQ et non une réponse dirigée, **tout le réseau entend l'inventaire**, pas seulement celui qui a lancé l'appel.
+
+Si vingt stations répondaient au même instant sur la même fréquence audio, aucune ne serait décodée : chaque répondant tire donc sa fréquence entre 500 et 2400 Hz à partir de son indicatif, et les réponses se répartissent sur deux périodes.
+
+**La carte suit.** L'onglet 🗺 **Carte** pose sur une carte du monde toutes les stations entendues dont le message portait un locator : un rond coloré selon le rapport, un **triangle** pour celles qui ont répondu au PING, une croix pour la vôtre. Survol : pays, locator, distance, azimut, rapport, bande, ancienneté.
+
+**Et elle marche sans réseau.** Les contours sont **embarqués dans l'exécutable** (Natural Earth 110 m, domaine public) : pas une tuile à télécharger, pas de cache, rien à configurer. La carte s'affiche à l'identique en blackout total — c'est ce pour quoi elle existe. La grille des locators passe des champs sur deux lettres aux carrés de quatre caractères selon le zoom.
+
+![Carte des stations](images/TCQws_carte.png)
+
+---
+
+## 6. Le journal, enfin modifiable
+
+L'onglet 📒 **Logbook** ouvre `wsjtx_log.adi` en tableau. Un indicatif mal recopié, un locator oublié, un QSO en double, un contact fait sur un autre poste : cela se corrige ici, champ par champ, sans éditeur de texte ni tableur.
+
+Un journal ne se refait pas, d'où trois précautions : rien n'est écrit tant que vous n'avez pas cliqué sur **💾 Enregistrer** ; l'écriture passe par un fichier temporaire remplacé d'un seul bloc et garde la version précédente en `.bak` ; et les QSO que TCQws a logués **pendant** que vous éditiez sont relus et conservés au lieu d'être écrasés.
+
+---
+
+## 7. Décoder plus bas que le seuil habituel
 
 TCQws embarque **deux décodeurs** : celui de `ft8_lib` (FT8) et un **décodeur cohérent FT4** écrit pour TCQ, avec OSD.
 
@@ -181,7 +208,7 @@ Avec 16 répétitions (2 à 4 minutes), un message passe **sous le seuil du FT8*
 
 ---
 
-## 6. Tenir sur le terrain
+## 8. Tenir sur le terrain
 
 ![Configuration](images/TCQws_setup.png)
 
@@ -196,7 +223,7 @@ Avec 16 répétitions (2 à 4 minutes), un message passe **sous le seuil du FT8*
 
 ---
 
-## 7. Le trafic de tous les jours
+## 9. Le trafic de tous les jours
 
 ![QSO et log](images/TCQws_main.png)
 
@@ -271,6 +298,7 @@ Windows 10/11 64 bits. Ce dépôt publie les **exécutables** ; les sources ne s
 - **TCQws** © 2026 F1GBD — ADRASEC 77 / FNRASEC. Licence : voir `LICENSE`.
 - **Protocoles FT4 et FT8** : Joe Taylor K1JT, Steve Franke K9AN, Bill Somerville G4WJS et l'équipe WSJT-X. TCQws est une réalisation indépendante, **non affiliée au projet WSJT-X**, et ne reprend aucun de ses codes.
 - **ft8_lib** : Kārlis Goba, YL3JG — licence MIT.
+- **Contours de la carte** : **Natural Earth** 110 m (admin_0_countries), jeu de données du **domaine public** — [naturalearthdata.com](https://www.naturalearthdata.com/). Embarqués dans l'exécutable : la carte n'accède jamais au réseau.
 - **Composants tiers** : Python, Tk, NumPy, SciPy, PortAudio / sounddevice, pySerial, Pillow, chacun sous sa propre licence.
 
 *L'utilisation de TCQws se fait dans le respect des conditions de la licence radioamateur de l'opérateur. Les fonctions d'urgence (radiogrammes, alerte FLASH) sont destinées aux exercices et aux opérations de sécurité civile encadrées par la FNRASEC.*
