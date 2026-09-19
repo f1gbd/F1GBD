@@ -14,15 +14,15 @@
 [![Compatibilité](https://img.shields.io/badge/compatible-WSJT--X%20(ADIF%2C%20ALL.TXT)-teal.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
 [![Code civil](https://img.shields.io/badge/code%20civil-CHAPPE--26-b01818.svg)](doc/Chappe26_Livret_B5.pdf)
-[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.3.0-blue)](HISTORIQUE.md)
+[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.3.1-blue)](HISTORIQUE.md)
 
-## 📥 Télécharger TCQws v0.3.0 pour Windows
+## 📥 Télécharger TCQws v0.3.1 pour Windows
 
-### **[⬇ TCQws-0.3.0-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.3.0/TCQws-0.3.0-setup.exe)** — double-clic, et c'est installé
+### **[⬇ TCQws-0.3.1-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.3.1/TCQws-0.3.1-setup.exe)** — double-clic, et c'est installé
 
 *Aucun droit administrateur, aucune installation Python, aucune interférence avec TCQ. Raccourcis Bureau et menu Démarrer, manuel inclus, et une désinstallation qui conserve vos réglages, votre log ADIF, votre journal et vos radiogrammes.*
 
-**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.3.0/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
+**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.3.1/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
 
 [📜 Historique des versions](HISTORIQUE.md) · [📖 Manuel PDF](doc/MANUEL_TCQws.pdf) · [🚨 Alerte FLASH](#2-lalerte-flash--32-caractères-tout-de-suite) · [🗼 CHAPPE-26](#3-chappe-26--une-phrase-en-quatre-chiffres) · [📡 PING et carte](#5-ping--pong-et-la-carte-du-réseau) · [🛰 Satellite](#4-satellite-et-activations) · [📨 Radiogrammes](#1-les-radiogrammes-adrasec--le-message-pas-seulement-le-qso)
 
@@ -167,7 +167,11 @@ Ce sont des **messages FT4/FT8 standards** : un CQ avec modificateur, comme `CQ 
 
 Si vingt stations répondaient au même instant sur la même fréquence audio, aucune ne serait décodée : chaque répondant tire donc sa fréquence entre 500 et 2400 Hz à partir de son indicatif, et les réponses se répartissent sur deux périodes.
 
-**La carte suit.** L'onglet 🗺 **Carte** pose sur une carte du monde toutes les stations entendues dont le message portait un locator : un rond coloré selon le rapport, un **triangle** pour celles qui ont répondu au PING, une croix pour la vôtre. Survol : pays, locator, distance, azimut, rapport, bande, ancienneté.
+**La carte suit.** L'onglet 🗺 **Carte** pose sur une carte du monde toutes les stations entendues dont le message portait un locator : un rond **coloré selon la bande**, un **triangle** pour celles qui ont répondu au PING, un **anneau clair** pour celles avec qui un QSO a été fait, une croix pour la vôtre. Survol : pays, locator, distance, azimut, rapport, bande, ancienneté.
+
+**Sur quelle bande ?** Trois réponses qui se complètent : la couleur du marqueur, la bande écrite à côté de l'indicatif (« F4JHW 20m »), et un filtre qui n'affiche qu'une bande. Les trois, parce que sur une carte deux marqueurs quelconques peuvent se toucher : au-delà de trois teintes, aucune palette ne garantit qu'un œil — surtout daltonien — les distingue à coup sûr. La couleur groupe, l'étiquette identifie.
+
+**Et la carte des QSO.** Un bouton relit le log ADIF et place un marqueur par contact : la carte de ce que vous avez *travaillé*, et non de ce que vous avez entendu. L'import efface les stations seulement entendues, et dit combien de QSO n'avaient pas de locator.
 
 **Et elle marche sans réseau.** Les contours sont **embarqués dans l'exécutable** (Natural Earth 110 m, domaine public) : pas une tuile à télécharger, pas de cache, rien à configurer. La carte s'affiche à l'identique en blackout total — c'est ce pour quoi elle existe. La grille des locators passe des champs sur deux lettres aux carrés de quatre caractères selon le zoom.
 

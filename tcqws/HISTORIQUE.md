@@ -9,6 +9,33 @@ avec son programme d'installation, son archive et son empreinte SHA-256.
 ---
 
 
+## v0.3.1 — La carte dit la bande, et sait faire la carte des QSO
+
+*19 septembre 2026*
+
+### 🎨 Reconnaître la bande d'un coup d'œil
+
+Sur une carte, deux marqueurs quelconques peuvent se toucher : au-delà de **trois** teintes, aucune palette ne garantit qu'un œil — surtout daltonien — les distingue à coup sûr. Douze bandes ne tiennent donc pas sur la couleur seule. TCQws en donne trois lectures, qui se complètent :
+
+- la **couleur** du marqueur, pour saisir la répartition d'un regard : les huit bandes les plus courues en FT8/FT4 ont chacune leur teinte (choisie séparément pour le thème sombre et pour le clair) ; 160 m, 60 m, VHF, UHF et satellite partagent un gris ;
+- la **bande écrite à côté de l'indicatif** — « F4JHW 20m » — qui lève toute ambiguïté, gris compris ;
+- la **liste Bande** de la barre d'outils, qui n'en affiche qu'une à la fois et ne propose que les bandes réellement présentes. La ligne d'état en donne le compte.
+
+Un sélecteur **Couleur : bande / rapport** garde l'ancienne échelle des rapports disponible.
+
+### 📒 Carte des QSO
+
+Le bouton **📒 Carte des QSO** relit le log ADIF et place un marqueur par contact enregistré : la carte de ce que vous avez **travaillé**, et non de ce que vous avez entendu.
+
+- L'import **efface les stations seulement entendues** : la carte ne répond plus qu'à une question.
+- L'ancienneté passe d'office sur « tout » — les QSO du journal ont souvent plusieurs jours, la carte s'afficherait vide sans cela.
+- Les QSO **sans locator** ne peuvent pas être placés : ils sont comptés et signalés, plutôt que perdus en silence.
+- Une station contactée **et** vue au PING garde son triangle.
+- Les stations contactées portent un **anneau clair** : quand de nouveaux décodages arrivent après l'import, le contacté se distingue de l'entendu sur la même carte. Un QSO logué en cours de trafic marque la station aussitôt.
+
+---
+
+
 ## v0.3.0 — PING/PONG, carte des stations, éditeur de journal
 
 *19 septembre 2026*
