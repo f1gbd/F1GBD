@@ -9,6 +9,31 @@ avec son programme d'installation, son archive et son empreinte SHA-256.
 ---
 
 
+## v0.3.2 — Gros caractères et configurations nommées
+
+*19 septembre 2026*
+
+### 🔍 Taille des caractères
+
+Un bouton **🔍** dans la barre du haut fait le tour de **100 %**, **125 %** et **150 %** : tout le texte suit d'un coup, carte et chute d'eau comprises, et le réglage est retenu. C'est fait pour la tablette sous la tente et la lecture debout.
+
+- Le gros texte est amorti de moitié au-delà de 12 points : l'horloge est déjà lisible, la grossir ferait seulement déborder la barre du haut.
+- Le champ Commentaire passe à la ligne en gros caractères, sans quoi la case PONG deviendrait inatteignable.
+- Le bouton est à l'extrême droite de la barre, donc le dernier à disparaître si elle déborde, et **Ctrl + +**, **Ctrl + −**, **Ctrl + 0** doublent la commande : on ne reste pas coincé en 150 %.
+
+### 💾 Configurations nommées
+
+Deux boutons en bas de l'onglet **Configuration** : **📤 Sauvegarder…** et **📥 Charger…**. Un profil « exercice départemental », un profil « QO-100 », un profil « portable », et on passe de l'un à l'autre en deux clics. Les profils vivent dans `profils\` à côté de `ft4_config.json` — ou sur une clé USB, pour les donner à une autre station.
+
+**Le matériel ne voyage pas par défaut.** Une configuration mélange ce qui décrit l'opérateur (indicatif, locator, bandes, LLOTA, satellite, filtres, thème) et ce qui décrit la machine (carte son, ports COM du PTT et du CAT, latences, correction d'horloge). Sur un autre poste, « COM3 » ne désigne pas la même interface : reprendre ce réglage à l'aveugle, c'est mettre le PTT sur un autre port, et au pire laisser une radio en émission. Le chargement garde donc les réglages matériels du poste ; si le profil vient d'ailleurs, TCQws le signale et propose de reprendre le matériel aussi, à ne faire que si les deux postes sont câblés à l'identique. Venant du poste lui-même, tout est repris sans question.
+
+- Le chargement annonce combien de réglages changent, et prévient si le profil est identique plutôt que de ne rien faire en silence.
+- Un ancien `ft4_config.json` se charge directement ; un JSON quelconque est refusé avec la raison.
+- La géométrie de la fenêtre ne part jamais dans un profil et n'est jamais imposée.
+
+---
+
+
 ## v0.3.1 — La carte dit la bande, et sait faire la carte des QSO
 
 *19 septembre 2026*
