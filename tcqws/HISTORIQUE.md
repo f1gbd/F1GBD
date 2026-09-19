@@ -9,6 +9,56 @@ avec son programme d'installation, son archive et son empreinte SHA-256.
 ---
 
 
+## v0.4.0 — Écouter avec une clé SDR
+
+*19 septembre 2026*
+
+### 📡 Une clé RTL-SDR comme récepteur
+
+TCQws sait recevoir directement sur une **clé RTL-SDR**, sans transceiver, sans carte son et sans câblage audio. C'est pour les **SWL** — l'écouteur en formation, le poste d'écoute d'un exercice, le PC qui surveille un segment dans un coin de la salle radio — et, pour une station équipée, un deuxième récepteur qui tourne pendant que le transceiver fait autre chose.
+
+Onglet **Configuration**, cadre Audio : **Source de réception** propose *Carte son (transceiver)* ou *Clé SDR RTL-SDR (réception seule — SWL)*. Le second ouvre le cadre **📡 Clé SDR** — bouton **🔄 Chercher** pour lister les clés branchées, mode d'échantillonnage, gain, correction ppm, entrée transverter. Les boutons de bande de l'onglet Trafic réaccordent la clé comme ils commandent un transceiver en CAT.
+
+### 🔒 Réception seule, annoncée
+
+Une clé reçoit et ne transmet pas. TCQws verrouille donc l'émission tant que la source est une clé : **Tx1 à Tx6** et **PING** grisés, **AUTO QSO** et **PONG** décochés, file d'émission affichant *« Écoute seule (clé SDR) : émission désactivée »*. Le décodage reste complet : activité, carte, journal, radiogrammes reçus, alerte FLASH.
+
+### ⚙ Les deux réglages qui décident de tout
+
+- **Échantillonnage direct, branche Q.** Le tuner d'une clé ne descend pas sous 24 MHz : sans lui, rien n'est décodé en onde courte alors que la clé a l'air de fonctionner. C'est le mode par défaut, celui des **RTL-SDR Blog V3**. En VHF/UHF ou par transverter, choisir *Normal*.
+- **La clé n'est jamais calée sur le segment écouté.** Son centre porte une raie continue et du bruit en 1/f qui tomberaient en plein milieu du FT8 : TCQws l'accorde **50 kHz au-dessus** et redescend en numérique.
+
+Le reste suit sans qu'on y pense : 240 kHz d'échantillonnage, démodulation BLU supérieure, décimation vers les 12 kHz du décodeur, et continuité d'un bloc au suivant — sans quoi le signal serait haché quatre fois par seconde.
+
+### 🖥 L'onglet Configuration sur un petit écran
+
+Chaque cadre se plie d'un clic sur son titre (▾ / ▸), et **⇕ Replier tout** fait les sept d'un coup : une fois le poste câblé, PTT et CAT ne changent plus de l'année et rendent leur place. L'onglet passe de 765 à 112 pixels de haut tout replié, et l'état est retenu d'un lancement à l'autre — sans jamais partir dans un profil, puisqu'il décrit cet écran-là et pas la station.
+
+La page est aussi passée à **deux colonnes partout** — les *Fréquences spéciales* et le *Log des QSO* occupaient chacune toute la largeur — avec les explications en gris les plus longues raccourcies : **1548 → 1163 pixels de large**, de quoi tenir sur un 1366, et sur un 1024 avec un cadre ou deux repliés. Comme le bouton 🔍, **⇕ Replier tout** est placé pour être le dernier à disparaître si la barre du bas déborde.
+
+### 🔧 Pilote
+
+Le bouton **🔄 Chercher** reste utilisable même quand la carte son est la source : on vérifie que la clé est vue avant de basculer dessus. S'il ne trouve rien, TCQws distingue les trois pannes qui donnent le même écran vide — module Python absent, DLL absentes, et pilote Windows qui n'est pas **WinUSB** (Zadig) — et donne pour chacune la marche à suivre.
+
+Le message nomme **l'interpréteur qui fait tourner TCQws** et donne la commande `<cet interpréteur> -m pip install …` toute prête : sous Windows, `pip` et `python` désignent très souvent deux Python différents, et `pip install` réussit alors ailleurs pendant que TCQws continue de ne rien voir. TCQws dit aussi ce que `pyrtlsdrlib` livre réellement ici — ce paquet est propre à la plateforme, et une roue d'une autre plateforme s'installe sans broncher sans contenir la moindre DLL Windows.
+
+Deux corrections de fond : quand la DLL manque, pyrtlsdr lève un `ImportError`, que TCQws prenait pour un module absent (c'est `find_spec` qui tranche désormais) ; et depuis Python 3.8 le PATH ne suffit plus à faire trouver `libusb-1.0.dll` à `rtlsdr.dll`, d'où le passage par `os.add_dll_directory`. L'exécutable publié embarque le nécessaire ; pour qui compile lui-même, `pyrtlsdr` reste facultatif.
+
+Dans l'exécutable compilé, `pip install` n'a aucun effet : un programme figé porte les modules choisis à la compilation. Le message le dit maintenant — recompiler, ou lancer depuis les sources. Et la compilation elle-même a été corrigée : `rtlsdr` était à la fois embarqué sous condition et **exclu** (un vestige), or PyInstaller fait gagner l'exclusion sans rien signaler ; les bibliothèques de `pyrtlsdrlib`, cherchées par `importlib.resources` **dans le paquet `pyrtlsdrlib.lib`**, n'étaient ni ramassées ni posées au bon endroit — les mettre à la racine du bundle ne sert à rien, et le fichier livré s'appelle `librtlsdr_w64_static.dll`, pas `rtlsdr.dll`. Un garde-fou fait désormais **échouer le build** si un module est à la fois embarqué et exclu, et le build affiche quel Python et quelles versions il utilise.
+
+Plus largement, quand la station ne démarre pas faute d'un module (`sounddevice`, par exemple), TCQws donne le nom du module, le chemin de l'interpréteur et la commande qui vise le bon.
+
+### 🔊 Audio : deux pièges de terrain
+
+Le bouton **⏱ Corriger** pouvait descendre la latence d'entrée jusqu'à −1 seconde. Une latence négative n'existe pas : PortAudio refuse alors d'ouvrir le flux et la station ne démarre plus. Désormais, si la correction devait passer sous zéro, c'est la preuve que l'écart vient de l'**horloge** et non de la carte son — TCQws le dit et corrige l'horloge. Les valeurs négatives héritées sont ignorées.
+
+L'API audio passe **en tête** du nom du périphérique (`33: [WDM-KS] Input (…)`) : en suffixe, la liste déroulante la coupait, et on pouvait choisir une entrée Bluetooth sans le voir. Enfin, `Unanticipated host error [PaErrorCode -9999]` ne s'affiche plus seul : TCQws nomme les trois causes habituelles — périphérique inadapté, latences, périphérique déjà pris.
+
+Une clé conçue pour la VHF/UHF (Nooelec NESDR SMArt, clé DVB-T ordinaire) accepte l'échantillonnage direct mais coupe l'onde courte à l'entrée : lui donner un convertisseur (Ham It Up) et choisir le mode **Transverter**.
+
+---
+
+
 ## v0.3.2 — Gros caractères et configurations nommées
 
 *19 septembre 2026*

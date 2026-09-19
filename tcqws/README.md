@@ -14,15 +14,15 @@
 [![Compatibilité](https://img.shields.io/badge/compatible-WSJT--X%20(ADIF%2C%20ALL.TXT)-teal.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
 [![Code civil](https://img.shields.io/badge/code%20civil-CHAPPE--26-b01818.svg)](doc/Chappe26_Livret_B5.pdf)
-[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.3.2-blue)](HISTORIQUE.md)
+[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.4.0-blue)](HISTORIQUE.md)
 
-## 📥 Télécharger TCQws v0.3.2 pour Windows
+## 📥 Télécharger TCQws v0.4.0 pour Windows
 
-### **[⬇ TCQws-0.3.2-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.3.2/TCQws-0.3.2-setup.exe)** — double-clic, et c'est installé
+### **[⬇ TCQws-0.4.0-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.4.0/TCQws-0.4.0-setup.exe)** — double-clic, et c'est installé
 
 *Aucun droit administrateur, aucune installation Python, aucune interférence avec TCQ. Raccourcis Bureau et menu Démarrer, manuel inclus, et une désinstallation qui conserve vos réglages, votre log ADIF, votre journal et vos radiogrammes.*
 
-**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.3.2/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
+**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.4.0/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
 
 [📜 Historique des versions](HISTORIQUE.md) · [📖 Manuel PDF](doc/MANUEL_TCQws.pdf) · [🚨 Alerte FLASH](#2-lalerte-flash--32-caractères-tout-de-suite) · [🗼 CHAPPE-26](#3-chappe-26--une-phrase-en-quatre-chiffres) · [📡 PING et carte](#5-ping--pong-et-la-carte-du-réseau) · [🛰 Satellite](#4-satellite-et-activations) · [📨 Radiogrammes](#1-les-radiogrammes-adrasec--le-message-pas-seulement-le-qso)
 
@@ -65,6 +65,7 @@ Pour un QSO ordinaire, WSJT-X reste la référence. TCQws existe pour tout ce qu
 | **Activations** (LLOTA…) | non | champ dédié → `MY_SIG` / `MY_SIG_INFO` dans le log |
 | Thème d'écran | clair | **clair ou sombre**, au choix — plein jour sous la tente ou vidéoprojection |
 | **Taille des caractères** | fixe | **100 / 125 / 150 %** d'un bouton — tablette de 10 pouces, lecture debout |
+| **Récepteur** | carte son (transceiver) | carte son **ou clé RTL-SDR** : un SWL décode sans transceiver |
 | **Configurations nommées** | une seule configuration | **profils** : exercice, satellite, portable — chargés en deux clics, échangeables entre postes |
 | Mise à jour | manuelle | **vérifiée depuis l'application** (bouton dans « À propos ») |
 
@@ -239,6 +240,49 @@ Avec 16 répétitions (2 à 4 minutes), un message passe **sous le seuil du FT8*
 - **CQ POTA / SOTA / IOTA / WWFF…** par un champ dédié.
 - **Pays et distance** affichés directement dans l'activité de bande (calculés depuis votre locator), et **filtre d'exclusion par préfixe** pour écarter d'un coup une zone qui sature la bande — à l'affichage comme en réponse automatique.
 - **Journal `ALL.TXT`** au format WSJT-X, et double-clic qui passe en émission comme dans WSJT-X.
+
+---
+
+## 10. Écouter sans transceiver — la clé SDR (SWL)
+
+![Réception par clé SDR](images/TCQws_sdr_trafic.png)
+
+*40 m en FT8, reçu par une clé RTL-SDR à 7,074 MHz : 45 décodages en trois périodes, jusqu'aux Canaries à 2790 km. Ni transceiver, ni carte son.*
+
+Une clé **RTL-SDR** à vingt euros suffit à recevoir le réseau : pas de transceiver, pas de carte son, pas de câblage audio. C'est fait pour les **SWL** — l'écouteur en formation qui n'a pas encore d'indicatif, le poste d'écoute d'un exercice, le PC qui surveille un segment dans un coin de la salle radio — et, sur une station équipée, pour un deuxième récepteur qui tourne pendant que le transceiver fait autre chose.
+
+Onglet **Configuration**, cadre *Audio* : **Source de réception → Clé SDR RTL-SDR (réception seule — SWL)**. Le cadre **📡 Clé SDR** s'active, **🔄 Chercher** liste les clés branchées, et les boutons de bande de l'onglet Trafic réaccordent la clé comme ils commandent un transceiver en CAT.
+
+![Réglage de la clé SDR](images/TCQws_sdr.png)
+
+**Une clé SDR n'est pas une carte son.** Windows ne l'expose pas comme périphérique audio : TCQws lui parle directement en USB et fabrique l'audio lui-même. Elle n'apparaîtra donc jamais dans la liste *Entrée (RX)* — en mode clé, *Entrée (RX)* et *Sortie (TX)* sont d'ailleurs grisées.
+
+**Réception seule** : une clé ne transmet pas. Tx1 à Tx6 et PING sont grisés, AUTO QSO et PONG décochés. Le décodage, lui, est complet : activité, chute d'eau, carte, journal, radiogrammes reçus, alerte FLASH.
+
+### Le pilote : Zadig, et la vérification qui évite l'accident
+
+La clé doit utiliser le pilote **WinUSB**, et non le pilote DVB-T que Windows installe tout seul. L'outil est **Zadig** — Nooelec le distribue directement sous le nom *NESDR Driver Installer* ([guide de démarrage NESDR](https://www.nooelec.com/store/qs/)).
+
+1. Brancher la clé, puis lancer Zadig (ou le *NESDR Driver Installer*).
+2. Menu **Options → List All Devices**.
+3. Choisir la clé dans la liste déroulante. Le nom varie selon les modèles : **NESDR SMArt**, **Bulk-In, Interface (Interface 0)** ou **RTL2838UHIDIR**.
+4. ⚠ **Vérifier l'USB ID : il doit être `0BDA 2838` ou `0BDA 2832`.** S'il ne correspond pas, **ne pas continuer** : Zadig liste *tous* les périphériques USB, et remplacer le pilote d'une souris, d'un clavier ou d'un disque le rendrait inutilisable.
+5. Cible : **WinUSB**. Cliquer sur **Install Driver** / **Replace Driver**.
+
+Si la clé n'apparaît pas dans la liste, décocher **Ignore Hubs or Composite Parents** dans le menu Options.
+
+Après cela, la clé figure dans le gestionnaire de périphériques sous « Périphériques Universal Serial Bus ». Une clé ne se partage pas : si un autre logiciel SDR la tient ouverte, le fermer d'abord.
+
+### Deux réglages qui décident si ça marche
+
+- **Échantillonnage direct** (mode par défaut) : le tuner d'une clé RTL-SDR ne descend pas sous 24 MHz. Sans ce mode, **rien n'est décodé en onde courte** alors que la clé a l'air de fonctionner. C'est le mode des **RTL-SDR Blog V3**, dont l'antenne se branche sur l'entrée HF/Direct.
+- **Clés sans entrée HF** — Nooelec **NESDR SMArt**, clés DVB-T ordinaires : elles acceptent l'échantillonnage direct, mais leur étage d'entrée coupe l'onde courte et elles y sont presque sourdes. Leur donner un convertisseur (*Ham It Up* ou équivalent) et choisir le mode **Transverter** avec sa fréquence — elles redeviennent alors d'excellents récepteurs HF. En VHF/UHF, le mode *Tuner normal* leur va directement.
+
+La clé n'est jamais accordée sur le segment écouté : TCQws la cale **50 kHz au-dessus** et redescend en numérique, pour que sa raie continue et son bruit en 1/f restent hors de la bande utile.
+
+### Si la clé n'est pas trouvée
+
+TCQws distingue les trois pannes qui donnent pourtant le même écran vide, et donne pour chacune la marche à suivre : **module Python absent**, **bibliothèques absentes**, **pilote Windows qui n'est pas WinUSB**. Il affiche aussi le chemin de l'interpréteur qui le fait tourner — sous Windows, `pip` et `python` désignent très souvent deux Python différents, et `pip install` réussit alors ailleurs pendant que le programme continue de ne rien voir.
 
 ---
 
