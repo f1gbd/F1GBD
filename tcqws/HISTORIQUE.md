@@ -9,6 +9,29 @@ avec son programme d'installation, son archive et son empreinte SHA-256.
 ---
 
 
+## v0.5.0 — Le satellite commute tout seul
+
+*20 septembre 2026*
+
+### 🛰 Split automatique Rx / Tx en bande SAT
+
+Une station satellite n'émet pas là où elle écoute. Deux champs dans *Fréquences spéciales*, **Radio Rx** et **Radio Tx**, portent ce que le transceiver affiche vraiment — 28,540 et 28,040 MHz sur un montage QO-100 — et TCQws **porte le VFO sur Radio Tx avant chaque message émis, puis le ramène sur Radio Rx**. Rien n'est calculé : ni case à cocher, ni écart imposé. Un transpondeur n'est pas forcément inverseur, et un relais V/U écoute en 2 m pour émettre en 70 cm. L'écart est seulement rappelé sous le champ, où une faute de frappe se voit.
+
+**Les fréquences réglées sont celles de la radio** : avec un downconverter QO-100 (10 489,540 → 28,540), c'est la sortie du convertisseur. Plus de conversion à faire de tête.
+
+**Le log ne suit pas la radio** : quelle que soit la fréquence affichée, le QSO reste enregistré sur la montée réelle — 2400,040 MHz, bande **13 cm**, `prop_mode SAT`.
+
+L'ordre compte et il est vérifié sur l'éther simulé : commutation **avant** le PTT (0,3 s, de quoi laisser passer une commande CI-V à 1200 bauds), retour en réception **après** son relâchement, jamais pendant l'émission — sur un port CAT séparé, changer de VFO pendant l'émission est refusé ; sur un port partagé, cela couperait la porteuse. Deux fréquences identiques : le VFO ne commute pas, et le journal le dit. Une configuration réglée sous l'ancienne case à cocher est reprise automatiquement.
+
+**Le retour en réception est envoyé, puis confirmé** — une commande 0,25 s après le PTT, une seconde au début de la période suivante. Une radio restée sur la fréquence d'émission est sourde et rien ne le signale ; or une commande CI-V se perd, et une radio qui n'a pas fini de quitter l'émission en ignore une sans le dire. TCQws renvoie donc l'ordre même quand il croit la fréquence déjà bonne. Une fin de QSO, le bouton *Arrêter TX* ou un arrêt de station ramènent aussi le VFO au milieu d'une émission ; à l'arrêt, un échec est écrit en clair. Un CAT en échec n'empêche pas d'émettre — la radio reste en réception, ce qui s'entend.
+
+### 🔌 Aucun port COM ouvert en écoute SDR
+
+Une clé n'est pas un transceiver : les cadres **PTT** et **CAT** sont entièrement grisés tant que la source est une clé, et les boutons de test expliquent pourquoi. Sans cela, TCQws ouvrait un port COM inexistant et échouait au démarrage sur `could not open port 'COM1'`.
+
+---
+
+
 ## v0.4.0 — Écouter avec une clé SDR
 
 *19 septembre 2026*

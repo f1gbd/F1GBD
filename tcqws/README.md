@@ -14,15 +14,15 @@
 [![Compatibilité](https://img.shields.io/badge/compatible-WSJT--X%20(ADIF%2C%20ALL.TXT)-teal.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
 [![Code civil](https://img.shields.io/badge/code%20civil-CHAPPE--26-b01818.svg)](doc/Chappe26_Livret_B5.pdf)
-[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.4.0-blue)](HISTORIQUE.md)
+[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.5.0-blue)](HISTORIQUE.md)
 
-## 📥 Télécharger TCQws v0.4.0 pour Windows
+## 📥 Télécharger TCQws v0.5.0 pour Windows
 
-### **[⬇ TCQws-0.4.0-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.4.0/TCQws-0.4.0-setup.exe)** — double-clic, et c'est installé
+### **[⬇ TCQws-0.5.0-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.5.0/TCQws-0.5.0-setup.exe)** — double-clic, et c'est installé
 
 *Aucun droit administrateur, aucune installation Python, aucune interférence avec TCQ. Raccourcis Bureau et menu Démarrer, manuel inclus, et une désinstallation qui conserve vos réglages, votre log ADIF, votre journal et vos radiogrammes.*
 
-**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.4.0/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
+**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.5.0/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
 
 [📜 Historique des versions](HISTORIQUE.md) · [📖 Manuel PDF](doc/MANUEL_TCQws.pdf) · [🚨 Alerte FLASH](#2-lalerte-flash--32-caractères-tout-de-suite) · [🗼 CHAPPE-26](#3-chappe-26--une-phrase-en-quatre-chiffres) · [📡 PING et carte](#5-ping--pong-et-la-carte-du-réseau) · [🛰 Satellite](#4-satellite-et-activations) · [📨 Radiogrammes](#1-les-radiogrammes-adrasec--le-message-pas-seulement-le-qso)
 
@@ -61,7 +61,7 @@ Pour un QSO ordinaire, WSJT-X reste la référence. TCQws existe pour tout ce qu
 | **Appel de présence** | non | **PING / PONG** : qui est là, où, avec quel rapport — en deux périodes, sans QSO |
 | **Carte des stations** | non (PSKreporter, en ligne) | **carte du monde embarquée**, grille des locators, **sans aucun réseau** |
 | **Éditeur de journal** | log en écriture seule | **onglet Logbook** : corriger, supprimer, ajouter un QSO dans le `.adi` |
-| **Trafic satellite** | fréquence unique | **deux fréquences** (montée / descente), log ADIF `prop_mode` / `sat_name` / `sat_mode` |
+| **Trafic satellite** | fréquence unique | **split Rx/Tx automatique par CAT**, log ADIF sur la montée (`prop_mode` / `sat_name` / `sat_mode`) |
 | **Activations** (LLOTA…) | non | champ dédié → `MY_SIG` / `MY_SIG_INFO` dans le log |
 | Thème d'écran | clair | **clair ou sombre**, au choix — plein jour sous la tente ou vidéoprojection |
 | **Taille des caractères** | fixe | **100 / 125 / 150 %** d'un bouton — tablette de 10 pouces, lecture debout |
@@ -92,7 +92,7 @@ En exercice ou en opération, un réseau d'urgence ne transmet pas des rapports 
 
 ## 2. L'alerte FLASH — 32 caractères, tout de suite
 
-![Alerte FLASH](images/TCQws_FLASH_sdr.jpg)
+![Alerte FLASH](images/TCQws_FLASH.png)
 
 Un radiogramme complet prend plusieurs minutes. Pour l'urgence immédiate, TCQws ajoute un format dédié :
 
@@ -140,7 +140,7 @@ Le tout se relit à la main avec le seul livret, sans TCQws et sans électricit�
 
 ## 4. Satellite et activations
 
-**La bande SAT sait que monter et descendre ne sont pas la même fréquence.** Le cadre *Fréquences spéciales* de la configuration porte les deux : **SAT Rx**, la descente — c'est elle que la radio affiche et que vous écoutez — et **SAT Tx**, la montée. Sur QO-100 : 10 489,540 et 2 400,040 MHz.
+**La bande SAT sait qu'on n'émet pas là où on écoute.** Le cadre *Fréquences spéciales* de la configuration porte **Radio Rx** et **Radio Tx** — ce que le transceiver affiche vraiment en écoute et en émission, 28,540 et 28,040 MHz derrière un downconverter QO-100 — et **SAT Tx**, la montée réelle : 2 400,040 MHz.
 
 Le QSO est alors logué **sur la montée**, offset audio compris, parce que c'est la convention ADIF d'un contact satellite : la bande d'un QSO QO-100 est le 13 cm, pas le 3 cm de la descente.
 
@@ -148,7 +148,7 @@ Le QSO est alors logué **sur la montée**, offset audio compris, parce que c'es
 <band:4>13cm <freq:11>2400.040935 <prop_mode:3>SAT <sat_name:6>QO-100 <sat_mode:2>SX
 ```
 
-TCQws ne pilote qu'un VFO, celui de la réception : la conversion vers la fréquence rayonnée reste l'affaire de votre transverter ou de votre SDR. Le nom et le mode du satellite se règlent, donc rien n'est figé sur QO-100.
+**Le VFO commute tout seul** : le CAT le porte sur *Radio Tx* avant chaque message émis, puis le ramène sur *Radio Rx*. Les deux fréquences se règlent librement, dans les deux sens — un transpondeur n'est pas forcément inverseur, et un relais V/U écoute en 2 m pour émettre en 70 cm. La conversion vers la fréquence rayonnée reste l'affaire de votre transverter ou de votre SDR, et le nom comme le mode du satellite se règlent : rien n'est figé sur QO-100.
 
 **Les activations vont dans le log, pas sur l'air.** Le champ **LLOTA**, à droite de la fréquence, reçoit une référence comme `LLFR-0087` ; chaque QSO logué porte alors :
 
@@ -244,8 +244,6 @@ Avec 16 répétitions (2 à 4 minutes), un message passe **sous le seuil du FT8*
 ---
 
 ## 10. Écouter sans transceiver — la clé SDR (SWL)
-
-![Réception par clé SDR](images/TCQws_sdr.jpg)
 
 ![Réception par clé SDR](images/TCQws_sdr_trafic.png)
 
