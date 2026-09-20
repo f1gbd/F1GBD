@@ -92,7 +92,7 @@ En exercice ou en opération, un réseau d'urgence ne transmet pas des rapports 
 
 ## 2. L'alerte FLASH — 32 caractères, tout de suite
 
-![Alerte FLASH](images/TCQws_FLASH.png)
+![Alerte FLASH](images/TCQws_FLASH_sdr.jpg)
 
 Un radiogramme complet prend plusieurs minutes. Pour l'urgence immédiate, TCQws ajoute un format dédié :
 
