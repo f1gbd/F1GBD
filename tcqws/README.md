@@ -245,6 +245,8 @@ Avec 16 répétitions (2 à 4 minutes), un message passe **sous le seuil du FT8*
 
 ## 10. Écouter sans transceiver — la clé SDR (SWL)
 
+![Réception par clé SDR](images/TCQws_sdr.jpg)
+
 ![Réception par clé SDR](images/TCQws_sdr_trafic.png)
 
 *40 m en FT8, reçu par une clé RTL-SDR à 7,074 MHz : 45 décodages en trois périodes, jusqu'aux Canaries à 2790 km. Ni transceiver, ni carte son.*
