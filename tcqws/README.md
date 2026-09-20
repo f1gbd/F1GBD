@@ -142,7 +142,10 @@ Le tout se relit à la main avec le seul livret, sans TCQws et sans électricit�
 
 **La bande SAT sait qu'on n'émet pas là où on écoute.** Le cadre *Fréquences spéciales* de la configuration porte **Radio Rx** et **Radio Tx** — ce que le transceiver affiche vraiment en écoute et en émission, 28,540 et 28,040 MHz derrière un downconverter QO-100 — et **SAT Tx**, la montée réelle : 2 400,040 MHz.
 
+![Réglage Bande SAT](images/TCQws_SAT.png)
+
 Le QSO est alors logué **sur la montée**, offset audio compris, parce que c'est la convention ADIF d'un contact satellite : la bande d'un QSO QO-100 est le 13 cm, pas le 3 cm de la descente.
+
 
 ```
 <band:4>13cm <freq:11>2400.040935 <prop_mode:3>SAT <sat_name:6>QO-100 <sat_mode:2>SX
