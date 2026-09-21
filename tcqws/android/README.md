@@ -37,7 +37,7 @@ Ce qui change, c'est tout ce qui fait un poste de terrain : une tablette et une 
 
 ![TCQws Android en trafic FT8](images/TCQws_android_trafic.png)
 
-![TCQws Android en trafic FT8](images/TCQws_android_smartphone.jpeg)
+![TCQws Android avec un Smartphone](images/TCQws_android_smartphone.jpeg)
 
 ---
 
