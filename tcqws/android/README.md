@@ -33,7 +33,7 @@ TCQws Android, c'est **TCQws PC dans un téléphone** : les mêmes messages, les
 
 Ce qui change, c'est tout ce qui fait un poste de terrain : une tablette et une interface USB suffisent, pas de PC à alimenter, et le téléphone **continue d'écouter écran éteint, en poche** — une alerte FLASH ou un radiogramme qui arrive le fait sonner.
 
-![TCQws Android en trafic FT8](images/TCQws_android_trafic.jpg)
+![TCQws Android en trafic FT8](images/TCQws_android_trafic.png)
 
 ---
 
@@ -54,7 +54,7 @@ Ce qui change, c'est tout ce qui fait un poste de terrain : une tablette et une 
 | **Carte** | stations entendues sur une carte **hors ligne** (aucune tuile à télécharger), grille des locators |
 | **Écran** | présentation de TCQws PC ; tablette : les listes côte à côte ; téléphone : en sous-onglets ; thèmes sombre et clair |
 
-![AUTO QSO sur la tablette](images/TCQws_android_autoqso.jpg)
+![CARTE sur la tablette](images/TCQws_android_carte.png)
 
 ---
 
@@ -74,8 +74,9 @@ Un seul câble USB-C (ou un hub USB-C) entre le téléphone et l'interface de la
 
 *Essais de trafic réalisés avec un **Yaesu FT-891** et une **SCU-17** sur tablette Android : CAT, PTT par RTS, séquence auto et AUTO QSO.*
 
-![Réglages de la radio](images/TCQws_android_radio.jpg)
+![Réglages de la radio](images/TCQws_android_setup1.png)
 
+![Réglages de la radio](images/TCQws_android_setup2.png)
 ---
 
 ## 🚀 Installation
@@ -125,6 +126,10 @@ Les réglages de bande, de fréquence et de satellite sont les mêmes que sur le
 - **Sous-onglet Émission** : message libre, PING / PONG, modificateur de CQ, période paire / impaire, fréquence et niveau d'émission.
 - Les lignes rouges **TX** de la liste « Fréquence RX » montrent chaque émission ; le bandeau passe au rouge pendant le PTT.
 - **📒 Log** : les QSO logués, le plus récent en haut ; **📋 Journal** : tout ce que fait la station.
+
+![Réglages de la radio](images/TCQws_android_journal.png)
+
+![Réglages de la radio](images/TCQws_android_log.png)
 
 ---
 
