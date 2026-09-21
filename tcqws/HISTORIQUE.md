@@ -9,9 +9,35 @@ avec son programme d'installation, son archive et son empreinte SHA-256.
 ---
 
 
+## v0.5.1 — Le réseau a son bouton
+
+*21 septembre 2026*
+
+### 📻 Un bouton ADRASEC dans la barre des bandes
+
+Un réseau départemental se donne rendez-vous sur **sa propre fréquence**, à l'écart du segment encombré de 7,074 MHz. Le bouton **ADRASEC**, en tête de la barre *Bande*, y porte la radio d'un clic : **7,084 MHz** par défaut en FT8 comme en FT4, et un **clic droit** pour la changer — un autre département, un exercice sur 80 m. Le log garde la vraie bande, déduite de la fréquence (`40m` sur 7,084) : ADIF ne connaît que les bandes radio.
+
+### 📏 La bande active sur chaque trait de période
+
+Le trait qui sépare deux périodes dans *Activité de bande* porte la bande et la fréquence (`── ADRASEC ──  7.084 MHz`). Après un changement de bande, on sait d'un coup d'œil où chaque station a été entendue. Une fréquence retapée à la main prend le nom de sa bande radio : le trait n'annonce jamais « ADRASEC » sur 14,074.
+
+*Les v0.4.0 et v0.5.0 n'ayant pas été publiées séparément, la v0.5.1 apporte aussi tout leur contenu, décrit ci-dessous.*
+
+---
+
 ## v0.5.0 — Le satellite commute tout seul
 
 *20 septembre 2026*
+
+### 🌍 Le filtre d'exclusion prend tout le QSO
+
+Écarter un pays ne marchait que tant qu'il appelait **CQ**. Dès qu'une station exclue engageait un contact, son correspondant la nommait — `UA3ABC G6LTT -17` est émis par G6LTT, qui n'est pas exclu — et **la moitié de l'échange revenait** dans *Activité de bande* comme dans *Fréquence RX*.
+
+Un décodage est maintenant écarté dès qu'**un seul** de ses indicatifs relève d'un pays exclu : absent des deux tableaux, absent de la carte, et ignoré par la séquence automatique comme par AUTO QSO. **Y compris un appel qui vous est adressé** : exclure un pays, c'est refuser de l'entendre *et* de le travailler, et un appel direct est précisément le seul message que vous risqueriez de prendre pour un QSO.
+
+### 📏 Deux colonnes qui respirent
+
+Un message FT8 fait au plus 22 caractères. Lui donner toute la place disponible laissait un grand vide à droite du texte pendant que `Pays-Bas • 5338 km` se faisait couper. Les colonnes **Message** et **Pays • km** s'étirent désormais ensemble, dans les deux tableaux.
 
 ### 🛰 Split automatique Rx / Tx en bande SAT
 

@@ -14,15 +14,15 @@
 [![Compatibilité](https://img.shields.io/badge/compatible-WSJT--X%20(ADIF%2C%20ALL.TXT)-teal.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
 [![Code civil](https://img.shields.io/badge/code%20civil-CHAPPE--26-b01818.svg)](doc/Chappe26_Livret_B5.pdf)
-[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.5.0-blue)](HISTORIQUE.md)
+[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.5.1-blue)](HISTORIQUE.md)
 
-## 📥 Télécharger TCQws v0.5.0 pour Windows
+## 📥 Télécharger TCQws v0.5.1 pour Windows
 
-### **[⬇ TCQws-0.5.0-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.5.0/TCQws-0.5.0-setup.exe)** — double-clic, et c'est installé
+### **[⬇ TCQws-0.5.1-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.5.1/TCQws-0.5.1-setup.exe)** — double-clic, et c'est installé
 
 *Aucun droit administrateur, aucune installation Python, aucune interférence avec TCQ. Raccourcis Bureau et menu Démarrer, manuel inclus, et une désinstallation qui conserve vos réglages, votre log ADIF, votre journal et vos radiogrammes.*
 
-**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.5.0/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
+**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.5.1/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
 
 [📜 Historique des versions](HISTORIQUE.md) · [📖 Manuel PDF](doc/MANUEL_TCQws.pdf) · [🚨 Alerte FLASH](#2-lalerte-flash--32-caractères-tout-de-suite) · [🗼 CHAPPE-26](#3-chappe-26--une-phrase-en-quatre-chiffres) · [📡 PING et carte](#5-ping--pong-et-la-carte-du-réseau) · [🛰 Satellite](#4-satellite-et-activations) · [📨 Radiogrammes](#1-les-radiogrammes-adrasec--le-message-pas-seulement-le-qso)
 
@@ -225,7 +225,7 @@ Avec 16 répétitions (2 à 4 minutes), un message passe **sous le seuil du FT8*
 - **Heure** : vérification **NTP** au démarrage et sur demande, correction proposée en un clic, et **calage GPS NMEA** pour le mode blackout (sans Internet). Le journal signale toute station reçue avec un DT anormal, et dit s'il faut corriger une horloge ou une latence.
 - **Tolérance d'horloge** : en FT4, TCQws décode de **−2 à +2 s** de DT, là où WSJT-X s'arrête vers ±1 s. Deux postes mal synchronisés continuent de se lire — le temps de corriger.
 - **PTT et CAT séparés** : PTT par RTS, DTR, CAT, rigctld ou VOX sur un port, **fréquence par CAT sur un autre port** (vitesse et bits de stop propres). Les transceivers anciens, comme l'IC-737 (CI-V sans commande d'émission, 1200 bauds, 2 bits de stop), fonctionnent tels quels.
-- **Boutons de bande** SAT, 80 → 10 m : la radio se règle par CAT, la fréquence suit le mode FT4/FT8, chaque bouton se modifie au clic droit.
+- **Boutons de bande** ADRASEC, SAT, 80 → 10 m : la radio se règle par CAT, la fréquence suit le mode FT4/FT8, chaque bouton se modifie au clic droit. Le bouton **ADRASEC** porte la fréquence du réseau départemental — 7,084 MHz par défaut —, et chaque trait de période de l'activité de bande rappelle la bande et la fréquence sur lesquelles elle a été reçue.
 - **Audio maîtrisé** : sortie 48 kHz 16 bits stéréo comme WSJT-X, latences réglables, et **enregistrement WAV de chaque émission et de chaque réception** pour diagnostiquer une chaîne audio douteuse au lieu de la deviner.
 - **Thème clair ou sombre**, d'un bouton : le thème clair pour un écran en plein jour, sous une tente ou en vidéoprojection, le sombre pour la veille de nuit. La chute d'eau reste sur fond noir dans les deux cas.
 - **Mise à jour vérifiée depuis l'application** : le bouton « ⭯ Vérifier la mise à jour » de la fenêtre « À propos » compare la version installée à la dernière publiée et propose le téléchargement. Sans Internet, il le dit et n'insiste pas.
@@ -241,7 +241,7 @@ Avec 16 répétitions (2 à 4 minutes), un message passe **sous le seuil du FT8*
 - **Log ADIF** `wsjtx_log.adi` au format de WSJT-X : importable dans Log4OM, JTAlert, TQSL/LoTW, Club Log, QRZ… ou ajouté directement au log existant de WSJT-X.
 - **Indicatifs spéciaux et portables** (`TM50SC`, `F1GBD/P`) gérés comme dans WSJT-X, y compris le cas où WSJT-X ne peut pas transmettre de rapport.
 - **CQ POTA / SOTA / IOTA / WWFF…** par un champ dédié.
-- **Pays et distance** affichés directement dans l'activité de bande (calculés depuis votre locator), et **filtre d'exclusion par préfixe** pour écarter d'un coup une zone qui sature la bande — à l'affichage comme en réponse automatique.
+- **Pays et distance** affichés directement dans l'activité de bande (calculés depuis votre locator), et **filtre d'exclusion par pays** pour écarter d'un coup une zone qui sature la bande — à l'affichage comme en réponse automatique. C'est **tout le QSO** qui disparaît, pas seulement les appels de la station exclue : ce que son correspondant lui répond porte son indicatif et encombrerait la liste tout autant. Un appel qui vous est adressé par un pays exclu est écarté lui aussi — exclure un pays, c'est refuser de l'entendre *et* de le travailler.
 - **Journal `ALL.TXT`** au format WSJT-X, et double-clic qui passe en émission comme dans WSJT-X.
 
 ---
