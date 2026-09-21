@@ -31,6 +31,8 @@
 
 TCQws Android, c'est **TCQws PC dans un téléphone** : les mêmes messages, les mêmes radiogrammes, la même alerte FLASH, le même code CHAPPE-26, le même décodeur FT4 cohérent. Ce n'est pas une réécriture : le cœur est **le code même de la version PC**, embarqué dans l'application. Un radiogramme envoyé par un téléphone se lit sur un PC, et inversement, **au bit près**.
 
+![TCQws Android sur tablette](images/TCQws_android_tablette.png) 
+
 Ce qui change, c'est tout ce qui fait un poste de terrain : une tablette et une interface USB suffisent, pas de PC à alimenter, et le téléphone **continue d'écouter écran éteint, en poche** — une alerte FLASH ou un radiogramme qui arrive le fait sonner.
 
 ![TCQws Android en trafic FT8](images/TCQws_android_trafic.png)
