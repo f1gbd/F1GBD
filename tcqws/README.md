@@ -24,7 +24,9 @@
 
 **[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.5.1/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
 
-[📜 Historique des versions](HISTORIQUE.md) · [📖 Manuel PDF](doc/MANUEL_TCQws.pdf) · [🚨 Alerte FLASH](#2-lalerte-flash--32-caractères-tout-de-suite) · [🗼 CHAPPE-26](#3-chappe-26--une-phrase-en-quatre-chiffres) · [📡 PING et carte](#5-ping--pong-et-la-carte-du-réseau) · [🛰 Satellite](#4-satellite-et-activations) · [📨 Radiogrammes](#1-les-radiogrammes-adrasec--le-message-pas-seulement-le-qso)
+**[📱 TCQws Android](android/README.md)** — la même station sur téléphone et tablette : **[⬇ TCQws_android-0.4.6.apk](https://github.com/f1gbd/F1GBD/releases/download/tcqws-android-v0.4.6/TCQws_android-0.4.6.apk)**
+
+[📜 Historique des versions](HISTORIQUE.md) · [📖 Manuel PDF](doc/MANUEL_TCQws.pdf) · [📱 Android](android/README.md) · [🚨 Alerte FLASH](#2-lalerte-flash--32-caractères-tout-de-suite) · [🗼 CHAPPE-26](#3-chappe-26--une-phrase-en-quatre-chiffres) · [📡 PING et carte](#5-ping--pong-et-la-carte-du-réseau) · [🛰 Satellite](#4-satellite-et-activations) · [📨 Radiogrammes](#1-les-radiogrammes-adrasec--le-message-pas-seulement-le-qso)
 
 </div>
 
@@ -291,6 +293,21 @@ TCQws distingue les trois pannes qui donnent pourtant le même écran vide, et d
 
 ---
 
+## 11. Sur téléphone et tablette — TCQws Android
+
+![TCQws Android en trafic FT8](android/images/TCQws_android_trafic.jpg)
+
+**TCQws Android** est la même station, dans la poche. Ce n'est pas une réécriture : le cœur de l'application Android est **le code même de TCQws PC**, embarqué tel quel. Les messages, les radiogrammes, l'alerte FLASH et le code CHAPPE-26 passent donc **au bit près** d'un PC à un téléphone, dans les deux sens.
+
+- **Trafic complet** : réception et émission FT4 / FT8, séquence auto, **AUTO QSO**, PING / PONG, log ADIF exportable.
+- **Radiogrammes et alerte FLASH** : rédaction, AUTH, accusé de réception ; à la réception d'une alerte, **le téléphone sonne même écran éteint**, en poche.
+- **Un seul câble USB** vers la radio : le son, le **CAT** et le **PTT** (RTS, DTR, CAT, VOX ou rigctld), sans pilote à installer — SCU-17, Digirig, radios Icom et Yaesu en USB direct, câbles FTDI et CH340.
+- **Terrain** : heure vérifiée par NTP, carte hors ligne des stations entendues, bande SAT avec commutation du VFO, présentation adaptée à la tablette comme au téléphone.
+
+Essais de trafic réalisés avec un Yaesu FT-891 et une SCU-17 sur tablette Android. **[→ README TCQws Android](android/README.md)** : installation, raccordement de la radio, réglages.
+
+---
+
 ## Ce que WSJT-X fait mieux
 
 Par honnêteté, et parce que les deux logiciels sont complémentaires :
@@ -341,10 +358,11 @@ Le script prend la dernière release **TCQws** (tag `tcqws-v…`), vérifie le S
 | [📄 Fiche BLACK-OUT](doc/TCQws-Chappe26_Fiche_BlackOut.pdf) | Un message CHAPPE-26 de bout en bout, de la frappe à la réception |
 | [📊 Fiche topo — performances](doc/FICHE_TOPO_TCQws_performances.pdf) | Seuils de décodage mesurés et positionnement face aux autres modes |
 | [📜 Historique des versions](HISTORIQUE.md) | Les nouveautés de chaque version, de la plus récente à la plus ancienne |
+| [📱 TCQws Android](android/README.md) | La version téléphone et tablette : installation, raccordement de la radio, réglages |
 
 Le mode d'emploi est aussi livré avec l'application, dans **`README_TCQws.md`**.
 
-Windows 10/11 64 bits. Ce dépôt publie les **exécutables** ; les sources ne sont pas distribuées.
+Windows 10/11 64 bits ; TCQws Android : Android 7 ou plus récent, 64 bits (arm64). Ce dépôt publie les **exécutables** ; les sources ne sont pas distribuées.
 
 ---
 
