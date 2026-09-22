@@ -92,6 +92,10 @@ Un seul câble USB-C (ou un hub USB-C) entre le téléphone et l'interface de la
 
 Pas de transceiver sous la main ? Une **clé RTL-SDR** et une antenne suffisent pour écouter le FT4 / FT8 — un poste d'écoute (SWL) de poche, comme avec TCQws PC. Décodages, carte, radiogrammes et **alertes FLASH** fonctionnent à l'identique.
 
+![Réglages de la radio](images/TCQws_sdr_reel.jpg)
+
+Clé SDR recommandée et utilisée ici: **Nooelec NESDR SMArt v5 SDR - HF/VHF/UHF (100kHz-1.75GHz) RTL-SDR. RTL2832U & R820T2**
+
 1. Installer depuis le Play Store l'application gratuite **« RTL2832U »** (Martin Marinov) : c'est elle qui pilote la clé et la sert par **rtl_tcp**, la méthode du décodeur EPIRB 406 Android.
 2. Brancher la clé sur la tablette par le **câble USB-C OTG**.
 3. **⚙ Configuration → Réception → Récepteur : Clé SDR RTL-SDR (écoute seule)**, puis dans la section **Clé SDR** :
