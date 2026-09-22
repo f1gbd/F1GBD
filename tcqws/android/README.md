@@ -6,22 +6,24 @@
 
 ### Le FT4 / FT8 des opérateurs ADRASEC, dans la poche
 
-*La station TCQws sur téléphone ou tablette : QSO FT4/FT8 et log ADIF · radiogrammes ADRASEC avec accusé de réception · alerte FLASH qui sonne même écran éteint · CHAPPE-26 décodé en clair · CAT et PTT par le câble USB de la radio · compatible au bit près avec TCQws PC.*
+*La station TCQws sur téléphone ou tablette : QSO FT4/FT8 et log ADIF · radiogrammes ADRASEC avec accusé de réception · alerte FLASH qui sonne même écran éteint · CHAPPE-26 décodé en clair · CAT et PTT par le câble USB de la radio · écoute par clé RTL-SDR · compatible au bit près avec TCQws PC.*
 
 [![Plateforme](https://img.shields.io/badge/plateforme-Android%207%2B-3ddc84.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-arm64--v8a-orange.svg)]()
 [![Modes](https://img.shields.io/badge/modes-FT4%20%7C%20FT8-blueviolet.svg)]()
 [![Compatibilité](https://img.shields.io/badge/compatible-TCQws%20PC%20%C2%B7%20WSJT--X-teal.svg)](../README.md)
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version](https://img.shields.io/badge/version-tcqws--android--v0.4.6-blue)](https://github.com/f1gbd/F1GBD/releases/tag/tcqws-android-v0.4.6)
+[![Version](https://img.shields.io/badge/version-tcqws--android--v0.5.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/tcqws-android-v0.5.0)
 
-## 📥 Télécharger TCQws Android v0.4.6
+## 📥 Télécharger TCQws Android v0.5.0
 
-### **[⬇ TCQws_android-0.4.6.apk](https://github.com/f1gbd/F1GBD/releases/download/tcqws-android-v0.4.6/TCQws_android-0.4.6.apk)**
+### **[⬇ TCQws_android-0.5.0.apk](https://github.com/f1gbd/F1GBD/releases/download/tcqws-android-v0.5.0/TCQws_android-0.5.0.apk)**
 
 *À ouvrir directement sur le téléphone ou la tablette. Android 7 ou plus récent, processeur 64 bits (arm64). Aucun compte, aucune publicité, aucune donnée envoyée nulle part.*
 
-[🖥 TCQws pour Windows](../README.md) · [📜 Historique TCQws](../HISTORIQUE.md) · [📖 Manuel PDF (PC)](../doc/MANUEL_TCQws.pdf) · [🔌 Raccorder la radio](#-raccorder-la-radio) · [🚨 Alerte FLASH](#-radiogrammes-et-alerte-flash)
+**Nouveau en 0.5.0 : écoute FT4 / FT8 par clé RTL-SDR**, sans transceiver — [📡 voir plus bas](#-écoute-par-clé-sdr-rtl-sdr)
+
+[🖥 TCQws pour Windows](../README.md) · [📜 Historique TCQws](../HISTORIQUE.md) · [📖 Manuel PDF Android](doc/MANUEL_TCQws_android.pdf) · [📖 Manuel PDF (PC)](../doc/MANUEL_TCQws.pdf) · [🔌 Raccorder la radio](#-raccorder-la-radio) · [📡 Clé SDR](#-écoute-par-clé-sdr-rtl-sdr) · [🚨 Alerte FLASH](#-radiogrammes-et-alerte-flash)
 
 </div>
 
@@ -53,6 +55,7 @@ Ce qui change, c'est tout ce qui fait un poste de terrain : une tablette et une 
 | **CHAPPE-26** | les codes reçus sont traduits en clair |
 | **Écoute écran éteint** | service Android de premier plan : le téléphone décode en poche, notification permanente |
 | **CAT et PTT par USB** | table des radios de TCQ ; PTT par CAT, RTS, DTR, VOX ou rigctld ; port PTT séparé ; boutons de bande qui règlent la radio |
+| **Écoute par clé SDR** | clé RTL-SDR par le câble OTG (pilote « RTL2832U ») ou serveur rtl_tcp du réseau ; même démodulation BLU que le PC ; écoute seule |
 | **Trafic satellite** | bande SAT : VFO d'émission avant chaque PTT, retour en réception confirmé ensuite (QO-100…) |
 | **Heure** | vérifiée par NTP à chaque démarrage |
 | **Carte** | stations entendues sur une carte **hors ligne** (aucune tuile à télécharger), grille des locators |
@@ -73,6 +76,7 @@ Un seul câble USB-C (ou un hub USB-C) entre le téléphone et l'interface de la
 | Radios en USB direct (IC-7300, IC-9700, FT-991, FT-710…) | carte son de la radio | CP210x intégré : CAT et PTT par CAT |
 | IC-705 et radios récentes en USB | carte son de la radio | CDC-ACM (norme USB) |
 | Câbles CAT FTDI ou CH340 | — | reconnus |
+| **SignaLink USB** | carte son USB | **VOX** (la SignaLink passe en émission sur le son) |
 | Carte son USB seule | carte son USB | **VOX** |
 | Radio pilotée par Hamlib sur le réseau | — | **rigctld** (Wi-Fi) |
 
@@ -81,11 +85,34 @@ Un seul câble USB-C (ou un hub USB-C) entre le téléphone et l'interface de la
 ![Réglages de la radio](images/TCQws_android_setup1.png)
 
 ![Réglages de la radio](images/TCQws_android_setup2.png)
+
+---
+
+## 📡 Écoute par clé SDR (RTL-SDR)
+
+Pas de transceiver sous la main ? Une **clé RTL-SDR** et une antenne suffisent pour écouter le FT4 / FT8 — un poste d'écoute (SWL) de poche, comme avec TCQws PC. Décodages, carte, radiogrammes et **alertes FLASH** fonctionnent à l'identique.
+
+1. Installer depuis le Play Store l'application gratuite **« RTL2832U »** (Martin Marinov) : c'est elle qui pilote la clé et la sert par **rtl_tcp**, la méthode du décodeur EPIRB 406 Android.
+2. Brancher la clé sur la tablette par le **câble USB-C OTG**.
+3. **⚙ Configuration → Réception → Récepteur : Clé SDR RTL-SDR (écoute seule)**, puis dans la section **Clé SDR** :
+   - **Mode** : *échantillonnage direct* pour l'onde courte (clé RTL-SDR Blog V3), *tuner normal* en VHF/UHF, ou *transverter* ;
+   - **AGC de la puce RTL** cochée (recommandée en échantillonnage direct) ; gain « auto » ; correction ppm si besoin ;
+   - **🔎 Tester la clé** : le tuner de la clé doit s'afficher.
+4. **▶ Démarrer** : TCQws lance le pilote (Android demande l'accès USB à la clé), s'y connecte, et décode. Les boutons de bande réaccordent la clé.
+
+| Réglage | Rôle |
+|---|---|
+| Serveur rtl_tcp | `127.0.0.1:1234` pour la clé branchée sur la tablette ; ou l'adresse d'un **rtl_tcp du réseau** (Raspberry Pi au pied de l'antenne) |
+| Transverter / décalage | conversion d'un transverter ; la clé est accordée 50 kHz au-dessus du segment, pour que sa raie centrale reste hors bande |
+| Inverser I/Q | à cocher seulement si les signaux se voient sur la chute d'eau mais ne décodent jamais (spectre retourné) |
+
+**Écoute seule** : une clé ne transmet pas — émission, PTT et CAT sont coupés, et TCQws le dit. Toutes les minutes, le 📋 Journal donne un bilan de la clé (tuner, fréquence, retard de lecture, niveau, DT, décodages).
+
 ---
 
 ## 🚀 Installation
 
-1. Télécharger **`TCQws_android-0.4.6.apk`** sur le téléphone ou la tablette.
+1. Télécharger **`TCQws_android-0.5.0.apk`** sur le téléphone ou la tablette.
 2. L'ouvrir. Android demande d'autoriser l'installation depuis cette source (le navigateur ou le gestionnaire de fichiers) : accepter.
 3. Lancer **TCQws**. Au premier démarrage, quelques secondes sont nécessaires pour préparer le décodeur.
 
@@ -97,8 +124,8 @@ Un seul câble USB-C (ou un hub USB-C) entre le téléphone et l'interface de la
 |---|---|
 | Micro / enregistrement audio | écouter la radio par la carte son USB (ou le micro du téléphone) |
 | Notifications | prévenir d'une alerte FLASH ou d'un radiogramme reçu écran éteint |
-| Accès au périphérique USB | demandé par Android au premier branchement de l'interface : CAT et PTT |
-| Internet | uniquement la vérification de l'heure (NTP) et rigctld si vous l'utilisez |
+| Accès au périphérique USB | demandé par Android au premier branchement de l'interface : CAT et PTT (pour une clé SDR, c'est le pilote « RTL2832U » qui le demande) |
+| Internet | uniquement la vérification de l'heure (NTP), la recherche de mise à jour, et rigctld ou rtl_tcp si vous les utilisez |
 
 ---
 
@@ -107,7 +134,7 @@ Un seul câble USB-C (ou un hub USB-C) entre le téléphone et l'interface de la
 Tout se règle dans l'onglet **⚙ Configuration**.
 
 1. **Station** : indicatif et locator.
-2. **Réception** : source audio — la carte son USB de l'interface est proposée d'abord.
+2. **Réception** : récepteur (transceiver ou [clé SDR](#-écoute-par-clé-sdr-rtl-sdr)) et source audio — la carte son USB de l'interface est proposée d'abord.
 3. **Radio : CAT et PTT** : choisir la radio, le mode de PTT, le port CAT (et le port PTT s'il est séparé), la vitesse (celle du menu CAT de la radio), puis **🔓 Autoriser**.
    - **🔎 Test CAT** interroge la radio : sa fréquence doit s'afficher.
    - **🧪 Test PTT** passe la radio en émission une seconde.
@@ -149,7 +176,7 @@ Les réglages de bande, de fréquence et de satellite sont les mêmes que sur le
 
 ## Ce qui reste propre à la version PC
 
-La réception par **clé RTL-SDR**, le calage de l'heure par **GPS NMEA**, l'édition du log et les WAV de diagnostic restent pour l'instant dans [TCQws pour Windows](../README.md). Le log ADIF exporté d'Android s'importe dans le PC, dans WSJT-X ou dans votre logiciel de log habituel.
+Le calage de l'heure par **GPS NMEA**, l'édition du log et les WAV de diagnostic restent pour l'instant dans [TCQws pour Windows](../README.md). Le log ADIF exporté d'Android s'importe dans le PC, dans WSJT-X ou dans votre logiciel de log habituel.
 
 ---
 
