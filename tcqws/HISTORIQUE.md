@@ -9,6 +9,24 @@ avec son programme d'installation, son archive et son empreinte SHA-256.
 ---
 
 
+## v0.5.2 — La bonne distance
+
+*23 septembre 2026*
+
+### 📏 « RR73 » n'est plus pris pour un locator
+
+`RR73` a la forme d'un carré Maidenhead, et ce carré existe, au nord du détroit de Béring. Une station des Pays-Bas qui répondait `F1GBD PH1M RR73` était annoncée **à 5 338 km**, plein nord, et posée sur la carte au milieu de l'Arctique, alors que son CQ donnait 478 km. La distance et la carte ne retiennent maintenant que les vrais locators. Le log ADIF n'était pas touché : il écartait déjà `RR73` du champ `GRIDSQUARE`.
+
+### 📍 La distance reste affichée pendant le QSO
+
+Les messages d'un QSO ne portent pas de locator. La distance disparaissait donc dès le premier échange, y compris sur les lignes rouges qui vous sont adressées. TCQws garde maintenant le locator entendu dans le CQ de la station : les 478 km restent affichés jusqu'au 73. Sans CQ entendu, seul le pays s'affiche — rien n'est inventé.
+
+### 📻 La bande active sur chaque trait de période
+
+Annoncé en v0.5.1, absent du binaire publié : le trait qui sépare deux périodes dans *Activité de bande* porte bien, depuis cette version, la bande et la fréquence (`── ADRASEC ──  7.084 MHz`).
+
+---
+
 ## v0.5.1 — Le réseau a son bouton
 
 *21 septembre 2026*

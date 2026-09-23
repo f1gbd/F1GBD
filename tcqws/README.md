@@ -14,15 +14,15 @@
 [![Compatibilité](https://img.shields.io/badge/compatible-WSJT--X%20(ADIF%2C%20ALL.TXT)-teal.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
 [![Code civil](https://img.shields.io/badge/code%20civil-CHAPPE--26-b01818.svg)](doc/Chappe26_Livret_B5.pdf)
-[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.5.1-blue)](HISTORIQUE.md)
+[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.5.2-blue)](HISTORIQUE.md)
 
-## 📥 Télécharger TCQws v0.5.1 pour Windows
+## 📥 Télécharger TCQws v0.5.2 pour Windows
 
-### **[⬇ TCQws-0.5.1-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.5.1/TCQws-0.5.1-setup.exe)** — double-clic, et c'est installé
+### **[⬇ TCQws-0.5.2-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.5.2/TCQws-0.5.2-setup.exe)** — double-clic, et c'est installé
 
 *Aucun droit administrateur, aucune installation Python, aucune interférence avec TCQ. Raccourcis Bureau et menu Démarrer, manuel inclus, et une désinstallation qui conserve vos réglages, votre log ADIF, votre journal et vos radiogrammes.*
 
-**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.5.1/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
+**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.5.2/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
 
 **[📱 TCQws Android](android/README.md)** — la même station sur téléphone et tablette : **[⬇ TCQws_android-0.4.6.apk](https://github.com/f1gbd/F1GBD/releases/download/tcqws-android-v0.4.6/TCQws_android-0.4.6.apk)**
 
