@@ -13,15 +13,15 @@
 [![Modes](https://img.shields.io/badge/modes-FT4%20%7C%20FT8-blueviolet.svg)]()
 [![Compatibilité](https://img.shields.io/badge/compatible-TCQws%20PC%20%C2%B7%20WSJT--X-teal.svg)](../README.md)
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version](https://img.shields.io/badge/version-tcqws--android--v0.5.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/tcqws-android-v0.5.0)
+[![Version](https://img.shields.io/badge/version-tcqws--android--v0.5.1-blue)](https://github.com/f1gbd/F1GBD/releases/tag/tcqws-android-v0.5.1)
 
-## 📥 Télécharger TCQws Android v0.5.0
+## 📥 Télécharger TCQws Android v0.5.1
 
-### **[⬇ TCQws_android-0.5.0.apk](https://github.com/f1gbd/F1GBD/releases/download/tcqws-android-v0.5.0/TCQws_android-0.5.0.apk)**
+### **[⬇ TCQws_android-0.5.1.apk](https://github.com/f1gbd/F1GBD/releases/download/tcqws-android-v0.5.1/TCQws_android-0.5.1.apk)**
 
 *À ouvrir directement sur le téléphone ou la tablette. Android 7 ou plus récent, processeur 64 bits (arm64). Aucun compte, aucune publicité, aucune donnée envoyée nulle part.*
 
-**Nouveau en 0.5.0 : écoute FT4 / FT8 par clé RTL-SDR**, sans transceiver — [📡 voir plus bas](#-écoute-par-clé-sdr-rtl-sdr)
+**Nouveau en 0.5.1 : la distance reste affichée pendant le QSO** · **écoute FT4 / FT8 par clé RTL-SDR**, sans transceiver — [📡 voir plus bas](#-écoute-par-clé-sdr-rtl-sdr)
 
 [🖥 TCQws pour Windows](../README.md) · [📜 Historique TCQws](../HISTORIQUE.md) · [📖 Manuel PDF Android](doc/MANUEL_TCQws_android.pdf) · [📖 Manuel PDF (PC)](../doc/MANUEL_TCQws.pdf) · [🔌 Raccorder la radio](#-raccorder-la-radio) · [📡 Clé SDR](#-écoute-par-clé-sdr-rtl-sdr) · [🚨 Alerte FLASH](#-radiogrammes-et-alerte-flash)
 
@@ -116,7 +116,7 @@ Clé SDR recommandée et utilisée ici: **Nooelec NESDR SMArt v5 SDR - HF/VHF/UH
 
 ## 🚀 Installation
 
-1. Télécharger **`TCQws_android-0.5.0.apk`** sur le téléphone ou la tablette.
+1. Télécharger **`TCQws_android-0.5.1.apk`** sur le téléphone ou la tablette.
 2. L'ouvrir. Android demande d'autoriser l'installation depuis cette source (le navigateur ou le gestionnaire de fichiers) : accepter.
 3. Lancer **TCQws**. Au premier démarrage, quelques secondes sont nécessaires pour préparer le décodeur.
 
