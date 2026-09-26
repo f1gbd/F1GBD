@@ -1,0 +1,6 @@
+center_freq_hz: 406028000
+sample_rate_hz: 250000
+samples: 2000000
+duration_s: 8.000
+gain: 50
+date: 2026-09-26T15:12:54
