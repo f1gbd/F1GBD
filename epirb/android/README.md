@@ -47,7 +47,7 @@
 > **Mise à jour** : depuis la v0.2.0, chaque nouvelle version s'installe **par-dessus** (réglages et main courante conservés). Le bouton **?** → **🔄 Vérifier les mises à jour** indique si une version plus récente est publiée et propose de la télécharger.
 
 <p align="center">
-  <img src="images/EPIRBdecoder_android_MAJ.png" width="300" alt="Fenêtre À propos : bouton Vérifier les mises à jour"><br>
+  <img src="images/EPIRBdecoder_android_MAJ.png" width="400" alt="Fenêtre À propos : bouton Vérifier les mises à jour"><br>
   <sub>Bouton <b>?</b> → fenêtre <b>À propos</b> → <b>🔄 Vérifier les mises à jour</b></sub>
 </p>
 >
@@ -59,9 +59,9 @@
 
 <table>
   <tr>
-    <td align="center" width="33%"><img src="images/EPIRBdecoder_android_screen.png" width="260" alt="Écran principal : balise décodée"></td>
-    <td align="center" width="33%"><img src="images/Position_Balise.png" width="260" alt="Position de la balise dans Google Maps"></td>
-    <td align="center" width="33%"><img src="images/EPIRBdecoder_android_Journal.png" width="260" alt="Main courante"></td>
+    <td align="center" width="33%"><img src="images/EPIRBdecoder_android_screen.png" width="300" alt="Écran principal : balise décodée"></td>
+    <td align="center" width="33%"><img src="images/Position_Balise.png" width="300" alt="Position de la balise dans Google Maps"></td>
+    <td align="center" width="33%"><img src="images/EPIRBdecoder_android_Journal.png" width="300" alt="Main courante"></td>
   </tr>
   <tr>
     <td align="center"><b>Balise décodée</b><br><sub>Identifiant 15 HEX, pays, protocole, position décimale / DMS / MGRS, pastilles 121.5 · BCH · SYNC</sub></td>
@@ -200,6 +200,10 @@ plus bas qu'avec la v0.1.
 ---
 
 ## Lecture de l'écran
+
+<p align="center">
+  <img src="images/EPIRBdecoder_android_screen.png" width="800" alt="EPIRBdecoder Android en réception terrain">
+</p>
 
 - **Bandeau** : emblème, heure et date.
 - **Poste** : voyant d'état (gris = arrêté, orange = attente / burst, vert = écoute / balise décodée, rouge = erreur), statut, fréquence et gain.
