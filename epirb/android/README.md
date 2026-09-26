@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/f1gbd/F1GBD/releases/download/epirb-android-v0.3.0/EPIRBdecoder_android-0.3.0.apk"><img src="https://img.shields.io/badge/T%C3%89L%C3%89CHARGER-APK%20v0.3.0-e8661a?style=for-the-badge&logo=android&logoColor=white" alt="Télécharger l'APK v0.3.0"></a>
+  <a href="https://github.com/f1gbd/F1GBD/releases/download/epirb-android-v0.3.1/EPIRBdecoder_android-0.3.1.apk"><img src="https://img.shields.io/badge/T%C3%89L%C3%89CHARGER-APK%20v0.3.1-e8661a?style=for-the-badge&logo=android&logoColor=white" alt="Télécharger l'APK v0.3.1"></a>
   &nbsp;
   <a href="https://github.com/f1gbd/F1GBD/releases?q=epirb-android"><img src="https://img.shields.io/badge/Toutes%20les%20versions-releases-1d4f9c?style=for-the-badge&logo=github" alt="Toutes les versions Android"></a>
 </p>
@@ -34,7 +34,7 @@
 
 | | |
 |---|---|
-| **APK** | [`EPIRBdecoder_android-0.3.0.apk`](https://github.com/f1gbd/F1GBD/releases/download/epirb-android-v0.3.0/EPIRBdecoder_android-0.3.0.apk) (release [`epirb-android-v0.3.0`](https://github.com/f1gbd/F1GBD/releases/tag/epirb-android-v0.3.0)) |
+| **APK** | [`EPIRBdecoder_android-0.3.1.apk`](https://github.com/f1gbd/F1GBD/releases/download/epirb-android-v0.3.1/EPIRBdecoder_android-0.3.1.apk) (release [`epirb-android-v0.3.1`](https://github.com/f1gbd/F1GBD/releases/tag/epirb-android-v0.3.1)) |
 | **Appareil** | Android 7.0 ou plus, processeur 64 bits (arm64-v8a), port USB avec mode **hôte (OTG)** |
 | **Driver SDR** | « **SDR Driver** » de Martin Marinov — [Google Play](https://play.google.com/store/apps/details?id=marto.rtl_tcp_andro) · [F-Droid](https://f-droid.org/packages/marto.rtl_tcp_andro/) |
 | **Documentation** | 📘 [Manuel utilisateur (PDF)](documentation/MEMO%20-%20MANUEL_EPIRBdecoder-android.pdf) · 📄 [Fiche technique (PDF)](documentation/MEMO%20-%20FICHE-TECHNIQUE_EPIRBdecoder-android.pdf) |
@@ -292,7 +292,8 @@ Le dongle USB est ouvert par le SDR Driver, pas par l'application. Aucune donné
 
 | Version | Date | Principales évolutions |
 |---|---|---|
-| **0.3.0** | 09/2026 | Interface **Sécurité Civile** (cartes BALISE / POSITION, pastilles d'état), écran de lancement, **Vérifier les mises à jour** dans À propos |
+| **0.3.1** | 09/2026 | **Correctifs réception SDR** : ouverture du dongle (gain), plantage au démarrage de l'écoute, relance de l'écoute (clé occupée), faux « Burst détecté » ; installation par-dessus la v0.1 signalée clairement |
+| 0.3.0 | 09/2026 | Interface **Sécurité Civile** (cartes BALISE / POSITION, pastilles d'état), écran de lancement, **Vérifier les mises à jour** dans À propos |
 | **0.2.0** | 09/2026 | **Réception SDR corrigée** (gain manuel, AGC coupée, accord décalé, canal étroit, MLSE multi-filtre, filtrage BCH-1), mise en page tablette, moteur PC v5.20, application Kotlin + Python |
 | 0.1.0 | 06/2026 | Première version (EPIRBpi-decoder-lite, Kivy) |
 
