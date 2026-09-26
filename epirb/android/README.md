@@ -74,9 +74,15 @@
 
 ## Sommaire
 
+- [⬇ Téléchargement et installation rapide](#-téléchargement-et-installation-rapide)
 - [Aperçu](#aperçu)
+- [Sommaire](#sommaire)
 - [Présentation](#présentation)
 - [Fonctionnalités](#fonctionnalités)
+  - [Réception](#réception)
+  - [Décodage et affichage](#décodage-et-affichage)
+  - [Terrain](#terrain)
+  - [Application](#application)
 - [Spécifications techniques](#spécifications-techniques)
 - [Matériel requis](#matériel-requis)
 - [Utilisation](#utilisation)
