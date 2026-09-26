@@ -23,6 +23,11 @@
   <img src="https://img.shields.io/badge/SDR-RTL2832U%20%2F%20R820T-38bdf8" alt="RTL-SDR">
 </p>
 
+> [!WARNING]
+> **Vous avez déjà l'ancienne v0.1 « EPIRBpi-decoder-lite » ?** Désinstallez-la **avant** d'installer cette version.
+> Sinon Android refuse l'installation avec le message *« L'application n'a pas été installée, car le package semble ne pas être valide »* : l'APK n'est pas en cause, c'est l'ancienne version qui bloque (numéro de version et signature différents).
+> Votre main courante (`Téléchargements/EPIRBpi`) est conservée.
+
 ---
 
 ## ⬇ Téléchargement et installation rapide
@@ -46,7 +51,7 @@
   <sub>Bouton <b>?</b> → fenêtre <b>À propos</b> → <b>🔄 Vérifier les mises à jour</b></sub>
 </p>
 >
-> **Venant de la v0.1.0** (EPIRBpi-decoder-lite, version Kivy) : désinstallez-la d'abord, la signature de l'application a changé. La main courante de `Téléchargements/EPIRBpi` n'est pas effacée.
+> **Venant de la v0.1.0** (EPIRBpi-decoder-lite, version Kivy) : ⚠️ **désinstallez-la d'abord** (voir l'avertissement en haut de page). La main courante de `Téléchargements/EPIRBpi` n'est pas effacée.
 
 ---
 
@@ -209,6 +214,7 @@ plus bas qu'avec la v0.1.
 | Rien ne bouge jamais | Vérifier le SDR Driver (accès USB accordé), le câble OTG, l'alimentation USB, la fréquence. |
 | « Driver SDR introuvable » | Installer le SDR Driver de M. Marinov. |
 | « Serveur rtl_tcp non démarré » | Accès USB refusé ou dongle déjà utilisé par une autre application. |
+| « Le package semble ne pas être valide » à l'installation | L'ancienne v0.1 EPIRBpi-decoder-lite est encore installée : la désinstaller, puis relancer l'installation. |
 
 Astuce : activez **● ENREGISTRER** pendant les essais ; les captures permettent
 d'analyser a posteriori ce que l'appareil a réellement reçu.
