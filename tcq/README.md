@@ -11,17 +11,18 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v12.70.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v13.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-## 📥 [Télécharger la dernière version](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.70/TCQ.7z)
+## 📥 [Télécharger l'installeur Windows](https://github.com/f1gbd/F1GBD/releases/download/tcq-v13.0/TCQ-13.0-setup.exe)
 
-**Ou en une seule commande PowerShell *(en administrateur)* :**
+*Double-clic, aucun droit administrateur. Binaire autonome — aucune installation Python.*
+*Ensuite, TCQ se met à jour tout seul : **ℹ À propos → 🔄 VÉRIFIER LES MISES À JOUR**.*
+
+Autres formats : [archive `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v13.0/TCQ.7z) · commande PowerShell *(en administrateur)* :
 
 ```powershell
 iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:TEMP\Install-TCQ.ps1; & $env:TEMP\Install-TCQ.ps1
 ```
-
-*L'installeur télécharge et met à jour tout seul. Binaire autonome — aucune installation Python.*
 
 [📜 Toutes les releases](https://github.com/f1gbd/F1GBD/releases?q=tcq) · [📚 Documentation](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations) · [🕘 Historique détaillé](HISTORIQUE.md)
 
@@ -141,7 +142,30 @@ indicatif et par adresse ICAO.
 
 ## Installer
 
-### En une commande *(recommandé)*
+### Programme d'installation Windows *(recommandé)*
+
+1. [Téléchargez `TCQ-13.0-setup.exe`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v13.0/TCQ-13.0-setup.exe)
+2. Double-cliquez — **aucun droit administrateur requis**
+3. Lancez TCQ depuis le menu Démarrer ou le Bureau
+
+TCQ s'installe dans `C:\TCQ` (modifiable), crée ses raccourcis — TCQ, les
+outils TCQconfig, RNSconfigEditor, TCQ-bbs, RADIOGRAMME_VALIDATOR, et la
+documentation PDF si vous la cochez — et se désinstalle proprement par
+*Paramètres → Applications*.
+
+> 🔒 **Vos données sont préservées.** Une installation existante dans `C:\TCQ`
+> est mise à jour sur place : `setup.json`, annuaires, cartes, journaux et
+> fichiers reçus ne sont jamais touchés — ni par la mise à jour, ni par la
+> désinstallation.
+
+### Mettre à jour depuis TCQ
+
+**ℹ À propos** *(en haut, à gauche des voyants)* → **🔄 VÉRIFIER LES MISES À JOUR**.
+TCQ compare votre version à la dernière publiée, télécharge l'installeur,
+**contrôle son empreinte SHA-256**, puis le lance et se ferme. Rien ne part sur
+le réseau tant que vous n'avez pas cliqué.
+
+### En une commande PowerShell
 
 PowerShell **en administrateur** :
 
@@ -150,12 +174,12 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:TEMP\Install-TCQ.ps1; & $env:TEMP\Install-TCQ.ps1
 ```
 
-L'installeur récupère la dernière version, l'installe dans `C:\TCQ` et crée les
+Le script récupère la dernière archive, l'installe dans `C:\TCQ` et crée les
 raccourcis. Relancez la même commande pour mettre à jour.
 
 ### À la main
 
-1. [Téléchargez `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v12.70/TCQ.7z)
+1. [Téléchargez `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v13.0/TCQ.7z)
 2. Vérifiez l'empreinte : `Get-FileHash -Algorithm SHA256 TCQ.7z` — elle est publiée avec la release
 3. Décompressez dans `C:\` *(clic droit → 7-Zip → Extraire vers `C:\`)*
 4. Lancez `C:\TCQ\TCQ.exe`
@@ -182,7 +206,21 @@ raccourcis. Relancez la même commande pour mettre à jour.
 
 ## 🆕 Dernières mises à jour
 
-### Version courante : **v12.70** — *25 août 2026*
+### Version courante : **v13.0** — *27 septembre 2026*
+
+**Installeur Windows et mises à jour depuis l'application.** TCQ s'installe
+désormais par un programme d'installation classique (`TCQ-13.0-setup.exe`, sans
+droits administrateur, dans `C:\TCQ`) et se met à jour depuis **ℹ À propos →
+🔄 VÉRIFIER LES MISES À JOUR** : téléchargement, contrôle SHA-256, installation
+sur place — vos réglages et données restent intacts.
+
+**Petits écrans** : sur un portable 1366×768 ou un affichage à 125-150 %, les
+onglets TNC Packet et VARA Modem, le panneau CONFIG et les fenêtres secondaires
+perdaient leurs derniers boutons. Ils ont maintenant un **ascenseur vertical**,
+qui n'apparaît que si le contenu ne tient pas. Et un **écran d'accueil** avec
+le logo s'affiche au démarrage.
+
+### Version précédente : **v12.70** — *25 août 2026*
 
 **Couverture LoRa et placement de relais RRLoRa sur la carte.** Deux boutons :
 📡 **LoRa** trace la portée prévisible de votre station en quatre couleurs sur le
@@ -200,7 +238,8 @@ entre les deux applications, en ligne comme hors ligne.
 
 | Version | Date | Ce qui change |
 |---|---|---|
-| **v12.70** | 25/08/2026 | Couverture LoRa et relais RRLoRa, hors ligne compris |
+| **v13.0** | 27/09/2026 | Installeur Windows, mise à jour depuis « À propos », écran d'accueil, ascenseurs pour petits écrans |
+| v12.70 | 25/08/2026 | Couverture LoRa et relais RRLoRa, hors ligne compris |
 | v12.68 | 24/08/2026 | Tracé de zone à nouveau possible après réouverture de la carte |
 | v12.67 | 19/08/2026 | « RNS Nodes List » bascule sur RMAP, `rns.fyi` étant hors service |
 | v12.63 → v12.66 | 15–16/08/2026 | Interopérabilité RTspk Pager : PING LXMF, images, radar aéronefs |
@@ -230,7 +269,7 @@ entre les deux applications, en ligne comme hors ligne.
 **Jean-Louis — F1GBD / F4JHW**
 *ADRASEC 77 — FNRASEC*
 
-**TCQ v12.70.0 — 25/08/2026**
+**TCQ v13.0 — 27/09/2026**
 
 Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 

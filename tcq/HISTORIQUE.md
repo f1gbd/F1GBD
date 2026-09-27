@@ -9,7 +9,98 @@
 
 ---
 
-## 🆕 Nouveautés v12.67 → v12.70 — Couverture LoRa et placement de relais RRLoRa
+## 🆕 Nouveautés v13.0 — installeur Windows, mises à jour depuis l'application, petits écrans
+
+TCQ s'installe désormais comme un logiciel Windows ordinaire, et se met à jour
+depuis sa propre fenêtre **ℹ À propos**. Les écrans qui ne tenaient pas en
+hauteur sur un portable ont un ascenseur.
+
+### 🪟 Programme d'installation Windows
+
+**`TCQ-13.0-setup.exe`** — double-clic, **aucun droit administrateur requis**.
+
+- Installe dans **`C:\TCQ`**, l'emplacement historique de l'archive et
+  d'`Install-TCQ.ps1` (modifiable dans l'assistant) : une installation
+  existante est **mise à jour sur place**.
+- Raccourcis : TCQ, les outils (TCQconfig, RNSconfigEditor, TCQ-bbs,
+  RADIOGRAMME_VALIDATOR), la documentation PDF (facultative), le Bureau.
+- **Les données de la station ne sont jamais touchées** : `setup.json`,
+  annuaires LXMF et MeshCore, cartes et symboles, zones d'alerte, journaux,
+  fichiers reçus. Les fichiers de configuration par défaut ne sont posés que
+  s'ils manquent.
+- Désinstallation propre par *Paramètres → Applications* : le programme part,
+  les données de la station restent.
+
+L'archive **`TCQ.7z`** et la commande PowerShell restent disponibles.
+
+### ℹ À propos — et 🔄 VÉRIFIER LES MISES À JOUR
+
+Nouveau bouton **ℹ À propos** dans l'en-tête, à gauche des voyants
+**Pont · Ret · TCP · LXMF** : logo, auteur, licence (texte complet de la
+GNU GPL v3 consultable), composants tiers.
+
+Le bouton **🔄 VÉRIFIER LES MISES À JOUR** :
+
+1. interroge GitHub et compare la dernière version publiée à la vôtre ;
+2. si une version plus récente existe, propose de **la télécharger et
+   l'installer** ;
+3. contrôle l'**empreinte SHA-256** de l'installeur avant de l'ouvrir —
+   un fichier altéré ou tronqué est refusé ;
+4. lance l'assistant **par-dessus le dossier de TCQ en cours** et ferme TCQ
+   (réglages sauvegardés comme à une fermeture normale).
+
+Détails utiles sur le terrain :
+
+- Le dépôt GitHub héberge plusieurs applications : TCQ reconnaît **ses**
+  versions à leur étiquette `tcq-v…` et ne se laisse pas tromper par la
+  version « mise en avant » du dépôt, qui peut être celle d'une autre
+  application (TCQws, IAbrain…).
+- Si `api.github.com` est bloqué (pare-feu, proxy d'entreprise) ou si la
+  limite de 60 requêtes par heure est atteinte, TCQ se replie sur le flux des
+  releases de `github.com`.
+- En cas d'échec, le message dit **quoi faire** : pas d'Internet, DNS, portail
+  captif, certificat refusé (date du PC, antivirus qui inspecte le HTTPS)…
+- La vérification TLS n'est **jamais** désactivée : un contrôle de version qui
+  accepterait n'importe quel certificat ouvrirait la porte à un faux binaire.
+- Aucune connexion n'est faite sans que vous ayez cliqué : TCQ reste
+  **100 % local** par défaut.
+
+### 🖼️ Écran d'accueil
+
+Le logo TCQ et la version s'affichent pendant la construction de
+l'interface (un clic le ferme).
+
+### 💻 Petits écrans
+
+Sur un portable 1366×768, ou un écran réglé à 125-150 %, plusieurs écrans
+étaient coupés en bas — et Tk ne rogne pas : il **retire** les derniers
+widgets, sans aucun moyen de les atteindre.
+
+| Écran | Ce qui disparaissait |
+|---|---|
+| Panneau **⚙ CONFIG** (gauche) | les derniers boutons de la pile |
+| Onglet **📻 TNC Packet** | le bas de la colonne de réglages |
+| Onglet **📡 VARA Modem** | la balise, le BBS local, la fin des réglages |
+| Fenêtres secondaires plus hautes que l'écran | le bas de la fenêtre |
+
+Désormais :
+
+- chaque **onglet** et les deux **panneaux latéraux** ont un **ascenseur
+  vertical à droite**, qui n'apparaît **que** si le contenu ne tient pas —
+  sur un grand écran rien ne change ;
+- la **molette** fait défiler la zone, sauf au-dessus d'une zone qui défile
+  elle-même (messages, listes, tableaux, carte) ;
+- une **fenêtre secondaire** trop petite pour son contenu s'agrandit jusqu'à
+  lui si l'écran le permet ; sinon elle prend la hauteur de l'écran et reçoit
+  un ascenseur. Une fenêtre qui débordait de l'écran y est ramenée.
+
+La colonne de réglages de l'onglet VARA avait une largeur imposée qui
+masquait sa vraie hauteur : sa hauteur suit maintenant son contenu, sans
+jamais descendre sous celle d'origine.
+
+---
+
+## Nouveautés v12.67 → v12.70 — Couverture LoRa et placement de relais RRLoRa
 
 Carte des stations APRS → deux nouveaux boutons : **📡 LoRa** et **🗼 Relais**.
 
