@@ -9,7 +9,74 @@
 
 ---
 
-## 🆕 Nouveautés v13.0 — installeur Windows, mises à jour depuis l'application, petits écrans
+## 🆕 Nouveautés v13.2 — RASEC-ALERT par MeshCore, longueur des vecteurs de relèvement
+
+### 🚨 RASEC-ALERT déclenchable par MeshCore
+
+Comme en LXMF (et en TNC / VARA), un message MeshCore — **contact direct ou
+canal** — peut déclencher l'alerte RASEC :
+
+| Commande | Effet |
+|---|---|
+| `#ra <code>` | **alerte visuelle** plein écran clignotante rouge / jaune + **sirène** |
+| `#rapass <ancien> <nouveau>` | change le code d'activation |
+| `#b <n>` | nombre de répétitions de la sirène (0 = continu jusqu'à acquittement) |
+
+- Même code d'activation qu'en LXMF (setup.json, `rasec_alert.code`).
+- Acquittement : clic, Échap, Entrée ou Espace.
+- L'accusé « Pager OK - … » repart **par le même chemin** : sur le canal de
+  réception (les messages de canal MeshCore sont anonymes), ou au contact en
+  message direct. Il ne contient **jamais** le code.
+- Sur un canal, le firmware préfixe le texte par « Nom: » : TCQ l'ôte pour lire
+  la commande et affiche l'expéditeur dans l'alerte —
+  « Déclenchée par : F4ABC (MeshCore canal 2) ».
+- Un code faux est refusé et journalisé ; aucun accusé n'est envoyé.
+
+### 🗺️ Carte — longueur des vecteurs de relèvement
+
+Nouveau réglage **Vect. [ 15 ] km** dans la deuxième rangée de la carte, à
+droite de « 🗑️ Rel. » : longueur des vecteurs d'azimut des relevés gonio, de
+**1 à 300 km** (flèches ou saisie directe, virgule acceptée, Entrée pour
+valider). 15 km par défaut, comme avant.
+
+Utile pour croiser des relèvements lointains (balise à 40 km) ou au contraire
+désencombrer la carte sur une recherche de proximité. La valeur est
+enregistrée dans setup.json (`aprs_map.bearing_length_km`).
+
+---
+
+## Nouveautés v13.1 — décodage CHAPPE26 aussi en MeshCore
+
+### Correctif
+
+Le décodage automatique des codes **CHAPPE26** (`!DDDD`) n'existait que pour
+les messages **LXMF** du chat (depuis la v12.35). Un message **MeshCore** —
+contact direct ou canal — contenant des codes CHAPPE26 s'affichait brut.
+
+Désormais, comme en LXMF, la traduction s'affiche en jaune sous le message
+MeshCore reçu :
+
+```
+[16:25] F4XYZ: F4XYZ: !1000 !1024 !1990
+   ↳ CHAPPE26 : Debut de transmission. Transmission urgente. Fin transmission.
+```
+
+- **Même moteur, mêmes règles** qu'en LXMF : au moins deux codes, ou un
+  message composé uniquement de codes (pas de faux positif sur
+  « Rdv au point !1234 demain »).
+- **Canaux MeshCore** : le firmware préfixe le texte par « Nom: ». Ce préfixe
+  est ignoré pour la règle anti faux positif — sinon un code isolé
+  « F4XYZ: !1024 » n'aurait jamais été décodé.
+- **Historique** : la traduction réapparaît quand on revient sur un canal ou
+  un contact.
+- **Message reçu hors de la conversation affichée** (autre canal) : décodé
+  dans le journal (`📶 MC CHAPPE26 ← F4XYZ : …`).
+
+Le comportement LXMF est inchangé.
+
+---
+
+## Nouveautés v13.0 — installeur Windows, mises à jour depuis l'application, petits écrans
 
 TCQ s'installe désormais comme un logiciel Windows ordinaire, et se met à jour
 depuis sa propre fenêtre **ℹ À propos**. Les écrans qui ne tenaient pas en

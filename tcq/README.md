@@ -11,14 +11,14 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v13.1-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v13.2-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-## 📥 [Télécharger l'installeur Windows](https://github.com/f1gbd/F1GBD/releases/download/tcq-v13.1/TCQ-13.1-setup.exe)
+## 📥 [Télécharger l'installeur Windows](https://github.com/f1gbd/F1GBD/releases/download/tcq-v13.2/TCQ-13.2-setup.exe)
 
 *Double-clic, aucun droit administrateur. Binaire autonome — aucune installation Python.*
 *Ensuite, TCQ se met à jour tout seul : **ℹ À propos → 🔄 VÉRIFIER LES MISES À JOUR**.*
 
-Autres formats : [archive `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v13.1/TCQ.7z) · commande PowerShell *(en administrateur)* :
+Autres formats : [archive `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v13.2/TCQ.7z) · commande PowerShell *(en administrateur)* :
 
 ```powershell
 iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:TEMP\Install-TCQ.ps1; & $env:TEMP\Install-TCQ.ps1
@@ -127,7 +127,7 @@ indicatif et par adresse ICAO.
 | 📻 | **Packet AX.25** | Direwolf lancé et configuré automatiquement. KISS et AGWPE. |
 | 🌐 | **MeshCore LoRa** | Mesh LoRa natif : messagerie, BBS, fichiers diffusés, **canaux privés à clé secrète** partagés par QR code. |
 | 🗺️ | **Carte opérationnelle** | Symboles SDIS / OTAN / SATER, zones, routes coupées, **synchronisation par radio** entre postes. |
-| 🛰️ | **Gonio SATER** | Relèvements partagés par APRS-IS, **triangulation ELT** avec rayon de probabilité, import/export CSV. |
+| 🛰️ | **Gonio SATER** | Relèvements partagés par APRS-IS, **triangulation ELT** avec rayon de probabilité, **longueur des vecteurs réglable** (1 à 300 km), import/export CSV. |
 | 🗼 | **Couverture LoRa & relais** | Portée prévisible sur relief réel, bilan de liaison au curseur, **placement de relais RRLoRa**. Fonctionne sans réseau. |
 | 🌦️ | **Météo & feux** | AROME, règle des trois 30, foyers EFFIS/FIRMS, aéronefs de lutte en direct. |
 | 🖼️ | **SSTV** | Décodeur temps réel : Scottie, Martin, Robot, PD. Waterfall et plein écran. |
@@ -135,8 +135,8 @@ indicatif et par adresse ICAO.
 | 📬 | **BBS multi-modes** | Sur TNC Packet et MeshCore, avec réassemblage et persistance. |
 | 📄 | **PDF radio** | Documents transmis par radio : compression, fragmentation, ACK, reprise sélective. |
 | 📹 | **Journal vidéo** | SITREP audiovisuel : MEMO VIDEO compressé, JVFT pleine qualité. |
-| 🚨 | **RASEC-ALERT** | Alerte à distance par LXMF, packet ou VARA : plein écran clignotant, sirène, accusé. |
-| 📟 | **CHAPPE26** | Décodage automatique des messages codés ADRASEC/FNRASEC. |
+| 🚨 | **RASEC-ALERT** | Alerte à distance par LXMF, **MeshCore**, packet ou VARA : plein écran clignotant, sirène, accusé. |
+| 📟 | **CHAPPE26** | Décodage automatique des messages codés ADRASEC/FNRASEC, en LXMF et en **MeshCore**. |
 
 ---
 
@@ -144,7 +144,7 @@ indicatif et par adresse ICAO.
 
 ### Programme d'installation Windows *(recommandé)*
 
-1. [Téléchargez `TCQ-13.0-setup.exe`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v13.0/TCQ-13.0-setup.exe)
+1. [Téléchargez `TCQ-13.2-setup.exe`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v13.2/TCQ-13.2-setup.exe)
 2. Double-cliquez — **aucun droit administrateur requis**
 3. Lancez TCQ depuis le menu Démarrer ou le Bureau
 
@@ -179,7 +179,7 @@ raccourcis. Relancez la même commande pour mettre à jour.
 
 ### À la main
 
-1. [Téléchargez `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v13.0/TCQ.7z)
+1. [Téléchargez `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v13.2/TCQ.7z)
 2. Vérifiez l'empreinte : `Get-FileHash -Algorithm SHA256 TCQ.7z` — elle est publiée avec la release
 3. Décompressez dans `C:\` *(clic droit → 7-Zip → Extraire vers `C:\`)*
 4. Lancez `C:\TCQ\TCQ.exe`
@@ -206,39 +206,40 @@ raccourcis. Relancez la même commande pour mettre à jour.
 
 ## 🆕 Dernières mises à jour
 
-### Version courante : **v13.0** — *27 septembre 2026*
+### Version courante : **v13.2** — *27 septembre 2026*
+
+**🚨 RASEC-ALERT par MeshCore.** Comme en LXMF, un message MeshCore — contact
+direct ou canal — déclenche l'alerte : `#ra <code>` affiche l'**alerte visuelle**
+plein écran clignotante et lance la **sirène** ; `#rapass` et `#b` sont aussi
+reconnus. L'accusé « Pager OK » repart sur le même canal ou vers le même contact,
+et ne contient jamais le code. L'alerte indique qui l'a déclenchée —
+« F4ABC (MeshCore canal 2) ».
+
+**🗺️ Longueur des vecteurs de relèvement réglable.** Sur la carte, le réglage
+**Vect. [ 15 ] km** (à droite de « 🗑️ Rel. ») allonge ou raccourcit les
+vecteurs d'azimut des relevés gonio, de 1 à 300 km : plus longs pour croiser
+des relèvements lointains, plus courts pour désencombrer une recherche de
+proximité. La valeur est mémorisée.
+
+**📟 CHAPPE26 en MeshCore** *(v13.1)*. Les codes `!DDDD` reçus en MeshCore sont
+traduits en clair sous le message, comme en LXMF — y compris un code isolé sur
+un canal (« F4XYZ: !1024 »).
+
+### v13.0 — *27 septembre 2026*
 
 **Installeur Windows et mises à jour depuis l'application.** TCQ s'installe
-désormais par un programme d'installation classique (`TCQ-13.0-setup.exe`, sans
-droits administrateur, dans `C:\TCQ`) et se met à jour depuis **ℹ À propos →
-🔄 VÉRIFIER LES MISES À JOUR** : téléchargement, contrôle SHA-256, installation
-sur place — vos réglages et données restent intacts.
-
-**Petits écrans** : sur un portable 1366×768 ou un affichage à 125-150 %, les
-onglets TNC Packet et VARA Modem, le panneau CONFIG et les fenêtres secondaires
-perdaient leurs derniers boutons. Ils ont maintenant un **ascenseur vertical**,
-qui n'apparaît que si le contenu ne tient pas. Et un **écran d'accueil** avec
-le logo s'affiche au démarrage.
-
-### Version précédente : **v12.70** — *25 août 2026*
-
-**Couverture LoRa et placement de relais RRLoRa sur la carte.** Deux boutons :
-📡 **LoRa** trace la portée prévisible de votre station en quatre couleurs sur le
-relief réel et donne le bilan de liaison au curseur ; 🗼 **Relais** explore le
-corridor entre deux stations et propose cinq emplacements de répéteur, classés
-par maillon faible.
-
-**Utilisable sans réseau** : préparez le relief de la zone avant de partir, et
-tout continue de fonctionner sur le terrain. L'application écrit alors
-« Relief INTERPOLÉ » plutôt que de faire passer une valeur reconstruite pour une
-valeur mesurée.
-
-Même moteur de calcul que **RTspk Pager** sur Android — écart mesuré **nul**
-entre les deux applications, en ligne comme hors ligne.
+par un programme d'installation classique (sans droits administrateur, dans
+`C:\TCQ`) et se met à jour depuis **ℹ À propos → 🔄 VÉRIFIER LES MISES À JOUR** :
+téléchargement, contrôle SHA-256, installation sur place — vos réglages et
+données restent intacts. Sur les **petits écrans**, onglets, panneaux et
+fenêtres ont un **ascenseur vertical** qui n'apparaît que si le contenu ne
+tient pas.
 
 | Version | Date | Ce qui change |
 |---|---|---|
-| **v13.0** | 27/09/2026 | Installeur Windows, mise à jour depuis « À propos », écran d'accueil, ascenseurs pour petits écrans |
+| **v13.2** | 27/09/2026 | RASEC-ALERT par MeshCore (`#ra`, alerte visuelle et sonore) ; longueur des vecteurs de relèvement réglable |
+| v13.1 | 27/09/2026 | Décodage CHAPPE26 des messages MeshCore |
+| v13.0 | 27/09/2026 | Installeur Windows, mise à jour depuis « À propos », écran d'accueil, ascenseurs pour petits écrans |
 | v12.70 | 25/08/2026 | Couverture LoRa et relais RRLoRa, hors ligne compris |
 | v12.68 | 24/08/2026 | Tracé de zone à nouveau possible après réouverture de la carte |
 | v12.67 | 19/08/2026 | « RNS Nodes List » bascule sur RMAP, `rns.fyi` étant hors service |
@@ -269,7 +270,7 @@ entre les deux applications, en ligne comme hors ligne.
 **Jean-Louis — F1GBD / F4JHW**
 *ADRASEC 77 — FNRASEC*
 
-**TCQ v13.0 — 27/09/2026**
+**TCQ v13.2 — 27/09/2026**
 
 Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 
