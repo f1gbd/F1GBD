@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="images/EPIRBdecoder_android_logo.png" width="380" alt="EPIRBdecoder — Sécurité Civile — ADRASEC — au service des recherches SATER">
+  <img src="images/EPIRBandroid-deocder_lite.jpg" width="380" alt="EPIRBdecoder — Sécurité Civile — ADRASEC — au service des recherches SATER">
 </p>
 
 <h1 align="center">EPIRBdecoder — Android</h1>
