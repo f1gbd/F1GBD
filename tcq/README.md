@@ -11,14 +11,14 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v13.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v13.1-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-## 📥 [Télécharger l'installeur Windows](https://github.com/f1gbd/F1GBD/releases/download/tcq-v13.0/TCQ-13.0-setup.exe)
+## 📥 [Télécharger l'installeur Windows](https://github.com/f1gbd/F1GBD/releases/download/tcq-v13.0/TCQ-13.1-setup.exe)
 
 *Double-clic, aucun droit administrateur. Binaire autonome — aucune installation Python.*
 *Ensuite, TCQ se met à jour tout seul : **ℹ À propos → 🔄 VÉRIFIER LES MISES À JOUR**.*
 
-Autres formats : [archive `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v13.0/TCQ.7z) · commande PowerShell *(en administrateur)* :
+Autres formats : [archive `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v13.1/TCQ.7z) · commande PowerShell *(en administrateur)* :
 
 ```powershell
 iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:TEMP\Install-TCQ.ps1; & $env:TEMP\Install-TCQ.ps1
