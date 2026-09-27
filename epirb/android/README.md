@@ -70,6 +70,11 @@
   </tr>
 </table>
 
+<p align="center">
+  <img src="images/Balise406AD77.jpg" width="800" alt="Balise 406 ADRASEC IDF"><br>
+  <sub><b> Balise 406 d'Exercice SATER de l'ADRASEC IDF</b></sub>
+</p>
+
 ---
 
 ## Sommaire
@@ -181,6 +186,12 @@ plus bas qu'avec la v0.1.
 - Tablette ou smartphone Android avec **USB hôte (OTG)**.
 - **Câble / adaptateur OTG** adapté au connecteur de l'appareil (voir `images/OTGcable.jpg`).
 - **Antenne 406 MHz** : dipôle, Yagi directive pour la goniométrie, ou antenne large bande.
+
+<p align="center">
+  <img src="images/SDR_SMArtSDR_v5.png" width="800" alt="SMArtSDR"><br>
+  <sub><b> Fonctionne avec une Clé SDR Nooelec NESDR SMArt v5</b></sub>
+</p>
+
 
 ---
 

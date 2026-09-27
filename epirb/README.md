@@ -126,6 +126,23 @@ Le mode SDR Direct transforme le programme en **récepteur 406 MHz autonome**. L
 - **VU-mètre** : indicateur de niveau IQ en temps réel
 - **Seuil SNR** : ajustable pour filtrer le bruit en environnement RF difficile
 
+<p align="center">
+  <img src="images/NESDR_SMArt_v5.png" width="800" alt="SMArtSDR"><br>
+  <sub><b> Fonctionne avec une Clé SDR Nooelec NESDR SMArt v5</b></sub>
+</p>
+
+<p align="center">
+  <img src="images/Balise406AD77.jpg" width="800" alt="Balise 406 ADRASEC IDF"><br>
+  <sub><b> Balise 406 d'Exercice SATER de l'ADRASEC IDF</b></sub>
+</p>
+
+
+<p align="center">
+  <img src="images/Test_REEL_BALISE_406_ADRASEC.png" width="800" alt="Test SATER"><br>
+  <sub><b> Testé en REEL sur BALISE 406 ADRASEC IDF (27 sept 2026 - SATER EXER ADRASEC 77)</b></sub>
+</p>
+
+
 ### 🎙 Audio Live — Microphone / Ligne
 
 Capture directe depuis la carte son. Brancher la sortie audio d'un récepteur analogique (scanner, transceiver) sur l'entrée micro ou ligne du PC :
