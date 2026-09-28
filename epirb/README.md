@@ -6,7 +6,7 @@
 
 *Décodage EPIRB/ELT/PLB — Génération de trames d'exercice — SDR Direct RTL-SDR — Démodulation FM IQ — Audio Live / Fichier WAV / Hex — Carte OSM avec relèvements goniométriques — Triangulation ELT — **APRS-IS (compatible SATERfinder Android)** — SITREP PDF — MGRS — Thème clair/sombre — Export CSV*
 
-[![Decoder](https://img.shields.io/badge/decoder-v5.22-blue)](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.22/EPIRBdecoder.7z)
+[![Decoder](https://img.shields.io/badge/decoder-v5.23-blue)](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.23/EPIRBdecoder.7z)
 [![Generator](https://img.shields.io/badge/generator-v3.8.3-blue)](https://github.com/f1gbd/F1GBD/releases?q=epirb)
 [![SATERfinder](https://img.shields.io/badge/SATERfinder_Android-v1.0-orange?logo=android)](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder)
 [![Téléchargements](https://img.shields.io/badge/téléchargements-actifs-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases?q=epirb)
@@ -14,13 +14,15 @@
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![Mission](https://img.shields.io/badge/mission-COSPAS--SARSAT-orange.svg)]()
 
-### 🆕 v5.22 / v3.8.3 — Position National Location corrigée · conformité COSPAS-SARSAT renforcée
+### 🆕 v5.23 / v3.8.3 — Installeur Windows · mises à jour intégrées · moteur de décodage renforcé
+
+> **Nouveau en v5.23** : la suite s'installe avec un **programme d'installation Windows** (`EPIRBsuite-5.23-setup.exe`, sans droits administrateur, dossier `C:\EPIRBdecoder` par défaut, réglages conservés) et se met à jour **d'un clic** : bouton **ⓘ** → **🔄 Vérifier les mises à jour**. EPIRBdecoder télécharge la nouvelle version, contrôle son empreinte **SHA-256** et l'installe au même endroit.
 
 Cette série fiabilise le **cœur de décodage/encodage** des trames 406 MHz : polynôme **BCH-1 corrigé** (les trames générées passent désormais le contrôle BCH-1 du véritable système C-S), **table des codes protocole officiels** (Standard Location 2-7 et 14, **National Location** code 15), décodage du protocole **National Location** avec sa structure de position propre, et **position à la résolution 4 secondes** (Standard et National via offset PDF-2). Générateur et décodeur sont mis en cohérence pour un **aller-retour exact**, avec un test intégré fonctionnant aussi bien depuis le source que depuis l'exe. L'interopérabilité **APRS-IS** avec SATERfinder Android reste pleinement opérationnelle.
 
-> **Nouveau en v5.22 (septembre 2026)** : la position des balises **National Location** pouvait être décalée d'environ **800 m** (écart constaté en test comparatif avec le décodeur F1LVT). Le décalage fin PDF-2 est désormais lu au format National de la norme C/S T.001, y compris quand la balise émet le bit 110 à 0 (comme le fait le décodeur F1LVT). **Hex ID** corrigé (National Location, et Standard au Sud ou à l'Ouest), codes National **8, 10, 11** décodés, relecture IQ des balises d'**exercice** et récepteur IQ multi-filtre. Vérifié contre le décodeur F1LVT et le jeu de conformité AMSA.
+> **Correctifs v5.22 (septembre 2026)** : la position des balises **National Location** pouvait être décalée d'environ **800 m** (écart constaté en test comparatif avec le décodeur F1LVT). Le décalage fin PDF-2 est désormais lu au format National de la norme C/S T.001, y compris quand la balise émet le bit 110 à 0 (comme le fait le décodeur F1LVT). **Hex ID** corrigé (National Location, et Standard au Sud ou à l'Ouest), codes National **8, 10, 11** décodés, relecture IQ des balises d'**exercice** et récepteur IQ multi-filtre. Vérifié contre le décodeur F1LVT et le jeu de conformité AMSA.
 
-### 📥 [**Télécharger EPIRB Suite v5.22 (Windows)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.22/EPIRBdecoder.7z) · [**SATERfinder Android v1.0 (APK)**](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder)
+### 📥 [**Installer EPIRB Suite v5.23 (Windows)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.23/EPIRBsuite-5.23-setup.exe) · [archive 7z](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.23/EPIRBdecoder.7z) · [**SATERfinder Android v1.0 (APK)**](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder)
 
 </div>
 
@@ -32,7 +34,7 @@ La **EPIRB 406 MHz Suite** regroupe désormais **trois outils complémentaires**
 
 | Outil | Plateforme | Rôle |
 |---|---|---|
-| 📡 **EPIRB Decoder** (v5.22) | Windows 10/11 | Décodeur complet 406 MHz — RTL-SDR, Audio Live, WAV, Hex direct, codes protocole officiels + **National Location**, position 4 s, carte OSM/triangulation, **APRS-IS**, SITREP PDF |
+| 📡 **EPIRB Decoder** (v5.23) | Windows 10/11 | Décodeur complet 406 MHz — RTL-SDR, Audio Live, WAV, Hex direct, codes protocole officiels + **National Location**, position 4 s, carte OSM/triangulation, **APRS-IS**, SITREP PDF |
 | 🛰 **EPIRB Generator** (v3.8.3) | Windows 10/11 | Générateur de trames d'exercice 406 MHz — émission audio directe, PTT série, signal Manchester 400 bauds conforme COSPAS-SARSAT T.001 |
 | 📱 **SATERfinder** (v1.0) | Android 7+ | Application terrain de relevés goniométriques pour équipes mobiles — carte OSM, GPS interne, triangulation ELT, **partage APRS-IS** avec EPIRBdecoder PC |
 
@@ -44,7 +46,7 @@ L'ensemble est destiné à la **formation des opérateurs ADRASEC**, aux **exerc
 
 ## ⭐ Fonctionnalités principales
 
-### 📡 EPIRB Decoder v5.22
+### 📡 EPIRB Decoder v5.23
 
 | Icône | Fonctionnalité | Description |
 |:---:|---|---|
@@ -109,7 +111,7 @@ PC ◀──USB── Digirig Mobile ◀──audio── FT-5DE (mode FM, 12.5 
 | **3. Émetteur** | Yaesu FT-817ND | **Mode PKT** (Packet FM), 434,275 MHz, 0,5-5 W, entrée audio DATA arrière |
 | **4. Récepteur** | Yaesu FT-5DE | Mode FM standard, 12,5 kHz, sortie audio jack 3,5 mm |
 | **5. Interface RX** | Digirig Mobile | Carte son USB miniature, câble dédié Yaesu FT-5 |
-| **6. Décodeur** | EPIRB Decoder v5.22 | Mode **Audio Live** (entrée USB Audio Codec) — décodage immédiat |
+| **6. Décodeur** | EPIRB Decoder v5.23 | Mode **Audio Live** (entrée USB Audio Codec) — décodage immédiat |
 
 > ⚠ **Configurations à éviter** : Le mode FM standard sur l'entrée MIC du FT-817ND introduit du pre-emphasis incompatible avec le Manchester. Le mode DIG (SSB Data) utilise un filtre IF trop étroit (~2,4 kHz). Le décodage Audio Live à partir d'un récepteur FM physique calibré reste la solution la plus robuste pour la formation et les exercices.
 
@@ -186,19 +188,32 @@ Bouton dédié qui lance automatiquement la chaîne : génération → WAV → E
 
 ## 🛠 Comment commencer ?
 
-### 📥 Téléchargement direct de l'archive
+### 📥 Téléchargement
 
 <div align="center">
 
-#### 📥 [**Télécharger EPIRBdecoder.7z (Suite complète)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.22/EPIRBdecoder.7z)
+#### 🪟 [**Installeur Windows : EPIRBsuite-5.23-setup.exe (recommandé)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.23/EPIRBsuite-5.23-setup.exe)
 
-*(archive contenant Decoder v5.22 + Generator v3.8.3 — voir [toutes les releases EPIRB](https://github.com/f1gbd/F1GBD/releases?q=epirb) pour les versions précédentes)*
+#### 📦 [Archive EPIRBdecoder.7z (installation manuelle)](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.23/EPIRBdecoder.7z)
+
+*(Decoder v5.23 + Generator v3.8.3 — voir [toutes les releases EPIRB](https://github.com/f1gbd/F1GBD/releases?q=epirb) pour les versions précédentes)*
 
 [![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
 
 </div>
 
-### 🚀 Installation
+### 🚀 Installation avec l'installeur (recommandé)
+
+1. Télécharger **`EPIRBsuite-5.23-setup.exe`** et le lancer (Windows peut afficher « Windows a protégé votre ordinateur » : **Informations complémentaires → Exécuter quand même**).
+2. Dossier proposé : **`C:\EPIRBdecoder`** (modifiable). Installation pour l'utilisateur courant, **sans droits administrateur**.
+3. Options : raccourcis Bureau, enregistrements de balises **406-Samples**.
+4. Raccourcis **EPIRBdecoder** et **EPIRB-generator** dans le menu Démarrer.
+
+> 🔄 **Mises à jour** : bouton **ⓘ** (en-tête d'EPIRBdecoder) → **Vérifier les mises à jour**. Si une version plus récente est publiée, EPIRBdecoder télécharge l'installeur, vérifie son **SHA-256**, se ferme et l'installe **au même endroit**. Réglages (`decoder_setup.json`, `generator_setup.json`), cache de cartes et relevés sont **conservés**.
+>
+> **Vous avez déjà une version décompressée depuis l'archive 7z ?** Lancez l'installeur une première fois et choisissez **le dossier actuel** d'EPIRBdecoder : vos réglages sont gardés, et les mises à jour suivantes se feront par le bouton ⓘ.
+
+### 📦 Installation manuelle (archive 7z)
 
 ```powershell
 # 1. Décompresser l'archive EPIRBdecoder.7z dans le dossier de votre choix
@@ -208,13 +223,13 @@ Bouton dédié qui lance automatiquement la chaîne : génération → WAV → E
 #    EPIRBdecoder\
 #       ├── _internal\              (dépendances PyInstaller)
 #       ├── osm_tiles_cache\        (cache des tuiles OSM, créé au 1er usage)
-#       ├── EPIRB-decoder.exe       ← décodeur principal
+#       ├── EPIRBdecoder.exe        ← décodeur principal
 #       └── EPIRB-generator.exe     ← générateur compagnon
 #
-# 2. Double-cliquer sur EPIRB-decoder.exe ou EPIRB-generator.exe pour lancer
+# 2. Double-cliquer sur EPIRBdecoder.exe ou EPIRB-generator.exe pour lancer
 ```
 
-> 💡 **Aucune installation système requise** : pas d'admin, pas de modification du registre, pas de variable d'environnement. La suite est entièrement autonome dans son dossier.
+> 💡 **Aucun droit administrateur requis**, avec l'installeur comme avec l'archive : la suite reste autonome dans son dossier.
 
 > 💡 **Pour le mode SDR Direct** : installer les drivers WinUSB pour le dongle RTL-SDR via [Zadig](https://zadig.akeo.ie/). Le dongle RTL-SDR V3 ou V4 doit apparaître dans Zadig avec le driver WinUSB sélectionné.
 
@@ -417,7 +432,8 @@ Le bouton **Se connecter** établit la liaison ; le statut sous le panneau confi
 
 | Version | Apport principal |
 |---|---|
-| **v5.22** | **Version courante** — **Correctif position National Location** (écart d'environ 800 m constaté face au décodeur F1LVT) : offset fin PDF-2 au format C/S T.001, y compris bit 110 à 0 ; **Hex ID** corrigé (National, et Standard au Sud/Ouest) ; codes National **8, 10, 11** ; relecture IQ des balises d'**exercice** ; récepteur IQ **multi-filtre** |
+| **v5.23** | **Version courante** — **Installeur Windows** (Inno Setup, `EPIRBsuite-5.23-setup.exe`) et **🔄 Vérifier les mises à jour** (bouton ⓘ → À propos) : téléchargement, contrôle SHA-256, installation sur place, réglages conservés |
+| v5.22 | **Correctif position National Location** (écart d'environ 800 m constaté face au décodeur F1LVT) : offset fin PDF-2 au format C/S T.001, y compris bit 110 à 0 ; **Hex ID** corrigé (National, et Standard au Sud/Ouest) ; codes National **8, 10, 11** ; relecture IQ des balises d'**exercice** ; récepteur IQ **multi-filtre** |
 | v5.21 | Conformité protocole renforcée : décodage **National Location** (code 15) avec sa structure de position propre et **offset fin 4 s** (signalé par le bit 110), **table des codes officiels** C-S, polynôme **BCH-1 corrigé**, mode CLI `--file --json` (décodage sans GUI). |
 | v5.17 | Code 14 (RLS / Standard Location) reclassé dans la famille Standard |
 | v5.15 | Découverte et support du protocole **National Location** (code 15) |
@@ -436,7 +452,7 @@ Le bouton **Se connecter** établit la liaison ; le statut sous le panneau confi
 
 | Version | Apport principal |
 |---|---|
-| **v3.8.3** | **Version courante** — Offset **National Location** codé au format C/S T.001 (trames relues à l'identique par EPIRBdecoder v5.22, le décodeur F1LVT et EPIRBdecoder Android 0.3.2) |
+| **v3.8.3** | **Version courante** — Offset **National Location** codé au format C/S T.001 (trames relues à l'identique par EPIRBdecoder v5.23, le décodeur F1LVT et EPIRBdecoder Android 0.3.2) |
 | v3.8.2 | Position **National Location à 4 s** (offset PDF-2), mise en cohérence complète avec le décodeur (codes officiels, BCH-1, familles Standard / National), test aller-retour fonctionnant en **source et en exe** |
 | v3.6.1 | Suppression du filtre passe-bas en bande de base, Manchester carré pur fidèle au signal d'une vraie balise 406 |
 | v3.5 | Filtre passe-bas 1200 Hz Butterworth ordre 4, contenu spectral élargi |
@@ -453,7 +469,7 @@ Pour le détail de tous les changements, consultez le [changelog complet sur Git
 │                    EPIRB 406 MHz Suite                               │
 │                                                                      │
 │  ┌────────────────────────────┐  ┌────────────────────────────────┐  │
-│  │  EPIRB Generator v3.8.3    │  │  EPIRB Decoder v5.22           │  │
+│  │  EPIRB Generator v3.8.3    │  │  EPIRB Decoder v5.23           │  │
 │  │  (interface Tkinter)       │  │  (interface Tkinter)           │  │
 │  │                            │  │                                │  │
 │  │  - Construction trame 144  │  │  - 4 onglets d'entrée :        │  │
@@ -535,7 +551,7 @@ Toute contribution, retour d'exercice ou proposition d'amélioration est bienven
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**EPIRB Decoder v5.22 + EPIRB Generator v3.8.3 — Septembre 2026**
+**EPIRB Decoder v5.23 + EPIRB Generator v3.8.3 — Septembre 2026**
 
 ---
 
