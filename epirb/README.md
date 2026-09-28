@@ -8,6 +8,7 @@
 
 [![Decoder](https://img.shields.io/badge/decoder-v5.23-blue)](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.23/EPIRBdecoder.7z)
 [![Generator](https://img.shields.io/badge/generator-v3.8.3-blue)](https://github.com/f1gbd/F1GBD/releases?q=epirb)
+[![EPIRBdecoder Android](https://img.shields.io/badge/EPIRBdecoder_Android-v0.3.2-e8661a?logo=android)](https://github.com/f1gbd/F1GBD/tree/master/epirb/android)
 [![SATERfinder](https://img.shields.io/badge/SATERfinder_Android-v1.0-orange?logo=android)](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder)
 [![Téléchargements](https://img.shields.io/badge/téléchargements-actifs-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases?q=epirb)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
@@ -22,7 +23,7 @@ Cette série fiabilise le **cœur de décodage/encodage** des trames 406 MHz : p
 
 > **Correctifs v5.22 (septembre 2026)** : la position des balises **National Location** pouvait être décalée d'environ **800 m** (écart constaté en test comparatif avec le décodeur F1LVT). Le décalage fin PDF-2 est désormais lu au format National de la norme C/S T.001, y compris quand la balise émet le bit 110 à 0 (comme le fait le décodeur F1LVT). **Hex ID** corrigé (National Location, et Standard au Sud ou à l'Ouest), codes National **8, 10, 11** décodés, relecture IQ des balises d'**exercice** et récepteur IQ multi-filtre. Vérifié contre le décodeur F1LVT et le jeu de conformité AMSA.
 
-### 📥 [**Installer EPIRB Suite v5.23 (Windows)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.23/EPIRBsuite-5.23-setup.exe) · [archive 7z](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.23/EPIRBdecoder.7z) · [**SATERfinder Android v1.0 (APK)**](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder)
+### 📥 [**Installer EPIRB Suite v5.23 (Windows)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.23/EPIRBsuite-5.23-setup.exe) · [archive 7z](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.23/EPIRBdecoder.7z) · [**EPIRBdecoder Android v0.3.2 (APK)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-android-v0.3.2/EPIRBdecoder_android-0.3.2.apk) · [**SATERfinder Android v1.0 (APK)**](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder)
 
 </div>
 
@@ -30,17 +31,47 @@ Cette série fiabilise le **cœur de décodage/encodage** des trames 406 MHz : p
 
 ## 🎯 Qu'est-ce que la suite EPIRB 406 MHz ?
 
-La **EPIRB 406 MHz Suite** regroupe désormais **trois outils complémentaires** (deux Windows + une appli Android compagnon) pour la formation, les exercices et les opérations ADRASEC sur les balises de détresse COSPAS-SARSAT :
+La **EPIRB 406 MHz Suite** regroupe désormais **quatre outils complémentaires** (deux Windows + deux applis Android) pour la formation, les exercices et les opérations ADRASEC sur les balises de détresse COSPAS-SARSAT :
 
 | Outil | Plateforme | Rôle |
 |---|---|---|
 | 📡 **EPIRB Decoder** (v5.23) | Windows 10/11 | Décodeur complet 406 MHz — RTL-SDR, Audio Live, WAV, Hex direct, codes protocole officiels + **National Location**, position 4 s, carte OSM/triangulation, **APRS-IS**, SITREP PDF |
 | 🛰 **EPIRB Generator** (v3.8.3) | Windows 10/11 | Générateur de trames d'exercice 406 MHz — émission audio directe, PTT série, signal Manchester 400 bauds conforme COSPAS-SARSAT T.001 |
+| 📱 **[EPIRBdecoder Android](https://github.com/f1gbd/F1GBD/tree/master/epirb/android)** (v0.3.2) | Android 7+ (64 bits, USB-OTG) | Le décodeur 406 MHz sur smartphone ou tablette — clé RTL-SDR en OTG, **même moteur de décodage que la version PC**, position, MGRS, carte, main courante, enregistrement IQ |
 | 📱 **SATERfinder** (v1.0) | Android 7+ | Application terrain de relevés goniométriques pour équipes mobiles — carte OSM, GPS interne, triangulation ELT, **partage APRS-IS** avec EPIRBdecoder PC |
 
-Les trois outils forment un **écosystème intégré** : le générateur produit des trames d'exercice décodées par EPIRBdecoder, les équipes terrain équipées de SATERfinder émettent leurs relèvements vers le PCS via APRS-IS, et la triangulation collective converge en temps réel sur la carte du chef de mission. Cela permet des scénarios de formation et des opérations réelles complets, sans dépendre de balises matérielles.
+Les quatre outils forment un **écosystème intégré** : le générateur produit des trames d'exercice décodées par EPIRBdecoder (PC ou Android), les équipes terrain équipées de SATERfinder émettent leurs relèvements vers le PCS via APRS-IS, et la triangulation collective converge en temps réel sur la carte du chef de mission. Cela permet des scénarios de formation et des opérations réelles complets, sans dépendre de balises matérielles.
 
 L'ensemble est destiné à la **formation des opérateurs ADRASEC**, aux **exercices de décodage 406 MHz**, et aux **opérations réelles** de recherche et sauvetage dans le cadre COSPAS-SARSAT.
+
+---
+
+## 📱 EPIRBdecoder Android v0.3.2 — le décodeur 406 MHz dans la poche
+
+<table>
+<tr>
+<td width="340" valign="top">
+<a href="https://github.com/f1gbd/F1GBD/tree/master/epirb/android"><img src="https://github.com/f1gbd/F1GBD/blob/master/epirb/android/images/EPIRBdecoder_android_screen.png?raw=true" alt="EPIRBdecoder Android v0.3.2 — balise 406 MHz décodée sur tablette" width="320"></a>
+</td>
+<td valign="top">
+
+La version **Android** d'EPIRBdecoder transforme un smartphone ou une tablette en **décodeur 406 MHz autonome** pour les équipes terrain SATER : une clé **RTL-SDR** branchée en **USB-OTG**, le driver « SDR Driver », et la balise est décodée **sur l'appareil, sans réseau**.
+
+- **Même moteur de décodage que la version PC v5.23** (récepteur MLSE, contrôles BCH-1/BCH-2) : un burst donne le même résultat sur le terrain et au PCS.
+- **Position National Location corrigée** en v0.3.2 : résultat identique au décodeur F1LVT de référence.
+- Identifiant 15 HEX, pays, protocole, position en degrés décimaux, DMS et **MGRS**, boutons **Carte** et **Itinéraire**.
+- Main courante, **enregistrement IQ** des bursts, relecture de fichiers IQ, **vérification des mises à jour** intégrée.
+- Interface **Sécurité Civile** lisible en plein soleil, adaptée téléphone et tablette.
+
+<p>
+<a href="https://github.com/f1gbd/F1GBD/releases/download/epirb-android-v0.3.2/EPIRBdecoder_android-0.3.2.apk"><img src="https://img.shields.io/badge/T%C3%89L%C3%89CHARGER-APK%20v0.3.2-e8661a?style=for-the-badge&logo=android&logoColor=white" alt="Télécharger l'APK v0.3.2"></a>
+</p>
+
+👉 Installation, matériel et manuel : **[page EPIRBdecoder Android](https://github.com/f1gbd/F1GBD/tree/master/epirb/android)**
+
+</td>
+</tr>
+</table>
 
 ---
 
