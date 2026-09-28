@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/f1gbd/F1GBD/releases/download/epirb-android-v0.3.1/EPIRBdecoder_android-0.3.1.apk"><img src="https://img.shields.io/badge/T%C3%89L%C3%89CHARGER-APK%20v0.3.1-e8661a?style=for-the-badge&logo=android&logoColor=white" alt="Télécharger l'APK v0.3.1"></a>
+  <a href="https://github.com/f1gbd/F1GBD/releases/download/epirb-android-v0.3.2/EPIRBdecoder_android-0.3.2.apk"><img src="https://img.shields.io/badge/T%C3%89L%C3%89CHARGER-APK%20v0.3.2-e8661a?style=for-the-badge&logo=android&logoColor=white" alt="Télécharger l'APK v0.3.2"></a>
   &nbsp;
   <a href="https://github.com/f1gbd/F1GBD/releases?q=epirb-android"><img src="https://img.shields.io/badge/Toutes%20les%20versions-releases-1d4f9c?style=for-the-badge&logo=github" alt="Toutes les versions Android"></a>
 </p>
@@ -34,7 +34,7 @@
 
 | | |
 |---|---|
-| **APK** | [`EPIRBdecoder_android-0.3.1.apk`](https://github.com/f1gbd/F1GBD/releases/download/epirb-android-v0.3.1/EPIRBdecoder_android-0.3.1.apk) (release [`epirb-android-v0.3.1`](https://github.com/f1gbd/F1GBD/releases/tag/epirb-android-v0.3.1)) |
+| **APK** | [`EPIRBdecoder_android-0.3.2.apk`](https://github.com/f1gbd/F1GBD/releases/download/epirb-android-v0.3.2/EPIRBdecoder_android-0.3.2.apk) (release [`epirb-android-v0.3.2`](https://github.com/f1gbd/F1GBD/releases/tag/epirb-android-v0.3.2)) |
 | **Appareil** | Android 7.0 ou plus, processeur 64 bits (arm64-v8a), port USB avec mode **hôte (OTG)** |
 | **Driver SDR** | « **SDR Driver** » de Martin Marinov — [Google Play](https://play.google.com/store/apps/details?id=marto.rtl_tcp_andro) · [F-Droid](https://f-droid.org/packages/marto.rtl_tcp_andro/) |
 | **Documentation** | 📘 [Manuel utilisateur (PDF)](documentation/MEMO%20-%20MANUEL_EPIRBdecoder-android.pdf) · 📄 [Fiche technique (PDF)](documentation/MEMO%20-%20FICHE-TECHNIQUE_EPIRBdecoder-android.pdf) |
@@ -118,7 +118,7 @@ immédiatement l'**identifiant**, le **pays**, le **protocole** et la
 avec ouverture directe dans **Google Maps** ou **navigation routière** vers la
 balise.
 
-Le moteur de décodage est **celui de la version PC EPIRBdecoder v5.20**
+Le moteur de décodage est **celui de la version PC EPIRBdecoder v5.22**
 (récepteur MLSE, contrôles BCH, conversion MGRS), embarqué tel quel : un burst
 décodé sur Android donne exactement le même résultat que sur le PC.
 
@@ -168,7 +168,7 @@ décodé sur Android donne exactement le même résultat que sur le PC.
 | Démodulation | Récepteur **MLSE** NumPy (horloge calée sur les transitions Manchester), filtres de phase **5 / 3,5 / 2,5 kHz** essayés tant que BCH-1 échoue |
 | Validation | **BCH-1** obligatoire (trame rejetée sinon), BCH-2 affiché |
 | Doublons | Même balise re-décodée en moins de 8 s : non rejournalisée |
-| Décodeur | Moteur **EPIRBdecoder PC v5.20** (BeaconDecoder, BCH, MGRS), embarqué à l'identique |
+| Décodeur | Moteur **EPIRBdecoder PC v5.22** (BeaconDecoder, BCH, MGRS), embarqué à l'identique |
 | Captures IQ | NumPy `.npy` complex64 + `.txt` descriptif (`center_freq_hz`, `sample_rate_hz`, …) — format identique au PC |
 | Fonctionnement | 100 % local : aucune connexion réseau requise (sauf « Vérifier les mises à jour ») |
 | Système | Android 7.0+ (API 24), arm64-v8a ; application Kotlin, traitement Python 3.13 + NumPy embarqués |
@@ -313,7 +313,8 @@ Le dongle USB est ouvert par le SDR Driver, pas par l'application. Aucune donné
 
 | Version | Date | Principales évolutions |
 |---|---|---|
-| **0.3.1** | 09/2026 | **Correctifs réception SDR** : ouverture du dongle (gain), plantage au démarrage de l'écoute, relance de l'écoute (clé occupée), faux « Burst détecté » ; installation par-dessus la v0.1 signalée clairement |
+| **0.3.2** | 09/2026 | **Position National Location corrigée** (écart d'environ 800 m avec le décodeur F1LVT : décalage fin PDF-2 au format C/S T.001), **Hex ID** corrigé, codes National 8 / 10 / 11 décodés, moteur PC v5.22 |
+| 0.3.1 | 09/2026 | **Correctifs réception SDR** : ouverture du dongle (gain), plantage au démarrage de l'écoute, relance de l'écoute (clé occupée), faux « Burst détecté » ; installation par-dessus la v0.1 signalée clairement |
 | 0.3.0 | 09/2026 | Interface **Sécurité Civile** (cartes BALISE / POSITION, pastilles d'état), écran de lancement, **Vérifier les mises à jour** dans À propos |
 | **0.2.0** | 09/2026 | **Réception SDR corrigée** (gain manuel, AGC coupée, accord décalé, canal étroit, MLSE multi-filtre, filtrage BCH-1), mise en page tablette, moteur PC v5.20, application Kotlin + Python |
 | 0.1.0 | 06/2026 | Première version (EPIRBpi-decoder-lite, Kivy) |
