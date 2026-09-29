@@ -11,14 +11,14 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v13.2-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v14.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-## 📥 [Télécharger l'installeur Windows](https://github.com/f1gbd/F1GBD/releases/download/tcq-v13.2/TCQ-13.2-setup.exe)
+## 📥 [Télécharger l'installeur Windows](https://github.com/f1gbd/F1GBD/releases/download/tcq-v14.0/TCQ-14.0-setup.exe)
 
 *Double-clic, aucun droit administrateur. Binaire autonome — aucune installation Python.*
 *Ensuite, TCQ se met à jour tout seul : **ℹ À propos → 🔄 VÉRIFIER LES MISES À JOUR**.*
 
-Autres formats : [archive `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v13.2/TCQ.7z) · commande PowerShell *(en administrateur)* :
+Autres formats : [archive `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v14.0/TCQ.7z) · commande PowerShell *(en administrateur)* :
 
 ```powershell
 iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:TEMP\Install-TCQ.ps1; & $env:TEMP\Install-TCQ.ps1
@@ -123,7 +123,7 @@ indicatif et par adresse ICAO.
 | | Fonction | En deux mots |
 |:---:|---|---|
 | 📨 | **LXMF / Reticulum** | Messagerie chiffrée bout-en-bout, multi-saut, résiliente. Passe par TCP, série, LoRa, packet AX.25 ou VARA. Annuaire, groupes, accusés de réception. |
-| 📡 | **VARA HF / FM / SAT** | Modems ARQ haute performance, avec suspension et reprise des transferts. |
+| 📡 | **VARA HF / FM / SAT** | Modems ARQ haute performance, avec suspension et reprise des transferts ; **débit réel affiché** à chaque envoi. |
 | 📻 | **Packet AX.25** | Direwolf lancé et configuré automatiquement. KISS et AGWPE. |
 | 🌐 | **MeshCore LoRa** | Mesh LoRa natif : messagerie, BBS, fichiers diffusés, **canaux privés à clé secrète** partagés par QR code. |
 | 🗺️ | **Carte opérationnelle** | Symboles SDIS / OTAN / SATER, zones, routes coupées, **synchronisation par radio** entre postes. |
@@ -144,7 +144,7 @@ indicatif et par adresse ICAO.
 
 ### Programme d'installation Windows *(recommandé)*
 
-1. [Téléchargez `TCQ-13.2-setup.exe`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v13.2/TCQ-13.2-setup.exe)
+1. [Téléchargez `TCQ-14.0-setup.exe`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v14.0/TCQ-14.0-setup.exe)
 2. Double-cliquez — **aucun droit administrateur requis**
 3. Lancez TCQ depuis le menu Démarrer ou le Bureau
 
@@ -179,7 +179,7 @@ raccourcis. Relancez la même commande pour mettre à jour.
 
 ### À la main
 
-1. [Téléchargez `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v13.2/TCQ.7z)
+1. [Téléchargez `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v14.0/TCQ.7z)
 2. Vérifiez l'empreinte : `Get-FileHash -Algorithm SHA256 TCQ.7z` — elle est publiée avec la release
 3. Décompressez dans `C:\` *(clic droit → 7-Zip → Extraire vers `C:\`)*
 4. Lancez `C:\TCQ\TCQ.exe`
@@ -206,7 +206,35 @@ raccourcis. Relancez la même commande pour mettre à jour.
 
 ## 🆕 Dernières mises à jour
 
-### Version courante : **v13.2** — *27 septembre 2026*
+### Version courante : **v14.0** — *29 septembre 2026*
+
+**📡 VARA FM : TCQ ne bride plus le modem.** TCQ confie tout le fichier à VARA
+d'un seul bloc : c'est VARA qui choisit sa vitesse. Tout ce qui, côté TCQ,
+pouvait la freiner ou perturber la liaison est retiré :
+
+- plus de « BW NARROW » imposé : le choix **NARROW / WIDE revient à VARA FM**
+  (nouvelle valeur **AUTO**, par défaut) ;
+- plus de « CHAT ON » en FM : VARA FM est initialisé comme par Winlink / Pat ;
+- plus de commandes VARA HF (`BW500`) envoyées à VARA FM lors des broadcasts ;
+- la **balise ne part plus pendant une connexion** ;
+- le **débit réel** s'affiche à la fin de chaque envoi (« 50 Ko, ≈ 5 180 bit/s »).
+
+Si le débit reste bloqué à **566 / 1200 bit/s**, c'est VARA qui se bride, et
+TCQ le dit : **licence VARA FM** absente sur une station en P2P (566 bit/s
+maximum ; une passerelle RMS reste à pleine vitesse), **digipeater** sur le
+trajet, **S/N** ou niveau audio, réglage **NARROW** de VARA FM.
+
+**🖥️ Mise en page pour petit écran (portable 1366×768).**
+
+- Panneau **Statistiques / corrections Pauli masqué** par défaut — case
+  **📊 Stats** dans l'en-tête ; l'onglet central gagne ~200 px de large.
+- **Log système** : case **📋 Log** dans l'en-tête ; **CHAPPE26** et **RASEC**
+  sur une même ligne : le panneau CONFIG tient sans ascenseur.
+- Onglet **VARA Modem** : cadre « Stats » supprimé, colonne de réglages plus
+  étroite, rangée **Envoi spécial** repliée sur deux lignes au lieu d'être
+  rognée, zone **Messages VARA** à la hauteur de la colonne de réglages.
+
+### v13.2 — *27 septembre 2026*
 
 **🚨 RASEC-ALERT par MeshCore.** Comme en LXMF, un message MeshCore — contact
 direct ou canal — déclenche l'alerte : `#ra <code>` affiche l'**alerte visuelle**
@@ -237,7 +265,8 @@ tient pas.
 
 | Version | Date | Ce qui change |
 |---|---|---|
-| **v13.2** | 27/09/2026 | RASEC-ALERT par MeshCore (`#ra`, alerte visuelle et sonore) ; longueur des vecteurs de relèvement réglable |
+| **v14.0** | 29/09/2026 | VARA FM sans bride côté TCQ (NARROW/WIDE laissé à VARA, plus de CHAT ON ni BW500, débit réel affiché) ; mise en page pour petit écran |
+| v13.2 | 27/09/2026 | RASEC-ALERT par MeshCore (`#ra`, alerte visuelle et sonore) ; longueur des vecteurs de relèvement réglable |
 | v13.1 | 27/09/2026 | Décodage CHAPPE26 des messages MeshCore |
 | v13.0 | 27/09/2026 | Installeur Windows, mise à jour depuis « À propos », écran d'accueil, ascenseurs pour petits écrans |
 | v12.70 | 25/08/2026 | Couverture LoRa et relais RRLoRa, hors ligne compris |
@@ -270,7 +299,7 @@ tient pas.
 **Jean-Louis — F1GBD / F4JHW**
 *ADRASEC 77 — FNRASEC*
 
-**TCQ v13.2 — 27/09/2026**
+**TCQ v14.0 — 29/09/2026**
 
 Tous les modules intégrés respectent les licences de leurs auteurs originaux.
 
