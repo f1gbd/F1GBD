@@ -53,7 +53,7 @@ L'ensemble est destiné à la **formation des opérateurs ADRASEC**, aux **exerc
 <table>
 <tr>
 <td width="340" valign="top">
-<a href="https://github.com/f1gbd/F1GBD/tree/master/epirb/android"><img src="https://github.com/f1gbd/F1GBD/blob/master/epirb/images/EPIRBdecoder_android.jpg?raw=true" alt="EPIRBdecoder Android v0.3.2 — balise 406 MHz décodée sur tablette" width="320"></a>
+<a href="https://github.com/f1gbd/F1GBD/tree/master/epirb/android"><img src="https://github.com/f1gbd/F1GBD/blob/master/epirb/images/EPIRBdecoder_android.jpg?raw=true" alt="EPIRBdecoder sur tablette Android v0.3.2 — balise 406 MHz décodée sur tablette" width="320"></a>
 </td>
 <td valign="top">
 
