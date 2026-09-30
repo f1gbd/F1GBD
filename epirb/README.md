@@ -6,8 +6,8 @@
 
 *Décodage EPIRB/ELT/PLB — Génération de trames d'exercice — SDR Direct RTL-SDR — Démodulation FM IQ — Audio Live / Fichier WAV / Hex — Carte OSM avec relèvements goniométriques — Triangulation ELT — **APRS-IS (compatible SATERfinder Android)** — SITREP PDF — MGRS — Thème clair/sombre — Export CSV*
 
-[![Decoder](https://img.shields.io/badge/decoder-v5.25-blue)](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.25/EPIRBdecoder.7z)
-[![Generator](https://img.shields.io/badge/generator-v3.8.5-blue)](https://github.com/f1gbd/F1GBD/releases?q=epirb)
+[![Decoder](https://img.shields.io/badge/decoder-v5.26-blue)](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.26/EPIRBdecoder.7z)
+[![Generator](https://img.shields.io/badge/generator-v3.9.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=epirb)
 [![EPIRBdecoder Android](https://img.shields.io/badge/EPIRBdecoder_Android-v0.3.2-e8661a?logo=android)](https://github.com/f1gbd/F1GBD/tree/master/epirb/android)
 [![SATERfinder](https://img.shields.io/badge/SATERfinder_Android-v1.0-orange?logo=android)](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder)
 [![Téléchargements](https://img.shields.io/badge/téléchargements-actifs-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases?q=epirb)
@@ -15,9 +15,21 @@
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![Mission](https://img.shields.io/badge/mission-COSPAS--SARSAT-orange.svg)]()
 
-### 🆕 v5.25 / v3.8.5 — Réception SDR Direct plus sensible et plus régulière · banc HackRF / PortaPack validé
+### 🆕 v5.26 / v3.9.0 — Générateur : carte OSM, coordonnées MGRS et émission directe HackRF One
 
-> **Nouveau en v5.25** : la réception **SDR Direct** lit le RTL-SDR **en continu** (plus aucun échantillon perdu entre deux blocs), détecte les bursts **dans le canal** (±12,5 kHz) au lieu de toute la bande reçue, et le récepteur MLSE ne traite que le burst en cours, avec plusieurs filtres. Les raies parasites hors canal ne détournent plus l'analyse et une trame n'est plus masquée par l'anti-doublon. En simulation sur une capture de banc réelle : **8 trames sur 8 décodées jusqu'à un signal 20 dB plus faible** (avant : 5 sur 8 au niveau nominal, aucune à −10 dB), sans fausse trame sur 2 minutes de bruit.
+> **Nouveau dans EPIRB-generator v3.9.0** :
+> - **🗺 Carte OpenStreetMap** : la même que dans le décodeur, avec le même cache de tuiles. **Un clic sur la carte place la balise** à générer.
+> - **🔲 Coordonnées MGRS** affichées et saisissables, synchronisées avec les champs DMS et décimal et avec la carte.
+> - **📻 Émission directe HackRF One en USB** : nouvel onglet « HackRF ». Il détecte le HackRF One, ou le PortaPack H2M en mode « HackRF », puis émet la trame en boucle ou une seule fois, avec un bouton d'arrêt immédiat. Plus besoin de passer par un fichier.
+> - **Pilotes HackRF inclus** dans la suite (sous-dossier `hackrf\`) : rien à installer.
+> - **Garde-fous** : 405,9–406,2 MHz refusé, émission directe limitée à la bande ISM 433,05–434,79 MHz, ampli coupé, gain plafonné.
+
+<p align="center">
+  <img src="images/EPIRBgenerator_screen.png" width="900" alt="EPIRB-generator v3.9.0 : paramètres, carte OSM et MGRS"><br>
+  <sub><b>EPIRB-generator v3.9.0 — un clic sur la carte place la balise ; position en DMS, décimal et MGRS</b></sub>
+</p>
+
+> **v5.25** : la réception **SDR Direct** lit le RTL-SDR **en continu** (plus aucun échantillon perdu entre deux blocs), détecte les bursts **dans le canal** (±12,5 kHz) au lieu de toute la bande reçue, et le récepteur MLSE ne traite que le burst en cours, avec plusieurs filtres. Les raies parasites hors canal ne détournent plus l'analyse et une trame n'est plus masquée par l'anti-doublon. En simulation sur une capture de banc réelle : **8 trames sur 8 décodées jusqu'à un signal 20 dB plus faible** (avant : 5 sur 8 au niveau nominal, aucune à −10 dB), sans fausse trame sur 2 minutes de bruit.
 >
 > **EPIRB-generator v3.8.5** : export HackRF / PortaPack réglé sur le **banc validé le 29/09/2026** : émission **rayonnée à très faible puissance** sur 434,000 MHz (bande ISM) avec deux antennes quart d'onde, PortaPack Replay **100 kéch/s, G:16, ampli coupé**, `hackrf_transfer -x 16`. Voir la [**fiche réflexe HackRF One / PortaPack**](doc/Fiche_Reflexe_HackRF_PortaPack_EPIRB.pdf).
 
@@ -29,7 +41,7 @@ Cette série fiabilise le **cœur de décodage/encodage** des trames 406 MHz : p
 
 > **Correctifs v5.22 (septembre 2026)** : la position des balises **National Location** pouvait être décalée d'environ **800 m** (écart constaté en test comparatif avec le décodeur F1LVT). Le décalage fin PDF-2 est désormais lu au format National de la norme C/S T.001, y compris quand la balise émet le bit 110 à 0 (comme le fait le décodeur F1LVT). **Hex ID** corrigé (National Location, et Standard au Sud ou à l'Ouest), codes National **8, 10, 11** décodés, relecture IQ des balises d'**exercice** et récepteur IQ multi-filtre. Vérifié contre le décodeur F1LVT et le jeu de conformité AMSA.
 
-### 📥 [**Installer EPIRB Suite v5.25 (Windows)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.25/EPIRBsuite-5.25-setup.exe) · [archive 7z](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.25/EPIRBdecoder.7z) · [**EPIRBdecoder Android v0.3.2 (APK)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-android-v0.3.2/EPIRBdecoder_android-0.3.2.apk) · [**SATERfinder Android v1.0 (APK)**](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder)
+### 📥 [**Installer EPIRB Suite v5.26 (Windows)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.26/EPIRBsuite-5.26-setup.exe) · [archive 7z](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.26/EPIRBdecoder.7z) · [**EPIRBdecoder Android v0.3.2 (APK)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-android-v0.3.2/EPIRBdecoder_android-0.3.2.apk) · [**SATERfinder Android v1.0 (APK)**](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder)
 
 </div>
 
@@ -41,8 +53,8 @@ La **EPIRB 406 MHz Suite** regroupe désormais **quatre outils complémentaires*
 
 | Outil | Plateforme | Rôle |
 |---|---|---|
-| 📡 **EPIRB Decoder** (v5.25) | Windows 10/11 | Décodeur complet 406 MHz — RTL-SDR, Audio Live, WAV, Hex direct, codes protocole officiels + **National Location**, position 4 s, carte OSM/triangulation, **APRS-IS**, SITREP PDF |
-| 🛰 **EPIRB Generator** (v3.8.5) | Windows 10/11 | Générateur de trames d'exercice 406 MHz — émission audio directe, PTT série, signal Manchester 400 bauds conforme COSPAS-SARSAT T.001, **export HackRF One / PortaPack** |
+| 📡 **EPIRB Decoder** (v5.26) | Windows 10/11 | Décodeur complet 406 MHz — RTL-SDR, Audio Live, WAV, Hex direct, codes protocole officiels + **National Location**, position 4 s, carte OSM/triangulation, **APRS-IS**, SITREP PDF |
+| 🛰 **EPIRB Generator** (v3.9.0) | Windows 10/11 | Générateur de trames d'exercice 406 MHz — **carte OSM cliquable, MGRS**, émission audio directe, PTT série, signal Manchester 400 bauds conforme COSPAS-SARSAT T.001, **émission directe HackRF One (USB)** et export PortaPack |
 | 📱 **[EPIRBdecoder Android](https://github.com/f1gbd/F1GBD/tree/master/epirb/android)** (v0.3.2) | Android 7+ (64 bits, USB-OTG) | Le décodeur 406 MHz sur smartphone ou tablette — clé RTL-SDR en OTG, **même moteur de décodage que la version PC**, position, MGRS, carte, main courante, enregistrement IQ |
 | 📱 **SATERfinder** (v1.0) | Android 7+ | Application terrain de relevés goniométriques pour équipes mobiles — carte OSM, GPS interne, triangulation ELT, **partage APRS-IS** avec EPIRBdecoder PC |
 
@@ -83,7 +95,7 @@ La version **Android** d'EPIRBdecoder transforme un smartphone ou une tablette e
 
 ## ⭐ Fonctionnalités principales
 
-### 📡 EPIRB Decoder v5.25
+### 📡 EPIRB Decoder v5.26
 
 | Icône | Fonctionnalité | Description |
 |:---:|---|---|
@@ -109,12 +121,14 @@ La version **Android** d'EPIRBdecoder transforme un smartphone ou une tablette e
 | 📤 | **Export / Import CSV** | Export des relèvements en CSV (point-virgule) avec indicatif, coordonnées DMS et décimales, azimut, signal et horodatage. Import CSV pour reprise de session ou échange inter-opérateurs. |
 | 📝 | **Journal de décodage** | Export du journal complet de la session (trames décodées, horodatages, paramètres) vers un fichier texte. |
 
-### 🛰 EPIRB Generator v3.8.5
+### 🛰 EPIRB Generator v3.9.0
 
 | Icône | Fonctionnalité | Description |
 |:---:|---|---|
 | 🎛 | **Génération de trames 144 bits** | Construction complète d'une trame COSPAS-SARSAT T.001 : sync DETR/EXER, format long, code pays MID, protocole, identification, position GPS, codes d'urgence, BCH-1 et BCH-2 calculés automatiquement. |
 | 📻 | **Encodage Manchester 400 bauds** | Signal biphase-L (Manchester) en bande de base à 400 bauds, échantillonné 48 kHz 16 bits mono. Manchester carré pur (v3.6) — spectre fidèle à une vraie balise 406 MHz. |
+| 🗺 | **Carte OSM cliquable** (v3.9.0) | La carte OpenStreetMap du décodeur, avec son cache de tuiles partagé. **Un clic place la balise** et remplit les champs de position. Glisser pour déplacer, molette pour zoomer, ⌖ pour recentrer. Les tuiles se chargent en arrière-plan et les zones déjà visitées restent disponibles hors connexion. |
+| 🔲 | **Coordonnées MGRS** (v3.9.0) | Position affichée et saisissable en MGRS (ex. `31U DQ 58142 05379`), synchronisée avec DMS, décimal et la carte. Le cartouche de la carte montre le point survolé en DMS et en MGRS. |
 | 🌍 | **Base pays MID intégrée** | Plus de 25 codes pays MID (UIT-R M.585) intégrés : France (227, 228), Royaume-Uni, Allemagne, Italie, Espagne, États-Unis, Canada, Australie, Japon, etc. |
 | 📡 | **Émission audio directe** | Transmission temps réel via PyAudio sur carte son ou interface CAT/Audio (Yaesu SCU-17, Digirig Mobile, etc.). Compatible avec tout émetteur radio amateur en mode FM Packet. |
 | 🎚 | **PTT série multimode** | RTS, DTR ou CAT série dédié. Support de 16 transceivers HF/VHF/UHF : Yaesu (FT-817/818, FT-991, FT-710, FT-DX10/101, FTX-1...), Icom (IC-7300, IC-7100, IC-9700, IC-705...), Kenwood, Elecraft, FlexRadio, Xiegu. |
@@ -122,6 +136,7 @@ La version **Android** d'EPIRBdecoder transforme un smartphone ou une tablette e
 | 🔄 | **Test aller-retour** | Boucle automatique de validation : génération → WAV → décodage via EPIRB Decoder → comparaison des paramètres. Validation immédiate de la conformité de la trame. |
 | 🎯 | **Mode EXER ADRASEC** | Émission cyclique automatique conforme aux exercices SATER (cycle 50 s, sync SELFTEST). Activation/désactivation en un clic. |
 | 📻 | **Export HackRF One / PortaPack** | Bouton 📻 HackRF : fichiers `.cs8` + `.bat` pour `hackrf_transfer`, `.C16` + `.TXT` pour l'appli **Replay** du PortaPack Mayhem (100 kéch/s par défaut), burst toutes les 10 s sur 434,000 MHz. La bande 405,9–406,2 MHz est refusée. |
+| 📻 | **Émission directe HackRF One** (v3.9.0) | Onglet « HackRF » : détection du HackRF One ou du PortaPack H2M en mode « HackRF » branché en USB, puis émission de la trame en boucle (burst toutes les N s) ou une seule fois, avec arrêt immédiat. Pilote `hackrf.dll` inclus. 405,9–406,2 MHz refusé, bande ISM seulement, ampli coupé, gain ≤ 30 dB. |
 | 🎵 | **Signal de calibration** | Tonalité continue 1 kHz pour réglage du niveau audio entre PC et émetteur. Indispensable avant tout exercice. |
 | 📐 | **Conversion DMS ↔ décimal** | Saisie de position en degrés-minutes-secondes ou décimal, conversion bidirectionnelle automatique. |
 | 🎨 | **Thème clair / sombre** | Palette SAR Tactical Dark cohérente avec le décodeur. Préférence persistante dans `generator_setup.json`. |
@@ -144,12 +159,12 @@ PC ◀──USB── Digirig Mobile ◀──audio── FT-5DE (mode FM, 12.5 
 
 | Étape | Équipement | Configuration |
 |---|---|---|
-| **1. Source logicielle** | EPIRB Generator v3.8.5 | Trame test : 227 (France), protocole 14 (Std Loc. RLS), ID 0425A4 |
+| **1. Source logicielle** | EPIRB Generator v3.9.0 | Trame test : 227 (France), protocole 14 (Std Loc. RLS), ID 0425A4 |
 | **2. Interface TX** | Yaesu SCU-17 | Carte son USB + PTT série CAT (Yaesu FT-817 dans `generator_setup.json`) |
 | **3. Émetteur** | Yaesu FT-817ND | **Mode PKT** (Packet FM), 434,275 MHz, 0,5-5 W, entrée audio DATA arrière |
 | **4. Récepteur** | Yaesu FT-5DE | Mode FM standard, 12,5 kHz, sortie audio jack 3,5 mm |
 | **5. Interface RX** | Digirig Mobile | Carte son USB miniature, câble dédié Yaesu FT-5 |
-| **6. Décodeur** | EPIRB Decoder v5.25 | Mode **Audio Live** (entrée USB Audio Codec) — décodage immédiat |
+| **6. Décodeur** | EPIRB Decoder v5.26 | Mode **Audio Live** (entrée USB Audio Codec) — décodage immédiat |
 
 > ⚠ **Configurations à éviter** : Le mode FM standard sur l'entrée MIC du FT-817ND introduit du pre-emphasis incompatible avec le Manchester. Le mode DIG (SSB Data) utilise un filtre IF trop étroit (~2,4 kHz). Le décodage Audio Live à partir d'un récepteur FM physique calibré reste la solution la plus robuste pour la formation et les exercices.
 
@@ -224,17 +239,35 @@ Bouton dédié qui lance automatiquement la chaîne : génération → WAV → E
 
 ### 📻 Banc de test HackRF One / PortaPack H2M (434 MHz)
 
-Le bouton **📻 HackRF** du générateur produit une trame 406 prête à émettre avec un HackRF One, seul (appli **Replay** du PortaPack) ou piloté par le PC (`hackrf_transfer`). La balise sort sur **434,000 MHz**, reçue par EPIRBdecoder en **SDR Direct** (PC) ou par EPIRBdecoder Android.
+<p align="center">
+  <img src="images/HackRF.jpg" width="480" alt="HackRF One + PortaPack H2M (firmware Mayhem)"><br>
+  <sub><b>HackRF One + PortaPack H2M (firmware Mayhem) — l'icône « HackRF », en bas du menu principal, le passe en mode USB pour l'émission directe depuis le générateur</b></sub>
+</p>
+
+Le générateur émet une trame 406 d'essai sur **434,000 MHz** avec un HackRF One, de trois façons :
+- **directement depuis le générateur** (v3.9.0), onglet **📻 HackRF**, HackRF One ou PortaPack en mode « HackRF » branché en USB : **Détecter**, puis **ÉMETTRE**. Les pilotes sont inclus ;
+- avec l'appli **Replay** du PortaPack, seul (fichiers exportés) ;
+- avec `hackrf_transfer` sur le PC (fichier `.bat` exporté).
+
+La balise est reçue par EPIRBdecoder en **SDR Direct** (PC) ou par EPIRBdecoder Android.
 
 | Élément | Réglage validé (29/09/2026) |
 |---|---|
 | Liaison | **Rayonnée, très faible puissance** : deux antennes quart d'onde 70 cm, sans atténuateur |
 | PortaPack Replay | Fichier `.C16` + `.TXT` dans `/CAPTURES`, accord 433,980 MHz, **100 kéch/s, G:16, A:0** (ampli coupé), Loop |
+| Émission directe (générateur v3.9.0) | Onglet 📻 HackRF : 434,000 MHz, **gain TX 16**, burst toutes les 10 s (ampli toujours coupé) |
 | hackrf_transfer | `… -f 433900000 -s 2000000 -a 0 -x 16 -R` (fichier `.bat` fourni) |
 | EPIRBdecoder PC | SDR Direct, 434,000 MHz, **Gain RF 35 dB** (ou auto) |
 | Variante conduite | Atténuateurs 40 à 60 dB entre HackRF et RTL-SDR, G:10 |
 
 > ⚠ **Jamais d'émission entre 405,9 et 406,2 MHz** : bande de détresse surveillée par les satellites COSPAS-SARSAT (risque de fausse alerte réelle). Le générateur refuse ces fréquences. Rester à très faible puissance dans la bande ISM 433,05–434,79 MHz et privilégier les trames EXER.
+
+<p align="center">
+  <img src="images/EPIRBgenerator_HackRF.png" width="900" alt="EPIRB-generator v3.9.0 : onglet HackRF, émission directe"><br>
+  <sub><b>Onglet 📻 HackRF — détection, fréquence, gain d'émission, période, émission en boucle ou trame seule (pilote libhackrf inclus)</b></sub>
+</p>
+
+Pour mettre le **PortaPack en mode « HackRF »** : menu principal → icône **HackRF**. L'écran se fige, c'est normal. Pour revenir au mode normal : bouton **RESET** ou redémarrage. Si le PC ne voit pas le HackRF, installer une fois le pilote **WinUSB** avec [Zadig](https://zadig.akeo.ie).
 
 📄 Mode opératoire pas à pas : [**Fiche réflexe HackRF One / PortaPack (PDF)**](doc/Fiche_Reflexe_HackRF_PortaPack_EPIRB.pdf)
 
@@ -246,11 +279,11 @@ Le bouton **📻 HackRF** du générateur produit une trame 406 prête à émett
 
 <div align="center">
 
-#### 🪟 [**Installeur Windows : EPIRBsuite-5.25-setup.exe (recommandé)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.25/EPIRBsuite-5.25-setup.exe)
+#### 🪟 [**Installeur Windows : EPIRBsuite-5.26-setup.exe (recommandé)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.26/EPIRBsuite-5.26-setup.exe)
 
-#### 📦 [Archive EPIRBdecoder.7z (installation manuelle)](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.25/EPIRBdecoder.7z)
+#### 📦 [Archive EPIRBdecoder.7z (installation manuelle)](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.26/EPIRBdecoder.7z)
 
-*(Decoder v5.25 + Generator v3.8.5 — voir [toutes les releases EPIRB](https://github.com/f1gbd/F1GBD/releases?q=epirb) pour les versions précédentes)*
+*(Decoder v5.26 + Generator v3.9.0 — voir [toutes les releases EPIRB](https://github.com/f1gbd/F1GBD/releases?q=epirb) pour les versions précédentes)*
 
 [![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
 
@@ -258,7 +291,7 @@ Le bouton **📻 HackRF** du générateur produit une trame 406 prête à émett
 
 ### 🚀 Installation avec l'installeur (recommandé)
 
-1. Télécharger **`EPIRBsuite-5.25-setup.exe`** et le lancer (Windows peut afficher « Windows a protégé votre ordinateur » : **Informations complémentaires → Exécuter quand même**).
+1. Télécharger **`EPIRBsuite-5.26-setup.exe`** et le lancer (Windows peut afficher « Windows a protégé votre ordinateur » : **Informations complémentaires → Exécuter quand même**).
 2. Dossier proposé : **`C:\EPIRBdecoder`** (modifiable). Installation pour l'utilisateur courant, **sans droits administrateur**.
 3. Options : raccourcis Bureau, enregistrements de balises **406-Samples**.
 4. Raccourcis **EPIRBdecoder** et **EPIRB-generator** dans le menu Démarrer.
@@ -486,7 +519,8 @@ Le bouton **Se connecter** établit la liaison ; le statut sous le panneau confi
 
 | Version | Apport principal |
 |---|---|
-| **v5.25** | **Version courante** — SDR Direct : **lecture IQ continue**, détection de burst **dans le canal**, seuil abaissé, MLSE multi-filtre limité au burst courant, anti-doublon 4 s → nettement plus sensible et régulier (8/8 trames jusqu'à −20 dB en simulation) ; Générateur v3.8.5 (banc HackRF / PortaPack validé) |
+| **v5.26** | **Version courante** — Livrée avec le générateur **v3.9.0** (carte OSM cliquable, MGRS, émission directe HackRF One en USB, pilotes HackRF inclus) ; affichage DMS de la carte corrigé (minute arrondie : plus de 47'60") |
+| v5.25 | SDR Direct : **lecture IQ continue**, détection de burst **dans le canal**, seuil abaissé, MLSE multi-filtre limité au burst courant, anti-doublon 4 s → nettement plus sensible et régulier (8/8 trames jusqu'à −20 dB en simulation) ; Générateur v3.8.5 (banc HackRF / PortaPack validé) |
 | v5.24 | Générateur v3.8.4 (position au pas de 4" le plus proche, export HackRF / PortaPack), identifiant National affiché en hexadécimal, sortie audio du générateur rétablie |
 | v5.23 | **Installeur Windows** (Inno Setup, `EPIRBsuite-5.23-setup.exe`) et **🔄 Vérifier les mises à jour** (bouton ⓘ → À propos) : téléchargement, contrôle SHA-256, installation sur place, réglages conservés |
 | v5.22 | **Correctif position National Location** (écart d'environ 800 m constaté face au décodeur F1LVT) : offset fin PDF-2 au format C/S T.001, y compris bit 110 à 0 ; **Hex ID** corrigé (National, et Standard au Sud/Ouest) ; codes National **8, 10, 11** ; relecture IQ des balises d'**exercice** ; récepteur IQ **multi-filtre** |
@@ -508,7 +542,8 @@ Le bouton **Se connecter** établit la liaison ; le statut sous le panneau confi
 
 | Version | Apport principal |
 |---|---|
-| **v3.8.5** | **Version courante** — Export PortaPack **100 kéch/s** par défaut, `hackrf_transfer -x 16`, réglages du banc validé (rayonné très faible puissance, antennes quart d'onde, G:16 ; conduit : G:10) |
+| **v3.9.0** | **Version courante** — **Carte OSM** : un clic place la balise ; **MGRS** affiché et saisissable ; onglet **📻 HackRF** : détection et **émission directe** par USB (boucle ou trame seule, arrêt immédiat), pilotes `hackrf.dll` 2026.01.3 inclus ; garde-fous 406 MHz / bande ISM / ampli coupé / gain ≤ 30 dB |
+| v3.8.5 | Export PortaPack **100 kéch/s** par défaut, `hackrf_transfer -x 16`, réglages du banc validé (rayonné très faible puissance, antennes quart d'onde, G:16 ; conduit : G:10) |
 | v3.8.4 | Position **arrondie au pas de 4" le plus proche** (erreur max 2"), identifiant National limité à 18 bits, bouton **📻 HackRF** : export `.cs8` (hackrf_transfer), `.C16`/`.TXT` (PortaPack Replay) et `.bat` prêt à lancer, 434 MHz, bande 406 refusée |
 | v3.8.3 | Offset **National Location** codé au format C/S T.001 (trames relues à l'identique par EPIRBdecoder v5.22, le décodeur F1LVT et EPIRBdecoder Android 0.3.2) |
 | v3.8.2 | Position **National Location à 4 s** (offset PDF-2), mise en cohérence complète avec le décodeur (codes officiels, BCH-1, familles Standard / National), test aller-retour fonctionnant en **source et en exe** |
@@ -527,7 +562,7 @@ Pour le détail de tous les changements, consultez le [changelog complet sur Git
 │                    EPIRB 406 MHz Suite                               │
 │                                                                      │
 │  ┌────────────────────────────┐  ┌────────────────────────────────┐  │
-│  │  EPIRB Generator v3.8.5    │  │  EPIRB Decoder v5.25           │  │
+│  │  EPIRB Generator v3.9.0    │  │  EPIRB Decoder v5.26           │  │
 │  │  (interface Tkinter)       │  │  (interface Tkinter)           │  │
 │  │                            │  │                                │  │
 │  │  - Construction trame 144  │  │  - 4 onglets d'entrée :        │  │
@@ -609,7 +644,7 @@ Toute contribution, retour d'exercice ou proposition d'amélioration est bienven
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**EPIRB Decoder v5.25 + EPIRB Generator v3.8.5 — Septembre 2026**
+**EPIRB Decoder v5.26 + EPIRB Generator v3.9.0 — Septembre 2026**
 
 ---
 
