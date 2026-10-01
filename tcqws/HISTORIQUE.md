@@ -9,6 +9,22 @@ avec son programme d'installation, son archive et son empreinte SHA-256.
 ---
 
 
+## v0.6.1 — Le FT-847, et le JTTY après ses premières heures
+
+*1er octobre 2026*
+
+### 📻 Yaesu FT-847 — fréquence et PTT
+
+Il suffit de le choisir dans *Radio*. Le poste parle le CAT binaire de Yaesu — cinq octets, l'opcode en dernier — avec trois particularités qui sont aussi les trois façons de se tromper avec lui : sa liaison série est à **deux bits de stop** (4800, 9600 ou 57600 bauds selon le menu 37 de la radio), TCQws les impose même si la configuration en demande un seul ; la radio **ignore tout en silence** tant qu'elle n'a pas reçu `CAT ON` (`00 00 00 00 00`), que TCQws envoie à l'ouverture du port ; le PTT est `00 00 00 00 08` / `00 00 00 01 88`, et la fréquence quatre octets BCD par dizaines de hertz suivis de l'opcode `01` — 14,090 MHz donne `01 40 90 00 01`. Les octets sont ceux du pilote Hamlib du poste, et les encodages de fréquence tombent sur les exemples publiés (439,70 MHz du manuel Yaesu, 28,150 MHz de la fiche VK4SN).
+
+### 📻 Le JTTY après ses premières heures sur l'air
+
+TCQws **n'écoute plus sa propre émission** : ce que la carte son réentend pendant qu'on émet est effacé de la fenêtre avant décodage, comme le fait WSJT-X, et le plancher de bruit de la chute d'eau est gelé pendant l'émission. Si un fantôme de votre message apparaît sous 200 Hz, c'est votre chaîne audio qui sature : ces raies sont les battements entre les quatre tons, espacés de 31,25 Hz.
+
+Un **message mal rempli ne part plus** : une substitution restée en place — `%H` sans indicatif DX, ou une faute de frappe — est refusée à l'émission. Le bouton **⟲ Touches** rend aux huit touches leur contenu d'origine. Enfin, le rapport signal/bruit n'affiche plus `−99 dB` pour une trame qui touche le bord de la fenêtre d'analyse.
+
+---
+
 ## v0.6.0 — TUNE, et le mode JTTY
 
 *1er octobre 2026*
