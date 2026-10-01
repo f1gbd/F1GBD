@@ -9,6 +9,30 @@ avec son programme d'installation, son archive et son empreinte SHA-256.
 ---
 
 
+## v0.6.0 — TUNE, et le mode JTTY
+
+*1er octobre 2026*
+
+### 📶 Un bouton TUNE
+
+Régler un coupleur ou lire un ROS demande une porteuse stable, pas un message. Le bouton **📶 TUNE** de la barre d'émission ferme le PTT et sort une porteuse pure sur la fréquence d'émission, au niveau réglé ; un second appui la coupe. Comme le *Tune* de WSJT-X : rampes de 20 ms au départ et à l'arrêt (une coupure franche claque dans toute la bande), émission normale suspendue tant qu'elle dure, et **arrêt de sécurité au bout de deux minutes** — une porteuse oubliée chauffe l'étage final et tient la fréquence occupée.
+
+### 📻 Le mode JTTY, dans un onglet à part
+
+**JTTY** est le mode asynchrone de WSJT-X 3.2 : ni période de 15 s, ni parité, ni message à cases. On tape une ligne, Entrée l'envoie, ce qui arrive se déroule au-dessus — c'est de la RTTY, et cela n'a rien à voir avec la fenêtre du FT8. D'où un **onglet 📻 JTTY** séparé. Le mode est **expérimental** : le modem est vérifié contre les sources de WSJT-X 3.2.0-rc1, mais le trafic réel reste à faire, et FT4/FT8 et JTTY ne tournent pas en même temps (une seule carte son).
+
+Quatre tons espacés de 31,25 Hz, lissage gaussien BT = 2, 31,25 bauds, trame de 59 symboles en 1,888 s, 127 Hz occupés. Chaque trame porte 34 bits protégés par un CRC-12 et un code convolutif *tail-biting* de contrainte 10, décodés par Viterbi circulaire à liste (WAVA) avec addition cohérente par blocs de 2 et 4 symboles : **sensibilité mesurée à −16 dB** dans 2 500 Hz, pour une limite théorique de −17 dB.
+
+La réception tourne en continu sur une fenêtre glissante : le message s'affiche trame après trame, et une trame perdue au milieu laisse un trou marqué `…` au lieu de couper la phrase en deux. L'émission part tout de suite, avec une file d'attente pour taper la suite pendant que le message précédent sort.
+
+Toute la grammaire de WSJT-X est reprise — indicatifs, séries, zones CQ et ITU, états et provinces, sections ARRL/RAC, préfixes, locators, classes Field Day, heure, phrases de service, texte libre — et le message est découpé dans **le plus petit nombre de trames possible**, selon trois profils d'échange : courant, Field Day, RTTY Roundup (où `599 05` devient `599 005`). L'onglet reprend les habitudes de la RTTY : touches **F1 à F8** modifiables, file d'appel alimentée toute seule, double-clic sur un indicatif reçu pour le prendre comme DX, chute d'eau cliquable, et boutons de bande 160 m à 2 m aux fréquences JTTY avec envoi CAT.
+
+### 🔎 Au passage
+
+Le décodeur JTTY écarte les trames dont la synchronisation ne tombe pas juste. Un CRC de douze bits laisse passer une charge utile fausse sur quatre mille : à côté d'un signal fort, cela donnait quelques lignes vides par minute. Le contrôle les supprime et, comme il intervient avant le Viterbi, il divise par deux le temps de décodage.
+
+---
+
 ## v0.5.2 — La bonne distance
 
 *23 septembre 2026*

@@ -10,19 +10,19 @@
 
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64-orange.svg)]()
-[![Modes](https://img.shields.io/badge/modes-FT4%20%7C%20FT8-blueviolet.svg)]()
+[![Modes](https://img.shields.io/badge/modes-FT4%20%7C%20FT8%20%7C%20JTTY-blueviolet.svg)]()
 [![Compatibilité](https://img.shields.io/badge/compatible-WSJT--X%20(ADIF%2C%20ALL.TXT)-teal.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
 [![Code civil](https://img.shields.io/badge/code%20civil-CHAPPE--26-b01818.svg)](doc/Chappe26_Livret_B5.pdf)
-[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.5.2-blue)](HISTORIQUE.md)
+[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.6.0-blue)](HISTORIQUE.md)
 
-## 📥 Télécharger TCQws v0.5.2 pour Windows
+## 📥 Télécharger TCQws v0.6.0 pour Windows
 
-### **[⬇ TCQws-0.5.2-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.5.2/TCQws-0.5.2-setup.exe)** — double-clic, et c'est installé
+### **[⬇ TCQws-0.6.0-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.6.0/TCQws-0.6.0-setup.exe)** — double-clic, et c'est installé
 
 *Aucun droit administrateur, aucune installation Python, aucune interférence avec TCQ. Raccourcis Bureau et menu Démarrer, manuel inclus, et une désinstallation qui conserve vos réglages, votre log ADIF, votre journal et vos radiogrammes.*
 
-**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.5.2/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
+**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.6.0/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
 
 **[📱 TCQws Android](android/README.md)** — la même station sur téléphone et tablette : **[⬇ TCQws_android-0.4.6.apk](https://github.com/f1gbd/F1GBD/releases/download/tcqws-android-v0.4.6/TCQws_android-0.4.6.apk)**
 
@@ -47,7 +47,7 @@ Pour un QSO ordinaire, WSJT-X reste la référence. TCQws existe pour tout ce qu
 | | WSJT-X | **TCQws** |
 |---|---|---|
 | QSO FT4 / FT8, log ADIF | ✔ | ✔ (log `wsjtx_log.adi` au même format) |
-| Modes proposés | ~15 (FT8, FT4, JT65, Q65, WSPR, MSK144…) | FT4 et FT8 seulement |
+| Modes proposés | ~15 (FT8, FT4, JT65, Q65, WSPR, MSK144…) | FT4, FT8, et **JTTY** (expérimental) |
 | **Messages libres longs** | 13 caractères par émission | **jusqu'à ~1 500 caractères**, comprimés et protégés (radiogramme ADRASEC) |
 | **Accusé de réception** | non | **oui** : trames manquantes redemandées, complétées, puis acquit |
 | **Alerte d'urgence** | non | **alerte FLASH** : 32 caractères, écran rouge + alarme sonore chez tous les destinataires |
@@ -245,6 +245,7 @@ Avec 16 répétitions (2 à 4 minutes), un message passe **sous le seuil du FT8*
 - **CQ POTA / SOTA / IOTA / WWFF…** par un champ dédié.
 - **Pays et distance** affichés directement dans l'activité de bande (calculés depuis votre locator), et **filtre d'exclusion par pays** pour écarter d'un coup une zone qui sature la bande — à l'affichage comme en réponse automatique. C'est **tout le QSO** qui disparaît, pas seulement les appels de la station exclue : ce que son correspondant lui répond porte son indicatif et encombrerait la liste tout autant. Un appel qui vous est adressé par un pays exclu est écarté lui aussi — exclure un pays, c'est refuser de l'entendre *et* de le travailler.
 - **Journal `ALL.TXT`** au format WSJT-X, et double-clic qui passe en émission comme dans WSJT-X.
+- **📶 TUNE** : une porteuse pure, PTT fermé, pour régler une antenne ou un coupleur — rampes de 20 ms, émission normale suspendue, et arrêt de sécurité au bout de deux minutes.
 
 ---
 
@@ -293,7 +294,23 @@ TCQws distingue les trois pannes qui donnent pourtant le même écran vide, et d
 
 ---
 
-## 11. Sur téléphone et tablette — TCQws Android
+## 11. Le mode JTTY — du texte libre, quand on veut (expérimental)
+
+![Onglet JTTY](images/TCQws_jtty.png)
+
+**JTTY** est le mode asynchrone de WSJT-X 3.2 : ni période de 15 s, ni parité, ni message à cases. On tape une ligne, on appuie sur Entrée, cela part ; ce qui arrive se déroule au-dessus. Il se trafique **comme la RTTY**, et c'est pourquoi il a son **onglet 📻 JTTY**, séparé de l'onglet Trafic.
+
+> ⚠ **Mode expérimental.** Le modem est vérifié contre les sources de WSJT-X 3.2.0-rc1 ; le trafic réel reste à faire. FT4/FT8 et JTTY ne tournent pas en même temps : une seule carte son à la fois.
+
+- **Le signal** : quatre tons espacés de 31,25 Hz, lissage gaussien BT = 2, **31,25 bauds**, trame de 59 symboles en **1,888 s**, **127 Hz** occupés. CRC-12 et code convolutif *tail-biting* de contrainte 10, décodés par **Viterbi circulaire à liste (WAVA)** avec addition cohérente par blocs : **sensibilité mesurée à −16 dB** dans 2 500 Hz, pour une limite théorique de −17 dB.
+- **La réception** tourne en continu sur une fenêtre glissante. Le message s'affiche **trame après trame**, et une trame perdue au milieu laisse un trou marqué `…` au lieu de couper la phrase en deux.
+- **L'émission** part tout de suite ; la file d'attente permet de taper la suite pendant que le message précédent sort.
+- **Ce qu'on peut écrire** : toute la grammaire de WSJT-X — indicatifs, séries, zones CQ et ITU, états et provinces, sections ARRL/RAC, préfixes, locators, classes Field Day, heure, phrases de service, texte libre. TCQws découpe le message dans **le plus petit nombre de trames possible**, et trois profils d'échange (courant, Field Day, RTTY Roundup) adaptent ce découpage.
+- **L'onglet** reprend les habitudes de la RTTY : **touches F1 à F8** modifiables (`%M` mon indicatif, `%H` le DX, `%E` mon échange, `%L` mon locator, `%Q` le premier appelant), **file d'appel** alimentée toute seule, **double-clic** sur un indicatif reçu pour le prendre comme DX, **chute d'eau** cliquable, **boutons de bande** 160 m à 2 m aux fréquences JTTY avec envoi CAT.
+
+---
+
+## 12. Sur téléphone et tablette — TCQws Android
 
 ![TCQws Android en trafic FT8](android/images/TCQws_android_trafic.jpg)
 
