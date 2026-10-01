@@ -4,9 +4,9 @@
 
 # TCQws
 
-### Weak Signal Emergency Messaging — le FT4 / FT8 des opérateurs ADRASEC
+### Weak Signal Emergency Messaging — le FT4 / FT8 / JTTY des opérateurs ADRASEC
 
-*Une application Windows autonome, sans WSJT-X : QSO FT4/FT8 et log ADIF · radiogrammes ADRASEC avec accusé de réception · alerte FLASH sonore et lumineuse · code civil CHAPPE-26 décodé en clair · trafic satellite et activations · décodeur FT4 cohérent avec empilement des répétitions.*
+*Une application Windows autonome, sans WSJT-X : QSO FT4/FT8/JTTY et log ADIF · **mode JTTY** asynchrone, du texte libre au clavier · radiogrammes ADRASEC avec accusé de réception · alerte FLASH sonore et lumineuse · code civil CHAPPE-26 décodé en clair · trafic satellite et activations · décodeur FT4 cohérent avec empilement des répétitions.*
 
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64-orange.svg)]()
@@ -26,7 +26,17 @@
 
 **[📱 TCQws Android](android/README.md)** — la même station sur téléphone et tablette : **[⬇ TCQws_android-0.4.6.apk](https://github.com/f1gbd/F1GBD/releases/download/tcqws-android-v0.4.6/TCQws_android-0.4.6.apk)**
 
-[📜 Historique des versions](HISTORIQUE.md) · [📖 Manuel PDF](doc/MANUEL_TCQws.pdf) · [📱 Android](android/README.md) · [🚨 Alerte FLASH](#2-lalerte-flash--32-caractères-tout-de-suite) · [🗼 CHAPPE-26](#3-chappe-26--une-phrase-en-quatre-chiffres) · [📡 PING et carte](#5-ping--pong-et-la-carte-du-réseau) · [🛰 Satellite](#4-satellite-et-activations) · [📨 Radiogrammes](#1-les-radiogrammes-adrasec--le-message-pas-seulement-le-qso)
+---
+
+### 🆕 Nouveau : le mode **JTTY**, le troisième mode de TCQws
+
+<img src="images/TCQws_jtty.png" alt="L'onglet JTTY de TCQws en trafic" width="860">
+
+*Le mode asynchrone de WSJT-X 3.2, dans son propre onglet : **ni période de 15 s, ni parité, ni message à cases**. On tape une ligne, Entrée, c'est parti — et ce qui arrive se déroule au-dessus, trame après trame. De la RTTY qui décode à **−16 dB**.*
+
+*Depuis la v0.6.1 le QSO se mène tout seul : **double-clic** sur la station, **AUTO CQ** / **AUTO QSO**, clôture au 73 et **log ADIF** (`MODE=MFSK`, `SUBMODE=JTTY`). Premiers QSO réalisés sur 20 m.* **[→ tout le mode JTTY](#11-le-mode-jtty--du-texte-libre-quand-on-veut)**
+
+[📜 Historique des versions](HISTORIQUE.md) · [📖 Manuel PDF](doc/MANUEL_TCQws.pdf) · [📱 Android](android/README.md) · [📻 JTTY](#11-le-mode-jtty--du-texte-libre-quand-on-veut) · [🚨 Alerte FLASH](#2-lalerte-flash--32-caractères-tout-de-suite) · [🗼 CHAPPE-26](#3-chappe-26--une-phrase-en-quatre-chiffres) · [📡 PING et carte](#5-ping--pong-et-la-carte-du-réseau) · [🛰 Satellite](#4-satellite-et-activations) · [📨 Radiogrammes](#1-les-radiogrammes-adrasec--le-message-pas-seulement-le-qso)
 
 </div>
 
@@ -34,9 +44,9 @@
 
 ## En une phrase
 
-TCQws est une application de trafic **FT4 et FT8 autonome** : elle ne pilote pas WSJT-X, elle ne l'imite pas non plus. Elle ajoute au protocole FT4/FT8 ce dont une équipe de sécurité civile a besoin sur le terrain : **transmettre un message formaté, déclencher une alerte, et décoder des signaux plus faibles que d'habitude** — tout en restant parfaitement compatible avec les stations WSJT-X.
+TCQws est une application de trafic **FT4, FT8 et JTTY autonome** : elle ne pilote pas WSJT-X, elle ne l'imite pas non plus. Elle ajoute à ces protocoles ce dont une équipe de sécurité civile a besoin sur le terrain : **transmettre un message formaté, déclencher une alerte, et décoder des signaux plus faibles que d'habitude** — tout en restant parfaitement compatible avec les stations WSJT-X.
 
-Pour un QSO ordinaire, WSJT-X reste la référence. TCQws existe pour tout ce qu'il y a **autour** du QSO.
+Pour un QSO ordinaire, WSJT-X reste la référence. TCQws existe pour tout ce qu'il y a **autour** du QSO — et, avec le **JTTY**, pour ce que le FT4/FT8 ne sait pas faire : écrire librement, sans attendre la période suivante.
 
 ![Trafic FT8 avec TCQws](images/TCQws_main2.png)
 
@@ -57,7 +67,7 @@ Pour un QSO ordinaire, WSJT-X reste la référence. TCQws existe pour tout ce qu
 | Vérification de l'heure | externe | **NTP intégré** + calage **GPS NMEA** (utile sans Internet) |
 | PTT et CAT | un port, un réglage | **deux ports COM distincts** (PTT par RTS/DTR, CAT fréquence à part, 1200 bauds et 2 bits de stop possibles) |
 | Diagnostic audio | limité | **WAV de chaque émission et de chaque réception**, compteurs de périodes perdues, alerte de DT anormal |
-| Répondeur automatique | Auto-Seq + Call 1st | **AUTO QSO** : répond seul aux CQ, enchaîne, logue, et reprend l'écoute |
+| Répondeur automatique | Auto-Seq + Call 1st | **AUTO QSO** : répond seul aux CQ, enchaîne, logue, et reprend l'écoute — en FT4/FT8 **et en JTTY**, où s'ajoute **AUTO CQ** (appeler, conclure et loguer sans intervention) |
 | Pays et distance à l'écran | via JTAlert (externe) | **intégré** : pays et km depuis votre locator |
 | Filtre d'indicatifs | non | **exclusion par nom de pays** : « Russie, Bielorussie » (affichage, carte et réponse auto) |
 | **Appel de présence** | non | **PING / PONG** : qui est là, où, avec quel rapport — en deux périodes, sans QSO |
@@ -294,18 +304,21 @@ TCQws distingue les trois pannes qui donnent pourtant le même écran vide, et d
 
 ---
 
-## 11. Le mode JTTY — du texte libre, quand on veut (expérimental)
+## 11. Le mode JTTY — du texte libre, quand on veut
 
 ![Onglet JTTY](images/TCQws_jtty.png)
 
 **JTTY** est le mode asynchrone de WSJT-X 3.2 : ni période de 15 s, ni parité, ni message à cases. On tape une ligne, on appuie sur Entrée, cela part ; ce qui arrive se déroule au-dessus. Il se trafique **comme la RTTY**, et c'est pourquoi il a son **onglet 📻 JTTY**, séparé de l'onglet Trafic.
 
-> ⚠ **Mode expérimental.** Le modem est vérifié contre les sources de WSJT-X 3.2.0-rc1 ; le trafic réel reste à faire. FT4/FT8 et JTTY ne tournent pas en même temps : une seule carte son à la fois.
+> ⚠ **Mode expérimental.** Le modem est vérifié contre les sources de WSJT-X 3.2.0-rc1, et les premiers QSO sont faits sur 20 m — mais JTTY n'est encore trafiqué que par une poignée de stations, et le protocole lui-même peut changer d'ici la sortie de WSJT-X 3.2. **Pour un exercice, on reste au FT4/FT8.** FT4/FT8 et JTTY ne tournent pas en même temps : une seule carte son à la fois.
 
 - **Le signal** : quatre tons espacés de 31,25 Hz, lissage gaussien BT = 2, **31,25 bauds**, trame de 59 symboles en **1,888 s**, **127 Hz** occupés. CRC-12 et code convolutif *tail-biting* de contrainte 10, décodés par **Viterbi circulaire à liste (WAVA)** avec addition cohérente par blocs : **sensibilité mesurée à −16 dB** dans 2 500 Hz, pour une limite théorique de −17 dB.
 - **La réception** tourne en continu sur une fenêtre glissante. Le message s'affiche **trame après trame**, et une trame perdue au milieu laisse un trou marqué `…` au lieu de couper la phrase en deux.
 - **L'émission** part tout de suite ; la file d'attente permet de taper la suite pendant que le message précédent sort.
 - **Ce qu'on peut écrire** : toute la grammaire de WSJT-X — indicatifs, séries, zones CQ et ITU, états et provinces, sections ARRL/RAC, préfixes, locators, classes Field Day, heure, phrases de service, texte libre. TCQws découpe le message dans **le plus petit nombre de trames possible**, et trois profils d'échange (courant, Field Day, RTTY Roundup) adaptent ce découpage.
+- **Le QSO se mène tout seul** : un **double-clic** sur la station choisie enchaîne la séquence programmée jusqu'au 73 et **enregistre le QSO au log ADIF** (`MODE=MFSK`, `SUBMODE=JTTY`). Trois styles au choix — *WSJT-X* (les macros d'origine, les plus économes en trames), *DE (clavier)*, *Concours* — et un numéro de série qui avance à chaque QSO fait.
+- **🔁 AUTO CQ** appelle, mène le QSO de la station qui répond, le logue, puis se remet à appeler. **🤖 AUTO QSO** fait l'inverse : il chasse le CQ le plus fort et passe à la suivante. Les deux **écoutent avant de parler** — en asynchrone, rien n'empêche techniquement d'émettre sur la réponse de son correspondant, rien sauf le bon sens.
+- **Le champ *Exclure*** de l'onglet Trafic vaut aussi pour le JTTY : une seule liste de pays pour les trois modes.
 - **L'onglet** reprend les habitudes de la RTTY : **touches F1 à F8** modifiables (`%M` mon indicatif, `%H` le DX, `%E` mon échange, `%L` mon locator, `%Q` le premier appelant), **file d'appel** alimentée toute seule, **double-clic** sur un indicatif reçu pour le prendre comme DX, **chute d'eau** cliquable, **boutons de bande** 160 m à 2 m aux fréquences JTTY avec envoi CAT.
 
 ---
