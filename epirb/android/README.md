@@ -305,7 +305,20 @@ Le dongle USB est ouvert par le SDR Driver, pas par l'application. Aucune donné
   <img src="images/EPIRBandroid-deocder_lite_toMap.jpg" width="800" alt="Navigation directe vers la balise 406">
 </p>
 
+<p align="center">
+  <img src="images/EPIRBgenerator-decoder_Android_HackRFtx.jpeg" width="800" alt="Test SATER"><br>
+  <sub><b> Utilisation d'EPIRBgenerator avec le HackRF pour tester le EPIRBdecoder Android</b></sub>
+</p>
 
+<p align="center">
+  <img src="images/EPIRBandoid-VS_LVT-decoder.jpeg" width="800" alt="Test SATER"><br>
+  <sub><b> Comparaison au banc de test d'EPIRBdecoder Android avec le Décodeur LVT</b></sub>
+</p>
+
+<p align="center">
+  <img src="images/EPIRBandoid-VS_LVT-decoder-test.jpeg" width="800" alt="Test SATER"><br>
+  <sub><b> Les trames EPIRB sont bien décodées par l'EPIRBdecoder Android et identiques à celle du Décodeur LVT</b></sub>
+</p>
 
 ---
 

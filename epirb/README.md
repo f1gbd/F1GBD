@@ -141,6 +141,11 @@ La version **Android** d'EPIRBdecoder transforme un smartphone ou une tablette e
 | 📐 | **Conversion DMS ↔ décimal** | Saisie de position en degrés-minutes-secondes ou décimal, conversion bidirectionnelle automatique. |
 | 🎨 | **Thème clair / sombre** | Palette SAR Tactical Dark cohérente avec le décodeur. Préférence persistante dans `generator_setup.json`. |
 
+<p align="center">
+  <img src="images/EPIRBgenerator-decoder-PC_HackRFtx_.jpeg" width="800" alt="Test SATER"><br>
+  <sub><b> Utilisation d'EPIRBgenerator avec le HackRF pour tester le EPIRBdecoder Android</b></sub>
+</p>
+
 ---
 
 ## ✅ Chaîne radio validée terrain (mai 2026)
@@ -249,6 +254,11 @@ Le générateur émet une trame 406 d'essai sur **434,000 MHz** avec un HackRF O
 - avec l'appli **Replay** du PortaPack, seul (fichiers exportés) ;
 - avec `hackrf_transfer` sur le PC (fichier `.bat` exporté).
 
+<p align="center">
+  <img src="images/HackRF_EPIRBtx_zoom.jpeg" width="400" alt="Test SATER"><br>
+  <sub><b> Utilisation du HackRF comme générateur de trame EPIRB portable pour tester le EPIRBdecoder PC ou Android</b></sub>
+</p>
+
 La balise est reçue par EPIRBdecoder en **SDR Direct** (PC) ou par EPIRBdecoder Android.
 
 | Élément | Réglage validé (29/09/2026) |
@@ -271,6 +281,10 @@ Pour mettre le **PortaPack en mode « HackRF »** : menu principal → icône **
 
 📄 Mode opératoire pas à pas : [**Fiche réflexe HackRF One / PortaPack (PDF)**](doc/Fiche_Reflexe_HackRF_PortaPack_EPIRB.pdf)
 
+<p align="center">
+  <img src="images/EPIRBdecoder_PC_HackRFtx.jpeg" width="1024" alt="Test SATER"><br>
+  <sub><b> Utilisation du HackRF comme générateur de trame EPIRB portable pour tester le EPIRBdecoder PC ou Android</b></sub>
+</p>
 ---
 
 ## 🛠 Comment commencer ?
@@ -616,6 +630,16 @@ Pour le détail de tous les changements, consultez le [changelog complet sur Git
                               │ SITREP PDF ADRASEC           │
                               └──────────────────────────────┘
 ```
+
+<p align="center">
+  <img src="images/EPIRBandoid-VS_LVT-decoder.jpeg" width="800" alt="Test SATER"><br>
+  <sub><b> Comparaison au banc de test d'EPIRBdecoder Android avec le Décodeur LVT</b></sub>
+</p>
+
+<p align="center">
+  <img src="images/EPIRBandoid-VS_LVT-decoder-test.jpeg" width="800" alt="Test SATER"><br>
+  <sub><b> Les trames EPIRB sont bien décodées par l'EPIRBdecoder Android et identiques à celle du Décodeur LVT</b></sub>
+</p>
 
 ---
 
