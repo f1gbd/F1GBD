@@ -14,15 +14,15 @@
 [![Compatibilité](https://img.shields.io/badge/compatible-WSJT--X%20(ADIF%2C%20ALL.TXT)-teal.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
 [![Code civil](https://img.shields.io/badge/code%20civil-CHAPPE--26-b01818.svg)](doc/Chappe26_Livret_B5.pdf)
-[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.7.2-blue)](HISTORIQUE.md)
+[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.7.3-blue)](HISTORIQUE.md)
 
-## 📥 Télécharger TCQws v0.7.2 pour Windows
+## 📥 Télécharger TCQws v0.7.3 pour Windows
 
-### **[⬇ TCQws-0.7.2-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.2/TCQws-0.7.2-setup.exe)** — double-clic, et c'est installé
+### **[⬇ TCQws-0.7.3-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.3/TCQws-0.7.3-setup.exe)** — double-clic, et c'est installé
 
 *Aucun droit administrateur, aucune installation Python, aucune interférence avec TCQ. Raccourcis Bureau et menu Démarrer, manuel inclus, et une désinstallation qui conserve vos réglages, votre log ADIF, votre journal et vos radiogrammes.*
 
-**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.2/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
+**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.3/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
 
 **[📱 TCQws Android](android/README.md)** — la même station sur téléphone et tablette : **[⬇ TCQws_android-0.4.6.apk](https://github.com/f1gbd/F1GBD/releases/download/tcqws-android-v0.4.6/TCQws_android-0.4.6.apk)**
 
@@ -38,7 +38,7 @@
 
 *Et depuis la **v0.7.0**, le JTTY porte les trois outils de la **Station CW de TCQ** : le **radiogramme ACP 127 OTAN**, les huit touches du **protocole QSO**, et le **script QSO Auto** en métalangage **MTL**. Mêmes formats, mêmes variables — un radiogramme émis en CW se lit en JTTY.*
 
-*La **v0.7.1** allège le radiogramme d'**un tiers de ses trames** et apprend au QSO automatique à **répondre à chacun dans sa langue** — en phrases entières à qui traficote en RTTY, en quatre trames à qui traficote en WSJT-X. La **v0.7.2** raccourcit le trafic RTTY lui-même : trois appels sans réponse coûtent désormais **28 secondes au lieu de 68**.* **[→ tout le mode JTTY](#11-le-mode-jtty--du-texte-libre-quand-on-veut)**
+*La **v0.7.1** allège le radiogramme d'**un tiers de ses trames** et apprend au QSO automatique à **répondre à chacun dans sa langue** — en phrases entières à qui traficote en RTTY, en quatre trames à qui traficote en WSJT-X. La **v0.7.2** raccourcit le trafic RTTY lui-même : trois appels sans réponse coûtent désormais **28 secondes au lieu de 68**. Et la **v0.7.3** rend le **radiogramme ACP 127 fiable en présence de trafic** : chaque morceau porte son rang, le morceau perdu se redemande **seul**, et l'accusé de réception part **tout seul**.* **[→ tout le mode JTTY](#11-le-mode-jtty--du-texte-libre-quand-on-veut)**
 
 [📜 Historique des versions](HISTORIQUE.md) · [📖 Manuel PDF](doc/MANUEL_TCQws.pdf) · [📱 Android](android/README.md) · [📻 JTTY](#11-le-mode-jtty--du-texte-libre-quand-on-veut) · [🚨 Alerte FLASH](#2-lalerte-flash--32-caractères-tout-de-suite) · [🗼 CHAPPE-26](#3-chappe-26--une-phrase-en-quatre-chiffres) · [📡 PING et carte](#5-ping--pong-et-la-carte-du-réseau) · [🛰 Satellite](#4-satellite-et-activations) · [📨 Radiogrammes](#1-les-radiogrammes-adrasec--le-message-pas-seulement-le-qso)
 
@@ -334,11 +334,11 @@ TCQws distingue les trois pannes qui donnent pourtant le même écran vide, et d
 
 <img src="images/JTTYacp.png" alt="L'onglet JTTY de TCQws en trafic" width="860">
 
-> Un message JTTY tient dans **16 trames et 80 caractères** ; un radiogramme en fait plusieurs centaines. TCQws le découpe **sur les espaces**, jamais au milieu d'un groupe, et annonce avant d'émettre ce que cela va coûter : *« 2 messages JTTY · 25 trames · 47 s sur l'air »*.
+> Un message JTTY tient dans **16 trames et 80 caractères** ; un radiogramme en fait plusieurs centaines. TCQws le découpe **sur les espaces**, jamais au milieu d'un groupe, et annonce avant d'émettre ce que cela va coûter : *« 4 morceaux JTTY · 30 trames · 57 s sur l'air »*.
 >
-> **Depuis la v0.7.1, ce chiffre a fondu d'un tiers.** L'ACP 127 en morse double les indicatifs et redit le compte de groupes parce qu'un opérateur CW lit à l'oreille, sans filet. En JTTY chaque trame porte un CRC-12 : elle arrive juste ou elle n'arrive pas, et répéter ne protège plus rien. **38 trames → 25**, **1 min 12 s → 47 s**. Seul l'en-tête `RGRAM` reste doublé : il tombe sur deux trames différentes, et un radiogramme non *détecté* ne déclenche pas l'alarme.
+> **Depuis la v0.7.1, le radiogramme est compact.** L'ACP 127 en morse double les indicatifs et redit le compte de groupes parce qu'un opérateur CW lit à l'oreille, sans filet. En JTTY chaque trame porte un CRC-12 : elle arrive juste ou elle n'arrive pas, et répéter ne protège plus rien. Seul l'en-tête `RGRAM` reste doublé : il tombe sur deux trames différentes, et un radiogramme non *détecté* ne déclenche pas l'alarme.
 
-À la réception, rien à régler : dès qu'un message contient `RGRAM`, les suivants sont recollés jusqu'au `<SK>`, **trois bips** retentissent et le **formulaire** s'ouvre — noir sur blanc, parce que c'est un document qui s'imprime et s'agrafe à la main courante. Le **CK annoncé** est comparé aux groupes reçus : s'ils diffèrent, le formulaire le dit, et vous demandez une répétition.
+À la réception, rien à régler : **trois bips** retentissent et le **formulaire** s'ouvre — noir sur blanc, parce que c'est un document qui s'imprime et s'agrafe à la main courante.
 
 **🎛 Protocole QSO.** Une rangée de huit boutons sous les touches F1 à F8 — **CQ · RST · 73 · RBN · MSG1–MSG4** — avec un champ **DEST** et un bouton **REPLY**. Ce sont les phrases entières de la CW, avec ses variables : `{mycall}` `{remote}` `{name}` `{qth}` `{locator}` `{rig}` `{antenna}` `{power}`. Les deux jeux cohabitent parce qu'ils ne servent pas au même trafic : **F1–F8** pour le concours et le DX, **PROTOCOLE QSO** pour la conversation et le réseau ADRASEC.
 
@@ -363,6 +363,45 @@ Le style est retenu pour **toute la durée du QSO** : changer de langue en cours
 | Clôture | 12 trames | **7 trames** |
 
 Au passage, les **`<BT>` et les crochets des prosignes disparaissent** des messages de QSO : un `<BT>` coûte deux trames et ne sépare rien que l'œil ne voie déjà sur la ligne. Seul le radiogramme ACP 127 les garde — là, ils délimitent le corps du message et ferment la détection, et c'est sur ces chaînes exactes que l'analyseur de la Station CW découpe.
+
+### 📨 Le radiogramme en présence de trafic *(v0.7.3)*
+
+Relevé sur l'air le 2 octobre, entre 09h12 et 09h21, avec PA3AGN, IW0EFI et OE6VIE actifs sur la même tranche de bande. F4JHW a passé **quatre** radiogrammes. TCQws en a affiché **deux**, et tous deux étaient faux :
+
+```
+091247  +10 dB  1056 Hz  RGRAM RGRAM NR 3 R CK 6 … DE F4JHW A F1GBD <BT> MESSAGE DE
+091308  +12 dB  1479 Hz  PA3AGN 599 001
+091359  +10 dB  1057 Hz  M NR 4 R CK 6 … DE F4JHW A
+091426   +9 dB  1057 Hz  EST OK <SK>
+
+  → « MESSAGE DE PA3AGN 599 001 M NR 4 R CK 6 … EST OK »
+```
+
+Le détecteur tenait **un seul accumulateur pour toute la bande** : il ouvrait sur `RGRAM` et avalait tout jusqu'au `<SK>`, le trafic des voisins compris. Les deux autres radiogrammes n'ont jamais été affichés — ils avaient été absorbés par le précédent. Aucune répétition demandée, aucun accusé envoyé.
+
+**Chaque radiogramme suit désormais sa propre piste**, repérée par son numéro et par la fréquence audio de l'émetteur — à 50 Hz près, là où une trame JTTY en occupe 127. Le même relevé rejoué rend les quatre radiogrammes, **sans un mot de trafic étranger** ; c'est devenu un essai permanent de la suite de vérification.
+
+**Et chaque morceau porte son rang**, ce qui change trois choses d'un coup :
+
+```
+1/4   9 trames   RGRAM RGRAM DE F1GBD R12.1/4 A F4JHW NR 12 P
+2/4   8 trames   R12.2 CK 10 021545Z OCT 26 <BT> EXERCICE
+3/4   8 trames   R12.3 SATER 77 EQUIPE ALPHA EN PLACE
+4/4   5 trames   R12.4 POINT KILO RAS <SK>
+```
+
+| | avant | après |
+|---|---|---|
+| Un morceau émis par le voisin | recollé dans le radiogramme | n'a pas le bon numéro : **il n'entre pas** |
+| Un morceau perdu | compte de groupes faux, cause inconnue | **nommé** : « morceau 2 manquant sur 4 » |
+| Le renvoi | tout le radiogramme, 25 à 56 trames | **le seul morceau réclamé — 9 trames, 17 s** |
+| Un `<SK>` perdu | radiogramme jamais affiché | le dernier morceau annonce qu'il est le dernier |
+
+**L'accusé de réception part tout seul.** Complet et adressé à nous → `F4JHW DE F1GBD QSL NR 9 <SK>`, six trames, onze secondes. Amputé → `F4JHW DE F1GBD RPT NR 9 2 4 <SK>`, et seuls les morceaux réclamés repartent de l'autre côté, avec leur marqueur d'origine, donc ils se remettent à leur place. Trois détails qui comptent sur l'air : l'accusé part **sur la fréquence du radiogramme** (le 2 octobre, une demande de répétition est partie sur 1529 Hz pendant que F4JHW écoutait sur 1057) ; il **attend un blanc**, pour ne pas écraser le morceau qu'il réclame ; et il s'arrête après **deux demandes**, pour que deux stations ne s'épuisent pas l'une l'autre.
+
+**L'identification passe en tête.** Un second relevé, à 09h56, montrait l'autre moitié du problème : d'un premier morceau de 14 trames, **quatre** sont arrivées — et comme l'ACP 127 place les indicatifs après l'heure de dépôt, tout ce qui identifiait le message était dans les dix trames perdues. Formulaire vide, et pas même de quoi adresser une demande. Les morceaux sont donc plafonnés à **10 trames**, et l'expéditeur est nommé dès la **quatrième**.
+
+Deux cases dans la fenêtre RADIOGRAMME, cochées par défaut : *Accuser réception et redemander les morceaux manquants automatiquement* — à décocher en écoute discrète — et *Morceaux numérotés* — à décocher pour un correspondant qui relève **au casque en morse**, dont le logiciel compterait les marqueurs parmi les groupes du CK. Décochée, la forme émise redevient **mot pour mot** celle de la Station CW, vérifié contre son analyseur réel.
 
 **Un seul automatisme à la fois.** Le script, AUTO CQ et AUTO QSO s'excluent, et **⛔ Stop TX arrête tout**, script compris. Trois choses qui émettent seules sur la même fréquence, c'est deux de trop.
 
