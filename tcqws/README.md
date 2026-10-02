@@ -14,15 +14,15 @@
 [![Compatibilité](https://img.shields.io/badge/compatible-WSJT--X%20(ADIF%2C%20ALL.TXT)-teal.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
 [![Code civil](https://img.shields.io/badge/code%20civil-CHAPPE--26-b01818.svg)](doc/Chappe26_Livret_B5.pdf)
-[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.7.0-blue)](HISTORIQUE.md)
+[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.7.1-blue)](HISTORIQUE.md)
 
-## 📥 Télécharger TCQws v0.7.0 pour Windows
+## 📥 Télécharger TCQws v0.7.1 pour Windows
 
-### **[⬇ TCQws-0.7.0-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.0/TCQws-0.7.0-setup.exe)** — double-clic, et c'est installé
+### **[⬇ TCQws-0.7.1-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.1/TCQws-0.7.1-setup.exe)** — double-clic, et c'est installé
 
 *Aucun droit administrateur, aucune installation Python, aucune interférence avec TCQ. Raccourcis Bureau et menu Démarrer, manuel inclus, et une désinstallation qui conserve vos réglages, votre log ADIF, votre journal et vos radiogrammes.*
 
-**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.0/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
+**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.1/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
 
 **[📱 TCQws Android](android/README.md)** — la même station sur téléphone et tablette : **[⬇ TCQws_android-0.4.6.apk](https://github.com/f1gbd/F1GBD/releases/download/tcqws-android-v0.4.6/TCQws_android-0.4.6.apk)**
 
@@ -36,7 +36,9 @@
 
 *Le QSO se mène tout seul : **double-clic** sur la station, **AUTO CQ** / **AUTO QSO**, clôture au 73 et **log ADIF** (`MODE=MFSK`, `SUBMODE=JTTY`).*
 
-*Et depuis la **v0.7.0**, le JTTY porte les trois outils de la **Station CW de TCQ** : le **radiogramme ACP 127 OTAN**, les huit touches du **protocole QSO**, et le **script QSO Auto** en métalangage **MTL**. Mêmes formats, mêmes variables — un radiogramme émis en CW se lit en JTTY.* **[→ tout le mode JTTY](#11-le-mode-jtty--du-texte-libre-quand-on-veut)**
+*Et depuis la **v0.7.0**, le JTTY porte les trois outils de la **Station CW de TCQ** : le **radiogramme ACP 127 OTAN**, les huit touches du **protocole QSO**, et le **script QSO Auto** en métalangage **MTL**. Mêmes formats, mêmes variables — un radiogramme émis en CW se lit en JTTY.*
+
+*La **v0.7.1** allège le radiogramme d'**un tiers de ses trames** et apprend au QSO automatique à **répondre à chacun dans sa langue** — en phrases entières à qui traficote en RTTY, en quatre trames à qui traficote en WSJT-X.* **[→ tout le mode JTTY](#11-le-mode-jtty--du-texte-libre-quand-on-veut)**
 
 [📜 Historique des versions](HISTORIQUE.md) · [📖 Manuel PDF](doc/MANUEL_TCQws.pdf) · [📱 Android](android/README.md) · [📻 JTTY](#11-le-mode-jtty--du-texte-libre-quand-on-veut) · [🚨 Alerte FLASH](#2-lalerte-flash--32-caractères-tout-de-suite) · [🗼 CHAPPE-26](#3-chappe-26--une-phrase-en-quatre-chiffres) · [📡 PING et carte](#5-ping--pong-et-la-carte-du-réseau) · [🛰 Satellite](#4-satellite-et-activations) · [📨 Radiogrammes](#1-les-radiogrammes-adrasec--le-message-pas-seulement-le-qso)
 
@@ -328,17 +330,28 @@ TCQws distingue les trois pannes qui donnent pourtant le même écran vide, et d
 
 ### Les trois outils repris de la Station CW de TCQ *(v0.7.0)*
 
-**📨 Radiogramme ACP 127 OTAN.** Le formulaire de la Station CW, porté au JTTY : priorité (R, P, O, Z), destinataire, numéro, DTG en UTC, texte et compte des groupes. L'en-tête `RGRAM RGRAM <BT>` est ajouté à l'émission, exactement comme en CW — **un radiogramme émis en CW se lit en JTTY, et réciproquement**.
+**📨 Radiogramme ACP 127 OTAN.** Le formulaire de la Station CW, porté au JTTY : priorité (R, P, O, Z), destinataire, numéro, DTG en UTC, texte et compte des groupes. L'en-tête `RGRAM` déclenche la détection chez le destinataire — **un radiogramme émis en CW se lit en JTTY, et réciproquement**, c'est vérifié contre l'analyseur de la Station CW lui-même.
 
 <img src="images/JTTYacp.png" alt="L'onglet JTTY de TCQws en trafic" width="860">
 
-> Un message JTTY tient dans **16 trames et 80 caractères** ; un radiogramme en fait plusieurs centaines. TCQws le découpe **sur les espaces**, jamais au milieu d'un groupe, et annonce avant d'émettre ce que cela va coûter : *« 3 messages JTTY · 38 trames · 1 min 12 s sur l'air »*.
+> Un message JTTY tient dans **16 trames et 80 caractères** ; un radiogramme en fait plusieurs centaines. TCQws le découpe **sur les espaces**, jamais au milieu d'un groupe, et annonce avant d'émettre ce que cela va coûter : *« 2 messages JTTY · 25 trames · 47 s sur l'air »*.
+>
+> **Depuis la v0.7.1, ce chiffre a fondu d'un tiers.** L'ACP 127 en morse double les indicatifs et redit le compte de groupes parce qu'un opérateur CW lit à l'oreille, sans filet. En JTTY chaque trame porte un CRC-12 : elle arrive juste ou elle n'arrive pas, et répéter ne protège plus rien. **38 trames → 25**, **1 min 12 s → 47 s**. Seul l'en-tête `RGRAM` reste doublé : il tombe sur deux trames différentes, et un radiogramme non *détecté* ne déclenche pas l'alarme.
 
 À la réception, rien à régler : dès qu'un message contient `RGRAM`, les suivants sont recollés jusqu'au `<SK>`, **trois bips** retentissent et le **formulaire** s'ouvre — noir sur blanc, parce que c'est un document qui s'imprime et s'agrafe à la main courante. Le **CK annoncé** est comparé aux groupes reçus : s'ils diffèrent, le formulaire le dit, et vous demandez une répétition.
 
 **🎛 Protocole QSO.** Une rangée de huit boutons sous les touches F1 à F8 — **CQ · RST · 73 · RBN · MSG1–MSG4** — avec un champ **DEST** et un bouton **REPLY**. Ce sont les phrases entières de la CW, avec ses variables : `{mycall}` `{remote}` `{name}` `{qth}` `{locator}` `{rig}` `{antenna}` `{power}`. Les deux jeux cohabitent parce qu'ils ne servent pas au même trafic : **F1–F8** pour le concours et le DX, **PROTOCOLE QSO** pour la conversation et le réseau ADRASEC.
 
 **📜 Script QSO Auto — métalangage MTL.** Un QSO complet décrit en sept commandes : `TX:` émet, `RX:` attend un motif, `WAIT:` fixe le délai, `EXTRACT_CALL:` et `EXTRACT_RST:` relèvent l'indicatif et le report, `LOG:` enregistre, `LOOP:` repart. L'éditeur **vérifie le script en direct** — commande inconnue, variable qui n'existe pas, message trop long, script qui n'émet jamais — et un script fautif ne démarre pas. Le fichier `jtty_script_def.json` s'échange entre opérateurs et entre les deux modes.
+
+**🗣 Répondre à chacun dans sa langue** *(v0.7.1)*. Deux styles s'ajoutent au menu : **RTTY**, qui mène le QSO automatique avec **les messages du protocole QSO** — un clic droit sur RST change donc ce que l'AUTO QSO raconte, nom et QTH compris — et **Auto (RTTY ⇄ WSJT-X)**, qui tranche au vu du CQ reçu. Un `DE` entre deux indicatifs, ou un prosigne de fin (`K`, `<KN>`, `<AR>`), et c'est de la RTTY ; sinon c'est du WSJT-X — la grammaire JTTY de WSJT-X ne produit jamais ces marques.
+
+```
+CQ CQ DE 9A5CW 9A5CW K   →  9A5CW DE F1GBD RST 599 599 <BT> NAME JL <BT> QTH MELUN <BT> K
+CQ DL4DBM JO31           →  DL4DBM F1GBD 599 004
+```
+
+Le style est retenu pour **toute la durée du QSO** : changer de langue en cours de contact serait pire que de se tromper au départ.
 
 **Un seul automatisme à la fois.** Le script, AUTO CQ et AUTO QSO s'excluent, et **⛔ Stop TX arrête tout**, script compris. Trois choses qui émettent seules sur la même fréquence, c'est deux de trop.
 
