@@ -9,6 +9,124 @@ avec son programme d'installation, son archive et son empreinte SHA-256.
 ---
 
 
+## v0.7.5 — Le RTTY
+
+*2 octobre 2026*
+
+### 📻 Le titre de l'onglet est devenu un bouton
+
+Un clic sur **📻 JTTY** et il devient **📻 RTTY** : TCQws trafique en **Baudot — 45,45 bauds, shift de 170 Hz**, celui que tout le monde pratique depuis soixante ans.
+
+Le JTTY entend onze décibels plus bas, mais il ne parle qu'au JTTY. Le RTTY se décode sur n'importe quoi, y compris du matériel des années 1970. **Un réseau d'urgence qui ne peut parler qu'à lui-même ne sert à rien** : c'est la seule raison d'être de ce mode.
+
+| | JTTY | RTTY |
+|---|---|---|
+| Modem | 4-GFSK, 31,25 bauds, 127 Hz | 2-FSK Baudot, 45,45 bauds, shift 170 Hz |
+| Fréquence 20 m | 14,090 MHz | 14,085 MHz |
+| Longueur d'un message | 16 trames **et** 80 caractères | aucune limite |
+| Touches F1 à F8 | grammaire WSJT-X | tournures RTTY |
+| Seuil mesuré | − 16 dB | − 4 dB |
+
+**Ce qui ne change pas** : le PROTOCOLE QSO, le radiogramme ACP 127, le métalangage MTL, le log ADIF, AUTO CQ et AUTO QSO, la file d'appel, les pays exclus, le dégagement ADRASEC. Rien de tout cela ne sait de quel modem il vient.
+
+### 🎯 L'accrochage automatique
+
+Un signal JTTY se cherche tout seul ; un signal RTTY, il faut se poser dessus. Le bouton 🎯 trouve les deux raies et s'y pose à deux ou trois hertz près — **un décalage de quinze hertz fait passer le taux d'erreur de 0 % à 31 %**. Le gabarit de la chute d'eau a par ailleurs la largeur du mode : il affichait 127 Hz devant un signal RTTY de 170, et on croyait être posé dessus.
+
+### 🔧 Trois correctifs venus du trafic réel
+
+**Un QSO mené à la main se logue.** Les touches du PROTOCOLE QSO émettaient sans jamais ouvrir ni clore le QSO : le 73 partait, et rien n'arrivait au Logbook. Un message qui s'adresse à une station l'ouvre désormais, un message qui porte un `73` ou finit par `SK` le clôt et l'enregistre.
+
+**Une réponse sans indicatif ne bloque plus le QSO.** Relevé du 2 octobre : `F1GBD 599 KM18 F1GBD` — l'indicatif de l'expéditeur manquait. Le message est maintenant attribué à la station en cours, à trois conditions : un QSO engagé, la bonne fréquence à 60 Hz près, et aucun autre indicatif dans le message.
+
+**Clic droit sur les boutons de bande JTTY.** Il manquait, alors que l'onglet Trafic l'avait. Chaque mode garde son propre jeu de fréquences.
+
+---
+
+## v0.7.4 — Le dégagement ADRASEC
+
+*2 octobre 2026*
+
+Le bandeau « expérimental » de l'onglet JTTY laisse la place à un **bouton ADRASEC**, orange sur bleu foncé. Un clic, et la radio passe sur **7,080 MHz (40 m)** : le point de ralliement du réseau quand la fréquence de travail devient inutilisable. Pas de confirmation — un bouton de dégagement sert au moment où la question serait de trop. La fréquence quittée est retenue : le bouton devient **↩ RETOUR**.
+
+La bande ADRASEC de l'onglet Trafic passe de 7,084 à **7,080 MHz en FT4**, et son bouton prend la même couleur. Le FT8 garde 7,084.
+
+Un bouton **🧹** dans le coin de la fenêtre de réception la vide — l'affichage seulement : journal, log, QSO en cours et file d'appel sont intacts.
+
+---
+
+## v0.7.3 — Le radiogramme en présence de trafic
+
+*2 octobre 2026*
+
+### 📨 Un radiogramme par station, plus un pour toute la bande
+
+Relevé du 2 octobre, 09h12-09h21 : avec PA3AGN, IW0EFI et OE6VIE sur la même tranche, F4JHW a passé **quatre** radiogrammes. TCQws en a affiché **deux**, farcis du trafic des voisins — *« MESSAGE DE PA3AGN 599 001 M NR 4 … »* — et les deux autres n'ont jamais été vus. Le détecteur tenait **un seul accumulateur pour toute la bande** : il ouvrait sur `RGRAM` et avalait tout jusqu'au `<SK>`.
+
+Chaque radiogramme suit désormais **sa propre piste**, repérée par son numéro et par la fréquence audio de l'émetteur, à 50 Hz près — une trame JTTY en occupe 127. Le même relevé rejoué rend les quatre, sans un mot étranger ; c'est devenu un essai permanent.
+
+### 🔢 Des morceaux numérotés, donc renvoyables un par un
+
+Chaque morceau porte son rang : `RGRAM RGRAM DE F1GBD R12.1/4 A F4JHW NR 12 P`, puis `R12.2 …`. Un morceau du voisin n'a pas le bon numéro et n'entre pas ; un morceau perdu est **nommé** — *« morceau 2 manquant sur 4 »* — et se redemande **seul** : 9 trames au lieu des 25 à 56 d'un renvoi complet. Le dernier morceau annonce qu'il est le dernier, donc un `<SK>` perdu n'empêche plus la remise.
+
+### 📨 L'accusé de réception part tout seul
+
+`F4JHW DE F1GBD QSL NR 9 <SK>` quand tout est là, `RPT NR 9 2 4 <SK>` sinon — et **sur la fréquence du radiogramme**, pas sur celle du QSO en cours. L'accusé attend un blanc pour ne pas couvrir le morceau qu'il réclame, et s'arrête après deux demandes. À l'autre bout, les morceaux réclamés repartent seuls et se remettent à leur place.
+
+### 📉 Des morceaux plus courts, et l'identification en tête
+
+Second relevé, 09h56 : d'un premier morceau de **14 trames**, quatre sont arrivées — et comme l'ACP 127 place les indicatifs après l'heure de dépôt, tout ce qui identifiait le message était dans les trames perdues. Formulaire vide, et pas même de quoi adresser une demande. Les morceaux sont donc plafonnés à **10 trames**, et l'expéditeur est nommé dès la **quatrième**. Un formulaire ne s'ouvre plus jamais vide : faute de texte lisible, il montre les trames reçues telles quelles.
+
+La case *Morceaux numérotés* se décoche pour un correspondant qui relève au casque en morse : la forme émise redevient mot pour mot celle de la Station CW, vérifié contre son analyseur réel.
+
+---
+
+## v0.7.2 — On n'envoie pas son pedigree à qui ne nous a pas entendus
+
+*2 octobre 2026*
+
+Relevé sur l'air : TCQws répondait au CQ d'EA8ATE par le message RST complet — 23 secondes — et l'a répété trois fois à une station qui ne l'avait pas entendu, soit **1 min 08 s** de fréquence en pure perte. On répond maintenant comme en RTTY réelle : **son seul indicatif, 9 secondes**, et le report, le nom et le QTH partent à l'étape suivante. Trois appels sans réponse coûtent **28 secondes au lieu de 68**.
+
+Les **`<BT>` et les crochets des prosignes disparaissent** des messages de QSO : un `<BT>` coûte deux trames et ne sépare rien que l'œil ne voie déjà. Le message RST passe de 12 trames à 9, la clôture de 12 à 7. Seul le radiogramme ACP 127 les garde — là, ils délimitent le corps et ferment la détection.
+
+Le champ **Prénom** du bouton *ℹ Station* a enfin sa propre case : il écrivait dans `operateur`, qui est le champ ADIF de l'**indicatif** de l'opérateur, et annonçait `NAME F1GBD` sur l'air.
+
+---
+
+## v0.7.1 — Le radiogramme compact, et le style RTTY
+
+*2 octobre 2026*
+
+### 📨 Un tiers de trames en moins pour le radiogramme
+
+L'ACP 127 en morse double les indicatifs et redit le compte de groupes parce qu'un opérateur CW lit à l'oreille, sans filet. En JTTY chaque trame porte un CRC-12 : elle arrive juste ou elle n'arrive pas, et répéter ne protège plus rien. **38 trames → 25**, **1 min 12 s → 47 s**. Seul l'en-tête `RGRAM` reste doublé : il tombe sur deux trames différentes, et un radiogramme non *détecté* ne déclenche pas l'alarme.
+
+### 🗣 Répondre à chacun dans sa langue
+
+Deux styles s'ajoutent : **RTTY**, qui mène le QSO automatique avec les messages du protocole QSO — un clic droit sur RST change donc ce que l'AUTO QSO raconte, nom et QTH compris — et **Auto (RTTY ⇄ WSJT-X)**, qui tranche au vu du CQ reçu. Un `DE` entre deux indicatifs, ou un prosigne de fin, et c'est de la RTTY ; sinon c'est du WSJT-X. Le style est retenu pour toute la durée du QSO.
+
+### 🚫 Un message trop long ne part plus amputé
+
+Un message JTTY tient dans 16 trames **et** 80 caractères. La seconde limite ne levait rien : le texte était coupé en silence, et le correspondant attendait une clôture qui n'arrivait jamais. Il est désormais refusé, avec son compte de caractères, et l'aperçu le signale en rouge avant la touche Entrée.
+
+---
+
+## v0.7.0 — Les trois outils de la Station CW, portés au JTTY
+
+*2 octobre 2026*
+
+Le mode JTTY reçoit les trois fonctions de la **Station CW de TCQ**, avec les mêmes formats et les mêmes variables : un opérateur passe de l'une à l'autre sans rien réapprendre.
+
+- **📨 Radiogramme ACP 127 OTAN** : priorité (R, P, O, Z), destinataire, numéro, DTG en UTC, texte et compte des groupes. L'en-tête `RGRAM` déclenche la détection chez le destinataire, l'alarme sonne, et le formulaire s'ouvre noir sur blanc — un document qui s'imprime. Un radiogramme émis en CW se lit en JTTY, et réciproquement, vérifié contre l'analyseur de la Station CW lui-même.
+- **🎛 Protocole QSO** : huit boutons sous les touches F1 à F8 — CQ, RST, 73, RBN, MSG1 à MSG4 — avec un champ DEST et un bouton REPLY, et les variables de la CW. Clic droit pour modifier un message.
+- **📜 Script QSO Auto** : le métalangage **MTL** et ses sept commandes, avec un éditeur qui vérifie le script en direct. Un script fautif ne démarre pas.
+
+Un **journal des radiogrammes** tient la main courante des messages reçus et émis, et le formulaire reçu permet d'y répondre, d'accuser réception ou de demander une répétition.
+
+📄 **[Fiche technique FT-201 — MTL et radiogramme ACP 127](doc/FICHE_TECHNIQUE_TCQws_MTL_ACP127.pdf)**
+
+---
+
 ## v0.6.1 — Le FT-847, et le JTTY après ses premières heures
 
 *1er octobre 2026*

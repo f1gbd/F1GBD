@@ -4,25 +4,25 @@
 
 # TCQws
 
-### Weak Signal Emergency Messaging — le FT4 / FT8 / JTTY des opérateurs ADRASEC
+### Weak Signal Emergency Messaging — le FT4 / FT8 / JTTY / RTTY des opérateurs ADRASEC
 
 *Une application Windows autonome, sans WSJT-X : QSO FT4/FT8/JTTY et log ADIF · **mode JTTY** asynchrone, du texte libre au clavier · radiogrammes ADRASEC avec accusé de réception · alerte FLASH sonore et lumineuse · code civil CHAPPE-26 décodé en clair · trafic satellite et activations · décodeur FT4 cohérent avec empilement des répétitions.*
 
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64-orange.svg)]()
-[![Modes](https://img.shields.io/badge/modes-FT4%20%7C%20FT8%20%7C%20JTTY-blueviolet.svg)]()
+[![Modes](https://img.shields.io/badge/modes-FT4%20%7C%20FT8%20%7C%20JTTY%20%7C%20RTTY-blueviolet.svg)]()
 [![Compatibilité](https://img.shields.io/badge/compatible-WSJT--X%20(ADIF%2C%20ALL.TXT)-teal.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
 [![Code civil](https://img.shields.io/badge/code%20civil-CHAPPE--26-b01818.svg)](doc/Chappe26_Livret_B5.pdf)
-[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.7.3-blue)](HISTORIQUE.md)
+[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.7.5-blue)](HISTORIQUE.md)
 
-## 📥 Télécharger TCQws v0.7.3 pour Windows
+## 📥 Télécharger TCQws v0.7.5 pour Windows
 
-### **[⬇ TCQws-0.7.3-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.3/TCQws-0.7.3-setup.exe)** — double-clic, et c'est installé
+### **[⬇ TCQws-0.7.5-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.5/TCQws-0.7.5-setup.exe)** — double-clic, et c'est installé
 
 *Aucun droit administrateur, aucune installation Python, aucune interférence avec TCQ. Raccourcis Bureau et menu Démarrer, manuel inclus, et une désinstallation qui conserve vos réglages, votre log ADIF, votre journal et vos radiogrammes.*
 
-**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.3/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
+**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.5/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
 
 **[📱 TCQws Android](android/README.md)** — la même station sur téléphone et tablette : **[⬇ TCQws_android-0.4.6.apk](https://github.com/f1gbd/F1GBD/releases/download/tcqws-android-v0.4.6/TCQws_android-0.4.6.apk)**
 
@@ -38,7 +38,9 @@
 
 *Et depuis la **v0.7.0**, le JTTY porte les trois outils de la **Station CW de TCQ** : le **radiogramme ACP 127 OTAN**, les huit touches du **protocole QSO**, et le **script QSO Auto** en métalangage **MTL**. Mêmes formats, mêmes variables — un radiogramme émis en CW se lit en JTTY.*
 
-*La **v0.7.1** allège le radiogramme d'**un tiers de ses trames** et apprend au QSO automatique à **répondre à chacun dans sa langue** — en phrases entières à qui traficote en RTTY, en quatre trames à qui traficote en WSJT-X. La **v0.7.2** raccourcit le trafic RTTY lui-même : trois appels sans réponse coûtent désormais **28 secondes au lieu de 68**. Et la **v0.7.3** rend le **radiogramme ACP 127 fiable en présence de trafic** : chaque morceau porte son rang, le morceau perdu se redemande **seul**, et l'accusé de réception part **tout seul**.* **[→ tout le mode JTTY](#11-le-mode-jtty--du-texte-libre-quand-on-veut)**
+*La **v0.7.1** allège le radiogramme d'**un tiers de ses trames** et apprend au QSO automatique à **répondre à chacun dans sa langue** — en phrases entières à qui traficote en RTTY, en quatre trames à qui traficote en WSJT-X. La **v0.7.2** raccourcit le trafic RTTY lui-même : trois appels sans réponse coûtent désormais **28 secondes au lieu de 68**. Et la **v0.7.3** rend le **radiogramme ACP 127 fiable en présence de trafic** : chaque morceau porte son rang, le morceau perdu se redemande **seul**, et l'accusé de réception part **tout seul**.*
+
+*🆕 **v0.7.5 — TCQws parle maintenant RTTY.** Le vrai Baudot, 45,45 bauds, shift 170 Hz. Un clic sur le titre de l'onglet et `📻 JTTY` devient `📻 RTTY` : mêmes touches, même radiogramme ACP 127, même métalangage, même log. Le JTTY entend onze décibels plus bas — mais il ne parle qu'au JTTY, et **un réseau d'urgence qui ne peut parler qu'à lui-même ne sert à rien**.* **[→ tout le mode JTTY](#11-le-mode-jtty--du-texte-libre-quand-on-veut)**
 
 [📜 Historique des versions](HISTORIQUE.md) · [📖 Manuel PDF](doc/MANUEL_TCQws.pdf) · [📱 Android](android/README.md) · [📻 JTTY](#11-le-mode-jtty--du-texte-libre-quand-on-veut) · [🚨 Alerte FLASH](#2-lalerte-flash--32-caractères-tout-de-suite) · [🗼 CHAPPE-26](#3-chappe-26--une-phrase-en-quatre-chiffres) · [📡 PING et carte](#5-ping--pong-et-la-carte-du-réseau) · [🛰 Satellite](#4-satellite-et-activations) · [📨 Radiogrammes](#1-les-radiogrammes-adrasec--le-message-pas-seulement-le-qso)
 
@@ -364,6 +366,28 @@ Le style est retenu pour **toute la durée du QSO** : changer de langue en cours
 
 Au passage, les **`<BT>` et les crochets des prosignes disparaissent** des messages de QSO : un `<BT>` coûte deux trames et ne sépare rien que l'œil ne voie déjà sur la ligne. Seul le radiogramme ACP 127 les garde — là, ils délimitent le corps du message et ferment la détection, et c'est sur ces chaînes exactes que l'analyseur de la Station CW découpe.
 
+### 📻 Le RTTY, dans le même onglet *(v0.7.5)*
+
+Le titre de l'onglet est devenu un bouton. Un clic, et `📻 JTTY` devient `📻 RTTY` : la station redémarre, et vous trafiquez en **Baudot — 45,45 bauds, shift de 170 Hz**, celui que tout le monde pratique depuis soixante ans.
+
+| | JTTY | RTTY |
+|---|---|---|
+| Modem | 4-GFSK, 31,25 bauds, 127 Hz | 2-FSK Baudot, 45,45 bauds, shift 170 Hz |
+| Seuil de décodage *(mesuré)* | **− 16 dB** | − 4 dB |
+| QSO de cinq messages | 64 s | **33 s** |
+| Longueur d'un message | 16 trames **et** 80 caractères | **aucune limite** |
+| Correspondants | quelques dizaines | tout le monde, depuis 1950 |
+
+**Ce qui ne change pas en basculant** — et c'était tout l'intérêt : les huit touches du PROTOCOLE QSO, le **radiogramme ACP 127** avec ses morceaux numérotés et ses accusés, le métalangage **MTL**, le log ADIF, **AUTO CQ** et **AUTO QSO**, la file d'appel, les pays exclus, le dégagement ADRASEC. Aucune de ces fonctions ne sait de quel modem elle vient : elles ne connaissent que du texte.
+
+**🎯 L'accrochage automatique.** Un signal JTTY se cherche tout seul ; un signal RTTY, il faut se poser dessus. Le bouton 🎯 trouve les deux raies et s'y pose à deux ou trois hertz près — et ce n'est pas un luxe : **un décalage de quinze hertz fait passer le taux d'erreur de 0 % à 31 %**, bien avant que le bruit n'y soit pour quelque chose.
+
+**Le modem, mesuré au banc** : décodage sans faute jusqu'à **− 4 dB**, effondrement à − 5 — à un décibel près la valeur publiée depuis des décennies. Tolérance d'horloge de ± 8 %, shifts 170 / 425 / 850 Hz, bande latérale inversée détectée. Plusieurs raffinements ont été essayés puis **retirés faute de gain mesurable** : il n'y a pas de marge cachée à aller chercher dans un décodeur RTTY.
+
+> **Le piège du Baudot, vu dès la première réception.** 20 m, 2 octobre 2026 : une station appelant `CQ URC KW4CW KW4CW`, dont l'indicatif ressortait tantôt juste, tantôt `KW4:2`. Pour écrire `KW4CW` il faut **deux bascules de registre** ; perdez celle du retour aux lettres, et le `CW` sort en chiffres. **Rien ne le signale** — c'est un indicatif qui est faux. En JTTY, le CRC de la trame l'aurait rejetée. C'est exactement l'arbitrage que détaille la fiche **[FT-202](doc/FICHE_TECHNIQUE_TCQws_RTTY_vs_JTTY.pdf)**.
+
+📄 **[Fiche technique FT-202 — Le RTTY classique et le JTTY](doc/FICHE_TECHNIQUE_TCQws_RTTY_vs_JTTY.pdf)** : signal, sensibilité, débit utile, intégrité du message, radiogramme, automatisation — et un chapitre entier sur *ce que le RTTY fait mieux*.
+
 ### 📨 Le radiogramme en présence de trafic *(v0.7.3)*
 
 Relevé sur l'air le 2 octobre, entre 09h12 et 09h21, avec PA3AGN, IW0EFI et OE6VIE actifs sur la même tranche de bande. F4JHW a passé **quatre** radiogrammes. TCQws en a affiché **deux**, et tous deux étaient faux :
@@ -474,6 +498,7 @@ Le script prend la dernière release **TCQws** (tag `tcqws-v…`), vérifie le S
 | [📄 Fiche BLACK-OUT](doc/TCQws-Chappe26_Fiche_BlackOut.pdf) | Un message CHAPPE-26 de bout en bout, de la frappe à la réception |
 | [📊 Fiche topo — performances](doc/FICHE_TOPO_TCQws_performances.pdf) | Seuils de décodage mesurés et positionnement face aux autres modes |
 | [📄 Fiche technique FT-201 — MTL et ACP 127](doc/FICHE_TECHNIQUE_TCQws_MTL_ACP127.pdf) | Le métalangage de script et le radiogramme ACP 127 OTAN en JTTY : commandes, variables, scripts prêts à l'emploi, fiches réflexes |
+| [📄 Fiche technique FT-202 — Le RTTY classique et le JTTY](doc/FICHE_TECHNIQUE_TCQws_RTTY_vs_JTTY.pdf) | Étude comparative : signal, sensibilité, débit utile, intégrité du message, radiogramme, automatisation — et ce que le RTTY fait mieux |
 | [📜 Historique des versions](HISTORIQUE.md) | Les nouveautés de chaque version, de la plus récente à la plus ancienne |
 | [📱 TCQws Android](android/README.md) | La version téléphone et tablette : installation, raccordement de la radio, réglages |
 
