@@ -14,15 +14,15 @@
 [![Compatibilité](https://img.shields.io/badge/compatible-WSJT--X%20(ADIF%2C%20ALL.TXT)-teal.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
 [![Code civil](https://img.shields.io/badge/code%20civil-CHAPPE--26-b01818.svg)](doc/Chappe26_Livret_B5.pdf)
-[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.6.1-blue)](HISTORIQUE.md)
+[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.7.0-blue)](HISTORIQUE.md)
 
-## 📥 Télécharger TCQws v0.6.1 pour Windows
+## 📥 Télécharger TCQws v0.7.0 pour Windows
 
-### **[⬇ TCQws-0.6.1-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.6.1/TCQws-0.6.1-setup.exe)** — double-clic, et c'est installé
+### **[⬇ TCQws-0.7.0-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.0/TCQws-0.7.0-setup.exe)** — double-clic, et c'est installé
 
 *Aucun droit administrateur, aucune installation Python, aucune interférence avec TCQ. Raccourcis Bureau et menu Démarrer, manuel inclus, et une désinstallation qui conserve vos réglages, votre log ADIF, votre journal et vos radiogrammes.*
 
-**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.6.1/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
+**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.0/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
 
 **[📱 TCQws Android](android/README.md)** — la même station sur téléphone et tablette : **[⬇ TCQws_android-0.4.6.apk](https://github.com/f1gbd/F1GBD/releases/download/tcqws-android-v0.4.6/TCQws_android-0.4.6.apk)**
 
@@ -34,7 +34,9 @@
 
 *Le mode asynchrone de WSJT-X 3.2, dans son propre onglet : **ni période de 15 s, ni parité, ni message à cases**. On tape une ligne, Entrée, c'est parti — et ce qui arrive se déroule au-dessus, trame après trame. De la RTTY qui décode à **−16 dB**.*
 
-*Depuis la v0.6.1 le QSO se mène tout seul : **double-clic** sur la station, **AUTO CQ** / **AUTO QSO**, clôture au 73 et **log ADIF** (`MODE=MFSK`, `SUBMODE=JTTY`). Premiers QSO réalisés sur 20 m.* **[→ tout le mode JTTY](#11-le-mode-jtty--du-texte-libre-quand-on-veut)**
+*Le QSO se mène tout seul : **double-clic** sur la station, **AUTO CQ** / **AUTO QSO**, clôture au 73 et **log ADIF** (`MODE=MFSK`, `SUBMODE=JTTY`).*
+
+*Et depuis la **v0.7.0**, le JTTY porte les trois outils de la **Station CW de TCQ** : le **radiogramme ACP 127 OTAN**, les huit touches du **protocole QSO**, et le **script QSO Auto** en métalangage **MTL**. Mêmes formats, mêmes variables — un radiogramme émis en CW se lit en JTTY.* **[→ tout le mode JTTY](#11-le-mode-jtty--du-texte-libre-quand-on-veut)**
 
 [📜 Historique des versions](HISTORIQUE.md) · [📖 Manuel PDF](doc/MANUEL_TCQws.pdf) · [📱 Android](android/README.md) · [📻 JTTY](#11-le-mode-jtty--du-texte-libre-quand-on-veut) · [🚨 Alerte FLASH](#2-lalerte-flash--32-caractères-tout-de-suite) · [🗼 CHAPPE-26](#3-chappe-26--une-phrase-en-quatre-chiffres) · [📡 PING et carte](#5-ping--pong-et-la-carte-du-réseau) · [🛰 Satellite](#4-satellite-et-activations) · [📨 Radiogrammes](#1-les-radiogrammes-adrasec--le-message-pas-seulement-le-qso)
 
@@ -58,6 +60,8 @@ Pour un QSO ordinaire, WSJT-X reste la référence. TCQws existe pour tout ce qu
 |---|---|---|
 | QSO FT4 / FT8, log ADIF | ✔ | ✔ (log `wsjtx_log.adi` au même format) |
 | Modes proposés | ~15 (FT8, FT4, JT65, Q65, WSPR, MSK144…) | FT4, FT8, et **JTTY** (expérimental) |
+| **Radiogramme ACP 127 OTAN** | non | **oui, en JTTY** : priorité, DTG, compte de groupes, découpage automatique, détection et formulaire imprimable à la réception |
+| **Script de QSO automatique** | non | **métalangage MTL** : un QSO complet décrit en sept commandes, vérifié avant l'air, échangeable entre opérateurs |
 | **Messages libres longs** | 13 caractères par émission | **jusqu'à ~1 500 caractères**, comprimés et protégés (radiogramme ADRASEC) |
 | **Accusé de réception** | non | **oui** : trames manquantes redemandées, complétées, puis acquit |
 | **Alerte d'urgence** | non | **alerte FLASH** : 32 caractères, écran rouge + alarme sonore chez tous les destinataires |
@@ -321,6 +325,23 @@ TCQws distingue les trois pannes qui donnent pourtant le même écran vide, et d
 - **Le champ *Exclure*** de l'onglet Trafic vaut aussi pour le JTTY : une seule liste de pays pour les trois modes.
 - **L'onglet** reprend les habitudes de la RTTY : **touches F1 à F8** modifiables (`%M` mon indicatif, `%H` le DX, `%E` mon échange, `%L` mon locator, `%Q` le premier appelant), **file d'appel** alimentée toute seule, **double-clic** sur un indicatif reçu pour le prendre comme DX, **chute d'eau** cliquable, **boutons de bande** 160 m à 2 m aux fréquences JTTY avec envoi CAT.
 
+
+### Les trois outils repris de la Station CW de TCQ *(v0.7.0)*
+
+**📨 Radiogramme ACP 127 OTAN.** Le formulaire de la Station CW, porté au JTTY : priorité (R, P, O, Z), destinataire, numéro, DTG en UTC, texte et compte des groupes. L'en-tête `RGRAM RGRAM <BT>` est ajouté à l'émission, exactement comme en CW — **un radiogramme émis en CW se lit en JTTY, et réciproquement**.
+
+> Un message JTTY tient dans **16 trames et 80 caractères** ; un radiogramme en fait plusieurs centaines. TCQws le découpe **sur les espaces**, jamais au milieu d'un groupe, et annonce avant d'émettre ce que cela va coûter : *« 3 messages JTTY · 38 trames · 1 min 12 s sur l'air »*.
+
+À la réception, rien à régler : dès qu'un message contient `RGRAM`, les suivants sont recollés jusqu'au `<SK>`, **trois bips** retentissent et le **formulaire** s'ouvre — noir sur blanc, parce que c'est un document qui s'imprime et s'agrafe à la main courante. Le **CK annoncé** est comparé aux groupes reçus : s'ils diffèrent, le formulaire le dit, et vous demandez une répétition.
+
+**🎛 Protocole QSO.** Une rangée de huit boutons sous les touches F1 à F8 — **CQ · RST · 73 · RBN · MSG1–MSG4** — avec un champ **DEST** et un bouton **REPLY**. Ce sont les phrases entières de la CW, avec ses variables : `{mycall}` `{remote}` `{name}` `{qth}` `{locator}` `{rig}` `{antenna}` `{power}`. Les deux jeux cohabitent parce qu'ils ne servent pas au même trafic : **F1–F8** pour le concours et le DX, **PROTOCOLE QSO** pour la conversation et le réseau ADRASEC.
+
+**📜 Script QSO Auto — métalangage MTL.** Un QSO complet décrit en sept commandes : `TX:` émet, `RX:` attend un motif, `WAIT:` fixe le délai, `EXTRACT_CALL:` et `EXTRACT_RST:` relèvent l'indicatif et le report, `LOG:` enregistre, `LOOP:` repart. L'éditeur **vérifie le script en direct** — commande inconnue, variable qui n'existe pas, message trop long, script qui n'émet jamais — et un script fautif ne démarre pas. Le fichier `jtty_script_def.json` s'échange entre opérateurs et entre les deux modes.
+
+**Un seul automatisme à la fois.** Le script, AUTO CQ et AUTO QSO s'excluent, et **⛔ Stop TX arrête tout**, script compris. Trois choses qui émettent seules sur la même fréquence, c'est deux de trop.
+
+📄 **[Fiche technique FT-201 — MTL et radiogramme ACP 127](doc/FICHE_TECHNIQUE_TCQws_MTL_ACP127.pdf)** : les sept commandes, les dix variables, cinq scripts vérifiés prêts à l'emploi, et les fiches réflexes à détacher.
+
 ---
 
 ## 12. Sur téléphone et tablette — TCQws Android
@@ -387,6 +408,7 @@ Le script prend la dernière release **TCQws** (tag `tcqws-v…`), vérifie le S
 | [📘 Livret CHAPPE-26](doc/Chappe26_Livret_B5.pdf) | Les 1000 codes du livre de code civil, format B5 à imprimer en recto/verso |
 | [📄 Fiche BLACK-OUT](doc/TCQws-Chappe26_Fiche_BlackOut.pdf) | Un message CHAPPE-26 de bout en bout, de la frappe à la réception |
 | [📊 Fiche topo — performances](doc/FICHE_TOPO_TCQws_performances.pdf) | Seuils de décodage mesurés et positionnement face aux autres modes |
+| [📄 Fiche technique FT-201 — MTL et ACP 127](doc/FICHE_TECHNIQUE_TCQws_MTL_ACP127.pdf) | Le métalangage de script et le radiogramme ACP 127 OTAN en JTTY : commandes, variables, scripts prêts à l'emploi, fiches réflexes |
 | [📜 Historique des versions](HISTORIQUE.md) | Les nouveautés de chaque version, de la plus récente à la plus ancienne |
 | [📱 TCQws Android](android/README.md) | La version téléphone et tablette : installation, raccordement de la radio, réglages |
 
