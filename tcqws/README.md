@@ -330,6 +330,8 @@ TCQws distingue les trois pannes qui donnent pourtant le même écran vide, et d
 
 **📨 Radiogramme ACP 127 OTAN.** Le formulaire de la Station CW, porté au JTTY : priorité (R, P, O, Z), destinataire, numéro, DTG en UTC, texte et compte des groupes. L'en-tête `RGRAM RGRAM <BT>` est ajouté à l'émission, exactement comme en CW — **un radiogramme émis en CW se lit en JTTY, et réciproquement**.
 
+<img src="images/JTTYacp.png" alt="L'onglet JTTY de TCQws en trafic" width="860">
+
 > Un message JTTY tient dans **16 trames et 80 caractères** ; un radiogramme en fait plusieurs centaines. TCQws le découpe **sur les espaces**, jamais au milieu d'un groupe, et annonce avant d'émettre ce que cela va coûter : *« 3 messages JTTY · 38 trames · 1 min 12 s sur l'air »*.
 
 À la réception, rien à régler : dès qu'un message contient `RGRAM`, les suivants sont recollés jusqu'au `<SK>`, **trois bips** retentissent et le **formulaire** s'ouvre — noir sur blanc, parce que c'est un document qui s'imprime et s'agrafe à la main courante. Le **CK annoncé** est comparé aux groupes reçus : s'ils diffèrent, le formulaire le dit, et vous demandez une répétition.
