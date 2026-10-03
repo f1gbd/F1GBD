@@ -9,6 +9,30 @@ avec son programme d'installation, son archive et son empreinte SHA-256.
 ---
 
 
+## v0.7.6 — Le carré du correspondant, et le log à la main
+
+*3 octobre 2026*
+
+### 🗺 Un champ GRID à côté de DEST
+
+La grammaire WSJT-X met le locator dans l'appel — `CQ EA1MU EA1MU IN70` — et **rien ne l'affichait** : il fallait le relire dans la fenêtre de réception pour orienter une antenne. Il a maintenant sa case. Trois sources, par ordre de confiance décroissante, et la couleur dit laquelle : **le locator donné sur l'air** (vert), **un QSO précédent du log ADIF** (cyan), **le carré du pays déduit du préfixe** (orange, libellé `GRID≈`).
+
+TCQws connaît le centre des 240 entités DXCC de sa table de préfixes, affiné par le chiffre d'appel là où le pays est trop vaste pour qu'un centre veuille dire quelque chose — W1 tombe en FN43, W6 en DM06, quatre mille kilomètres les séparent. Mais un carré déduit reste une estimation : la France entière vaut JN16, et une station de Brest est en IN78. **Il s'affiche donc, et ne part pas au log** — un carré faux dans un ADIF voyage, se recroise, et plus personne ne sait d'où il sort. Pour le loguer, il faut le retaper : la case passe au vert, c'est devenu un fait vérifié par l'opérateur. Dès que la station donne son vrai carré, l'estimation cède la place toute seule.
+
+### 📒 Un bouton LOG QSO
+
+Sur la rangée des touches F1 à F8, parce que c'est là qu'on vient de taper son 73. Il enregistre au log le QSO en cours — la station de DEST, à défaut celle de DX. Trois situations l'exigent, toutes relevées sur l'air : le 73 du correspondant est passé sous le bruit, le QSO s'est mené avec des tournures que TCQws ne reconnaît pas comme une clôture, ou l'opérateur a simplement bavardé sans jamais écrire « 73 ». **Le QSO a bien eu lieu ; il faut pouvoir le dire.**
+
+Une fois le QSO logué, **DEST, GRID et DX se vident ensemble** — mais seulement s'ils portaient bien cette station : on a souvent déjà appelé la suivante quand le 73 du précédent arrive enfin.
+
+### ✏️ Renommer un bouton Macro
+
+Le clic droit sur une touche F1 à F8 ouvre maintenant **deux cases** : le nom affiché sur le bouton, et le message émis. Qui change le contenu d'une touche change presque toujours sa raison d'être — la touche « Report » qui émet désormais un appel de détresse ADRASEC doit le dire sur le bouton. Chaque mode garde son jeu, et les réglages d'avant la v0.7.6 se relisent tels quels.
+
+Au passage : la configuration rétablissait le mode **après** les touches, si bien qu'en rouvrant TCQws fermé en RTTY on retrouvait les touches du JTTY.
+
+---
+
 ## v0.7.5 — Le RTTY
 
 *2 octobre 2026*

@@ -14,15 +14,15 @@
 [![Compatibilité](https://img.shields.io/badge/compatible-WSJT--X%20(ADIF%2C%20ALL.TXT)-teal.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
 [![Code civil](https://img.shields.io/badge/code%20civil-CHAPPE--26-b01818.svg)](doc/Chappe26_Livret_B5.pdf)
-[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.7.5-blue)](HISTORIQUE.md)
+[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.7.6-blue)](HISTORIQUE.md)
 
-## 📥 Télécharger TCQws v0.7.5 pour Windows
+## 📥 Télécharger TCQws v0.7.6 pour Windows
 
-### **[⬇ TCQws-0.7.5-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.5/TCQws-0.7.5-setup.exe)** — double-clic, et c'est installé
+### **[⬇ TCQws-0.7.6-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.6/TCQws-0.7.6-setup.exe)** — double-clic, et c'est installé
 
 *Aucun droit administrateur, aucune installation Python, aucune interférence avec TCQ. Raccourcis Bureau et menu Démarrer, manuel inclus, et une désinstallation qui conserve vos réglages, votre log ADIF, votre journal et vos radiogrammes.*
 
-**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.5/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
+**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.6/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
 
 **[📱 TCQws Android](android/README.md)** — la même station sur téléphone et tablette : **[⬇ TCQws_android-0.4.6.apk](https://github.com/f1gbd/F1GBD/releases/download/tcqws-android-v0.4.6/TCQws_android-0.4.6.apk)**
 
@@ -40,7 +40,9 @@
 
 *La **v0.7.1** allège le radiogramme d'**un tiers de ses trames** et apprend au QSO automatique à **répondre à chacun dans sa langue** — en phrases entières à qui traficote en RTTY, en quatre trames à qui traficote en WSJT-X. La **v0.7.2** raccourcit le trafic RTTY lui-même : trois appels sans réponse coûtent désormais **28 secondes au lieu de 68**. Et la **v0.7.3** rend le **radiogramme ACP 127 fiable en présence de trafic** : chaque morceau porte son rang, le morceau perdu se redemande **seul**, et l'accusé de réception part **tout seul**.*
 
-*🆕 **v0.7.5 — TCQws parle maintenant RTTY.** Le vrai Baudot, 45,45 bauds, shift 170 Hz. Un clic sur le titre de l'onglet et `📻 JTTY` devient `📻 RTTY` : mêmes touches, même radiogramme ACP 127, même métalangage, même log. Le JTTY entend onze décibels plus bas — mais il ne parle qu'au JTTY, et **un réseau d'urgence qui ne peut parler qu'à lui-même ne sert à rien**.* **[→ tout le mode JTTY](#11-le-mode-jtty--du-texte-libre-quand-on-veut)**
+*La **v0.7.5** apprend le RTTY à TCQws : le vrai Baudot, 45,45 bauds, shift 170 Hz. Un clic sur le titre de l'onglet et `📻 JTTY` devient `📻 RTTY` — mêmes touches, même radiogramme ACP 127, même métalangage, même log. Le JTTY entend onze décibels plus bas, mais il ne parle qu'au JTTY, et **un réseau d'urgence qui ne peut parler qu'à lui-même ne sert à rien**.*
+
+*🆕 **v0.7.6 — le carré du correspondant.** Un champ **GRID** à côté de DEST : le locator donné sur l'air, celui d'un QSO précédent du log, ou à défaut celui du pays — affiché, mais **jamais logué sans confirmation**. Un bouton **📒 LOG QSO** enregistre à la main le QSO dont la clôture s'est perdue dans le bruit. Et le clic droit sur une touche F1 à F8 **renomme aussi le bouton**.* **[→ tout le mode JTTY](#11-le-mode-jtty--du-texte-libre-quand-on-veut)**
 
 [📜 Historique des versions](HISTORIQUE.md) · [📖 Manuel PDF](doc/MANUEL_TCQws.pdf) · [📱 Android](android/README.md) · [📻 JTTY](#11-le-mode-jtty--du-texte-libre-quand-on-veut) · [🚨 Alerte FLASH](#2-lalerte-flash--32-caractères-tout-de-suite) · [🗼 CHAPPE-26](#3-chappe-26--une-phrase-en-quatre-chiffres) · [📡 PING et carte](#5-ping--pong-et-la-carte-du-réseau) · [🛰 Satellite](#4-satellite-et-activations) · [📨 Radiogrammes](#1-les-radiogrammes-adrasec--le-message-pas-seulement-le-qso)
 
@@ -327,7 +329,8 @@ TCQws distingue les trois pannes qui donnent pourtant le même écran vide, et d
 - **Le QSO se mène tout seul** : un **double-clic** sur la station choisie enchaîne la séquence programmée jusqu'au 73 et **enregistre le QSO au log ADIF** (`MODE=MFSK`, `SUBMODE=JTTY`). Trois styles au choix — *WSJT-X* (les macros d'origine, les plus économes en trames), *DE (clavier)*, *Concours* — et un numéro de série qui avance à chaque QSO fait.
 - **🔁 AUTO CQ** appelle, mène le QSO de la station qui répond, le logue, puis se remet à appeler. **🤖 AUTO QSO** fait l'inverse : il chasse le CQ le plus fort et passe à la suivante. Les deux **écoutent avant de parler** — en asynchrone, rien n'empêche techniquement d'émettre sur la réponse de son correspondant, rien sauf le bon sens.
 - **Le champ *Exclure*** de l'onglet Trafic vaut aussi pour le JTTY : une seule liste de pays pour les trois modes.
-- **L'onglet** reprend les habitudes de la RTTY : **touches F1 à F8** modifiables (`%M` mon indicatif, `%H` le DX, `%E` mon échange, `%L` mon locator, `%Q` le premier appelant), **file d'appel** alimentée toute seule, **double-clic** sur un indicatif reçu pour le prendre comme DX, **chute d'eau** cliquable, **boutons de bande** 160 m à 2 m aux fréquences JTTY avec envoi CAT.
+- **L'onglet** reprend les habitudes de la RTTY : **touches F1 à F8** modifiables — nom du bouton compris depuis la v0.7.6 — (`%M` mon indicatif, `%H` le DX, `%E` mon échange, `%L` mon locator, `%Q` le premier appelant), **file d'appel** alimentée toute seule, **double-clic** sur un indicatif reçu pour le prendre comme DX, **chute d'eau** cliquable, **boutons de bande** 160 m à 2 m aux fréquences du mode, avec envoi CAT et clic droit pour les changer.
+- **Le log** : un champ **GRID** à côté de DEST donne le carré du correspondant, et un bouton **📒 LOG QSO** enregistre à la main un QSO dont la clôture s'est perdue — voir plus bas.
 
 
 ### Les trois outils repris de la Station CW de TCQ *(v0.7.0)*
@@ -387,6 +390,26 @@ Le titre de l'onglet est devenu un bouton. Un clic, et `📻 JTTY` devient `📻
 > **Le piège du Baudot, vu dès la première réception.** 20 m, 2 octobre 2026 : une station appelant `CQ URC KW4CW KW4CW`, dont l'indicatif ressortait tantôt juste, tantôt `KW4:2`. Pour écrire `KW4CW` il faut **deux bascules de registre** ; perdez celle du retour aux lettres, et le `CW` sort en chiffres. **Rien ne le signale** — c'est un indicatif qui est faux. En JTTY, le CRC de la trame l'aurait rejetée. C'est exactement l'arbitrage que détaille la fiche **[FT-202](doc/FICHE_TECHNIQUE_TCQws_RTTY_vs_JTTY.pdf)**.
 
 📄 **[Fiche technique FT-202 — Le RTTY classique et le JTTY](doc/FICHE_TECHNIQUE_TCQws_RTTY_vs_JTTY.pdf)** : signal, sensibilité, débit utile, intégrité du message, radiogramme, automatisation — et un chapitre entier sur *ce que le RTTY fait mieux*.
+
+### 🗺 Le carré du correspondant, et le log à la main *(v0.7.6)*
+
+La grammaire WSJT-X met le locator dans l'appel — `CQ EA1MU EA1MU IN70` — et **rien ne l'affichait** : il fallait le relire dans la fenêtre de réception pour orienter une antenne. Il a maintenant sa case, **GRID**, à côté de DEST. Trois sources, par ordre de confiance décroissante, et **la couleur dit laquelle** :
+
+| Source du carré | Couleur | Part au log ? |
+|---|---|---|
+| Le locator qu'il a donné sur l'air | vert | oui |
+| Un QSO précédent, dans votre log ADIF | cyan | oui |
+| Le carré de son pays, déduit du préfixe | orange, libellé `GRID≈` | **non** |
+
+TCQws connaît le centre des **240 entités DXCC** de sa table de préfixes, affiné par le chiffre d'appel là où le pays est trop vaste pour qu'un centre veuille dire quelque chose : aux États-Unis, au Canada et en Australie. W1 tombe en FN43, W6 en DM06 — **quatre mille kilomètres les séparent**, et c'est précisément ce qu'un centre unique aurait perdu.
+
+> **Mais un carré déduit reste une estimation, et elle se trompe.** La France entière vaut JN16 ; une station de Brest est en IN78, à cinq cents kilomètres de là. Un carré faux dans un ADIF voyage, se recroise, et plus personne ne sait d'où il sort. Il s'affiche donc en orange — pour tourner une antenne et situer un correspondant — mais **il ne part pas au log**. Pour le loguer, il faut le retaper : la case passe au vert, c'est devenu un fait vérifié par l'opérateur. Et dès que la station donne son vrai carré, l'estimation cède la place toute seule.
+
+**📒 Un bouton LOG QSO**, sur la rangée des touches F1 à F8, parce que c'est là qu'on vient de taper son 73. Il enregistre au log le QSO en cours — la station de DEST, à défaut celle de DX. Trois situations l'exigent, toutes relevées sur l'air : le 73 du correspondant est passé sous le bruit, le QSO s'est mené avec des tournures que TCQws ne reconnaît pas comme une clôture, ou l'opérateur a simplement bavardé sans jamais écrire « 73 ». **Le QSO a bien eu lieu ; il faut pouvoir le dire.**
+
+Une fois le QSO logué, **DEST, GRID et DX se vident ensemble** — mais seulement s'ils portaient bien cette station : on a souvent déjà appelé la suivante quand le 73 du précédent arrive enfin.
+
+**✏️ Renommer un bouton.** Le clic droit sur une touche F1 à F8 ouvre maintenant **deux cases** : le nom affiché sur le bouton et le message émis. Qui change le contenu d'une touche change presque toujours sa raison d'être — la touche « Report » qui émet désormais un appel de détresse ADRASEC doit le dire sur le bouton. Chaque mode garde son jeu, et les réglages d'avant la v0.7.6 se relisent tels quels.
 
 ### 📨 Le radiogramme en présence de trafic *(v0.7.3)*
 
