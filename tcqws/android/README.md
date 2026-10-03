@@ -92,7 +92,7 @@ Un seul câble USB-C (ou un hub USB-C) entre le téléphone et l'interface de la
 
 Pas de transceiver sous la main ? Une **clé RTL-SDR** et une antenne suffisent pour écouter le FT4 / FT8 — un poste d'écoute (SWL) de poche, comme avec TCQws PC. Décodages, carte, radiogrammes et **alertes FLASH** fonctionnent à l'identique.
 
-![Réglages de la radio](images/TCQws_sdr_reel.jpg)
+![TCQws sur tablette Android](images/TCQws_sdr_reel.jpg)
 
 Clé SDR recommandée et utilisée ici: **Nooelec NESDR SMArt v5 SDR - HF/VHF/UHF (100kHz-1.75GHz) RTL-SDR. RTL2832U & R820T2**
 
@@ -181,6 +181,9 @@ Les réglages de bande, de fréquence et de satellite sont les mêmes que sur le
 ## Ce qui reste propre à la version PC
 
 Le calage de l'heure par **GPS NMEA**, l'édition du log et les WAV de diagnostic restent pour l'instant dans [TCQws pour Windows](../README.md). Le log ADIF exporté d'Android s'importe dans le PC, dans WSJT-X ou dans votre logiciel de log habituel.
+
+![TCQws sur tablette Android](images/TCQws_FX-4CR.jpeg)
+**TCQws avec un Transceiver FX-4CR connecté via un cable OTG sur un Smartphone Android**
 
 ---
 
