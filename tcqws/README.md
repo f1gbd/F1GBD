@@ -275,6 +275,8 @@ Avec 16 répétitions (2 à 4 minutes), un message passe **sous le seuil du FT8*
 
 ![Réception par clé SDR](images/TCQws_sdr_trafic.png)
 
+![Réception par clé SDR](images/TCQws_sdr_reel.jpg)
+
 *40 m en FT8, reçu par une clé RTL-SDR à 7,074 MHz : 45 décodages en trois périodes, jusqu'aux Canaries à 2790 km. Ni transceiver, ni carte son.*
 
 Une clé **RTL-SDR** à vingt euros suffit à recevoir le réseau : pas de transceiver, pas de carte son, pas de câblage audio. C'est fait pour les **SWL** — l'écouteur en formation qui n'a pas encore d'indicatif, le poste d'écoute d'un exercice, le PC qui surveille un segment dans un coin de la salle radio — et, sur une station équipée, pour un deuxième récepteur qui tourne pendant que le transceiver fait autre chose.
@@ -458,7 +460,9 @@ Deux cases dans la fenêtre RADIOGRAMME, cochées par défaut : *Accuser récept
 
 ## 12. Sur téléphone et tablette — TCQws Android
 
-![TCQws Android en trafic FT8](android/images/TCQws_android_trafic.jpg)
+![TCQws Android en trafic FT8](images/TCQws_android_traffic.jpg)
+
+![TCQws Android en trafic FT8](images/TCQws_android_smartphone.jpg)
 
 **TCQws Android** est la même station, dans la poche. Ce n'est pas une réécriture : le cœur de l'application Android est **le code même de TCQws PC**, embarqué tel quel. Les messages, les radiogrammes, l'alerte FLASH et le code CHAPPE-26 passent donc **au bit près** d'un PC à un téléphone, dans les deux sens.
 
