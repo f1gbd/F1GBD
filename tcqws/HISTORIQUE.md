@@ -9,6 +9,35 @@ avec son programme d'installation, son archive et son empreinte SHA-256.
 ---
 
 
+## v0.7.7 — TUNE, et des boutons qui portent leur nom
+
+*3 octobre 2026*
+
+### 📶 Un bouton TUNE dans l'onglet JTTY/RTTY
+
+À droite de **📒 LOG QSO**, en bleu, le même qu'en FT4/FT8 : régler un coupleur ou lire un ROS demande une porteuse stable, pas un message. La station JTTY savait la sortir depuis la v0.6.0 — il n'y avait simplement pas de quoi la lui demander depuis cet onglet.
+
+Elle s'arrête au second clic, au **⛔ Stop TX**, à l'arrêt de la station, dès qu'un message part, et de toute façon au bout de **deux minutes** : une porteuse oubliée chauffe l'étage final et tient la fréquence occupée. En RTTY elle sort sur la **fréquence centrale** du signal, pas sur le bord bas que donne l'onglet — c'est là que l'antenne doit être accordée.
+
+### ✏️ Les boutons du PROTOCOLE QSO se renomment
+
+Le clic droit sur **CQ, RST, 73, RBN, MSG1 à MSG4** ouvre la même fenêtre à deux cases que les touches F1 à F8 : le nom affiché sur le bouton, et le message émis.
+
+C'est sur cette rangée que le besoin était le plus criant. Quatre de ces boutons s'appellent « MSG1 » à « MSG4 », ce qui ne dit rien de ce qu'ils émettent : celui qui porte l'appel ADRASEC peut enfin s'appeler **QAP**. Les quatre autres se renomment aussi — un réseau départemental n'appelle pas « CQ ».
+
+Les noms sont rangés dans une clé à part (`jtty_msg_noms`), si bien que les messages personnalisés ne bougent pas. Une case laissée vide revient au défaut, et une valeur égale au défaut ne s'enregistre pas du tout.
+
+### 🗣 Deux messages du protocole changent de défaut
+
+| | avant | maintenant |
+|---|---|---|
+| **CQ** | `CQ CQ DE {mycall} {mycall} K` | `CQ DE {mycall} {mycall} {locator} K` |
+| **73** | `{remote} DE {mycall} TU FER QSO 73 73 SK` | `{remote} DE {mycall} R TU FER QSO 73 SK` |
+
+L'appel porte désormais le **locator** : depuis la v0.7.6 le correspondant a une case GRID à remplir, et le lui donner d'emblée lui épargne de le demander. La clôture commence par un **`R`** — l'accusé de réception de l'opérateur RTTY, qui dit ce que le second `73` ne disait pas : *j'ai bien reçu*. Le message **RST** ne change pas, et les versions personnalisées sont conservées.
+
+---
+
 ## v0.7.6 — Le carré du correspondant, et le log à la main
 
 *3 octobre 2026*

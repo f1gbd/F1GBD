@@ -14,15 +14,15 @@
 [![Compatibilité](https://img.shields.io/badge/compatible-WSJT--X%20(ADIF%2C%20ALL.TXT)-teal.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
 [![Code civil](https://img.shields.io/badge/code%20civil-CHAPPE--26-b01818.svg)](doc/Chappe26_Livret_B5.pdf)
-[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.7.6-blue)](HISTORIQUE.md)
+[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.7.7-blue)](HISTORIQUE.md)
 
-## 📥 Télécharger TCQws v0.7.6 pour Windows
+## 📥 Télécharger TCQws v0.7.7 pour Windows
 
-### **[⬇ TCQws-0.7.6-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.6/TCQws-0.7.6-setup.exe)** — double-clic, et c'est installé
+### **[⬇ TCQws-0.7.7-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.7/TCQws-0.7.7-setup.exe)** — double-clic, et c'est installé
 
 *Aucun droit administrateur, aucune installation Python, aucune interférence avec TCQ. Raccourcis Bureau et menu Démarrer, manuel inclus, et une désinstallation qui conserve vos réglages, votre log ADIF, votre journal et vos radiogrammes.*
 
-**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.6/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
+**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.7/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
 
 **[📱 TCQws Android](android/README.md)** — la même station sur téléphone et tablette : **[⬇ TCQws_android-0.4.6.apk](https://github.com/f1gbd/F1GBD/releases/download/tcqws-android-v0.4.6/TCQws_android-0.4.6.apk)**
 
@@ -42,7 +42,9 @@
 
 *La **v0.7.5** apprend le RTTY à TCQws : le vrai Baudot, 45,45 bauds, shift 170 Hz. Un clic sur le titre de l'onglet et `📻 JTTY` devient `📻 RTTY` — mêmes touches, même radiogramme ACP 127, même métalangage, même log. Le JTTY entend onze décibels plus bas, mais il ne parle qu'au JTTY, et **un réseau d'urgence qui ne peut parler qu'à lui-même ne sert à rien**.*
 
-*🆕 **v0.7.6 — le carré du correspondant.** Un champ **GRID** à côté de DEST : le locator donné sur l'air, celui d'un QSO précédent du log, ou à défaut celui du pays — affiché, mais **jamais logué sans confirmation**. Un bouton **📒 LOG QSO** enregistre à la main le QSO dont la clôture s'est perdue dans le bruit. Et le clic droit sur une touche F1 à F8 **renomme aussi le bouton**.* **[→ tout le mode JTTY](#11-le-mode-jtty--du-texte-libre-quand-on-veut)**
+*La **v0.7.6** donne au correspondant sa case **GRID** à côté de DEST : le locator donné sur l'air, celui d'un QSO précédent du log, ou à défaut celui du pays — affiché, mais **jamais logué sans confirmation**. Un bouton **📒 LOG QSO** enregistre à la main le QSO dont la clôture s'est perdue dans le bruit.*
+
+*🆕 **v0.7.7 — TUNE, et des boutons qui portent leur nom.** Un bouton **📶 TUNE** dans l'onglet, comme en FT4/FT8 : porteuse stable pour un coupleur ou un ROS, avec arrêt de sécurité. Et le clic droit renomme désormais **tous** les boutons — les touches F1 à F8 comme les huit du PROTOCOLE QSO, où « MSG1 » peut enfin s'appeler « QAP ».* **[→ tout le mode JTTY](#11-le-mode-jtty--du-texte-libre-quand-on-veut)**
 
 [📜 Historique des versions](HISTORIQUE.md) · [📖 Manuel PDF](doc/MANUEL_TCQws.pdf) · [📱 Android](android/README.md) · [📻 JTTY](#11-le-mode-jtty--du-texte-libre-quand-on-veut) · [🚨 Alerte FLASH](#2-lalerte-flash--32-caractères-tout-de-suite) · [🗼 CHAPPE-26](#3-chappe-26--une-phrase-en-quatre-chiffres) · [📡 PING et carte](#5-ping--pong-et-la-carte-du-réseau) · [🛰 Satellite](#4-satellite-et-activations) · [📨 Radiogrammes](#1-les-radiogrammes-adrasec--le-message-pas-seulement-le-qso)
 
@@ -275,8 +277,6 @@ Avec 16 répétitions (2 à 4 minutes), un message passe **sous le seuil du FT8*
 
 ![Réception par clé SDR](images/TCQws_sdr_trafic.png)
 
-![Réception par clé SDR](images/TCQws_sdr_reel.jpg)
-
 *40 m en FT8, reçu par une clé RTL-SDR à 7,074 MHz : 45 décodages en trois périodes, jusqu'aux Canaries à 2790 km. Ni transceiver, ni carte son.*
 
 Une clé **RTL-SDR** à vingt euros suffit à recevoir le réseau : pas de transceiver, pas de carte son, pas de câblage audio. C'est fait pour les **SWL** — l'écouteur en formation qui n'a pas encore d'indicatif, le poste d'écoute d'un exercice, le PC qui surveille un segment dans un coin de la salle radio — et, sur une station équipée, pour un deuxième récepteur qui tourne pendant que le transceiver fait autre chose.
@@ -333,6 +333,7 @@ TCQws distingue les trois pannes qui donnent pourtant le même écran vide, et d
 - **Le champ *Exclure*** de l'onglet Trafic vaut aussi pour le JTTY : une seule liste de pays pour les trois modes.
 - **L'onglet** reprend les habitudes de la RTTY : **touches F1 à F8** modifiables — nom du bouton compris depuis la v0.7.6 — (`%M` mon indicatif, `%H` le DX, `%E` mon échange, `%L` mon locator, `%Q` le premier appelant), **file d'appel** alimentée toute seule, **double-clic** sur un indicatif reçu pour le prendre comme DX, **chute d'eau** cliquable, **boutons de bande** 160 m à 2 m aux fréquences du mode, avec envoi CAT et clic droit pour les changer.
 - **Le log** : un champ **GRID** à côté de DEST donne le carré du correspondant, et un bouton **📒 LOG QSO** enregistre à la main un QSO dont la clôture s'est perdue — voir plus bas.
+- **📶 TUNE** : la porteuse d'accord d'antenne, le même bouton qu'en FT4/FT8, avec son arrêt de sécurité à deux minutes.
 
 
 ### Les trois outils repris de la Station CW de TCQ *(v0.7.0)*
@@ -392,6 +393,21 @@ Le titre de l'onglet est devenu un bouton. Un clic, et `📻 JTTY` devient `📻
 > **Le piège du Baudot, vu dès la première réception.** 20 m, 2 octobre 2026 : une station appelant `CQ URC KW4CW KW4CW`, dont l'indicatif ressortait tantôt juste, tantôt `KW4:2`. Pour écrire `KW4CW` il faut **deux bascules de registre** ; perdez celle du retour aux lettres, et le `CW` sort en chiffres. **Rien ne le signale** — c'est un indicatif qui est faux. En JTTY, le CRC de la trame l'aurait rejetée. C'est exactement l'arbitrage que détaille la fiche **[FT-202](doc/FICHE_TECHNIQUE_TCQws_RTTY_vs_JTTY.pdf)**.
 
 📄 **[Fiche technique FT-202 — Le RTTY classique et le JTTY](doc/FICHE_TECHNIQUE_TCQws_RTTY_vs_JTTY.pdf)** : signal, sensibilité, débit utile, intégrité du message, radiogramme, automatisation — et un chapitre entier sur *ce que le RTTY fait mieux*.
+
+### 📶 TUNE, et des boutons qui portent leur nom *(v0.7.7)*
+
+**Un bouton 📶 TUNE**, à droite de LOG QSO, le même qu'en FT4/FT8 : régler un coupleur ou lire un ROS demande une porteuse stable, pas un message. La station JTTY savait la sortir depuis la v0.6.0 — il n'y avait simplement pas de quoi la lui demander depuis cet onglet. Elle s'arrête au second clic, au **⛔ Stop TX**, à l'arrêt de la station, dès qu'un message part, et de toute façon au bout de **deux minutes** : une porteuse oubliée chauffe l'étage final et tient la fréquence occupée. En RTTY elle sort sur la **fréquence centrale** du signal, pas sur le bord bas que donne l'onglet.
+
+**Le clic droit renomme tous les boutons.** Les touches F1 à F8 depuis la v0.7.6, et désormais les huit du **PROTOCOLE QSO** : la fenêtre offre le nom affiché et le message émis. C'est là que le besoin était le plus criant — quatre de ces boutons s'appellent « MSG1 » à « MSG4 », ce qui ne dit rien de ce qu'ils émettent, et celui qui porte l'appel ADRASEC peut enfin s'appeler **QAP**. Une case laissée vide revient au défaut, et une valeur égale au défaut ne s'enregistre pas du tout : la configuration ne garde que ce qui a vraiment changé.
+
+**Deux messages du protocole changent de défaut :**
+
+| | avant | maintenant |
+|---|---|---|
+| **CQ** | `CQ CQ DE {mycall} {mycall} K` | `CQ DE {mycall} {mycall} {locator} K` |
+| **73** | `{remote} DE {mycall} TU FER QSO 73 73 SK` | `{remote} DE {mycall} R TU FER QSO 73 SK` |
+
+L'appel porte le **locator** — le correspondant a une case GRID à remplir, autant la lui donner d'emblée. La clôture commence par un **`R`**, l'accusé de l'opérateur RTTY, qui dit ce que le second `73` ne disait pas : *j'ai bien reçu*. Vos versions personnalisées, si vous en aviez, sont conservées.
 
 ### 🗺 Le carré du correspondant, et le log à la main *(v0.7.6)*
 
@@ -460,9 +476,7 @@ Deux cases dans la fenêtre RADIOGRAMME, cochées par défaut : *Accuser récept
 
 ## 12. Sur téléphone et tablette — TCQws Android
 
-![TCQws Android en trafic FT8](images/TCQws_android_traffic.jpg)
-
-![TCQws Android en trafic FT8](images/TCQws_android_smartphone.jpg)
+![TCQws Android en trafic FT8](android/images/TCQws_android_trafic.jpg)
 
 **TCQws Android** est la même station, dans la poche. Ce n'est pas une réécriture : le cœur de l'application Android est **le code même de TCQws PC**, embarqué tel quel. Les messages, les radiogrammes, l'alerte FLASH et le code CHAPPE-26 passent donc **au bit près** d'un PC à un téléphone, dans les deux sens.
 
