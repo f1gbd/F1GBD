@@ -7,8 +7,19 @@
 <p align="center">
   <b>Station sol LoRa satellite — 100&nbsp;% off-grid.</b><br>
   Recevoir et opérer les satellites LoRa (réseau TinyGS) <b>sans serveur MQTT ni connexion Internet</b>,
-  via une simple liaison série USB.
+  via une liaison série USB ou le Wi-Fi de la station.
 </p>
+
+## 📥 Télécharger GSLoRaSat v1.1.0 pour Windows
+
+### **[⬇ GSLoRaSat-1.1.0-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/gslorasat-v1.1.0/GSLoRaSat-1.1.0-setup.exe)** — double-clic, et c'est installé
+
+*Aucun droit administrateur, aucune installation Python. Raccourcis Bureau et menu Démarrer, manuel et fiche technique inclus, firmwares de la station fournis, et une désinstallation qui conserve vos réglages, votre base de paquets et vos journaux. Les mises à jour suivantes s'installent depuis l'application (À propos → Vérifier les mises à jour).*
+
+**[⬇ GSLoRaSat-v1.1.0-win64.7z](https://github.com/f1gbd/F1GBD/releases/download/gslorasat-v1.1.0/GSLoRaSat-v1.1.0-win64.7z)** — l'archive autonome, à décompresser sans installation.
+
+[📖 Manuel PDF](documentation/Manuel_Utilisateur_GSLoRaSat.pdf) · [📄 Fiche technique](documentation/Fiche_Technique_GSLoRaSat.pdf) · [⚡ Flasher la station (web)](https://f1gbd.github.io/F1GBD/gslorasat/web/) · [🗂 Toutes les versions](https://github.com/f1gbd/F1GBD/releases?q=gslorasat&expanded=true)
+
 
 <p align="center">
   <img src="https://img.shields.io/badge/mode-off--grid-1e90ff">
@@ -19,8 +30,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/f1gbd/F1GBD/releases?q=gslorasat&expanded=true">
-    <img src="https://img.shields.io/badge/⬇️%20Télécharger%20l'app%20Windows-.7z-2b6cb0?style=for-the-badge">
+  <a href="https://github.com/f1gbd/F1GBD/releases/download/gslorasat-v1.1.0/GSLoRaSat-1.1.0-setup.exe">
+    <img src="https://img.shields.io/badge/⬇️%20Installer%20Windows-setup.exe-2b6cb0?style=for-the-badge">
   </a>
   &nbsp;
   <a href="https://f1gbd.github.io/F1GBD/gslorasat/web/">
@@ -35,7 +46,7 @@
 </p>
 
 <p align="center">
-  <i>Téléchargez <b>GSLoRaSat.exe</b> (application Windows autonome), puis flashez votre carte —
+  <i>Installez <b>GSLoRaSat</b> (ou décompressez l'archive autonome), puis flashez votre carte —
   directement depuis l'app (menu <b>Firmware</b>, 100&nbsp;% hors ligne) ou dans le navigateur
   (Chrome/Edge). La puce est détectée et le bon firmware est envoyé automatiquement.</i>
 </p>
@@ -57,7 +68,9 @@ Toute la chaîne fonctionne hors ligne :
                                 └─────────────────────┘        └─────────────────────────┘
 ```
 
-La station émet les paquets reçus sur le port USB et accepte des commandes de tuning. L'application
+La station émet les paquets reçus sur le port USB — ou en **Wi-Fi** via son propre point d'accès
+(même protocole, serveur TCP) — et accepte des commandes de tuning. Elle **garde aussi chaque
+paquet dans sa mémoire flash**, PC branché ou non. L'application
 décode, enregistre, affiche, et pilote la fréquence d'écoute — y compris un **mode automatique** qui
 suit le satellite le plus haut dans le ciel grâce au **GPS** de la station et aux **éphémérides SGP4**
 calculées localement.
@@ -65,6 +78,9 @@ calculées localement.
 ## Fonctionnalités
 
 - 📡 **Réception off-grid** des paquets LoRa satellites (RSSI, SNR, longueur, fréquence), archivés en base locale.
+- 💾 **Journal flash de la station** *(v1.1.0)* : chaque paquet valide est stocké dans la carte, même sans PC, et rapatrié à la demande (incrémental, sans doublon).
+- 📶 **Liaison Wi-Fi (TCP)** *(v1.1.0)* en plus de l'USB : point d'accès de la station (ex. `F1GBD-GeoVOR`), `192.168.4.1:8023`.
+- 🧭 **Export GeoVOR** *(v1.1.0)* : les paquets rapatriés sont rejouables dans GeoVOR (géolocalisation Doppler sans GNSS).
 - 🛰️ **Catalogue de satellites LoRa** (paramètres modem réels : fréquence, SF, BW, CR, sync word…), importable depuis un export CSV ou le flux TinyGS.
 - 🎯 **Sélection manuelle** du satellite écouté → reconfiguration réelle du modem de la station.
 - 🤖 **Mode automatique (élévation max)** : la station se cale toute seule sur le satellite LoRa le plus haut au-dessus de l'horizon, et rebascule au fil des passages.
@@ -72,6 +88,7 @@ calculées localement.
 - 🌌 **Vue du ciel temps réel** (radar azimut/élévation, montant/descendant) et **trace au sol avec fond de carte offline**.
 - 🧭 **GPS embarqué** (T-Beam) : position et heure UTC transmises à l'application pour caler l'autopilote sans configuration manuelle.
 - 🔎 **Détection automatique de la carte** (Heltec / T-Beam) annoncée par la station — aucun index à régler à la main.
+- 📦 **Installeur Windows + mise à jour intégrée** *(v1.1.0)* : « À propos → Vérifier les mises à jour » télécharge et lance la nouvelle version (empreinte SHA-256 vérifiée).
 - 🔌 **Flasheur de firmware intégré** (esptool embarqué) : (re)programmez la carte directement depuis l'app, **100 % hors ligne**.
 - 🧬 **Décodeur de télémétrie** : balises d'éléments orbitaux (Tianqi / FossaSat) décodées dans l'onglet Paquets.
 - ⚙️ **Configuration série** de la station (carte, position, nom, autorisation d'émission) **sans portail WiFi**, réglages persistants (`gslorasat.json`).
@@ -138,13 +155,54 @@ dans les **[Releases GSLoRaSat](https://github.com/f1gbd/F1GBD/releases?q=gslora
   esptool --chip esp32s3 --port COMx write_flash 0x0 gslorasat-firmware-heltec-v3.bin
   ```
 
-**2 — Lancer l'application.**
-**[⬇️ Télécharger la dernière version Windows](https://github.com/f1gbd/F1GBD/releases?q=gslorasat&expanded=true)**
-(archive `GSLoRaSat-v…-win64.7z`), décompressez-la et ouvrez `GSLoraSat.exe` — binaire autonome,
-aucune installation requise.
+**2 — Installer l'application.**
+**[⬇️ Télécharger la dernière version Windows](https://github.com/f1gbd/F1GBD/releases?q=gslorasat&expanded=true)** :
+le **programme d'installation** `GSLoRaSat-…-setup.exe` (recommandé : sans droits administrateur,
+raccourcis vers l'application, le manuel, la fiche technique et les firmwares), ou l'archive
+`GSLoRaSat-v…-win64.7z` à décompresser (binaire autonome `GSLoraSat.exe`).
 
-**3 — Connecter.** Sélectionnez le port USB de la station puis **Connecter**. Sans matériel, la
-source **Simulateur** permet de découvrir l'interface immédiatement.
+Les mises à jour s'installent ensuite **depuis l'application** : **À propos → Vérifier les mises à
+jour** télécharge le nouveau programme d'installation, vérifie son empreinte SHA-256 et le lance.
+Réglages, base de paquets et journaux (`%USERPROFILE%\.gslorasat`) sont conservés.
+
+**3 — Connecter.** Sélectionnez le port USB de la station puis **Connecter** — ou, en Wi-Fi,
+rejoignez le point d'accès de la carte puis Source **« Wi-Fi station (TCP) »** (`192.168.4.1:8023`).
+Sans matériel, la source **Simulateur** permet de découvrir l'interface immédiatement.
+
+## Journal de la station (flash) et liaison Wi-Fi — v1.1.0
+
+Depuis le **firmware GSLoRaSAT 1.1.0**, la station **enregistre chaque paquet satellite valide
+dans sa propre mémoire flash** (512 Ko, ~600 à 900 paquets, les plus récents sont conservés),
+**même quand aucun PC n'est branché**. Laissez la carte écouter seule sur le terrain, et
+rapatriez les paquets plus tard :
+
+1. Connectez l'application à la station — **USB**, ou **Wi-Fi** : reliez le PC au point d'accès
+   de la carte (**SSID = nom de la station**, ex. `F1GBD-GeoVOR`), puis Source
+   **« Wi-Fi station (TCP) »**, adresse `192.168.4.1:8023`.
+2. Menu **Station → Journal de la station (flash)**.
+3. **Récupérer les nouveaux** (seulement ce qui n'a pas encore été rapatrié) ou **Tout récupérer**
+   (les paquets déjà en base sont reconnus à leur numéro et ne sont pas dupliqués).
+
+Chaque paquet relu est **daté de sa réception** : par l'horloge GPS du T-Beam, ou — sur une
+carte sans horloge comme le Heltec V3 — par le compteur interne de la station, tant qu'elle n'a
+pas redémarré. Les paquets rapatriés rejoignent la base locale (onglets Paquets, Réception…).
+
+**Pour GeoVOR** : chaque récupération est aussi enregistrée au format *journal de liaison*
+(`~/.gslorasat/journaux/liaison_station_*.log`), que GeoVOR rejoue tel quel (bouton
+**« Rejouer un journal… »**) ; le bouton **Exporter pour GeoVOR…** permet de choisir le dossier.
+GeoVOR (≥ 1.4.0) peut aussi se connecter lui-même à la station en USB ou en Wi-Fi et
+rapatrier son journal (bouton **« 📥 Journal de la station… »**).
+
+Protocole (identique sur l'USB et le Wi-Fi) :
+
+```
+App -> station : !LOGINFO          état du journal (nombre, numéros, flash utilisée)
+                 !LOGDUMP [seq]    relecture (seulement les paquets n° >= seq)
+                 !LOGSTOP          interrompre la relecture
+                 !LOGCLR           effacer le journal
+Station -> app : @LOGINFO {...}   @LOGBEGIN {...}   @LOGREC {document @RX}   @LOGEND {...}
+```
+
 
 ## Mode automatique (élévation max) + GPS
 

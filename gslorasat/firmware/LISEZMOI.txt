@@ -14,4 +14,11 @@ Flashage manuel (esptool) :
   esptool --chip esp32s3 --port COMx write_flash 0x0 gslorasat-firmware-heltec-v3.bin
 
 Vérifiez que le firmware correspond bien à la carte.
+
+Firmware GSLoRaSAT 1.1.0 (04/10/2026) :
+  - journal flash : chaque paquet valide est gardé dans la carte, même sans PC,
+    et récupéré à la demande (application : menu Station > Journal de la station) ;
+  - liaison Wi-Fi : même protocole que l'USB sur le point d'accès de la carte
+    (SSID = nom de la station, ex. F1GBD-GeoVOR), adresse 192.168.4.1, port 8023.
+  Au premier démarrage, la partition du journal est formatée (quelques secondes).
 73 de F1GBD
