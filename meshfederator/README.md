@@ -10,10 +10,12 @@ MeshFederator **fédère un réseau Meshtastic et un réseau MeshCore** : chaque
 
 <img src="images/MeshFederator_screen.png" alt="Interface MeshFederator" width="820">
 
-> Version courante : **v1.0.1** (prise en charge du **Heltec V3**) — Windows 11 (x64), interface graphique, et Raspberry Pi / Linux en console.
-### 📥 [**Installer MeshFederator v1.0.1 pour Windows 11 (x64)**](https://github.com/f1gbd/F1GBD/releases/download/meshfederator-v1.0.1/MeshFederator-1.0.1-setup.exe)
+> Version courante : **v1.1.0** — nouvelle édition **Raspberry Pi** (service autonome, administration web) — Windows 11 (x64), interface graphique.
+### 📥 [**Installer MeshFederator v1.1.0 pour Windows 11 (x64)**](https://github.com/f1gbd/F1GBD/releases/download/meshfederator-v1.1.0/MeshFederator-1.1.0-setup.exe)
 
-*Programme d'installation (sans droits administrateur), firmwares Heltec V3 et V4 inclus. Ou l'[archive 7-Zip](https://github.com/f1gbd/F1GBD/releases/download/meshfederator-v1.0.1/MeshFederator-v1.0.1-win64.7z).*
+*Programme d'installation (sans droits administrateur), firmwares Heltec V3 et V4 inclus. Ou l'[archive 7-Zip](https://github.com/f1gbd/F1GBD/releases/download/meshfederator-v1.1.0/MeshFederator-v1.1.0-win64.7z).*
+
+### 🍓 [**MeshFederator Pi — boîtier autonome Raspberry Pi 5 / 4B**](raspberry/README.md)
 
 ### ⚡ [**Flasheur web MeshFederator**](https://f1gbd.github.io/F1GBD/meshfederator/webflasher/) — Chrome / Edge, sans installation
 
@@ -36,7 +38,7 @@ MeshFederator **fédère un réseau Meshtastic et un réseau MeshCore** : chaque
        DM « @F4JHW texte » ─────────────────────────────────►  DM à F4JHW
 ```
 
-**Pourquoi deux modules ?** Un SX1262 n'écoute qu'**une** modulation à la fois. Meshtastic et MeshCore n'ont ni la même fréquence, ni la même largeur de bande, ni le même facteur d'étalement, ni le même protocole : un module unique qui alternerait entre les deux serait sourd la moitié du temps. Deux modules Heltec avec leurs firmwares officiels donnent un pont **fiable** et **maintenable** (mises à jour Meshtastic/MeshCore indépendantes). C'est aussi pourquoi CoreTastic (Luckfox + 2× Core1262) ne s'applique pas aux Heltec V3/V4.
+**Pourquoi deux modules ?** Un SX1262 n'écoute qu'**une** modulation à la fois. Meshtastic et MeshCore n'ont ni la même fréquence, ni la même largeur de bande, ni le même facteur d'étalement, ni le même protocole : un module unique qui alternerait entre les deux serait sourd la moitié du temps. Deux modules Heltec avec leurs firmwares officiels donnent un pont **fiable** et **maintenable** (mises à jour Meshtastic/MeshCore indépendantes).
 
 ---
 
@@ -61,7 +63,7 @@ MeshFederator **fédère un réseau Meshtastic et un réseau MeshCore** : chaque
 - **Respect du rapport cyclique** — cadence minimale par réseau (4 s Meshtastic / 3 s MeshCore par défaut), **plafond d'émissions par minute**, file d'attente bornée (la sous-bande 869,4–869,65 MHz est limitée à 10 %).
 - **Reconnexion automatique** — débranchement USB, redémarrage d'un module : la passerelle se reconnecte seule ; elle démarre même si un module est absent.
 - **Interface** — onglets **Connexion**, **Trafic** (journal coloré des messages fédérés), **Nœuds** (les deux réseaux), **Journal** ; voyants d'état des deux radios ; assistant **Ports série…** pour attribuer chaque module ; **Vérifier les mises à jour** dans *À propos*.
-- **Console / Raspberry Pi** — `python3 MeshFederator.py --nogui -c meshfederator.json`.
+- **Raspberry Pi** — édition **[MeshFederator Pi](raspberry/README.md)** : service autonome au démarrage, administration web, livrée en image carte SD prête à graver.
 - **À propos → Vérifier les mises à jour** — interroge les releases GitHub (`meshfederator-v*`) ; si une version plus récente existe, télécharge le programme d'installation, **contrôle son SHA-256** publié dans les notes de release, puis le lance (réglages, bibliothèque de firmwares et sauvegardes conservés).
 
 ---
@@ -120,7 +122,7 @@ Pour une passerelle fixe avec une bonne antenne, le **V3 suffit largement** ; sa
 
 ## Installation
 
-1. Lancez **`MeshFederator-1.0.1-setup.exe`** : installation par utilisateur (dans `%LOCALAPPDATA%\Programs\MeshFederator`, sans droits administrateur), licence GNU GPL, raccourcis *MeshFederator*, *MeshFederator Setup*, *Flasheur web* et *Bibliothèque de firmwares*. *(Ou décompressez l'archive `MeshFederator-v1.0.1-win64.7z`.)*
+1. Lancez **`MeshFederator-1.1.0-setup.exe`** : installation par utilisateur (dans `%LOCALAPPDATA%\Programs\MeshFederator`, sans droits administrateur), licence GNU GPL, raccourcis *MeshFederator*, *MeshFederator Setup*, *Flasheur web* et *Bibliothèque de firmwares*. *(Ou décompressez l'archive `MeshFederator-v1.1.0-win64.7z`.)*
    La **bibliothèque de firmwares Heltec V3 et V4** (Meshtastic + MeshCore companion USB) est incluse : aucun accès Internet n'est nécessaire pour flasher.
 2. Branchez le **premier** module Heltec, lancez **`MeshFederatorSetup.exe`**, choisissez son port, sélectionnez **Meshtastic** dans la bibliothèque et cliquez **FLASHER**. Onglet *Paramétrage Meshtastic* → **Preset passerelle** → nom long (indicatif) → **Appliquer**.
 3. Branchez le **second** module, flashez **MeshCore companion USB**. Onglet *Paramétrage MeshCore* → nom, preset **EU/UK Narrow**, canaux → **Appliquer**.
@@ -174,23 +176,10 @@ Créé automatiquement au premier lancement, à côté de l'exécutable.
 | Commande | Réponse (préfixée `[FED]`, sur le canal ou en DM d'origine) |
 |---|---|
 | `#h` ou `#?` | liste des commandes et syntaxe du relais DM |
-| `#v` | `MeshFederator v1.0.1 <indicatif>` |
+| `#v` | `MeshFederator v1.1.0 <indicatif>` |
 | `#s` | durée de fonctionnement, messages fédérés dans chaque sens, DM, rejets, état des deux radios |
 | `#n [filtre]` | nœuds de **l'autre** réseau entendus depuis moins d'une heure |
 | `#p` | `pong <émetteur> SNR x dB` |
-
----
-
-## Raspberry Pi / Linux
-
-```bash
-pip install -r requirements.txt
-python3 MeshFederator.py --list-ports
-python3 MeshFederator.py --gen-config meshfederator.json   # puis éditer les ports /dev/ttyACM0, /dev/ttyACM1
-python3 MeshFederator.py --nogui -c meshfederator.json
-```
-
-Astuce : nommez les ports de façon stable avec une règle udev sur le **numéro de série USB** de chaque Heltec V4 (`/dev/serial/by-id/...`).
 
 ---
 
@@ -219,6 +208,7 @@ Meshtastic® est une marque déposée de Meshtastic LLC. MeshCore est un projet 
 
 ## 📄 Documentation associée
 
+- 📘 **[Manuel technique opérateur](https://github.com/f1gbd/F1GBD/blob/master/meshfederator/documents/MANUEL_MeshFederator.pdf)** — Installation, préparation des modules Heltec et paramétrage de la passerelle (PDF, [Word](https://github.com/f1gbd/F1GBD/blob/master/meshfederator/documents/MANUEL_MeshFederator.docx))
 - 🧾 **[CHANGELOG](https://github.com/f1gbd/F1GBD/blob/master/meshfederator/CHANGELOG.md)** — Historique des versions
 - 🔗 **[MeshRNS](https://github.com/f1gbd/F1GBD/tree/master/meshrns)** — Passerelle MeshCore ⇄ Reticulum/LXMF
 
@@ -229,7 +219,7 @@ Meshtastic® est une marque déposée de Meshtastic LLC. MeshCore est un projet 
 **Jean-Louis (F1GBD)**
 *ADRASEC 77 — FNRASEC*
 
-**Version 1.0.1 — Octobre 2026**
+**Version 1.1.0 — Octobre 2026**
 
 ---
 
