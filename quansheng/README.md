@@ -33,17 +33,32 @@ brancher la radio, choisir l'application, installer.
 Le protocole (commandes 0x0514, 0x0730 à 0x0737) est celui du firmware d'Armel
 F4HWN, également utilisé par UV Studio ; il est implémenté dans [`uvproto.js`](uvproto.js).
 
+## Essai sur l'air
+
+Premier essai réussi le 9 octobre 2026 : TCQ (TNC Packet, Direwolf) envoie
+`#RA ADRASEC77` depuis F1GBD-3, le UV-K1 sous PAGER-RASEC déclenche l'alerte
+(écran, LED, sirène) puis affiche « ALERTE recue » après acquittement.
+
+<p align="center">
+  <img src="images/UV-K1_RASEC-ALERT.jpg" alt="Alerte RASEC reçue sur le UV-K1" height="380">
+  &nbsp;&nbsp;
+  <img src="images/UV-K1_RASEC-ALERT_log.jpg" alt="Écran après acquittement" height="380">
+</p>
+<p align="center"><em>À gauche : l'alerte reçue de F1GBD-3. À droite : l'écran de veille après acquittement
+(PAGER-RASEC v1.0, VFO sur 430.4375 MHz, signal −96 dBm, 2 alertes).</em></p>
+
 ## Documentation
 
 | Document | Formats |
 |---|---|
-| PAGER-RASEC v1.0 — Manuel d'installation et d'utilisation (12 pages) | [PDF](documentation/PAGER-RASEC_Manuel_v1.0.pdf) · [Word](documentation/PAGER-RASEC_Manuel_v1.0.docx) |
+| PAGER-RASEC v1.1 — Manuel d'installation et d'utilisation | [PDF](documentation/PAGER-RASEC_Manuel_v1.1.pdf) · [Word](documentation/PAGER-RASEC_Manuel_v1.1.docx) |
 
 ## Applications
 
 | Application | Version | Rôle |
 |---|---|---|
-| [PAGER-RASEC](apps/PAGER-RASEC.md) ([manuel PDF](documentation/PAGER-RASEC_Manuel_v1.0.pdf)) | 1.0 | Pager RASEC-ALERT : réception AX.25 Packet 1200 bauds depuis TCQ, LED + sirène sur `#ra <code>`, 145.4375 MHz FM |
+| [PAGER-RASEC](apps/PAGER-RASEC.md) ([manuel PDF](documentation/PAGER-RASEC_Manuel_v1.1.pdf)) | 1.1 | Pager RASEC-ALERT : réception AX.25 Packet 1200 bauds depuis TCQ, LED + sirène sur `#ra <code>`, messages CHAPPE26 en clair, 145.4375 MHz FM |
+| CHAPPE26 | 1.0 | Dictionnaire CHAPPE26 (1000 codes) pour PAGER-RASEC — à installer avec lui |
 
 ## Ajouter une application
 
