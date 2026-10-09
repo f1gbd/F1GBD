@@ -1,10 +1,14 @@
-# PAGER-RASEC v1.2.1 — pager RASEC-ALERT pour Quansheng UV-K1 / UV-K5 v3
+# PAGER-RASEC v1.3 — pager RASEC-ALERT pour Quansheng UV-K1 / UV-K5 v3
 
 Application overlay (`.app`) pour le firmware F4HWN édition Labs. Elle transforme
 le portatif en **pager d'alerte ADRASEC** : elle écoute en permanence les trames
 **AX.25 Packet 1200 bauds** envoyées par **TCQ** (onglet TNC Packet) et, à la
-réception de la commande `#ra <code>`, **fait clignoter la LED et l'écran et
+réception de la commande `#ra <code>`, **fait clignoter la lampe blanche frontale et l'écran et
 déclenche une sirène** jusqu'à l'acquittement par l'opérateur.
+
+**Nouveau en v1.3 : l'alerte fait clignoter la lampe blanche frontale** (la lampe
+torche du UV-K1), bien plus visible que le petit voyant vert, en même temps que
+l'écran. La lampe est éteinte à l'acquittement.
 
 **v1.2.1 :** correctif du défilement (< / > vidaient l'écran) et du dernier code
 CHAPPE26 tronqué sur les longs messages.
@@ -16,7 +20,7 @@ effaçables (voir Écran et touches).
 affiché en clair, comme dans TCQ : « Debut de transmission. Transmission
 urgente. Fin transmission. » — avec l'application dictionnaire **CHAPPE26**.
 
-Manuel complet : [PDF](../documentation/PAGER-RASEC_Manuel_v1.2.pdf)
+Manuel complet : [PDF](../documentation/PAGER-RASEC_Manuel_v1.3.pdf)
 
 | | |
 |---|---|
@@ -26,7 +30,7 @@ Manuel complet : [PDF](../documentation/PAGER-RASEC_Manuel_v1.2.pdf)
 | Sirène | bi-ton 900 / 620 Hz, 350 ms chacun, comme TCQ |
 | CHAPPE26 | 1000 codes `!PPLL` décodés en clair (application CHAPPE26 requise) |
 | Historique | 6 messages (commandes et alertes comprises), conservés tant que l'app tourne |
-| Taille | 4064 o de code (overlay 4 Kio) + 2231 o de ressources ; CHAPPE26 : 7,2 ko de dictionnaire |
+| Taille | 4092 o de code (overlay 4 Kio) + 2231 o de ressources ; CHAPPE26 : 7,2 ko de dictionnaire |
 
 <p align="center">
   <img src="../images/UV-K1_RASEC-ALERT.jpg" alt="Alerte RASEC reçue sur le UV-K1" height="320">
@@ -54,7 +58,7 @@ TNC Packet, n'importe quelle destination :
 
 | Message | Effet sur le pager |
 |---|---|
-| `#ra ADRASEC77` | **ALERTE** : écran inversé clignotant « RASEC ALERT / ALERTE / de F1GBD », LED verte clignotante, sirène. **N'importe quelle touche acquitte.** |
+| `#ra ADRASEC77` | **ALERTE** : écran inversé clignotant « RASEC ALERT / ALERTE / de F1GBD », lampe blanche frontale clignotante, sirène. **N'importe quelle touche acquitte.** |
 | `#b 5` | Nombre de cycles de sirène, 0 à 20 ; `#b 0` = sirène continue jusqu'à l'acquittement |
 | `#rapass ADRASEC77 NOUVEAU` | Change le code d'activation (1 à 12 caractères, sensible à la casse) |
 

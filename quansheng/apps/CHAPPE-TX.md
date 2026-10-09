@@ -9,7 +9,8 @@ une trame UI de `F1GBD-7` vers `CQ`, texte `!1000 !1024 !1380 !1990`.
 sans PC ni logiciel de programmation.
 
 Le message est donc reçu et **affiché en clair** par :
-- toute station **TCQ** (onglet TNC Packet, décodage CHAPPE26 automatique) ;
+- toute station **TCQ v14.1 ou plus récent** (onglet TNC Packet, décodage CHAPPE26
+  automatique ; jusqu'à TCQ v14.0 cet onglet affiche les codes bruts) ;
 - tout autre UV-K1 / UV-K5 v3 sous **[PAGER-RASEC](PAGER-RASEC.md)** (v1.1 et suivantes) ;
 - n'importe quel TNC / logiciel Packet (Direwolf, UZ7HO…), en codes bruts.
 
@@ -117,6 +118,8 @@ ne peuvent pas être ajoutés.
 
 - Même fréquence que la station TCQ ou les pagers (145.4375 MHz FM pour RASEC-ALERT).
 - Puissance et squelch selon la liaison ; le CTCSS/DCS du VFO est supprimé pendant l'émission.
+- TCQ affiche les codes sans traduction : mettre TCQ à jour en **v14.1** ou plus récent
+  (ℹ À propos → Vérifier les mises à jour).
 - Si TCQ / Direwolf décode mal : ajuster le niveau (F 1 / F 7) ou le twist (F 2 / F 8)
   — même réglage que l'application APRS TX de F4HWN, dont l'émetteur AFSK est repris.
 
@@ -133,6 +136,7 @@ ne peuvent pas être ajoutés.
 - Éditeur d'indicatif (v1.1) vérifié en émulation : saisie sans message de démarrage,
   trame émise avec la source saisie, indicatif mémorisé, retour au message de démarrage
   si l'indicatif est effacé, réglages d'une v1.0 conservés.
-- Essai sur l'air : à faire.
+- Essai sur l'air le 9 octobre 2026 : trame `F1GBD-7>CQ` reçue sans erreur par TCQ
+  (Direwolf) ; le décodage en clair dans l'onglet TNC Packet est arrivé avec TCQ v14.1.
 
 ADRASEC 77 · F1GBD — 73

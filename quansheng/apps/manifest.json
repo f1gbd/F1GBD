@@ -5,12 +5,12 @@
     {
       "file": "PAGER-RASEC.app",
       "name": "PAGER-RASEC",
-      "version": "1.2.1",
+      "version": "1.3",
       "title": "Pager RASEC-ALERT",
-      "summary": "Récepteur AX.25 1200 bauds (Packet TCQ) : sur « #ra <code> » allume la LED et déclenche la sirène jusqu'à acquittement ; messages CHAPPE26 décodés en clair (installer aussi le dictionnaire) ; 6 derniers messages conservés et effaçables. 145.4375 MHz FM par défaut.",
-      "doc": "documentation/PAGER-RASEC_Manuel_v1.2.pdf",
-      "size": 6363,
-      "sha256": "2f36735c988423307974883097f607c0eb1e803d9696b58e4aaca62ef648256a",
+      "summary": "Récepteur AX.25 1200 bauds (Packet TCQ) : sur « #ra <code> » fait clignoter la lampe blanche frontale et déclenche la sirène jusqu'à acquittement ; messages CHAPPE26 décodés en clair (installer aussi le dictionnaire) ; 6 derniers messages conservés et effaçables. 145.4375 MHz FM par défaut.",
+      "doc": "documentation/PAGER-RASEC_Manuel_v1.3.pdf",
+      "size": 6387,
+      "sha256": "9d1ed78ce0e50e63394aa6d78c782804e0d1475fa9061c64ed0357f4255e06a0",
       "date": "2026-10-09"
     },
     {
