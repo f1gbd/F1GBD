@@ -3,11 +3,25 @@
 Applications overlay (`.app`) pour le firmware F4HWN édition Labs, développées
 pour les missions ADRASEC / FNRASEC, et leur outil d'installation.
 
+### ▶ [Ouvrir l'UV-K1 Apps Uploader](https://f1gbd.github.io/F1GBD/quansheng/)
+
+<p align="center">
+  <img src="images/UV-K1.jpg" alt="Quansheng UV-K1(8) v3" height="420">
+  &nbsp;&nbsp;
+  <img src="images/UV-K1_display.jpg" alt="Écran du UV-K1 sous firmware F4HWN" height="420">
+</p>
+<p align="center"><em>Quansheng UV-K1(8) v3 et son écran sous firmware F4HWN</em></p>
+
 ## UV-K1 Apps Uploader
 
 Page web d'installation par **Web Serial** (Chrome / Edge, ordinateur) :
-[`index.html`](index.html) — publiée avec GitHub Pages, elle ne demande aucun
-logiciel : brancher la radio, choisir l'application, installer.
+**https://f1gbd.github.io/F1GBD/quansheng/** — elle ne demande aucun logiciel :
+brancher la radio, choisir l'application, installer.
+
+> Le lien `github.com/.../blob/master/quansheng/index.html` n'affiche que le code
+> source de la page : utilisez l'adresse GitHub Pages ci-dessus.
+
+<p align="center"><img src="images/uploader.png" alt="UV-K1 Apps Uploader" width="720"></p>
 
 - Lecture de la version du firmware et des 16 emplacements Apps de la radio.
 - Catalogue des applications de ce dépôt (`apps/manifest.json`) ou fichier `.app` local.
