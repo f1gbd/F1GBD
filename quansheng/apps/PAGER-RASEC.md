@@ -1,4 +1,4 @@
-# PAGER-RASEC v1.1 — pager RASEC-ALERT pour Quansheng UV-K1 / UV-K5 v3
+# PAGER-RASEC v1.2 — pager RASEC-ALERT pour Quansheng UV-K1 / UV-K5 v3
 
 Application overlay (`.app`) pour le firmware F4HWN édition Labs. Elle transforme
 le portatif en **pager d'alerte ADRASEC** : elle écoute en permanence les trames
@@ -6,12 +6,15 @@ le portatif en **pager d'alerte ADRASEC** : elle écoute en permanence les trame
 réception de la commande `#ra <code>`, **fait clignoter la LED et l'écran et
 déclenche une sirène** jusqu'à l'acquittement par l'opérateur.
 
-**Nouveau en v1.1 : décodage CHAPPE26.** Un message `!1000 !1024 !1990` est
+**Nouveau en v1.2 : les 6 derniers messages sont conservés**, consultables et
+effaçables (voir Écran et touches).
+
+**Depuis la v1.1 : décodage CHAPPE26.** Un message `!1000 !1024 !1990` est
 affiché en clair, comme dans TCQ : « Debut de transmission. Transmission
 urgente. Fin transmission. » — avec l'application dictionnaire **CHAPPE26**.
 
-Manuel complet : [PDF](../documentation/PAGER-RASEC_Manuel_v1.1.pdf) ·
-[Word](../documentation/PAGER-RASEC_Manuel_v1.1.docx)
+Manuel complet : [PDF](../documentation/PAGER-RASEC_Manuel_v1.2.pdf) ·
+[Word](../documentation/PAGER-RASEC_Manuel_v1.2.docx)
 
 | | |
 |---|---|
@@ -20,7 +23,8 @@ Manuel complet : [PDF](../documentation/PAGER-RASEC_Manuel_v1.1.pdf) ·
 | Code d'activation par défaut | `ADRASEC77` (identique à TCQ) |
 | Sirène | bi-ton 900 / 620 Hz, 350 ms chacun, comme TCQ |
 | CHAPPE26 | 1000 codes `!PPLL` décodés en clair (application CHAPPE26 requise) |
-| Taille | 3944 o de code (overlay 4 Kio) + 2083 o de ressources ; CHAPPE26 : 7,2 ko de dictionnaire |
+| Historique | 6 messages (commandes et alertes comprises), conservés tant que l'app tourne |
+| Taille | 4064 o de code (overlay 4 Kio) + 2231 o de ressources ; CHAPPE26 : 7,2 ko de dictionnaire |
 
 <p align="center">
   <img src="../images/UV-K1_RASEC-ALERT.jpg" alt="Alerte RASEC reçue sur le UV-K1" height="320">
@@ -57,7 +61,9 @@ TNC Packet, n'importe quelle destination :
 - Une copie digipétée d'une alerte, reçue dans les 5 s suivant l'acquittement,
   ne relance pas l'alerte.
 - Tout autre message reçu est affiché (indicatif + texte) avec un double bip de
-  notification.
+  notification. Les 6 derniers messages sont conservés tant que l'application est
+  ouverte (ils sont perdus à la sortie : l'application ne peut pas écrire en mémoire
+  flash pendant qu'elle tourne).
 - Le pager **n'émet pas d'accusé** en v1.0 (réception seule) : TCQ n'en attend pas.
 
 ## Messages CHAPPE26
@@ -74,13 +80,15 @@ sous la forme `!PPLL` : `!1204` = page 12 (Santé générale), ligne 04 =
 | `!2500 !1990` | Code inconnu (2500). Fin transmission. |
 
 Le texte en clair occupe jusqu'à 6 lignes de 32 caractères, coupées aux espaces ;
-un `v` en bas à droite signale une suite : **haut / bas** pour la faire défiler.
+un `v` en bas à droite signale une suite (ou un message plus ancien), un `^` en
+haut à droite un début caché (ou un message plus récent) : **< / >** pour faire
+défiler, puis passer au message suivant.
 
 ## Écran et touches
 
 ```
  PAGER-RASEC  HP BIP        [batterie]
- F1GBD                              12   <- source, trames reçues
+ F1GBD-3                           1/6   <- source, message affiché / conservés
  Debut de transmission.                  <- texte, traduction CHAPPE26
  Transmission urgente. Coupure              ou résumé de commande
  electricite. Communication                 (6 lignes, défilement haut/bas)
@@ -94,11 +102,12 @@ un `v` en bas à droite signale une suite : **haut / bas** pour la faire défile
 | Touche | Action |
 |---|---|
 | 1 | Haut-parleur (écoute du canal) marche / arrêt — mémorisé |
-| 2 | Effacer le dernier message et les compteurs |
+| 2 | **Effacer le message affiché** |
+| 0 | **Effacer tous les messages** (et le compteur d'alertes) |
 | 3 | **Test local de l'alerte** |
 | 4 | Bip des messages ordinaires marche / arrêt (« BIP » dans la barre d'état) — mémorisé |
 | 5 | Mode **FIX 145.4375** / **VFO** (écoute sur la fréquence du VFO) — mémorisé |
-| Haut / bas | Faire défiler un texte long |
+| < / > (haut / bas) | Faire défiler le message ; à la fin, passer au message plus ancien (>) ou plus récent (<) |
 | MENU | Afficher le code d'activation sur la ligne du bas (à la place de la fréquence) |
 | EXIT | Quitter (le pager n'écoute que lorsque l'application est ouverte) |
 

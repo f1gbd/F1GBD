@@ -5,12 +5,12 @@
     {
       "file": "PAGER-RASEC.app",
       "name": "PAGER-RASEC",
-      "version": "1.1",
+      "version": "1.2",
       "title": "Pager RASEC-ALERT",
-      "summary": "Récepteur AX.25 1200 bauds (Packet TCQ) : sur « #ra <code> » allume la LED et déclenche la sirène jusqu'à acquittement ; messages CHAPPE26 décodés en clair (installer aussi le dictionnaire). 145.4375 MHz FM par défaut.",
-      "doc": "documentation/PAGER-RASEC_Manuel_v1.1.pdf",
-      "size": 6091,
-      "sha256": "5b311582f0a4c1a52c3bfe97182328d31c6ad061582756a69f2e9224a47b9818",
+      "summary": "Récepteur AX.25 1200 bauds (Packet TCQ) : sur « #ra <code> » allume la LED et déclenche la sirène jusqu'à acquittement ; messages CHAPPE26 décodés en clair (installer aussi le dictionnaire) ; 6 derniers messages conservés et effaçables. 145.4375 MHz FM par défaut.",
+      "doc": "documentation/PAGER-RASEC_Manuel_v1.2.pdf",
+      "size": 6359,
+      "sha256": "4b4983f595d6a659f9ec14407eac3958c48f7acf59140c37a2474c91eb2e5ad9",
       "date": "2026-10-09"
     },
     {
@@ -18,8 +18,8 @@
       "name": "CHAPPE26",
       "version": "1.0 d6d699f1",
       "title": "Dictionnaire CHAPPE26",
-      "summary": "Répertoire CHAPPE26 (1000 codes) utilisé par PAGER-RASEC pour afficher en clair les messages « !1000 !1024 !1990 ». À installer avec PAGER-RASEC v1.1.",
-      "doc": "documentation/PAGER-RASEC_Manuel_v1.1.pdf",
+      "summary": "Répertoire CHAPPE26 (1000 codes) utilisé par PAGER-RASEC pour afficher en clair les messages « !1000 !1024 !1990 ». À installer avec PAGER-RASEC v1.1 et suivantes.",
+      "doc": "documentation/PAGER-RASEC_Manuel_v1.2.pdf",
       "size": 7476,
       "sha256": "f5e317cfa0245da9ee36fe4a71ae5bdb3a402c3714d21d900d05e9f6161de5b5",
       "date": "2026-10-09"
