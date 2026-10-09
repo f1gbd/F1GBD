@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MeshFederator Flasher</title>
+<meta name="description" content="Flasheur web Heltec LoRa V4 / V3 pour MeshFederator : Meshtastic et MeshCore via Web Serial">
+<style>
+:root{
+  --bg:#f3f6fa; --card:#ffffff; --ink:#14212e; --muted:#5b6b7b; --line:#d9e1ea;
+  --blue:#1f4e79; --blue2:#2f6fa8; --mt:#2e7d32; --mc:#1f6fb5; --warn:#b5651d; --err:#b03a2e;
+  --console:#0e1116; --console-ink:#d7e2ee; --chip:#eaf1f8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f141a; --card:#171e26; --ink:#e3eaf2; --muted:#93a3b4; --line:#2a3542;
+    --blue:#7fb2e5; --blue2:#5b9bd5; --mt:#6cc070; --mc:#6aaeea; --warn:#e0a052; --err:#ff7a6e;
+    --console:#0a0d11; --console-ink:#cfdbe7; --chip:#1e2833;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f141a; --card:#171e26; --ink:#e3eaf2; --muted:#93a3b4; --line:#2a3542;
+  --blue:#7fb2e5; --blue2:#5b9bd5; --mt:#6cc070; --mc:#6aaeea; --warn:#e0a052; --err:#ff7a6e;
+  --console:#0a0d11; --console-ink:#cfdbe7; --chip:#1e2833;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+header{background:#1f4e79;color:#fff}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+.hd{display:flex;align-items:center;gap:16px;padding:14px 16px}
+.hd img{width:64px;height:64px;border-radius:10px;background:#fff}
+.hd h1{margin:0;font-size:24px;letter-spacing:.2px}
+.hd p{margin:2px 0 0;color:#cfe0f0;font-size:13.5px}
+.hd .v{margin-left:auto;font-weight:600;color:#cfe0f0;white-space:nowrap}
+main.wrap{padding:18px 16px 40px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
+.card h2{margin:0 0 12px;font-size:17px;color:var(--blue);display:flex;align-items:center;gap:10px}
+.step{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--blue);color:var(--card);font-size:14px}
+.alert{border-left:4px solid var(--err);background:color-mix(in srgb,var(--err) 10%,var(--card));padding:10px 14px;border-radius:8px;margin-bottom:16px}
+.roles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.role{border:2px solid var(--line);border-radius:10px;padding:14px;cursor:pointer;display:block}
+.role input{margin-right:8px}
+.role b{font-size:16px}
+.role small{display:block;color:var(--muted);margin-top:4px}
+.role.mt:has(input:checked){border-color:var(--mt);background:color-mix(in srgb,var(--mt) 8%,var(--card))}
+.role.mc:has(input:checked){border-color:var(--mc);background:color-mix(in srgb,var(--mc) 8%,var(--card))}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:12px}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted)}
+select,input[type=file]{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:7px 10px;max-width:100%}
+.tabs{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.tab{border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:8px;padding:7px 12px;cursor:pointer;font:inherit}
+.tab[aria-selected=true]{background:var(--blue);color:var(--card);border-color:var(--blue)}
+.pane[hidden]{display:none}
+.files{margin:10px 0 0;padding:0;list-style:none;font-family:Consolas,ui-monospace,monospace;font-size:13px}
+.files li{padding:4px 0;border-bottom:1px dashed var(--line);display:flex;gap:10px;flex-wrap:wrap}
+.files code{color:var(--blue)}
+.hint{color:var(--muted);font-size:13.5px}
+.btn{font:inherit;font-weight:600;border:0;border-radius:9px;padding:11px 18px;cursor:pointer;background:var(--chip);color:var(--ink)}
+.btn.go{background:#2e7d32;color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.chk{display:flex;gap:8px;align-items:center}
+.bar{height:12px;background:var(--chip);border-radius:6px;overflow:hidden;margin-top:14px}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#2e7d32,#5aa75e);transition:width .2s}
+#st{margin-top:8px;font-weight:600}
+pre#log{background:var(--console);color:var(--console-ink);border-radius:10px;padding:12px;height:230px;overflow:auto;font-size:12.5px;margin:12px 0 0;white-space:pre-wrap}
+.links{display:flex;gap:10px;flex-wrap:wrap}
+.links a{color:var(--blue2);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+footer{color:var(--muted);font-size:13px;text-align:center;padding:10px 0 30px}
+@media (max-width:640px){.roles{grid-template-columns:1fr}.hd .v{display:none}.hd img{width:48px;height:48px}.hd h1{font-size:20px}}
+</style>
+</head>
+<body>
+<header><div class="wrap hd">
+  <img alt="" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/2wBDAQYGBgkICREJCREkGBQYJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCT/wAARCACgAKADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD6jxRRmigAooooAKKK5nxL8QtE8NSC1lle81BuEsrRfMlY+hA+7+Na0aFStLkpRu/IyrV6dGPPUdkdN0qG6vLaxj826uIoE/vSuFH61wUk/j/xJG88kln4Q0wAsWkxJc7O5OeF/Sq9v4H8Nh/tN2da8U3O8I0juXXcWAPAI4GQTyeCDXb9So0v49VX7R95/fpH8WcTxdep/Ap6d5afhq/wR0938RfC9oSravDI3pCGk/kMVXX4laLL/qY76UeqwcfzqbTtKW1ZBZeFtPsoty5Zyu8DcwbgDOQApHPOT6Vu2UU4tIvtaRJcbf3ghPyZ9qiU8JH4YSfq1+i/UzdLMJ/8vYx9It/nJfkc+PiJpH/LSO9jHq0P/wBerlt448P3WAuoxoT2kUr/ADFaVtFdfYl+1i2kutp3eWGEZPOMZyQOn61ktp9xdyRpqPh7TJUcoGkRgSmQ28kYzxhcYPO72rGq6TuoRt8/+AQqWZRV1VjL1g1+Kl+huW93b3ab7eeKZfWNg38qlrg9Q8O+G4pneOe+0GZC+JkcqmEwCxznA545H61MkvjHQkE0Ult4lsMZBjO2bb6j14x61xuTW6NFjcRS/wB5pad4PmX3WUvwZ21Fc/oHjbSdfkNtHI1terw9pcDZID6AHr+FdBTjJSV0d9DEU68eelK6CiiiqNgooooAKKKKACo7i4itYZJ55EiijUu7ucKoHUk9hUdzfW9s6RyzRxu52qHYLk+nPeuP1O0l8ZX4TUd0OgW7grbsSv25x/FJ3EY7L/F1PGK6cPh/aO83aPV/5d2c1bEKCtHWX9blO417XfH7yQ+HZW0fw+hKy6xKuJJx3EIPQf7X6jpV7w14as9GiC+G9PCNJ/rdVvRullHGSM88gnHGMqQRW9PHZzwQxPFHLDbsrxpGhVU29OnGMdulReG/FC67FcmTT7nTjBMYlS4XbvUAYYe3OPTjiuyrWqSpOFGPLTW67+r3b/BdEjnp06aqKVV3m+vb06L82XbLRkt2eW5nkvJ5FKu8vK4IAZVXspK52881cYxWsJOEjjQZ4wqgAf4VJmuA+N2qXGneB5YLVykuoXEVkGHYSNz+gI/GuLC0HXrRpXtd2OuvU9lTc+xb0rxrPr97NqFobe18N2bMkl5cZBuWH9z0APfv+ldhBPHcwxzRNujkUMpxjIPTrXmtwtnp/iNdCMedH8J6QL9rcdJ5sHaWHfABP1NdFZ6+dG8KR+INcvWP2tFuZDgmOAMu4KqjsBge55rvxmFg1GVJWTtZdddVfu2tX6pI8rDYqdKUlWd1q2+1rX9FfRLrq2zqpHWJGdzhVGSfQVzereKn0WeC+n8qbRLjaguYeTAx7t6g/pUC+JX1/wAIP4h0qZ4jbK1wgIISYKuSrA9iM/Q1lwvbX+v/ANi7P+JX4n0o3qwn/ljJgbiPTIIP1FeLXUoS5NmTicbOs4rDuydmn67eqvo1urppnekRXcGGVJYpF5DAMrA/oRWbJ4dt45Jp9OkfT7mUlmeLlWfbtBZTwcdcDFc78HdVn1LwbHDcuXlsJ5bIse4RuP0IH4V3FOErpM9bD1fbUo1GrXRyuu+GbbXFhi1mz8yf5Ui1CzBWZX5weOgwMnPAyB71nRa7rPgWdLTxMzX+juwSHV0XmL0Ew7f736mup1rVpNLthJb2U99KzqghhxuwTyeewqSSWO6haOYRmGRSrLJHuV1PY54IqJRTd46M4q1Gk6rnSfLUXXo/J9H+a8i5FKk0ayROro4DKynIYHoQadXJaTYz+EbkwWbNPoMzErESWNix/unvEfTqv0rpxdw+asLSosrZ2oWG449B3q4yutTqoYlTVp6P+tvXoTUUUVR1BVS8vDGwgiBaUjJx/CPf0p+oM62FwY5TC/lMFkAzsbHBx35xXH+CYddsrC6GtXkV3cmVp1yrbVQgYUE89QevTOK6qNBShKo3t07nLWrOM1TS369iPxX4IfxbdWrNe3MK2rKzxxPtSbDbwrd+vfrzXS21xpn9otpiyQi+WMTPFtBIB9/X/GsvWPFEnhXwuuoapBBFqc2VW2R96mU579wBgn8vSvK7db3Q7JPiHrGptDAt0ZIoM4mvXIOFU9ArNwfRQx7CvXoYWpiaL9pO0Y3UfOT6Lv8A12PFr4uNDERp0IXlK0p+Uf8AP+ux6/f3inXrXRorizdmiaea3lc+aUHAKjGMZ6g9s0utahb6FbSando0UUQHmPxjBIHJ7cnrXgNzB4y/s1fim0uJftQmwM7kjPCybf8AnkT8mPT2r3Pwp4h0z4j+GYdVhVGEimK4t3w3kSAfMhH48E9QRRjcBHCqE1LnitJW6S6r/JnVh8ROvzxtyyesb9uj/wCAJpHiF/ENlpus6POsemSSN50ciZeRRleDnC4Yde4qv8VvDdx4r8FXVtYDdewMl3bAfxSRnIH1IyPrWnbabBpum+XAqwpCChVRhcDjGPpUHgvxbB4qtrp4ra4hW2m8gmZSu84GSMgH2PuK47uE/rNBaQf66X7m0GrewqvWS/TW3b0OZ066OvX1j41061e9hvrMaXrVgozJGc9dvcgkgj+6Qa1vFmhx6R8L9a0x7iS4t4rOVYS/DRpj5VyOuPWums9A02w1O51K1tlhuroATMhIEmO5Xpn361k/E5tngDXT/wBOjiprYtVZxhT0jp6+S+V2k9LrcIYVwhKpV1dn6ef32Ts72exmeBtJXWvhP4esTcSQwz6fCJynLSKR8y5PTPrVLU7r+wL2+8Z6hbNaxWVl/Zuj2JH7yQ567fUkAAegJrZ+Erb/AIZ+Gj/1D4h/47W/daJp97qFvqFxbrLcWwIiZySE9wOmffrXm4iN5y9SZYRzhCpR0dl6eX3XbSVrvc5/4WeG7nwx4OtLW+GL6dnurkH+GSQ5I/AYH1zWlpfivT9cW8a2laOOymMErSKUywHOM+mea0rubbGyrwBwT2z2H+PtWL4h0Ua9oU2niae2jfaUlhO2QNnhge39c1na2iLqc9KChR+ytu/bXp5mtbSQXIW4SRJI3H7oodwZfUY9f6Cq/nXzayILaO0NksZNwWl/exyH7o2DoCOeawb/AFCw+Fngy1soWaaWNTBaJK255nySWb1wTk/gB1pPDNkng3QL7xJ4hmZLy4X7Rds55Qfwp7sSenqQO1Q5+8o/eZe3bqxo21S5pPpHy+b6dtTp5beJpliknRZWBdUTCsQOpHciubvPB32nxNY6+15eJ9mcFLXzP3RbG1WYdc89q8+u28V65bTfEq1zD9ll3W1tgkm2XIYj1Ud/73zH0r1PQPFdl4s8LLrNkrOCh8yBPmeORRymO5zjHqCPWojJVN16GFKrSxbfPDlt70b9Utn/AMDzRt283mKVYYdeoNTdq53UdV1D+xk1PTdNc3bxq8dtcOI2yf4W9PocVu2kkktpDJMqLK8as6ocqGIGQD3Ga2jK+h69Guptw7albWHC2hBIAOTye+OP1IrI1O8gtH0qafVINLglvY7eMzKP9MZs7YRnpuK8HviqfxM8M3PijSoLW21GaxIchzGobehKgjB6HuD2o8ReGbTxNpOn6brkxS3spxPIx5EwETxj5s5RgXDBueVGK9KMYxoxnF3bvdW2/wA/0MJScqsozVoq1nff/L9TA1vwk/jvxpctdeIrCS00yVIJ7GAt5kCsN4QnoHYcn6+wqn47+Gs3jPxxo0Wra9p9r4ftspaaRAGErqigvz0BOACey8DmmXXwN0vVWjvLHxI7QSANI08fmm6Yrh5ncOpMrHLbxjGSB2wJ8F9HTUZra816ynF0ly9vZPahijOjL5oZ3Z2Zd2ck9uMda2eOrvlinbkTS027v18yIYShByml8bTbvv2+Xkatj4fhg+IWpG11y0u9O1GL7Jd6RLGxCoiYMakDaAuDgdgSPeqfw8+E2t/DnxZe3en67aT+HrwsGspVfzQgyUbd93eucZ7gn8OoTwffx6RJpA1yJ7GRt5D2m5y24Mdzb8EFhyMcgkZ71VPw9tntrxX1CETTSI6NHbBUg2uXKIu44Q5AK57VvLEQqR5XVsmkn7t7pbPZar5vTdmEIVabuqd93va1+m73+W+yN+3sLuK/vHu7v7RBPIHto9gUQDHK8feJ65NCeRp1iZzxkkgDqxJJAH1/+vVX7HJofhgWNrPGksEbeXPKp2hiSd23JOMnpn2HpXnHjn4kx+GdGjuL+Vbi6EYhggj+XzpMDcQOwzyT2GB9eaNN1LtO6vbte22nmauag0mrO1+9r+Zv+MfGupaNpN1qcN06Pbr5gSNVKdRlcEc8ev6VT8TePbHxf8J9ZuYGVZ1tj5iKeOh5H+B5H5E+CTaZ4k8T6ZqPifWNZmtQyOYk3sFfAz5aRjjaO+ePU5rrPhLp1nq+miwuDKF1y3iS5KsMqCMnbxx175rveDjTtGrvurdPJnBWxU5RdSi7rZ36+a/r9D0/wb44sPCPwd8P3N1InnCwQIjd+MD3P0HJ/MjT8HeNL/XNJtNTmnbdcp5mxwNgyTgYA4/D9a8g+K1lZ6Ppn9mW4kKaFbTRWxZxllHI3cc9O2KwIND8Q+GNH03xToWsT3aLGhmjLsVQkZ8t4ycbTnjHHoc142JppTfmctDGzpxjLEOy2Vulur8/67n0jqmkX2r6xpOqWuryQ2lrJma08oESNzwTnIHPPXPFbs2p2kN1Z2U88cVzcP8Auo2bmQqCTt9elec/D74j2viXSzcW+Elx5c9s7cxSY4BPp6N3H6d/ZxCdLe+vYbcXyqGWRRuVGI5CMRkA9OxNcdrHpUZKMnybuzfb+rHML4ei1f4gnX9Y1nTbqzhmNppVpHMCfOQEsjD++pVyVGTkZONuKk+JnhDUPF19oltPqtvZeHUnBvY2YrLPIWAjVeMEnO0cjBbPJxWdffBnT9VluriDXry1uZrq4u/3SjEEk3mb2C5yHZXjRjnlYuANxNEXwahjurWS51mOS2j8rz7Z4WdZwkwl2De52JxjC4HPINV7OFjuWGpckl0k7vXf+tvQ9ItIrWKAWlqsQitwIfKjxiMBRhCO3ykcehFefeF/BFx4E8f6hNY6pZQ+HtSQEae7nzUmYnYFXHTh8HPTjtmszTvhRb3tpEdL8VwPAl0szTRWx815Y1iQ5kEgPSIj6SN1wKsRfBJooRGviAQyGMQ+fDaFZVQM7KivvyV/eHduyWwOafLF2dzVwp1OWa6bNHoLyldT+ytbzLFs81Ziv7ssTjZn+91OPerVgf8ARkA7DFZdpYPpGgLpkC2fnRo6gWsBihQkkjCFmIAJ6ZPSqXw/i8RpY3cniKa3aSS4JgjhcuI0Ax94+p5x2rO9pWRgpuNdU0r3vr28jZ143CaRcyWlq13cRoWjhVgpdvTJ4rMktx4g0WSLUISpmj2S2wYjy2OMjI5JB7+2a6OsO8N5cXGP7HulWGXKSR3Cr5oBGCcdiCTg+ld9CdlZaNO976/ma16d23umrW6CaVoNr4fsYbSxiH2WFdqxNyVHsTz781VuL/QX8R2sBlt21IQusSeWDIBwzKOODjnHpWgbu/CjGgzMx6qZ046d+nc/lUH/AAjen3OoRa9LpcUGqCMx7yBvVf7uR7d61jUXM51m7u+zW/n5dzKdN2UaSVlbdPbyLbW/mdFWIew+b9OB+tYvhbQG8PC8lW7ublLuYzH7Q4YoOgAOBxgc9zWzqN2+nafPdLDLciNCwjiGZH9h6mvKfiV8WYNN0gafZu1tI0KtdlvvQggfuzj+LsQO/FdGCoV8QnTp/C9/JLXU5sXVo0ZKc/iW3z7Dvij8UrHS4ZgkxNtCdvyH5pn7Kv8An3Pt4zoGm3XjXUZvFPiV2i0+EhUjB49Vijz39T9Sag8LeGNT+KWty6lfGS10PT1aWWRuRFGBk/V2x/kCtDxN4nSUw2mmWhFvGRBY2UfJYnp06k9Sf/rV7lGjCirx6bf5v16f8Nfyq1SdX3JPff8AyX6jfGfi+2WB7ZwVMsTRW9rAudi4IAA7DPc9TnrVj4P6w1lq+i201tdxmN4Ym3RkDjAr1n4P/B6DwxbN4k8TiKfW518xmkAK2a/3V7A46nt0HfPpLXzJdssH9lNbBtqO11h2OMYx67ww/CvHnjowqNtczO+WXyr0fZxfKj5i+L2rNe6prNtFa3khlaaNdkRI5yKd4B8aW3ki1QFvLiWK6tJ1xuTAB47j3HQ+lfTtvezSPD9rTTo4ZFzvjuNxPC9B3+ZgPxHrXm3xd+EUXiSBfE/hYRQ65br5imLG28TH3Tjgkjoe/Q9iPMxNZVne1jlqZO6dDkb5kjyjxJpd34E1WHxZ4aYzaZcHa8ZPBHUxP6H0P4ivafht8RrHxFp8WybMcvC7zzG/dGHqO/515H4L8UwXEc1hqts32SY/Z76zl4MTD0z0I6g1k+I9A1f4O+JEvbMyXWiX2JEkTgSp1BHpIuf8g1xyn0ODCVqlK9JvWO3+T/T+mfSGh+EZdI8SX+qy6pd3S3ieXFBJjy4V3biOOW56E9BXSTTw2kLzTlYY41LNJ2UDkk+lef8AgP4lWuuaQokczzRx+bCYxlpgOwH97tj8K7tQNTsVllhZUmjB8iVcEZH3XHrzgis6bWyPZwVWlKm40FZ9u3r8yDQdQ07U9LSbTHjuIN7ofLUBQwY7ge2c1D4k0ObWdJms4b+eweUqBJbgErzg9eDwfarCWS+HrO2s9I0RJLdA2EtykSxd+nfJJ6U+S71IhiujT/ISQPOTMmN2AM9M4Xrj73tWjSasztdDmpclVX0s7L+vzA3EGg6apvLjENvGFM8regxlvc+vcmtCxKtaxOjK6OoZWU5DAjgis2cTXyGK70PzoXbYyyurgruIyVI5GADj39q2AoVQqgAAYAHanFanRShJS8lsLWRrdmJHFwYtwWMpuN2YQDzgY6d+vXpWvVbUZ7K2tHl1CS3jtl5ZpyAg9OtaRTbsjeTSV2c+ka3c4WOGKc7DsCaoSTgnjA7YIz9cV05KooXsBgVyE/ilJG3+HvD0l6w4W7lRbWAcY4dxuIwB90dq5zVNV8Q3u5NQ8UWumxMCDBo9oZXx6ebJ/QV6NHLalR+81H11f3K7+9I82tmlGmvd1/L73p91y94/8X34tZNM8OwvJK2RLeYxHEPQMeM+9eD3XguDUdRQ694g02zs0bc4N0sjue5IUnnsM16SPCmg6oQzw6xrE4bltTu2CAeuF4x7YqQeHLK1jL2Xh3TNowQ0dqXyPqw5719Xg5UcLSdGC33dkrv5t/LQ+Vr1Kter7aUm+1lol/XUjl8Z+BdN8IXPhvRdRtYUkt3hU5OCzLjcx281zfwp07QbDxdDfalrGjSeSjiBmuVG1iOo3Y57fjXTy3dval2MdvAyKP8ARX09U3E9t2D04POM1FHrUcjR+bpejTKSFKtCh3Z4/jxSUacaU4xT97dt+Xog9s5VItt+7bTTv5f8Oe2QSxSxKUKSxOMAqQysPr0Ncz9ut2lBWe13Lh2/4lbNwGdic446E+xHPXJ47QfFNvodxNE8NjpQY4VFiESu2ehA+XPXmuntPH+nTuI5L6AE4xiUDdnpj1zXzGIy6dOTtqj6fD5pTqRXQt2+oW0X3rm33x4UtFprLjiLoCDxkg8eo/u10rmG3tyoEcMEYx2VUA/QCufPiiz8jz45zJHnapDhtzZxtGOpzxiua1/xNpuoRxtd2FtdIG8sLOqyBHz90oTgN+tc8cHOWxdbMIQief8AxOtPD03iue+07WdGhNwqeeVuVO5wOuFzz/hXUP418A614Tt/D+s6laTotukTMWPDBcblO3g0p1uwkIGl22mlSoIDWkUY59MD1yKm1Cd1iia60+xUsqu0cVsk2IyPvHB4PetP7IlL7S1PlW3Cc5JvXdWVt+h5tonhhNC1Zv7A8R6ZeWLvvQC7VJI27EBiPoa958I+Jbq4to7XWIGhmXAWfrHL/wACHGa49fDfhrVt4ufDcLDIxM1l5e7J6jGD/nNVP+EG0XT5ZZLCXVNIaNgGawvnwM9PlYEfhXK8rrRl7rTNcMqtCp7aEt979f67ntWVZSOxGDXKLaRKqAWEOQM4XVMqpwu3HOT+Pcd81zem33iqxXFj4jsdYt1wvk6rbGJwPTzY/wCorZtdW09UA1/wqbHjH2hYxdW+MY++uSox/eAodCpD4kfS0s0pSXv6fl960++x0mk3UENrsmeCBzIzbTcrIWyc5zn1PStNHV1V0YMrDIIOQRWdZ2GiXlqklpb2U1uxDK0WGXPsR34H5Vfihjt4khhRY40AVVUYAA7Vgz0oyUldbCyb9h8sqG9WGQPw71z0cvh681uSxGqWF/rduCzQSzpJPCBjOI/4MZHQDrXRnoa+NfGkniDTfjP4z8UeHCPtPhu7W+lAzkxHYjZA6rg4Yf3ST2rai3rZ2Mq0Iu3Mrn1TqtkkEE95fXyW1tGhaaaeTaiIOpYngCsiw03StZtBqGjala6nEHKCe1mEkYYdRkHqM14f8T/ind/G+2sPCfg2OWKzNkdU1h5AQIvLUuYmPdUI69GYoB0rnPA/xf1r4f8Aw68PaTokmlWbapf3k099qMbPHAoZFHC846knBPTArohWqxWjOaeEozeqPpm30GRJvMniMwA4ycHP4dfp0p7eHpGkycn0PtXiHh39o7xYniU6ZcXXhvxTFLY3NxGdJglQrLHE8iqdwBP3ORg8Hg5rM0b9ojxrrUEEr+M/AWlyzsR9mu7S4VoucDcwRlA753dOtW8TVvcmOCpLQ9zNpp+rSXen2WpWF3cWh23UMUiSyQHkYZf4TkEc+lYuseALa7svLvJY7KyV1YlpQgYjoCx6/wCcV5f4Fh+IF58UfiK/gW70KKZb8/azqKllcGWQrswD33fpUlv8VdY8feGLCTX7SCS7sdZks3SzUoLkbEOMZOG5Zcj1FduAqVK9aNC+j/yuceOw8KVJ1oq7W332O7tfBWjRR29uNc0+4dGYopukbc7cZCknnnA9Kvw/CPTi6tcNeQ7Sh2rISG2DAGMcZx1/lVTSLjR5NTiMvwu1TTliDz/ap3l2RGNC4zkAdVA/GsGL45a7eWct+dY8N2b/ADMtlJBIZSB0AO0jntlvyrtqYStVfLS6Wve3Xb4XLt1OSjUhTXNV6/y39X8Sj+B3/wDwr63NilpG86IJDKzkqWfMezHAAHGOcduc5NVbr4fQ3ha0n1DfK0jXD24kVSwIwMoOwGMcds1naZ8U/EXiq60LTNHt9Ntry/s2uZHmUlCVZwcdcDEee/Jqhe+KNY8MeNtSudY+xXGo2ummXEGREchQvoe/Nec8PWhJxlZO23zsViMbT91wi3G6TeyWl38y/cfB+yBSdJbh5RIH2uRkEe+O5JNW7fwPdWk6TQ5SRDlWA6GsCb4zavbWKXp1bw/O/DNZrC4lGex4A474aukt/G/ifxR4lvNK8OxaZbJaQxyuLoEn5lU9fq3p2rN4mvSVmjD2uDrNNRk3pZW11+fka8ejXL4M8TSN7n+vWpZdBjZUgmljTzjhYZZApc/7PPNcPrnxW1Wwvb1LbxV4TdIXcRxCKVmIBOFyE2k9uuM96w9R8X674v1fwVqUH2CK9uXkitlZSI1mSXBZup2n5TjtzXnzzGovhRrUq0Emoxbfy7pdLnqH/CKy7gHJdQMAkYI/Ktew0eWyb9xJIq+55ri5/GPje58Up4RsBow1O1s1uLuaRT5bsQCdvoAGUdPWol+KHiHw9qGvaT4htdOnvNNsTeRtbZCE/JgH1Hzg9jxUVM0lLSSdjohLC05X5ZLW17dV0PR00aBZTcRL9muG+9LBhC/+8OjfiK0EDhcSFSw7qMA/h2rz3wfN4q8bWVre+II9Jk0K8iMojiDLLn+A8dOfevQLW1isrWK1gXZFCgRFyThRwBk8n8ayjU9or2PVwbhKHPTi4p99L+dv1JO1ee+G/hXb+H/iL4p8XT6vDeR+II/KeweAKIlJUkFix3AgYxgda9CqJ7W2Ys8kEBPUsyD9TVJ2Oto4rQPhL4Q8I6Rrmn+G7aPT31iB4ZZnmMzKCrKANxyFG4naDXnCfsy22m6Jotnb+O2sdX0Saa6hv0tVA8uVl6oX4wy8NnnJGK9wsrnR9Qs/tlt9kkt/+enlgDHryOh4IPcEEcEVNENP1a0EqRw3EEi7PmTggH7pB6YI6EcEVd5LUm8XoeX+HPhb4w0+7vJJvivdagPsk1uFFgiGCWSPCS5DdVyGA78VzGp/s/6l4qt47PXPi5LqVhJJ5rxrYxAvtGSQwbggNnJzjINe+w2sFu0hiiVDKQX2j7xAAH6AD8Kgg0fTrUIILKCIR79ojXaF3Y3dPXAz9KSmOxw3wy+GFl4C8TeI9WtNcS/XXmjnjtvLCmCNWYrzuO8YcDOB0965Hw98ALLRUt4I/GkM7LrjaiMWoBd1C7ofv9Rt5Pv0r1OfxD4V0LWbfSpbuztdRZI4UQKcorHCIzAYTcR8oYjPbNayaTYRMGSzgVlkeUELyHbhm+p71rTq1KMlUjo/6REoQqJxeqGXl1p13a3NtPdRGJ4tso8zGEcYH5g8fUV5PpvwU1nQ4J7TRPiXdWdjBIzGH7GjeUSATuO7rjGen0r1l9H0+RZEezhKyKqMCOqrjA/DA/IVT1PVNG0LfFc7Ve7yzQxoXaQYwSQOgwuMnA4q8PiatO8KXXpZP87k1adN+9U6fI4LVvhfJqDaPrVt4+mtNYsLQWsmpRxKRcDcQGwGG0/OV6kHio7T4N20tzqlz4i8Z3OsX2oW509ZmVY2iYkEfxHLDaMDjv616JpDaNe2oXT4YVji+UxCPYY/m3YKnp8wJ+oq3/ZViX3/AGSIN5vnEhcZf+8cdTVSxlde7J2+S9TJYWhP3kr389Dyuy+FfiOzgt7Cx+KU0cSqUgiWyQ4VRnA+bsCPzrp9A8IWvh7xr4g8Rza7DN/aISKS2KBDbk4Iy27knHoOtdhBYWtrjyYI48FmG0dC3X8+Kxb7U/C0V3PFcTWjzyOrXGwGTYV4BlK5CDqPmx1xWMq053v+SKWHo07Pa3dv9Tzm1+Dd/pcV3pujfEf7JYXU8kZtmso5G3EYKFt2d2MDjH0FTzfBnThoGgWmm+Mnsr/RjNcxX6op8wM4ZmC7htCkDBBPfOa9RtrLSrpUuraO2lVpjcCSJgVaQ9WyDgngfkPSnLounIiotnEAsTQDjkRsclc+hrJu+4lg6NtFp6v1PN9Q+EGrSapaa7p/j26sdZ+xpbXV4YAxusDG/G4YyAuRz0BqGL4KTTx65c6t4yk1LVdVtPsgu5IQBEu5CSV3fMcIAOQAK9WNpblUUwRMEUKoZAdoHbmqVxPpFreQWc0dus8/3F8nI9BkgYGSCBnrisnGPUJYWgtZL8Xv/mQeENGTwx4b03RDex3bWcIh80AL5mM87cnHWtk1ElpbIwZbeFWHIIjAI/Spau1tjpjFRSitkBqjr1hLqmiahYQusctzbSQozdAWUgZ9uavVSkGq7m8trEDcdu4P09/emtHcbV1Y8nu7i603xJZaLNeC2e/ybm1LqUSSYkwJJgnoVKkjjDjrwB6X4S0+8sNMcXylJpZmk2FgSowqgkgkZO3ceTgsRk9aJtHmn+0ebZaNJ9pdZJt8TEyMoAUse5G1cHtiryf2oV+c2Qbk5AYg9f8A61dNTEOUORHPTw8Yy5y2f9YPof6Vg+NvEMnhrRPtcJt0kmnitVnujiC2MjbRLKf7i/hk4GRnNbxHzA9gCKytXv8AY32dZINpUiVJrd5A2QMdB055rCm0pJtXN5JtNLQ888IeGbzxNdaq0mstdeHJdU+1PLDAETVHRg4KN12CQDc3IIRUQhVJb1nvWDHq1wIRsuLQInA22sgCjsMduAa2LO5W6tklVg2eCQpX5hweDz1qqs3N3ZNOCirIkTlBXnHigNY+JtRkkeKOW6tpPKN1D5kbr5ahRHtGQw2yA89+nNekKNqgHtXPavOtxI1re/2VNGrnEdzbu+OflPTGcelXh6qpyu1civT9pGxmeEpWvfEt7cRtHKsaFJZbePZAeEAUAgHduVyeT09+e0bjb/vCsHSLxobiCwiOmQxA4MNvDImPlJ4BAA6d/et5hnHsc0q9TnlcdCn7ONh3SvPxPcaPdWtl/akGlRaVqNxeXyS4X7ZaSeYyOv8Ae+ZwpA5DD1Az2t3qdrZNtndlOM8Izcc+g9qwpr9bsQy3B0qe4t3LwySWkh8psclcjKnjqKiDsOpDm2NLwzBJFpZlmga3e6nluvJYYMYdyyqR2O3GR65rU/jP+7WXBrkMcbtezxZDYBijfHA56j1B/StRfmO4HIKjFQ0VCKjFRRmeJfNXSZZItTOmeWyu1wE34XPTHU5yOnU8d64611LUY3tPEdzpt7qO2F1eaZUSOMOw2PCoBZVI+9wSARnnNdjqcl2kDCYWBt5NyMskbuCCTgEDtjr71TTW2iSJIrixRAoXatvKACDjjA4GMVDpuTuY1aPPLmvb/P8AI3LaY3FtFMYpITIiv5cgwyZGcEeo6GpKzLG8vL5y8c1o0KMFfEbhgcAkDOPf9K06q1joQtJS0lAwooooAKiu7hrW2kmSGW4KDIii5ZvYZ70ya1llmEi3k8SgAeWgXBwTzyO+f0FM+xTkOP7QuBuBAOFypJPI47Z/SmrCZCNXnOM6XfD5gMYGR+73/wA/k/3qBq0zKrHTL0FmjG1lGRu6k9vl6Hnr+dWGtJmiKfbZw25mDgLkZBAHToOv4UfZJssft0/OcDC4AP4dqvmj2Js+5HY6jLdybJLC6tfkL5lAxneVxx3wN30IqKPWJZJ7qL+ydSAgl8oOY12yjaDuX5uV5x+Bq29vK8SILmVGUY3qBlvr/nvTDZzkgi/uB7BVwevt7j/vke9S2m9ENJois9Vku7e7mOm31u1tI8axzKA0+0A5TnkHOB7g/WmRazNJsJ0q+j3eXkOoyu7dnOP7u0Z/3hVg2dwVAF/OCBjIVeenJ/I/nTpbWV4wiXk0ZG75lCknPTqO3b9alrsDT7ldNWnKxM2l3qCQoMEAsm5iCWAPAUDJ9iKVNUnePzDp12Pk3bTjdn5uMf8AAR/30Kma0mMe37bOG3MdwC55BwOnQZyPpSNZzsrgahOpZSAQq/KT0I47UW8xWfcsQyGWKOQqULKDtPVeOlOqD7NL0N3LjIPAANLDbyxOWe6llBBG1gMcn29OlBRNRk+poooGFFFFAH//2Q==">
+  <div><h1>MeshFederator Flasher</h1><p>Flashage Web Serial des Heltec LoRa V4 / V3 &mdash; Meshtastic &amp; MeshCore &mdash; ADRASEC 77 / FNRASEC</p></div>
+  <div class="v">v1.0.1</div>
+</div></header>
+
+<main class="wrap">
+  <div id="nows" class="alert" hidden>Ce navigateur ne prend pas en charge <b>Web Serial</b>. Utilisez <b>Chrome</b> ou <b>Edge</b> sur ordinateur (Windows, Linux, macOS), ou le programme <b>MeshFederator Setup</b> (flashage hors ligne).</div>
+
+  <section class="card">
+    <h2><span class="step">1</span> Rôle du module</h2>
+    <div class="roles">
+      <label class="role mt"><input type="radio" name="fam" value="meshtastic" checked><b>Meshtastic</b>
+        <small>Module n°1 de la passerelle (firmware Meshtastic officiel).</small></label>
+      <label class="role mc"><input type="radio" name="fam" value="meshcore"><b>MeshCore companion USB</b>
+        <small>Module n°2 de la passerelle (« Companion Radio USB »).</small></label>
+    </div>
+    <div class="row">
+      <label class="f">Variante
+        <select id="variant">
+          <option value="0">Heltec V4 (OLED)</option>
+          <option value="1">Heltec V4 TFT</option>
+          <option value="2">Heltec V4 R8 OLED</option>
+          <option value="3">Heltec V4 R8 TFT</option>
+          <option value="4">Heltec V3</option>
+        </select></label>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2><span class="step">2</span> Firmware</h2>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" data-p="hosted" aria-selected="true">Hébergé sur ce site</button>
+      <button class="tab" role="tab" data-p="local" aria-selected="false">Fichier(s) local(aux)</button>
+    </div>
+    <div class="pane" id="p-hosted">
+      <label class="f">Version disponible <select id="hostedSel"><option>Chargement…</option></select></label>
+      <p class="hint" id="hostedHint"></p>
+    </div>
+    <div class="pane" id="p-local" hidden>
+      <p class="hint">Meshtastic : <code>firmware-heltec-v4-*.factory.bin</code> ou <code>firmware-heltec-v3-*</code> (+ facultatifs <code>littlefs-*.bin</code>, <code>mt-esp32s3-ota.bin</code> et le manifeste <code>*.mt.json</code>), ou directement l'archive <code>firmware-esp32s3-*.zip</code> de la release.<br>
+      MeshCore : <code>heltec_v4_companion_radio_usb-*-merged.bin</code> ou <code>Heltec_v3_companion_radio_usb-*-merged.bin</code>.</p>
+      <input type="file" id="files" multiple accept=".bin,.zip,.json">
+    </div>
+    <ul class="files" id="plan"></ul>
+  </section>
+
+  <section class="card">
+    <h2><span class="step">3</span> Connexion &amp; flashage</h2>
+    <div class="row">
+      <label class="f">Vitesse
+        <select id="baud"><option>921600</option><option>460800</option><option>115200</option></select></label>
+      <label class="chk"><input type="checkbox" id="erase" checked> Effacement complet (obligatoire pour changer de firmware)</label>
+    </div>
+    <div class="row">
+      <button class="btn go" id="go">⚡ Connecter et flasher</button>
+      <span class="hint">Si la connexion échoue : maintenir <b>PRG</b> (BOOT), appui bref sur <b>RST</b>, relâcher <b>PRG</b>, puis recommencer.</span>
+    </div>
+    <div class="bar"><i id="pb"></i></div>
+    <div id="st">Prêt.</div>
+    <pre id="log"></pre>
+  </section>
+
+  <section class="card">
+    <h2>Autres flasheurs</h2>
+    <div class="links">
+      <a href="https://flasher.meshtastic.org/" target="_blank" rel="noopener">flasher.meshtastic.org</a>
+      <a href="https://flasher.meshcore.co.uk/" target="_blank" rel="noopener">flasher.meshcore.co.uk</a>
+      <a href="https://github.com/f1gbd/F1GBD/tree/master/meshfederator" target="_blank" rel="noopener">MeshFederator sur GitHub</a>
+    </div>
+    <p class="hint">Sans Internet : le programme <b>MeshFederator Setup</b> flashe et paramètre les modules depuis sa bibliothèque locale.</p>
+  </section>
+</main>
+<footer>MeshFederator Flasher v1.0.1 — by F1GBD (c) 2026 — ADRASEC 77 / FNRASEC</footer>
+
+<script type="module">
+const ESPTOOL_URL = "https://cdn.jsdelivr.net/npm/esptool-js@0.5.7/bundle.js";
+
+const VARIANTS = [["heltec-v4","heltec_v4"],["heltec-v4-tft","heltec_v4_tft"],["heltec-v4-r8-oled","heltec_v4_r8"],["heltec-v4-r8-tft","heltec_v4_r8_tft"],["heltec-v3","heltec_v3"]];
+// Tables de partitions Meshtastic (manifestes .mt.json officiels) :
+//   V4 = flash 16 Mo, V3 = flash 8 Mo. Un manifeste .mt.json fourni a priorite.
+const MT_OFF_V4 = { ota: 0x650000, littlefs: 0xC90000 };
+const MT_OFF_V3 = { ota: 0x340000, littlefs: 0x670000 };
+let mtOff = null;   // offsets lus dans un .mt.json (prioritaires)
+const offTable = () => mtOff || (variant().includes("v3") ? MT_OFF_V3 : MT_OFF_V4);
+const $ = s => document.querySelector(s);
+const logEl = $("#log"), pb = $("#pb"), st = $("#st");
+let hosted = [], localPlan = null, busy = false;
+
+const log = t => { logEl.textContent += t + "\n"; logEl.scrollTop = logEl.scrollHeight; };
+const status = (t, c) => { st.textContent = t; st.style.color = c ? `var(--${c})` : ""; };
+const fam = () => document.querySelector("input[name=fam]:checked").value;
+const variant = () => VARIANTS[+$("#variant").value][fam() === "meshtastic" ? 0 : 1];
+const hex = n => "0x" + n.toString(16).toUpperCase();
+
+if (!("serial" in navigator)) { $("#nows").hidden = false; $("#go").disabled = true; }
+
+// ---- onglets
+let mode = "hosted";
+document.querySelectorAll(".tab").forEach(b => b.onclick = () => {
+  mode = b.dataset.p;
+  document.querySelectorAll(".tab").forEach(x => x.setAttribute("aria-selected", x === b));
+  $("#p-hosted").hidden = mode !== "hosted"; $("#p-local").hidden = mode !== "local";
+  renderPlan();
+});
+document.querySelectorAll("input[name=fam]").forEach(r => r.onchange = async () => { fillHosted(); await replan(); });
+$("#variant").onchange = async () => { fillHosted(); await replan(); };
+let lastFiles = [];
+async function replan() {
+  if (!lastFiles.length) { renderPlan(); return; }
+  localPlan = null;
+  try { localPlan = await planFromFiles(lastFiles); status("Prêt."); } catch (err) { log("Erreur : " + err.message); status(err.message, "err"); }
+  renderPlan();
+}
+$("#hostedSel").onchange = renderPlan;
+
+// ---- firmwares heberges : firmware/index.json (genere par MeshFederator Setup)
+async function loadHosted() {
+  if (location.protocol === "file:") {
+    $("#hostedHint").textContent = "Page ouverte depuis le disque : utilisez l'onglet « Fichier(s) local(aux) ».";
+    fillHosted(); document.querySelector('.tab[data-p=local]').click(); return;
+  }
+  try {
+    const r = await fetch("firmware/index.json", { cache: "no-store" });
+    if (!r.ok) throw new Error(r.status);
+    hosted = (await r.json()).builds || [];
+  } catch (e) {
+    hosted = [];
+    $("#hostedHint").textContent = location.protocol === "file:"
+      ? "Page ouverte depuis le disque : utilisez l'onglet « Fichier(s) local(aux) »."
+      : "Aucun firmware hébergé ici : utilisez l'onglet « Fichier(s) local(aux) ».";
+  }
+  fillHosted(); renderPlan();
+}
+function fillHosted() {
+  const sel = $("#hostedSel"); sel.innerHTML = "";
+  const list = hosted.filter(b => b.family === fam() && b.variant === variant());
+  if (!list.length) { sel.innerHTML = "<option value=''>— aucun pour cette cible —</option>"; return; }
+  list.forEach((b, i) => { const o = document.createElement("option"); o.value = hosted.indexOf(b); o.textContent = `${b.label || b.version}`; sel.appendChild(o); });
+}
+
+// ---- fichiers locaux
+$("#files").onchange = async e => { lastFiles = [...e.target.files]; await replan(); };
+function readManifest(text) {
+  try {
+    const m = JSON.parse(text), off = {};
+    for (const p of m.part || []) off[p.name] = parseInt(p.offset, 16);
+    if (off.app1 && off.spiffs) { mtOff = { ota: off.app1, littlefs: off.spiffs }; log(`Manifeste ${m.platformioTarget || ""} : OTA ${hex(off.app1)}, LittleFS ${hex(off.spiffs)} (flash ${m.partitionScheme || "?"})`); }
+    if (m.platformioTarget && m.platformioTarget !== variant()) throw new Error(`Le manifeste vise ${m.platformioTarget}, la variante choisie est ${variant()}.`);
+  } catch (e) { if (e instanceof SyntaxError) throw new Error("Manifeste .mt.json illisible."); throw e; }
+}
+async function planFromFiles(fl) {
+  const parts = [];
+  mtOff = null;
+  const zip = fl.find(f => /\.zip$/i.test(f.name));
+  if (zip) {
+    if (fam() !== "meshtastic") throw new Error("Une archive .zip ne concerne que Meshtastic.");
+    status("Lecture de l'archive…");
+    const { unzipSync } = await import("https://cdn.jsdelivr.net/npm/fflate@0.8.2/esm/browser.js");
+    const v = variant();
+    const re = new RegExp(`^(firmware-${v}-[\\d.]+[0-9a-f]+\\.(factory\\.bin|mt\\.json)|littlefs-${v}-[\\d.]+[0-9a-f]+\\.bin|mt-esp32s3-ota\\.bin)$`);
+    const out = unzipSync(new Uint8Array(await zip.arrayBuffer()), { filter: f => re.test(f.name) });
+    const man = Object.keys(out).find(n => n.endsWith(".mt.json"));
+    if (man) { readManifest(new TextDecoder().decode(out[man])); delete out[man]; }
+    for (const [n, d] of Object.entries(out)) parts.push({ name: n, data: d, address: offsetFor(n) });
+    if (!parts.some(p => p.address === 0)) throw new Error(`Cible ${v} absente de l'archive.`);
+    status("Archive lue.");
+  } else {
+    const man = fl.find(f => /\.mt\.json$/i.test(f.name));
+    if (man) readManifest(await man.text());
+    for (const f of fl) {
+      if (f === man) continue;
+      if (fam() === "meshtastic" && /firmware-heltec-v[34]/i.test(f.name) && !f.name.toLowerCase().includes(`firmware-${variant()}-`))
+        throw new Error(`${f.name} ne correspond pas à la variante ${variant()}.`);
+      if (fam() === "meshcore" && /heltec_v[34]/i.test(f.name) && !f.name.toLowerCase().startsWith(variant() + "_companion"))
+        throw new Error(`${f.name} ne correspond pas à la variante ${variant()}.`);
+      parts.push({ name: f.name, data: new Uint8Array(await f.arrayBuffer()), address: offsetFor(f.name) });
+    }
+  }
+  if (parts.filter(p => p.address === 0).length !== 1) throw new Error("Il faut exactement une image d'amorçage (factory.bin ou merged.bin).");
+  return parts.sort((a, b) => a.address - b.address);
+}
+function offsetFor(n) {
+  if (/littlefs-.*\.bin$/i.test(n)) return offTable().littlefs;
+  if (/mt-esp32s3-ota\.bin$/i.test(n)) return offTable().ota;
+  return 0;
+}
+function renderPlan() {
+  const ul = $("#plan"); ul.innerHTML = "";
+  const parts = currentPlan();
+  if (!parts) { ul.innerHTML = "<li class='hint'>Aucun firmware sélectionné.</li>"; return; }
+  parts.forEach(p => { const li = document.createElement("li"); li.innerHTML = `<code>${hex(p.address)}</code><span>${p.name}</span><span class="hint">${p.data ? (p.data.length / 1e6).toFixed(2) + " Mo" : ""}</span>`; ul.appendChild(li); });
+}
+function currentPlan() {
+  if (mode === "local") return localPlan;
+  const i = $("#hostedSel").value; if (i === "" || !hosted[i]) return null;
+  return hosted[i].parts.map(p => ({ name: p.path.split("/").pop(), path: p.path, address: p.offset }));
+}
+
+// ---- flashage
+const bstr = u8 => { let s = ""; const C = 0x8000; for (let i = 0; i < u8.length; i += C) s += String.fromCharCode.apply(null, u8.subarray(i, i + C)); return s; };
+
+$("#go").onclick = async () => {
+  if (busy) return;
+  let parts = currentPlan();
+  if (!parts) { status("Choisissez d'abord un firmware.", "err"); return; }
+  busy = true; $("#go").disabled = true; pb.style.width = "0"; logEl.textContent = "";
+  let transport;
+  try {
+    for (const p of parts) if (!p.data) {
+      status(`Téléchargement ${p.name}…`);
+      const r = await fetch(p.path); if (!r.ok) throw new Error(`${p.name} : HTTP ${r.status}`);
+      p.data = new Uint8Array(await r.arrayBuffer()); log(`Téléchargé ${p.name} (${p.data.length} octets)`);
+    }
+    status("Chargement d'esptool-js…");
+    const { ESPLoader, Transport } = await import(ESPTOOL_URL);
+    status("Sélectionnez le port du module Heltec…");
+    const port = await navigator.serial.requestPort({});
+    transport = new Transport(port, true);
+    const term = { clean() {}, writeLine: d => log(d), write: d => { logEl.textContent += d; } };
+    const loader = new ESPLoader({ transport, baudrate: +$("#baud").value, terminal: term, romBaudrate: 115200 });
+    status("Connexion à la puce…");
+    const chip = await loader.main();
+    log("Puce : " + chip);
+    if (!/ESP32-S3/i.test(chip)) throw new Error(`Puce ${chip} : les Heltec V3 et V4 sont des ESP32-S3.`);
+    if ($("#erase").checked) { status("Effacement complet…", "warn"); await loader.eraseFlash(); log("Flash effacée."); }
+    const total = parts.reduce((a, p) => a + p.data.length, 0);
+    const before = parts.map((_, i) => parts.slice(0, i).reduce((a, p) => a + p.data.length, 0));
+    status("Écriture…");
+    await loader.writeFlash({
+      fileArray: parts.map(p => ({ data: bstr(p.data), address: p.address })),
+      flashSize: "keep", flashMode: "keep", flashFreq: "keep", eraseAll: false, compress: true,
+      reportProgress: (i, w, t) => { const pct = 100 * (before[i] + p2(i, w, t)) / total; pb.style.width = pct.toFixed(1) + "%"; }
+    });
+    function p2(i, w, t) { return parts[i].data.length * (t ? w / t : 0); }
+    await loader.after("hard_reset");
+    pb.style.width = "100%";
+    status(`Terminé : ${fam() === "meshtastic" ? "Meshtastic" : "MeshCore"} écrit. Le module redémarre.`, "mt");
+    log(fam() === "meshtastic" ? "Étape suivante : région EU_868 (application Meshtastic ou MeshFederator Setup)." : "Étape suivante : nom, radio et canaux (application MeshCore ou MeshFederator Setup).");
+  } catch (e) {
+    status("Échec : " + (e.message || e), "err"); log("ERREUR : " + (e.stack || e));
+  } finally {
+    try { if (transport) await transport.disconnect(); } catch (_) {}
+    busy = false; $("#go").disabled = !("serial" in navigator);
+  }
+};
+
+loadHosted();
+</script>
+</body>
+</html>

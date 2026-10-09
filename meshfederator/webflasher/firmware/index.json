@@ -1,0 +1,69 @@
+{
+  "generated": "2026-10-09T07:17:09",
+  "builds": [
+    {
+      "family": "meshcore",
+      "variant": "heltec_v3",
+      "version": "1.17.1",
+      "label": "MeshCore companion USB v1.17.1 [Heltec_v3]",
+      "parts": [
+        {
+          "path": "firmware/meshcore/Heltec_v3_companion_radio_usb-v1.17.1-d929643-merged.bin",
+          "offset": 0
+        }
+      ]
+    },
+    {
+      "family": "meshcore",
+      "variant": "heltec_v4",
+      "version": "1.17.1",
+      "label": "MeshCore companion USB v1.17.1 [heltec_v4]",
+      "parts": [
+        {
+          "path": "firmware/meshcore/heltec_v4_companion_radio_usb-v1.17.1-d929643-merged.bin",
+          "offset": 0
+        }
+      ]
+    },
+    {
+      "family": "meshtastic",
+      "variant": "heltec-v3",
+      "version": "2.7.26.54e0d8d",
+      "label": "Meshtastic 2.7.26.54e0d8d [heltec-v3] + OTA + LittleFS",
+      "parts": [
+        {
+          "path": "firmware/meshtastic/2.7.26.54e0d8d/firmware-heltec-v3-2.7.26.54e0d8d.factory.bin",
+          "offset": 0
+        },
+        {
+          "path": "firmware/meshtastic/2.7.26.54e0d8d/mt-esp32s3-ota.bin",
+          "offset": 3407872
+        },
+        {
+          "path": "firmware/meshtastic/2.7.26.54e0d8d/littlefs-heltec-v3-2.7.26.54e0d8d.bin",
+          "offset": 6750208
+        }
+      ]
+    },
+    {
+      "family": "meshtastic",
+      "variant": "heltec-v4",
+      "version": "2.7.26.54e0d8d",
+      "label": "Meshtastic 2.7.26.54e0d8d [heltec-v4] + OTA + LittleFS",
+      "parts": [
+        {
+          "path": "firmware/meshtastic/2.7.26.54e0d8d/firmware-heltec-v4-2.7.26.54e0d8d.factory.bin",
+          "offset": 0
+        },
+        {
+          "path": "firmware/meshtastic/2.7.26.54e0d8d/mt-esp32s3-ota.bin",
+          "offset": 6619136
+        },
+        {
+          "path": "firmware/meshtastic/2.7.26.54e0d8d/littlefs-heltec-v4-2.7.26.54e0d8d.bin",
+          "offset": 13172736
+        }
+      ]
+    }
+  ]
+}
