@@ -55,8 +55,7 @@ le UV-K1 l'affiche en clair.
   &nbsp;&nbsp;
   <img src="images/UV-K1_CHAPPE26.jpg" alt="Message CHAPPE26 décodé sur le UV-K1" width="300">
 </p>
-<p align="center"><em>Message CHAPPE26 de 9 codes envoyé par TCQ et décodé sur le UV-K1 (v1.1 ; en v1.2
-la 6e ligne ne chevauche plus la ligne du bas et les messages sont conservés).</em></p>
+<p align="center"><em>Message CHAPPE26 de 9 codes envoyé par TCQ et décodé sur le UV-K1 (en v1.2.1).</em></p>
 
 ## Documentation
 
