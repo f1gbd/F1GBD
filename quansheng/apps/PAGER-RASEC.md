@@ -1,10 +1,13 @@
-# PAGER-RASEC v1.2 — pager RASEC-ALERT pour Quansheng UV-K1 / UV-K5 v3
+# PAGER-RASEC v1.2.1 — pager RASEC-ALERT pour Quansheng UV-K1 / UV-K5 v3
 
 Application overlay (`.app`) pour le firmware F4HWN édition Labs. Elle transforme
 le portatif en **pager d'alerte ADRASEC** : elle écoute en permanence les trames
 **AX.25 Packet 1200 bauds** envoyées par **TCQ** (onglet TNC Packet) et, à la
 réception de la commande `#ra <code>`, **fait clignoter la LED et l'écran et
 déclenche une sirène** jusqu'à l'acquittement par l'opérateur.
+
+**v1.2.1 :** correctif du défilement (< / > vidaient l'écran) et du dernier code
+CHAPPE26 tronqué sur les longs messages.
 
 **Nouveau en v1.2 : les 6 derniers messages sont conservés**, consultables et
 effaçables (voir Écran et touches).
