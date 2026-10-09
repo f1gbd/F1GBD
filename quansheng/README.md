@@ -52,6 +52,9 @@ Premier essai réussi le 9 octobre 2026 : TCQ (TNC Packet, Direwolf) envoie
 | Document | Formats |
 |---|---|
 | PAGER-RASEC v1.1 — Manuel d'installation et d'utilisation | [PDF](documentation/PAGER-RASEC_Manuel_v1.1.pdf) · [Word](documentation/PAGER-RASEC_Manuel_v1.1.docx) |
+| Code CHAPPE26 — Livret de poche B5 (18 pages) : répertoire des 1000 codes, carte opérateur, chiffrement | [PDF](documentation/Chappe26_Livret_B5.pdf) |
+| Code CHAPPE26 — Fiche exemple Black-out : demande de moyens radio de secours | [PDF](documentation/Chappe26_Fiche_BlackOut.pdf) |
+| Code CHAPPE26 — Fiche exemple Incendie majeur : renforts, évacuation, radio en zone blanche | [PDF](documentation/Chappe26_Fiche_Incendie.pdf) |
 
 ## Applications
 
