@@ -70,6 +70,10 @@ trame AX.25 `F1GBD-7>CQ`. TCQ et PAGER-RASEC le traduisent automatiquement.
 </p>
 <p align="center"><em>Message de 9 codes prêt à partir, puis relecture en clair (F puis MENU) — maquettes d'écran</em></p>
 
+**Indicatif** (nouveau en v1.1) : il se saisit sur la radio, sans PC — **F puis 0**, lettres
+avec **< / >**, chiffres au clavier, **\*** pour passer au caractère suivant, **MENU** pour
+valider (le SSID se règle à part, F 3 / F 9). Au premier lancement l'éditeur s'ouvre seul.
+
 Saisie : taper les 4 chiffres du code puis **MENU** pour l'ajouter ; **< / >** parcourt le
 répertoire, **\*** retire le dernier code, **F MENU** relit, **PTT** émet. Le code 1000 est
 déjà affiché au lancement.
@@ -86,14 +90,14 @@ déjà affiché au lancement.
 
 Trames décodées (FCS correcte) et durées mesurées sur l'application réelle en émulation ;
 essai sur l'air à venir. Détails : [notice](apps/CHAPPE-TX.md) et
-[manuel CHAPPE-TX](documentation/CHAPPE-TX_Manuel_v1.0.pdf).
+[manuel CHAPPE-TX](documentation/CHAPPE-TX_Manuel_v1.1.pdf).
 
 ## Documentation
 
 | Document | Formats |
 |---|---|
-| PAGER-RASEC v1.2 — Manuel d'installation et d'utilisation | [PDF](documentation/PAGER-RASEC_Manuel_v1.2.pdf) · [Word](documentation/PAGER-RASEC_Manuel_v1.2.docx) |
-| CHAPPE-TX v1.0 — Manuel d'utilisation et exemples de transmission | [PDF](documentation/CHAPPE-TX_Manuel_v1.0.pdf) · [Word](documentation/CHAPPE-TX_Manuel_v1.0.docx) |
+| PAGER-RASEC v1.2 — Manuel d'installation et d'utilisation | [PDF](documentation/PAGER-RASEC_Manuel_v1.2.pdf) |
+| CHAPPE-TX v1.1 — Manuel d'utilisation et exemples de transmission | [PDF](documentation/CHAPPE-TX_Manuel_v1.1.pdf) |
 | Code CHAPPE26 — Livret de poche B5 (18 pages) : répertoire des 1000 codes, carte opérateur, chiffrement | [PDF](documentation/Chappe26_Livret_B5.pdf) |
 | Code CHAPPE26 — Fiche exemple Black-out : demande de moyens radio de secours | [PDF](documentation/Chappe26_Fiche_BlackOut.pdf) |
 | Code CHAPPE26 — Fiche exemple Incendie majeur : renforts, évacuation, radio en zone blanche | [PDF](documentation/Chappe26_Fiche_Incendie.pdf) |
@@ -103,7 +107,7 @@ essai sur l'air à venir. Détails : [notice](apps/CHAPPE-TX.md) et
 | Application | Version | Rôle |
 |---|---|---|
 | [PAGER-RASEC](apps/PAGER-RASEC.md) ([manuel PDF](documentation/PAGER-RASEC_Manuel_v1.2.pdf)) | 1.2.1 | Pager RASEC-ALERT : réception AX.25 Packet 1200 bauds depuis TCQ, LED + sirène sur `#ra <code>`, messages CHAPPE26 en clair, historique de 6 messages, 145.4375 MHz FM |
-| [CHAPPE-TX](apps/CHAPPE-TX.md) ([manuel PDF](documentation/CHAPPE-TX_Manuel_v1.0.pdf)) | 1.0 | Émetteur CHAPPE26 : message composé au clavier (phrases en clair, relecture), émis en AX.25 Packet 1200 bauds vers CQ comme TCQ — reçu en clair par TCQ et PAGER-RASEC |
+| [CHAPPE-TX](apps/CHAPPE-TX.md) ([manuel PDF](documentation/CHAPPE-TX_Manuel_v1.1.pdf)) | 1.1 | Émetteur CHAPPE26 : message composé au clavier (phrases en clair, relecture), émis en AX.25 Packet 1200 bauds vers CQ comme TCQ — reçu en clair par TCQ et PAGER-RASEC |
 | CHAPPE26 | 1.0 | Dictionnaire CHAPPE26 (1000 codes) pour PAGER-RASEC et CHAPPE-TX — à installer avec eux |
 
 ## Ajouter une application

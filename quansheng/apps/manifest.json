@@ -27,12 +27,12 @@
     {
       "file": "CHAPPE-TX.app",
       "name": "CHAPPE-TX",
-      "version": "1.0",
+      "version": "1.1",
       "title": "Émetteur CHAPPE-TX",
-      "summary": "Compose au clavier un message CHAPPE26 (15 codes, phrase en clair à la saisie, relecture) et l'émet en AX.25 Packet 1200 bauds vers CQ, comme TCQ : reçu en clair par TCQ et par PAGER-RASEC. Fréquence du VFO d'émission ; indicatif du message de démarrage. Installer aussi le dictionnaire CHAPPE26.",
-      "doc": "https://github.com/F1GBD/F1GBD/blob/master/quansheng/apps/CHAPPE-TX.md",
-      "size": 4380,
-      "sha256": "f0b053030a07e46e906416791b4b843d21fd703cd70cad534c5c8f55bbc70453",
+      "summary": "Compose au clavier un message CHAPPE26 (15 codes, phrase en clair à la saisie, relecture) et l'émet en AX.25 Packet 1200 bauds vers CQ, comme TCQ : reçu en clair par TCQ et par PAGER-RASEC. Indicatif saisi sur la radio (F puis 0), sans PC. Installer aussi le dictionnaire CHAPPE26.",
+      "doc": "documentation/CHAPPE-TX_Manuel_v1.1.pdf",
+      "size": 5188,
+      "sha256": "23a367d73f9f932c0cfa256e8d23f31c482eff3c5e62a4c0b297bbc9124a7494",
       "date": "2026-10-09"
     }
   ]

@@ -1,23 +1,28 @@
-# CHAPPE-TX v1.0 — émetteur de messages CHAPPE26 pour Quansheng UV-K1 / UV-K5 v3
+# CHAPPE-TX v1.1 — émetteur de messages CHAPPE26 pour Quansheng UV-K1 / UV-K5 v3
 
 Application overlay (`.app`) pour le firmware F4HWN édition Labs. Elle permet de
 **composer un message CHAPPE26 au clavier du portatif** et de l'**émettre en
 AX.25 Packet 1200 bauds**, exactement comme le chat TNC Packet de **TCQ** :
 une trame UI de `F1GBD-7` vers `CQ`, texte `!1000 !1024 !1380 !1990`.
 
+**Nouveau en v1.1 : l'indicatif se saisit directement sur la radio** (F puis 0),
+sans PC ni logiciel de programmation.
+
 Le message est donc reçu et **affiché en clair** par :
 - toute station **TCQ** (onglet TNC Packet, décodage CHAPPE26 automatique) ;
 - tout autre UV-K1 / UV-K5 v3 sous **[PAGER-RASEC](PAGER-RASEC.md)** (v1.1 et suivantes) ;
 - n'importe quel TNC / logiciel Packet (Direwolf, UZ7HO…), en codes bruts.
 
+Manuel complet avec exemples de transmission : [PDF](../documentation/CHAPPE-TX_Manuel_v1.1.pdf)
+
 | | |
 |---|---|
 | Modulation | AFSK Bell 202 1200 bauds, trame UI AX.25 (contrôle 03, PID F0), FCS CRC-16/X.25 |
-| Adresses | source = indicatif du message de démarrage + SSID (7 par défaut), destination `CQ`, pas de digipeater |
+| Adresses | source = indicatif saisi sur la radio (F 0), à défaut celui du message de démarrage, + SSID (7 par défaut) ; destination `CQ`, pas de digipeater |
 | Fréquence | celle du **VFO d'émission** (ex. 145.4375 MHz FM, fréquence RASEC-ALERT de PAGER-RASEC) |
 | Message | 1 à **15 codes** `!PPLL` (89 caractères, une seule trame : TCQ coupe au-delà de 92) |
 | Aide à la saisie | domaine de la page et phrase en clair de chaque code, relecture du message complet (dictionnaire **CHAPPE26** requis) |
-| Taille | 3172 o de code (overlay 4 Kio) + 1,1 ko de ressources |
+| Taille | 3852 o de code (overlay 4 Kio) + 1,3 ko de ressources |
 
 ## Installation
 
@@ -26,10 +31,30 @@ Le message est donc reçu et **affiché en clair** par :
 3. Sélectionner **Émetteur CHAPPE-TX**, garder l'emplacement proposé, **Installer**.
 4. Si ce n'est pas déjà fait, installer aussi le **Dictionnaire CHAPPE26** : sans
    lui l'émission fonctionne, mais la radio n'affiche pas les phrases en clair.
-5. **Indicatif** : comme l'application APRS TX, CHAPPE-TX prend l'indicatif dans
-   le message de démarrage programmé dans la radio (ex. `F1GBD`, via UV Studio ou
-   CHIRP) — lettres et chiffres, 6 caractères maximum. Sans indicatif valide, l'écran affiche « Pas d'indicatif (boot) » et rien n'est émis.
-6. Régler le **VFO** sur la fréquence de travail, puis menu **Apps** → **CHAPPE-TX**.
+5. Régler le **VFO** sur la fréquence de travail, puis menu **Apps** → **CHAPPE-TX**.
+6. Saisir l'**indicatif** (ci-dessous) : au premier lancement, l'éditeur s'ouvre tout seul.
+
+## Saisir l'indicatif sur la radio
+
+**F puis 0** ouvre l'éditeur « Indicatif » : l'indicatif actuel, les cases libres en `_`,
+le SSID à droite, un `^` sous le caractère en cours.
+
+| Touche | Action |
+|---|---|
+| < / > | Lettre ou chiffre suivant / précédent sous le curseur : A … Z puis 0 … 9 (maintenu : rapide) |
+| 0 à 9 | Taper un chiffre (le curseur avance seul) |
+| * | Caractère suivant |
+| F puis * | Effacer le caractère |
+| MENU | Valider (mémorisé) |
+| EXIT | Annuler |
+
+Exemple, `F1GBD` depuis un éditeur vide : `>`×6 (F) `*` · `1` · `>`×7 (G) `*` · `>`×2 (B) `*` · `>`×4 (D) · `MENU`.
+
+- 6 caractères au plus, lettres et chiffres. **Pas de SSID dans l'indicatif** : il se
+  règle avec F 3 / F 9 (7 par défaut).
+- Indicatif vide (tout effacer puis MENU) : CHAPPE-TX reprend l'indicatif de la ligne 1
+  du message de démarrage de la radio (programmé avec CHIRP), comme APRS TX ; sans
+  aucun indicatif, l'écran affiche « Pas d'indicatif: F puis 0 » et rien n'est émis.
 
 ## Composer et envoyer un message
 
@@ -78,9 +103,10 @@ interrompue. Fin transmission. » : `1000 MENU 1024 MENU 1380 MENU 1990 MENU PTT
 | F puis 1 / F puis 7 | Niveau BF (déviation) + / − (10 à 127, défaut 66) |
 | F puis 2 / F puis 8 | Twist + / − (gain du 2200 Hz, −4 à +8 soit −6 à +6 dB) |
 | F puis 3 / F puis 9 | SSID + / − (0 à 15, défaut 7) |
+| F puis 0 | **Éditeur d'indicatif** |
 | EXIT | Quitter |
 
-Niveau, twist et SSID sont mémorisés. Le message est conservé tant que
+Indicatif, SSID, niveau et twist sont mémorisés (et conservés lors d'une mise à jour). Le message est conservé tant que
 l'application est ouverte (l'application ne peut pas écrire en mémoire flash
 pendant qu'elle tourne).
 
@@ -104,6 +130,9 @@ ne peuvent pas être ajoutés.
   rejoué dans l'émulateur de **PAGER-RASEC**, qui affiche « Debut de transmission.
   Transmission urgente. Communication interrompue. Fin transmission. ». Les 1000
   phrases affichées par CHAPPE-TX sont identiques au répertoire de TCQ.
+- Éditeur d'indicatif (v1.1) vérifié en émulation : saisie sans message de démarrage,
+  trame émise avec la source saisie, indicatif mémorisé, retour au message de démarrage
+  si l'indicatif est effacé, réglages d'une v1.0 conservés.
 - Essai sur l'air : à faire.
 
 ADRASEC 77 · F1GBD — 73

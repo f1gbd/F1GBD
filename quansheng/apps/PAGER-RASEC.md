@@ -16,8 +16,7 @@ effaçables (voir Écran et touches).
 affiché en clair, comme dans TCQ : « Debut de transmission. Transmission
 urgente. Fin transmission. » — avec l'application dictionnaire **CHAPPE26**.
 
-Manuel complet : [PDF](../documentation/PAGER-RASEC_Manuel_v1.2.pdf) ·
-[Word](../documentation/PAGER-RASEC_Manuel_v1.2.docx)
+Manuel complet : [PDF](../documentation/PAGER-RASEC_Manuel_v1.2.pdf)
 
 | | |
 |---|---|
