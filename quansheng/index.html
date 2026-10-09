@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UV-K1 Apps Uploader — F1GBD</title>
+<meta name="description" content="Installation des applications Sécurité Civile (.app) sur Quansheng UV-K1 / UV-K5 v3, firmware F4HWN Labs, via Web Serial. ADRASEC 77 / F1GBD.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f2ee; --panel:#ffffff; --ink:#1b1d21; --muted:#5d6370; --line:#dcd8d0;
+  --accent:#d4380d; --accent-ink:#ffffff; --ok:#1f7a3f; --warn:#a15c00; --err:#b3261e;
+  --chip:#efece6; --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --sans:"IBM Plex Sans",system-ui,Segoe UI,Roboto,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121417; --panel:#1b1e23; --ink:#e9e7e3; --muted:#9aa1ad; --line:#2c3038;
+    --accent:#ff5a1f; --accent-ink:#121417; --ok:#4cc27a; --warn:#e8a33d; --err:#ff6b5e; --chip:#252930;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121417; --panel:#1b1e23; --ink:#e9e7e3; --muted:#9aa1ad; --line:#2c3038;
+  --accent:#ff5a1f; --accent-ink:#121417; --ok:#4cc27a; --warn:#e8a33d; --err:#ff6b5e; --chip:#252930;
+}
+*{box-sizing:border-box}
+:root{color-scheme:light dark;accent-color:var(--accent)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--sans)}
+header.top{border-bottom:3px solid var(--accent);background:var(--panel)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+.top .wrap{display:flex;align-items:center;gap:16px;padding-top:14px;padding-bottom:12px;flex-wrap:wrap}
+.mark{width:40px;height:40px;border-radius:8px;background:var(--accent);display:grid;place-items:center;flex:none}
+.mark svg{width:24px;height:24px}
+.top h1{font-size:19px;margin:0;letter-spacing:.2px}
+.top p{margin:0;color:var(--muted);font-size:13px}
+.conn{margin-left:auto;display:flex;align-items:center;gap:10px}
+.pill{font:600 12px var(--mono);padding:4px 10px;border-radius:99px;background:var(--chip);color:var(--muted);white-space:nowrap}
+.pill.on{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
+button{font:600 14px var(--sans);border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:8px 14px;cursor:pointer}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+button.danger{color:var(--err)}
+button:disabled{opacity:.45;cursor:not-allowed}
+main.wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;padding-top:20px;padding-bottom:30px}
+@media (max-width:860px){main.wrap{grid-template-columns:1fr}}
+section.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.card h2{font-size:13px;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);margin:0 0 12px;display:flex;gap:8px;align-items:center}
+.card h2 b{font:700 12px var(--mono);color:var(--accent-ink);background:var(--accent);border-radius:4px;padding:1px 6px}
+.apps{display:grid;gap:10px}
+.app{border:1px solid var(--line);border-radius:8px;padding:12px 14px;cursor:pointer;display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
+.app input{margin-top:4px}
+.app.sel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.app .n{font-weight:700}
+.app .n span{font:500 12px var(--mono);color:var(--muted);margin-left:6px}
+.app .s{grid-column:2;color:var(--muted);font-size:13.5px}
+.app .s a{color:var(--accent)}
+.local{margin-top:12px;font-size:13.5px;color:var(--muted)}
+.local input{max-width:100%}
+dl.info{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;margin:14px 0 0;font-size:13px}
+dl.info dt{color:var(--muted)}
+dl.info dd{margin:0;font-family:var(--mono)}
+.okt{color:var(--ok)} .errt{color:var(--err)} .warnt{color:var(--warn)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;font-weight:600;color:var(--muted);border-bottom:1px solid var(--line);padding:6px 6px}
+td{padding:5px 6px;border-bottom:1px solid var(--line);font-family:var(--mono)}
+tr.slot{cursor:pointer}
+tr.slot.sel td{background:color-mix(in srgb,var(--accent) 12%,transparent)}
+td.e{color:var(--muted)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.bar{height:8px;background:var(--chip);border-radius:99px;overflow:hidden;margin-top:14px}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .15s}
+pre.log{background:var(--chip);border-radius:8px;padding:10px 12px;font:12.5px/1.45 var(--mono);height:190px;overflow:auto;margin:12px 0 0;white-space:pre-wrap}
+.note{font-size:13px;color:var(--muted)}
+.note li{margin:3px 0}
+.banner{display:none;background:color-mix(in srgb,var(--err) 14%,transparent);color:var(--err);border-radius:8px;padding:10px 14px;margin-top:16px;font-size:14px}
+footer{color:var(--muted);font-size:12.5px;padding-bottom:28px}
+.span2{grid-column:1/-1}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v10"/><path d="M8 7a6 6 0 0 0 0 8"/><path d="M16 7a6 6 0 0 1 0 8"/><path d="M5 4a10 10 0 0 0 0 14"/><path d="M19 4a10 10 0 0 1 0 14"/><path d="M9 21h6"/></svg>
+    </div>
+    <div>
+      <h1>UV-K1 Apps Uploader</h1>
+      <p>Applications Sécurité Civile pour Quansheng UV-K1 / UV-K5 v3 — ADRASEC 77 · F1GBD</p>
+    </div>
+    <div class="conn">
+      <span id="state" class="pill">Déconnecté</span>
+      <button id="btnConn" class="primary">Connecter la radio</button>
+    </div>
+  </div>
+  <div class="wrap"><div id="noserial" class="banner">Ce navigateur ne gère pas Web Serial. Utilisez Chrome ou Edge sur ordinateur (Windows, macOS, Linux), page servie en HTTPS.</div></div>
+</header>
+
+<main class="wrap">
+  <section class="card">
+    <h2><b>1</b> Application</h2>
+    <div id="apps" class="apps"><div class="note">Chargement du catalogue…</div></div>
+    <div class="local">ou un fichier local :
+      <input type="file" id="file" accept=".app,application/octet-stream">
+    </div>
+    <dl class="info" id="info"></dl>
+  </section>
+
+  <section class="card">
+    <h2><b>2</b> Emplacement sur la radio</h2>
+    <table>
+      <thead><tr><th>#</th><th>Application</th><th>Version</th></tr></thead>
+      <tbody id="slots"><tr><td colspan="3" class="e">Connectez la radio pour lire les 16 emplacements.</td></tr></tbody>
+    </table>
+    <div class="actions">
+      <button id="btnRefresh" disabled>Actualiser</button>
+      <button id="btnInstall" class="primary" disabled>Installer</button>
+      <button id="btnErase" class="danger" disabled>Effacer l'emplacement</button>
+    </div>
+    <div class="bar"><i id="bar"></i></div>
+  </section>
+
+  <section class="card span2">
+    <h2><b>3</b> Journal</h2>
+    <pre class="log" id="log"></pre>
+  </section>
+
+  <section class="card span2 note">
+    <h2>Mode d'emploi</h2>
+    <ol>
+      <li>La radio doit tourner sous le firmware <strong>F4HWN édition Labs</strong> (menu Apps). Branchez le câble USB-C (UV-K1 / UV-K5 v3) ou le câble de programmation, radio allumée sur l'écran principal.</li>
+      <li><strong>Connecter la radio</strong> puis choisissez le port série. La version du firmware et les 16 emplacements s'affichent.</li>
+      <li>Choisissez l'application (catalogue ou fichier <code>.app</code>), puis l'emplacement : celui d'une version précédente de la même application est proposé d'office, ses réglages (code d'activation, sirène…) sont conservés.</li>
+      <li><strong>Installer</strong> : effacement, écriture des ressources, du code puis de l'en-tête, et vérification. L'application apparaît ensuite dans le menu Apps de la radio.</li>
+    </ol>
+    <p>Une application overlay est du code natif : n'installez que des fichiers de confiance. Le chargeur de la radio refuse toute image dont le CRC, l'ABI ou l'adresse d'overlay ne correspondent pas au firmware.</p>
+  </section>
+</main>
+
+<footer class="wrap">
+  Protocole série et format <code>.app</code> : firmware UV-K1/K5 v3 d'Armel F4HWN (UV Studio), licence Apache 2.0. Uploader et applications Sécurité Civile : Jean-Louis Naudin F1GBD / ADRASEC 77. 73 !
+</footer>
+
+<script src="uvproto.js"></script>
+<script>
+(() => {
+  "use strict";
+  const P = window.UVProto;
+  const $ = (id) => document.getElementById(id);
+  const logEl = $("log");
+  const log = (msg, cls) => {
+    const t = new Date().toLocaleTimeString("fr-FR");
+    const line = document.createElement("span");
+    if (cls) line.className = cls;
+    line.textContent = `[${t}] ${msg}\n`;
+    logEl.appendChild(line);
+    logEl.scrollTop = logEl.scrollHeight;
+  };
+
+  let port = null, reader = null, writer = null, radio = null, busy = false;
+  let app = null, slots = [], selSlot = -1;
+
+  if (!("serial" in navigator)) { $("noserial").style.display = "block"; $("btnConn").disabled = true; }
+
+  /* ---- catalogue ---- */
+  async function loadCatalogue() {
+    const box = $("apps");
+    try {
+      const r = await fetch("apps/manifest.json", { cache: "no-cache" });
+      if (!r.ok) throw new Error(r.status);
+      const m = await r.json();
+      box.textContent = "";
+      m.apps.forEach((a, i) => {
+        const el = document.createElement("label");
+        el.className = "app";
+        el.innerHTML = `<input type="radio" name="app"><div class="n"></div><div class="s"></div>`;
+        el.querySelector(".n").innerHTML = `${esc(a.title || a.name)}<span>${esc(a.name)} v${esc(a.version)}</span>`;
+        el.querySelector(".s").innerHTML = esc(a.summary || "") + (a.doc ? ` <a href="${encodeURI(a.doc)}" target="_blank" rel="noopener">Notice</a>` : "");
+        el.querySelector("input").addEventListener("change", async () => {
+          document.querySelectorAll(".app").forEach((x) => x.classList.remove("sel"));
+          el.classList.add("sel");
+          try {
+            const rr = await fetch("apps/" + a.file, { cache: "no-cache" });
+            if (!rr.ok) throw new Error("HTTP " + rr.status);
+            useApp(new Uint8Array(await rr.arrayBuffer()), a.file);
+          } catch (e) { log("Téléchargement de " + a.file + " impossible : " + e.message, "errt"); }
+        });
+        box.appendChild(el);
+        if (i === 0) el.querySelector("input").click();
+      });
+    } catch (e) {
+      box.innerHTML = `<div class="note">Catalogue indisponible (page ouverte hors ligne ?). Choisissez un fichier .app local.</div>`;
+    }
+  }
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  $("file").addEventListener("change", async (ev) => {
+    const f = ev.target.files[0];
+    if (!f) return;
+    document.querySelectorAll(".app").forEach((x) => { x.classList.remove("sel"); x.querySelector("input").checked = false; });
+    useApp(new Uint8Array(await f.arrayBuffer()), f.name);
+  });
+
+  function useApp(bytes, label) {
+    const info = $("info");
+    try {
+      app = P.parseApp(bytes);
+      const pct = Math.round(app.codeSize * 100 / 4096);
+      info.innerHTML = "";
+      const rows = [
+        ["Fichier", label], ["Application", app.name + " v" + app.version],
+        ["Code", `${app.codeSize} o (${pct} % de l'overlay 4 Kio)`],
+        ["Ressources", app.assetSize + " o"], ["API minimale", "niveau " + app.apiMin],
+        ["VMA overlay", "0x" + app.linkVma.toString(16).padStart(8, "0")],
+        ["Intégrité", "CRC-32 code et ressources OK"],
+      ];
+      for (const [k, v] of rows) { const dt = document.createElement("dt"); dt.textContent = k; const dd = document.createElement("dd"); dd.textContent = v; info.append(dt, dd); }
+      info.lastChild.className = "okt";
+      log(`Application prête : ${app.name} v${app.version} (${app.size} o)`);
+      pickDefaultSlot();
+    } catch (e) {
+      app = null;
+      info.innerHTML = `<dt>Fichier</dt><dd class="errt">${esc(label)} — ${esc(e.message)}</dd>`;
+      log("Fichier refusé : " + e.message, "errt");
+    }
+    updateButtons();
+  }
+
+  /* ---- serial ---- */
+  async function connect() {
+    if (port) return disconnect();
+    try {
+      port = await navigator.serial.requestPort();
+      await port.open({ baudRate: 38400 });
+      writer = port.writable.getWriter();
+      radio = new P.UVRadio({ write: (b) => writer.write(b) }, log);
+      readLoop();
+      $("btnConn").textContent = "Déconnecter";
+      log("Port ouvert, interrogation de la radio…");
+      const h = await radio.hello();
+      $("state").textContent = h.version || "Connecté";
+      $("state").classList.add("on");
+      log("Radio connectée — firmware " + (h.version || "?"), "okt");
+      if (h.locked) log("La radio est verrouillée (écran de verrouillage) : déverrouillez-la.", "warnt");
+      await refresh();
+    } catch (e) {
+      log("Connexion impossible : " + e.message, "errt");
+      if (/0x0515/.test(e.message)) log("Vérifiez le câble, que la radio est allumée sur l'écran principal et sous firmware F4HWN.", "warnt");
+      await disconnect();
+    }
+  }
+  async function readLoop() {
+    while (port && port.readable) {
+      reader = port.readable.getReader();
+      try {
+        for (;;) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          if (value && radio) radio.onBytes(value);
+        }
+      } catch (e) { if (port) log("Lecture série interrompue : " + e.message, "warnt"); }
+      finally { try { reader.releaseLock(); } catch (_) {} }
+      if (!port) break;
+    }
+  }
+  async function disconnect() {
+    const p = port; port = null;
+    try { if (reader) await reader.cancel(); } catch (_) {}
+    try { if (writer) { writer.releaseLock(); } } catch (_) {}
+    try { if (p) await p.close(); } catch (_) {}
+    reader = writer = radio = null;
+    $("state").textContent = "Déconnecté"; $("state").classList.remove("on");
+    $("btnConn").textContent = "Connecter la radio";
+    updateButtons();
+  }
+  if ("serial" in navigator) navigator.serial.addEventListener("disconnect", () => { if (port) { log("Radio débranchée.", "warnt"); disconnect(); } });
+
+  /* ---- slots ---- */
+  async function refresh() {
+    if (!radio) return;
+    busy = true; updateButtons();
+    const tb = $("slots"); tb.textContent = "";
+    slots = [];
+    try {
+      await radio.listSlots((s) => {
+        slots.push(s);
+        const tr = document.createElement("tr");
+        tr.className = "slot";
+        const h = s.header;
+        tr.innerHTML = `<td>${s.slot}</td><td class="${h ? "" : "e"}"></td><td class="${h ? "" : "e"}"></td>`;
+        tr.children[1].textContent = h ? h.name : "— libre —";
+        tr.children[2].textContent = h ? h.version : "";
+        tr.addEventListener("click", () => selectSlot(s.slot));
+        tb.appendChild(tr);
+      });
+      const used = slots.filter((s) => s.header).length;
+      log(`${used} application(s) installée(s), ${16 - used} emplacement(s) libre(s).`);
+    } catch (e) {
+      log("Lecture des emplacements : " + e.message, "errt");
+      if (/0x0731/.test(e.message)) log("Ce firmware ne semble pas gérer les Apps : il faut l'édition Labs de F4HWN.", "warnt");
+    }
+    busy = false;
+    pickDefaultSlot();
+  }
+  function selectSlot(n) {
+    selSlot = n;
+    document.querySelectorAll("tr.slot").forEach((tr, i) => tr.classList.toggle("sel", i === n));
+    updateButtons();
+  }
+  function pickDefaultSlot() {
+    if (!slots.length) return updateButtons();
+    let s = -1;
+    if (app) s = slots.findIndex((x) => x.header && x.header.name === app.name);
+    if (s < 0) s = slots.findIndex((x) => !x.header);
+    if (s >= 0) selectSlot(s); else updateButtons();
+  }
+  function updateButtons() {
+    const c = !!radio && !busy;
+    $("btnRefresh").disabled = !c;
+    $("btnInstall").disabled = !(c && app && selSlot >= 0);
+    $("btnErase").disabled = !(c && selSlot >= 0 && slots[selSlot] && slots[selSlot].header);
+  }
+
+  async function install() {
+    const s = slots[selSlot];
+    if (s && s.header && s.header.name !== app.name &&
+        !confirm(`L'emplacement ${selSlot} contient « ${s.header.name} ». Le remplacer par ${app.name} ?`)) return;
+    busy = true; updateButtons();
+    const bar = $("bar"); bar.style.width = "0";
+    const t0 = performance.now();
+    try {
+      log(`Installation de ${app.name} v${app.version} dans l'emplacement ${selSlot}…`);
+      await radio.install(selSlot, app, (p) => { bar.style.width = (p * 100).toFixed(1) + "%"; });
+      log(`Installé en ${((performance.now() - t0) / 1000).toFixed(1)} s. Lancez-le depuis le menu Apps de la radio.`, "okt");
+    } catch (e) {
+      log("Échec de l'installation : " + e.message, "errt");
+      log("L'emplacement n'est pas validé tant que l'en-tête n'est pas écrit : relancez simplement l'installation.", "warnt");
+    }
+    busy = false;
+    await refresh();
+  }
+  async function erase() {
+    const s = slots[selSlot];
+    if (!confirm(`Effacer « ${s.header.name} » de l'emplacement ${selSlot} ?`)) return;
+    busy = true; updateButtons();
+    try { await radio.hello(); await radio.erase(selSlot); log(`Emplacement ${selSlot} effacé.`, "okt"); }
+    catch (e) { log("Effacement : " + e.message, "errt"); }
+    busy = false;
+    await refresh();
+  }
+
+  $("btnConn").addEventListener("click", connect);
+  $("btnRefresh").addEventListener("click", refresh);
+  $("btnInstall").addEventListener("click", install);
+  $("btnErase").addEventListener("click", erase);
+  loadCatalogue();
+})();
+</script>
+</body>
+</html>
