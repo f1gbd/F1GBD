@@ -71,7 +71,8 @@ le UV-K1 l'affiche en clair.
 | Application | Version | Rôle |
 |---|---|---|
 | [PAGER-RASEC](apps/PAGER-RASEC.md) ([manuel PDF](documentation/PAGER-RASEC_Manuel_v1.2.pdf)) | 1.2.1 | Pager RASEC-ALERT : réception AX.25 Packet 1200 bauds depuis TCQ, LED + sirène sur `#ra <code>`, messages CHAPPE26 en clair, historique de 6 messages, 145.4375 MHz FM |
-| CHAPPE26 | 1.0 | Dictionnaire CHAPPE26 (1000 codes) pour PAGER-RASEC — à installer avec lui |
+| [CHAPPE-TX](apps/CHAPPE-TX.md) | 1.0 | Émetteur CHAPPE26 : message composé au clavier (phrases en clair, relecture), émis en AX.25 Packet 1200 bauds vers CQ comme TCQ — reçu en clair par TCQ et PAGER-RASEC |
+| CHAPPE26 | 1.0 | Dictionnaire CHAPPE26 (1000 codes) pour PAGER-RASEC et CHAPPE-TX — à installer avec eux |
 
 ## Ajouter une application
 

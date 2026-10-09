@@ -18,10 +18,21 @@
       "name": "CHAPPE26",
       "version": "1.0 d6d699f1",
       "title": "Dictionnaire CHAPPE26",
-      "summary": "Répertoire CHAPPE26 (1000 codes) utilisé par PAGER-RASEC pour afficher en clair les messages « !1000 !1024 !1990 ». À installer avec PAGER-RASEC v1.1 et suivantes.",
+      "summary": "Répertoire CHAPPE26 (1000 codes) utilisé par PAGER-RASEC pour afficher en clair les messages « !1000 !1024 !1990 » et par CHAPPE-TX pour afficher les phrases à la saisie. À installer avec PAGER-RASEC v1.1+ ou CHAPPE-TX.",
       "doc": "documentation/PAGER-RASEC_Manuel_v1.2.pdf",
       "size": 7476,
       "sha256": "f5e317cfa0245da9ee36fe4a71ae5bdb3a402c3714d21d900d05e9f6161de5b5",
+      "date": "2026-10-09"
+    },
+    {
+      "file": "CHAPPE-TX.app",
+      "name": "CHAPPE-TX",
+      "version": "1.0",
+      "title": "Émetteur CHAPPE-TX",
+      "summary": "Compose au clavier un message CHAPPE26 (15 codes, phrase en clair à la saisie, relecture) et l'émet en AX.25 Packet 1200 bauds vers CQ, comme TCQ : reçu en clair par TCQ et par PAGER-RASEC. Fréquence du VFO d'émission ; indicatif du message de démarrage. Installer aussi le dictionnaire CHAPPE26.",
+      "doc": "https://github.com/F1GBD/F1GBD/blob/master/quansheng/apps/CHAPPE-TX.md",
+      "size": 4380,
+      "sha256": "f0b053030a07e46e906416791b4b843d21fd703cd70cad534c5c8f55bbc70453",
       "date": "2026-10-09"
     }
   ]
