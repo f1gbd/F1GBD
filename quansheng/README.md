@@ -6,7 +6,7 @@ pour les missions ADRASEC / FNRASEC, et leur outil d'installation.
 ### ▶ [Ouvrir l'UV-K1 Apps Uploader](https://f1gbd.github.io/F1GBD/quansheng/)
 
 <p align="center">
-  <img src="images/UV-K1.jpg" alt="Quansheng UV-K1(8) v3" height="420">
+  <img src="images/UV-K1.jpg" alt="Quansheng UV-K1(8) v3" height="800">
   &nbsp;&nbsp;
   <img src="images/UV-K1_display.jpg" alt="Écran du UV-K1 sous firmware F4HWN" height="420">
 </p>
@@ -21,7 +21,7 @@ brancher la radio, choisir l'application, installer.
 > Le lien `github.com/.../blob/master/quansheng/index.html` n'affiche que le code
 > source de la page : utilisez l'adresse GitHub Pages ci-dessus.
 
-<p align="center"><img src="images/uploader.png" alt="UV-K1 Apps Uploader" width="720"></p>
+<p align="center"><img src="images/App_install.png" alt="UV-K1 Apps Uploader" width="720"></p>
 
 - Lecture de la version du firmware et des 16 emplacements Apps de la radio.
 - Catalogue des applications de ce dépôt (`apps/manifest.json`) ou fichier `.app` local.
@@ -51,7 +51,7 @@ Premier essai réussi le 9 octobre 2026 : TCQ (TNC Packet, Direwolf) envoie
 
 | Document | Formats |
 |---|---|
-| PAGER-RASEC v1.1 — Manuel d'installation et d'utilisation | [PDF](documentation/PAGER-RASEC_Manuel_v1.1.pdf) · [Word](documentation/PAGER-RASEC_Manuel_v1.1.docx) |
+| PAGER-RASEC v1.1 — Manuel d'installation et d'utilisation | [PDF](documentation/PAGER-RASEC_Manuel_v1.1.pdf) |
 | Code CHAPPE26 — Livret de poche B5 (18 pages) : répertoire des 1000 codes, carte opérateur, chiffrement | [PDF](documentation/Chappe26_Livret_B5.pdf) |
 | Code CHAPPE26 — Fiche exemple Black-out : demande de moyens radio de secours | [PDF](documentation/Chappe26_Fiche_BlackOut.pdf) |
 | Code CHAPPE26 — Fiche exemple Incendie majeur : renforts, évacuation, radio en zone blanche | [PDF](documentation/Chappe26_Fiche_Incendie.pdf) |
