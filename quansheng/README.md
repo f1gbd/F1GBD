@@ -33,11 +33,17 @@ brancher la radio, choisir l'application, installer.
 Le protocole (commandes 0x0514, 0x0730 à 0x0737) est celui du firmware d'Armel
 F4HWN, également utilisé par UV Studio ; il est implémenté dans [`uvproto.js`](uvproto.js).
 
+## Documentation
+
+| Document | Formats |
+|---|---|
+| PAGER-RASEC v1.0 — Manuel d'installation et d'utilisation (12 pages) | [PDF](documentation/PAGER-RASEC_Manuel_v1.0.pdf) · [Word](documentation/PAGER-RASEC_Manuel_v1.0.docx) |
+
 ## Applications
 
 | Application | Version | Rôle |
 |---|---|---|
-| [PAGER-RASEC](apps/PAGER-RASEC.md) | 1.0 | Pager RASEC-ALERT : réception AX.25 Packet 1200 bauds depuis TCQ, LED + sirène sur `#ra <code>`, 145.4375 MHz FM |
+| [PAGER-RASEC](apps/PAGER-RASEC.md) ([manuel PDF](documentation/PAGER-RASEC_Manuel_v1.0.pdf)) | 1.0 | Pager RASEC-ALERT : réception AX.25 Packet 1200 bauds depuis TCQ, LED + sirène sur `#ra <code>`, 145.4375 MHz FM |
 
 ## Ajouter une application
 
