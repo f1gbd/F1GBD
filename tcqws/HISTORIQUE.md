@@ -9,6 +9,34 @@ avec son programme d'installation, son archive et son empreinte SHA-256.
 ---
 
 
+## v0.7.8 — L'onglet Trafic suit la station qu'on travaille
+
+*10 octobre 2026*
+
+> ⚠️ **Un réglage change de comportement à la première ouverture.** La case **RX = TX** arrive **cochée** : la fréquence d'émission se colle à la fréquence de réception. Pour trafiquer en split, la décocher une fois — le réglage est ensuite retenu.
+
+### ☑ CQ only
+
+Une case dans le bandeau de l'**Activité de bande**, à droite de « 🗑 Effacer ». Cochée, la liste ne garde que les **appels**. En pile-up ou un soir de concours, elle défile trop vite pour qu'on y repère une station appelable : entre deux CQ s'intercalent dix échanges en cours qui ne vous concernent pas.
+
+Le **trait de période** s'en va aussi — il n'est pas un appel, et une liste filtrée qui n'aurait plus que des traits n'aurait servi à rien ; l'heure reste dans la colonne UTC. **Rien n'est perdu** : les lignes écartées sont détachées, pas supprimées, et décocher les rend **toutes**, dans leur ordre d'arrivée. **🗑 Effacer** emporte aussi ce qui est masqué.
+
+Le filtre ne touche que l'Activité de bande. La fenêtre **Fréquence RX** garde tout : la filtrer cacherait les réponses qui vous sont adressées.
+
+### ☑ RX = TX, une case plutôt qu'un bouton
+
+Le bouton **RX→TX** recopiait la fréquence **une seule fois**. Au décodage suivant, on double-cliquait une station, la RX se calait dessus — et l'on émettait de nouveau à l'ancienne fréquence, **sans que rien ne le signale**.
+
+Une case à cocher tient le lien dans la durée, comme WSJT-X et comme l'onglet JTTY depuis la v0.6.0 ; la case **TX Hz** se grise pour le dire. Décochée, la TX redevient libre : c'est le **split**. Le lien est posé sur la variable de fréquence, pas ajouté aux endroits qui la changent — ils sont cinq (spinbox, chute d'eau, double-clic, configuration, script), et en oublier un revient à émettre à côté.
+
+Effet de bord voulu : le **clic droit** sur la chute d'eau, qui vise l'émission, emmène désormais les **deux** quand le lien est posé. Sans cela il ne se passait rien de visible, et on croyait la chute d'eau cassée.
+
+### 🖱 Le double-clic emmène tout
+
+Un double-clic sur une station cale la RX sur sa fréquence, reprend l'indicatif et le report, prépare la réponse et engage le QSO — cela existait déjà. Ce qui change, c'est que la **TX suit**. En split, elle reste où vous l'avez mise.
+
+---
+
 ## v0.7.7 — TUNE, et des boutons qui portent leur nom
 
 *3 octobre 2026*
