@@ -5,13 +5,24 @@
     {
       "file": "PAGER-RASEC.app",
       "name": "PAGER-RASEC",
-      "version": "1.3",
+      "version": "1.4",
       "title": "Pager RASEC-ALERT",
-      "summary": "Récepteur AX.25 1200 bauds (Packet TCQ) : sur « #ra <code> » fait clignoter la lampe blanche frontale et déclenche la sirène jusqu'à acquittement ; messages CHAPPE26 décodés en clair (installer aussi le dictionnaire) ; 6 derniers messages conservés et effaçables. 145.4375 MHz FM par défaut.",
-      "doc": "documentation/PAGER-RASEC_Manuel_v1.3.pdf",
-      "size": 6387,
-      "sha256": "9d1ed78ce0e50e63394aa6d78c782804e0d1475fa9061c64ed0357f4255e06a0",
-      "date": "2026-10-09"
+      "summary": "Récepteur AX.25 1200 bauds (Packet TCQ) : sur « #ra <code> » fait clignoter la lampe blanche frontale et déclenche la sirène jusqu'à acquittement ; messages CHAPPE26 décodés en clair (installer aussi le dictionnaire) ; radiogrammes RGRAM affichés comme un message ; 6 derniers messages conservés et effaçables. 145.4375 MHz FM par défaut.",
+      "doc": "documentation/PAGER-RASEC_Manuel_v1.4.pdf",
+      "size": 7318,
+      "sha256": "d90e32ee281dff404be4d9ae3d773df6a6b57e5efa1b8b7789fb0e04f76fb5aa",
+      "date": "2026-10-10"
+    },
+    {
+      "file": "RGRAM.app",
+      "name": "RGRAM",
+      "version": "1.1",
+      "title": "Émetteur de radiogrammes RGRAM",
+      "summary": "Rédige un RADIOGRAMME ADRASEC sur la radio (indicatif, origine, date, niveau d'alerte, 8 lignes ; saisie multi-tap comme un téléphone) et l'émet en AX.25 Packet 1200 bauds au format de TCQ (zlib + base64, trames {QR:…}) : TCQ le reçoit, valide le CRC et l'enregistre ; PAGER-RASEC v1.4 l'affiche.",
+      "doc": "documentation/RGRAM_Manuel_v1.1.pdf",
+      "size": 7668,
+      "sha256": "a6e9896d7b23263d45b4ee731863f0931367f359ba6117322917990073ce5a1e",
+      "date": "2026-10-10"
     },
     {
       "file": "CHAPPE26.app",
