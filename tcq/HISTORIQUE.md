@@ -9,14 +9,38 @@
 
 ---
 
-## 🆕 Nouveautés v14.2 — radiogrammes Packet lisibles par les pagers UV-K1
+## 🆕 Nouveautés v14.2.1 — correctif des radiogrammes vers les pagers UV-K1
+
+- **Correctif** : en v14.2, TCQ envoyait une trame toutes les 1,5 s alors
+  qu'avec un TXDELAY de 800 ms chaque trame occupe environ 1,6 s d'antenne.
+  Direwolf ajoutait donc la trame suivante à l'émission en cours, quelques
+  fanions après la précédente, et le UV-K1, occupé à traiter la première,
+  perdait la seconde : « Radiogramme incomplet: faire repeter » à chaque fois.
+- Désormais, en format pager, TCQ attend la fin de chaque trame avant la
+  suivante : TXDELAY du TNC + durée de la trame + 0,6 s (≈ 2,2 s avec 800 ms).
+  Le TXDELAY de 800 ms est conservé : il permet de passer par les
+  transpondeurs VHF/UHF.
+- La fenêtre radiogramme affiche la durée estimée de l'envoi
+  (« Trames: 12 | ≈ 27 s »).
+- Validé sur l'air le 10 octobre 2026 : TCQ → UV-K1 sous PAGER-RASEC v1.4.1,
+  radiogramme affiché en clair.
+
+---
+
+## Nouveautés v14.2 — radiogrammes Packet lisibles par les pagers UV-K1
 
 - Fenêtre « 📋 RADIOGRAMME ADRASEC — Packet VHF » (onglet **TNC Packet**) :
   nouvelle case **📟 Compatible pager UV-K1**, cochée par défaut.
 - Cochée, le radiogramme part au format de l'application **RGRAM** du UV-K1 :
   bloc zlib stocké (non compressé), base64, trames `{QR:ID:NN/TT:…}` de
   **80 caractères** (95 avec l'en-tête, sous les 96 caractères d'un message du
-  pager), **1,5 s** entre les trames pour que chaque trame parte seule.
+  pager).
+- Chaque trame part dans **sa propre émission** : l'écart entre trames est
+  calculé d'après le TXDELAY du TNC + la durée de la trame + 0,6 s (≈ 2,2 s avec
+  800 ms, réglage gardé pour passer par les transpondeurs VHF/UHF). Avec un écart
+  plus court, Direwolf colle la trame suivante dans la même émission, quelques
+  fanions après la précédente, et le UV-K1, occupé à traiter la première, perd la
+  seconde (« Radiogramme incomplet »). La fenêtre affiche la durée estimée.
 - L'origine et la description sont converties **sans accents** dans la fenêtre
   (é → e, ’ → ', œ → oe…) **avant** le calcul du code AUTH : le CRC reste
   valide pour toute station TCQ, et l'opérateur voit exactement ce qui part.
