@@ -9,7 +9,106 @@
 
 ---
 
-## 🆕 Nouveautés v13.2 — RASEC-ALERT par MeshCore, longueur des vecteurs de relèvement
+## 🆕 Nouveautés v14.2 — radiogrammes Packet lisibles par les pagers UV-K1
+
+- Fenêtre « 📋 RADIOGRAMME ADRASEC — Packet VHF » (onglet **TNC Packet**) :
+  nouvelle case **📟 Compatible pager UV-K1**, cochée par défaut.
+- Cochée, le radiogramme part au format de l'application **RGRAM** du UV-K1 :
+  bloc zlib stocké (non compressé), base64, trames `{QR:ID:NN/TT:…}` de
+  **80 caractères** (95 avec l'en-tête, sous les 96 caractères d'un message du
+  pager), **1,5 s** entre les trames pour que chaque trame parte seule.
+- L'origine et la description sont converties **sans accents** dans la fenêtre
+  (é → e, ’ → ', œ → oe…) **avant** le calcul du code AUTH : le CRC reste
+  valide pour toute station TCQ, et l'opérateur voit exactement ce qui part.
+- Les portatifs **Quansheng UV-K1 / UV-K5 v3** sous **PAGER-RASEC v1.4.1**
+  affichent le radiogramme comme un message reçu :
+  `PC Crise Melun 16:30 IMMEDIAT: Evacuation terminee cote eglise / …`.
+  Les stations TCQ le reçoivent, le décompressent et vérifient le CRC comme
+  avant (zlib lit indifféremment les deux formats).
+- Case décochée : ancien format compressé (deflate, trames de 170 caractères,
+  3 à 4 fois moins de trames), lisible par TCQ seulement. Au-delà de 99 trames,
+  TCQ repasse automatiquement au format compressé et le signale.
+- L'estimation « Taille | Trames » tient compte du format choisi et de la
+  mention d'expiration du code AUTH.
+- Vérifié avec la vraie fenêtre de TCQ (sous Xvfb, TNC simulé) : 12 trames de
+  95 caractères au plus, CRC valide ; décodé par l'émulation instruction par
+  instruction de PAGER-RASEC v1.4.1.
+
+---
+
+## Nouveautés v14.1 — décodage CHAPPE26 aussi en TNC Packet
+
+- **Correctif** : le décodage en clair des codes CHAPPE26 (`!DDDD`) n'existait
+  qu'en LXMF (v12.35) et en MeshCore (v13.1). Un message reçu dans l'onglet
+  **TNC Packet** (Direwolf ou TNC série) s'affichait brut.
+- Désormais la traduction « ↳ CHAPPE26 : … » s'affiche sous le message TNC
+  reçu, comme en LXMF et MeshCore : même moteur, mêmes règles anti faux
+  positif (au moins deux codes, ou un message fait uniquement de codes). Elle
+  est aussi notée dans le journal.
+- Cas d'usage : les messages composés et émis depuis un portatif **Quansheng
+  UV-K1 / UV-K5 v3** avec l'application **CHAPPE-TX** (trame AX.25
+  `F1GBD-7 → CQ`, texte `!1000 !1024 !1333 !1990`), essayés sur l'air le
+  9 octobre 2026.
+
+---
+
+## Nouveautés v14.0 — VARA FM sans bride côté TCQ, interface compacte pour petit écran
+
+### 📡 VARA FM (onglet VARA Modem)
+
+TCQ remet **la totalité** d'un fichier ou d'une image à VARA en un seul bloc :
+c'est VARA qui choisit son niveau de vitesse. Tout ce qui, côté TCQ, pouvait
+brider ou perturber le modem a été retiré :
+
+- **Plus de « BW NARROW » imposé** à l'initialisation. NARROW / WIDE est un
+  réglage de VARA FM (interface micro/HP 1200 ou prise data 9600). Nouvelle
+  valeur **AUTO** (par défaut) : TCQ laisse le réglage de VARA FM. NARROW et
+  WIDE restent sélectionnables pour forcer. Les configurations en NARROW
+  passent une fois en AUTO.
+- **Plus de « CHAT ON » en FM** (mode conversation clavier de VarAC) : VARA FM
+  est initialisé comme par Winlink / Pat. Réactivable :
+  `setup.json → vara.fm_chat_mode = true`.
+- Les **messages broadcast** (FLASH, pont MeshCore, accusés RASEC) ne
+  basculent plus VARA FM en `BW500` puis `BWNARROW` — des commandes VARA HF
+  que VARA FM ne connaît pas.
+- La **balise** ne part plus **pendant une connexion** (un CQFRAME au milieu
+  d'une session ARQ) : elle est reportée d'une minute.
+- Une commande **refusée par VARA** (`WRONG`) est signalée dans le chat.
+- Le **débit utile réel** s'affiche à la fin de chaque envoi
+  (« 50 Ko, ≈ 5 180 bit/s »).
+
+### Si le débit reste à 566 / 1200 bit/s
+
+Ce plafond vient alors de VARA lui-même. TCQ l'indique dans le chat et
+rappelle les causes :
+
+- **Licence VARA FM** : sans clé, la vitesse est bridée à **566 bit/s**
+  (niveau 1) en P2P ; une connexion à une **passerelle RMS** reste à pleine
+  vitesse. Vérifier la clé sur chaque station, et sur le digipeater.
+- **Digipeater** : chaque relais divise le débit et impose la vitesse du bond
+  le plus faible.
+- **S/N et niveau audio** (cadran S/N de VARA ; VU vers 0 dB, sans saturation).
+- **NARROW / WIDE** dans *VARA FM → Settings*.
+
+### 🖥️ Interface compacte
+
+- Panneau **STATISTIQUES / CORRECTIONS PAULI masqué par défaut** : case
+  **📊 Stats** dans l'en-tête pour l'afficher (mémorisé). L'onglet central
+  gagne environ 200 px de large.
+- Panneau **CONFIG** : le bouton « LOG SYSTÈME » devient la case **📋 Log** de
+  l'en-tête ; **📟 CHAPPE26** et **🚨 RASEC** sont sur la même ligne. Le panneau
+  tient désormais sans ascenseur sur un écran 1366×768.
+- Onglet **VARA Modem** : cadre « 📊 Stats » supprimé (l'état reste dans
+  « Statut ») ; séparateurs superflus retirés ; colonne de réglages plus
+  étroite (225 px) ; la rangée « **Envoi spécial** » passe à la ligne au lieu
+  d'être rognée à droite (FLASH, Sauver le Log). « **Messages VARA** » prend la hauteur restante : les
+  rangées du bas (stations entendues, saisie, envoi spécial) restent toujours
+  visibles et les deux colonnes ont la même hauteur. L'onglet tient sans
+  ascenseur sur un écran 1366×768.
+
+---
+
+## Nouveautés v13.2 — RASEC-ALERT par MeshCore, longueur des vecteurs de relèvement
 
 ### 🚨 RASEC-ALERT déclenchable par MeshCore
 

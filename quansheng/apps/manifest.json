@@ -5,12 +5,12 @@
     {
       "file": "PAGER-RASEC.app",
       "name": "PAGER-RASEC",
-      "version": "1.4",
+      "version": "1.4.1",
       "title": "Pager RASEC-ALERT",
-      "summary": "Récepteur AX.25 1200 bauds (Packet TCQ) : sur « #ra <code> » fait clignoter la lampe blanche frontale et déclenche la sirène jusqu'à acquittement ; messages CHAPPE26 décodés en clair (installer aussi le dictionnaire) ; radiogrammes RGRAM affichés comme un message ; 6 derniers messages conservés et effaçables. 145.4375 MHz FM par défaut.",
+      "summary": "Récepteur AX.25 1200 bauds (Packet TCQ) : sur « #ra <code> » fait clignoter la lampe blanche frontale et déclenche la sirène jusqu'à acquittement ; messages CHAPPE26 décodés en clair (installer aussi le dictionnaire) ; radiogrammes RGRAM et TCQ v14.2 (case « Compatible pager UV-K1 ») affichés comme un message ; 6 derniers messages conservés et effaçables. 145.4375 MHz FM par défaut.",
       "doc": "documentation/PAGER-RASEC_Manuel_v1.4.pdf",
-      "size": 7318,
-      "sha256": "d90e32ee281dff404be4d9ae3d773df6a6b57e5efa1b8b7789fb0e04f76fb5aa",
+      "size": 7392,
+      "sha256": "e94d95b1b9cb72540219664eb6dacd852b361410d84a4c50a4346f0e0f2b1143",
       "date": "2026-10-10"
     },
     {

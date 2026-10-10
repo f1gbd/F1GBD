@@ -100,7 +100,7 @@ Avec **RGRAM**, l'opérateur de terrain rédige un **radiogramme ADRASEC** au cl
 une saisie **multi-tap comme sur un téléphone** (2 = ABC, 3 = DEF…), puis l'émet par
 **PTT** en AX.25 Packet, au format exact de la fenêtre « RADIOGRAMME ADRASEC — Packet VHF »
 de TCQ (zlib + base64, trames `{QR:…}`). TCQ le reconstitue, **valide son CRC** et
-l'enregistre comme un radiogramme TCQ ; un autre UV-K1 sous **PAGER-RASEC v1.4**
+l'enregistre comme un radiogramme TCQ ; un autre UV-K1 sous **PAGER-RASEC v1.4.1**
 l'affiche comme un message reçu (« ADRASEC 77 14:32 PRIORITE: INCENDIE ENTREPOT ZONE NORD / … »).
 
 <p align="center">
@@ -114,11 +114,15 @@ Détails : [notice RGRAM](apps/RGRAM.md) et [manuel RGRAM](documentation/RGRAM_M
 (4 exemples de radiogrammes). Validé en émulation avec les fonctions de
 réception de TCQ ; essai sur l'air à venir.
 
+Depuis **TCQ v14.2**, la case **📟 Compatible pager UV-K1** de la fenêtre radiogramme
+Packet envoie aussi les radiogrammes du PC de crise dans ce format : ils s'affichent
+sur les pagers de terrain.
+
 ## Documentation
 
 | Document | Formats |
 |---|---|
-| PAGER-RASEC v1.4 — Manuel d'installation et d'utilisation | [PDF](documentation/PAGER-RASEC_Manuel_v1.4.pdf) |
+| PAGER-RASEC v1.4.1 — Manuel d'installation et d'utilisation | [PDF](documentation/PAGER-RASEC_Manuel_v1.4.pdf) |
 | CHAPPE-TX v1.1 — Manuel d'utilisation et exemples de transmission | [PDF](documentation/CHAPPE-TX_Manuel_v1.1.pdf) |
 | RGRAM v1.1 — Manuel d'utilisation et exemples de radiogrammes | [PDF](documentation/RGRAM_Manuel_v1.1.pdf) |
 | Code CHAPPE26 — Livret de poche B5 (18 pages) : répertoire des 1000 codes, carte opérateur, chiffrement | [PDF](documentation/Chappe26_Livret_B5.pdf) |
@@ -129,7 +133,7 @@ réception de TCQ ; essai sur l'air à venir.
 
 | Application | Version | Rôle |
 |---|---|---|
-| [PAGER-RASEC](apps/PAGER-RASEC.md) ([manuel PDF](documentation/PAGER-RASEC_Manuel_v1.4.pdf)) | 1.4 | Pager RASEC-ALERT : réception AX.25 Packet 1200 bauds depuis TCQ, lampe blanche frontale + sirène sur `#ra <code>`, messages CHAPPE26 en clair, radiogrammes RGRAM affichés, historique de 6 messages, 145.4375 MHz FM |
+| [PAGER-RASEC](apps/PAGER-RASEC.md) ([manuel PDF](documentation/PAGER-RASEC_Manuel_v1.4.pdf)) | 1.4.1 | Pager RASEC-ALERT : réception AX.25 Packet 1200 bauds depuis TCQ, lampe blanche frontale + sirène sur `#ra <code>`, messages CHAPPE26 en clair, radiogrammes RGRAM et TCQ v14.2 affichés, historique de 6 messages, 145.4375 MHz FM |
 | [CHAPPE-TX](apps/CHAPPE-TX.md) ([manuel PDF](documentation/CHAPPE-TX_Manuel_v1.1.pdf)) | 1.1 | Émetteur CHAPPE26 : message composé au clavier (phrases en clair, relecture), émis en AX.25 Packet 1200 bauds vers CQ comme TCQ — reçu en clair par TCQ et PAGER-RASEC |
 | [RGRAM](apps/RGRAM.md) ([manuel PDF](documentation/RGRAM_Manuel_v1.1.pdf)) | 1.1 | Émetteur de radiogrammes ADRASEC : formulaire et saisie multi-tap sur la radio, émission AX.25 Packet au format TCQ (`{QR:…}`, CRC validé par TCQ), lu par PAGER-RASEC v1.4 |
 | CHAPPE26 | 1.0 | Dictionnaire CHAPPE26 (1000 codes) pour PAGER-RASEC et CHAPPE-TX — à installer avec eux |

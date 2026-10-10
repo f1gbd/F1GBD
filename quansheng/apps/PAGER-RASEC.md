@@ -1,4 +1,4 @@
-# PAGER-RASEC v1.4 — pager RASEC-ALERT pour Quansheng UV-K1 / UV-K5 v3
+# PAGER-RASEC v1.4.1 — pager RASEC-ALERT pour Quansheng UV-K1 / UV-K5 v3
 
 Application overlay (`.app`) pour le firmware F4HWN édition Labs. Elle transforme
 le portatif en **pager d'alerte ADRASEC** : elle écoute en permanence les trames
@@ -6,7 +6,14 @@ le portatif en **pager d'alerte ADRASEC** : elle écoute en permanence les trame
 réception de la commande `#ra <code>`, **fait clignoter la lampe blanche frontale et l'écran et
 déclenche une sirène** jusqu'à l'acquittement par l'opérateur.
 
-**Nouveau en v1.4 : radiogrammes RGRAM.** Un RADIOGRAMME ADRASEC émis par un
+**Nouveau en v1.4.1 : radiogrammes de TCQ.** Un radiogramme envoyé par TCQ
+dans son format habituel (compressé) est toujours signalé « Radiogramme TCQ
+(compresse): lire sur TCQ », même si une trame est perdue : la v1.4 affichait à
+tort « incomplet: faire repeter ». Avec **TCQ v14.2** et sa case
+**📟 Compatible pager UV-K1**, le radiogramme du PC de crise s'affiche en clair
+sur le pager, comme ceux de RGRAM.
+
+**v1.4 : radiogrammes RGRAM.** Un RADIOGRAMME ADRASEC émis par un
 autre UV-K1 avec l'application **RGRAM v1.1** est reconstitué trame après trame
 et affiché comme un message reçu : « ADRASEC 77 14:32 PRIORITE: INCENDIE ENTREPOT
 ZONE NORD / 2 BLESSES LEGERS / ... » (voir Radiogrammes RGRAM).
@@ -36,7 +43,7 @@ Manuel complet : [PDF](../documentation/PAGER-RASEC_Manuel_v1.4.pdf)
 | CHAPPE26 | 1000 codes `!PPLL` décodés en clair (application CHAPPE26 requise) |
 | Historique | 6 messages (commandes et alertes comprises), conservés tant que l'app tourne |
 | Radiogrammes | format RGRAM v1.1 (`{QR:…}`), résumé de 96 caractères au plus |
-| Taille | 4072 o de code (overlay 4 Kio) + 3182 o de ressources (3 modules) ; CHAPPE26 : 7,2 ko de dictionnaire |
+| Taille | 4072 o de code (overlay 4 Kio) + 3312 o de ressources (3 modules) ; CHAPPE26 : 7,2 ko de dictionnaire |
 
 <p align="center">
   <img src="../images/UV-K1_RASEC-ALERT.jpg" alt="Alerte RASEC reçue sur le UV-K1" height="320">
@@ -98,21 +105,24 @@ défiler, puis passer au message suivant.
 
 ## Radiogrammes RGRAM
 
-L'application **RGRAM** (autre UV-K1) émet un radiogramme ADRASEC au format de
-TCQ en 11 à 15 trames `{QR:ID:NN/TT:…}`. Le pager les assemble au fil de la
+L'application **RGRAM** (autre UV-K1), ou **TCQ v14.2** avec la case
+**📟 Compatible pager UV-K1**, émet un radiogramme ADRASEC en 11 à 15 trames
+`{QR:ID:NN/TT:…}` de 80 caractères, non compressé. Le pager les assemble au fil de la
 réception, sans redessiner l'écran, puis affiche l'essentiel sur une ligne :
 
 | Cas | Affichage |
 |---|---|
 | Radiogramme complet | `ADRASEC 77 14:32 PRIORITE: INCENDIE ENTREPOT ZONE NORD / 2 BLESSES LEGERS / EVACUATION EN COU...` |
-| Une trame perdue | `Radiogramme incomplet: faire repeter` |
-| Radiogramme envoyé par TCQ (compressé) | `Radiogramme TCQ (compresse): lire sur TCQ` |
+| Une trame perdue | `Radiogramme incomplet: faire repeter` (RGRAM : PTT à nouveau ; TCQ : Envoyer à nouveau) |
+| Radiogramme TCQ compressé (case décochée, ou TCQ avant v14.2), même incomplet | `Radiogramme TCQ (compresse): lire sur TCQ` — inutile de le faire répéter |
 
 - Origine, heure, niveau d'alerte, puis les lignes de la description séparées par
   « / » ; au-delà de 96 caractères le texte finit par « ... ». Le texte complet et
   le code d'authentification se lisent sur TCQ.
-- Les radiogrammes de TCQ sont compressés (deflate) : la radio n'a pas la place de
-  les décompresser.
+- Le format compressé de TCQ (deflate, trames de 170 caractères) ne tient pas
+  dans la radio : le pager le reconnaît à la longueur de ses trames et renvoie à
+  TCQ. Pour l'afficher sur les pagers, cocher **📟 Compatible pager UV-K1** dans
+  TCQ v14.2 (accents retirés, CRC toujours valide pour TCQ).
 - Quand 6 messages sont conservés, le plus ancien est remplacé dès la première
   trame d'un radiogramme.
 
@@ -174,6 +184,10 @@ Le volume de la sirène suit le bouton de volume : réglez-le avant la veille.
 - Radiogrammes (v1.4) : 4 radiogrammes émis par l'émulation de l'application RGRAM
   réelle affichés correctement ; trame perdue, radiogramme TCQ compressé et
   description de 8 lignes (coupée) traités ; les 12 trames de la séquence TCQ
-  toujours correctes après un radiogramme. Pile au pire 3 328 o. Essai sur l'air : à faire.
+  toujours correctes après un radiogramme. Essai sur l'air : à faire.
+- v1.4.1 : radiogrammes TCQ compressés complets, avec la 2e trame perdue et avec
+  la 1re trame perdue : « Radiogramme TCQ (compresse) » dans les trois cas ;
+  radiogrammes émis par la vraie fenêtre de TCQ v14.2 (format pager) affichés en
+  clair. Pile au pire 3 400 o (émulation du vrai binaire).
 
 ADRASEC 77 · F1GBD — 73
