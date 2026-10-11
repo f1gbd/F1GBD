@@ -7,11 +7,12 @@
 <p align="center">
   <b>Décodeur de balises de détresse 406 MHz (COSPAS-SARSAT) sur tablette et smartphone Android</b><br>
   Réception directe par clé RTL-SDR en USB-OTG · décodage sur l'appareil, sans réseau<br>
+  <b>Nouveau v0.4.0</b> : le pocket <b>Quansheng UV-K1 / UV-K5</b> comme récepteur (sources UV-Kx USB et UV-Kx audio)<br>
   <i>F1GBD · ADRASEC 77 · FNRASEC — au service des recherches SATER</i>
 </p>
 
 <p align="center">
-  <a href="https://github.com/f1gbd/F1GBD/releases/download/epirb-android-v0.3.2/EPIRBdecoder_android-0.3.2.apk"><img src="https://img.shields.io/badge/T%C3%89L%C3%89CHARGER-APK%20v0.3.2-e8661a?style=for-the-badge&logo=android&logoColor=white" alt="Télécharger l'APK v0.3.2"></a>
+  <a href="https://github.com/f1gbd/F1GBD/releases/download/epirb-android-v0.4.0/EPIRBdecoder_android-0.4.0.apk"><img src="https://img.shields.io/badge/T%C3%89L%C3%89CHARGER-APK%20v0.4.0-e8661a?style=for-the-badge&logo=android&logoColor=white" alt="Télécharger l'APK v0.4.0"></a>
   &nbsp;
   <a href="https://github.com/f1gbd/F1GBD/releases?q=epirb-android"><img src="https://img.shields.io/badge/Toutes%20les%20versions-releases-1d4f9c?style=for-the-badge&logo=github" alt="Toutes les versions Android"></a>
 </p>
@@ -34,8 +35,9 @@
 
 | | |
 |---|---|
-| **APK** | [`EPIRBdecoder_android-0.3.2.apk`](https://github.com/f1gbd/F1GBD/releases/download/epirb-android-v0.3.2/EPIRBdecoder_android-0.3.2.apk) (release [`epirb-android-v0.3.2`](https://github.com/f1gbd/F1GBD/releases/tag/epirb-android-v0.3.2)) |
+| **APK** | [`EPIRBdecoder_android-0.4.0.apk`](https://github.com/f1gbd/F1GBD/releases/download/epirb-android-v0.4.0/EPIRBdecoder_android-0.4.0.apk) (release [`epirb-android-v0.4.0`](https://github.com/f1gbd/F1GBD/releases/tag/epirb-android-v0.4.0)) |
 | **Appareil** | Android 7.0 ou plus, processeur 64 bits (arm64-v8a), port USB avec mode **hôte (OTG)** |
+| **Récepteur** | clé **RTL-SDR**, ou pocket **Quansheng UV-K1 / UV-K5 v3** sous [EPIRBdecoder v1.1](https://github.com/f1gbd/F1GBD/blob/HEAD/quansheng/apps/EPIRBdecoder.md) (v0.4.0) |
 | **Driver SDR** | « **SDR Driver** » de Martin Marinov — [Google Play](https://play.google.com/store/apps/details?id=marto.rtl_tcp_andro) · [F-Droid](https://f-droid.org/packages/marto.rtl_tcp_andro/) |
 | **Documentation** | 📘 [Manuel utilisateur (PDF)](documentation/MEMO%20-%20MANUEL_EPIRBdecoder-android.pdf) · 📄 [Fiche technique (PDF)](documentation/MEMO%20-%20FICHE-TECHNIQUE_EPIRBdecoder-android.pdf) |
 
@@ -43,6 +45,7 @@
 2. Téléchargez l'APK depuis le téléphone ou la tablette, ouvrez-le et autorisez l'installation depuis cette source.
 3. Au premier lancement, acceptez **« Accès à tous les fichiers »** : la main courante et les captures IQ seront rangées dans `Téléchargements/EPIRBpi`.
 4. Branchez la clé RTL-SDR par un câble **OTG**, appuyez sur **▶ DÉMARRER L'ÉCOUTE** et autorisez l'accès USB demandé par le driver.
+5. Avec un pocket Quansheng : bouton **SOURCE** → **UV-Kx USB** ou **UV-Kx audio**, puis touche **3** (DATA) sur la radio — voir [Source UV-Kx](#source-uv-kx--le-pocket-quansheng-comme-récepteur-v040).
 
 > **Mise à jour** : depuis la v0.2.0, chaque nouvelle version s'installe **par-dessus** (réglages et main courante conservés). Le bouton **?** → **🔄 Vérifier les mises à jour** indique si une version plus récente est publiée et propose de la télécharger.
 
@@ -71,6 +74,13 @@
 </table>
 
 <p align="center">
+  <img src="images/EPIRBdecoder_android_UV-K1.jpg" width="380" alt="Pocket Quansheng UV-K1 relié en OTG : balise décodée sur la tablette">
+  &nbsp;
+  <img src="images/EPIRBdecoder_android_UV-K1_map.jpg" width="380" alt="Position de la balise dans Google Maps"><br>
+  <sub><b>v0.4.0 : le pocket Quansheng UV-K1 comme récepteur</b> (source UV-Kx USB) — balise d'entraînement décodée avec MGRS, puis ouverte dans Google Maps</sub>
+</p>
+
+<p align="center">
   <img src="images/Balise406AD77.jpg" width="800" alt="Balise 406 ADRASEC IDF"><br>
   <sub><b> Balise 406 d'Exercice SATER de l'ADRASEC IDF</b></sub>
 </p>
@@ -92,6 +102,7 @@
 - [Matériel requis](#matériel-requis)
 - [Utilisation](#utilisation)
 - [Lecture de l'écran](#lecture-de-lécran)
+- [Source UV-Kx : le pocket Quansheng comme récepteur (v0.4.0)](#source-uv-kx--le-pocket-quansheng-comme-récepteur-v040)
 - [Réglage du gain et diagnostic de réception](#réglage-du-gain-et-diagnostic-de-réception)
 - [Captures IQ et échantillons de test](#captures-iq-et-échantillons-de-test)
 - [Main courante et fichiers](#main-courante-et-fichiers)
@@ -118,6 +129,12 @@ immédiatement l'**identifiant**, le **pays**, le **protocole** et la
 avec ouverture directe dans **Google Maps** ou **navigation routière** vers la
 balise.
 
+**Depuis la v0.4.0**, l'opérateur sur zone de recherche peut aussi utiliser son **pocket
+Quansheng UV-K1 / UV-K5 v3** comme récepteur : la radio, sous l'App **EPIRBdecoder v1.1**,
+reçoit et décode la balise, puis envoie le message complet à la tablette par le **câble de
+programmation** ou par l'**audio**, en OTG. La tablette refait le décodage complet et
+ajoute le **MGRS**, la carte, l'itinéraire et la main courante.
+
 Le moteur de décodage est **celui de la version PC EPIRBdecoder v5.22**
 (récepteur MLSE, contrôles BCH, conversion MGRS), embarqué tel quel : un burst
 décodé sur Android donne exactement le même résultat que sur le PC.
@@ -132,6 +149,7 @@ décodé sur Android donne exactement le même résultat que sur le PC.
 - **Gain RF manuel** réglable (20,7 à 49,6 dB) ou automatique ; fréquence et gain **mémorisés**.
 - **Détection automatique des bursts** et décodage sans intervention.
 - **Indicateur SIGNAL** : puissance brute (dBFS), rapport signal/bruit dans le canal de la balise, **alerte SATURATION**.
+- **v0.4.0 — bouton SOURCE** : **Clé SDR**, **UV-Kx USB** (câble de programmation du pocket Quansheng, 38400 bauds) ou **UV-Kx audio** (Packet AFSK 1200 bauds de la sortie écouteur sur l'entrée micro) ; choix mémorisé.
 
 ### Décodage et affichage
 - **Identifiant 15 HEX**, **pays** (MID), **protocole** (User, Standard / National Location, RLS…).
@@ -171,6 +189,9 @@ décodé sur Android donne exactement le même résultat que sur le PC.
 | Décodeur | Moteur **EPIRBdecoder PC v5.22** (BeaconDecoder, BCH, MGRS), embarqué à l'identique |
 | Captures IQ | NumPy `.npy` complex64 + `.txt` descriptif (`center_freq_hz`, `sample_rate_hz`, …) — format identique au PC |
 | Fonctionnement | 100 % local : aucune connexion réseau requise (sauf « Vérifier les mises à jour ») |
+| Source UV-Kx USB (v0.4.0) | Câble de programmation Kenwood (prise K : CH340, CP210x, PL2303, FTDI) en OTG, 38400 bauds 8N1, bibliothèque usb-serial-for-android |
+| Source UV-Kx audio (v0.4.0) | Entrée micro 16 / 44,1 / 48 kHz ; démodulateur AFSK 1200 bauds (Bell 202) + HDLC / AX.25 avec contrôle FCS, plusieurs équilibres de tonalités ; décode jusqu'à S/B 8 dB |
+| Message UV-Kx | « 406:N » (ou « S » auto-test) + 30 hex = bits 25 à 144 ; trame reconstituée, correction BCH et décodage par le moteur PC |
 | Système | Android 7.0+ (API 24), arm64-v8a ; application Kotlin, traitement Python 3.13 + NumPy embarqués |
 
 Validation : captures IQ réelles d'une balise d'exercice ADRASEC 77 (NESDR v5,
@@ -186,6 +207,7 @@ plus bas qu'avec la v0.1.
 - Tablette ou smartphone Android avec **USB hôte (OTG)**.
 - **Câble / adaptateur OTG** adapté au connecteur de l'appareil (voir `images/OTGcable.jpg`).
 - **Antenne 406 MHz** : dipôle, Yagi directive pour la goniométrie, ou antenne large bande.
+- **Ou (v0.4.0)** : un pocket **Quansheng UV-K1 / UV-K5 v3** (firmware F4HWN Labs) avec l'App **EPIRBdecoder v1.1**, et son **câble de programmation** (prise K) ou un **adaptateur audio USB-C** / câble audio vers l'entrée micro.
 
 <p align="center">
   <img src="images/SDR_SMArtSDR_v5.png" width="800" alt="SMArtSDR"><br>
@@ -199,8 +221,9 @@ plus bas qu'avec la v0.1.
 
 | Commande | Rôle |
 |---|---|
-| **Fréquence** (bandeau) | Choix du canal 406 MHz ou de test. Réglable pendant l'écoute. |
-| **Gain** (bandeau) | Gain RF manuel ou auto. Réglable pendant l'écoute. |
+| **SOURCE** (en bas à gauche) | **Clé SDR**, **UV-Kx USB** ou **UV-Kx audio** (v0.4.0). Se change à l'arrêt. |
+| **Fréquence** (bandeau) | Choix du canal 406 MHz ou de test (clé SDR ; grisé en UV-Kx : la fréquence se règle sur la radio). Réglable pendant l'écoute. |
+| **Gain** (bandeau) | Gain RF manuel ou auto (clé SDR). Réglable pendant l'écoute. |
 | **▶ DÉMARRER L'ÉCOUTE** | Lance le SDR Driver (accès USB au dongle), puis l'écoute ; **■ ARRÊTER L'ÉCOUTE** pour stopper. |
 | **CHARGER IQ** | Décode une capture `.npy` (sélectionnez aussi son `.txt` si possible). Fonctionne sans dongle. |
 | **● ENREGISTRER** | Sauve chaque burst reçu en capture IQ (**REC ON** en rouge quand actif). |
@@ -219,9 +242,52 @@ plus bas qu'avec la v0.1.
 - **Bandeau** : emblème, heure et date.
 - **Poste** : voyant d'état (gris = arrêté, orange = attente / burst, vert = écoute / balise décodée, rouge = erreur), statut, fréquence et gain.
 - **SIGNAL** : barre du S/B dans le canal (verte au-delà de +6 dB), niveau brut en dBFS, **SATURATION** en rouge.
-- **Carte BALISE** : heure et source du dernier décodage (réception ou fichier IQ, fréquence), identifiant 15 HEX, pays et protocole.
+- **Carte BALISE** : heure et source du dernier décodage (réception, **UV-Kx USB**, **UV-Kx audio** ou fichier IQ, fréquence), identifiant 15 HEX, pays et protocole.
 - **Carte POSITION** : coordonnées décimales, DMS et **MGRS** (vert), boutons Carte et Itinéraire.
 - **Pastilles** : `121.5 MHz` (homing), `BCH` (OK en vert), `SYNC` (x/24).
+
+---
+
+## Source UV-Kx : le pocket Quansheng comme récepteur (v0.4.0)
+
+<p align="center">
+  <img src="images/EPIRBdecoder_mode_data.png" width="800" alt="Mode DATA : du pocket UV-K1 à la tablette EPIRBdecoder Android">
+</p>
+
+Le pocket **Quansheng UV-K1 / UV-K5 v3**, sous l'App **[EPIRBdecoder v1.1](https://github.com/f1gbd/F1GBD/blob/HEAD/quansheng/apps/EPIRBdecoder.md)**
+(firmware F4HWN Labs, installable depuis l'[UV-K1 Apps Uploader](https://f1gbd.github.io/F1GBD/quansheng/)),
+reçoit et décode la balise 406 MHz (ou la balise d'entraînement sur 434,000 MHz). En **mode DATA**
+(touche **3** de la radio), il envoie chaque trame reçue à la tablette, **sans émettre** :
+
+| Source | Câblage | Liaison |
+|---|---|---|
+| **UV-Kx USB** | câble de programmation Kenwood (prise K, celui de CHIRP / UV Studio) + adaptateur **OTG** | ligne texte, 38400 bauds |
+| **UV-Kx audio** | sortie écouteur de la radio → entrée micro (adaptateur audio USB-C sur l'OTG, ou prise casque) ; pour un premier essai, le haut-parleur de la radio contre le micro suffit | Packet AFSK 1200 bauds |
+
+1. **SOURCE** → **UV-Kx USB** ou **UV-Kx audio**, puis **▶ DÉMARRER L'ÉCOUTE** (autoriser l'accès au câble ou au micro la première fois).
+2. Sur la radio : touche **3** (« DATA ON ») ; la balise affichée arrive aussitôt, puis chaque nouvelle trame.
+3. La carte BALISE indique **UV-Kx USB** ou **UV-Kx audio** : nom du pays, protocole, position décimale, DMS et **MGRS**, BCH, Carte, Itinéraire, main courante — comme avec la clé SDR.
+
+<p align="center">
+  <img src="images/EPIRBdecoder_android_UV-K1.jpg" alt="UV-K1 en mode DATA relié en OTG à la tablette EPIRBdecoder Android : balise décodée avec MGRS" width="380">
+  &nbsp;
+  <img src="images/EPIRBdecoder_android_UV-K1_map.jpg" alt="Position de la balise ouverte dans Google Maps depuis EPIRBdecoder Android" width="380">
+</p>
+<p align="center"><em>Essai réel du 11 octobre 2026 : balise d'entraînement (générateur EPIRB OC + HackRF, 434,000 MHz) décodée par le UV-K1 sous
+EPIRBdecoder v1.1 en mode DATA, transmise par le câble de programmation en OTG à la tablette sous EPIRBdecoder Android v0.4.0
+(source UV-Kx USB) : 1C7E12D23F81FE0, France (227), National Loc. (Test), 48.5544° N 2.6311° E, MGRS 31U DP 72777 77988,
+BCH OK, 121,5 MHz ; à droite, la position ouverte dans Google Maps par le bouton Carte</em></p>
+
+La radio envoie le **message complet** de la balise (`406:N` + 30 caractères hexadécimaux) :
+la tablette le décode avec le moteur PC, elle ne recopie pas l'écran de la radio. La source
+audio décode aussi le **relais Packet** d'un autre UV-Kx (PTT ou AUTO) entendu par un récepteur
+branché sur la tablette. Ligne SIGNAL : niveau audio en dBFS ; « SATURATION » → baisser le volume de la radio.
+
+| Message | Action |
+|---|---|
+| « Câble UV-Kx non détecté » | câble de programmation (CH340, CP210x, PL2303, FTDI) et adaptateur OTG ; un câble de charge seul ne convient pas |
+| « Accès au câble UV-Kx refusé » | relancer et accepter la demande d'accès USB |
+| Rien n'arrive | « DATA ON » sur la radio (touche 3), bonne source choisie, volume de la radio (audio) |
 
 ---
 
@@ -284,8 +350,10 @@ Exemple de ligne de main courante :
 | Internet | Connexion au serveur `rtl_tcp` **local** du SDR Driver (127.0.0.1) ; vérification des mises à jour à la demande |
 | Accès à tous les fichiers | Main courante et captures dans `Téléchargements/EPIRBpi` (facultatif) |
 | Maintien de l'écran | Écoute prolongée |
+| Micro (v0.4.0) | Source **UV-Kx audio** seulement, demandé au premier démarrage de cette source |
+| Accès USB (v0.4.0) | Câble de programmation du pocket (source **UV-Kx USB**), demandé au premier démarrage |
 
-Le dongle USB est ouvert par le SDR Driver, pas par l'application. Aucune donnée n'est transmise à l'extérieur.
+Le dongle SDR est ouvert par le SDR Driver ; le câble UV-Kx par l'application. Aucune donnée n'est transmise à l'extérieur.
 
 ---
 
@@ -326,7 +394,8 @@ Le dongle USB est ouvert par le SDR Driver, pas par l'application. Aucune donné
 
 | Version | Date | Principales évolutions |
 |---|---|---|
-| **0.3.2** | 09/2026 | **Position National Location corrigée** (écart d'environ 800 m avec le décodeur F1LVT : décalage fin PDF-2 au format C/S T.001), **Hex ID** corrigé, codes National 8 / 10 / 11 décodés, moteur PC v5.22 |
+| **0.4.0** | 10/2026 | **Pocket Quansheng UV-K1 / UV-K5 comme récepteur** : bouton **SOURCE** (Clé SDR, **UV-Kx USB**, **UV-Kx audio**), avec l'App EPIRBdecoder v1.1 de la radio en mode DATA ; démodulateur AFSK 1200 bauds intégré ; MGRS, carte et main courante comme en SDR |
+| 0.3.2 | 09/2026 | **Position National Location corrigée** (écart d'environ 800 m avec le décodeur F1LVT : décalage fin PDF-2 au format C/S T.001), **Hex ID** corrigé, codes National 8 / 10 / 11 décodés, moteur PC v5.22 |
 | 0.3.1 | 09/2026 | **Correctifs réception SDR** : ouverture du dongle (gain), plantage au démarrage de l'écoute, relance de l'écoute (clé occupée), faux « Burst détecté » ; installation par-dessus la v0.1 signalée clairement |
 | 0.3.0 | 09/2026 | Interface **Sécurité Civile** (cartes BALISE / POSITION, pastilles d'état), écran de lancement, **Vérifier les mises à jour** dans À propos |
 | **0.2.0** | 09/2026 | **Réception SDR corrigée** (gain manuel, AGC coupée, accord décalé, canal étroit, MLSE multi-filtre, filtrage BCH-1), mise en page tablette, moteur PC v5.20, application Kotlin + Python |

@@ -38,12 +38,12 @@
     {
       "file": "EPIRBdecoder.app",
       "name": "EPIRBdecoder",
-      "version": "1.0.1",
+      "version": "1.1",
       "title": "Décodeur de balises EPIRBdecoder",
-      "summary": "Reçoit les balises de détresse 406 MHz (1re génération) sur 406,025 à 406,040 MHz ou 434,000 MHz (balise d'entraînement), au choix dans l'App, et les affiche comme l'application Android EPIRB decoder : ID 15 hex, pays, protocole, MMSI, position décimale et DMS, BCH (2 bits corrigés), 121,5 MHz ; 5 balises gardées, écran en police normale, indicatif saisi sur la radio (F). PTT ou AUTO relaie la position en AX.25 Packet (APRS, compatible TCQ) sur la fréquence radioamateur du VFO (430,4375 MHz…), jamais entre 405 et 407 MHz. Récepteur EPIRB 406 de F4WAT.",
-      "doc": "documentation/EPIRBdecoder_Manuel_v1.0.1.pdf",
-      "size": 7946,
-      "sha256": "ba22053e4c8cd06f7ca14ef6aaa6c184fd45f255521acd837d4d66bf5cf45f1c",
+      "summary": "Reçoit les balises de détresse 406 MHz (1re génération) sur 406,025 à 406,040 MHz ou 434,000 MHz (balise d'entraînement), au choix dans l'App, et les affiche comme l'application Android EPIRB decoder : ID 15 hex, code pays MID, protocole, MMSI, position décimale et DMS, BCH (2 bits corrigés), 121,5 MHz ; 5 balises gardées, écran en police normale, indicatif saisi sur la radio (F). PTT ou AUTO relaie la position en AX.25 Packet (APRS, compatible TCQ) sur la fréquence radioamateur du VFO (430,4375 MHz…), jamais entre 405 et 407 MHz. Mode DATA (touche 3) : chaque balise est envoyée sans émission à EPIRBdecoder Android v0.4.0 en OTG (câble de programmation ou audio), qui affiche la position en MGRS. Récepteur EPIRB 406 de F4WAT.",
+      "doc": "documentation/EPIRBdecoder_Manuel_v1.1.pdf",
+      "size": 7818,
+      "sha256": "29cf591cdc48f691152a1d9b7e2b8213ba9c004a12fcd52b8ef7bd1d760abd35",
       "date": "2026-10-11"
     },
     {

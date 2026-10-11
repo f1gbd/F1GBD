@@ -160,6 +160,22 @@ BCH (2 bits corrigés par bloc), 121,5 MHz, source de position, en police normal
 5 dernières balises restent en mémoire. **PTT** — ou le mode **AUTO** — **relaie la position de la balise en
 AX.25 Packet** (position APRS) **sur une autre fréquence** : TCQ la place sur sa carte.
 
+**Nouveau en v1.1 — mode DATA (touche 3)** : sans émettre, le pocket envoie chaque balise reçue
+à une **tablette ou un téléphone Android** branché en **OTG** (câble de programmation, ou audio de
+la sortie écouteur) ; **[EPIRBdecoder Android v0.4.0](https://github.com/f1gbd/F1GBD/blob/HEAD/epirb/android/README.md)** (sources
+« UV-Kx USB » / « UV-Kx audio ») refait le décodage complet et affiche la position en **MGRS**,
+la carte et l'itinéraire jusqu'à la balise.
+
+<p align="center">
+  <img src="images/EPIRBdecoder_android_UV-K1.jpg" alt="UV-K1 en mode DATA relié en OTG à la tablette EPIRBdecoder Android : balise décodée avec MGRS" width="380">
+  &nbsp;
+  <img src="images/EPIRBdecoder_android_UV-K1_map.jpg" alt="Position de la balise ouverte dans Google Maps depuis EPIRBdecoder Android" width="380">
+</p>
+<p align="center"><em>Essai réel du 11 octobre 2026 : balise d'entraînement (générateur EPIRB OC + HackRF, 434,000 MHz) décodée par le UV-K1 sous
+EPIRBdecoder v1.1 en mode DATA, transmise par le câble de programmation en OTG à la tablette sous EPIRBdecoder Android v0.4.0
+(source UV-Kx USB) : 1C7E12D23F81FE0, France (227), National Loc. (Test), 48.5544° N 2.6311° E, MGRS 31U DP 72777 77988,
+BCH OK, 121,5 MHz ; à droite, la position ouverte dans Google Maps par le bouton Carte</em></p>
+
 
 <p align="center">
   <img src="images/EPIRBdecoder_balise.png" alt="EPIRBdecoder : balise National Location décodée" width="300">
@@ -172,15 +188,15 @@ Réglage : le **VFO** sur la fréquence Packet radioamateur de l'exercice (**430
 FM large, CTCSS du transpondeur si besoin) ; la **réception** se choisit dans l'App (touche **2**) :
 canaux **406,025 à 406,040 MHz** ou **434,000 MHz** pour une balise d'entraînement. L'application
 **refuse d'émettre entre 405 et 407 MHz**. L'indicatif se saisit sur la radio (touche **F**).
-Trame reçue par TCQ :
+Trame reçue par TCQ (v1.1 : pays en code MID, message 406 complet en fin de ligne pour la tablette) :
 
 ```
-F1GBD-7>CQ: !4608.33N\00322.80E!EPIRB 1C7491A2BF81FE0 FRANCE (227) National Loc EPIRB 121.5
+F1GBD-7>CQ: !4608.33N\00322.80E!EPIRB 1C7491A2BF81FE0 MID (227) National Loc EPIRB 121.5 406:N8E3A48D14B8803609C03B58A4C0261
 ```
 
 Détails, touches et différences avec l'application Android : [notice EPIRBdecoder](apps/EPIRBdecoder.md) et
-[manuel technique PDF](documentation/EPIRBdecoder_Manuel_v1.0.1.pdf).
-Validé en émulation (22 essais, comparés au décodeur PC et à l'application Android), puis **sur l'air** :
+[manuel technique PDF](documentation/EPIRBdecoder_Manuel_v1.1.pdf).
+Validé en émulation (23 essais, comparés au décodeur PC et à l'application Android), puis **sur l'air** :
 
 <p align="center">
   <img src="images/EPIRBdecoder_app.jpg" alt="Balise d'entraînement décodée par le UV-K1 et relayée vers TCQ" width="760">
@@ -203,7 +219,7 @@ puis relayée par PTT sur 430,4375 MHz : TCQ v14.2.1 la reçoit (F1GBD-7 → CQ,
 | RGRAM v1.1 — Manuel d'utilisation et exemples de radiogrammes | [PDF](documentation/RGRAM_Manuel_v1.1.pdf) |
 | TACVYR v1.0 — Manuel d'utilisation, codes et exemples d'échanges | [PDF](documentation/TACVYR_Manuel_v1.0.pdf) |
 | TACVYR — Carte opérateur A4 (les 81 codes et les touches, à plastifier) | [PDF](documentation/TACVYR_Carte_Operateur.pdf) |
-| EPIRBdecoder v1.0.1 — Manuel technique et d'utilisation : réglages, écrans, relais AX.25 / TCQ, signal 406 MHz et décodage, procédure SATER, dépannage | [PDF](documentation/EPIRBdecoder_Manuel_v1.0.1.pdf) |
+| EPIRBdecoder v1.1 — Manuel technique et d'utilisation : réglages, écrans, relais AX.25 / TCQ, mode DATA vers EPIRBdecoder Android, signal 406 MHz et décodage, procédure SATER, dépannage | [PDF](documentation/EPIRBdecoder_Manuel_v1.1.pdf) |
 | Code CHAPPE26 — Livret de poche B5 (18 pages) : répertoire des 1000 codes, carte opérateur, chiffrement | [PDF](documentation/Chappe26_Livret_B5.pdf) |
 | Code CHAPPE26 — Fiche exemple Black-out : demande de moyens radio de secours | [PDF](documentation/Chappe26_Fiche_BlackOut.pdf) |
 | Code CHAPPE26 — Fiche exemple Incendie majeur : renforts, évacuation, radio en zone blanche | [PDF](documentation/Chappe26_Fiche_Incendie.pdf) |
@@ -216,7 +232,7 @@ puis relayée par PTT sur 430,4375 MHz : TCQ v14.2.1 la reçoit (F1GBD-7 → CQ,
 | [CHAPPE-TX](apps/CHAPPE-TX.md) ([manuel PDF](documentation/CHAPPE-TX_Manuel_v1.1.pdf)) | 1.1 | Émetteur CHAPPE26 : message composé au clavier (phrases en clair, relecture), émis en AX.25 Packet 1200 bauds vers CQ comme TCQ — reçu en clair par TCQ et PAGER-RASEC |
 | [RGRAM](apps/RGRAM.md) ([manuel PDF](documentation/RGRAM_Manuel_v1.1.pdf)) | 1.1 | Émetteur de radiogrammes ADRASEC : formulaire et saisie multi-tap sur la radio, émission AX.25 Packet au format TCQ (`{QR:…}`, CRC validé par TCQ), lu par PAGER-RASEC v1.4 |
 | [TACVYR](apps/TACVYR.md) ([manuel PDF](documentation/TACVYR_Manuel_v1.0.pdf)) | 1.0 | Messages tactiques courts sans phonie : code à 2 chiffres (81 phrases), 1 ou 2 phrases ou texte libre, émis et reçus en AX.25 Packet 1200 bauds sur le VFO, en clair pour TCQ et PAGER-RASEC |
-| [EPIRBdecoder](apps/EPIRBdecoder.md) ([manuel PDF](documentation/EPIRBdecoder_Manuel_v1.0.1.pdf)) | 1.0.1 | Balises 406 MHz : réception et décodage comme l'application Android (ID, pays, protocole, MMSI, position décimale et DMS, BCH corrigé, 121,5), 5 balises gardées, réception 406,025-406,040 ou 434,000 MHz (entraînement) au choix, relais de la position en AX.25 Packet (APRS, compatible TCQ) sur la fréquence radioamateur du VFO, par PTT ou AUTO — récepteur EPIRB 406 de F4WAT |
+| [EPIRBdecoder](apps/EPIRBdecoder.md) ([manuel PDF](documentation/EPIRBdecoder_Manuel_v1.1.pdf)) | 1.1 | Balises 406 MHz : réception et décodage comme l'application Android (ID, code pays MID, protocole, MMSI, position décimale et DMS, BCH corrigé, 121,5), 5 balises gardées, réception 406,025-406,040 ou 434,000 MHz (entraînement) au choix, relais de la position en AX.25 Packet (APRS, compatible TCQ) sur la fréquence radioamateur du VFO, par PTT ou AUTO ; **mode DATA** vers EPIRBdecoder Android (OTG : câble de programmation ou audio, MGRS sur la tablette) — récepteur EPIRB 406 de F4WAT |
 | CHAPPE26 | 1.0 | Dictionnaire CHAPPE26 (1000 codes) pour PAGER-RASEC et CHAPPE-TX — à installer avec eux |
 
 ## Ajouter une application
