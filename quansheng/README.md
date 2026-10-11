@@ -210,6 +210,46 @@ puis relayée par PTT sur 430,4375 MHz : TCQ v14.2.1 la reçoit (F1GBD-7 → CQ,
 </p>
 <p align="center"><em>La position de la balise EPIRB décodée par l'App EPIRBdecoder v1.0.1 reçue par le Quansheng UV K1/K5 est renvoyée en AX25 Packet par le pocket sur une fréquence ADRASEC en RADIO PURE PACKET (ici le transpondeur F5ZYI), elle est reçue et affichée sur la Cartographie TCQ en mode Packet</em></p>
 
+## KISS-TNC : le UV-K1 comme TNC Packet pour TCQ
+
+Avec **KISS-TNC**, le portatif devient un **TNC Packet AX.25 1200 bauds** piloté en
+**KISS** par le simple **câble de programmation** (prise K, 38400 bauds) : le PC de crise
+sous **[TCQ v14.3](https://github.com/f1gbd/F1GBD/tree/master/tcq)** (onglet TNC Packet,
+mode série) envoie ses **radiogrammes, messages et images** par la radio et reçoit
+toutes les trames AX.25 de la fréquence — **sans TNC matériel, sans Direwolf, sans carte
+son**. L'App applique le TXDELAY de TCQ (800 ms pour passer par les transpondeurs),
+attend que le canal soit libre (CSMA), groupe les trames en attente sous une même
+émission, et garde le CTCSS / DCS et la puissance du VFO ; jamais d'émission entre 405
+et 407 MHz.
+
+<p align="center">
+  <img src="images/KISS-TNC_UV-K1_F1GBD.jpg" alt="UV-K1 sous KISS-TNC relié au PC par le câble de programmation" height="420">
+  &nbsp;&nbsp;
+  <img src="images/KISS-TNC.jpg" alt="Écran de KISS-TNC après l'envoi d'une image de 21 trames" height="300">
+</p>
+<p align="center"><em>Le UV-K1 sous KISS-TNC sur la prise K ; l'écran après l'envoi d'une image de 21 trames par TCQ v14.3
+(2 passages en émission, TXD800 P128 SL30, accusé de F8KSM-7 reçu)</em></p>
+
+<p align="center">
+  <img src="images/KISS-TNC_chaine.png" alt="TCQ, câble de programmation, UV-K1 sous KISS-TNC, transpondeur, stations" width="760">
+</p>
+
+<p align="center">
+  <img src="images/KISS-TNC_TCQ.png" alt="TCQ en TNC Packet série : radiogramme envoyé par le UV-K1, accusé de F8KSM-7" width="560">
+  &nbsp;
+  <img src="images/KISS-TNC_UV-K1.jpg" alt="Écran de KISS-TNC après l'essai" width="300">
+</p>
+<p align="center"><em>Essai sur l'air du 11 octobre 2026 : TCQ (série COM10, 38400 bauds) → UV-K1 sous KISS-TNC sur 430,4375 MHz →
+transpondeur → F8KSM-7. Radiogramme ADRASEC de 12 trames (CRC valide) puis image de 21 trames reçus complets,
+accusés de réception reçus par radio. À droite : 12 trames émises en 9 passages, l'accusé de F8KSM-7 reçu.</em></p>
+
+Réglages TCQ : mode **serial**, port COM du câble, **38400** bauds, TX Delay 800 ms,
+Persistence 128, Slot Time 30 ms, Max Packet Len 255. Lancer KISS-TNC **avant** de
+cliquer sur Connecter. **TCQ v14.3** est nécessaire pour les images : en mode série, il
+envoie au rythme où la radio peut émettre (la radio garde 1,2 Ko en attente). EXIT rend
+la prise K au firmware (CHIRP, UV Studio). Détails : [notice KISS-TNC](apps/KISS-TNC.md) et
+[manuel PDF](documentation/KISS-TNC_Manuel_v0.1.pdf).
+
 ## Documentation
 
 | Document | Formats |
@@ -220,6 +260,7 @@ puis relayée par PTT sur 430,4375 MHz : TCQ v14.2.1 la reçoit (F1GBD-7 → CQ,
 | TACVYR v1.0 — Manuel d'utilisation, codes et exemples d'échanges | [PDF](documentation/TACVYR_Manuel_v1.0.pdf) |
 | TACVYR — Carte opérateur A4 (les 81 codes et les touches, à plastifier) | [PDF](documentation/TACVYR_Carte_Operateur.pdf) |
 | EPIRBdecoder v1.1 — Manuel technique et d'utilisation : réglages, écrans, relais AX.25 / TCQ, mode DATA vers EPIRBdecoder Android, signal 406 MHz et décodage, procédure SATER, dépannage | [PDF](documentation/EPIRBdecoder_Manuel_v1.1.pdf) |
+| KISS-TNC v0.1 — Manuel d'installation et d'utilisation : raccordement à TCQ, écran, fonctionnement (KISS, CSMA, TXDELAY), essai sur l'air, dépannage | [PDF](documentation/KISS-TNC_Manuel_v0.1.pdf) |
 | Code CHAPPE26 — Livret de poche B5 (18 pages) : répertoire des 1000 codes, carte opérateur, chiffrement | [PDF](documentation/Chappe26_Livret_B5.pdf) |
 | Code CHAPPE26 — Fiche exemple Black-out : demande de moyens radio de secours | [PDF](documentation/Chappe26_Fiche_BlackOut.pdf) |
 | Code CHAPPE26 — Fiche exemple Incendie majeur : renforts, évacuation, radio en zone blanche | [PDF](documentation/Chappe26_Fiche_Incendie.pdf) |
@@ -233,6 +274,7 @@ puis relayée par PTT sur 430,4375 MHz : TCQ v14.2.1 la reçoit (F1GBD-7 → CQ,
 | [RGRAM](apps/RGRAM.md) ([manuel PDF](documentation/RGRAM_Manuel_v1.1.pdf)) | 1.1 | Émetteur de radiogrammes ADRASEC : formulaire et saisie multi-tap sur la radio, émission AX.25 Packet au format TCQ (`{QR:…}`, CRC validé par TCQ), lu par PAGER-RASEC v1.4 |
 | [TACVYR](apps/TACVYR.md) ([manuel PDF](documentation/TACVYR_Manuel_v1.0.pdf)) | 1.0 | Messages tactiques courts sans phonie : code à 2 chiffres (81 phrases), 1 ou 2 phrases ou texte libre, émis et reçus en AX.25 Packet 1200 bauds sur le VFO, en clair pour TCQ et PAGER-RASEC |
 | [EPIRBdecoder](apps/EPIRBdecoder.md) ([manuel PDF](documentation/EPIRBdecoder_Manuel_v1.1.pdf)) | 1.1 | Balises 406 MHz : réception et décodage comme l'application Android (ID, code pays MID, protocole, MMSI, position décimale et DMS, BCH corrigé, 121,5), 5 balises gardées, réception 406,025-406,040 ou 434,000 MHz (entraînement) au choix, relais de la position en AX.25 Packet (APRS, compatible TCQ) sur la fréquence radioamateur du VFO, par PTT ou AUTO ; **mode DATA** vers EPIRBdecoder Android (OTG : câble de programmation ou audio, MGRS sur la tablette) — récepteur EPIRB 406 de F4WAT |
+| [KISS-TNC](apps/KISS-TNC.md) ([manuel PDF](documentation/KISS-TNC_Manuel_v0.1.pdf)) | 0.1 | TNC KISS AX.25 1200 bauds sur la prise K (câble de programmation, 38400 bauds) pour TCQ v14.3 (TNC Packet, mode série) : radiogrammes, messages et images par la radio, sans Direwolf ; TXDELAY 800 ms pour les transpondeurs, CSMA, CTCSS du VFO conservé, jamais entre 405 et 407 MHz |
 | CHAPPE26 | 1.0 | Dictionnaire CHAPPE26 (1000 codes) pour PAGER-RASEC et CHAPPE-TX — à installer avec eux |
 
 ## Ajouter une application
