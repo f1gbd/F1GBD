@@ -26,6 +26,11 @@ permanence et affiche les messages reçus.
 Manuel complet : [PDF](../documentation/TACVYR_Manuel_v1.0.pdf) — carte opérateur A4 avec les
 81 codes, à imprimer et plastifier : [PDF](../documentation/TACVYR_Carte_Operateur.pdf).
 
+<p align="center">
+  <img src="../images/TACVYR-TCQ.jpg" alt="Message TACVYR reçu en clair par TCQ" width="760">
+</p>
+<p align="center"><em>Essai sur l'air du 11 octobre 2026 : « EQUIPE ALPHA SUR ZONE » (codes 11 et 21) émis par le UV-K1 F1GBD-7, reçu en clair par TCQ v14.2.1</em></p>
+
 ## Installation
 
 1. Ouvrir l'**[UV-K1 Apps Uploader](../index.html)** dans Chrome ou Edge.
@@ -134,6 +139,7 @@ TXDELAY : `430.50000 F1GBD-7 TXD5`.
   d'indicatif, SSID, TXDELAY 300 / 500 / 800 ms ; chaque émission reconstituée et
   décodée (FCS correcte, `F4JHW-8>CQ`, texte exact) ; réglages mémorisés et
   relus. Pile au pire 3 400 o.
-- Essai sur l'air : à faire.
+- **Essai sur l'air réussi** (11 octobre 2026) : « EQUIPE ALPHA SUR ZONE » émis par le
+  UV-K1 F1GBD-7 et reçu en clair par TCQ v14.2.1 (Direwolf, onglet TNC Packet).
 
 ADRASEC 77 · F1GBD — 73
