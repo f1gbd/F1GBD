@@ -26,7 +26,7 @@ sans Direwolf, sans carte son.
 | TXDELAY / persistance / slot time | ceux de TCQ (800 ms, 128, 30 ms par défaut) |
 | Accès au canal | CSMA p-persistant : porteuse (RSSI) ou trame en cours = attente |
 | Garde-fous | verrous d'émission du firmware, **jamais entre 405 et 407 MHz**, 15 s max par émission |
-| Taille | 3 356 o de code (overlay 4 Kio) + 1 656 o de ressources (2 modules) |
+| Taille | 3 392 o de code (overlay 4 Kio) + 1 656 o de ressources (2 modules) |
 
 Manuel complet : [PDF](../documentation/KISS-TNC_Manuel_v0.1.pdf).
 
@@ -106,7 +106,8 @@ UV-K1 sous KISS-TNC sur 430,4375 MHz → transpondeur → station **F8KSM-7** :
   38400 bauds, audio AFSK bruité, émissions décodées) : trames de TCQ émises à
   l'identique (FCS correct, TXDELAY 800 ms), plusieurs trames sous un même passage,
   trames reçues rendues à l'identique à l'hôte, émission retardée tant qu'une
-  trame est reçue, image de 21 trames au rythme de TCQ v14.3 : 21 / 21 ; 406 MHz et
+  trame est reçue, image de 21 trames au rythme de TCQ v14.3 : 21 / 21, émission
+  Direwolf de 16 trames enchaînées reçue 16 / 16 ; 406 MHz et
   verrou : aucune émission ; prise K rendue au firmware. Pile au pire 3 056 o.
 - Essai sur l'air réussi le 11 octobre 2026 (radiogramme et image, accusés reçus).
 
