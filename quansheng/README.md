@@ -189,6 +189,11 @@ Validé en émulation (22 essais, comparés au décodeur PC et à l'application 
 par le UV-K1 sous EPIRBdecoder (1C7E12D23F81FE0, National Loc (Test), 48.5544N 2.6311E, BCH OK, 121,5 MHz),
 puis relayée par PTT sur 430,4375 MHz : TCQ v14.2.1 la reçoit (F1GBD-7 → CQ, position APRS 4833.27N 00237.87E)</em></p>
 
+<p align="center">
+  <img src="images/EPIBdecoder_UV-K1_K5_TCQ.png" alt="Balise d'entraînement décodée par le UV-K1 et relayée vers TCQ" width="760">
+</p>
+<p align="center"><em>La position de la balise EPIRB décodée par l'App EPIRBdecoder v1.0.1 reçue par le Quansheng UV K1/K5 est renvoyée en AX25 Packet par le pocket sur une fréquence ADRASEC en RADIO PURE PACKET (ici le transpondeur F5ZYI), elle est reçue et affichée sur la Cartographie TCQ en mode Packet</em></p>
+
 ## Documentation
 
 | Document | Formats |
