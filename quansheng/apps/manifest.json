@@ -75,8 +75,8 @@
       "title": "TNC KISS pour TCQ (KISS-TNC)",
       "summary": "Fait du UV-K1 un TNC Packet AX.25 1200 bauds piloté en KISS par le câble de programmation (prise K, 38400 bauds) : TCQ v14.3 (onglet TNC Packet, mode série) envoie radiogrammes, messages et images par la radio et reçoit toutes les trames AX.25, sans Direwolf ni carte son. TXDELAY, persistance et slot time de TCQ (800 ms pour les transpondeurs), CSMA, plusieurs trames par émission ; émission sur le VFO, CTCSS / DCS conservés, jamais entre 405 et 407 MHz.",
       "doc": "documentation/KISS-TNC_Manuel_v0.1.pdf",
-      "size": 5110,
-      "sha256": "0dd036d59cecaed59963d54574825ea0bf0dcd90f4404fcbd4db574181417936",
+      "size": 5146,
+      "sha256": "24d08e019281575b3895cd6930a023b9575097f2f35e2eba7fc408a39b42bbd7",
       "date": "2026-10-11"
     }
   ]

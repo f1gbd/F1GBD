@@ -26,7 +26,7 @@ sans Direwolf, sans carte son.
 | TXDELAY / persistance / slot time | ceux de TCQ (800 ms, 128, 30 ms par défaut) |
 | Accès au canal | CSMA p-persistant : porteuse (RSSI) ou trame en cours = attente |
 | Garde-fous | verrous d'émission du firmware, **jamais entre 405 et 407 MHz**, 15 s max par émission |
-| Taille | 3 392 o de code (overlay 4 Kio) + 1 656 o de ressources (2 modules) |
+| Taille | 3 428 o de code (overlay 4 Kio) + 1 656 o de ressources (2 modules) |
 
 Manuel complet : [PDF](../documentation/KISS-TNC_Manuel_v0.1.pdf).
 
