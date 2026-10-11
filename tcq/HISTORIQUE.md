@@ -9,7 +9,33 @@
 
 ---
 
-## 🆕 Nouveautés v14.2.1 — correctif des radiogrammes vers les pagers UV-K1
+## 🆕 Nouveautés v14.3 — le Quansheng UV-K1 comme TNC Packet
+
+- **TNC série KISS** : l'onglet **TNC Packet** en mode série fonctionne avec un
+  Quansheng **UV-K1 / UV-K5 v3** sous l'application **KISS-TNC** (firmware
+  F4HWN, édition Labs). Le câble de programmation (prise K, 38400 bauds) relie
+  le PC au portatif, qui émet et reçoit l'AX.25 1200 bauds : plus besoin de
+  Direwolf ni de carte son. Réglages : port COM du câble, 38400 bauds, TX Delay
+  800 ms, Persistence 128, Slot Time 30 ms, Max Packet Len 255. Lancer
+  KISS-TNC avant de cliquer sur « Connecter ».
+- **Envoi au rythme du TNC (mode série seulement)** : `TNCClient._pace_serial`
+  estime ce qui reste à émettre dans le TNC (durée de chaque trame en 1200
+  bauds, TXDELAY à chaque nouveau passage en émission) et n'envoie une trame
+  que si 900 octets au plus restent en attente. Avant, une image de 21 trames
+  partait en 11 s vers un TNC qui n'en émet qu'une toutes les 1,3 s : la
+  mémoire du UV-K1 (1,2 Ko) débordait (« DEBORD »), 7 trames étaient perdues,
+  l'image ne s'ouvrait pas chez le destinataire et aucun ACK ne revenait.
+  Désormais l'image part en une trentaine de secondes, 21/21 trames émises.
+- **Mode TCP (Direwolf) inchangé** : Direwolf garde toutes les trames en
+  mémoire, aucune attente n'est ajoutée.
+- Validé sur l'air le 11 octobre 2026 : radiogramme ADRASEC de 12 trames envoyé
+  par le UV-K1 sous KISS-TNC sur 430,4375 MHz à travers le transpondeur, ACK de
+  F8KSM-7 reçu par radio et affiché par TCQ ; puis une image de 21 trames
+  (3 463 octets) reçue complète par F8KSM-7 et accusée (« Image reçu »).
+
+---
+
+## Nouveautés v14.2.1 — correctif des radiogrammes vers les pagers UV-K1
 
 - **Correctif** : en v14.2, TCQ envoyait une trame toutes les 1,5 s alors
   qu'avec un TXDELAY de 800 ms chaque trame occupe environ 1,6 s d'antenne.
