@@ -6,16 +6,36 @@
 
 *Décodage EPIRB/ELT/PLB — Génération de trames d'exercice — SDR Direct RTL-SDR — Démodulation FM IQ — Audio Live / Fichier WAV / Hex — Carte OSM avec relèvements goniométriques — Triangulation ELT — **APRS-IS (compatible SATERfinder Android)** — SITREP PDF — MGRS — Thème clair/sombre — Export CSV*
 
-[![Decoder](https://img.shields.io/badge/decoder-v5.26-blue)](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.26/EPIRBdecoder.7z)
+[![Decoder](https://img.shields.io/badge/decoder-v5.27-blue)](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.27/EPIRBsuite-5.27-setup.exe)
 [![Generator](https://img.shields.io/badge/generator-v3.9.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=epirb)
-[![EPIRBdecoder Android](https://img.shields.io/badge/EPIRBdecoder_Android-v0.3.2-e8661a?logo=android)](https://github.com/f1gbd/F1GBD/tree/master/epirb/android)
+[![EPIRBdecoder Android](https://img.shields.io/badge/EPIRBdecoder_Android-v0.4.0-e8661a?logo=android)](https://github.com/f1gbd/F1GBD/tree/master/epirb/android)
+[![Quansheng UV-K1/K5](https://img.shields.io/badge/Quansheng_UV--K1%2FK5-EPIRBdecoder_v1.1-1d4f9c)](https://github.com/f1gbd/F1GBD/blob/master/quansheng/apps/EPIRBdecoder.md)
 [![SATERfinder](https://img.shields.io/badge/SATERfinder_Android-v1.0-orange?logo=android)](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder)
 [![Téléchargements](https://img.shields.io/badge/téléchargements-actifs-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases?q=epirb)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
 [![Mission](https://img.shields.io/badge/mission-COSPAS--SARSAT-orange.svg)]()
 
-### 🆕 v5.26 / v3.9.0 — Générateur : carte OSM, coordonnées MGRS et émission directe HackRF One
+### 🆕 v5.27 — le pocket Quansheng UV-K1 / UV-K5 comme récepteur (PC et Android)
+
+> **Nouveau dans EPIRBdecoder v5.27 et EPIRBdecoder Android v0.4.0** :
+> - Le pocket **Quansheng UV-K1 / UV-K5 v3** (firmware F4HWN Labs), sous l'App **[EPIRBdecoder v1.1](https://github.com/f1gbd/F1GBD/blob/master/quansheng/apps/EPIRBdecoder.md)**, reçoit et décode la balise 406 MHz ou la balise d'entraînement sur 434,000 MHz.
+> - En **mode DATA** (touche 3), il envoie chaque trame au PC ou à la tablette, **sans émettre**, avec le **message complet** de la balise (`406:N` + 30 caractères hexadécimaux).
+> - **📻 Nouvel onglet « UV-Kx »** dans EPIRBdecoder PC, et bouton **SOURCE** dans EPIRBdecoder Android. Deux liaisons possibles :
+>   - le **câble de programmation** (prise K, port COM, 38400 bauds) ;
+>   - l'**audio** : sortie écouteur vers l'entrée micro, en Packet AFSK 1200 bauds, avec un démodulateur intégré.
+> - Le décodage est **refait entièrement** à partir des bits de la balise : pays, protocole, position, **MGRS**, BCH. La balise est placée sur la **carte**, et sur Android le bouton **Itinéraire** guide jusqu'à elle.
+> - La source audio décode aussi le **relais Packet** d'un autre UV-Kx entendu par un récepteur.
+> - **Essai réel du 11/10/2026** : balise d'entraînement 1C7E12D23F81FE0 (générateur EPIRB + HackRF, 434,000 MHz), décodée par le UV-K1 puis affichée sur la tablette avec le MGRS 31U DP 72777 77988 et sur Google Maps.
+
+<p align="center">
+  <img src="https://github.com/f1gbd/F1GBD/blob/master/epirb/android/images/EPIRBdecoder_android_UV-K1.jpg?raw=true" width="380" alt="UV-K1 en mode DATA relié en OTG à la tablette EPIRBdecoder Android">
+  &nbsp;
+  <img src="https://github.com/f1gbd/F1GBD/blob/master/epirb/android/images/EPIRBdecoder_android_UV-K1_map.jpg?raw=true" width="380" alt="Position de la balise ouverte dans Google Maps"><br>
+  <sub><b>Essai réel : le UV-K1 décode la balise d'entraînement, la tablette affiche le MGRS et la position sur la carte</b></sub>
+</p>
+
+### v5.26 / v3.9.0 — Générateur : carte OSM, coordonnées MGRS et émission directe HackRF One
 
 > **Nouveau dans EPIRB-generator v3.9.0** :
 > - **🗺 Carte OpenStreetMap** : la même que dans le décodeur, avec le même cache de tuiles. **Un clic sur la carte place la balise** à générer.
@@ -41,7 +61,7 @@ Cette série fiabilise le **cœur de décodage/encodage** des trames 406 MHz : p
 
 > **Correctifs v5.22 (septembre 2026)** : la position des balises **National Location** pouvait être décalée d'environ **800 m** (écart constaté en test comparatif avec le décodeur F1LVT). Le décalage fin PDF-2 est désormais lu au format National de la norme C/S T.001, y compris quand la balise émet le bit 110 à 0 (comme le fait le décodeur F1LVT). **Hex ID** corrigé (National Location, et Standard au Sud ou à l'Ouest), codes National **8, 10, 11** décodés, relecture IQ des balises d'**exercice** et récepteur IQ multi-filtre. Vérifié contre le décodeur F1LVT et le jeu de conformité AMSA.
 
-### 📥 [**Installer EPIRB Suite v5.26 (Windows)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.26/EPIRBsuite-5.26-setup.exe) · [archive 7z](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.26/EPIRBdecoder.7z) · [**EPIRBdecoder Android v0.3.2 (APK)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-android-v0.3.2/EPIRBdecoder_android-0.3.2.apk) · [**SATERfinder Android v1.0 (APK)**](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder)
+### 📥 [**Installer EPIRB Suite v5.27 (Windows)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.27/EPIRBsuite-5.27-setup.exe) · [archive 7z](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.27/EPIRBdecoder.7z) · [**EPIRBdecoder Android v0.4.0 (APK)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-android-v0.4.0/EPIRBdecoder_android-0.4.0.apk) · [**EPIRBdecoder pour Quansheng UV-K1/K5**](https://f1gbd.github.io/F1GBD/quansheng/) · [**SATERfinder Android v1.0 (APK)**](https://github.com/f1gbd/F1GBD/tree/master/epirb/saterfinder)
 
 </div>
 
@@ -49,40 +69,42 @@ Cette série fiabilise le **cœur de décodage/encodage** des trames 406 MHz : p
 
 ## 🎯 Qu'est-ce que la suite EPIRB 406 MHz ?
 
-La **EPIRB 406 MHz Suite** regroupe désormais **quatre outils complémentaires** (deux Windows + deux applis Android) pour la formation, les exercices et les opérations ADRASEC sur les balises de détresse COSPAS-SARSAT :
+La **EPIRB 406 MHz Suite** regroupe désormais **cinq outils complémentaires** (deux Windows, deux applis Android et une App pour le pocket Quansheng) pour la formation, les exercices et les opérations ADRASEC sur les balises de détresse COSPAS-SARSAT :
 
 | Outil | Plateforme | Rôle |
 |---|---|---|
-| 📡 **EPIRB Decoder** (v5.26) | Windows 10/11 | Décodeur complet 406 MHz — RTL-SDR, Audio Live, WAV, Hex direct, codes protocole officiels + **National Location**, position 4 s, carte OSM/triangulation, **APRS-IS**, SITREP PDF |
+| 📡 **EPIRB Decoder** (v5.27) | Windows 10/11 | Décodeur complet 406 MHz — RTL-SDR, Audio Live, WAV, Hex direct, **pocket Quansheng UV-Kx (USB ou audio)**, codes protocole officiels + **National Location**, position 4 s, carte OSM/triangulation, **APRS-IS**, SITREP PDF |
 | 🛰 **EPIRB Generator** (v3.9.0) | Windows 10/11 | Générateur de trames d'exercice 406 MHz — **carte OSM cliquable, MGRS**, émission audio directe, PTT série, signal Manchester 400 bauds conforme COSPAS-SARSAT T.001, **émission directe HackRF One (USB)** et export PortaPack |
-| 📱 **[EPIRBdecoder Android](https://github.com/f1gbd/F1GBD/tree/master/epirb/android)** (v0.3.2) | Android 7+ (64 bits, USB-OTG) | Le décodeur 406 MHz sur smartphone ou tablette — clé RTL-SDR en OTG, **même moteur de décodage que la version PC**, position, MGRS, carte, main courante, enregistrement IQ |
+| 📱 **[EPIRBdecoder Android](https://github.com/f1gbd/F1GBD/tree/master/epirb/android)** (v0.4.0) | Android 7+ (64 bits, USB-OTG) | Le décodeur 406 MHz sur smartphone ou tablette — clé RTL-SDR ou **pocket Quansheng UV-Kx** en OTG, **même moteur de décodage que la version PC**, position, MGRS, carte, main courante, enregistrement IQ |
+| 📻 **[EPIRBdecoder pour Quansheng](https://github.com/f1gbd/F1GBD/blob/master/quansheng/apps/EPIRBdecoder.md)** (v1.1) | UV-K1 / UV-K5 v3 (F4HWN Labs) | Le pocket reçoit et décode la balise 406 MHz, la relaie en AX.25 Packet vers TCQ et, en **mode DATA**, l'envoie sans émission à EPIRBdecoder PC ou Android |
 | 📱 **SATERfinder** (v1.0) | Android 7+ | Application terrain de relevés goniométriques pour équipes mobiles — carte OSM, GPS interne, triangulation ELT, **partage APRS-IS** avec EPIRBdecoder PC |
 
-Les quatre outils forment un **écosystème intégré** : le générateur produit des trames d'exercice décodées par EPIRBdecoder (PC ou Android), les équipes terrain équipées de SATERfinder émettent leurs relèvements vers le PCS via APRS-IS, et la triangulation collective converge en temps réel sur la carte du chef de mission. Cela permet des scénarios de formation et des opérations réelles complets, sans dépendre de balises matérielles.
+Les cinq outils forment un **écosystème intégré** : le générateur produit des trames d'exercice décodées par EPIRBdecoder (PC, Android ou pocket Quansheng), les équipes terrain équipées de SATERfinder émettent leurs relèvements vers le PCS via APRS-IS, et la triangulation collective converge en temps réel sur la carte du chef de mission. Cela permet des scénarios de formation et des opérations réelles complets, sans dépendre de balises matérielles.
 
 L'ensemble est destiné à la **formation des opérateurs ADRASEC**, aux **exercices de décodage 406 MHz**, et aux **opérations réelles** de recherche et sauvetage dans le cadre COSPAS-SARSAT.
 
 ---
 
-## 📱 EPIRBdecoder Android v0.3.2 — le décodeur 406 MHz dans la poche
+## 📱 EPIRBdecoder Android v0.4.0 — le décodeur 406 MHz dans la poche
 
 <table>
 <tr>
 <td width="340" valign="top">
-<a href="https://github.com/f1gbd/F1GBD/tree/master/epirb/android"><img src="https://github.com/f1gbd/F1GBD/blob/master/epirb/images/EPIRBdecoder_android.jpg?raw=true" alt="EPIRBdecoder sur tablette Android v0.3.2 — balise 406 MHz décodée sur tablette" width="320"></a>
+<a href="https://github.com/f1gbd/F1GBD/tree/master/epirb/android"><img src="https://github.com/f1gbd/F1GBD/blob/master/epirb/images/EPIRBdecoder_android.jpg?raw=true" alt="EPIRBdecoder sur tablette Android v0.4.0 — balise 406 MHz décodée sur tablette" width="320"></a>
 </td>
 <td valign="top">
 
 La version **Android** d'EPIRBdecoder transforme un smartphone ou une tablette en **décodeur 406 MHz autonome** pour les équipes terrain SATER : une clé **RTL-SDR** branchée en **USB-OTG**, le driver « SDR Driver », et la balise est décodée **sur l'appareil, sans réseau**.
 
-- **Même moteur de décodage que la version PC v5.24** (récepteur MLSE, contrôles BCH-1/BCH-2) : un burst donne le même résultat sur le terrain et au PCS.
+- **Même moteur de décodage que la version PC v5.27** (récepteur MLSE, contrôles BCH-1/BCH-2) : un burst donne le même résultat sur le terrain et au PCS.
+- **v0.4.0 : le pocket Quansheng UV-K1 / UV-K5 comme récepteur** (bouton **SOURCE** : UV-Kx USB ou UV-Kx audio) : la radio décode, la tablette ajoute le MGRS, la carte et l'itinéraire.
 - **Position National Location corrigée** en v0.3.2 : résultat identique au décodeur F1LVT de référence.
 - Identifiant 15 HEX, pays, protocole, position en degrés décimaux, DMS et **MGRS**, boutons **Carte** et **Itinéraire**.
 - Main courante, **enregistrement IQ** des bursts, relecture de fichiers IQ, **vérification des mises à jour** intégrée.
 - Interface **Sécurité Civile** lisible en plein soleil, adaptée téléphone et tablette.
 
 <p>
-<a href="https://github.com/f1gbd/F1GBD/releases/download/epirb-android-v0.3.2/EPIRBdecoder_android-0.3.2.apk"><img src="https://img.shields.io/badge/T%C3%89L%C3%89CHARGER-APK%20v0.3.2-e8661a?style=for-the-badge&logo=android&logoColor=white" alt="Télécharger l'APK v0.3.2"></a>
+<a href="https://github.com/f1gbd/F1GBD/releases/download/epirb-android-v0.4.0/EPIRBdecoder_android-0.4.0.apk"><img src="https://img.shields.io/badge/T%C3%89L%C3%89CHARGER-APK%20v0.4.0-e8661a?style=for-the-badge&logo=android&logoColor=white" alt="Télécharger l'APK v0.4.0"></a>
 </p>
 
 👉 Installation, matériel et manuel : **[page EPIRBdecoder Android](https://github.com/f1gbd/F1GBD/tree/master/epirb/android)**
@@ -95,7 +117,7 @@ La version **Android** d'EPIRBdecoder transforme un smartphone ou une tablette e
 
 ## ⭐ Fonctionnalités principales
 
-### 📡 EPIRB Decoder v5.26
+### 📡 EPIRB Decoder v5.27
 
 | Icône | Fonctionnalité | Description |
 |:---:|---|---|
@@ -103,6 +125,7 @@ La version **Android** d'EPIRBdecoder transforme un smartphone ou une tablette e
 | 📁 | **Décodage fichier audio** | Décodage à partir de fichiers WAV, M4A, MP3, OGG, FLAC. Conversion automatique via FFmpeg si nécessaire. Support des fichiers enregistrés par SDR++ ou tout autre récepteur. |
 | 🎙 | **Audio Live** | Capture audio en temps réel depuis le microphone ou une entrée ligne. Démodulation et décodage continu avec seuil de sensibilité ajustable. Idéal pour le décodage en direct depuis un récepteur analogique. |
 | 🔢 | **Hex Direct** | Saisie manuelle d'une trame hexadécimale 406 MHz pour décodage immédiat. Utile pour l'analyse de trames capturées par d'autres systèmes ou pour la formation. |
+| 📻 | **Pocket Quansheng UV-Kx** (v5.27) | Le UV-K1 / UV-K5 sous EPIRBdecoder v1.1 décode la balise et, en mode DATA, envoie son message complet au PC sans émettre : câble de programmation (port COM, 38400 bauds) ou audio (AFSK 1200 bauds, démodulateur intégré). Décodage complet, MGRS et carte comme en SDR. |
 | 🗺 | **Carte OSM interactive** | Carte OpenStreetMap intégrée avec déplacement, zoom, et position curseur en DMS. Affichage automatique de la position de la balise décodée. Préchargement de tuiles pour utilisation hors-ligne en exercice terrain. |
 | 📍 | **Relevés goniométriques** | Panneau complet de saisie de relèvements : indicatif opérateur, azimut, force du signal, coordonnées DMS ou collage rapide Google Maps. Chaque relèvement est tracé comme un vecteur coloré sur la carte avec label INDICATIF/N. |
 | 🔺 | **Triangulation vectorisée** | Vecteurs colorés par indicatif opérateur (80 km), flèches directionnelles, convergence visuelle des relèvements vers la position estimée de la balise. |
@@ -222,6 +245,18 @@ Décodage de fichiers audio pré-enregistrés (WAV 48 kHz recommandé). Support 
 
 Saisie manuelle d'une trame hexadécimale (28 ou 36 caractères) pour décodage immédiat. Utile pour vérifier une trame capturée par un autre système ou pour la formation au format COSPAS-SARSAT.
 
+### 📻 UV-Kx — pocket Quansheng UV-K1 / UV-K5 (v5.27)
+
+Le pocket de l'équipe, sous l'App **[EPIRBdecoder v1.1](https://github.com/f1gbd/F1GBD/blob/master/quansheng/apps/EPIRBdecoder.md)** (installation depuis l'[UV-K1 Apps Uploader](https://f1gbd.github.io/F1GBD/quansheng/)), sert de récepteur :
+
+1. Sur la radio, choisir la fréquence de réception avec la touche **2** (406,025 à 406,040 MHz, ou 434,000 MHz pour l'entraînement), puis appuyer sur la touche **3** pour passer en **DATA ON**.
+2. Dans EPIRBdecoder, onglet **📻 UV-Kx**, choisir la liaison :
+   - **Câble USB** : câble de programmation Kenwood (prise K : CH340, CP210x, PL2303 ou FTDI), choisir le port COM ;
+   - **Audio** : sortie écouteur de la radio vers l'entrée micro ou ligne du PC, choisir l'entrée audio.
+3. Cliquer sur **📻 DÉMARRER LA SOURCE UV-Kx**. Chaque balise reçue par le pocket arrive **sans émission radio**. Elle est décodée entièrement (pays, protocole, position, MGRS, BCH) et placée sur la carte.
+
+La source audio décode aussi le relais Packet d'un autre UV-Kx (PTT ou AUTO) entendu par un récepteur branché sur le PC.
+
 ---
 
 ## 🚀 Modes de transmission (Generator)
@@ -293,11 +328,11 @@ Pour mettre le **PortaPack en mode « HackRF »** : menu principal → icône **
 
 <div align="center">
 
-#### 🪟 [**Installeur Windows : EPIRBsuite-5.26-setup.exe (recommandé)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.26/EPIRBsuite-5.26-setup.exe)
+#### 🪟 [**Installeur Windows : EPIRBsuite-5.27-setup.exe (recommandé)**](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.27/EPIRBsuite-5.27-setup.exe)
 
-#### 📦 [Archive EPIRBdecoder.7z (installation manuelle)](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.26/EPIRBdecoder.7z)
+#### 📦 [Archive EPIRBdecoder.7z (installation manuelle)](https://github.com/f1gbd/F1GBD/releases/download/epirb-v5.27/EPIRBdecoder.7z)
 
-*(Decoder v5.26 + Generator v3.9.0 — voir [toutes les releases EPIRB](https://github.com/f1gbd/F1GBD/releases?q=epirb) pour les versions précédentes)*
+*(Decoder v5.27 + Generator v3.9.0 — voir [toutes les releases EPIRB](https://github.com/f1gbd/F1GBD/releases?q=epirb) pour les versions précédentes)*
 
 [![Voir toutes les versions](https://img.shields.io/badge/📜_Voir_toutes_les_versions-Releases-blue)](https://github.com/f1gbd/F1GBD/releases)
 
@@ -305,7 +340,7 @@ Pour mettre le **PortaPack en mode « HackRF »** : menu principal → icône **
 
 ### 🚀 Installation avec l'installeur (recommandé)
 
-1. Télécharger **`EPIRBsuite-5.26-setup.exe`** et le lancer (Windows peut afficher « Windows a protégé votre ordinateur » : **Informations complémentaires → Exécuter quand même**).
+1. Télécharger **`EPIRBsuite-5.27-setup.exe`** et le lancer (Windows peut afficher « Windows a protégé votre ordinateur » : **Informations complémentaires → Exécuter quand même**).
 2. Dossier proposé : **`C:\EPIRBdecoder`** (modifiable). Installation pour l'utilisateur courant, **sans droits administrateur**.
 3. Options : raccourcis Bureau, enregistrements de balises **406-Samples**.
 4. Raccourcis **EPIRBdecoder** et **EPIRB-generator** dans le menu Démarrer.
@@ -533,7 +568,8 @@ Le bouton **Se connecter** établit la liaison ; le statut sous le panneau confi
 
 | Version | Apport principal |
 |---|---|
-| **v5.26** | **Version courante** — Livrée avec le générateur **v3.9.0** (carte OSM cliquable, MGRS, émission directe HackRF One en USB, pilotes HackRF inclus) ; affichage DMS de la carte corrigé (minute arrondie : plus de 47'60") |
+| **v5.27** | **Version courante** — **Source UV-Kx** : le pocket **Quansheng UV-K1 / UV-K5** sous EPIRBdecoder v1.1 envoie chaque balise reçue (mode DATA, sans émission) par le **câble de programmation** (port COM) ou par l'**audio** (AFSK 1200 bauds) ; décodage complet, MGRS et carte comme en SDR ; installeur livré **sans source** |
+| v5.26 | Livrée avec le générateur **v3.9.0** (carte OSM cliquable, MGRS, émission directe HackRF One en USB, pilotes HackRF inclus) ; affichage DMS de la carte corrigé (minute arrondie : plus de 47'60") |
 | v5.25 | SDR Direct : **lecture IQ continue**, détection de burst **dans le canal**, seuil abaissé, MLSE multi-filtre limité au burst courant, anti-doublon 4 s → nettement plus sensible et régulier (8/8 trames jusqu'à −20 dB en simulation) ; Générateur v3.8.5 (banc HackRF / PortaPack validé) |
 | v5.24 | Générateur v3.8.4 (position au pas de 4" le plus proche, export HackRF / PortaPack), identifiant National affiché en hexadécimal, sortie audio du générateur rétablie |
 | v5.23 | **Installeur Windows** (Inno Setup, `EPIRBsuite-5.23-setup.exe`) et **🔄 Vérifier les mises à jour** (bouton ⓘ → À propos) : téléchargement, contrôle SHA-256, installation sur place, réglages conservés |
@@ -576,12 +612,12 @@ Pour le détail de tous les changements, consultez le [changelog complet sur Git
 │                    EPIRB 406 MHz Suite                               │
 │                                                                      │
 │  ┌────────────────────────────┐  ┌────────────────────────────────┐  │
-│  │  EPIRB Generator v3.9.0    │  │  EPIRB Decoder v5.26           │  │
+│  │  EPIRB Generator v3.9.0    │  │  EPIRB Decoder v5.27           │  │
 │  │  (interface Tkinter)       │  │  (interface Tkinter)           │  │
 │  │                            │  │                                │  │
-│  │  - Construction trame 144  │  │  - 4 onglets d'entrée :        │  │
+│  │  - Construction trame 144  │  │  - 5 onglets d'entrée :        │  │
 │  │  - Encodage Manchester     │  │    Fichier / Audio Live /      │  │
-│  │  - Export WAV / TX direct  │  │    Hex / SDR Direct            │  │
+│  │  - Export WAV / TX direct  │  │    Hex / SDR Direct / UV-Kx    │  │
 │  │  - PTT RTS/DTR/CAT         │  │  - 2 onglets de sortie :       │  │
 │  │  - Mode EXER ADRASEC       │  │    Résultats / Carte OSM       │  │
 │  └────────────┬───────────────┘  └────────┬───────────────────────┘  │
@@ -595,6 +631,7 @@ Pour le détail de tous les changements, consultez le [changelog complet sur Git
 │  - FT-817ND (PKT)        │  │  - Audio Live (PyAudio)              │
 │  - 434,275 MHz           │  │  - Fichier WAV/M4A (FFmpeg)          │
 │  - 5 W max               │  │  - Hex Direct (saisie)               │
+│                          │  │  - UV-Kx (pocket : COM ou audio)     │
 └─────────────┬────────────┘  └──────────────┬───────────────────────┘
               │                              │
               ▼                              │
@@ -668,7 +705,7 @@ Toute contribution, retour d'exercice ou proposition d'amélioration est bienven
 **Jean-Louis (F1GBD / F4JHW)**
 *ADRASEC 77 — FNRASEC*
 
-**EPIRB Decoder v5.26 + EPIRB Generator v3.9.0 — Septembre 2026**
+**EPIRB Decoder v5.27 + EPIRB Generator v3.9.0 — Octobre 2026**
 
 ---
 
