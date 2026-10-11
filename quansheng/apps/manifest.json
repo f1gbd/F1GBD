@@ -25,6 +25,17 @@
       "date": "2026-10-10"
     },
     {
+      "file": "TACVYR.app",
+      "name": "TACVYR",
+      "version": "1.0",
+      "title": "Messages tactiques TACVYR",
+      "summary": "Messages tactiques courts sans phonie (COD, zone bruyante) : un code à 2 chiffres choisit une phrase parmi 81 (EQUIPE BRAVO, SUR ZONE, RECU, EVAC…), 1 ou 2 phrases ou un texte libre, émis par PTT en AX.25 Packet 1200 bauds vers CQ, en clair ; réception permanente sur le VFO, 6 derniers messages.",
+      "doc": "documentation/TACVYR_Manuel_v1.0.pdf",
+      "size": 7801,
+      "sha256": "30198f96e4c65117ae0a59ddde84871cd34cb63718676c71370db3759c055b8c",
+      "date": "2026-10-11"
+    },
+    {
       "file": "CHAPPE26.app",
       "name": "CHAPPE26",
       "version": "1.0 d6d699f1",

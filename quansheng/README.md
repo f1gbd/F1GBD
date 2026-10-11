@@ -118,6 +118,35 @@ Depuis **TCQ v14.2**, la case **📟 Compatible pager UV-K1** de la fenêtre rad
 Packet envoie aussi les radiogrammes du PC de crise dans ce format : ils s'affichent
 sur les pagers de terrain.
 
+## TACVYR : messages tactiques courts, sans phonie
+
+Avec **TACVYR**, l'opérateur échange des **messages tactiques courts sans parler** — en
+salle de COD, en approche discrète, en zone bruyante. Un **code à 2 chiffres** choisit
+une phrase parmi 81 (1re touche : la rubrique s'affiche, 2e touche : la phrase) ; un
+message joint **1 ou 2 phrases**, ou un **texte libre** court saisi en multi-tap. **PTT**
+l'émet en AX.25 Packet, en clair, vers `CQ` : TCQ, PAGER-RASEC et un autre UV-K1 sous
+TACVYR l'affichent. Entre deux saisies, la radio écoute le VFO et garde les 6 derniers
+messages.
+
+<p align="center">
+  <img src="images/TACVYR_rubrique.png" alt="TACVYR : la rubrique POSITION" width="300">
+  &nbsp;&nbsp;
+  <img src="images/TACVYR_message.png" alt="TACVYR : message prêt à partir" width="300">
+</p>
+<p align="center"><em>Touche 2 : la rubrique POSITION ; 1 2 puis 2 1 : « EQUIPE BRAVO SUR ZONE » (maquettes d'écran)</em></p>
+
+| Touches | Message émis | Durée |
+|---|---|---|
+| `1 2  2 1  PTT` | EQUIPE BRAVO SUR ZONE | 0,81 s |
+| `7 1  PTT` | RECU | 0,69 s |
+| `3 5  2 2  PTT` | DEMANDE POUR ACTION AU POINT ROMEO UN | 0,91 s |
+| `5 1  2 3  PTT` | BALISE TROUVEE AU POINT ROMEO DEUX | 0,89 s |
+
+Liste complète des codes, touches et réglages (TXDELAY 300 / 500 / 800 ms pour
+passer par un relais) : [notice TACVYR](apps/TACVYR.md), [manuel PDF](documentation/TACVYR_Manuel_v1.0.pdf)
+et [carte opérateur à imprimer](documentation/TACVYR_Carte_Operateur.pdf). Validé en émulation de
+l'application réelle ; essai sur l'air à venir.
+
 ## Documentation
 
 | Document | Formats |
@@ -125,6 +154,8 @@ sur les pagers de terrain.
 | PAGER-RASEC v1.4.1 — Manuel d'installation et d'utilisation | [PDF](documentation/PAGER-RASEC_Manuel_v1.4.pdf) |
 | CHAPPE-TX v1.1 — Manuel d'utilisation et exemples de transmission | [PDF](documentation/CHAPPE-TX_Manuel_v1.1.pdf) |
 | RGRAM v1.1 — Manuel d'utilisation et exemples de radiogrammes | [PDF](documentation/RGRAM_Manuel_v1.1.pdf) |
+| TACVYR v1.0 — Manuel d'utilisation, codes et exemples d'échanges | [PDF](documentation/TACVYR_Manuel_v1.0.pdf) |
+| TACVYR — Carte opérateur A4 (les 81 codes et les touches, à plastifier) | [PDF](documentation/TACVYR_Carte_Operateur.pdf) |
 | Code CHAPPE26 — Livret de poche B5 (18 pages) : répertoire des 1000 codes, carte opérateur, chiffrement | [PDF](documentation/Chappe26_Livret_B5.pdf) |
 | Code CHAPPE26 — Fiche exemple Black-out : demande de moyens radio de secours | [PDF](documentation/Chappe26_Fiche_BlackOut.pdf) |
 | Code CHAPPE26 — Fiche exemple Incendie majeur : renforts, évacuation, radio en zone blanche | [PDF](documentation/Chappe26_Fiche_Incendie.pdf) |
@@ -136,6 +167,7 @@ sur les pagers de terrain.
 | [PAGER-RASEC](apps/PAGER-RASEC.md) ([manuel PDF](documentation/PAGER-RASEC_Manuel_v1.4.pdf)) | 1.4.1 | Pager RASEC-ALERT : réception AX.25 Packet 1200 bauds depuis TCQ, lampe blanche frontale + sirène sur `#ra <code>`, messages CHAPPE26 en clair, radiogrammes RGRAM et TCQ v14.2 affichés, historique de 6 messages, 145.4375 MHz FM |
 | [CHAPPE-TX](apps/CHAPPE-TX.md) ([manuel PDF](documentation/CHAPPE-TX_Manuel_v1.1.pdf)) | 1.1 | Émetteur CHAPPE26 : message composé au clavier (phrases en clair, relecture), émis en AX.25 Packet 1200 bauds vers CQ comme TCQ — reçu en clair par TCQ et PAGER-RASEC |
 | [RGRAM](apps/RGRAM.md) ([manuel PDF](documentation/RGRAM_Manuel_v1.1.pdf)) | 1.1 | Émetteur de radiogrammes ADRASEC : formulaire et saisie multi-tap sur la radio, émission AX.25 Packet au format TCQ (`{QR:…}`, CRC validé par TCQ), lu par PAGER-RASEC v1.4 |
+| [TACVYR](apps/TACVYR.md) ([manuel PDF](documentation/TACVYR_Manuel_v1.0.pdf)) | 1.0 | Messages tactiques courts sans phonie : code à 2 chiffres (81 phrases), 1 ou 2 phrases ou texte libre, émis et reçus en AX.25 Packet 1200 bauds sur le VFO, en clair pour TCQ et PAGER-RASEC |
 | CHAPPE26 | 1.0 | Dictionnaire CHAPPE26 (1000 codes) pour PAGER-RASEC et CHAPPE-TX — à installer avec eux |
 
 ## Ajouter une application
