@@ -144,8 +144,12 @@ messages.
 
 Liste complète des codes, touches et réglages (TXDELAY 300 / 500 / 800 ms pour
 passer par un relais) : [notice TACVYR](apps/TACVYR.md), [manuel PDF](documentation/TACVYR_Manuel_v1.0.pdf)
-et [carte opérateur à imprimer](documentation/TACVYR_Carte_Operateur.pdf). Validé en émulation de
-l'application réelle ; essai sur l'air à venir.
+et [carte opérateur à imprimer](documentation/TACVYR_Carte_Operateur.pdf).
+
+<p align="center">
+  <img src="images/TACVYR-TCQ.jpg" alt="Message TACVYR reçu en clair par TCQ" width="760">
+</p>
+<p align="center"><em>Essai sur l'air réussi le 11 octobre 2026 : « EQUIPE ALPHA SUR ZONE » composé sur le UV-K1 (F1GBD-7) et reçu en clair par TCQ v14.2.1 (onglet TNC Packet)</em></p>
 
 ## Documentation
 
