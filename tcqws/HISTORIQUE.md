@@ -9,6 +9,44 @@ avec son programme d'installation, son archive et son empreinte SHA-256.
 ---
 
 
+## v0.8.0 — Une chute d'eau qui se lit, et le log qui ne ment plus
+
+*12 octobre 2026*
+
+### 🌊 La chute d'eau de WSJT-X
+
+Bleu franc pour le bruit, cyan quand le signal se détache, jaune quand il est bien lisible, orange et rouge sur les plus forts : **l'échelle de WSJT-X, au pied de la lettre**.
+
+L'ancienne était noire sur le fond — on ne voyait pas où la chute d'eau commençait ni où elle finissait — et le bruit y restait sombre parce que le bleu n'arrivait qu'au milieu de l'échelle. Celle-ci monte au bleu franc dès le plancher.
+
+> **Une palette faite autrement, puis reprise.** La v0.8.0 avait d'abord reçu une échelle du bleu marine à l'orangé, à luminance croissante : sur le papier elle se lit mieux, la force d'un signal s'y voyant au contraste autant qu'à la couleur. Sur l'air, elle se lisait moins bien. Un opérateur qui regarde la chute d'eau de WSJT-X depuis dix ans sait d'un coup d'œil ce que vaut une trace jaune ; lui en donner une autre, c'est lui demander de réapprendre une échelle qu'il connaît déjà.
+
+Le défaut de cette famille de palettes est assumé et noté dans le code : le rouge du sommet est moins lumineux que le jaune qui le précède. C'est l'ordre des teintes, du froid vers le chaud, qui porte l'information — un essai permanent le vérifie. Les **deux onglets partagent la même palette**, définie une seule fois.
+
+### ☑ B4 — ne plus voir ce qu'on a déjà travaillé
+
+Une case à côté d'AUTO QSO, décochée par défaut. Cochée, l'**Activité de bande** cesse d'afficher les stations déjà au log **sur cette bande et dans ce mode**. Changez de bande ou de mode, elles reparaissent : c'est un autre contact.
+
+Deux garde-fous, qui comptent autant que le filtre : un message **qui vous est adressé** passe toujours — qu'une station déjà travaillée vous appelle est précisément ce qu'il ne faut pas manquer, elle a peut-être un radiogramme — et le filtre ne touche **que cette liste** : la fenêtre *Fréquence RX*, la carte, le journal et le log reçoivent tout.
+
+> AUTO QSO écartait **déjà** les stations déjà travaillées, et continue de le faire que B4 soit cochée ou non : conditionner ce garde-fou à la case aurait lâché l'automatisme sur des doublons en boucle dès qu'on la décoche.
+
+### 📒 Un bouton LOG QSO là où l'on travaille
+
+Dans le cadre **Émission**, à droite de TUNE. Il en existait un, mais dans l'en-tête des *Stations loguées*, en haut à droite — là où l'on ne travaille pas.
+
+Il enregistre le QSO en cours quand l'automatisme l'a manqué, et les trois cas se sont tous vus sur l'air : le RR73 du correspondant passé sous le bruit, un QSO fait en texte libre, ou la main reprise aux boutons Tx sans jamais envoyer de 73. Les deux boutons appellent la **même fonction** ; elle vérifie l'indicatif, reprend rapports et locator du suivi, et passe par le chemin ordinaire — fenêtre de confirmation ou log direct, selon les réglages.
+
+### 🕐 L'heure de fin fait foi
+
+L'ADIF garde ses deux dates — `TIME_ON` au début, `TIME_OFF` à la fin — mais le **début ne précède plus la fin de plus de quinze minutes**.
+
+Un QSO ne dure pas une demi-heure. Au-delà, l'heure de début n'était plus celle du QSO : c'était celle du premier message échangé avec la station — son CQ entendu vingt minutes plus tôt, ou la réponse qu'on lui avait faite avant de l'abandonner et de la reprendre. Relevé sur l'air : un QSO JTTY clos à 14h02, logué `TIME_ON` 13h38.
+
+Un QSO RTTY de dix minutes garde sa durée réelle dans l'ADIF ; seul un début aberrant est ramené, et le journal le signale quand il corrige. Le bornage est posé sur le chemin commun : le **log direct et la fenêtre de confirmation** en bénéficient tous les deux.
+
+---
+
 ## v0.7.8 — L'onglet Trafic suit la station qu'on travaille
 
 *10 octobre 2026*

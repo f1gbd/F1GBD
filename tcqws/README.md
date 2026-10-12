@@ -14,15 +14,15 @@
 [![Compatibilité](https://img.shields.io/badge/compatible-WSJT--X%20(ADIF%2C%20ALL.TXT)-teal.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
 [![Code civil](https://img.shields.io/badge/code%20civil-CHAPPE--26-b01818.svg)](doc/Chappe26_Livret_B5.pdf)
-[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.7.8-blue)](HISTORIQUE.md)
+[![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.8.0-blue)](HISTORIQUE.md)
 
-## 📥 Télécharger TCQws v0.7.8 pour Windows
+## 📥 Télécharger TCQws v0.8.0 pour Windows
 
-### **[⬇ TCQws-0.7.8-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.8/TCQws-0.7.8-setup.exe)** — double-clic, et c'est installé
+### **[⬇ TCQws-0.8.0-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.8.0/TCQws-0.8.0-setup.exe)** — double-clic, et c'est installé
 
 *Aucun droit administrateur, aucune installation Python, aucune interférence avec TCQ. Raccourcis Bureau et menu Démarrer, manuel inclus, et une désinstallation qui conserve vos réglages, votre log ADIF, votre journal et vos radiogrammes.*
 
-**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.7.8/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
+**[⬇ TCQws.7z](https://github.com/f1gbd/F1GBD/releases/download/tcqws-v0.8.0/TCQws.7z)** — l'archive, pour installer à la main ou mettre à jour par-dessus l'existant.
 
 **[📱 TCQws Android](android/README.md)** — la même station sur téléphone et tablette : **[⬇ TCQws_android-0.4.6.apk](https://github.com/f1gbd/F1GBD/releases/download/tcqws-android-v0.4.6/TCQws_android-0.4.6.apk)**
 
@@ -46,7 +46,9 @@
 
 *La **v0.7.7** ajoute un bouton **📶 TUNE** à l'onglet JTTY, comme en FT4/FT8 : porteuse stable pour un coupleur ou un ROS, avec arrêt de sécurité. Et le clic droit y renomme désormais **tous** les boutons — les touches F1 à F8 comme les huit du PROTOCOLE QSO, où « MSG1 » peut enfin s'appeler « QAP ».* **[→ tout le mode JTTY](#11-le-mode-jtty--du-texte-libre-quand-on-veut)**
 
-*🆕 **v0.7.8 — l'onglet Trafic suit la station qu'on travaille.** Une case **CQ only** ne garde dans l'activité de bande que les stations qui appellent — et décocher rend tout, rien n'est perdu. Une case **RX = TX** remplace le bouton RX→TX : le lien tient dans la durée au lieu de recopier la fréquence une seule fois, si bien qu'un double-clic sur une station emmène la réception ET l'émission.* **[→ le trafic de tous les jours](#9-le-trafic-de-tous-les-jours)**
+*La **v0.7.8** fait suivre à l'onglet Trafic la station qu'on travaille : une case **CQ only** ne garde dans l'activité de bande que les stations qui appellent, et une case **RX = TX** tient le lien entre réception et émission au lieu de recopier la fréquence une seule fois.*
+
+*🆕 **v0.8.0 — une chute d'eau qui se lit, et le log qui ne ment plus.** Bleu marine pour le bruit, orangé pour le signal, sur une échelle dont la luminance monte sans jamais redescendre. Une case **B4** écarte les stations déjà travaillées sur cette bande et dans ce mode. Un bouton **📒 LOG QSO** là où l'on travaille. Et l'heure de **fin** du QSO fait foi : un début aberrant ne part plus au log.* **[→ le trafic de tous les jours](#9-le-trafic-de-tous-les-jours)**
 
 [📜 Historique des versions](HISTORIQUE.md) · [📖 Manuel PDF](doc/MANUEL_TCQws.pdf) · [📱 Android](android/README.md) · [📻 JTTY](#11-le-mode-jtty--du-texte-libre-quand-on-veut) · [🚨 Alerte FLASH](#2-lalerte-flash--32-caractères-tout-de-suite) · [🗼 CHAPPE-26](#3-chappe-26--une-phrase-en-quatre-chiffres) · [📡 PING et carte](#5-ping--pong-et-la-carte-du-réseau) · [🛰 Satellite](#4-satellite-et-activations) · [📨 Radiogrammes](#1-les-radiogrammes-adrasec--le-message-pas-seulement-le-qso)
 
@@ -84,6 +86,7 @@ Pour un QSO ordinaire, WSJT-X reste la référence. TCQws existe pour tout ce qu
 | Répondeur automatique | Auto-Seq + Call 1st | **AUTO QSO** : répond seul aux CQ, enchaîne, logue, et reprend l'écoute — en FT4/FT8 **et en JTTY**, où s'ajoute **AUTO CQ** (appeler, conclure et loguer sans intervention) |
 | Pays et distance à l'écran | via JTAlert (externe) | **intégré** : pays et km depuis votre locator |
 | **Filtre d'appels** | non | case **CQ only** : l'activité de bande ne garde que les stations qui appellent (et décocher rend tout) |
+| **Filtre des doublons** | alerte JTAlert (externe) | case **B4** : les stations déjà au log sur cette bande et dans ce mode disparaissent de la liste — sauf si elles vous appellent |
 | Filtre d'indicatifs | non | **exclusion par nom de pays** : « Russie, Bielorussie » (affichage, carte et réponse auto) |
 | **Appel de présence** | non | **PING / PONG** : qui est là, où, avec quel rapport — en deux périodes, sans QSO |
 | **Carte des stations** | non (PSKreporter, en ligne) | **carte du monde embarquée**, grille des locators, **sans aucun réseau** |
@@ -279,6 +282,23 @@ Un **double-clic** sur une station de l'activité de bande cale la **fréquence 
 **☑ RX = TX** remplace le bouton `RX→TX`. Le bouton recopiait la fréquence **une seule fois** : au décodage suivant, on cliquait une station, la RX se calait dessus — et l'on émettait de nouveau à l'ancienne fréquence, sans que rien ne le signale. La case tient le lien dans la durée, comme WSJT-X et comme l'onglet JTTY, et la case TX Hz se grise pour le dire. Décochée, la TX redevient libre : c'est le **split**. Lien posé, le clic droit sur la chute d'eau — qui vise l'émission — emmène les **deux**.
 
 **☑ CQ only** ne garde dans l'activité de bande que les **appels**. En pile-up ou un soir de concours, la liste défile trop vite pour qu'on y repère une station appelable : entre deux CQ s'intercalent dix échanges en cours qui ne vous concernent pas. Le trait de période s'en va aussi — il n'est pas un appel, et l'heure reste dans la colonne UTC. **Rien n'est perdu** : les lignes écartées sont détachées, pas supprimées, et décocher les rend toutes dans leur ordre d'arrivée. La fenêtre *Fréquence RX*, elle, garde tout : la filtrer cacherait les réponses qui vous sont adressées.
+
+
+### 🌊 La chute d'eau de WSJT-X *(v0.8.0)*
+
+![La chute d'eau de TCQws et son échelle de couleurs](images/TCQws_waterfall.png)
+
+Bleu franc pour le bruit, cyan quand le signal se détache, jaune quand il est bien lisible, orange et rouge sur les plus forts : **l'échelle de WSJT-X, au pied de la lettre**. L'ancienne était noire sur le fond, et le bruit y restait sombre parce que le bleu n'arrivait qu'au milieu de l'échelle.
+
+Une autre échelle avait d'abord été essayée — du bleu marine à l'orangé, à luminance croissante, qui se lit mieux sur le papier. Elle se lisait moins bien sur l'air : **un opérateur qui regarde la chute d'eau de WSJT-X depuis dix ans sait d'un coup d'œil ce que vaut une trace jaune.** La familiarité l'emporte. Le défaut connu de cette palette — le rouge du sommet moins lumineux que le jaune — est assumé, noté dans le code, et l'ordre des teintes est vérifié par un essai permanent. Les deux onglets partagent la même.
+
+### ☑ B4, 📒 LOG QSO et l'heure de fin *(v0.8.0)*
+
+**☑ B4** — *worked before*, le mot des concours. Cochée, l'activité de bande cesse d'afficher les stations **déjà au log sur cette bande et dans ce mode** ; un soir de contest, c'est la moitié de la liste. Changez de bande ou de mode, elles reparaissent : c'est un autre contact. Deux garde-fous, qui comptent autant que le filtre : un message **qui vous est adressé** passe toujours — elle a peut-être un radiogramme — et le filtre ne touche **que cette liste**, pas la fenêtre *Fréquence RX*, pas la carte, pas le log. (AUTO QSO, lui, écarte les doublons de toute façon.)
+
+**📒 LOG QSO** dans le cadre Émission, à droite de TUNE. Il enregistre le QSO en cours quand l'automatisme l'a manqué : le RR73 passé sous le bruit, un QSO fait en texte libre, ou la main reprise aux boutons Tx sans jamais envoyer de 73. Le bouton de l'en-tête des *Stations loguées* appelle exactement la même chose — il y en a maintenant un là où l'on travaille.
+
+**🕐 L'heure de fin fait foi.** Le log garde ses deux dates, mais le **début ne précède plus la fin de plus de quinze minutes**. Un QSO ne dure pas une demi-heure : au-delà, l'heure de début n'était plus celle du QSO mais celle du premier message échangé avec la station — son CQ entendu vingt minutes plus tôt. Relevé sur l'air : un QSO JTTY clos à 14h02, logué `TIME_ON` 13h38. Un QSO RTTY de dix minutes garde sa durée réelle ; seul un début aberrant est ramené, et le journal le signale.
 
 ---
 
