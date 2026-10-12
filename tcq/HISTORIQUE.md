@@ -9,7 +9,42 @@
 
 ---
 
-## 🆕 Nouveautés v14.3 — le Quansheng UV-K1 comme TNC Packet
+## 🆕 Nouveautés v14.3.1 — fichiers reçus et journaux dans le dossier de TCQ
+
+- **Dossiers par défaut dans TCQ** : fichiers reçus dans `C:\TCQ\fichiers_reçus`,
+  journaux dans `C:\TCQ\logs` (au lieu de `~/quantum_received` et
+  `~/quantum_logs` dans le profil Windows). À la première installation, ou si
+  `setup.json` contenait encore les anciens dossiers par défaut, TCQ et TCQconfig
+  les remplacent au démarrage et l'enregistrent aussitôt. Un dossier choisi par
+  l'opérateur est gardé ; les fichiers déjà reçus restent dans l'ancien dossier.
+- **Relus à chaque démarrage** dans `setup.json` (`paths.received_files`,
+  `paths.logs`) et créés au besoin.
+- **Même dossier pour tous les modes** : LXMF, TNC Packet, VARA, MeshCore
+  (fichiers et VFT, qui relisaient `setup.json` à part), TCP, PDF.
+- **Journaux** : « 💾 Sauver le Log » (VARA, Packet) et la sauvegarde du chat
+  s'ouvrent dans le dossier des logs.
+- **Onglet Fichiers/Journal** : à chaque ouverture, le dossier de réception en
+  vigueur est affiché et les listes (fichiers reçus, Journal vidéo) actualisées.
+- **TNC Packet, mode série** : mode (tcp / serial), port série et vitesse du TNC,
+  SSID, destination et digipeaters enregistrés dans `setup.json` (à la connexion
+  et en quittant) et relus au démarrage — ils n'étaient pas sauvegardés. En mode
+  série, Direwolf n'est plus lancé à la connexion (TNC externe : UV-K1 sous
+  KISS-TNC).
+- **Radiogramme Packet** : la case **📟 Compatible pager UV-K1** est désormais
+  **décochée par défaut** (option). Le format pager envoie une trame par émission,
+  ce qui multiplie les commutations d'un transpondeur ; sans la case, les trames
+  partent enchaînées dans une même émission, ce que KISS-TNC reçoit sans perte. À
+  cocher pour un pager PAGER-RASEC.
+- **TCQconfig v14.3.1** (au lieu de « TCQ v8.x », version 7.0.0) : onglet Interface,
+  bouton **🏠 Dossiers par défaut** (dossiers créés et enregistrés dans
+  `setup.json`).
+- `lxmf.storage_path` (`~/.quantum_lxmf`) n'est pas un dossier de réception mais
+  le stockage du routeur LXMF, avec l'identité (l'adresse LXMF) de la station : il
+  n'est pas déplacé.
+
+---
+
+## Nouveautés v14.3 — le Quansheng UV-K1 comme TNC Packet
 
 - **TNC série KISS** : l'onglet **TNC Packet** en mode série fonctionne avec un
   Quansheng **UV-K1 / UV-K5 v3** sous l'application **KISS-TNC** (firmware
@@ -31,7 +66,9 @@
 - Validé sur l'air le 11 octobre 2026 : radiogramme ADRASEC de 12 trames envoyé
   par le UV-K1 sous KISS-TNC sur 430,4375 MHz à travers le transpondeur, ACK de
   F8KSM-7 reçu par radio et affiché par TCQ ; puis une image de 21 trames
-  (3 463 octets) reçue complète par F8KSM-7 et accusée (« Image reçu »).
+  (3 463 octets) reçue complète par F8KSM-7 et accusée (« Image reçu ») ;
+  dans l'autre sens, image de 16 trames de F8KSM (TCQ + Direwolf, trames
+  enchaînées) reçue 16/16 par le UV-K1 sous KISS-TNC et accusée.
 
 ---
 
