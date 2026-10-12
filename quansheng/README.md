@@ -309,4 +309,6 @@ son [manuel PDF](https://github.com/f1gbd/F1GBD/blob/master/winkiss-tnc/document
 2. Copier le `.app` et sa notice dans `apps/`.
 3. Ajouter une entrée dans `apps/manifest.json` (`file`, `name`, `version`, `title`, `summary`, `doc`).
 
-ADRASEC 77 · F1GBD — 73
+**Lien utile sur le sujet: Le site de Daniel F4LUX à** http://f80431.free.fr/?p=6485
+
+ADRASEC 77 · 73 de F1GBD Jean-Louis
