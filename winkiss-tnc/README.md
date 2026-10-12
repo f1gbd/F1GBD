@@ -14,6 +14,15 @@ plus d'interface PTT.
 Winlink Express ── KISS TCP 127.0.0.1:8100 (ACKMODE) ──► WinKISS-TNC ──► COMx 38400 bauds ──► UV-K1 / KISS-TNC ──► AX.25 1200 bauds
 ```
 
+[![Version WinKISS-TNC](https://img.shields.io/badge/version-winkiss--tnc--v1.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=winkiss-tnc-v)
+
+## 📥 [Télécharger l'installeur Windows](https://github.com/f1gbd/F1GBD/releases/download/winkiss-tnc-v1.0/WinKISS-TNC-1.0-setup.exe)
+
+*Double-clic, aucun droit administrateur (installé dans `C:\WinKISS-TNC`). Binaire autonome — aucune installation Python.*
+*Ensuite, WinKISS-TNC se met à jour tout seul : **ⓘ À propos → 🔄 VÉRIFIER LES MISES À JOUR**.*
+
+Autres formats : [archive portable `WinKISS-TNC.7z`](https://github.com/f1gbd/F1GBD/releases/download/winkiss-tnc-v1.0/WinKISS-TNC.7z) · [empreinte SHA-256 de l'installeur](https://github.com/f1gbd/F1GBD/releases/download/winkiss-tnc-v1.0/WinKISS-TNC-1.0-setup.exe.sha256) · [toutes les versions](https://github.com/f1gbd/F1GBD/releases?q=winkiss-tnc-v)
+
 ## Essai réel : Winlink Express sur le RMS Packet F8KSM-1 avec un UV-K1
 
 <p align="center"><img src="images/WinKISS-TNC_test-reel.png" width="900" alt="Essai réel : Winlink Express connecté au RMS F8KSM-1 par WinKISS-TNC et un UV-K1"></p>
@@ -43,7 +52,7 @@ accusés RR de Winlink, en ACKMODE.</em></p>
 
 ## Installation
 
-1. Télécharger **WinKISS-TNC-1.0-setup.exe** (release `winkiss-tnc-v1.0`) et l'installer
+1. Télécharger **[WinKISS-TNC-1.0-setup.exe](https://github.com/f1gbd/F1GBD/releases/download/winkiss-tnc-v1.0/WinKISS-TNC-1.0-setup.exe)** (release `winkiss-tnc-v1.0`) et l'installer
    (`C:\WinKISS-TNC`, sans droits administrateur).
 2. Installer l'App **KISS-TNC** sur la radio avec l'[UV-K1 Apps Uploader](https://f1gbd.github.io/F1GBD/quansheng/).
 3. Brancher le câble de programmation (prise K) ; lancer WinKISS-TNC une première fois,

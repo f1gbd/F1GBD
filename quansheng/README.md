@@ -241,7 +241,7 @@ et 407 MHz.
 </p>
 <p align="center"><em>Essai sur l'air du 11 octobre 2026 : TCQ (série COM10, 38400 bauds) → UV-K1 sous KISS-TNC sur 430,4375 MHz →
 transpondeur → F8KSM-7. Radiogramme ADRASEC de 12 trames (CRC valide) puis image de 21 trames reçus complets,
-accusés de réception reçus par radio. À droite : 12 trames émises en 9 passages, l'accusé de F8KSM-7 reçu.</em></p>
+accusés de réception reçus par radio ; dans l'autre sens, image de 16 trames enchaînées par Direwolf reçue 16 / 16. À droite : 12 trames émises en 9 passages, l'accusé de F8KSM-7 reçu.</em></p>
 
 Réglages TCQ : mode **serial**, port COM du câble, **38400** bauds, TX Delay 800 ms,
 Persistence 128, Slot Time 30 ms, Max Packet Len 255. Lancer KISS-TNC **avant** de
@@ -249,6 +249,29 @@ cliquer sur Connecter. **TCQ v14.3** est nécessaire pour les images : en mode s
 envoie au rythme où la radio peut émettre (la radio garde 1,2 Ko en attente). EXIT rend
 la prise K au firmware (CHIRP, UV Studio). Détails : [notice KISS-TNC](apps/KISS-TNC.md) et
 [manuel PDF](documentation/KISS-TNC_Manuel_v0.1.pdf).
+
+## WinKISS-TNC : Winlink Express en Packet avec le UV-K1
+
+KISS-TNC fonctionne aussi avec **Winlink Express** en mode **Packet Winlink / P2P**, grâce à
+**[WinKISS-TNC](https://github.com/f1gbd/F1GBD/tree/master/winkiss-tnc)**, une passerelle Windows qui
+remplace SoundModem ou Direwolf : Winlink Express parle KISS sur TCP (`127.0.0.1:8100`) et WinKISS-TNC
+relaie les trames vers le UV-K1 par le câble de programmation (38400 bauds). Il gère le **KISS ACKMODE**
+de Winlink (accusé rendu à la fin estimée de l'émission) et donne les trames à la radio **au rythme où
+elle peut les émettre** : les trames de 255 octets de Winlink passent sans débordement.
+
+<p align="center">
+  <img src="images/WinKISS-TNC_test-reel.png" alt="Winlink Express connecté au RMS F8KSM-1 par WinKISS-TNC et un UV-K1 sous KISS-TNC" width="900">
+</p>
+<p align="center"><em>Essai réel du 12 octobre 2026 : Winlink Express (F1GBD-1) → WinKISS-TNC v1.0 → câble DATA sur COM10
+à 38400 bauds → UV-K1 sous KISS-TNC en UHF → RMS Packet F8KSM-1 (ADRASEC — Zone IDF). Connexion, échange B2F et
+lecture des messages Winlink en attente ; à droite, le moniteur de WinKISS-TNC (trames I du RMS, accusés RR).</em></p>
+
+Dans Winlink Express : session **Packet Winlink**, Settings → Packet TNC Type **KISS**, Packet TNC Model
+**ACKMODE**, Serial Port **TCP**, `localhost` port `8100`, Packet sound modem = `WinKISS-TNC.exe` avec
+« Automatically launch packet sound modem » coché ; TX Delay 800, Max Packet Length 255, Max Frames 4,
+Persistence 128, Slot time 30. Lancer KISS-TNC sur la radio **avant** d'ouvrir la session.
+Installation et réglages : [page WinKISS-TNC](https://github.com/f1gbd/F1GBD/tree/master/winkiss-tnc) et
+son [manuel PDF](https://github.com/f1gbd/F1GBD/blob/master/winkiss-tnc/documentation/WinKISS-TNC_Manuel_v1.0.pdf).
 
 ## Documentation
 
@@ -274,7 +297,7 @@ la prise K au firmware (CHIRP, UV Studio). Détails : [notice KISS-TNC](apps/KIS
 | [RGRAM](apps/RGRAM.md) ([manuel PDF](documentation/RGRAM_Manuel_v1.1.pdf)) | 1.1 | Émetteur de radiogrammes ADRASEC : formulaire et saisie multi-tap sur la radio, émission AX.25 Packet au format TCQ (`{QR:…}`, CRC validé par TCQ), lu par PAGER-RASEC v1.4 |
 | [TACVYR](apps/TACVYR.md) ([manuel PDF](documentation/TACVYR_Manuel_v1.0.pdf)) | 1.0 | Messages tactiques courts sans phonie : code à 2 chiffres (81 phrases), 1 ou 2 phrases ou texte libre, émis et reçus en AX.25 Packet 1200 bauds sur le VFO, en clair pour TCQ et PAGER-RASEC |
 | [EPIRBdecoder](apps/EPIRBdecoder.md) ([manuel PDF](documentation/EPIRBdecoder_Manuel_v1.1.pdf)) | 1.1 | Balises 406 MHz : réception et décodage comme l'application Android (ID, code pays MID, protocole, MMSI, position décimale et DMS, BCH corrigé, 121,5), 5 balises gardées, réception 406,025-406,040 ou 434,000 MHz (entraînement) au choix, relais de la position en AX.25 Packet (APRS, compatible TCQ) sur la fréquence radioamateur du VFO, par PTT ou AUTO ; **mode DATA** vers EPIRBdecoder Android (OTG : câble de programmation ou audio, MGRS sur la tablette) — récepteur EPIRB 406 de F4WAT |
-| [KISS-TNC](apps/KISS-TNC.md) ([manuel PDF](documentation/KISS-TNC_Manuel_v0.1.pdf)) | 0.1 | TNC KISS AX.25 1200 bauds sur la prise K (câble de programmation, 38400 bauds) pour TCQ v14.3 (TNC Packet, mode série) : radiogrammes, messages et images par la radio, sans Direwolf ; TXDELAY 800 ms pour les transpondeurs, CSMA, CTCSS du VFO conservé, jamais entre 405 et 407 MHz |
+| [KISS-TNC](apps/KISS-TNC.md) ([manuel PDF](documentation/KISS-TNC_Manuel_v0.1.pdf)) | 0.1 | TNC KISS AX.25 1200 bauds sur la prise K (câble de programmation, 38400 bauds) pour TCQ v14.3 (TNC Packet, mode série) et Winlink Express (Packet Winlink / P2P, via [WinKISS-TNC](https://github.com/f1gbd/F1GBD/tree/master/winkiss-tnc)) : radiogrammes, messages et images par la radio, sans Direwolf ; TXDELAY 800 ms pour les transpondeurs, CSMA, CTCSS du VFO conservé, jamais entre 405 et 407 MHz |
 | CHAPPE26 | 1.0 | Dictionnaire CHAPPE26 (1000 codes) pour PAGER-RASEC et CHAPPE-TX — à installer avec eux |
 
 ## Ajouter une application
