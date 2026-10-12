@@ -5,6 +5,8 @@ pour les missions ADRASEC / FNRASEC, et leur outil d'installation.
 
 ### ▶ [Ouvrir l'UV-K1 Apps Uploader](https://f1gbd.github.io/F1GBD/quansheng/)
 
+**Radio neuve ?** Commencez par la fiche [**DÉMARRAGE RAPIDE** (PDF)](documentation/Demarrage_rapide_Apps_F1GBD_UV-K1.pdf) : firmware, installation et lancement des apps en trois étapes.
+
 <p align="center">
   <img src="images/UV-K1.jpg" alt="Quansheng UV-K1(8) v3" height="420">
   &nbsp;&nbsp;
@@ -277,6 +279,7 @@ son [manuel PDF](https://github.com/f1gbd/F1GBD/blob/master/winkiss-tnc/document
 
 | Document | Formats |
 |---|---|
+| **DÉMARRAGE RAPIDE** — du UV-K1 / UV-K5 v3 neuf à l'app en service : flasher le firmware F4HWN Labs (UV Studio), installer les apps (Apps Uploader), lancer une app (F puis 7), tableau des apps, exemples opérationnels, liens vers tous les manuels | [PDF](documentation/Demarrage_rapide_Apps_F1GBD_UV-K1.pdf) |
 | PAGER-RASEC v1.4.1 — Manuel d'installation et d'utilisation | [PDF](documentation/PAGER-RASEC_Manuel_v1.4.pdf) |
 | CHAPPE-TX v1.1 — Manuel d'utilisation et exemples de transmission | [PDF](documentation/CHAPPE-TX_Manuel_v1.1.pdf) |
 | RGRAM v1.1 — Manuel d'utilisation et exemples de radiogrammes | [PDF](documentation/RGRAM_Manuel_v1.1.pdf) |
