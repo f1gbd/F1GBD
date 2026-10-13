@@ -88,6 +88,10 @@ UV-K1 sous KISS-TNC sur 430,4375 MHz → transpondeur → station **F8KSM-7** :
 - **image** de 21 trames (3 463 octets) : reçue complète, **ACK** « Image reçu »
   7 s après la dernière trame.
 
+Et dans l'autre sens, F8KSM (TCQ + Direwolf) → UV-K1 sous KISS-TNC → TCQ : image de
+**16 trames enchaînées par Direwolf dans une seule émission**, reçue 16 / 16 en 20 s,
+reconstituée par TCQ (73_F1GBD.jpg, 160 × 120), accusé renvoyé.
+
 <p align="center">
   <img src="../images/KISS-TNC_TCQ.png" alt="TCQ : radiogramme envoyé par le UV-K1, accusé de F8KSM-7 reçu" width="760">
 </p>
@@ -109,6 +113,7 @@ UV-K1 sous KISS-TNC sur 430,4375 MHz → transpondeur → station **F8KSM-7** :
   trame est reçue, image de 21 trames au rythme de TCQ v14.3 : 21 / 21, émission
   Direwolf de 16 trames enchaînées reçue 16 / 16 ; 406 MHz et
   verrou : aucune émission ; prise K rendue au firmware. Pile au pire 3 056 o.
-- Essai sur l'air réussi le 11 octobre 2026 (radiogramme et image, accusés reçus).
+- Essai sur l'air réussi le 11 octobre 2026, dans les deux sens (radiogramme et images,
+  accusés reçus).
 
 ADRASEC 77 · F1GBD — 73

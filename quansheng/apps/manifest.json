@@ -78,6 +78,16 @@
       "size": 5146,
       "sha256": "24d08e019281575b3895cd6930a023b9575097f2f35e2eba7fc408a39b42bbd7",
       "date": "2026-10-11"
+    },
+    {
+      "file": "HOMER-RX.app",
+      "name": "HOMER-RX",
+      "version": "1.0",
+      "title": "Radiogoniométrie ELT HOMER-RX",
+      "summary": "Transforme le UV-K1 / UV-K5 v3 en récepteur de radiogoniométrie pour balises de détresse ELT 121,5 MHz : barre de homing RELATIVE au plancher de bruit avec lissage adapté au « whoop » AM balayé de la balise, atténuateur manuel ou AUTOMATIQUE à l'approche (garde le niveau exploitable tout près de la balise), piste sonore (bip proportionnel au niveau ou écoute station). Diffuse le niveau en continu par le câble de programmation (prise K, 38400 bauds) : relié en OTG à l'application HOMER Android (source « UV-Kx »), il y affiche la même barre et permet de piloter l'atténuateur du poste depuis le téléphone (AUTO, pas +/-). 121,500 MHz FM par défaut.",
+      "size": 2702,
+      "sha256": "a15beec3da96fd695cd0ca3f3c746ffb26732d51f4c306e0893e8f729c2c53ab",
+      "date": "2026-10-13"
     }
   ]
 }

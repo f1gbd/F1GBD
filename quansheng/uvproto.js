@@ -226,7 +226,7 @@
       const total = parts.reduce((a, p) => a + p[1].length, 0);
       let done = 0;
       await this.hello();                       // fresh session timestamp
-      this.log("Effacement de l'emplacement " + slot + "…");
+      this.log("Effacement de l'emplacement " + (slot + 1) + "…");   // affiché 1-16 comme sur la radio
       await this.erase(slot);
       progress(0.02);
       for (const [base, data] of parts) {

@@ -275,6 +275,26 @@ Persistence 128, Slot time 30. Lancer KISS-TNC sur la radio **avant** d'ouvrir l
 Installation et réglages : [page WinKISS-TNC](https://github.com/f1gbd/F1GBD/tree/master/winkiss-tnc) et
 son [manuel PDF](https://github.com/f1gbd/F1GBD/blob/master/winkiss-tnc/documentation/WinKISS-TNC_Manuel_v1.0.pdf).
 
+## HOMER-RX : radiogoniométrie de balises ELT avec HOMER Android
+
+<p align="center"><img src="images/HOMER_Title.jpg" alt="HOMER for SATER — radiogoniometrie ELT 121,5 MHz" width="760"></p>
+
+Avec **HOMER-RX**, le UV-K1 / UV-K5 devient un **récepteur de radiogoniométrie** pour les
+balises de détresse **ELT 121,5 MHz** (SATER). Sur le poste : barre de homing relative au
+plancher de bruit avec lissage du « whoop » AM balayé de la balise, **atténuateur automatique
+à l'approche** (garde le niveau exploitable tout près de la balise) et piste sonore
+(bip proportionnel au niveau ou écoute station).
+
+Relié par le **câble de programmation (prise K, 38400 bauds)** à l'application
+**[HOMER Android](https://github.com/f1gbd/F1GBD/tree/master/homer)** (source « UV-Kx »), il y
+affiche la **même barre de homing** et permet de **piloter l'atténuateur du poste depuis le
+téléphone** (AUTO / MANUEL, pas ± en dB). HOMER Android ajoute le **radar polaire**, la
+**boussole / GPS**, le **marquage des relèvements** (position + azimut + signal) et la
+**carte OpenStreetMap** avec **position estimée de la balise par triangulation**
+(coordonnées DDD / DMS / MGRS, tuiles hors-ligne).
+
+Détails et installation : [HOMER Android](https://github.com/f1gbd/F1GBD/tree/master/homer).
+
 ## Documentation
 
 | Document | Formats |
@@ -301,6 +321,7 @@ son [manuel PDF](https://github.com/f1gbd/F1GBD/blob/master/winkiss-tnc/document
 | [TACVYR](apps/TACVYR.md) ([manuel PDF](documentation/TACVYR_Manuel_v1.0.pdf)) | 1.0 | Messages tactiques courts sans phonie : code à 2 chiffres (81 phrases), 1 ou 2 phrases ou texte libre, émis et reçus en AX.25 Packet 1200 bauds sur le VFO, en clair pour TCQ et PAGER-RASEC |
 | [EPIRBdecoder](apps/EPIRBdecoder.md) ([manuel PDF](documentation/EPIRBdecoder_Manuel_v1.1.pdf)) | 1.1 | Balises 406 MHz : réception et décodage comme l'application Android (ID, code pays MID, protocole, MMSI, position décimale et DMS, BCH corrigé, 121,5), 5 balises gardées, réception 406,025-406,040 ou 434,000 MHz (entraînement) au choix, relais de la position en AX.25 Packet (APRS, compatible TCQ) sur la fréquence radioamateur du VFO, par PTT ou AUTO ; **mode DATA** vers EPIRBdecoder Android (OTG : câble de programmation ou audio, MGRS sur la tablette) — récepteur EPIRB 406 de F4WAT |
 | [KISS-TNC](apps/KISS-TNC.md) ([manuel PDF](documentation/KISS-TNC_Manuel_v0.1.pdf)) | 0.1 | TNC KISS AX.25 1200 bauds sur la prise K (câble de programmation, 38400 bauds) pour TCQ v14.3 (TNC Packet, mode série) et Winlink Express (Packet Winlink / P2P, via [WinKISS-TNC](https://github.com/f1gbd/F1GBD/tree/master/winkiss-tnc)) : radiogrammes, messages et images par la radio, sans Direwolf ; TXDELAY 800 ms pour les transpondeurs, CSMA, CTCSS du VFO conservé, jamais entre 405 et 407 MHz |
+| [HOMER-RX](https://github.com/f1gbd/F1GBD/tree/master/homer) | 1.0 | Radiogoniométrie de balises **ELT 121,5 MHz** (SATER) : barre de homing relative au plancher de bruit, atténuateur AUTO à l'approche, piste sonore ; diffuse le niveau par la prise K (38400 bauds) à **HOMER Android** (source UV-Kx) qui affiche la même barre, pilote l'atténuateur (AUTO / ± dB) et ajoute radar / boussole / GPS + carte OSM avec triangulation (DDD / DMS / MGRS) |
 | CHAPPE26 | 1.0 | Dictionnaire CHAPPE26 (1000 codes) pour PAGER-RASEC et CHAPPE-TX — à installer avec eux |
 
 ## Ajouter une application
