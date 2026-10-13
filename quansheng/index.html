@@ -286,7 +286,7 @@ footer{color:var(--muted);font-size:12.5px;padding-bottom:28px}
         const tr = document.createElement("tr");
         tr.className = "slot";
         const h = s.header;
-        tr.innerHTML = `<td>${s.slot}</td><td class="${h ? "" : "e"}"></td><td class="${h ? "" : "e"}"></td>`;
+        tr.innerHTML = `<td>${s.slot + 1}</td><td class="${h ? "" : "e"}"></td><td class="${h ? "" : "e"}"></td>`;
         tr.children[1].textContent = h ? h.name : "— libre —";
         tr.children[2].textContent = h ? h.version : "";
         tr.addEventListener("click", () => selectSlot(s.slot));
@@ -323,12 +323,12 @@ footer{color:var(--muted);font-size:12.5px;padding-bottom:28px}
   async function install() {
     const s = slots[selSlot];
     if (s && s.header && s.header.name !== app.name &&
-        !confirm(`L'emplacement ${selSlot} contient « ${s.header.name} ». Le remplacer par ${app.name} ?`)) return;
+        !confirm(`L'emplacement ${selSlot + 1} contient « ${s.header.name} ». Le remplacer par ${app.name} ?`)) return;
     busy = true; updateButtons();
     const bar = $("bar"); bar.style.width = "0";
     const t0 = performance.now();
     try {
-      log(`Installation de ${app.name} v${app.version} dans l'emplacement ${selSlot}…`);
+      log(`Installation de ${app.name} v${app.version} dans l'emplacement ${selSlot + 1}…`);
       await radio.install(selSlot, app, (p) => { bar.style.width = (p * 100).toFixed(1) + "%"; });
       log(`Installé en ${((performance.now() - t0) / 1000).toFixed(1)} s. Lancez-le depuis le menu Apps de la radio.`, "okt");
     } catch (e) {
@@ -340,9 +340,9 @@ footer{color:var(--muted);font-size:12.5px;padding-bottom:28px}
   }
   async function erase() {
     const s = slots[selSlot];
-    if (!confirm(`Effacer « ${s.header.name} » de l'emplacement ${selSlot} ?`)) return;
+    if (!confirm(`Effacer « ${s.header.name} » de l'emplacement ${selSlot + 1} ?`)) return;
     busy = true; updateButtons();
-    try { await radio.hello(); await radio.erase(selSlot); log(`Emplacement ${selSlot} effacé.`, "okt"); }
+    try { await radio.hello(); await radio.erase(selSlot); log(`Emplacement ${selSlot + 1} effacé.`, "okt"); }
     catch (e) { log("Effacement : " + e.message, "errt"); }
     busy = false;
     await refresh();
