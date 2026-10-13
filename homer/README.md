@@ -10,15 +10,17 @@ Outil de recherche radiogoniométrique conçu pour les exercices et missions **S
 
 <img src="images/HOMER_Yagi_RSSI.png" width="250" alt="Écran Homing"> <img src="images/HOMER_Yagi_Radar.png" width="250" alt="Radar polaire"> <img src="images/HOMER_Yagi_Carte.png" width="250" alt="Carte des relèvements">
 
-### 📥 [Télécharger directement l'APK (v2.0.0)](https://github.com/f1gbd/F1GBD/releases/download/homer-android-v2.0.0/HOMER_android-2.0.0.apk)
+### 📥 [Télécharger directement l'APK (v2.1.0)](https://github.com/f1gbd/F1GBD/releases/download/homer-android-v2.1.0/HOMER_android-2.1.0.apk)
 
 </div>
 
 ---
 
-## 🆕 Nouveautés v2.0.0
+## 🆕 Nouveautés v2.1.0
 
-Refonte complète en **Kotlin natif + Chaquopy** (même chaîne qu'EPIRBdecoder Android), DSP en **NumPy pur**.
+- **🎓 Nouveau mode ELTsim (formation / démo)** — entraînement à la **recherche au signal sans balise réelle**. Une balise virtuelle est tirée au hasard dans un **rayon de 800 m** ; on la cherche en se déplaçant : on **avance en inclinant le téléphone vers le bas**, la direction suit l'**orientation réelle** du téléphone. Guidage par le **bargraphe**, le **radar** et un **son de balise ELT** proportionnel au niveau (distance + alignement de la Yagi simulés) ; **coupe et fanfare de victoire** à la localisation.
+
+**Depuis la v2.0** — refonte complète en **Kotlin natif + Chaquopy** (même chaîne qu'EPIRBdecoder Android), DSP en **NumPy pur** :
 
 - **Deux sources au choix** sur un écran commun :
   - **RTL-SDR** en USB-OTG (driver *SDR Driver* de M. Marinov) ;
@@ -51,10 +53,11 @@ Le niveau peut venir de **deux sources interchangeables** : une **clé RTL-SDR**
 - **Boussole** `TYPE_ROTATION_VECTOR` + repli accéléro/magnéto, **déclinaison automatique** (GPS). **Sans magnétomètre : relèvement manuel**.
 - **GPS** natif + **⚑ Marquer** (position + azimut + signal) pour la triangulation.
 - **CARTE OSM** : relèvements + triangulation (**moindres carrés**), **balise = triangle bleu** (DDD/DMS/MGRS au tap), **tableau éditable** (ajout/suppression/édition), **« Télécharger la zone »** pour le **hors-ligne**.
+- **ELTsim (formation / démo)** : balise virtuelle tirée au hasard (**≤ 800 m**), **directivité Yagi** et affaiblissement en distance simulés, **déplacement par inclinaison** du téléphone (ou curseur de secours), **son de balise ELT** proportionnel au niveau, **dialogue + fanfare de victoire**. Ni balise ni matériel requis.
 - **Mises à jour** vérifiées depuis GitHub (tag `homer-android-v…`).
 
 <div align="center">
-<img src="images/HOMER_Yagi_Homing.png" width="250" alt="Écran principal et À propos">
+<img src="images/HOMER_v21.jpg" width="230" alt="Écran principal — sélecteur RTL-SDR / UV-Kx / ELTsim">
 </div>
 
 ---
@@ -68,12 +71,14 @@ Le niveau peut venir de **deux sources interchangeables** : une **clé RTL-SDR**
 | Source B | **UV-K1 / UV-K5 v3** sous firmware **HOMER-RX** + **câble de programmation** (prise K) en OTG |
 | Antenne | Yagi 121.5 MHz (ou 2 m pour 144.610) |
 
+> Le mode **ELTsim** ne demande **ni clé ni poste** : seulement le téléphone (boussole + GPS conseillés pour l'orientation et le point de départ).
+
 ---
 
 ## 📥 Installation
 
 1. Pour la source **RTL-SDR** : installer l'appli **SDR Driver** de Martin Marinov (`marto.rtl_tcp_andro`).
-2. **[Télécharger l'APK HOMER v2.0.0](https://github.com/f1gbd/F1GBD/releases/download/homer-android-v2.0.0/HOMER_android-2.0.0.apk)** (ou page [Releases](https://github.com/f1gbd/F1GBD/releases), tag `homer-android-v2.0.0`).
+2. **[Télécharger l'APK HOMER v2.1.0](https://github.com/f1gbd/F1GBD/releases/download/homer-android-v2.1.0/HOMER_android-2.1.0.apk)** (ou page [Releases](https://github.com/f1gbd/F1GBD/releases), tag `homer-android-v2.1.0`).
 3. Autoriser l'installation depuis cette source, installer l'APK.
 4. Pour la source **UV-Kx** : flasher **HOMER-RX** sur le UV-K1/K5 (voir le dépôt [Quansheng](https://github.com/f1gbd/F1GBD/tree/master/quansheng)).
 
@@ -92,6 +97,17 @@ L'application vérifie elle-même les mises à jour (**ⓘ Infos → Vérifier l
 
 > **Tablette sans boussole** : le radar passe en **relèvement manuel** — glisse l'aiguille sur le cadran ou le curseur.
 
+### 🎓 ELTsim (formation / démo)
+
+1. Choisir la source **ELTsim**, puis **DÉMARRER** : une balise virtuelle est cachée à ≤ 800 m autour de vous.
+2. **Tournez-vous** avec le téléphone (orientation réelle) : le **bargraphe** et le **son** montent quand vous pointez vers la balise.
+3. **Inclinez légèrement le téléphone vers le bas** pour **avancer** dans la direction visée (ou utilisez le curseur de secours).
+4. À l'arrivée (< 25 m), **coupe de victoire** 🏆 + fanfare. **🎲 Nouvelle balise** pour rejouer.
+
+<div align="center">
+<img src="images/HOME_ELTsim.jpg" width="250" alt="ELTsim — recherche au signal"> <img src="images/HOME_ELTsim_success.jpg" width="250" alt="ELTsim — balise localisée">
+</div>
+
 ---
 
 ## ⚠️ Notes & limites
@@ -100,12 +116,13 @@ L'application vérifie elle-même les mises à jour (**ⓘ Infos → Vérifier l
 - La **triangulation** demande **≥ 2 relèvements** pris de **positions différentes**.
 - Hors-ligne, la carte n'affiche que les zones **déjà téléchargées** ou déjà consultées.
 - La source **UV-Kx** nécessite **HOMER-RX** flashé sur le poste et le **câble de programmation**.
+- Le mode **ELTsim** utilise l'**orientation réelle** (boussole) : sans magnétomètre, viser via le radar et avancer au curseur.
 
 ---
 
 ## 📖 Documentation
 
-- [Manuel utilisateur HOMER v2.0.0 (PDF)](documentation/HOMER_Manuel_Utilisateur_v2.0.0.pdf)
+- [Manuel utilisateur HOMER v2.1.0 (PDF)](documentation/HOMER_Manuel_Utilisateur_v2.1.0.pdf)
 
 ---
 
