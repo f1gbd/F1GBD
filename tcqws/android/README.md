@@ -13,15 +13,15 @@
 [![Modes](https://img.shields.io/badge/modes-FT4%20%7C%20FT8-blueviolet.svg)]()
 [![Compatibilité](https://img.shields.io/badge/compatible-TCQws%20PC%20%C2%B7%20WSJT--X-teal.svg)](../README.md)
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version](https://img.shields.io/badge/version-tcqws--android--v0.5.1-blue)](https://github.com/f1gbd/F1GBD/releases/tag/tcqws-android-v0.5.1)
+[![Version](https://img.shields.io/badge/version-tcqws--android--v0.6.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/tcqws-android-v0.6.0)
 
-## 📥 Télécharger TCQws Android v0.5.1
+## 📥 Télécharger TCQws Android v0.6.0
 
-### **[⬇ TCQws_android-0.5.1.apk](https://github.com/f1gbd/F1GBD/releases/download/tcqws-android-v0.5.1/TCQws_android-0.5.1.apk)**
+### **[⬇ TCQws_android-0.6.0.apk](https://github.com/f1gbd/F1GBD/releases/download/tcqws-android-v0.6.0/TCQws_android-0.6.0.apk)**
 
 *À ouvrir directement sur le téléphone ou la tablette. Android 7 ou plus récent, processeur 64 bits (arm64). Aucun compte, aucune publicité, aucune donnée envoyée nulle part.*
 
-**Nouveau en 0.5.1 : la distance reste affichée pendant le QSO** · **écoute FT4 / FT8 par clé RTL-SDR**, sans transceiver — [📡 voir plus bas](#-écoute-par-clé-sdr-rtl-sdr)
+**Nouveau en 0.6.0 : la chute d'eau de WSJT-X, les filtres CQ only et B4, la case RX = TX et un bouton 📒 LOG** — [📱 voir plus bas](#-ce-que-la-060-reprend-de-la-version-pc) · **écoute FT4 / FT8 par clé RTL-SDR**, sans transceiver — [📡 voir plus bas](#-écoute-par-clé-sdr-rtl-sdr)
 
 [🖥 TCQws pour Windows](../README.md) · [📜 Historique TCQws](../HISTORIQUE.md) · [📖 Manuel PDF Android](doc/MANUEL_TCQws_android.pdf) · [📖 Manuel PDF (PC)](../doc/MANUEL_TCQws.pdf) · [🔌 Raccorder la radio](#-raccorder-la-radio) · [📡 Clé SDR](#-écoute-par-clé-sdr-rtl-sdr) · [🚨 Alerte FLASH](#-radiogrammes-et-alerte-flash)
 
@@ -59,7 +59,8 @@ Ce qui change, c'est tout ce qui fait un poste de terrain : une tablette et une 
 | **Trafic satellite** | bande SAT : VFO d'émission avant chaque PTT, retour en réception confirmé ensuite (QO-100…) |
 | **Heure** | vérifiée par NTP à chaque démarrage |
 | **Carte** | stations entendues sur une carte **hors ligne** (aucune tuile à télécharger), grille des locators |
-| **Écran** | présentation de TCQws PC ; tablette : les listes côte à côte ; téléphone : en sous-onglets ; thèmes sombre et clair |
+| **Filtres de la liste** | **CQ only** (ne garder que les appels) et **B4** (masquer les stations déjà travaillées sur cette bande et ce mode) |
+| **Écran** | présentation de TCQws PC ; chute d'eau aux couleurs de WSJT-X ; tablette : les listes côte à côte ; téléphone : en sous-onglets ; thèmes sombre et clair |
 
 ![CARTE sur la tablette](images/TCQws_android_carte.png)
 
@@ -92,7 +93,7 @@ Un seul câble USB-C (ou un hub USB-C) entre le téléphone et l'interface de la
 
 Pas de transceiver sous la main ? Une **clé RTL-SDR** et une antenne suffisent pour écouter le FT4 / FT8 — un poste d'écoute (SWL) de poche, comme avec TCQws PC. Décodages, carte, radiogrammes et **alertes FLASH** fonctionnent à l'identique.
 
-![TCQws sur tablette Android](images/TCQws_sdr_reel.jpg)
+![Réglages de la radio](images/TCQws_sdr_reel.jpg)
 
 Clé SDR recommandée et utilisée ici: **Nooelec NESDR SMArt v5 SDR - HF/VHF/UHF (100kHz-1.75GHz) RTL-SDR. RTL2832U & R820T2**
 
@@ -116,7 +117,7 @@ Clé SDR recommandée et utilisée ici: **Nooelec NESDR SMArt v5 SDR - HF/VHF/UH
 
 ## 🚀 Installation
 
-1. Télécharger **`TCQws_android-0.5.1.apk`** sur le téléphone ou la tablette.
+1. Télécharger **`TCQws_android-0.6.0.apk`** sur le téléphone ou la tablette.
 2. L'ouvrir. Android demande d'autoriser l'installation depuis cette source (le navigateur ou le gestionnaire de fichiers) : accepter.
 3. Lancer **TCQws**. Au premier démarrage, quelques secondes sont nécessaires pour préparer le décodeur.
 
@@ -157,14 +158,33 @@ Les réglages de bande, de fréquence et de satellite sont les mêmes que sur le
 - **▶ Démarrer** lance l'écoute ; elle continue écran éteint. **FT8 / FT4** se change à tout moment, l'écoute repart seule.
 - **Chute d'eau** : toucher = fréquence **RX** · appui long = fréquence **TX** · double toucher = les deux.
 - **Toucher une ligne** reçue : TCQws propose la bonne réponse (comme le double-clic du PC) · **appui long** : il répond aussitôt.
-- **Barre d'émission** : correspondant, rapport, **Tx1 à Tx6**, séquence **Auto**, **AUTO QSO**, **■ STOP**.
-- **Sous-onglet Émission** : message libre, PING / PONG, modificateur de CQ, période paire / impaire, fréquence et niveau d'émission.
+- **Barre d'émission** : correspondant, rapport, **Tx1 à Tx6**, séquence **Auto**, **AUTO QSO**, **📒 LOG**, **■ STOP**.
+- **Sous-onglet Émission** : message libre, PING / PONG, modificateur de CQ, période paire / impaire, fréquence et niveau d'émission, case **RX = TX**.
+- **Cases CQ only et B4**, au-dessus de l'activité de bande : y garder les appels seuls, ou écarter les stations déjà travaillées.
 - Les lignes rouges **TX** de la liste « Fréquence RX » montrent chaque émission ; le bandeau passe au rouge pendant le PTT.
 - **📒 Log** : les QSO logués, le plus récent en haut ; **📋 Journal** : tout ce que fait la station.
 
 ![Réglages de la radio](images/TCQws_android_journal.png)
 
 ![Réglages de la radio](images/TCQws_android_log.png)
+
+---
+
+## 📱 Ce que la 0.6.0 reprend de la version PC
+
+Cinq changements venus de TCQws PC 0.8.0, portés à l'identique : le téléphone et le PC se règlent et se lisent de la même façon.
+
+**🌊 La chute d'eau de WSJT-X.** Bleu franc pour le bruit, cyan quand le signal se détache, jaune quand il est bien lisible, orange et rouge sur les plus forts. L'ancienne était noire sur un fond noir, et le bruit y restait sombre parce que le bleu n'arrivait qu'au milieu de l'échelle. Les couleurs sont désormais **extraites du PC à la compilation**, comme le sont déjà les bandes et les thèmes : deux téléphones et un PC qui ne liraient pas pareil la force d'un signal, c'était une table de trop.
+
+**☑ CQ only** ne garde dans l'activité de bande que les **appels**. Sur un écran de téléphone, où elle tient dix lignes, la liste défile trop vite pour qu'on y repère une station appelable. Le trait de période s'en va aussi — l'heure reste dans la colonne UTC. **Rien n'est perdu** : décocher rend toutes les lignes, dans leur ordre d'arrivée.
+
+**☑ B4** — *worked before*, le mot des concours — écarte les stations **déjà au log sur cette bande et dans ce mode**. Deux garde-fous qui comptent autant que le filtre : un message **qui vous est adressé** passe toujours (elle a peut-être un radiogramme), et le filtre ne touche **que cette liste** — ni la fenêtre Fréquence RX, ni la carte, ni le log.
+
+**☑ RX = TX** remplace le bouton `RX → TX`, cochée par défaut. Le bouton recopiait la fréquence **une seule fois** : au décodage suivant on touchait une station, la RX se calait dessus — et l'on émettait de nouveau à l'ancienne fréquence, sans que rien ne le signale. La case tient le lien d'où que vienne la fréquence RX. Décochée, c'est le **split**.
+
+**📒 LOG**, dans la barre d'émission, enregistre le QSO en cours quand l'automatisme l'a manqué : RR73 passé sous le bruit, QSO en texte libre, ou main reprise aux touches Tx sans jamais envoyer de 73.
+
+**🕐 L'heure de fin fait foi.** Le log garde ses deux dates, mais le début ne précède plus la fin de plus de quinze minutes : au-delà, ce n'était plus l'heure du QSO mais celle du premier message échangé avec la station.
 
 ---
 
@@ -181,9 +201,6 @@ Les réglages de bande, de fréquence et de satellite sont les mêmes que sur le
 ## Ce qui reste propre à la version PC
 
 Le calage de l'heure par **GPS NMEA**, l'édition du log et les WAV de diagnostic restent pour l'instant dans [TCQws pour Windows](../README.md). Le log ADIF exporté d'Android s'importe dans le PC, dans WSJT-X ou dans votre logiciel de log habituel.
-
-![TCQws sur tablette Android](images/TCQws_FX-4CR.jpeg)
-**TCQws avec un Transceiver FX-4CR connecté via un cable OTG sur un Smartphone Android**
 
 ---
 
