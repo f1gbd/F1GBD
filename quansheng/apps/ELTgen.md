@@ -36,7 +36,7 @@ Manuel complet : [PDF](../documentation/ELTgen_Manuel_v1.0.pdf).
 
 1. Régler le **VFO en émission** sur **144.610 MHz FM** (ou une autre fréquence 2 m), puissance voulue.
 2. Radio : **Apps → ELTgen** — l'app s'ouvre en **VEILLE** (« PRÊT », **aucune émission**).
-3. Régler les paramètres : **indicatif** (`F`+`MENU`), **mode** (`1`), **intervalle d'ID** (`2`).
+3. Régler les paramètres : **indicatif** (touche `3`), **mode** (`1`), **intervalle d'ID** (`2`).
 4. **`MENU`** : **démarre l'émission** — la porteuse monte, le whoop ELT est émis, l'indicatif part en CW.
 5. Lancer la recherche avec **[HOMER](https://github.com/f1gbd/F1GBD/tree/master/homer)** (clé RTL-SDR ou source UV-Kx) et l'antenne Yagi.
 6. **`EXIT`** : **arrête l'émission** (retour en VEILLE) ; **`EXIT`** en veille **quitte** l'app.
@@ -47,7 +47,7 @@ Manuel complet : [PDF](../documentation/ELTgen_Manuel_v1.0.pdf).
 |---|---|
 | `1` | Mode **CONT** (continu) / **INTER** (intermittent 4 s / 4 s) |
 | `2` | Intervalle de l'**ID CW** : 60 / 120 / 300 s |
-| **`F` puis `MENU`** | **Saisir l'indicatif** (ID CW) — voir ci-dessous |
+| **`3`** | **Saisir l'indicatif** (ID CW) — voir ci-dessous |
 | `MENU` | **En veille : démarre l'émission** · en émission : ré-arme le compte à rebours de l'ID |
 | `EXIT` | **En émission : arrête** (retour veille) · **en veille : quitte** l'app |
 | `F` (appui long) | Verrouillage du clavier |
@@ -57,13 +57,13 @@ de lancer l'émission par `MENU`. L'écran d'émission affiche l'état (**ELT** 
 **PAUSE**), le compte à rebours avant la prochaine identification, le mode, l'intervalle
 d'ID, la fréquence d'émission et l'**indicatif courant** (`ID:…`).
 
-## Saisir l'indicatif (F + MENU)
+## Saisir l'indicatif (touche 3)
 
 Comme les autres apps, l'indicatif de l'ID CW se saisit **sur la radio**, dans l'app :
 
-1. Appuyer sur **`F`** puis **`MENU`** → l'éditeur d'indicatif s'ouvre (l'émission est coupée pendant la saisie).
-2. **▲/▼** fait défiler le caractère sous le curseur (**A-Z / 0-9 / `/`**) ; les **touches chiffres** tapent directement un chiffre.
-3. **`*`** passe au caractère suivant ; **`F` puis `*`** efface.
+1. Appuyer sur la touche **`3`** → l'éditeur d'indicatif s'ouvre (en émission, elle est coupée pendant la saisie).
+2. **▲/▼** change le caractère sous le curseur (**A-Z / 0-9 / `/`**) ; les **touches chiffres** tapent directement un chiffre (et avancent).
+3. **`F`** passe au caractère suivant ; **`*`** efface (recule).
 4. **`MENU`** enregistre, **`EXIT`** annule.
 
 L'indicatif est **mémorisé** dans l'app. S'il est laissé vide, ELTgen reprend la

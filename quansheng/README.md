@@ -347,6 +347,8 @@ Détails et installation : [HOMER Android](https://github.com/f1gbd/F1GBD/tree/m
 
 **ELTgen** fait l'inverse de HOMER-RX : il **émet** une balise ELT factice pour l'entraînement. Sur le VFO d'émission (le régler sur **144.610 MHz FM** — 2 m amateur, **jamais 121,5**), il module la porteuse avec le **whoop ELT balayé** (~1550 → 640 Hz, ~2,3 fois/s, profil relevé sur un vrai `elt.wav`) et **identifie en CW** périodiquement. On peut ainsi **tester HOMER en conditions réelles sur le terrain** avec une antenne Yagi — homing au RSSI et whoop audible — sans mobiliser une vraie balise. Hors bande, le firmware refuse d'émettre (« TX OFF »).
 
+<p align="center"><img src="images/ELTgen.jpg" alt="Quansheng UV-K1(8) utilise en générateur de balise ELT de test" width="760"></p>
+
 Détails : [ELTgen](apps/ELTgen.md) · [manuel PDF](documentation/ELTgen_Manuel_v1.0.pdf).
 
 ## Applications
