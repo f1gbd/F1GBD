@@ -343,6 +343,12 @@ Détails et installation : [HOMER Android](https://github.com/f1gbd/F1GBD/tree/m
 | Code CHAPPE26 — Fiche exemple Black-out : demande de moyens radio de secours | [PDF](documentation/Chappe26_Fiche_BlackOut.pdf) |
 | Code CHAPPE26 — Fiche exemple Incendie majeur : renforts, évacuation, radio en zone blanche | [PDF](documentation/Chappe26_Fiche_Incendie.pdf) |
 
+## ELTgen : balise ELT d'entraînement pour tester HOMER
+
+**ELTgen** fait l'inverse de HOMER-RX : il **émet** une balise ELT factice pour l'entraînement. Sur le VFO d'émission (le régler sur **144.610 MHz FM** — 2 m amateur, **jamais 121,5**), il module la porteuse avec le **whoop ELT balayé** (~1550 → 640 Hz, ~2,3 fois/s, profil relevé sur un vrai `elt.wav`) et **identifie en CW** périodiquement. On peut ainsi **tester HOMER en conditions réelles sur le terrain** avec une antenne Yagi — homing au RSSI et whoop audible — sans mobiliser une vraie balise. Hors bande, le firmware refuse d'émettre (« TX OFF »).
+
+Détails : [ELTgen](apps/ELTgen.md) · [manuel PDF](documentation/ELTgen_Manuel_v1.0.pdf).
+
 ## Applications
 
 | Application | Version | Rôle |
@@ -354,6 +360,7 @@ Détails et installation : [HOMER Android](https://github.com/f1gbd/F1GBD/tree/m
 | [EPIRBdecoder](apps/EPIRBdecoder.md) ([manuel PDF](documentation/EPIRBdecoder_Manuel_v1.1.pdf)) | 1.1 | Balises 406 MHz : réception et décodage comme l'application Android (ID, code pays MID, protocole, MMSI, position décimale et DMS, BCH corrigé, 121,5), 5 balises gardées, réception 406,025-406,040 ou 434,000 MHz (entraînement) au choix, relais de la position en AX.25 Packet (APRS, compatible TCQ) sur la fréquence radioamateur du VFO, par PTT ou AUTO ; **mode DATA** vers EPIRBdecoder Android (OTG : câble de programmation ou audio, MGRS sur la tablette) — récepteur EPIRB 406 de F4WAT |
 | [KISS-TNC](apps/KISS-TNC.md) ([manuel PDF](documentation/KISS-TNC_Manuel_v0.1.pdf)) | 0.1 | TNC KISS AX.25 1200 bauds sur la prise K (câble de programmation, 38400 bauds) pour TCQ v14.3 (TNC Packet, mode série) et Winlink Express (Packet Winlink / P2P, via [WinKISS-TNC](https://github.com/f1gbd/F1GBD/tree/master/winkiss-tnc)) : radiogrammes, messages et images par la radio, sans Direwolf ; TXDELAY 800 ms pour les transpondeurs, CSMA, CTCSS du VFO conservé, jamais entre 405 et 407 MHz |
 | [HOMER-RX](https://github.com/f1gbd/F1GBD/tree/master/homer) | 1.0 | Radiogoniométrie de balises **ELT 121,5 MHz** (SATER) : barre de homing relative au plancher de bruit, atténuateur AUTO à l'approche, piste sonore ; diffuse le niveau par la prise K (38400 bauds) à **HOMER Android** (source UV-Kx) qui affiche la même barre, pilote l'atténuateur (AUTO / ± dB) et ajoute radar / boussole / GPS + carte OSM avec triangulation (DDD / DMS / MGRS) |
+| [ELTgen](apps/ELTgen.md) ([manuel PDF](documentation/ELTgen_Manuel_v1.0.pdf)) | 1.0 | Balise ELT d'entraînement (SATER) : émet le « whoop » ELT balayé 1550→640 Hz (~2,3/s, profil elt.wav) sur le VFO d'émission (144.610 MHz FM ; 2 m amateur, jamais 121,5), avec ID CW périodique (60/120/300 s), modes continu / intermittent — pour tester HOMER en réel au Yagi (RSSI + whoop audible) ; hors bande → TX OFF |
 | CHAPPE26 | 1.0 | Dictionnaire CHAPPE26 (1000 codes) pour PAGER-RASEC et CHAPPE-TX — à installer avec eux |
 
 ## Ajouter une application
