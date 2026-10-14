@@ -22,7 +22,7 @@ Yagi (homing au niveau reçu + whoop audible), sans mobiliser une vraie balise.
 | Identification | **CW** (indicatif de la radio), 1000 Hz, intervalle **60 / 120 / 300 s** |
 | Modes | **Continu** (comme une vraie balise) / **Intermittent** (4 s / 4 s) |
 | Garde-fou | émission seulement si le firmware l'autorise — **hors bande → TX OFF** |
-| Taille | 3 627 o de code (overlay 4 Kio) |
+| Taille | 3 938 o de code (overlay 4 Kio) |
 
 Manuel complet : [PDF](../documentation/ELTgen_Manuel_v1.0.pdf).
 
@@ -35,10 +35,11 @@ Manuel complet : [PDF](../documentation/ELTgen_Manuel_v1.0.pdf).
 ## Mise en route
 
 1. Régler le **VFO en émission** sur **144.610 MHz FM** (ou une autre fréquence 2 m), puissance voulue.
-2. Radio : **Apps → ELTgen**.
-3. **DÉMARRER** : la porteuse monte et le whoop ELT est émis ; l'indicatif part en CW au rythme choisi.
-4. Lancer la recherche avec **[HOMER](https://github.com/f1gbd/F1GBD/tree/master/homer)** (clé RTL-SDR ou source UV-Kx) et l'antenne Yagi.
-5. **EXIT** : fin d'émission, retour en réception.
+2. Radio : **Apps → ELTgen** — l'app s'ouvre en **VEILLE** (« PRÊT », **aucune émission**).
+3. Régler les paramètres : **indicatif** (`F`+`MENU`), **mode** (`1`), **intervalle d'ID** (`2`).
+4. **`MENU`** : **démarre l'émission** — la porteuse monte, le whoop ELT est émis, l'indicatif part en CW.
+5. Lancer la recherche avec **[HOMER](https://github.com/f1gbd/F1GBD/tree/master/homer)** (clé RTL-SDR ou source UV-Kx) et l'antenne Yagi.
+6. **`EXIT`** : **arrête l'émission** (retour en VEILLE) ; **`EXIT`** en veille **quitte** l'app.
 
 ## Commandes
 
@@ -47,13 +48,14 @@ Manuel complet : [PDF](../documentation/ELTgen_Manuel_v1.0.pdf).
 | `1` | Mode **CONT** (continu) / **INTER** (intermittent 4 s / 4 s) |
 | `2` | Intervalle de l'**ID CW** : 60 / 120 / 300 s |
 | **`F` puis `MENU`** | **Saisir l'indicatif** (ID CW) — voir ci-dessous |
-| `MENU` | Ré-arme le compte à rebours de l'ID |
+| `MENU` | **En veille : démarre l'émission** · en émission : ré-arme le compte à rebours de l'ID |
+| `EXIT` | **En émission : arrête** (retour veille) · **en veille : quitte** l'app |
 | `F` (appui long) | Verrouillage du clavier |
-| `EXIT` | Quitter (émission coupée, retour RX) |
 
-L'écran affiche l'état (**ELT** / **ID** / **PAUSE**), le compte à rebours avant la
-prochaine identification, le mode, l'intervalle d'ID, la fréquence d'émission et
-l'**indicatif courant** (`ID:…`).
+L'app démarre en **VEILLE** : on règle tous les paramètres (dont l'indicatif) **avant**
+de lancer l'émission par `MENU`. L'écran d'émission affiche l'état (**ELT** / **ID** /
+**PAUSE**), le compte à rebours avant la prochaine identification, le mode, l'intervalle
+d'ID, la fréquence d'émission et l'**indicatif courant** (`ID:…`).
 
 ## Saisir l'indicatif (F + MENU)
 
