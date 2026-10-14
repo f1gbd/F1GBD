@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UV-K5 Flasher — F1GBD</title>
+<meta name="description" content="Flashage du firmware TACVYR K5 (messages tactiques AX.25) sur Quansheng UV-K5 / K6 / 5R v1 via Web Serial, et sauvegarde de l'EEPROM. ADRASEC 77 / F1GBD.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f2ee; --panel:#ffffff; --ink:#1b1d21; --muted:#5d6370; --line:#dcd8d0;
+  --accent:#d4380d; --accent-ink:#ffffff; --ok:#1f7a3f; --warn:#a15c00; --err:#b3261e;
+  --chip:#efece6; --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --sans:"IBM Plex Sans",system-ui,Segoe UI,Roboto,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121417; --panel:#1b1e23; --ink:#e9e7e3; --muted:#9aa1ad; --line:#2c3038;
+    --accent:#ff5a1f; --accent-ink:#121417; --ok:#4cc27a; --warn:#e8a33d; --err:#ff6b5e; --chip:#252930;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121417; --panel:#1b1e23; --ink:#e9e7e3; --muted:#9aa1ad; --line:#2c3038;
+  --accent:#ff5a1f; --accent-ink:#121417; --ok:#4cc27a; --warn:#e8a33d; --err:#ff6b5e; --chip:#252930;
+}
+*{box-sizing:border-box}
+:root{color-scheme:light dark;accent-color:var(--accent)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--sans)}
+header.top{border-bottom:3px solid var(--accent);background:var(--panel)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+.top .wrap{display:flex;align-items:center;gap:16px;padding-top:14px;padding-bottom:12px;flex-wrap:wrap}
+.mark{width:40px;height:40px;border-radius:8px;background:var(--accent);display:grid;place-items:center;flex:none}
+.mark svg{width:24px;height:24px}
+.top h1{font-size:19px;margin:0;letter-spacing:.2px}
+.top p{margin:0;color:var(--muted);font-size:13px}
+.conn{margin-left:auto;display:flex;align-items:center;gap:10px}
+.pill{font:600 12px var(--mono);padding:4px 10px;border-radius:99px;background:var(--chip);color:var(--muted);white-space:nowrap}
+.pill.on{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
+button{font:600 14px var(--sans);border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:8px 14px;cursor:pointer}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+button:disabled{opacity:.45;cursor:not-allowed}
+main.wrap{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding-top:20px;padding-bottom:30px}
+@media (max-width:860px){main.wrap{grid-template-columns:1fr}}
+section.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.card h2{font-size:13px;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);margin:0 0 12px;display:flex;gap:8px;align-items:center}
+.card h2 b{font:700 12px var(--mono);color:var(--accent-ink);background:var(--accent);border-radius:4px;padding:1px 6px}
+.fws{display:grid;gap:10px}
+.fw{border:1px solid var(--line);border-radius:8px;padding:12px 14px;cursor:pointer;display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
+.fw input{margin-top:4px}
+.fw.sel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.fw .n{font-weight:700}
+.fw .n span{font:500 12px var(--mono);color:var(--muted);margin-left:6px}
+.fw .s{grid-column:2;color:var(--muted);font-size:13.5px}
+.fw .s a{color:var(--accent)}
+.local{margin-top:12px;font-size:13.5px;color:var(--muted)}
+.local input{max-width:100%}
+dl.info{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;margin:14px 0 0;font-size:13px}
+dl.info dt{color:var(--muted)}
+dl.info dd{margin:0;font-family:var(--mono);overflow-wrap:anywhere}
+.okt{color:var(--ok)} .errt{color:var(--err)} .warnt{color:var(--warn)}
+.steps{margin:0 0 12px;padding-left:20px;font-size:14px}
+.steps li{margin:4px 0}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.bar{height:8px;background:var(--chip);border-radius:99px;overflow:hidden;margin-top:14px}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .15s}
+pre.log{background:var(--chip);border-radius:8px;padding:10px 12px;font:12.5px/1.45 var(--mono);height:210px;overflow:auto;margin:0;white-space:pre-wrap}
+.note{font-size:13px;color:var(--muted)}
+.note li{margin:3px 0}
+.banner{display:none;background:color-mix(in srgb,var(--err) 14%,transparent);color:var(--err);border-radius:8px;padding:10px 14px;margin-top:16px;font-size:14px}
+.alert{background:color-mix(in srgb,var(--warn) 14%,transparent);color:var(--ink);border-left:4px solid var(--warn);border-radius:6px;padding:10px 14px;font-size:14px}
+a{color:var(--accent)}
+footer{color:var(--muted);font-size:12.5px;padding-bottom:28px}
+.span2{grid-column:1/-1}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v10"/><path d="M8 7a6 6 0 0 0 0 8"/><path d="M16 7a6 6 0 0 1 0 8"/><path d="M5 4a10 10 0 0 0 0 14"/><path d="M19 4a10 10 0 0 1 0 14"/><path d="M9 21h6"/></svg>
+    </div>
+    <div>
+      <h1>UV-K5 Flasher</h1>
+      <p>Firmware TACVYR K5 pour Quansheng UV-K5 / K6 / 5R « v1 » — ADRASEC 77 · F1GBD</p>
+    </div>
+    <div class="conn">
+      <span id="state" class="pill">Aucun port</span>
+      <button id="btnPort">Choisir le port</button>
+    </div>
+  </div>
+  <div class="wrap"><div id="noserial" class="banner">Ce navigateur ne gère pas Web Serial. Utilisez Chrome ou Edge sur ordinateur (Windows, macOS, Linux), page servie en HTTPS.</div></div>
+</header>
+
+<main class="wrap">
+  <section class="card span2">
+    <div class="alert"><strong>UV-K5 / K6 / 5R « v1 » uniquement</strong> (processeur DP32G030, câble de programmation à jack K).
+      Ne flashez pas ce firmware sur un <strong>UV-K1</strong> ni un <strong>UV-K5 v3</strong> : ils utilisent un autre processeur
+      et le firmware F4HWN édition Labs, avec les applications de l'<a href="../index.html">UV-K1 Apps Uploader</a>.</div>
+  </section>
+
+  <section class="card">
+    <h2><b>1</b> Firmware</h2>
+    <div id="fws" class="fws"><div class="note">Chargement du catalogue…</div></div>
+    <div class="local">ou un fichier local (<code>.bin</code> brut) :
+      <input type="file" id="file" accept=".bin,application/octet-stream">
+    </div>
+    <dl class="info" id="info"></dl>
+  </section>
+
+  <section class="card">
+    <h2><b>2</b> Sauvegarder l'EEPROM</h2>
+    <ol class="steps">
+      <li>Radio <strong>allumée normalement</strong> (écran principal), câble branché.</li>
+      <li><strong>Sauvegarder</strong> : les 8 Kio (canaux, réglages et <strong>calibration</strong> de la radio) sont enregistrés dans un fichier à garder.</li>
+    </ol>
+    <div class="actions"><button id="btnBackup">Sauvegarder l'EEPROM</button></div>
+    <div class="bar"><i id="barEe"></i></div>
+
+    <h2 style="margin-top:20px"><b>3</b> Flasher</h2>
+    <ol class="steps">
+      <li>Éteindre la radio, puis l'allumer en tenant <strong>PTT enfoncé</strong> : écran noir, LED allumée (mode chargement). Relâcher PTT.</li>
+      <li><strong>Flasher</strong>, puis éteindre et rallumer la radio normalement.</li>
+    </ol>
+    <div class="actions"><button id="btnFlash" class="primary" disabled>Flasher</button></div>
+    <div class="bar"><i id="barFl"></i></div>
+  </section>
+
+  <section class="card span2">
+    <h2><b>4</b> Journal</h2>
+    <pre class="log" id="log"></pre>
+  </section>
+
+  <section class="card span2 note">
+    <h2>Mode d'emploi</h2>
+    <ol>
+      <li>Branchez le <strong>câble de programmation</strong> (jack K Kenwood, souvent à puce CH340) entre le PC et la radio ; enfoncez bien le jack. <strong>Choisir le port</strong> : le port série du câble.</li>
+      <li>Sauvegardez l'EEPROM avant le premier flashage (étape 2) : la calibration est propre à chaque radio.</li>
+      <li>Mettez la radio en mode chargement et <strong>Flasher</strong> (étape 3). Une coupure en cours de route ne présente pas de risque : remettez la radio en mode chargement et recommencez.</li>
+      <li>Au démarrage, l'écran indique TA1JS v1.3 (édition TACVYR). <strong>F puis 5</strong> ouvre TACVYR ; saisissez l'indicatif avec <strong>F puis MENU</strong>.</li>
+    </ol>
+    <p>Sans navigateur compatible : <code>tools/flash-k5.bat</code> (Python + pyserial) ou l'outil de mise à jour Quansheng avec le fichier <code>.packed.bin</code>. Voir la <a href="https://github.com/f1gbd/F1GBD/tree/master/quansheng/uv-k5_v1" target="_blank" rel="noopener">notice sur GitHub</a>.</p>
+  </section>
+</main>
+
+<footer class="wrap">
+  Firmware : TA1JS (APRS edition, F4HWN / egzumer / OneOfEleven / fagci / DualTachyon) + TACVYR K5 de Jean-Louis Naudin F1GBD / ADRASEC 77, licence Apache 2.0.
+  Protocole du chargeur : <code>k5flash.py</code> de TA1JS d'après qrp73/K5TOOL. 73 !
+</footer>
+
+<script src="k5boot.js"></script>
+<script>
+(() => {
+  "use strict";
+  const K = window.K5Boot;
+  const $ = (id) => document.getElementById(id);
+  const logEl = $("log");
+  const log = (msg, cls) => {
+    const t = new Date().toLocaleTimeString("fr-FR");
+    const line = document.createElement("span");
+    if (cls) line.className = cls;
+    line.textContent = `[${t}] ${msg}\n`;
+    logEl.appendChild(line);
+    logEl.scrollTop = logEl.scrollHeight;
+  };
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  let port = null, fw = null, fwVersion = "*TACVYR-K5 v1.2", busy = false;
+  const hasSerial = "serial" in navigator;
+  if (!hasSerial) { $("noserial").style.display = "block"; $("btnPort").disabled = true; $("btnBackup").disabled = true; }
+
+  /* ---- firmware catalogue ---- */
+  async function loadCatalogue() {
+    const box = $("fws");
+    try {
+      const r = await fetch("firmware/manifest.json", { cache: "no-cache" });
+      if (!r.ok) throw new Error(r.status);
+      const m = await r.json();
+      box.textContent = "";
+      m.firmwares.forEach((f, i) => {
+        const el = document.createElement("label");
+        el.className = "fw";
+        el.innerHTML = `<input type="radio" name="fw"><div class="n"></div><div class="s"></div>`;
+        el.querySelector(".n").innerHTML = `${esc(f.title)}<span>v${esc(f.version)}</span>`;
+        el.querySelector(".s").innerHTML = esc(f.summary || "") + (f.doc ? ` <a href="${encodeURI(f.doc)}" target="_blank" rel="noopener">Notice</a>` : "");
+        el.querySelector("input").addEventListener("change", async () => {
+          document.querySelectorAll(".fw").forEach((x) => x.classList.remove("sel"));
+          el.classList.add("sel");
+          try {
+            const rr = await fetch("firmware/" + f.file, { cache: "no-cache" });
+            if (!rr.ok) throw new Error("HTTP " + rr.status);
+            await useFirmware(new Uint8Array(await rr.arrayBuffer()), f.file, f.sha256, f.flashVersion);
+          } catch (e) { log("Téléchargement de " + f.file + " impossible : " + e.message, "errt"); }
+        });
+        box.appendChild(el);
+        if (i === 0) el.querySelector("input").click();
+      });
+    } catch (e) {
+      box.innerHTML = `<div class="note">Catalogue indisponible (page ouverte hors ligne ?). Choisissez le fichier <code>firmware/TACVYR-K5_v1.2.bin</code>.</div>`;
+    }
+  }
+
+  $("file").addEventListener("change", async (ev) => {
+    const f = ev.target.files[0];
+    if (!f) return;
+    document.querySelectorAll(".fw").forEach((x) => { x.classList.remove("sel"); x.querySelector("input").checked = false; });
+    await useFirmware(new Uint8Array(await f.arrayBuffer()), f.name, null, null);
+  });
+
+  async function sha256(u8) {
+    if (!crypto.subtle) return "";
+    const h = new Uint8Array(await crypto.subtle.digest("SHA-256", u8));
+    return Array.from(h, (b) => b.toString(16).padStart(2, "0")).join("");
+  }
+
+  async function useFirmware(bytes, label, expect, ver) {
+    const info = $("info");
+    info.innerHTML = "";
+    try {
+      K.checkFirmware(bytes);
+      const h = await sha256(bytes);
+      if (expect && h && h !== expect) throw new Error("SHA-256 différent de celui du catalogue (fichier corrompu)");
+      fw = bytes;
+      fwVersion = ver || "*TACVYR-K5 v1.2";
+      const rows = [
+        ["Fichier", label],
+        ["Taille", `${bytes.length} o (${Math.round(bytes.length * 100 / K.FW_MAX)} % des 60 Kio)`],
+        ["Blocs", Math.ceil(bytes.length / 256) + " × 256 o"],
+        ["SHA-256", h || "—"],
+        ["Contrôle", expect ? "image DP32G030 brute, SHA-256 conforme" : "image DP32G030 brute"],
+      ];
+      for (const [k, v] of rows) { const dt = document.createElement("dt"); dt.textContent = k; const dd = document.createElement("dd"); dd.textContent = v; info.append(dt, dd); }
+      info.lastChild.className = "okt";
+      log(`Firmware prêt : ${label} (${bytes.length} o)`);
+    } catch (e) {
+      fw = null;
+      info.innerHTML = `<dt>Fichier</dt><dd class="errt">${esc(label)} — ${esc(e.message)}</dd>`;
+      log("Fichier refusé : " + e.message, "errt");
+    }
+    updateButtons();
+  }
+
+  /* ---- serial ---- */
+  async function choosePort() {
+    try {
+      port = await navigator.serial.requestPort();
+      const i = port.getInfo ? port.getInfo() : {};
+      $("state").textContent = i.usbVendorId ? `USB ${i.usbVendorId.toString(16).padStart(4, "0")}:${(i.usbProductId || 0).toString(16).padStart(4, "0")}` : "Port choisi";
+      $("state").classList.add("on");
+      log("Port série choisi.");
+    } catch (e) { if (e.name !== "NotFoundError") log("Port : " + e.message, "errt"); }
+    updateButtons();
+  }
+
+  /* open the port, run op(link), always close it */
+  async function withLink(op) {
+    if (!port) await choosePort();
+    if (!port) return;
+    busy = true; updateButtons();
+    let reader = null, writer = null, open = false;
+    try {
+      await port.open({ baudRate: 38400 });
+      open = true;
+      writer = port.writable.getWriter();
+      const link = new K.Link((b) => writer.write(b));
+      reader = port.readable.getReader();
+      (async () => {
+        try { for (;;) { const { value, done } = await reader.read(); if (done) break; if (value) link.onBytes(value); } }
+        catch (_) {}
+      })();
+      await op(link);
+    } catch (e) {
+      log("Erreur : " + e.message, "errt");
+      if (/open|ouvr/i.test(e.message)) log("Le port est peut-être utilisé par un autre programme (CHIRP, UV Studio, k5prog…).", "warnt");
+    } finally {
+      try { if (reader) { await reader.cancel(); reader.releaseLock(); } } catch (_) {}
+      try { if (writer) writer.releaseLock(); } catch (_) {}
+      try { if (open) await port.close(); } catch (_) {}
+      busy = false; updateButtons();
+    }
+  }
+
+  async function backup() {
+    const bar = $("barEe"); bar.style.width = "0";
+    await withLink(async (link) => {
+      log("Lecture de l'EEPROM (8 Kio)…");
+      const r = await K.readEeprom(link, (p) => { bar.style.width = (p * 100).toFixed(1) + "%"; }, log);
+      if (r.calibrationBlank) log("Attention : la zone de calibration (0x1E00-0x1FFF) est vide dans cette lecture.", "warnt");
+      const d = new Date(), z = (n) => String(n).padStart(2, "0");
+      const name = `UV-K5_eeprom_${d.getFullYear()}${z(d.getMonth() + 1)}${z(d.getDate())}_${z(d.getHours())}${z(d.getMinutes())}.bin`;
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([r.data], { type: "application/octet-stream" }));
+      a.download = name;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+      log(`EEPROM sauvegardée : ${name} (${r.data.length} o). Gardez ce fichier.`, "okt");
+    });
+  }
+
+  async function doFlash() {
+    if (!fw) return;
+    if (!confirm("Flasher le firmware TACVYR K5 ?\n\nUV-K5 / K6 / 5R « v1 » uniquement (pas UV-K1 ni UV-K5 v3).\nLa radio doit être en mode chargement (allumée PTT enfoncé).")) return;
+    const bar = $("barFl"); bar.style.width = "0";
+    const t0 = performance.now();
+    await withLink(async (link) => {
+      const r = await K.flash(link, fw, fwVersion, (p) => { bar.style.width = (p * 100).toFixed(1) + "%"; }, log);
+      log(`Flashage terminé : ${r.blocks} blocs en ${((performance.now() - t0) / 1000).toFixed(1)} s. Éteignez puis rallumez la radio.`, "okt");
+    });
+  }
+
+  function updateButtons() {
+    $("btnPort").disabled = busy || !hasSerial;
+    $("btnBackup").disabled = busy || !hasSerial;
+    $("btnFlash").disabled = busy || !hasSerial || !fw;
+  }
+
+  if (hasSerial) navigator.serial.addEventListener("disconnect", (e) => {
+    if (port && e.target === port) { log("Câble débranché.", "warnt"); port = null; $("state").textContent = "Aucun port"; $("state").classList.remove("on"); updateButtons(); }
+  });
+  $("btnPort").addEventListener("click", choosePort);
+  $("btnBackup").addEventListener("click", backup);
+  $("btnFlash").addEventListener("click", doFlash);
+  loadCatalogue();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "firmwares": [
+    {
+      "title": "TACVYR K5 — messages tactiques AX.25 + RASEC-ALERT",
+      "version": "1.2",
+      "file": "TACVYR-K5_v1.2.bin",
+      "sha256": "0c97ce8d5b42ffd0a33a9368b1ade5368a72853e605aa01660a119816d349714",
+      "flashVersion": "*TACVYR-K5 v1.2",
+      "summary": "TACVYR : 81 phrases tactiques et texte libre en AX.25 1200 bauds, alertes RASEC-ALERT de TCQ (#ra, #b, #rapass). Liaisons validées K5 ↔ K5, K5 ↔ UV-K1, TCQ → K5. Lancement : F puis 5.",
+      "doc": "https://github.com/f1gbd/F1GBD/tree/master/quansheng/uv-k5_v1"
+    }
+  ]
+}

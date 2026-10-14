@@ -5,6 +5,25 @@ pour les missions ADRASEC / FNRASEC, et leur outil d'installation.
 
 ### ▶ [Ouvrir l'UV-K1 Apps Uploader](https://f1gbd.github.io/F1GBD/quansheng/)
 
+> [!TIP]
+> ### 📻 Nouveau — vous avez un UV-K5 « v1 » ou « v2 » ? TACVYR v1.2 est pour vous !
+>
+> <img src="uv-k5_v1/images/TACVYR_K5v1.jpg" alt="UV-K5 v1 sous TACVYR v1.2" width="120" align="right">
+>
+> Les **UV-K5 / K5(8) / K6 / 5R Plus à processeur DP32G030** (les « v1 » et la plupart des « v2 »,
+> programmés au câble Kenwood) ne prennent pas les applications overlay du UV-K1… mais ils ont
+> maintenant leur **firmware TACVYR-K5v1 v1.2** :
+>
+> - **messages tactiques sans phonie** : 81 phrases à 2 chiffres ou texte libre, trame AX.25 Packet 1200 bauds ;
+> - **alertes RASEC-ALERT** de TCQ : écran clignotant, lampe et sirène jusqu'à l'acquittement ;
+> - **compatible UV-K1 (TACVYR), TCQ, PAGER-RASEC** et tout TNC — testé sur l'air le 14 octobre 2026 :
+>   K5 ↔ K5 ✅, K5 ↔ K1 ✅, TCQ → K5 / K1 ✅.
+>
+> **▶ [Flasher avec l'UV-K5 Flasher](https://f1gbd.github.io/F1GBD/quansheng/uv-k5_v1/)** (Chrome / Edge, sauvegarde de l'EEPROM comprise)
+> · [README TACVYR K5](uv-k5_v1/) · [Manuel v1.2 (PDF)](uv-k5_v1/documentation/TACVYR-K5v1_Manuel_v1.2.pdf)
+>
+> ⚠️ Ne concerne pas les **UV-K5 v3 / UV-K1** (processeur PY32F071) : eux utilisent les apps ci-dessous.
+
 **Radio neuve ?** Commencez par la fiche [**DÉMARRAGE RAPIDE** (PDF)](documentation/Demarrage_rapide_Apps_F1GBD_UV-K1.pdf) : firmware, installation et lancement des apps en trois étapes.
 
 <p align="center">
@@ -12,7 +31,7 @@ pour les missions ADRASEC / FNRASEC, et leur outil d'installation.
   &nbsp;&nbsp;
   <img src="images/UV-K1_display.jpg" alt="Écran du UV-K1 sous firmware F4HWN" height="420">
 </p>
-<p align="center"><em>Quansheng UV-K1(8) v3 et son écran sous firmware F4HWN</em></p>
+<p align="center"><em>Quansheng UV-K1(8) et son écran sous firmware F4HWN</em></p>
 
 ## UV-K1 Apps Uploader
 
@@ -152,6 +171,19 @@ et [carte opérateur à imprimer](documentation/TACVYR_Carte_Operateur.pdf).
   <img src="images/TACVYR-TCQ.jpg" alt="Message TACVYR reçu en clair par TCQ" width="760">
 </p>
 <p align="center"><em>Essai sur l'air réussi le 11 octobre 2026 : « EQUIPE ALPHA SUR ZONE » composé sur le UV-K1 (F1GBD-7) et reçu en clair par TCQ v14.2.1 (onglet TNC Packet)</em></p>
+
+### TACVYR sur UV-K5 / K6 / 5R « v1 » et « v2 » (DP32G030)
+
+Les UV-K5 « v1 » et « v2 » à processeur DP32G030 n'acceptent pas les applications overlay :
+**[TACVYR K5](uv-k5_v1/)** (v1.2) est un firmware complet (TA1JS v1.3, lignée F4HWN, avec TACVYR à la
+place de la suite APRS), lancé par **F puis 5**. Il réagit aussi aux alertes
+**RASEC-ALERT** de TCQ (`#ra`, `#b`, `#rapass`) comme PAGER-RASEC : écran clignotant, lampe
+blanche et sirène jusqu'à l'acquittement. Mêmes phrases, mêmes touches et même trame
+que sur le UV-K1 : les deux postes se parlent, TCQ et PAGER-RASEC lisent les deux. Émission
+en vrai Bell 202 (tonalités générées en logiciel), réception par le modem FSK du BK4819.
+Flashage depuis Chrome / Edge avec l'**[UV-K5 Flasher](https://f1gbd.github.io/F1GBD/quansheng/uv-k5_v1/)**
+(sauvegarde de l'EEPROM comprise), ou en ligne de commande avec `uv-k5_v1/tools/flash-k5.bat`.
+Manuel : [TACVYR-K5v1 v1.2 (PDF)](uv-k5_v1/documentation/TACVYR-K5v1_Manuel_v1.2.pdf).
 
 ## EPIRBdecoder : balises 406 MHz décodées et relayées en Packet
 
