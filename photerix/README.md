@@ -6,7 +6,7 @@
 <p align="center"><b>Images sans frontières — des photos en Packet AX.25 VHF/UHF, du smartphone au portatif</b></p>
 
 <p align="center">
-  <a href="https://github.com/f1gbd/F1GBD/releases/tag/photerix-v1.1"><b>📥 Télécharger PHOTERIX v1.1 (APK Android)</b></a>
+  <a href="https://github.com/f1gbd/F1GBD/releases/download/photerix-v1.1/PHOTERIX-1.1.apk"><b>📥 Télécharger PHOTERIX v1.1 (APK Android)</b></a>
   &nbsp;·&nbsp;
   <a href="documentation/MANUEL_PHOTERIX.pdf"><b>📚 Manuel (PDF)</b></a>
 </p>
