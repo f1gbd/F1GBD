@@ -196,6 +196,11 @@ UV-K1 ; **EXIT** revient à TACVYR.
 
 - **TCQ v14.3.2** (TNC Packet, port série du câble) : messages, **radiogrammes** (avec ou sans
   pager), **images** et **RASEC-ALERT** validés avec le UV-K5 v1 comme avec le UV-K1.
+- **APRSdroid (Android)** : position APRS avec le **GPS du téléphone**. Téléphone → adaptateur
+  **USB-OTG** → câble de programmation → prise K ; dans APRSdroid, Protocole **TNC (KISS)**, Type
+  **USB série**, **38400 bauds**, indicatif-SSID, VFO **en FM** sur **144.800 MHz**. Passer en mode
+  KISS (**F puis 5**, puis **F puis BAS**) **avant** de connecter APRSdroid. Fiche complète :
+  [**APRSdroid + KISS-TNC** (PDF)](../documentation/APRSdroid_KISS-TNC_Fiche_v1.0.pdf).
 - **Winlink Express** : par **[WinKISS-TNC v1.1](https://github.com/f1gbd/F1GBD/tree/master/winkiss-tnc)**
   (KISS TCP vers le port série) ; sessions menées jusqu'au bout avec le RMS, avec
   quelques reprises sur le UV-K5 v1.
@@ -203,6 +208,16 @@ UV-K1 ; **EXIT** revient à TACVYR.
   écoute du canal (p-persistance). Le CTCSS du VFO est conservé ; la pré-accentuation est
   conservée et le twist n'est pas appliqué en mode KISS, comme sur le UV-K1.
 - Les messages RASEC-ALERT reçus continuent de déclencher l'alerte.
+
+<p align="center">
+  <img src="images/UV-K5_aprsdroid_smartphone.jpeg" alt="UV-K5 v1 sous TACVYR en mode KISS-TNC, relié par le câble de programmation et un adaptateur OTG à un smartphone sous APRSdroid" width="760">
+</p>
+<p align="center"><em>Position APRS avec le GPS du téléphone : UV-K5 v1 (TACVYR-K5v1, mode KISS-TNC) → câble de programmation → adaptateur OTG → smartphone sous APRSdroid (F1GBD-7, « station Adrasec-77 portable »)</em></p>
+
+<p align="center">
+  <img src="images/UV-K5_aprsdroid.jpeg" alt="Écran du UV-K5 v1 en mode KISS-TNC émettant une balise APRSdroid" height="380">
+</p>
+<p align="center"><em>L'écran du UV-K5 v1 en mode KISS-TNC : balise APRSdroid émise (E F1GBD-7&gt;APDR16), TXD800 P128 SL30</em></p>
 
 > [!IMPORTANT]
 > Le VFO doit être **en FM** : en **AM** la radio refuse d'émettre (« TX refusée », compteur

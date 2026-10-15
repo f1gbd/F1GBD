@@ -6,21 +6,23 @@ pour les missions ADRASEC / FNRASEC, et leur outil d'installation.
 ### ▶ [Ouvrir l'UV-K1 Apps Uploader](https://f1gbd.github.io/F1GBD/quansheng/)
 
 > [!TIP]
-> ### 📻 Nouveau — vous avez un UV-K5 « v1 » ou « v2 » ? TACVYR v1.2 est pour vous !
+> ### 📻 Nouveau — vous avez un UV-K5 « v1 » ou « v2 » ? TACVYR v1.3 est pour vous !
 >
-> <img src="uv-k5_v1/images/TACVYR_K5v1.jpg" alt="UV-K5 v1 sous TACVYR v1.2" width="120" align="right">
+> <img src="uv-k5_v1/images/TACVYR_K5v1.jpg" alt="UV-K5 v1 sous TACVYR" width="120" align="right">
 >
 > Les **UV-K5 / K5(8) / K6 / 5R Plus à processeur DP32G030** (les « v1 » et la plupart des « v2 »,
 > programmés au câble Kenwood) ne prennent pas les applications overlay du UV-K1… mais ils ont
-> maintenant leur **firmware TACVYR-K5v1 v1.2** :
+> maintenant leur **firmware TACVYR-K5v1 v1.3** :
 >
 > - **messages tactiques sans phonie** : 81 phrases à 2 chiffres ou texte libre, trame AX.25 Packet 1200 bauds ;
 > - **alertes RASEC-ALERT** de TCQ : écran clignotant, lampe et sirène jusqu'à l'acquittement ;
 > - **compatible UV-K1 (TACVYR), TCQ, PAGER-RASEC** et tout TNC — testé sur l'air le 14 octobre 2026 :
->   K5 ↔ K5 ✅, K5 ↔ K1 ✅, TCQ → K5 / K1 ✅.
+>   K5 ↔ K5 ✅, K5 ↔ K1 ✅, TCQ → K5 / K1 ✅ ;
+> - **nouveau en v1.3 : mode TNC KISS** (F puis BAS) comme KISS-TNC du UV-K1 : TCQ (messages,
+>   radiogrammes, images, RASEC-ALERT) et Winlink Express via WinKISS-TNC v1.1 — validé le 15 octobre 2026.
 >
 > **▶ [Flasher avec l'UV-K5 Flasher](https://f1gbd.github.io/F1GBD/quansheng/uv-k5_v1/)** (Chrome / Edge, sauvegarde de l'EEPROM comprise)
-> · [README TACVYR K5](uv-k5_v1/) · [Manuel v1.2 (PDF)](uv-k5_v1/documentation/TACVYR-K5v1_Manuel_v1.2.pdf)
+> · [README TACVYR K5](uv-k5_v1/) · [Manuel (PDF)](uv-k5_v1/documentation/TACVYR-K5v1_Manuel_v1.3.pdf)
 >
 > ⚠️ Ne concerne pas les **UV-K5 v3 / UV-K1** (processeur PY32F071) : eux utilisent les apps ci-dessous.
 
@@ -175,15 +177,17 @@ et [carte opérateur à imprimer](documentation/TACVYR_Carte_Operateur.pdf).
 ### TACVYR sur UV-K5 / K6 / 5R « v1 » et « v2 » (DP32G030)
 
 Les UV-K5 « v1 » et « v2 » à processeur DP32G030 n'acceptent pas les applications overlay :
-**[TACVYR K5](uv-k5_v1/)** (v1.2) est un firmware complet (TA1JS v1.3, lignée F4HWN, avec TACVYR à la
+**[TACVYR K5](uv-k5_v1/)** (v1.3) est un firmware complet (TA1JS v1.3, lignée F4HWN, avec TACVYR à la
 place de la suite APRS), lancé par **F puis 5**. Il réagit aussi aux alertes
 **RASEC-ALERT** de TCQ (`#ra`, `#b`, `#rapass`) comme PAGER-RASEC : écran clignotant, lampe
 blanche et sirène jusqu'à l'acquittement. Mêmes phrases, mêmes touches et même trame
 que sur le UV-K1 : les deux postes se parlent, TCQ et PAGER-RASEC lisent les deux. Émission
 en vrai Bell 202 (tonalités générées en logiciel), réception par le modem FSK du BK4819.
+Depuis la v1.3, **F puis BAS** le transforme en **TNC KISS** (câble de programmation, 38400 bauds)
+pour TCQ et pour Winlink Express via WinKISS-TNC.
 Flashage depuis Chrome / Edge avec l'**[UV-K5 Flasher](https://f1gbd.github.io/F1GBD/quansheng/uv-k5_v1/)**
 (sauvegarde de l'EEPROM comprise), ou en ligne de commande avec `uv-k5_v1/tools/flash-k5.bat`.
-Manuel : [TACVYR-K5v1 v1.2 (PDF)](uv-k5_v1/documentation/TACVYR-K5v1_Manuel_v1.2.pdf).
+Manuel : [TACVYR-K5v1 (PDF)](uv-k5_v1/documentation/TACVYR-K5v1_Manuel_v1.3.pdf).
 
 ## EPIRBdecoder : balises 406 MHz décodées et relayées en Packet
 
@@ -284,6 +288,27 @@ envoie au rythme où la radio peut émettre (la radio garde 1,2 Ko en attente). 
 la prise K au firmware (CHIRP, UV Studio). Détails : [notice KISS-TNC](apps/KISS-TNC.md) et
 [manuel PDF](documentation/KISS-TNC_Manuel_v0.1.pdf).
 
+### APRSdroid : émettre sa position APRS avec le GPS du téléphone
+
+KISS-TNC sert aussi de **TNC pour [APRSdroid](https://aprsdroid.org/) (Android)** : le téléphone
+fournit le **GPS** et fabrique les trames APRS, le UV-K1 (ou UV-K5 v3) les émet en **AX.25 1200 bauds
+AFSK** sur **144.800 MHz FM**. Liaison par le **câble de programmation (prise K)** via un adaptateur
+**USB-OTG**, en **KISS série 38400 bauds**. Dans APRSdroid : Protocole **TNC (KISS)**, Type de
+connexion **USB série**, Débit **38400**, indicatif-SSID (ex. `F4JHW-7`), chemin `WIDE1-1,WIDE2-1`.
+Lancer **KISS-TNC avant** de connecter APRSdroid.
+
+<p align="center">
+  <img src="images/APRSdroid_connexion.jpeg" alt="UV-K1 relié par le câble de programmation et un adaptateur OTG à un smartphone sous APRSdroid" height="320">
+  &nbsp;
+  <img src="images/APRSdroid_setup.jpeg" alt="APRSdroid : écran Connexion APRS — TNC (KISS), USB série, 38400 bauds" height="320">
+  &nbsp;
+  <img src="images/APRSdroid_avec_KISS-TNC.jpeg" alt="Écran du UV-K1 sous KISS-TNC en émission APRS" height="320">
+</p>
+<p align="center"><em>Position APRS avec le GPS du téléphone : UV-K1 (prise K) → câble de programmation → OTG → smartphone sous APRSdroid (F1GBD-7) ; réglages APRSdroid (TNC KISS, USB série, 38400) ; le UV-K1 émet la balise (E F1GBD-7&gt;APDR16) sur 144.800 MHz.</em></p>
+
+Fiche complète (câblage, réglages, variante TACVYR K5 v1, dépannage) :
+[**APRSdroid + KISS-TNC** (PDF)](documentation/APRSdroid_KISS-TNC_Fiche_v1.0.pdf).
+
 ## WinKISS-TNC : Winlink Express en Packet avec le UV-K1
 
 KISS-TNC fonctionne aussi avec **Winlink Express** en mode **Packet Winlink / P2P**, grâce à
@@ -303,9 +328,9 @@ lecture des messages Winlink en attente ; à droite, le moniteur de WinKISS-TNC 
 Dans Winlink Express : session **Packet Winlink**, Settings → Packet TNC Type **KISS**, Packet TNC Model
 **ACKMODE**, Serial Port **TCP**, `localhost` port `8100`, Packet sound modem = `WinKISS-TNC.exe` avec
 « Automatically launch packet sound modem » coché ; TX Delay 800, Max Packet Length 255, Max Frames 4,
-Persistence 128, Slot time 30. Lancer KISS-TNC sur la radio **avant** d'ouvrir la session.
+Persistence 128, Slot time 30. Lancer KISS-TNC sur la radio (UV-K5 v1 : TACVYR-K5 v1.3, F puis 5 puis F puis BAS) **avant** d'ouvrir la session.
 Installation et réglages : [page WinKISS-TNC](https://github.com/f1gbd/F1GBD/tree/master/winkiss-tnc) et
-son [manuel PDF](https://github.com/f1gbd/F1GBD/blob/master/winkiss-tnc/documentation/WinKISS-TNC_Manuel_v1.0.pdf).
+son [manuel PDF](https://github.com/f1gbd/F1GBD/blob/master/winkiss-tnc/documentation/WinKISS-TNC_Manuel_v1.1.pdf).
 
 ## HOMER-RX : radiogoniométrie de balises ELT avec HOMER Android
 
@@ -339,6 +364,7 @@ Détails et installation : [HOMER Android](https://github.com/f1gbd/F1GBD/tree/m
 | TACVYR — Carte opérateur A4 (les 81 codes et les touches, à plastifier) | [PDF](documentation/TACVYR_Carte_Operateur.pdf) |
 | EPIRBdecoder v1.1 — Manuel technique et d'utilisation : réglages, écrans, relais AX.25 / TCQ, mode DATA vers EPIRBdecoder Android, signal 406 MHz et décodage, procédure SATER, dépannage | [PDF](documentation/EPIRBdecoder_Manuel_v1.1.pdf) |
 | KISS-TNC v0.1 — Manuel d'installation et d'utilisation : raccordement à TCQ, écran, fonctionnement (KISS, CSMA, TXDELAY), essai sur l'air, dépannage | [PDF](documentation/KISS-TNC_Manuel_v0.1.pdf) |
+| APRSdroid + KISS-TNC v1.0 — Fiche technique : émettre sa position APRS avec le GPS du téléphone — câblage (OTG + prise K), réglages APRSdroid (TNC KISS, USB série, 38400) et radio (KISS-TNC), variante TACVYR K5 v1, dépannage | [PDF](documentation/APRSdroid_KISS-TNC_Fiche_v1.0.pdf) |
 | Code CHAPPE26 — Livret de poche B5 (18 pages) : répertoire des 1000 codes, carte opérateur, chiffrement | [PDF](documentation/Chappe26_Livret_B5.pdf) |
 | Code CHAPPE26 — Fiche exemple Black-out : demande de moyens radio de secours | [PDF](documentation/Chappe26_Fiche_BlackOut.pdf) |
 | Code CHAPPE26 — Fiche exemple Incendie majeur : renforts, évacuation, radio en zone blanche | [PDF](documentation/Chappe26_Fiche_Incendie.pdf) |
