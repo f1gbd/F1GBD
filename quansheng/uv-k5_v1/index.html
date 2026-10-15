@@ -165,7 +165,7 @@ footer{color:var(--muted);font-size:12.5px;padding-bottom:28px}
   };
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-  let port = null, fw = null, fwVersion = "*TACVYR-K5 v1.2", busy = false;
+  let port = null, fw = null, fwVersion = "*TACVYR-K5 v1.3", busy = false;
   const hasSerial = "serial" in navigator;
   if (!hasSerial) { $("noserial").style.display = "block"; $("btnPort").disabled = true; $("btnBackup").disabled = true; }
 
@@ -196,7 +196,7 @@ footer{color:var(--muted);font-size:12.5px;padding-bottom:28px}
         if (i === 0) el.querySelector("input").click();
       });
     } catch (e) {
-      box.innerHTML = `<div class="note">Catalogue indisponible (page ouverte hors ligne ?). Choisissez le fichier <code>firmware/TACVYR-K5_v1.2.bin</code>.</div>`;
+      box.innerHTML = `<div class="note">Catalogue indisponible (page ouverte hors ligne ?). Choisissez le fichier <code>firmware/TACVYR-K5_v1.3.bin</code>.</div>`;
     }
   }
 
@@ -221,7 +221,7 @@ footer{color:var(--muted);font-size:12.5px;padding-bottom:28px}
       const h = await sha256(bytes);
       if (expect && h && h !== expect) throw new Error("SHA-256 différent de celui du catalogue (fichier corrompu)");
       fw = bytes;
-      fwVersion = ver || "*TACVYR-K5 v1.2";
+      fwVersion = ver || "*TACVYR-K5 v1.3";
       const rows = [
         ["Fichier", label],
         ["Taille", `${bytes.length} o (${Math.round(bytes.length * 100 / K.FW_MAX)} % des 60 Kio)`],

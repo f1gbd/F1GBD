@@ -8,7 +8,7 @@ rem    flash-k5.bat            demande le port COM
 rem    flash-k5.bat COM5       port donne
 rem ====================================================================
 cd /d "%~dp0"
-set FW=..\firmware\TACVYR-K5_v1.2.bin
+set FW=..\firmware\TACVYR-K5_v1.3.bin
 set PY=python
 where py >nul 2>&1 && set PY=py
 %PY% -c "import serial" >nul 2>&1
@@ -27,7 +27,7 @@ echo  1. Eteindre la radio
 echo  2. L'allumer en tenant PTT enfonce : ecran noir, LED allumee
 echo  3. Relacher PTT, puis appuyer sur une touche ici
 pause >nul
-%PY% k5flash.py %PORT% "%FW%" "*TACVYR-K5 v1.2"
+%PY% k5flash.py %PORT% "%FW%" "*TACVYR-K5 v1.3"
 if errorlevel 1 (
   echo.
   echo [ERREUR] flashage non termine : verifier le port, le jack, le mode chargement, puis recommencer.
