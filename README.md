@@ -1,10 +1,14 @@
 # ADRASEC 77 - F1GBD
-mis à jour le 17 septembre 2026
+mis à jour le 16 octobre 2026
 
 Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)) pour un usage personnel uniquement, non professionnel et non commercial.
 Pour utiliser un émetteur radio, une licence de radio-amateur est requise.
 
 ![F1GBD](https://raw.githubusercontent.com/f1gbd/F1GBD/master/images/F1GBDportable3.jpg)
+
+![PHOTERIX](https://github.com/f1gbd/F1GBD/blob/master/photerix/images/PHOTOTERIX_title.jpg)
+
+**MAJ du 16/10/2026** : [**PHOTERIX: Images sans frontières — des photos en Packet AX.25 VHF/UHF, du smartphone au portatif**](https://github.com/f1gbd/F1GBD/tree/master/photerix)
 
 ![TCQws](https://github.com/f1gbd/F1GBD/blob/master/tcqws/images/TCQws_intro.jpg)
 
