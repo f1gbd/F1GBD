@@ -23,7 +23,8 @@
   const APP_ASSET_OFFSET = 0x100;
   const APP_ASSET_MAX = 0xF00;
   const APP_CODE_OFFSET = 0x1000;
-  const APP_SLOT_COUNT = 16;
+  const APP_SLOT_COUNT = 48;   // plafond : firmware Labs F4HWN v6.2.0 = 48 emplacements (16 avant)
+  const APP_ERR_SLOT   = 1;    // statut 0x0731 : index de slot hors plage (fin des emplacements)
   const APP_FLAG_COMMITTED = 1;
   const CHUNK = 128;                     // bytes per write (frame <= 248 B)
 
@@ -193,8 +194,15 @@
       return { slot, status, header: empty ? null : h };
     }
     async listSlots(onEach) {
+      // Auto-détection du nombre d'emplacements : on interroge jusqu'au plafond
+      // (48, v6.2.0) mais on s'arrête dès que le firmware répond APP_ERR_SLOT
+      // (index hors plage) — ainsi une radio v6.1.0 liste 16, une v6.2.0 liste 48.
       const r = [];
-      for (let s = 0; s < APP_SLOT_COUNT; s++) { const i = await this.slotInfo(s); r.push(i); if (onEach) onEach(i); }
+      for (let s = 0; s < APP_SLOT_COUNT; s++) {
+        const i = await this.slotInfo(s);
+        if (i.status === APP_ERR_SLOT) break;
+        r.push(i); if (onEach) onEach(i);
+      }
       return r;
     }
     check(d, what) {

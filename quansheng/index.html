@@ -109,7 +109,7 @@ footer{color:var(--muted);font-size:12.5px;padding-bottom:28px}
     <h2><b>2</b> Emplacement sur la radio</h2>
     <table>
       <thead><tr><th>#</th><th>Application</th><th>Version</th></tr></thead>
-      <tbody id="slots"><tr><td colspan="3" class="e">Connectez la radio pour lire les 16 emplacements.</td></tr></tbody>
+      <tbody id="slots"><tr><td colspan="3" class="e">Connectez la radio pour lire les emplacements.</td></tr></tbody>
     </table>
     <div class="actions">
       <button id="btnRefresh" disabled>Actualiser</button>
@@ -128,7 +128,7 @@ footer{color:var(--muted);font-size:12.5px;padding-bottom:28px}
     <h2>Mode d'emploi</h2>
     <ol>
       <li>La radio doit tourner sous le firmware <strong>F4HWN édition Labs</strong> (menu Apps). Branchez le câble USB-C (UV-K1 / UV-K5 v3) ou le câble de programmation, radio allumée sur l'écran principal.</li>
-      <li><strong>Connecter la radio</strong> puis choisissez le port série. La version du firmware et les 16 emplacements s'affichent.</li>
+      <li><strong>Connecter la radio</strong> puis choisissez le port série. La version du firmware et les emplacements s'affichent (16 ou 48 selon le firmware).</li>
       <li>Choisissez l'application (catalogue ou fichier <code>.app</code>), puis l'emplacement : celui d'une version précédente de la même application est proposé d'office, ses réglages (code d'activation, sirène…) sont conservés.</li>
       <li><strong>Installer</strong> : effacement, écriture des ressources, du code puis de l'en-tête, et vérification. L'application apparaît ensuite dans le menu Apps de la radio.</li>
     </ol>
@@ -293,7 +293,7 @@ footer{color:var(--muted);font-size:12.5px;padding-bottom:28px}
         tb.appendChild(tr);
       });
       const used = slots.filter((s) => s.header).length;
-      log(`${used} application(s) installée(s), ${16 - used} emplacement(s) libre(s).`);
+      log(`${used} application(s) installée(s), ${slots.length - used} emplacement(s) libre(s).`);
     } catch (e) {
       log("Lecture des emplacements : " + e.message, "errt");
       if (/0x0731/.test(e.message)) log("Ce firmware ne semble pas gérer les Apps : il faut l'édition Labs de F4HWN.", "warnt");

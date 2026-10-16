@@ -46,7 +46,7 @@ brancher la radio, choisir l'application, installer.
 
 <p align="center"><img src="images/uploader.png" alt="UV-K1 Apps Uploader" width="720"></p>
 
-- Lecture de la version du firmware et des 16 emplacements Apps de la radio.
+- Lecture de la version du firmware et des emplacements Apps de la radio (48 avec le firmware Labs v6.2.0, 16 avant — détecté automatiquement).
 - Catalogue des applications de ce dépôt (`apps/manifest.json`) ou fichier `.app` local.
 - Contrôle du fichier avant envoi : signature FAP1, ABI, tailles, CRC-32 du code et des ressources.
 - Installation : effacement, ressources, code, en-tête en dernier, vérification.
