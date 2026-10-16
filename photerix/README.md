@@ -6,7 +6,7 @@
 <p align="center"><b>Images sans frontières — des photos en Packet AX.25 VHF/UHF, du smartphone au portatif</b></p>
 
 <p align="center">
-  <a href="https://github.com/f1gbd/F1GBD/releases/download/photerix-v1.2/PHOTERIX-1.2.apk"><b>📥 Télécharger PHOTERIX v1.2 (APK Android)</b></a>
+  <a href="https://github.com/f1gbd/F1GBD/releases/tag/photerix-v1.3"><b>📥 Télécharger PHOTERIX v1.3 (APK Android)</b></a>
   &nbsp;·&nbsp;
   <a href="documentation/MANUEL_PHOTERIX.pdf"><b>📚 Manuel (PDF)</b></a>
 </p>
@@ -23,6 +23,7 @@ Le smartphone est relié par **câble de programmation + adaptateur OTG** à un 
 |---|---|
 | UV-K1 / UV-K5 v3 (firmware F4HWN) | **KISS-TNC** |
 | UV-K5 v1 | **TACVYR** (mode KISS) |
+| VR-N76, UV-Pro, GA-5WB | TNC KISS intégré, **en Bluetooth** (aucun câble) |
 
 Le protocole image est **celui de TCQ** : une station **TCQ** et un smartphone **PHOTERIX** s'envoient leurs photos dans les deux sens, accusés de réception compris. Un poste de commandement sous TCQ reçoit donc directement les photos du terrain.
 
@@ -42,6 +43,9 @@ Le protocole image est **celui de TCQ** : une station **TCQ** et un smartphone *
 - **Archives locales** de toutes les photos émises et reçues : revoir, zoomer, **renvoyer**, **relayer** vers une autre station, copier dans la galerie.
 - **Liaison maintenue écran éteint** : le téléphone en poche reçoit et accuse les photos.
 - **Journal radio** des trames, accusés, messages et radiogrammes TCQ reçus.
+- **Position GPS en APRS** depuis le CHAT : TCQ place l'opérateur sur sa carte ; les positions reçues s'ouvrent sur une carte.
+- **TNC Bluetooth** : VR-N76, UV-Pro, GA-5WB (TNC KISS intégré, profil SPP), sans câble.
+- **Accusés de réception étalés** : plusieurs stations à l'écoute ne se brouillent plus (avec TCQ v14.3.3).
 
 ## 🗜️ Les trois modes
 
@@ -65,6 +69,14 @@ Ce sont les résolutions de la fenêtre « Image Packet VHF » de TCQ. Une photo
 
 Câbles reconnus : CH340/CH341, CP210x, FTDI, PL2303 et CDC-ACM. Débit **38400 bauds** par défaut.
 
+<p align="center">
+  <img src="images/PHOTOTERIX_smartphone.jpg" alt="Le viseur de PHOTERIX" width="640">
+</p>
+
+<p align="center">
+  <img src="images/PHOTOTERIX_VR-N76.jpg" alt="Le viseur de PHOTERIX" width="640">
+</p>
+
 ## 📡 Compatibilité TCQ
 
 | | PHOTERIX → TCQ | TCQ → PHOTERIX |
@@ -73,15 +85,13 @@ Câbles reconnus : CH340/CH341, CP210x, FTDI, PL2303 et CDC-ACM. Débit **38400 
 | En-tête | `IMG|<message ou nom>|<LxH>|<JPEG en Base64>` | `IMG|<fichier>|<LxH>|…` |
 | Accusé | `[ACK] Image reçu le …` renvoyé par TCQ | renvoyé par PHOTERIX |
 | CHAT | message en clair dans une trame UI, lu dans le chat TNC Packet de TCQ | idem |
+| Position | balise APRS `=DDMM.mmN/DDDMM.mmE[…` vers APZPHX, sur la carte de TCQ | bulle 📍 dans le CHAT |
+| Accusés | 3 à 14 s après la dernière trame, créneau au hasard, canal libre (TCQ v14.3.3) | idem |
 | Paramètres KISS | TXDELAY 800 ms, Persistence 128, Slot Time 30 ms (TCQ v14.3.2) | |
 
 Le message de l'opérateur voyage dans le champ « nom » de l'en-tête : TCQ l'affiche à la réception (« IMAGE reçue de F4JHW : Pont coupé RD12 »). Côté PHOTERIX, l'émission respecte la mémoire du TNC (900 octets au plus en attente, comme TCQ v14.3 en mode série).
 
 Compatibilité vérifiée **au bit près** avec le code Packet de TCQ v14.3.2, dans les deux sens.
-
-<p align="center">
-  <img src="images/PHOTOTERIX_smartphone.jpg" alt="Le viseur de PHOTERIX" width="640">
-</p>
 
 ## ⚙️ Réglages
 
