@@ -9,7 +9,51 @@
 
 ---
 
-## 🆕 Nouveautés v14.3.1 — fichiers reçus et journaux dans le dossier de TCQ
+## 🆕 Nouveautés v14.3.3 — accusés de réception retardés et étalés
+
+Signalement : avec **plusieurs stations à l'écoute** d'une image (envoyée par
+exemple par PHOTERIX depuis un smartphone), la première station TCQ qui envoyait
+son accusé **brouillait la réception des derniers paquets** chez les autres, et les
+accusés se brouillaient entre eux.
+
+**Cause.** Toutes les stations répondaient **0,3 s** après la dernière trame, en
+même temps ; une station qui reçoit par un transpondeur ou un digipeater a encore la
+dernière trame sur l'air à ce moment-là.
+
+- **Accusés retardés et étalés** (images, PDF, FLmsg, radiogrammes) :
+
+  | Étape | Valeur |
+  |---|---|
+  | Délai minimum après la dernière trame | **3 s** (au lieu de 0,3 s) |
+  | Créneau tiré au hasard | 6 créneaux de **2 s** |
+  | Aléa supplémentaire | 0 à 0,6 s |
+  | Canal libre exigé | 1,5 s sans trame entendue (20 s d'attente au plus) |
+
+  Délai total : 3 à 14 s.
+- **Radiogrammes : seul le destinataire répond** (indicatif du champ Destination,
+  sans SSID). Les autres stations les reçoivent et les affichent avec la mention
+  « pas d'accusé (seul le destinataire répond) » ; adressé à **CQ**, un radiogramme
+  n'est accusé par personne.
+- **TCQconfig v14.3.3** (version alignée).
+- Mêmes règles dans **PHOTERIX v1.3**, qui de plus n'émet la photo suivante qu'après
+  la fenêtre des accusés.
+
+---
+
+## Nouveautés v14.3.2 — TNC Packet en mode série : paramètres KISS rétablis
+
+- **Correctif** : les paramètres TNC enregistrés en texte dans `setup.json`
+  (« "800" » au lieu de 800) empêchaient l'envoi des paramètres KISS au TNC
+  (TXDELAY, Persistence, Slot Time) et, depuis la v14.3, toute émission en mode
+  série. Ils sont désormais convertis en nombres et bornés à la lecture, en mode
+  TCP comme en mode série (TX Delay 800 ms, Max Frames 4, Persistence 128,
+  Max Retries 100, Max Packet Len 255, Frack 2 s, Slot Time 30 ms).
+- Les paramètres réellement envoyés au TNC sont affichés à chaque connexion.
+- **TCQconfig 14.3.2** enregistre toujours ces paramètres en nombres.
+
+---
+
+## Nouveautés v14.3.1 — fichiers reçus et journaux dans le dossier de TCQ
 
 - **Dossiers par défaut dans TCQ** : fichiers reçus dans `C:\TCQ\fichiers_reçus`,
   journaux dans `C:\TCQ\logs` (au lieu de `~/quantum_received` et

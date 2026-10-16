@@ -11,14 +11,14 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v14.3.2-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v14.3.3-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-## 📥 [Télécharger l'installeur Windows](https://github.com/f1gbd/F1GBD/releases/download/tcq-v14.3.2/TCQ-14.3.2-setup.exe)
+## 📥 [Télécharger l'installeur Windows](https://github.com/f1gbd/F1GBD/releases/download/tcq-v14.3.3/TCQ-14.3.3-setup.exe)
 
 *Double-clic, aucun droit administrateur. Binaire autonome — aucune installation Python.*
 *Ensuite, TCQ se met à jour tout seul : **ℹ À propos → 🔄 VÉRIFIER LES MISES À JOUR**.*
 
-Autres formats : [archive `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v14.3.2/TCQ.7z) · commande PowerShell *(en administrateur)* :
+Autres formats : [archive `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v14.3.3/TCQ.7z) · commande PowerShell *(en administrateur)* :
 
 ```powershell
 iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:TEMP\Install-TCQ.ps1; & $env:TEMP\Install-TCQ.ps1
@@ -144,7 +144,7 @@ indicatif et par adresse ICAO.
 
 ### Programme d'installation Windows *(recommandé)*
 
-1. [Téléchargez `TCQ-14.3.1-setup.exe`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v14.3.1/TCQ-14.3.1-setup.exe)
+1. [Téléchargez `TCQ-14.3.3-setup.exe`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v14.3.3/TCQ-14.3.3-setup.exe)
 2. Double-cliquez — **aucun droit administrateur requis**
 3. Lancez TCQ depuis le menu Démarrer ou le Bureau
 
@@ -179,7 +179,7 @@ raccourcis. Relancez la même commande pour mettre à jour.
 
 ### À la main
 
-1. [Téléchargez `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v14.3.1/TCQ.7z)
+1. [Téléchargez `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v14.3.3/TCQ.7z)
 2. Vérifiez l'empreinte : `Get-FileHash -Algorithm SHA256 TCQ.7z` — elle est publiée avec la release
 3. Décompressez dans `C:\` *(clic droit → 7-Zip → Extraire vers `C:\`)*
 4. Lancez `C:\TCQ\TCQ.exe`
@@ -206,7 +206,28 @@ raccourcis. Relancez la même commande pour mettre à jour.
 
 ## 🆕 Dernières mises à jour
 
-### Version courante : **v14.3.1** — *12 octobre 2026*
+### Version courante : **v14.3.3** — *16 octobre 2026*
+
+**📶 Accusés de réception retardés et étalés.** Quand plusieurs stations reçoivent
+la même image (envoyée par exemple par **PHOTERIX** depuis un smartphone), elles ne
+répondent plus toutes 0,3 s après la dernière trame : leurs accusés se brouillaient
+entre eux, et le premier brouillait les derniers paquets encore sur l'air pour les
+stations qui reçoivent par transpondeur ou digipeater. L'accusé part désormais
+**3 s au moins** après la dernière trame, dans un **créneau de 2 s tiré au hasard**
+parmi 6 (+ 0 à 0,6 s), et seulement quand **le canal est libre** (3 à 14 s au total).
+**Les radiogrammes ne sont plus accusés que par leur destinataire** : les autres
+stations à l'écoute les reçoivent et les affichent sans répondre.
+Mêmes règles dans [PHOTERIX v1.3](https://github.com/f1gbd/F1GBD/tree/master/photerix).
+
+### v14.3.2 — *14 octobre 2026*
+
+**📻 TNC Packet en mode série : paramètres KISS rétablis.** Des paramètres TNC
+enregistrés en texte dans `setup.json` empêchaient l'envoi des paramètres KISS
+(TXDELAY…) et, depuis la v14.3, toute émission en mode série. Ils sont désormais
+convertis en nombres et bornés, en TCP comme en série, et les paramètres réellement
+envoyés au TNC s'affichent à chaque connexion. TCQconfig les enregistre toujours en nombres.
+
+### v14.3.1 — *12 octobre 2026*
 
 **📁 Fichiers reçus et journaux dans le dossier de TCQ.** Par défaut, les fichiers
 reçus vont dans `C:\TCQ\fichiers_reçus` et les journaux dans `C:\TCQ\logs` (au
@@ -332,7 +353,9 @@ tient pas.
 
 | Version | Date | Ce qui change |
 |---|---|---|
-| **v14.3.1** | 12/10/2026 | Fichiers reçus et journaux dans `C:\TCQ\fichiers_reçus` et `C:\TCQ\logs`, même dossier pour tous les modes, onglet Fichiers/Journal actualisé, réglages TNC série conservés, « Compatible pager UV-K1 » en option, TCQconfig v14.3.1 (bouton « Dossiers par défaut ») |
+| **v14.3.3** | 16/10/2026 | Accusés de réception retardés (3 s mini) et étalés (créneau au hasard, canal libre) : plusieurs stations à l'écoute ne se brouillent plus ; radiogrammes accusés par leur seul destinataire ; TCQconfig v14.3.3 |
+| v14.3.2 | 14/10/2026 | TNC Packet en mode série : paramètres KISS convertis en nombres et toujours envoyés au TNC (TXDELAY 800 ms), affichés à la connexion |
+| v14.3.1 | 12/10/2026 | Fichiers reçus et journaux dans `C:\TCQ\fichiers_reçus` et `C:\TCQ\logs`, même dossier pour tous les modes, onglet Fichiers/Journal actualisé, réglages TNC série conservés, « Compatible pager UV-K1 » en option, TCQconfig v14.3.1 (bouton « Dossiers par défaut ») |
 | v14.3 | 11/10/2026 | TNC série KISS : le Quansheng UV-K1 sous KISS-TNC remplace Direwolf ; envoi au rythme du TNC en mode série (images sans débordement) |
 | v14.2.1 | 10/10/2026 | Radiogrammes vers les pagers UV-K1 : une trame par émission (écart calculé d'après le TXDELAY), corrige « Radiogramme incomplet » |
 | v14.2 | 10/10/2026 | Radiogrammes Packet lisibles par les pagers UV-K1 (PAGER-RASEC v1.4.1) : case « Compatible pager UV-K1 » |
