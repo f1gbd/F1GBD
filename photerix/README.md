@@ -6,7 +6,7 @@
 <p align="center"><b>Images sans frontières — des photos en Packet AX.25 VHF/UHF, du smartphone au portatif</b></p>
 
 <p align="center">
-  <a href="https://github.com/f1gbd/F1GBD/releases/tag/photerix-v1.3"><b>📥 Télécharger PHOTERIX v1.3 (APK Android)</b></a>
+  <a href="https://github.com/f1gbd/F1GBD/releases/tag/photerix-v1.4"><b>📥 Télécharger PHOTERIX v1.4 (APK Android)</b></a>
   &nbsp;·&nbsp;
   <a href="documentation/MANUEL_PHOTERIX.pdf"><b>📚 Manuel (PDF)</b></a>
 </p>
@@ -23,7 +23,7 @@ Le smartphone est relié par **câble de programmation + adaptateur OTG** à un 
 |---|---|
 | UV-K1 / UV-K5 v3 (firmware F4HWN) | **KISS-TNC** |
 | UV-K5 v1 | **TACVYR** (mode KISS) |
-| VR-N76, UV-Pro, GA-5WB | TNC KISS intégré, **en Bluetooth** (aucun câble) |
+| VR-N76, VR-N7600, UV-Pro, GA-5WB | TNC KISS intégré, **en Bluetooth** (aucun câble) — testé en réel sur VR-N76 et VR-N7600 |
 
 Le protocole image est **celui de TCQ** : une station **TCQ** et un smartphone **PHOTERIX** s'envoient leurs photos dans les deux sens, accusés de réception compris. Un poste de commandement sous TCQ reçoit donc directement les photos du terrain.
 
@@ -33,7 +33,7 @@ Le protocole image est **celui de TCQ** : une station **TCQ** et un smartphone *
 
 ## ✨ Fonctions
 
-- **Viseur plein écran** façon appareil photo, avec déclencheur et lampe.
+- **Viseur plein écran** façon appareil photo, avec déclencheur, lampe et **zoom** de la caméra principale (pincer le viseur, pastille 1× · 2× · 4×).
 - **Photo de l'album** du téléphone, ou **selfie** avec la caméra frontale (bouton SELFIE).
 - **CHAT Packet** pour se coordonner avec les équipes avant et après une photo : messages en clair, lus et envoyés aussi par le chat TNC Packet de TCQ, phrases courantes d'un toucher, alerte des messages adressés à la station.
 - **Message court** (60 caractères) et **indicatif de la station** joints à la photo ; en option, ils sont **incrustés** sur l'image avec l'heure UTC.
@@ -43,8 +43,10 @@ Le protocole image est **celui de TCQ** : une station **TCQ** et un smartphone *
 - **Archives locales** de toutes les photos émises et reçues : revoir, zoomer, **renvoyer**, **relayer** vers une autre station, copier dans la galerie.
 - **Liaison maintenue écran éteint** : le téléphone en poche reçoit et accuse les photos.
 - **Journal radio** des trames, accusés, messages et radiogrammes TCQ reçus.
+- **TACVYR** dans le CHAT : messages tactiques courts, sans phonie, choisis par code comme sur le UV-K1 (9 rubriques × 9 phrases : « EQUIPE BRAVO SUR ZONE »).
+- **RGRAM** dans le CHAT : **radiogramme ADRASEC authentifié** (TOTP + CRC), au format de TCQ, lu par les stations TCQ et, en option, par les pagers UV-K1 ; radiogrammes reçus vérifiés (CRC) et accusés par leur destinataire.
 - **Position GPS en APRS** depuis le CHAT : TCQ place l'opérateur sur sa carte ; les positions reçues s'ouvrent sur une carte.
-- **TNC Bluetooth** : VR-N76, UV-Pro, GA-5WB (TNC KISS intégré, profil SPP), sans câble.
+- **TNC Bluetooth** : VR-N76, VR-N7600, UV-Pro, GA-5WB (TNC KISS intégré, profil SPP), sans câble.
 - **Accusés de réception étalés** : plusieurs stations à l'écoute ne se brouillent plus (avec TCQ v14.3.3).
 
 ## 🗜️ Les trois modes
@@ -74,7 +76,11 @@ Câbles reconnus : CH340/CH341, CP210x, FTDI, PL2303 et CDC-ACM. Débit **38400 
 </p>
 
 <p align="center">
-  <img src="images/PHOTOTERIX_VR-N76.jpg" alt="Le viseur de PHOTERIX" width="640">
+  <img src="images/PHOTOTERIX_VR-N76.jpg" alt="PHOTERIX et un VR-N76 en Bluetooth" width="640">
+</p>
+
+<p align="center">
+  <img src="images/PHOTOTERIX_VR-N7600.jpg" alt="PHOTERIX et un VR-N7600 en Bluetooth" width="640">
 </p>
 
 ## 📡 Compatibilité TCQ
@@ -85,6 +91,8 @@ Câbles reconnus : CH340/CH341, CP210x, FTDI, PL2303 et CDC-ACM. Débit **38400 
 | En-tête | `IMG|<message ou nom>|<LxH>|<JPEG en Base64>` | `IMG|<fichier>|<LxH>|…` |
 | Accusé | `[ACK] Image reçu le …` renvoyé par TCQ | renvoyé par PHOTERIX |
 | CHAT | message en clair dans une trame UI, lu dans le chat TNC Packet de TCQ | idem |
+| TACVYR | message tactique en clair (1 ou 2 phrases codées), vers CQ | idem, depuis un UV-K1/K5 |
+| Radiogramme | `{QR:ID:NN/TT:…`, zlib + Base64, AUTH TOTP/CRC de TCQ (80 caractères en format pager UV-K1) | lu dans le CHAT, CRC vérifié |
 | Position | balise APRS `=DDMM.mmN/DDDMM.mmE[…` vers APZPHX, sur la carte de TCQ | bulle 📍 dans le CHAT |
 | Accusés | 3 à 14 s après la dernière trame, créneau au hasard, canal libre (TCQ v14.3.3) | idem |
 | Paramètres KISS | TXDELAY 800 ms, Persistence 128, Slot Time 30 ms (TCQ v14.3.2) | |
