@@ -8,7 +8,7 @@ Application Windows **100 % hors-ligne** (aucun serveur, aucun compte, aucun nav
 pour **flasher le firmware** et **charger les apps overlay** des radios Quansheng, pensée
 pour les missions ADRASEC / FNRASEC où Internet n'est pas disponible.
 
-### ▶ [Télécharger le programme d'installation](https://github.com/f1gbd/F1GBD/releases?q=flasher)  ·  [Manuel (PDF)](documentation/F1GBD_Flasher_Manuel_v1.0.pdf)
+### ▶ [Télécharger le programme d'installation](https://github.com/f1gbd/F1GBD/releases/download/flasher-v1.0/F1GBD_Flasher-1.0-setup.exe)  ·  [Manuel (PDF)](documentation/F1GBD_Flasher_Manuel_v1.0.pdf)
 
 > [!IMPORTANT]
 > Flasher comporte un risque : **sauvegardez la calibration AVANT** (bouton dédié).
