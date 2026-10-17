@@ -121,7 +121,7 @@ Câbles reconnus : CH340/CH341, CP210x, FTDI, PL2303 et CDC-ACM. Débit **38400 
 </p>
 
 <p align="center">
-  <img src="images/PHOTOTERIX_VR-N76.jpg" alt="PHOTERIX et un VR-N76 en Bluetooth" width="640">
+  <img src="images/PHOTERIX_VR-N76.jpg" alt="PHOTERIX et un VR-N76 en Bluetooth" width="640">
 </p>
 
 <p align="center">
