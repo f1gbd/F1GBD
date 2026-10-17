@@ -2,6 +2,7 @@
 
 | Version | Date | Contenu |
 |---|---|---|
+| v1.5 | 17/10/2026 | CARTE TACTIQUE depuis le CHAT : carte OSM hors-ligne (zone enregistrée, MBTiles), centrée sur le GPS ou une position manuelle, stations APRS reçues avec indicatif et nom d'équipe, points nommés (partagés en objet APRS), touches MFD qui composent ordres et comptes rendus (GO, ARR, RAS, VICTIM, HELP… 21 touches), filtre de nuit |
 | v1.4 | 16/10/2026 | Zoom de la caméra principale (pincer, pastille 1× · 2× · 4×, double toucher), bouton TACVYR du CHAT (messages tactiques courts du UV-K1), bouton RGRAM (radiogramme ADRASEC authentifié compatible TCQ, format pager UV-K1 en option), radiogrammes reçus vérifiés et accusés par le destinataire, VR-N7600 en Bluetooth testé en réel |
 | v1.3 | 16/10/2026 | Accusés de réception retardés et étalés (plusieurs stations à l'écoute, avec TCQ v14.3.3), fenêtre des accusés avant la photo suivante, bouton GPS du CHAT (position APRS lue par TCQ), TNC Bluetooth (VR-N76, UV-Pro) |
 | v1.2 | 15/10/2026 | Réception interrompue par un parasite : plus de blocage — clôture automatique (8 s après la dernière trame, 30 s sans trame), image partielle gardée, panneau de réception touchable (Garder / Abandonner), nouvel envoi de la même station pris en compte aussitôt |
