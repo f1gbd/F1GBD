@@ -2,6 +2,8 @@
 
 | Version | Date | Contenu |
 |---|---|---|
+| v1.6.1 | 17/10/2026 | Correctif Bluetooth : après un long envoi (radiogramme, ICS-213), la liaison avec la radio ne reste plus bloquée — écriture limitée à 12 s, rythme d'envoi prudent en Bluetooth, reconnexion automatique et reprise de la file d'émission ; adresses récentes de l'ICS-213 retirées par appui long ; option de photo jointe retirée |
+| v1.6 | 17/10/2026 | Message ICS-213 (FLmsg) depuis le CHAT, envoyé comme TCQ en Packet : une station TCQ à passerelle SMTP le transmet aux adresses email du champ To ; FLmsg reçus affichés et accusés |
 | v1.5 | 17/10/2026 | CARTE TACTIQUE depuis le CHAT : carte OSM hors-ligne (zone enregistrée, MBTiles), centrée sur le GPS ou une position manuelle, stations APRS reçues avec indicatif et nom d'équipe, points nommés (partagés en objet APRS), touches MFD qui composent ordres et comptes rendus (GO, ARR, RAS, VICTIM, HELP… 21 touches), filtre de nuit |
 | v1.4 | 16/10/2026 | Zoom de la caméra principale (pincer, pastille 1× · 2× · 4×, double toucher), bouton TACVYR du CHAT (messages tactiques courts du UV-K1), bouton RGRAM (radiogramme ADRASEC authentifié compatible TCQ, format pager UV-K1 en option), radiogrammes reçus vérifiés et accusés par le destinataire, VR-N7600 en Bluetooth testé en réel |
 | v1.3 | 16/10/2026 | Accusés de réception retardés et étalés (plusieurs stations à l'écoute, avec TCQ v14.3.3), fenêtre des accusés avant la photo suivante, bouton GPS du CHAT (position APRS lue par TCQ), TNC Bluetooth (VR-N76, UV-Pro) |

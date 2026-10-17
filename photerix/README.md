@@ -6,7 +6,7 @@
 <p align="center"><b>Images sans frontières — des photos en Packet AX.25 VHF/UHF, du smartphone au portatif</b></p>
 
 <p align="center">
-  <a href="https://github.com/f1gbd/F1GBD/releases/download/photerix-v1.5/PHOTERIX-1.5.apk"><b>📥 Télécharger PHOTERIX v1.5 (APK Android)</b></a>
+  <a href="https://github.com/f1gbd/F1GBD/releases/download/photerix-v1.6.1/PHOTERIX-1.6.1.apk"><b>📥 Télécharger PHOTERIX v1.6.1 (APK Android)</b></a>
   &nbsp;·&nbsp;
   <a href="documentation/MANUEL_PHOTERIX.pdf"><b>📚 Manuel (PDF)</b></a>
 </p>
@@ -45,9 +45,10 @@ Le protocole image est **celui de TCQ** : une station **TCQ** et un smartphone *
 - **Journal radio** des trames, accusés, messages et radiogrammes TCQ reçus.
 - **TACVYR** dans le CHAT : messages tactiques courts, sans phonie, choisis par code comme sur le UV-K1 (9 rubriques × 9 phrases : « EQUIPE BRAVO SUR ZONE »).
 - **RGRAM** dans le CHAT : **radiogramme ADRASEC authentifié** (TOTP + CRC), au format de TCQ, lu par les stations TCQ et, en option, par les pagers UV-K1 ; radiogrammes reçus vérifiés (CRC) et accusés par leur destinataire.
+- **EMAIL PAR RADIO (ICS-213)** (bouton enveloppe du CHAT) : formulaire ICS-213 de FLmsg envoyé en Packet comme TCQ ; une station **TCQ à passerelle SMTP** le transmet aux adresses email du champ To (séparées par « ; »).
 - **CARTE TACTIQUE** (bouton carte du CHAT) : carte OpenStreetMap **hors-ligne** (zone enregistrée ou cartes .mbtiles), stations APRS reçues avec leur indicatif, **points nommés** (Roméo 1…), et **touches MFD** qui composent ordres et comptes rendus en un toucher : Roméo 1 + GO → « Bravo 1, allez au point Roméo 1 ».
 - **Position GPS en APRS** depuis le CHAT : TCQ place l'opérateur sur sa carte ; les positions reçues s'ouvrent sur une carte.
-- **TNC Bluetooth** : VR-N76, VR-N7600, UV-Pro, GA-5WB (TNC KISS intégré, profil SPP), sans câble.
+- **TNC Bluetooth** : VR-N76, VR-N7600, UV-Pro, GA-5WB (TNC KISS intégré, profil SPP), sans câble ; rythme d'envoi adapté et **reconnexion automatique** si la radio cesse de répondre, la file d'émission reprend d'elle-même.
 - **Accusés de réception étalés** : plusieurs stations à l'écoute ne se brouillent plus (avec TCQ v14.3.3).
 
 ## 🗺️ Carte tactique
@@ -94,6 +95,16 @@ On touche une **station** (l'équipe), un **point**, puis une **touche** : le me
 - **Sur le terrain** : sans station choisie, le message part au nom de **sa propre équipe**, vers le PCO. Le nom d'équipe et le destinataire se règlent avec le bouton ⚙ de la carte.
 - Les messages partent **en clair**, comme le CHAT : ils sont lus par TCQ, les UV-K1/K5 et les pagers.
 
+## ✉️ Email par radio : ICS-213
+
+Le bouton **enveloppe** du CHAT ouvre le formulaire **ICS-213 (General Message)** de FLmsg.
+
+1. **To** : une ou plusieurs adresses email séparées par « ; » (`jlnaudin@gmail.com; f1gbd@frasec.org`), **Sub.** (objet), **Message**.
+2. **Station TCQ** : l'indicatif de la station TCQ dont la **passerelle email (SMTP)** est en service.
+3. **✉ TRANSMETTRE** : le fichier `.213`, identique à celui de FLmsg, part en Packet par la procédure FLmsg de TCQ (`FLMSG|nom|C|…` en trames `{QF:`). TCQ l'envoie par email à chaque adresse, le fichier .213 en pièce jointe, puis accuse réception.
+
+Les adresses déjà utilisées sont proposées d'un toucher sous le champ To ; un **appui long** sur l'une d'elles la retire de la liste.
+
 ## 🗜️ Les trois modes
 
 | Mode | Résolution | Taille typique (Q20) | Trames | Durée ≈ |
@@ -133,12 +144,13 @@ Câbles reconnus : CH340/CH341, CP210x, FTDI, PL2303 et CDC-ACM. Débit **38400 
 | | PHOTERIX → TCQ | TCQ → PHOTERIX |
 |---|---|---|
 | Trames | UI AX.25, PID F0, `{QI:ID:NN/TT:…` de 170 caractères | idem |
-| En-tête | `IMG|<message ou nom>|<LxH>|<JPEG en Base64>` | `IMG|<fichier>|<LxH>|…` |
+| En-tête | `IMG\|<message ou nom>\|<LxH>\|<JPEG en Base64>` | `IMG\|<fichier>\|<LxH>\|…` |
 | Accusé | `[ACK] Image reçu le …` renvoyé par TCQ | renvoyé par PHOTERIX |
 | CHAT | message en clair dans une trame UI, lu dans le chat TNC Packet de TCQ | idem |
 | TACVYR | message tactique en clair (1 ou 2 phrases codées), vers CQ | idem, depuis un UV-K1/K5 |
 | Radiogramme | `{QR:ID:NN/TT:…`, zlib + Base64, AUTH TOTP/CRC de TCQ (80 caractères en format pager UV-K1) | lu dans le CHAT, CRC vérifié |
 | Position | balise APRS `=DDMM.mmN/DDDMM.mmE[…` vers APZPHX, sur la carte de TCQ | bulle 📍 dans le CHAT |
+| ICS-213 | `FLMSG\|nom\|C\|base64(zlib)` en trames `{QF:…`, fichier FLmsg 4.0.24 ; routé par email par TCQ | reçu, affiché dans le CHAT |
 | Ordres MFD | message en clair (« Bravo 1, allez au point Roméo 1 »), lu dans le chat de TCQ | idem |
 | Point nommé | objet APRS `;Romeo 1  *…` vers APZPHX : entre PHOTERIX (TCQ l'affiche en texte) | |
 | Accusés | 3 à 14 s après la dernière trame, créneau au hasard, canal libre (TCQ v14.3.3) | idem |
@@ -162,7 +174,7 @@ Les photos sont rangées dans `Android/data/fr.f1gbd.photerix/files/Pictures/PHO
 
 ## 📚 Documentation
 
-- **[Manuel d'utilisation et de paramétrage (PDF)](documentation/MANUEL_PHOTERIX.pdf)** — raccordement du portatif, réglages, émission, réception, CHAT, carte tactique, archives, trafic avec TCQ, dépannage.
+- **[Manuel d'utilisation et de paramétrage (PDF)](documentation/MANUEL_PHOTERIX.pdf)** — raccordement du portatif, réglages, émission, réception, CHAT, TACVYR, radiogramme, ICS-213 (email), carte tactique, archives, trafic avec TCQ, dépannage.
 
 ## 📱 Configuration requise
 
