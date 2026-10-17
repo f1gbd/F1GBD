@@ -26,6 +26,21 @@ pour les missions ADRASEC / FNRASEC, et leur outil d'installation.
 >
 > ⚠️ Ne concerne pas les **UV-K5 v3 / UV-K1** (processeur PY32F071) : eux utilisent les apps ci-dessous.
 
+> [!NOTE]
+> ### ⚡ Nouveau — **F1GBD Flasher**, l'outil off-grid pour flasher et installer les apps
+>
+> <img src="flasher/images/F1GBD_logo.png" alt="F1GBD Flasher" width="90" align="right">
+>
+> Une **application Windows 100 % hors-ligne** (aucun navigateur, aucun compte) qui réunit tout :
+>
+> - **flashe le firmware** des **UV-K5 v1/v2** (DP32G030) *et* des **UV-K1 / K5 v3** (PY32F071) ;
+> - **charge les apps overlay** (`.app`) sur UV-K1 / K5 v3 : tableau des emplacements cliquable ;
+> - **sauvegarde / restaure la calibration** avant tout flash ; détection auto du bootloader.
+>
+> Idéale sur le terrain ADRASEC sans Internet. Testé sur l'air le 17 octobre 2026 (K5 v1 ✅, K1 ✅, apps ✅).
+>
+> **▶ [README du F1GBD Flasher](flasher/)** · [Manuel (PDF)](flasher/documentation/F1GBD_Flasher_Manuel_v1.0.pdf) · [Télécharger l'installeur](https://github.com/f1gbd/F1GBD/releases?q=flasher)
+
 **Radio neuve ?** Commencez par la fiche [**DÉMARRAGE RAPIDE** (PDF)](documentation/Demarrage_rapide_Apps_F1GBD_UV-K1.pdf) : firmware, installation et lancement des apps en trois étapes.
 
 <p align="center">
