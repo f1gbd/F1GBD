@@ -39,7 +39,7 @@ pour les missions ADRASEC / FNRASEC, et leur outil d'installation.
 >
 > Idéale sur le terrain ADRASEC sans Internet. Testé sur l'air le 17 octobre 2026 (K5 v1 ✅, K1 ✅, apps ✅).
 >
-> **▶ [README du F1GBD Flasher](flasher/)** · [Manuel (PDF)](flasher/documentation/F1GBD_Flasher_Manuel_v1.0.pdf) · [Télécharger l'installeur](https://github.com/f1gbd/F1GBD/releases?q=flasher)
+> **▶ [README du F1GBD Flasher](flasher/)** · [Manuel (PDF)](flasher/documentation/F1GBD_Flasher_Manuel_v1.0.pdf) · [Télécharger l'installeur](https://github.com/f1gbd/F1GBD/releases/download/flasher-v1.0/F1GBD_Flasher-1.0-setup.exe)
 
 **Radio neuve ?** Commencez par la fiche [**DÉMARRAGE RAPIDE** (PDF)](documentation/Demarrage_rapide_Apps_F1GBD_UV-K1.pdf) : firmware, installation et lancement des apps en trois étapes.
 
