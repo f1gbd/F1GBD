@@ -95,6 +95,49 @@ le UV-K1 l'affiche en clair.
 </p>
 <p align="center"><em>Message CHAPPE26 de 9 codes envoyé par TCQ et décodé sur le UV-K1 (en v1.2.1).</em></p>
 
+## ADRASEC : console PCO / COD pour activer le réseau
+
+L'application **ADRASEC** équipe le **PCO / COD** : d'un UV-K1, un opérateur active le
+réseau ADRASEC en envoyant la commande **RASEC-ALERT** `#RA <code>` dans une trame
+AX.25 Packet 1200 bauds. Les stations sous **PAGER-RASEC**, **TACVYR** ou **TCQ**
+déclenchent alors leur alerte (écran clignotant, lampe, sirène). C'est le pendant
+émetteur de PAGER-RASEC.
+
+Pensée pour être **simple et sûre** en situation : écran d'accueil 2 s, puis deux choix.
+
+- **1  RASEC-ALERT** : saisir le **code PIN à 4 chiffres** (défaut `4560`) ; en cas d'erreur
+  l'envoi est annulé. L'écran de confirmation rappelle `#RA <code>`, l'indicatif et la
+  **fréquence active**, puis **MENU = envoyer**, **EXIT = annuler**.
+- **2  SETUP** : changer le **code PIN**, le **code d'activation** (défaut `ADRASEC77`) et
+  l'**indicatif** (saisie multi-tap façon téléphone). PIN, code et indicatif sont gardés
+  dans la mémoire du K1.
+
+> [!NOTE]
+> **Indicatif source** : ADRASEC prend l'indicatif réglé sur la radio (message de
+> démarrage). **S'il n'est pas réglé, ADRASEC le demande au premier lancement** et le
+> mémorise (modifiable ensuite par SETUP 3). Indicatif mémorisé : jusqu'à 5 caractères
+> (format FR, ex. F1GBD).
+
+> [!IMPORTANT]
+> ADRASEC émet sur la **fréquence ACTIVE affichée sur le K1** — mémoire sélectionnée ou
+> VFO. Réglez la radio sur la fréquence du réseau RASEC (**145.4375 MHz FM** par défaut)
+> et vérifiez-la (« TX … MHz ») avant d'émettre. Toutes les stations doivent partager le
+> même code d'activation.
+
+### Essai sur l'air
+
+Validé le 19 octobre 2026 : depuis le **UV-K1 sous ADRASEC** (à droite, menu
+*1 RASEC-ALERT / 2 SETUP*), un RASEC-ALERT est émis ; un poste **TACVYR-K5v1**
+(à gauche) le reçoit et affiche « **ALERTE — de F8KSM** » (l'indicatif saisi dans
+ADRASEC), écran clignotant, lampe et sirène jusqu'à l'acquittement.
+
+<p align="center">
+  <img src="images/ADRASEC_ALERT.png" alt="ADRASEC (UV-K1) active le reseau, alerte recue par TACVYR-K5v1" width="760">
+</p>
+<p align="center"><em>À droite : la console ADRASEC sur UV-K1. À gauche : l'alerte reçue « de F8KSM » sur TACVYR-K5v1.</em></p>
+
+Fiche réflexe à imprimer : [**ADRASEC — Fiche réflexe (PDF)**](documentation/ADRASEC_Fiche_Reflexe_v1.0.pdf).
+
 ## CHAPPE-TX : émettre un message CHAPPE26 depuis le UV-K1
 
 Avec **CHAPPE-TX**, l'opérateur de terrain compose le message au clavier (la radio

@@ -14,6 +14,17 @@
       "date": "2026-10-10"
     },
     {
+      "file": "ADRASEC.app",
+      "name": "ADRASEC",
+      "version": "1.0",
+      "title": "Console PCO/COD ADRASEC",
+      "summary": "Console PCO / COD pour activer le réseau ADRASEC : envoie la commande RASEC-ALERT « #RA <code> » en AX.25 Packet 1200 bauds sur la fréquence ACTIVE du K1 (mémoire sélectionnée ou VFO) — les stations sous PAGER-RASEC / TACVYR / TCQ déclenchent l'alerte. L'indicatif source est celui de la radio ; s'il n'est pas réglé, ADRASEC le demande et le garde en mémoire. Menu simple : 1 RASEC-ALERT (code PIN 4 chiffres, défaut 4560, écran de confirmation avec la fréquence) · 2 SETUP (PIN, code d'activation défaut ADRASEC77, indicatif ; saisie multi-tap). Réglages gardés dans le K1.",
+      "doc": "documentation/ADRASEC_Fiche_Reflexe_v1.0.pdf",
+      "size": 4124,
+      "sha256": "2cd881cce22d147122472465deb6004234a3e535022c8dd90bd97a1b3a95ce51",
+      "date": "2026-10-19"
+    },
+    {
       "file": "RGRAM.app",
       "name": "RGRAM",
       "version": "1.1",
@@ -95,8 +106,8 @@
       "version": "1.0",
       "title": "Balise ELT d'entraînement ELTgen",
       "summary": "Fait du UV-K1 / UV-K5 v3 une BALISE ELT D'ENTRAÎNEMENT pour les exercices SATER : sur le VFO d'émission (le régler sur 144,610 MHz FM — fréquence 2 m radioamateur, JAMAIS 121,5), il module la porteuse avec le « whoop » caractéristique des ELT (tonalité balayée ~1600→700 Hz répétée ~2,3 fois/s, profil relevé sur un vrai signal ELT) et identifie en CW (indicatif de la radio) périodiquement (60/120/300 s), comme l'exige l'émission radioamateur. Modes continu ou intermittent. Permet de tester HOMER en réel sur le terrain avec une antenne Yagi (gonio au RSSI + whoop audible). L'émission n'est possible que là où le firmware l'autorise : hors bande (p. ex. 121,5 MHz) la radio refuse et affiche TX OFF. Touches : 1 mode, 2 intervalle d'ID, MENU re-arme l'ID, EXIT quitte.",
-      "size": 3627,
-      "sha256": "dc78f546c01aef006bf330d2887c43f16966cc9a520194a578bf24bcc95fe1ac",
+      "size": 3908,
+      "sha256": "21a3195d0bd4acd4c6620f209dffa0e49e73c00e668210e521cea690f9134b1c",
       "date": "2026-10-14",
       "doc": "documentation/ELTgen_Manuel_v1.0.pdf"
     }
