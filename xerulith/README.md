@@ -55,11 +55,11 @@ XERULITH est présenté ici **en avant-première par sa documentation** : fiche 
 techniques ci-dessous. Le **programme d'installation pour Windows 10 / 11** (et Mission Planner OFF-GRID) sera
 proposé au téléchargement sur cette page lors de la publication du logiciel.
 
-**Nouveautés v0.6** : **robot humanoïde IA** dans Arma 3 (modèle 3D XERULITH, animations des personnages d'Arma) pour la **recherche de victimes après un SATER** en zone **contaminée** (détecteur de rayonnement, dose reçue) ou **hostile** (patrouille armée) · vues extérieures 3ᵉ personne et orbite d'un clic (bouton 🎥 Vue) · le mannequin d'origine reste disponible sans mod · **v0.6.1** : **reconnaissance et exploration de zone** par le robot (observer, ramasser et examiner un objet, entrer dans un bâtiment, conduire un véhicule), **carte de reconnaissance**, **mémoire de terrain** entre les missions et leçons tirées par l'IA, robot en vue à la 3ᵉ personne · **v0.6.2** : **SATER au sol**, le robot retrouve une balise ELT 121,5 MHz à l'**antenne Yagi 3 éléments** tenue à la main (radioguidage par tours d'horizon, approche finale, balise arrêtée), avec le **son de la balise** au poste, du souffle au signal net selon la direction.
+**Nouveautés v0.6** : **robot humanoïde IA** dans Arma 3 (modèle 3D XERULITH, animations des personnages d'Arma) pour la **recherche de victimes après un SATER** en zone **contaminée** (détecteur de rayonnement, dose reçue) ou **hostile** (patrouille armée) · vues extérieures 3ᵉ personne et orbite d'un clic (bouton 🎥 Vue) · le mannequin d'origine reste disponible sans mod · **v0.6.1** : **reconnaissance et exploration de zone** par le robot (observer, ramasser et examiner un objet, entrer dans un bâtiment, conduire un véhicule), **carte de reconnaissance**, **mémoire de terrain** entre les missions et leçons tirées par l'IA, robot en vue à la 3ᵉ personne · **v0.6.2** : **SATER au sol**, le robot retrouve une balise ELT 121,5 MHz à l'**antenne Yagi 3 éléments** tenue à la main (radioguidage par tours d'horizon, approche finale, balise arrêtée), avec le **son de la balise** au poste, du souffle au signal net selon la direction. **Reconnaissance en zone hostile** (pont 2.2) : véhicules blindés vides ou avec équipage et patrouille armée déposés au hasard, détecteur de blindés, missions pour le drone et le robot, évaluation du repérage.
 
 **Nouveautés v0.5** : véhicules **ArduPilot** réels et simulés (ArduCopter, ArduRover) en mode GUIDED, décollage, atterrissage, RTH · lancement du **simulateur ArduPilot hors ligne** en un clic · **exercice SATER** au simulateur avec balise ELT simulée et évaluation instructeur · **Mission Planner OFF-GRID** : entraînement en **terrain connu**, carte téléchargée une fois, départ du drone choisi d'un clic · **pont radio LoRa 868 MHz** MAVLink (Heltec V3), flasheur et réglages intégrés · zone de recherche libre pour les missions SATER et feu.
 
-📚 **Documentation** : [🎓 Présentation : XERULITH pour la formation](documentations/XERULITH_Fiche_Presentation_Formation.pdf) · [📖 Manuel utilisateur](documentations/Manuel_Utilisateur_XERULITH.pdf) · [🛠 Manuel technique](documentations/XERULITH_Manuel_Technique.pdf) · [🛩 Fiche simulateur ArduPilot / Mission Planner](documentations/XERULITH_Fiche_Test_SITL_ArduPilot.pdf) · [📡 Fiche pont LoRa 868 MHz](documentations/XERULITH_Fiche_Pont_LoRa_MAVLoRa.pdf) · [🚙 Fiche rover hors réseau](documentations/XERULITH_Fiche_Rover_OffGrid.pdf) · [🎮 Fiche réflexe Arma 3](documentations/XERULITH_Fiche_Reflexe_Arma3_Ollama.pdf) · [🤖 Fiche GalaxyRVR](documentations/XERULITH_Fiche_GalaxyRVR.pdf) · [🤖 Fiche technique Robot-IA](documentations/XERULITH_Robot-IA_Fiche_Technique.pdf) · [🔲 Repères ArUco 10 cm à imprimer](documentations/XERULITH_Reperes_ArUco_10cm.pdf)
+📚 **Documentation** : [🎓 Présentation : XERULITH pour la formation](documentations/XERULITH_Fiche_Presentation_Formation.pdf) · [📖 Manuel utilisateur](documentations/Manuel_Utilisateur_XERULITH.pdf) · [🛠 Manuel technique](documentations/XERULITH_Manuel_Technique.pdf) · [🛩 Fiche simulateur ArduPilot / Mission Planner](documentations/XERULITH_Fiche_Test_SITL_ArduPilot.pdf) · [📡 Fiche pont LoRa 868 MHz](documentations/XERULITH_Fiche_Pont_LoRa_MAVLoRa.pdf) · [🚙 Fiche rover hors réseau](documentations/XERULITH_Fiche_Rover_OffGrid.pdf) · [🎮 Fiche réflexe Arma 3](documentations/XERULITH_Fiche_Reflexe_Arma3_Ollama.pdf) · [🤖 Fiche GalaxyRVR](documentations/XERULITH_Fiche_GalaxyRVR.pdf) · [🖥 Fiche configurations recommandées (Arma 3, Ollama local et cloud)](documentations/XERULITH_Fiche_Configurations_Recommandees.pdf) · [✍ Fiche créer une mission et rédiger son prompt](documentations/XERULITH_Fiche_Creer_Mission_Prompt.pdf) · [🤖 Fiche technique Robot-IA](documentations/XERULITH_Robot-IA_Fiche_Technique.pdf) · [🔲 Repères ArUco 10 cm à imprimer](documentations/XERULITH_Reperes_ArUco_10cm.pdf)
 
 ---
 
@@ -419,7 +419,7 @@ découverte, recherche et sauvetage, navigation par repères ArUco, interaction 
 surveillance, tests de comportement et drone Arma 3 (formation). Chaque exploration est enregistrée : journal,
 panoramas et **rapport de mission** rédigé par le LLM.
 
-#### Exploration et découverte libre d'un robot réel (EZ-Robot JD et robots qui marchent au pas)
+#### Exploration et découverte libre d'un robot réel (EZ-Robot JD, rover GalaxyRVR)
 
 Mission **« Exploration et découverte libre (robot réel) »** (catégorie *Découverte*) : la directive première du
 robot est de **découvrir des choses nouvelles et d'aller vers elles** pour en apprendre plus, sans parcours imposé.
@@ -444,6 +444,15 @@ Adaptée au monde réel :
 
 Sans ultrason, seule la caméra protège le robot : un mur ou un obstacle que le détecteur ne reconnaît pas n'est
 repéré qu'une fois le robot bloqué. Sol plat et dégagé, opérateur à proximité.
+
+**Avec le rover SunFounder GalaxyRVR** : mission **« Exploration et découverte libre (rover réel GalaxyRVR) »**
+(profil *SunFounder GalaxyRVR*). Mieux équipé que le JD pour explorer (ultrason et deux infrarouges de série, six
+roues, plus rapide), il fait son **tour d'horizon en tournant sur place** (caméra fixe : une vue tous les 60°
+environ, avec une mesure de l'ultrason à chaque cap), au départ et à chaque nouvel endroit atteint ; il **s'arrête
+de lui-même en roulant** dès que l'ultrason passe sous la distance d'arrêt ou qu'un infrarouge voit un obstacle ;
+tronçons de 1 à 3 pas selon la place mesurée devant. Sa position, estimée par la durée de roulage, dérive davantage
+en rotation : étalonner le pas et la rotation sur le sol de l'essai, et poser des repères ArUco à hauteur de sa
+caméra. Ni l'ultrason ni les infrarouges ne voient le vide (marche, bord de table).
 
 <p align="center">
   <img src="images/Xerulith-JD-reel.jpg" alt="JD Humanoid XERULITH dans le monde réel" width="360">
