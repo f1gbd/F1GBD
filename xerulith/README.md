@@ -335,6 +335,38 @@ qui n'a pas changé, signale ce qui a bougé et applique les **leçons** qu'il a
   <i>Poste de pilotage v0.6.1 : mission de reconnaissance avec gemma4:31b en décision et en vision ; à droite, le panorama de la caméra de tête et la première décision du pilote IA.</i>
 </p>
 
+#### Reconnaissance en zone hostile : véhicules blindés (v0.6.2, pont 2.2)
+
+XERULITH dépose au hasard dans la zone des **véhicules blindés**, les uns **avec équipage** (en position, moteur en
+marche), les autres **vides et abandonnés**, et une **patrouille armée** si la mission cite une zone « hostile ».
+Équipages et patrouille ne tirent jamais : l'exercice note s'ils **repèrent** le drone ou le robot. Un **détecteur
+de véhicules blindés** (600 m pour le drone, 250 m au sol) les numérote (B1, B2…) ; le pilote IA les signale
+(`NOTE: BLINDÉ B2 : type, état, équipage, orientation`), une ALERTE l'éloigne de ceux qui ont un équipage, et le
+robot ne peut pas s'en approcher. Deux missions fournies, pour le **drone quadricoptère** et pour le **robot
+humanoïde**, et une évaluation instructeur : blindés détectés et signalés, écart de position, distance de
+sécurité, fois où le véhicule a été repéré. Tout se règle dans le texte de la mission : « 4 véhicules blindés dont
+2 avec équipage », la zone, « hostile ».
+
+<p align="center">
+  <img src="images/Xerulith-zone-hostile_robot_blinde.jpg" alt="Robot humanoïde en zone hostile, char au loin" width="900"><br>
+  <i>Zone hostile, vue en orbite : le robot progresse vers le point suivant de son parcours (cible à 126 m) ; un char est en position au loin et le HUD compte les personnes armées en vue.</i>
+</p>
+
+<p align="center">
+  <img src="images/Xerulith-zone-hostile_robot_blindes.jpg" alt="Robot humanoïde en zone hostile, char et personnes armées" width="900"><br>
+  <i>Plus loin sur le parcours : un char sur la droite, trois personnes armées en vue d'après le détecteur ; le robot garde ses distances et continue sa reconnaissance.</i>
+</p>
+
+<p align="center">
+  <img src="images/Xerulith-zone-hostile_drone.jpg" alt="Drone en reconnaissance au-dessus d'une zone hostile" width="900"><br>
+  <i>Drone quadricoptère à 120 m au-dessus de la zone hostile : un véhicule blindé au sol, au centre de l'image ; à droite, la pensée du pilote IA (« je suis au point P15, j'ai déjà traité l'alerte de proximité avec B2 ») et le plan de vol.</i>
+</p>
+
+<p align="center">
+  <img src="images/Xerulith-zone-hostile_robot_village.jpg" alt="Robot humanoïde dans un village en zone hostile" width="900"><br>
+  <i>Le robot traverse un village pendant la reconnaissance de zone hostile : poste de pilotage avec la mission, le raisonnement du pilote IA et la carte du parcours.</i>
+</p>
+
 ### ArduPilot réel et simulateur SITL (v0.5, en développement)
 
 Les missions autonomes passent du simulateur Arma 3 aux **véhicules ArduPilot réels** (Pixhawk) : un
