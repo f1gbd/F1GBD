@@ -573,7 +573,7 @@ guide pas à pas les essais au simulateur, l'exercice SATER et l'entraînement e
   Bohemia Interactive ; XERULITH n'est pas affilié à Bohemia Interactive.
 
 <p align="center">
-  <b>by F1GBD (c) 2026 — projet de R&amp;D personnel</b>
+  <b>by F1GBD (c) 2026 — projet de R&amp;D personnel -</b>
 </p>
 
 ## Licence
