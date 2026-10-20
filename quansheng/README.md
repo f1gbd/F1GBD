@@ -43,6 +43,8 @@ pour les missions ADRASEC / FNRASEC, et leur outil d'installation.
 
 **Radio neuve ?** Commencez par la fiche [**DÉMARRAGE RAPIDE** (PDF)](documentation/Demarrage_rapide_Apps_F1GBD_UV-K1.pdf) : firmware, installation et lancement des apps en trois étapes.
 
+**Vue d'ensemble ?** Le [**Dossier technique — Applications ADRASEC pour UV-K1 / K5 v3** (PDF)](documentation/Dossier_Technique_Apps_ADRASEC_UV-K1_K5v3_v1.0.pdf) détaille toutes les applications et leurs usages ADRASEC : alerte réseau, messagerie sans PC, Winlink / APRS par la radio, et recherche SATER (décodage 406, cartographie, radiogoniométrie).
+
 <p align="center">
   <img src="images/UV-K1.jpg" alt="Quansheng UV-K1(8) v3" height="420">
   &nbsp;&nbsp;
