@@ -2,6 +2,8 @@
 
 | Version | Date | Contenu |
 |---|---|---|
+| v1.7.1 | 21/10/2026 | Passerelle email : la raison d'un non-routage est affichée dans le CHAT et le journal (message adressé à une autre station, passerelle désactivée, pas d'adresse dans To) ; compte rendu « Email NON envoyé » même en cas d'erreur imprévue ; accusés non émis signalés |
+| v1.7.0 | 21/10/2026 | Passerelle email : un PHOTERIX relié à Internet route par SMTP (TLS 587 / SSL 465, réglages comme TCQ) les ICS-213 reçus par radio d'un PHOTERIX en zone blanche ; compte rendu « Email envoyé à … » ou « Email NON envoyé : raison » renvoyé à l'expéditeur ; bouton de test SMTP |
 | v1.6.1 | 17/10/2026 | Correctif Bluetooth : après un long envoi (radiogramme, ICS-213), la liaison avec la radio ne reste plus bloquée — écriture limitée à 12 s, rythme d'envoi prudent en Bluetooth, reconnexion automatique et reprise de la file d'émission ; adresses récentes de l'ICS-213 retirées par appui long ; option de photo jointe retirée |
 | v1.6 | 17/10/2026 | Message ICS-213 (FLmsg) depuis le CHAT, envoyé comme TCQ en Packet : une station TCQ à passerelle SMTP le transmet aux adresses email du champ To ; FLmsg reçus affichés et accusés |
 | v1.5 | 17/10/2026 | CARTE TACTIQUE depuis le CHAT : carte OSM hors-ligne (zone enregistrée, MBTiles), centrée sur le GPS ou une position manuelle, stations APRS reçues avec indicatif et nom d'équipe, points nommés (partagés en objet APRS), touches MFD qui composent ordres et comptes rendus (GO, ARR, RAS, VICTIM, HELP… 21 touches), filtre de nuit |
