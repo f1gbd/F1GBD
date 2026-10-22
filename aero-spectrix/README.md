@@ -10,7 +10,7 @@
 ![ASPXmulti](https://img.shields.io/badge/ASPXmulti-2.1.0-5B2C83)
 ![plateforme](https://img.shields.io/badge/plateforme-Windows%2010%20%2F%2011%20x64-0B3B57)
 ![tests](https://img.shields.io/badge/tests-73%2F73-1B7F4F)
-![licence](https://img.shields.io/badge/licence-gratuite%20%E2%80%94%20usage%20libre-D2600F)
+[![Licence](https://img.shields.io/badge/licence-PolyForm%20Noncommercial%201.0.0-D2600F.svg)](LICENSE)
 
 *par F1GBD — ADRASEC 77 / FNRASEC*
 
@@ -993,16 +993,7 @@ modèle approchant.
 
 ## Licence
 
-AERO-SPECTRIX est un **logiciel gratuit mais non libre**. Texte complet dans
-[`LICENSE`](LICENSE).
-
-**Vous pouvez** l'utiliser sans limite de durée et sur autant de postes que vous
-voulez, à titre personnel, associatif, pédagogique, professionnel ou
-opérationnel ; et le redistribuer gratuitement, à condition que l'archive reste
-complète et non modifiée.
-
-**Vous ne pouvez pas**, sans accord écrit, le vendre ou l'inclure dans une offre
-payante, le modifier, ni le redistribuer sous un autre nom.
+**Licence** : [PolyForm Noncommercial 1.0.0](LICENSE) — utilisation gratuite pour un usage personnel ou radioamateur, et par les associations (ADRASEC, FNRASEC…), les organismes de sécurité civile et les services publics ; **tout usage commercial est interdit**. Les versions publiées avant octobre 2026 restent régies par la licence qui les accompagnait.
 
 Le code source n'est pas publié. Le logiciel est fourni **sans aucune
 garantie** ; il ne constitue pas un équipement de sûreté certifié et ne se

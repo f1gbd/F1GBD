@@ -131,4 +131,6 @@ L'application vérifie elle-même les mises à jour (**ⓘ Infos → Vérifier l
 **Jean-Louis — F1GBD / F4JHW** · ADRASEC 77 · FNRASEC
 Développé pour la communauté ADRASEC / Sécurité Civile. Driver RTL-SDR : *SDR Driver* de Martin Marinov. Cartographie : OpenStreetMap (osmdroid).
 
+**Licence** : [PolyForm Noncommercial 1.0.0](LICENSE) — utilisation gratuite pour un usage personnel ou radioamateur, et par les associations (ADRASEC, FNRASEC…), les organismes de sécurité civile et les services publics ; **tout usage commercial est interdit**. Les versions publiées avant octobre 2026 restent régies par la licence qui les accompagnait.
+
 *HOMER for SATER © 2026 F1GBD.*  **73** 📻

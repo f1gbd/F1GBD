@@ -11,7 +11,7 @@
 [![Version](https://img.shields.io/badge/version-1.1.0--linux-blue)]()
 [![Platform](https://img.shields.io/badge/platform-Linux%20x86__64-orange)]()
 [![Python](https://img.shields.io/badge/python-3.12%20embarqu%C3%A9-yellow)]()
-[![License](https://img.shields.io/badge/license-GPL--3.0-green)]()
+[![Licence](https://img.shields.io/badge/licence-PolyForm%20Noncommercial%201.0.0-D2600F.svg)](../LICENSE)
 
 ---
 

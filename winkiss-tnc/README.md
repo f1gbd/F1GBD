@@ -66,7 +66,7 @@ accusés RR de Winlink, en ACKMODE.</em></p>
 | Radio → PC | chaque trame AX.25 reçue est envoyée à tous les clients |
 | Moniteur | trames décodées (indicatifs, répéteurs, type I/S/U, N(S)/N(R), texte), export, journal quotidien dans `logs\` |
 | Lancement par Winlink | démarre seul (passerelle active au lancement, écran d'accueil), une seule fenêtre même si Winlink le relance à chaque session ; port série réessayé toutes les 3 s s'il est absent |
-| À propos | version, licence Apache 2.0, GitHub et **🔄 Vérifier les mises à jour** : téléchargement de l'installeur publié, contrôle SHA-256, mise à jour sur place (réglages conservés) |
+| À propos | version, licence, GitHub et **🔄 Vérifier les mises à jour** : téléchargement de l'installeur publié, contrôle SHA-256, mise à jour sur place (réglages conservés) |
 
 ## Installation
 
@@ -107,4 +107,4 @@ puissance), puis, **avant** d'ouvrir la session Winlink :
 
 ---
 
-Jean-Louis Naudin **F1GBD** — ADRASEC 77 / FNRASEC — Licence Apache 2.0 — 73
+Jean-Louis Naudin **F1GBD** — ADRASEC 77 / FNRASEC — Licence PolyForm Noncommercial 1.0.0 (usage commercial interdit) — 73

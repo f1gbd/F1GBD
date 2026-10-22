@@ -1,157 +1,76 @@
-AERO-SPECTRIX — LICENCE D'UTILISATION
-Version 1.0 — août 2026
+Required Notice: Copyright 2026 Jean-Louis Naudin (F1GBD / F4JHW) — ADRASEC 77 / FNRASEC
+Required Notice: AERO-SPECTRIX — https://github.com/f1gbd/F1GBD
 
-Copyright © 2026 Jean-Louis NAUDIN (F1GBD) — ADRASEC 77 / FNRASEC
-Tous droits réservés.
+# PolyForm Noncommercial License 1.0.0
 
+<https://polyformproject.org/licenses/noncommercial/1.0.0>
 
-PRÉAMBULE
+## Acceptance
 
-AERO-SPECTRIX est un logiciel gratuit mais non libre. Le présent document
-définit ce que vous avez le droit d'en faire. Il ne s'applique QU'AU logiciel
-AERO-SPECTRIX lui-même : les composants tiers qu'il embarque restent régis par
-leurs propres licences, énumérées dans le fichier THIRD-PARTY-NOTICES, et ces
-licences-là prévalent sur celle-ci pour ce qui les concerne (article 6).
+In order to get any license under these terms, you must agree to them as both strict obligations and conditions to all your licenses.
 
+## Copyright License
 
-1. DÉFINITIONS
+The licensor grants you a copyright license for the software to do everything you might do with the software that would otherwise infringe the licensor's copyright in it for any permitted purpose.  However, you may only distribute the software according to [Distribution License](#distribution-license) and make changes or new works based on the software according to [Changes and New Works License](#changes-and-new-works-license).
 
-« Le Logiciel » désigne le programme AERO-SPECTRIX, son exécutable, ses
-ressources, sa documentation et tout fichier livré dans la même archive de
-distribution.
+## Distribution License
 
-« L'Auteur » désigne Jean-Louis Naudin (indicatif F1GBD).
+The licensor grants you an additional copyright license to distribute copies of the software.  Your license to distribute covers distributing the software with changes and new works permitted by [Changes and New Works License](#changes-and-new-works-license).
 
+## Notices
 
-2. DROIT D'USAGE
+You must ensure that anyone who gets a copy of any part of the software from you also gets a copy of these terms or the URL for them above, as well as copies of any plain-text lines beginning with `Required Notice:` that the licensor provided with the software.  For example:
 
-L'Auteur vous accorde, à titre gratuit, non exclusif et sans limitation de
-durée, le droit d'installer et d'utiliser le Logiciel sur autant de postes que
-vous le souhaitez, à des fins personnelles, associatives, pédagogiques,
-professionnelles ou opérationnelles.
+> Required Notice: Copyright Yoyodyne, Inc. (http://example.com)
 
-Aucune redevance, aucun enregistrement et aucune déclaration ne sont exigés.
+## Changes and New Works License
 
+The licensor grants you an additional copyright license to make changes and new works based on the software for any permitted purpose.
 
-3. DROIT DE REDISTRIBUTION
+## Patent License
 
-Vous pouvez copier et redistribuer le Logiciel, à condition que :
+The licensor grants you a patent license for the software that covers patent claims the licensor can license, or becomes able to license, that you would infringe by using the software.
 
-  a) la redistribution soit faite à titre gratuit ;
-  b) l'archive soit redistribuée COMPLÈTE et NON MODIFIÉE, y compris le
-     présent fichier LICENSE et le fichier THIRD-PARTY-NOTICES ;
-  c) la paternité de l'Auteur ne soit ni supprimée ni masquée ;
-  d) aucune ambiguïté ne soit entretenue sur l'origine du Logiciel.
+## Noncommercial Purposes
 
-La mise à disposition sur un site personnel, un serveur associatif, une clé USB
-ou un support de formation entre dans ce cadre.
+Any noncommercial purpose is a permitted purpose.
 
+## Personal Uses
 
-4. RESTRICTIONS
+Personal use for research, experiment, and testing for the benefit of public knowledge, personal study, private entertainment, hobby projects, amateur pursuits, or religious observance, without any anticipated commercial application, is use for a permitted purpose.
 
-Sauf accord écrit préalable de l'Auteur, il vous est interdit :
+## Noncommercial Organizations
 
-  a) de vendre ou de louer le Logiciel, de le céder à titre onéreux, ou de
-     l'inclure dans une offre payante, un abonnement ou une prestation
-     facturée dont il constituerait un élément déterminant ;
-  b) de modifier, adapter, traduire ou créer une œuvre dérivée du Logiciel ;
-  c) de le décompiler, le désassembler ou de procéder à son ingénierie
-     inverse ;
-  d) de le redistribuer sous un autre nom, sous une autre marque, ou intégré à
-     un autre produit ;
-  e) d'utiliser la dénomination « AERO-SPECTRIX », le logo ou l'indicatif de
-     l'Auteur pour promouvoir un produit ou un service dérivé.
+Use by any charitable organization, educational institution, public research organization, public safety or health organization, environmental protection organization, or government institution is use for a permitted purpose regardless of the source of funding or obligations resulting from the funding.
 
-Les interdictions b) et c) ne s'appliquent PAS :
+## Fair Use
 
-  — dans la mesure où le droit applicable les rend inopérantes, notamment
-    l'article L. 122-6-1 du code de la propriété intellectuelle ;
-  — aux composants tiers sous licence LGPL embarqués dans le Logiciel : leurs
-    propres conditions vous autorisent expressément à les modifier, à les
-    remplacer et à procéder à l'ingénierie inverse nécessaire à cette fin, et
-    la présente licence ne restreint en rien ce droit (voir l'article 6).
+You may have "fair use" rights for the software under the law. These terms do not limit them.
 
+## No Other Rights
 
-5. PROPRIÉTÉ
+These terms do not allow you to sublicense or transfer any of your licenses to anyone else, or prevent the licensor from granting licenses to anyone else.  These terms do not imply any other licenses.
 
-Le Logiciel est protégé par le droit d'auteur. La présente licence vous
-concède un droit d'usage ; elle ne vous transfère aucun droit de propriété
-intellectuelle sur le Logiciel, son code, son architecture, ses algorithmes,
-son interface, sa dénomination ou son logo.
+## Patent Defense
 
+If you make any written claim that the software infringes or contributes to infringement of any patent, your patent license for the software granted under these terms ends immediately. If your company makes such a claim, your patent license ends immediately for work on behalf of your company.
 
-6. COMPOSANTS TIERS
+## Violations
 
-Le Logiciel embarque des bibliothèques tierces, listées avec leurs licences
-respectives dans le fichier THIRD-PARTY-NOTICES livré avec l'archive.
+The first time you are notified in writing that you have violated any of these terms, or done anything with the software not covered by your licenses, your licenses can nonetheless continue if you come into full compliance with these terms, and take practical steps to correct past violations, within 32 days of receiving notice.  Otherwise, all your licenses end immediately.
 
-Il utilise en particulier Qt, au travers de PySide6, sous licence GNU LGPL
-version 3. Conformément à cette licence, le Logiciel est distribué en mode
-dossier : les bibliothèques Qt y sont des fichiers distincts, que vous pouvez
-remplacer par une version modifiée. Le code source correspondant de Qt et de
-PySide6 est mis à disposition par The Qt Company ; les adresses figurent dans
-THIRD-PARTY-NOTICES, et l'Auteur s'engage à le fournir sur simple demande.
+## No Liability
 
-Pour chacun de ces composants, les conditions de sa propre licence prévalent
-sur celles du présent document.
+***As far as the law allows, the software comes as is, without any warranty or condition, and the licensor will not be liable to you for any damages arising out of these terms or the use or nature of the software, under any kind of legal claim.***
 
+## Definitions
 
-7. ABSENCE DE GARANTIE
+The **licensor** is the individual or entity offering these terms, and the **software** is the software the licensor makes available under these terms.
 
-LE LOGICIEL EST FOURNI « EN L'ÉTAT », SANS AUCUNE GARANTIE D'AUCUNE SORTE,
-EXPRESSE OU IMPLICITE, Y COMPRIS SANS QUE CETTE ÉNUMÉRATION SOIT LIMITATIVE
-LES GARANTIES DE QUALITÉ MARCHANDE, D'ADÉQUATION À UN USAGE PARTICULIER,
-D'EXACTITUDE DES RÉSULTATS ET D'ABSENCE DE CONTREFAÇON.
+**You** refers to the individual or entity agreeing to these terms.
 
-L'Auteur ne garantit ni que le Logiciel détectera un aéronef donné, ni
-l'exactitude des directions, portées, niveaux ou alarmes qu'il affiche.
+**Your company** is any legal entity, sole proprietorship, or other kind of organization that you work for, plus all organizations that have control over, are under the control of, or are under common control with that organization.  **Control** means ownership of substantially all the assets of an entity, or the power to direct its management and policies by vote, contract, or otherwise.  Control can be direct or indirect.
 
+**Your licenses** are all the licenses granted to you for the software under these terms.
 
-8. LIMITATION DE RESPONSABILITÉ
-
-Dans la limite permise par le droit applicable, l'Auteur ne pourra en aucun cas
-être tenu responsable d'un dommage direct, indirect, accessoire, spécial ou
-consécutif résultant de l'usage ou de l'impossibilité d'usage du Logiciel, y
-compris la perte de données, la perte d'exploitation, ou toute décision prise
-sur la foi d'une information affichée par le Logiciel.
-
-
-9. CONDITIONS D'EMPLOI
-
-Le Logiciel est destiné à l'étude, à la formation et aux opérations de sécurité
-civile.
-
-Il ne constitue pas un équipement de sûreté certifié et ne saurait se
-substituer aux moyens réglementaires de surveillance de l'espace aérien. Sa
-mise en œuvre relève de la seule responsabilité de l'utilisateur, qui demeure
-tenu de respecter la réglementation en vigueur, notamment en matière de
-détection, d'enregistrement sonore et de protection de la vie privée.
-
-
-10. RÉSILIATION
-
-Le non-respect de l'une des conditions ci-dessus met fin de plein droit et sans
-formalité aux droits qui vous sont concédés. Vous devez alors cesser d'utiliser
-le Logiciel et en détruire toutes les copies. Les articles 5, 7 et 8 survivent
-à cette résiliation.
-
-
-11. DROIT APPLICABLE
-
-La présente licence est régie par le droit français. Tout litige relatif à son
-interprétation ou à son exécution relève de la compétence des juridictions
-françaises.
-
-
-12. CONTACT
-
-Pour toute demande d'autorisation particulière — usage commercial, intégration,
-version modifiée, ou obtention du code source des composants LGPL — écrivez à
-l'Auteur, F1GBD, ADRASEC 77 / FNRASEC.
-
-
---------------------------------------------------------------------------
-En installant ou en utilisant le Logiciel, vous acceptez la présente licence.
-Si vous n'en acceptez pas les termes, n'installez pas le Logiciel et détruisez
-les copies en votre possession.
---------------------------------------------------------------------------
+**Use** means anything you do with the software requiring one of your licenses.

@@ -65,8 +65,8 @@ le **client Windows** que depuis l'**APK Android** (RNode Heltec connecté en
 > **Config LoRa**). Voir
 > [Flashage de firmware & config LoRa](#flashage-de-firmware-rnode--config-lora-off-grid-v140).
 
-> Ces informations sont publiées en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt))
-> pour un usage personnel uniquement, non professionnel et non commercial.
+> ADRAlink est publié sous [licence GNU GPL v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt),
+> imposée par les composants GPL qu'il intègre. Il est destiné à un usage personnel, associatif et de sécurité civile.
 
 ---
 

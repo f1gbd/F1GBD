@@ -13,8 +13,8 @@ exécutables Windows.
 Le mini-routeur WiFi (GL.iNet ou autre) reste le point d'accès ; le Pi est un
 hôte de son réseau local.
 
-> Publié en Open Source ([licence GNU v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt))
-> pour un usage personnel uniquement, non professionnel et non commercial.
+> Publié sous [licence GNU GPL v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt).
+> Destiné à un usage personnel, associatif et de sécurité civile.
 
 ---
 

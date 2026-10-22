@@ -250,6 +250,10 @@ Quelques usages déjà pratiqués : exercices cadre départementaux et leur RETE
 
 ---
 
+## Licence
+
+**Licence** : [PolyForm Noncommercial 1.0.0](LICENSE) — utilisation gratuite pour un usage personnel ou radioamateur, et par les associations (ADRASEC, FNRASEC…), les organismes de sécurité civile et les services publics ; **tout usage commercial est interdit**. Les versions publiées avant octobre 2026 restent régies par la licence qui les accompagnait.
+
 <div align="center">
 
 ### 📡 Auteur

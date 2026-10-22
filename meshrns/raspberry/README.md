@@ -476,6 +476,8 @@ Pour **revenir en arrière** : `./autostart_pi.sh --undo` puis `sudo reboot`. L'
 
 **MeshRNS** — *a Reticulum/LXMF Gateway for MeshCore* — par **F1GBD** (c) 2026 — **ADRASEC 77 / FNRASEC**.
 
+**Licence** : [PolyForm Noncommercial 1.0.0](../LICENSE) — usage commercial interdit.
+
 ## 📄 Documentation associée
 
 - 📘 **[Manuel utilisateur MeshRNS](https://github.com/f1gbd/F1GBD/blob/master/meshrns/documentation/MEMO%20-%20MANUEL%20MeshRNS.pdf)** — Manuel Utilisateur et Paramétrage de MeshRNS
