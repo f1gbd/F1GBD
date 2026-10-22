@@ -9,7 +9,19 @@
 
 ---
 
-## 🆕 Nouveautés v14.3.3 — accusés de réception retardés et étalés
+## 🆕 Nouveautés v14.3.4 — CHAPPE26 en clair uniquement
+
+- Le **livret CHAPPE26** et les **fiches exemples** BLACK-OUT et INCENDIE livrés avec TCQ
+  (dossier `Chappe26`) ne décrivent plus aucun chiffrement par clé : plus de « clé du jour »,
+  de version chiffrée Page/Ligne ni d'annexe de rotation des clés. La page correspondante
+  devient un **carnet de vacation**, l'annexe un **journal des messages**.
+- CHAPPE26 est un **code public d'abréviation** : tout opérateur muni du livret relit le message.
+- Le décodage automatique des codes `!DDDD` (LXMF, MeshCore, TNC Packet) était déjà en clair
+  et ne change pas.
+
+---
+
+## Nouveautés v14.3.3 — accusés de réception retardés et étalés
 
 Signalement : avec **plusieurs stations à l'écoute** d'une image (envoyée par
 exemple par PHOTERIX depuis un smartphone), la première station TCQ qui envoyait
