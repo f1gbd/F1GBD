@@ -162,7 +162,7 @@ Exemple complet — demande de moyens radio pendant un black-out, 29 caractères
 
 > Début de transmission · Transmission urgente · Coupure électricité · Communication interrompue · Équipement requis · Besoin renfort · Fin transmission
 
-Le tout se relit à la main avec le seul livret, sans TCQws et sans électricité : retirer le `!`, découper en groupes de quatre, chercher chaque code. Le chiffrement Page/Ligne du livret (clé du jour) se fait avant la frappe et se défait après la réception — **TCQws ne détient aucune clé** et transporte le message tel qu'il est saisi.
+Le tout se relit à la main avec le seul livret, sans TCQws et sans électricité : retirer le `!`, découper en groupes de quatre, chercher chaque code. CHAPPE-26 est un **code public d'abréviation, pas un chiffrement** : le livret est diffusé librement et tout opérateur peut relire le message ; TCQws le transporte tel qu'il est saisi.
 
 📄 **[Fiche d'exemple BLACK-OUT](doc/TCQws-Chappe26_Fiche_BlackOut.pdf)** · 📘 **[Livret des 1000 codes](doc/Chappe26_Livret_B5.pdf)**
 

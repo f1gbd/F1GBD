@@ -547,7 +547,7 @@ Sur un **FTX-1**, la radio ne changeait pas de fréquence alors que la vitesse (
 
 - **Relecture avant diffusion** : pendant la frappe, TCQws traduit les codes sous le champ de saisie et signale un groupe incomplet, un code absent du livret ou l'oubli du `1990` final. Une alerte part pour plus d'une minute, autant corriger avant.
 - Le fichier `radiogrammes\FLASH_*.txt` conserve les codes **et** leur traduction : il se relit avec ou sans le livret.
-- Le chiffrement Page/Ligne du livret (clé du jour) se fait à la main, avant la frappe : TCQws transporte le message tel qu'il est saisi et ne détient aucune clé.
+- CHAPPE-26 est un code public d'abréviation, pas un chiffrement : tout opérateur muni du livret relit le message, que TCQws transporte tel qu'il est saisi.
 - Voir la [fiche d'exemple BLACK-OUT](https://github.com/f1gbd/F1GBD/blob/master/tcqws/doc/TCQws-Chappe26_Fiche_BlackOut.pdf), un message de bout en bout.
 
 ### Confort d'utilisation
