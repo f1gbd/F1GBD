@@ -1,0 +1,27 @@
+Montre MicroRadar (MMR) — portage F1GBD de micro-radar
+Licence : MIT (voir LICENSE).
+
+Oeuvres tierces
+---------------
+micro-radar
+    Copyright (c) 2026 Anthony Sturdy — licence MIT
+    https://github.com/AnthonySturdy/micro-radar
+    Projet d'origine, porté sur la montre Waveshare ESP32-S3-Touch-AMOLED-2.06.
+
+Waveshare ESP32-S3-Touch-AMOLED-2.06 (exemples et configuration matérielle)
+    Copyright (c) Waveshare — licence Apache 2.0
+    https://github.com/waveshareteam/ESP32-S3-Touch-AMOLED-2.06
+    Référence pour le brochage et la configuration d'affichage (include/LGFX.h).
+
+LovyanGFX
+    Copyright (c) lovyan03 — licence FreeBSD (BSD 2 clauses)
+    https://github.com/lovyan03/LovyanGFX
+    Bibliothèque graphique, via lib_deps.
+
+ESP Web Tools
+    Copyright (c) ESPHome — licence Apache 2.0
+    https://github.com/esphome/esp-web-tools
+    Flashage depuis le navigateur (webflash/).
+
+Données de vol : OpenSky Network (https://opensky-network.org), selon ses
+conditions d'utilisation.

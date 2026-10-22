@@ -244,4 +244,4 @@ signent un fonctionnement sain.
 * Flashage navigateur : **[ESP Web Tools](https://esphome.github.io/esp-web-tools/)**
 * Matériel et exemples : **[Waveshare](https://github.com/waveshareteam/ESP32-S3-Touch-AMOLED-2.06)**
 
-Portage MMR : **F1GBD** — licence MIT, comme le projet d'origine.
+Portage MMR : **F1GBD** — licence MIT, comme le projet d'origine : voir [LICENSE](LICENSE) et [NOTICE](NOTICE).

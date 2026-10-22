@@ -243,6 +243,6 @@ Options (buzzer, textes, durées) : voir la fiche technique.
 ## Auteur & licence
 
 **Jean-Louis — F1GBD**, ADRASEC 77.
-Basé sur MeshCore (voir la licence du projet MeshCore pour le firmware de base).
+Basé sur [MeshCore](https://github.com/meshcore-dev/MeshCore) — licence **MIT**, voir [LICENSE](LICENSE). L'édition T-Deck ([`tdeck/`](tdeck/)), dérivée de Saitama, est sous **GPL-3.0-or-later** (voir [tdeck/LICENSE](tdeck/LICENSE)).
 
 73 !

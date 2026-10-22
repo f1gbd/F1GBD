@@ -1,0 +1,72 @@
+RWLoRa — Routeur WiFi LoRa
+Copyright 2026 F1GBD — ADRASEC 77 / FNRASEC
+
+Ce produit est distribue sous la licence Apache 2.0 (voir LICENSE).
+
+Passerelle Reticulum bidirectionnelle : maillage LoRa <-> reseau IP.
+Projet frere de RRLoRa (repeteur de terrain), avec lequel il partage
+LoRaInterface et le protocole de configuration.
+
+================================================================================
+Oeuvres tierces
+================================================================================
+
+microReticulum
+    Copyright (c) 2023-2026 Chad Attermann
+    Licence : Apache-2.0
+    https://github.com/attermann/microReticulum
+
+    Pile Reticulum embarquee. Le fichier src/LoRaInterface.{h,cpp} est repris de
+    microReticulum/examples/common/lora_interface (v0.5.0) et modifie :
+    parametres radio issus de RWLoRaConfig.h, et ajout de la detection et du
+    pilotage du front-end RF du Heltec V4.
+
+Reticulum Network Stack
+    Copyright (c) 2016-2026 Mark Qvist
+    Licence : MIT
+    https://reticulum.network/
+
+    Protocole et conception.
+
+    Le fichier src/TcpClientInterface.{h,cpp} est une implementation ORIGINALE,
+    ecrite depuis la specification du protocole telle qu'elle figure dans
+    RNS/Interfaces/TCPInterface.py : framing HDLC (FLAG 0x7E, ESC 0x7D, masque
+    0x20), absence de poignee de main, et seuil HEADER_MINSIZE strict. Aucun
+    code n'est repris d'une implementation tierce.
+
+    Conformite verifiee par test differentiel contre la classe HDLC de
+    Reticulum : 3000 vecteurs a l'emission, 2000 dans chaque sens pour
+    l'interoperabilite, plus les cas limites (keepalive, trames fragmentees,
+    trames consecutives, seuil de taille).
+
+MeshCore
+    Copyright (c) 2025 Scott Powell / rippleradios.com
+    Licence : MIT
+    https://github.com/meshcore-dev/MeshCore
+
+    La detection et le pilotage du front-end RF du Heltec V4 dans
+    src/LoRaInterface.cpp (fem_init, fem_tx_mode, fem_rx_mode) suivent la
+    logique de variants/heltec_v4/LoRaFEMControl.cpp : detection de la revision
+    par le niveau au repos de CSD (GPIO2), pull-down du GC1109 contre pull-up du
+    KCT8103L, et commutation de CPS (GPIO46) ou CTX (GPIO5) selon la puce.
+
+    Note : la polarite de Vext retenue ici (actif a l'etat BAS) differe du
+    PIN_VEXT_EN_ACTIVE=HIGH de MeshCore, qui pilote un autre rail. Mesuree par
+    scan I2C sur une V4.3.
+
+RadioLib
+    Copyright (c) Jan Gromes
+    Licence : MIT
+    https://github.com/jgromes/RadioLib
+
+    Pilote SX1262, via lib_deps.
+
+================================================================================
+Ce qui n'est PAS repris
+================================================================================
+
+RTNode-HeltecV4 (GPL-3.0) comporte une interface TCP pour cette meme carte.
+Elle n'est PAS utilisee ici : la reprendre aurait fait basculer RWLoRa en
+GPL-3.0, empechant tout echange de correctifs avec RRLoRa (Apache-2.0). Notre
+interface est ecrite depuis la specification amont, ce qui preserve la
+compatibilite entre les deux projets.

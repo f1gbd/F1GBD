@@ -30,7 +30,8 @@ PyMuPDF, pyModeS, pyrtlsdr, PyQt6…), ce qui impose la GPL à l'ensemble :
 | `RTspk_pager`, `RTspk_pager/T-Deck` | GNU AGPL-3.0 | Ratspeak / rsDeck |
 | `RRLora`, `RWLora`, `quansheng/uv-k5_v1` | Apache 2.0 | microReticulum, firmware F4HWN |
 | `Montre_MicroRadar`, `meshpager/android` | MIT | micro-radar, MeshCore Open |
-| `meshpager` | voir MeshCore (MIT) | MeshCore |
+| `meshpager` | MIT | MeshCore |
+| `meshpager/tdeck` | GNU GPL-3.0-or-later | Saitama |
 | `geomag-observer` | MIT (voir son dossier) | — |
 
 Les versions publiées avant octobre 2026 restent régies par la licence qui les
