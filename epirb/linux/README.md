@@ -15,6 +15,8 @@
 
 ---
 
+> ⚠️ **Téléchargement temporairement retiré (octobre 2026).** Cette édition est en cours de mise en conformité avec la nouvelle séparation des licences de la suite EPIRB (logiciel sous PolyForm Noncommercial, composants GPL livrés à part). Les liens de téléchargement ci-dessous ne sont plus actifs ; la version Windows [EPIRB Suite](https://github.com/f1gbd/F1GBD/tree/master/epirb) reste disponible.
+
 ## 🎯 Qu'est-ce qu'EPIRBdecoder ?
 
 **EPIRBdecoder** décode les balises de détresse **COSPAS-SARSAT 406 MHz** (EPIRB maritimes, ELT aéronautiques, PLB personnelles) à partir d'une clé **RTL-SDR**, d'une **entrée audio**, ou d'un **fichier**. Il extrait l'identifiant de la balise, le pays, le protocole et la position GPS encodée, puis affiche le tout sur une **carte OSM** avec relèvements goniométriques pour la triangulation.

@@ -15,6 +15,8 @@
 
 ---
 
+> ⚠️ **Téléchargement temporairement retiré (octobre 2026).** Cette édition est en cours de mise en conformité avec la nouvelle séparation des licences de la suite EPIRB (logiciel sous PolyForm Noncommercial, composants GPL livrés à part). Les liens de téléchargement ci-dessous ne sont plus actifs ; la version Windows [EPIRB Suite](https://github.com/f1gbd/F1GBD/tree/master/epirb) reste disponible.
+
 ## Sommaire
 
 - [Aperçu](#aperçu)
