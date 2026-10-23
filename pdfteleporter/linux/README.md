@@ -8,7 +8,7 @@
 
 *Pour les opérateurs ADRASEC / FNRASEC — TNC Packet, VARA HF/FM/SAT, Winlink Express*
 
-[![Version](https://img.shields.io/badge/paquet-v1.1.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-linux-v1.1.0)
+[![Version](https://img.shields.io/badge/paquet-v1.2.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-linux-v1.2.0)
 [![Application](https://img.shields.io/badge/application-v2.1.0-blueviolet.svg)]()
 [![Plateforme](https://img.shields.io/badge/Linux-x86__64-orange.svg)]()
 [![glibc](https://img.shields.io/badge/glibc-%E2%89%A5%202.39-critical.svg)]()
@@ -17,7 +17,7 @@
 
 ### 🐧 Télécharger
 
-**[⬇ PDFteleporter-1.1.0-linux-x86_64.tar.gz (78 Mo)](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.1.0/PDFteleporter-1.1.0-linux-x86_64.tar.gz)**
+**[⬇ PDFteleporter-1.2.0-linux-x86_64.tar.gz (78 Mo)](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.2.0/PDFteleporter-1.2.0-linux-x86_64.tar.gz)**
 
 [Version Windows](../README.md) · [Toutes les versions](https://github.com/f1gbd/F1GBD/releases?q=pdfteleporter)
 
@@ -41,6 +41,14 @@
 ---
 
 <a id="correctif-okular"></a>
+
+## 🆕 v1.2.0 — moteur PDF libre et licence PolyForm Noncommercial
+
+Même moteur et même interface que la **v2.2.0 Windows** : bibliothèques PDF à
+licence permissive à la place de PyMuPDF, interface PySide6 à la place de
+PyQt6, pages recomposées plus fidèles, format `.psdi` inchangé. Le paquet est
+désormais sous **PolyForm Noncommercial 1.0.0** (usage commercial interdit).
+[Détails →](../CHANGELOG.md#v220)
 
 ## ⚠️ Correctif important en v1.1.0
 
@@ -89,13 +97,13 @@ vaut désormais pour les deux plateformes**.
 ## 🚀 Installation
 
 ```bash
-wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.1.0/PDFteleporter-1.1.0-linux-x86_64.tar.gz
-tar xzf PDFteleporter-1.1.0-linux-x86_64.tar.gz
+wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.2.0/PDFteleporter-1.2.0-linux-x86_64.tar.gz
+tar xzf PDFteleporter-1.2.0-linux-x86_64.tar.gz
 cd PDFteleporter
 ./pdfteleporter.sh
 ```
 
-Aucune dépendance Python à installer : Python, PyQt6, PyMuPDF et Pillow sont
+Aucune dépendance Python à installer : Python, PySide6, le moteur PDF libre (pypdfium2, pdfminer.six, pypdf, reportlab) et Pillow sont
 embarqués dans le binaire.
 
 > 💡 **Lancez toujours par `pdfteleporter.sh`**, pas par le binaire directement.
@@ -132,8 +140,8 @@ bibliothèque absente.
 ### Vérification d'intégrité
 
 ```bash
-wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.1.0/PDFteleporter-1.1.0-linux-x86_64.tar.gz.sha256
-sha256sum -c PDFteleporter-1.1.0-linux-x86_64.tar.gz.sha256
+wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.2.0/PDFteleporter-1.2.0-linux-x86_64.tar.gz.sha256
+sha256sum -c PDFteleporter-1.2.0-linux-x86_64.tar.gz.sha256
 ```
 
 ---
@@ -141,14 +149,14 @@ sha256sum -c PDFteleporter-1.1.0-linux-x86_64.tar.gz.sha256
 ## 📦 Contenu de l'archive
 
 ```
-PDFteleporter-1.1.0-linux-x86_64.tar.gz        78 Mo compressé / 196 Mo extrait
+PDFteleporter-1.2.0-linux-x86_64.tar.gz        78 Mo compressé / 187 Mo extrait
 └── PDFteleporter/
     ├── PDFteleporter            binaire ELF 64 bits autonome
     ├── pdfteleporter.sh         lanceur recommandé (nettoie LD_LIBRARY_PATH)
     ├── PDFteleporter.desktop    raccourci menu Applications
     ├── INSTALL.txt              installation et prérequis
     ├── LICENSE
-    └── _internal/               Python + PyQt6 + PyMuPDF + Pillow embarqués
+    └── _internal/               Python + PySide6 + moteur PDF libre + Pillow embarqués
 ```
 
 > L'archive v1.0.7 fournissait un `install.sh`. Il a disparu avec le passage aux
@@ -188,17 +196,17 @@ ce que vous déployez.
 ```bash
 # Sources : dossier PDFteleporter_v2 du projet
 chmod +x Build-PDFteleporter-linux.sh
-./Build-PDFteleporter-linux.sh -p 1.1.0 -c -s
+./Build-PDFteleporter-linux.sh -p 1.2.0 -c -s
 ```
 
-Le script crée un environnement virtuel **dédié** (PyQt6, PyMuPDF, Pillow,
+Le script crée un environnement virtuel **dédié** (PySide6, pypdfium2, pdfminer.six, pypdf, reportlab, Pillow,
 PyInstaller — et rien d'autre, pour que PyInstaller n'embarque pas la moitié de
 vos `site-packages`), compile, purge les modules Qt inutiles, teste le
 démarrage, et produit l'archive `.tar.gz` avec son SHA-256.
 
 | Option | Effet |
 |---|---|
-| `-p <version>` | numéro du paquet (défaut 1.1.0) |
+| `-p <version>` | numéro du paquet (défaut 1.1.0, passer -p 1.2.0) |
 | `-c` | repart de zéro |
 | `-s` | supprime aussi les bibliothèques devenues orphelines (~10 Mo) |
 | `-d <chemin>` | dossier de sortie |
@@ -218,7 +226,7 @@ OS aarch64, le script de build fonctionne tel quel et produit un binaire ARM64.
 Pour un essai rapide, sans compilation :
 
 ```bash
-pip install PyQt6 pymupdf Pillow
+pip install PySide6-Essentials pypdfium2 pdfminer.six pypdf reportlab Pillow
 python3 PDFteleporter.py
 ```
 
@@ -264,7 +272,7 @@ Strictement identiques à la version Windows — c'est le même code.
 | Association `.psdi` | automatique | via le fichier `.desktop` |
 | Dossier Winlink | `%USERPROFILE%\Documents\PDFteleporter\` | `~/Documents/PDFteleporter/` |
 | Ouverture de fichier | `os.startfile()` | `xdg-open`, d'où le lanceur `pdfteleporter.sh` |
-| Taille installée | 106 Mo | 196 Mo — Qt sous Linux embarque ICU (~40 Mo) |
+| Taille installée | 106 Mo | 187 Mo — Qt sous Linux embarque ICU (~40 Mo) |
 
 ---
 
@@ -342,7 +350,7 @@ Retours d'expérience et propositions sont bienvenus via les *Issues* du dépôt
 **Jean-Louis Naudin (F1GBD)**
 *ADRASEC 77 — FNRASEC*
 
-**Paquet Linux v1.1.0 — Septembre 2026** · *application v2.1.0*
+**Paquet Linux v1.2.0 — Octobre 2026** · *application v2.2.0* · licence [PolyForm Noncommercial 1.0.0](../LICENSE)
 
 *Pour toute question, contactez votre référent ADRASEC départemental.*
 

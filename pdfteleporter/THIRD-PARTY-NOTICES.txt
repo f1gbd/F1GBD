@@ -1,0 +1,30 @@
+================================================================================
+ COMPOSANTS TIERS EMBARQUES - moteur PDF libre (pdf_trans 1.1.0 / psdi_lib 2.2.0)
+================================================================================
+Le logiciel lui-meme est distribue sous PolyForm Noncommercial 1.0.0
+(voir LICENSE). Les bibliotheques ci-dessous sont utilisees telles quelles,
+non modifiees, sous leurs propres licences permissives ; aucune n'impose la
+publication du code source de l'application.
+
+  pypdfium2 ........ Apache-2.0 OU BSD-3-Clause  https://github.com/pypdfium2-team/pypdfium2
+  PDFium (binaire) . BSD-3-Clause / Apache-2.0    https://pdfium.googlesource.com/pdfium
+  pdfminer.six ..... MIT                          https://github.com/pdfminer/pdfminer.six
+  pypdf ............ BSD-3-Clause                 https://github.com/py-pdf/pypdf
+  ReportLab ........ BSD                          https://www.reportlab.com
+  Pillow ........... MIT-CMU (HPND)               https://python-pillow.org
+  Python ........... PSF License                  https://www.python.org
+
+Polices embarquees (dossier pdf_fonts, utilisees pour recomposer les PDF) :
+  Liberation Sans/Serif/Mono 2.1.5 ... SIL Open Font License 1.1  (LICENSE-Liberation.txt)
+  Carlito 1.104 ...................... SIL Open Font License 1.1  (OFL-Carlito.txt)
+  DejaVu Sans 2.37 ................... Bitstream Vera / domaine public (LICENSE-DejaVu.txt)
+
+PDF Teleporter uniquement - interface graphique :
+  PySide6 / Qt 6 ... LGPL-3.0  https://www.qt.io/qt-for-python
+    Les bibliotheques Qt et PySide6 sont livrees sous forme de DLL separees
+    (dossier _internal) et peuvent etre remplacees par l'utilisateur par une
+    autre version compatible, conformement a la LGPL-3.0. Le code source de
+    Qt/PySide6 est disponible sur https://download.qt.io/official_releases/
+
+Ancien moteur retire : PyMuPDF (AGPL-3.0) n'est plus utilise ni embarque.
+================================================================================

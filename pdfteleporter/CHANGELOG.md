@@ -8,6 +8,7 @@ la v1.0.0.
 
 | Version | Date | En bref |
 |---|---|---|
+| [v2.2.0](#v220) | oct. 2026 | Moteur PDF libre, interface PySide6, licence PolyForm Noncommercial — Linux v1.2.0 |
 | [v2.0.0](#v200) | août 2026 | Installeur Windows, association `.psdi`, interface PyQt6, 882 → 106 Mo |
 | [v1.0.7](#v107) | juin 2026 | Binaire Linux x86_64 |
 | [v1.0.6](#v106) | juin 2026 | Auto-bascule en rendu image pour les PDF scannés ou tournés |
@@ -17,6 +18,59 @@ la v1.0.0.
 | [v1.0.2](#v102) | mai 2026 | Débordement de texte dans les tableaux, familles de fontes |
 | [v1.0.1](#v101) | mai 2026 | Correctif « fond noir » Microsoft Print To PDF / Word LTSC |
 | [v1.0.0](#v100) | mars 2026 | Version initiale publique |
+
+---
+
+<a id="v220"></a>
+
+## v2.2.0 — Octobre 2026 *(Linux : paquet v1.2.0)*
+
+### ⚖️ Nouvelle licence : PolyForm Noncommercial 1.0.0
+
+PDF Teleporter passe de la GPL v3 à **PolyForm Noncommercial 1.0.0** : usage
+gratuit personnel, radioamateur, associatif et sécurité civile ; **usage
+commercial interdit**. Ce changement est possible parce que plus aucune
+bibliothèque à copyleft fort n'est embarquée :
+
+| Rôle | v2.1.0 | v2.2.0 |
+|---|---|---|
+| Lecture, rendu, images | PyMuPDF (AGPL-3.0) | **pypdfium2** (Apache-2.0 / BSD-3) |
+| Texte et tracés | PyMuPDF | **pdfminer.six** (MIT) |
+| Formulaires, cases cochées | PyMuPDF | **pypdf** (BSD-3) |
+| Recomposition du PDF | PyMuPDF | **reportlab** (BSD) |
+| Interface | PyQt6 (GPL-3.0) | **PySide6** (LGPL-3.0, DLL séparées) |
+| Polices de recomposition | intégrées à PyMuPDF | **Liberation, Carlito, DejaVu** (OFL / Bitstream Vera) |
+
+Détail des licences tierces : [THIRD-PARTY-NOTICES.txt](THIRD-PARTY-NOTICES.txt).
+
+### 📐 Pages recomposées plus fidèles
+
+Le nouveau moteur a été validé page par page contre l'ancien, sur un lot de
+23 PDF (SITREP d'exercice, formulaires remplis, page tournée, scan) : chaque
+page recomposée est comparée en image à l'original.
+
+| | v2.1.0 | v2.2.0 |
+|---|---:|---:|
+| Écart visuel moyen, mode structuré | 1,8 à 7,6 % | **0,02 à 0,65 %** (21 PDF), 2 à 2,7 % (2 formulaires remplis) |
+| Texte retrouvé | 94,5 à 100 % | **99,8 à 100 %** |
+| Taille des archives `.psdi` | — | équivalente (± 5 %) |
+
+Améliorations visibles :
+
+- **traits de tableau** et filets horizontaux restitués ;
+- **valeurs des champs de formulaire** et cases cochées reprises de leur
+  apparence réelle (formulaires aplatis proprement) ;
+- **polices Symbol / Wingdings** : flèches et puces retrouvées au lieu de
+  caractères parasites ;
+- **Calibri** recomposé avec Carlito, aux métriques identiques : plus de
+  texte qui déborde ou se tasse ;
+- taille réelle des caractères prise en compte (texte mis à l'échelle).
+
+### 🔁 Compatibilité
+
+Le **format `.psdi` ne change pas**. Les archives produites par la v2.2.0 se
+recomposent avec TCQ et avec toutes les versions précédentes, et inversement
+(vérifié sur les 23 PDF du lot de test, dans les deux sens).
 
 ---
 
