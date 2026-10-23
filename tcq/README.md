@@ -10,15 +10,15 @@
 
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
-[![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v14.3.4-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Licence](https://img.shields.io/badge/licence-PolyForm%20Noncommercial%201.0.0-green.svg)](LICENSE)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v15.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-## 📥 [Télécharger l'installeur Windows](https://github.com/f1gbd/F1GBD/releases/download/tcq-v14.3.4/TCQ-14.3.4-setup.exe)
+## 📥 [Télécharger l'installeur Windows](https://github.com/f1gbd/F1GBD/releases/download/tcq-v15.0/TCQ-15.0-setup.exe)
 
 *Double-clic, aucun droit administrateur. Binaire autonome — aucune installation Python.*
 *Ensuite, TCQ se met à jour tout seul : **ℹ À propos → 🔄 VÉRIFIER LES MISES À JOUR**.*
 
-Autres formats : [archive `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v14.3.4/TCQ.7z) · commande PowerShell *(en administrateur)* :
+Autres formats : [archive `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v15.0/TCQ.7z) · commande PowerShell *(en administrateur)* :
 
 ```powershell
 iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:TEMP\Install-TCQ.ps1; & $env:TEMP\Install-TCQ.ps1
@@ -144,7 +144,7 @@ indicatif et par adresse ICAO.
 
 ### Programme d'installation Windows *(recommandé)*
 
-1. [Téléchargez `TCQ-14.3.4-setup.exe`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v14.3.4/TCQ-14.3.4-setup.exe)
+1. [Téléchargez `TCQ-15.0-setup.exe`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v15.0/TCQ-15.0-setup.exe)
 2. Double-cliquez — **aucun droit administrateur requis**
 3. Lancez TCQ depuis le menu Démarrer ou le Bureau
 
@@ -179,7 +179,7 @@ raccourcis. Relancez la même commande pour mettre à jour.
 
 ### À la main
 
-1. [Téléchargez `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v14.3.4/TCQ.7z)
+1. [Téléchargez `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v15.0/TCQ.7z)
 2. Vérifiez l'empreinte : `Get-FileHash -Algorithm SHA256 TCQ.7z` — elle est publiée avec la release
 3. Décompressez dans `C:\` *(clic droit → 7-Zip → Extraire vers `C:\`)*
 4. Lancez `C:\TCQ\TCQ.exe`
@@ -206,7 +206,25 @@ raccourcis. Relancez la même commande pour mettre à jour.
 
 ## 🆕 Dernières mises à jour
 
-### Version courante : **v14.3.4** — *22 octobre 2026*
+### Version courante : **v15.0** — *23 octobre 2026*
+
+**⚖️ Licence PolyForm Noncommercial 1.0.0.** TCQ reste gratuit pour l'usage
+personnel, radioamateur, associatif et sécurité civile ; **tout usage commercial
+est interdit** ([LICENSE](LICENSE)). Plus aucune bibliothèque GPL/AGPL n'est
+chargée dans `TCQ.exe` :
+
+- **📄 Transfert PDF** — nouveau moteur `pdf_trans` 1.1.0 (pypdfium2, pdfminer.six,
+  pypdf, reportlab) à la place de PyMuPDF : pages recomposées plus fidèles (écart
+  visuel avec l'original **< 0,7 %** au lieu de 2 à 8 % sur 21 des 23 PDF du lot de
+  test), format `.psdi` inchangé, interopérable avec PDF Teleporter v2.2.
+- **✈️ Suivi avion « SDR direct »** — décodage ADS-B écrit dans TCQ (pyModeS
+  retiré), clé RTL-SDR lue par le programme séparé `rtl_tcp` (dossier `sdr-gpl\`,
+  comme EPIRBdecoder). Correctif : un avion à plus de 180 NM pouvait être mal placé.
+- **🎥 Journal vidéo JVFT** — ffmpeg **LGPL** livré à part (dossier `ffmpeg-lgpl\`).
+
+Licences des composants tiers : [THIRD-PARTY-NOTICES.txt](THIRD-PARTY-NOTICES.txt).
+
+### v14.3.4 — *22 octobre 2026*
 
 **📘 CHAPPE26 en clair uniquement.** Le livret CHAPPE26 et les fiches exemples livrés avec TCQ (dossier `Chappe26`) ne décrivent plus aucun chiffrement par clé : CHAPPE26 est un **code public d'abréviation**, que tout opérateur relit avec le livret. Le décodage automatique des codes `!DDDD` (LXMF, MeshCore, TNC Packet) était déjà en clair et ne change pas.
 
@@ -357,7 +375,8 @@ tient pas.
 
 | Version | Date | Ce qui change |
 |---|---|---|
-| **v14.3.4** | 22/10/2026 | Livret et fiches CHAPPE26 livrés sans aucun chiffrement par clé (code public d'abréviation, décodage en clair inchangé) |
+| **v15.0** | 23/10/2026 | Licence PolyForm Noncommercial ; moteur PDF libre (pages plus fidèles) ; ADS-B décodé dans TCQ via rtl_tcp séparé (correctif position > 180 NM) ; ffmpeg LGPL pour JVFT |
+| v14.3.4 | 22/10/2026 | Livret et fiches CHAPPE26 livrés sans aucun chiffrement par clé (code public d'abréviation, décodage en clair inchangé) |
 | v14.3.3 | 16/10/2026 | Accusés de réception retardés (3 s mini) et étalés (créneau au hasard, canal libre) : plusieurs stations à l'écoute ne se brouillent plus ; radiogrammes accusés par leur seul destinataire ; TCQconfig v14.3.3 |
 | v14.3.2 | 14/10/2026 | TNC Packet en mode série : paramètres KISS convertis en nombres et toujours envoyés au TNC (TXDELAY 800 ms), affichés à la connexion |
 | v14.3.1 | 12/10/2026 | Fichiers reçus et journaux dans `C:\TCQ\fichiers_reçus` et `C:\TCQ\logs`, même dossier pour tous les modes, onglet Fichiers/Journal actualisé, réglages TNC série conservés, « Compatible pager UV-K1 » en option, TCQconfig v14.3.1 (bouton « Dossiers par défaut ») |
@@ -399,9 +418,11 @@ tient pas.
 **Jean-Louis — F1GBD / F4JHW**
 *ADRASEC 77 — FNRASEC*
 
-**TCQ v14.3.1 — 12/10/2026**
+**TCQ v15.0 — 23/10/2026**
 
-Tous les modules intégrés respectent les licences de leurs auteurs originaux.
+Distribué sous licence [PolyForm Noncommercial 1.0.0](LICENSE) — usage commercial interdit.
+Les composants tiers restent sous leurs propres licences ([THIRD-PARTY-NOTICES.txt](THIRD-PARTY-NOTICES.txt)).
+Les versions publiées jusqu'à la v14.3.4 restent régies par la licence qui les accompagnait (GNU GPL v3).
 
 *Pour toute question, contactez votre référent ADRASEC départemental.*
 

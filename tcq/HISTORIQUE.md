@@ -9,7 +9,53 @@
 
 ---
 
-## 🆕 Nouveautés v14.3.4 — CHAPPE26 en clair uniquement
+## 🆕 Nouveautés v15.0 — licence PolyForm Noncommercial, moteurs libres
+
+**Licence.** TCQ passe de la GNU GPL v3 à **PolyForm Noncommercial 1.0.0** : usage
+gratuit personnel, radioamateur, associatif et sécurité civile ; **usage commercial
+interdit**. Pour cela, plus aucune bibliothèque GPL/AGPL n'est chargée dans `TCQ.exe` :
+
+| Fonction | v14.3.4 | v15.0 |
+|---|---|---|
+| Transfert PDF | PyMuPDF (AGPL-3.0) | `pdf_trans` 1.1.0 : pypdfium2, pdfminer.six, pypdf, reportlab (Apache/BSD/MIT) + polices Liberation, Carlito, DejaVu (OFL) |
+| Décodage ADS-B | pyModeS (GPL-3.0) | `adsb_lib` 2.0, décodeur Mode S écrit d'après la spécification publique |
+| Lecture de la clé RTL-SDR | pyrtlsdr + librtlsdr (GPL) dans le processus | programme séparé `rtl_tcp` (dossier `sdr-gpl\`), via `rtltcp_sdr` |
+| ffmpeg du journal vidéo JVFT | ffmpeg GPL d'imageio-ffmpeg | FFmpeg 8.1 **LGPL**, programme séparé (dossier `ffmpeg-lgpl\`) |
+
+**📄 Transfert PDF.** Le nouveau moteur a été validé page par page contre l'ancien
+sur 23 PDF (SITREP d'exercice, formulaires remplis, page tournée, scan) :
+
+| | v14.3.4 | v15.0 |
+|---|---:|---:|
+| Écart visuel, mode structuré | 1,8 à 7,6 % | **0,02 à 0,65 %** (21 PDF) · 2 à 2,7 % (2 formulaires remplis) |
+| Texte retrouvé | 94,5 à 100 % | **99,8 à 100 %** |
+| Taille des `.psdi` | — | équivalente (± 5 %) |
+
+Traits de tableau, valeurs des champs de formulaire, flèches des polices Symbol et
+métriques Calibri sont désormais restitués. Le **format `.psdi` ne change pas** :
+archives interopérables dans les deux sens avec les versions précédentes et
+PDF Teleporter.
+
+**✈️ Suivi avion « SDR direct ».** Décodage CRC-24, indicatif, altitude (y compris
+code de Gillham), positions CPR globale et locale et vitesse, validé contre une
+implémentation de référence sur des milliers de trames. **Correctif** : la position
+d'un avion était calculée autour de la station ; au-delà de 180 NM (portée courante
+d'une clé SDR en altitude), elle pouvait être fausse sans que rien ne le signale.
+La première position vient désormais d'une **paire de trames paire/impaire**
+(décodage global), les suivantes d'un décodage local autour de la dernière position
+de l'avion.
+
+**🎥 Journal vidéo JVFT.** Encodage VP9/Opus et tailles des clips inchangés.
+
+**🔄 Installeur.** Le dossier `_internal` est entièrement remplacé lors d'une mise à
+jour : il ne reste rien des anciennes bibliothèques. Les données de la station sont
+conservées.
+
+Licences des composants tiers : `THIRD-PARTY-NOTICES.txt`, livré avec TCQ.
+
+---
+
+## Nouveautés v14.3.4 — CHAPPE26 en clair uniquement
 
 - Le **livret CHAPPE26** et les **fiches exemples** BLACK-OUT et INCENDIE livrés avec TCQ
   (dossier `Chappe26`) ne décrivent plus aucun chiffrement par clé : plus de « clé du jour »,

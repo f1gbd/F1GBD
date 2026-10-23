@@ -1,0 +1,117 @@
+================================================================================
+ TCQ — COMPOSANTS TIERS
+================================================================================
+TCQ est distribué sous PolyForm Noncommercial 1.0.0 (voir LICENSE).
+Les composants ci-dessous restent sous leurs propres licences. Aucun n'impose
+la publication du code source de TCQ.
+
+--------------------------------------------------------------------------------
+ 1. BIBLIOTHÈQUES PYTHON EMBARQUÉES DANS TCQ.exe (non modifiées)
+--------------------------------------------------------------------------------
+  Python ................. PSF License                https://www.python.org
+  Tcl/Tk (tkinter) ....... licence BSD de Tcl/Tk      https://www.tcl.tk
+  numpy .................. BSD-3-Clause               https://numpy.org
+  scipy .................. BSD-3-Clause               https://scipy.org
+  Pillow ................. MIT-CMU (HPND)             https://python-pillow.org
+  pyserial ............... BSD-3-Clause               https://github.com/pyserial/pyserial
+  sounddevice ............ MIT (PortAudio : MIT)      https://python-sounddevice.readthedocs.io
+  opencv-python .......... Apache-2.0                 https://opencv.org
+  qrcode ................. BSD-3-Clause               https://github.com/lincolnloop/python-qrcode
+  cryptography ........... Apache-2.0 OU BSD-3-Clause https://cryptography.io
+  certifi ................ MPL-2.0 (fichier non modifié)  https://github.com/certifi/python-certifi
+  meshcore ............... MIT                        https://github.com/meshcore-dev/meshcore_py
+    et ses dépendances : bleak (MIT), pycayennelpp (MIT),
+    pycryptodome (BSD-2-Clause / domaine public), pyserial-asyncio-fast (BSD-3-Clause)
+  pypdfium2 + PDFium ..... Apache-2.0 / BSD-3-Clause  https://github.com/pypdfium2-team/pypdfium2
+  pdfminer.six ........... MIT                        https://github.com/pdfminer/pdfminer.six
+  pypdf .................. BSD-3-Clause               https://github.com/py-pdf/pypdf
+  ReportLab .............. BSD                        https://www.reportlab.com
+  Reticulum (RNS) ........ Reticulum License (texte complet en section 5)
+                                                      https://github.com/markqvist/Reticulum
+
+Polices embarquées (dossier _internal\pdf_fonts, recomposition des PDF) :
+  Liberation Sans/Serif/Mono 2.1.5 ... SIL Open Font License 1.1
+  Carlito 1.104 ...................... SIL Open Font License 1.1
+  DejaVu Sans 2.37 ................... Bitstream Vera / domaine public
+  (textes de licence dans _internal\pdf_fonts\)
+
+--------------------------------------------------------------------------------
+ 2. ALGORITHMES REPRIS D'AUTRES PROJETS (code réécrit en Python dans TCQ)
+--------------------------------------------------------------------------------
+  Décodeur SSTV (SSTV_decode_slowrx) — portage de slowrx
+      Copyright (c) Oona Räisänen (windytan) — licence ISC
+      https://github.com/windytan/slowrx
+      Permission to use, copy, modify, and/or distribute this software for any
+      purpose with or without fee is hereby granted, provided that the above
+      copyright notice and this permission notice appear in all copies.
+      THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+      WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+      MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+      ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+      WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+      ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
+      IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+  Détection du préambule ADS-B (adsb_lib) — test de forme de dump1090
+      Copyright (c) 2012 Salvatore Sanfilippo — licence BSD 3 clauses
+      https://github.com/antirez/dump1090
+      Le décodage Mode S lui-même (CRC, CPR, altitude, vitesse) est écrit
+      d'après la spécification publique, sans reprise de code tiers.
+
+  Modèle de couverture LoRa (lora_lib) — repris de lora-mesh-planner
+      Copyright (c) opticgroup — licence MIT
+      https://github.com/opticgroup/lora-mesh-planner
+
+--------------------------------------------------------------------------------
+ 3. PROGRAMMES SÉPARÉS LIVRÉS AVEC TCQ (lancés comme processus distincts)
+--------------------------------------------------------------------------------
+  sdr-gpl\rtl-sdr\ ....... rtl_tcp.exe, librtlsdr.dll (osmocom) — GNU GPL v2
+                           libusb-1.0.dll — GNU LGPL 2.1
+                           Voir sdr-gpl\LISEZMOI.txt et sdr-gpl\rtl-sdr\SOURCE.txt.
+  ffmpeg-lgpl\ .......... ffmpeg.exe — FFmpeg n8.1.3, build Windows « LGPL »
+                           (BtbN FFmpeg-Builds), GNU LGPL v3, sans --enable-gpl
+                           Utilisé par JVFT (journal vidéo) comme programme séparé.
+                           Voir ffmpeg-lgpl\LISEZMOI.txt (version, sources).
+  Ces programmes ne sont pas modifiés. Leurs licences ne s'appliquent pas à
+  TCQ, et la licence de TCQ ne s'applique pas à eux. Sur simple demande à
+  F1GBD, une copie de leur code source correspondant peut être fournie.
+
+--------------------------------------------------------------------------------
+ 4. BIBLIOTHÈQUES LGPL CHARGÉES DYNAMIQUEMENT
+--------------------------------------------------------------------------------
+  OpenCV embarque opencv_videoio_ffmpeg*.dll (FFmpeg, GNU LGPL 2.1), livrée
+  sous forme de DLL séparée et remplaçable. Source : https://ffmpeg.org
+
+--------------------------------------------------------------------------------
+ 5. TEXTE DE LA RETICULUM LICENSE
+--------------------------------------------------------------------------------
+Reticulum License
+
+Copyright (c) 2016-2026 Mark Qvist
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+- The Software shall not be used in any kind of system which includes amongst
+  its functions the ability to purposefully do harm to human beings.
+
+- The Software shall not be used, directly or indirectly, in the creation of
+  an artificial intelligence, machine learning or language model training
+  dataset, including but not limited to any use that contributes to the
+  training or development of such a model or algorithm.
+
+- The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+================================================================================
