@@ -1,0 +1,38 @@
+================================================================================
+ d-IA — COMPOSANTS TIERS
+================================================================================
+d-IA est distribué sous PolyForm Noncommercial 1.0.0 (voir LICENSE).
+Les composants ci-dessous restent sous leurs propres licences. Aucun n'impose
+la publication du code source de d-IA. Aucun composant GPL n'est embarqué.
+
+--------------------------------------------------------------------------------
+ 1. BIBLIOTHÈQUES EMBARQUÉES DANS d-IA.exe (non modifiées)
+--------------------------------------------------------------------------------
+  Python ................. PSF License                https://www.python.org
+  Tcl/Tk (tkinter) ....... licence BSD de Tcl/Tk      https://www.tcl.tk
+  ollama (client Python) . MIT                        https://github.com/ollama/ollama-python
+    httpx (BSD-3-Clause), httpcore (BSD-3-Clause), h11 (MIT), anyio (MIT),
+    pydantic / pydantic-core (MIT)
+  certifi ................ MPL-2.0 (fichier non modifié)  https://github.com/certifi/python-certifi
+  charset-normalizer ..... MIT                        https://github.com/jawah/charset_normalizer
+  pypdf .................. BSD-3-Clause               https://github.com/py-pdf/pypdf
+  pdfminer.six / pdfplumber MIT                       https://github.com/pdfminer/pdfminer.six
+  ReportLab .............. BSD                        https://www.reportlab.com
+  Pillow ................. MIT-CMU (HPND)             https://python-pillow.org
+  numpy .................. BSD-3-Clause               https://numpy.org
+  lxml ................... BSD-3-Clause               https://lxml.de
+  PyYAML ................. MIT                        https://pyyaml.org
+  cryptography ........... Apache-2.0 OU BSD-3-Clause https://cryptography.io
+  pyttsx3 ................ MPL-2.0 (non modifié)      https://github.com/nateshmbhat/pyttsx3
+  comtypes ............... MIT                        https://github.com/enthought/comtypes
+  pywin32 ................ PSF                        https://github.com/mhammond/pywin32
+  (les modules facultatifs ne sont présents que s'ils étaient installés au
+  moment du build)
+
+--------------------------------------------------------------------------------
+ 2. LOGICIELS À INSTALLER À PART (non livrés)
+--------------------------------------------------------------------------------
+  Ollama ................. MIT                        https://ollama.com
+  Modèles de langage ..... licence propre à chaque modèle (Llama, Gemma,
+                           Qwen, Mistral…), à respecter par l'utilisateur
+================================================================================
