@@ -202,10 +202,10 @@ Le détail complet est dans le **[CHANGELOG](CHANGELOG.md)**.
 |---|---|---|:---:|
 | **v2.2.0** | oct. 2026 | Moteur PDF libre (pages plus fidèles), interface PySide6, licence PolyForm Noncommercial | [détails](CHANGELOG.md#v220) · [release](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-v2.2.0) |
 | **v1.2.0** Linux | oct. 2026 | Même moteur et même interface que la v2.2.0 | [linux/](linux/) · [release](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-linux-v1.2.0) |
-| v2.1.0 | sept. 2026 | Correctif : texte saisi corrompu sur les PDF annotés (Okular) | [détails](CHANGELOG.md#v210) · [release](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-v2.1.0) |
+| v2.1.0 | sept. 2026 | Correctif : texte saisi corrompu sur les PDF annotés (Okular) | [détails](CHANGELOG.md#v210) |
 | v1.1.0 Linux | sept. 2026 | Version Linux reconstruite sur les sources communes PyQt6 | [détails](CHANGELOG.md#v110) · [linux/](linux/) |
 | v2.0.1 | sept. 2026 | Mise en page corrigée sur 1360×768, journal en fenêtre séparée | [détails](CHANGELOG.md#v201) |
-| v2.0.0 | août 2026 | Installeur Windows, association `.psdi`, interface PyQt6, 882 → 106 Mo | [détails](CHANGELOG.md#v200) · [release](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-v2.0.0) |
+| v2.0.0 | août 2026 | Installeur Windows, association `.psdi`, interface PyQt6, 882 → 106 Mo | [détails](CHANGELOG.md#v200) |
 | v1.0.7 | juin 2026 | Binaire Linux x86_64 (Tkinter) | [détails](CHANGELOG.md#v107) |
 | v1.0.6 | juin 2026 | Auto-bascule en rendu image pour les PDF scannés ou tournés | [détails](CHANGELOG.md#v106) |
 | v1.0.5 | mai 2026 | Accents LibreOffice, cases à cocher AcroForm, fontes ~4 pt d'Excel | [détails](CHANGELOG.md#v105) |
