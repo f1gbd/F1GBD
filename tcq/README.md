@@ -425,6 +425,7 @@ tient pas.
 | | Contenu |
 |---|---|
 | [📚 Dossier documentation](https://github.com/f1gbd/F1GBD/tree/master/tcq/TCQ%20Documentations) | Manuels utilisateur et fiches techniques |
+| [📐 Spécification TCQ-RG](https://github.com/f1gbd/F1GBD/blob/master/tcqws/doc/TCQ-RG_specification_radiogrammes_FLASH.pdf) | Format du radiogramme Packet de TCQ (chapitre 12), et des radiogrammes et alertes FLASH en FT4/FT8 de TCQws : de quoi écrire un décodeur indépendant |
 | [🕘 Historique des versions](HISTORIQUE.md) | Le détail de chaque version |
 | [📜 Releases](https://github.com/f1gbd/F1GBD/releases?q=tcq) | Binaires et notes de version |
 

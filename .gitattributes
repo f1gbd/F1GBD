@@ -15,3 +15,6 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
+
+# Corpus TCQ-RG : octets exacts (empreinte SHA-256 publiée), jamais de conversion CRLF
+tcqws/doc/TCQ-RG_corpus_V1.txt -text

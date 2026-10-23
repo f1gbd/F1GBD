@@ -115,6 +115,7 @@ En exercice ou en opération, un réseau d'urgence ne transmet pas des rapports 
 - **Mode diffusion** (destinataire CQ), avec option rafale (une trame par période, durée divisée par deux).
 - **AUTH vérifié à l'arrivée** (CRC et TOTP ±30 min), message enregistré en `.txt` relisible par **RADIOGRAMME_VALIDATOR** de TCQ.
 - Les trames sont des messages FT4/FT8 **standards** de type télémétrie : WSJT-X les affiche en hexadécimal, sans être perturbé.
+- **Format public et documenté** : la [spécification TCQ-RG](doc/TCQ-RG_specification_radiogrammes_FLASH.pdf) décrit tout ce qu'il faut pour écrire un décodeur indépendant — trames et champs, modèle de compression et sa table d'apprentissage ([corpus](doc/TCQ-RG_corpus_V1.txt)), code d'effacement, acquittements, erreurs et exemples de trames.
 
 **Durées indicatives en FT4** : ≈ 4,5 min pour 60 caractères en envoi dirigé, ≈ 9 min pour 600 caractères en diffusion rafale. En FT8, le double, avec une sensibilité un peu meilleure.
 
@@ -127,7 +128,7 @@ En exercice ou en opération, un réseau d'urgence ne transmet pas des rapports 
 Un radiogramme complet prend plusieurs minutes. Pour l'urgence immédiate, TCQws ajoute un format dédié :
 
 - **32 caractères au plus**, diffusés à toutes les stations, **sur chaque période** : environ 75 s en FT4.
-- 4 à 10 trames dont **n'importe lesquelles 1 à 6 suffisent** (même code correcteur que les radiogrammes), suivies de l'identification en clair.
+- 4 à 10 trames dont **n'importe lesquelles 1 à 6 suffisent** (même code correcteur que les radiogrammes), suivies de l'identification en clair. Format décrit dans la [spécification TCQ-RG](doc/TCQ-RG_specification_radiogrammes_FLASH.pdf), chapitre 10.
 - À la réception, sur chaque poste TCQws à l'écoute : **fenêtre rouge clignotante au premier plan**, message en très gros caractères, expéditeur, heure et fréquence, et **alarme sonore jusqu'à l'acquittement**.
 - L'alerte est journalisée et enregistrée dans `radiogrammes\FLASH_*.txt`. Une alerte répétée n'est signalée qu'une fois par demi-heure.
 
@@ -571,6 +572,7 @@ Le script prend la dernière release **TCQws** (tag `tcqws-v…`), vérifie le S
 | [📊 Fiche topo — performances](doc/FICHE_TOPO_TCQws_performances.pdf) | Seuils de décodage mesurés et positionnement face aux autres modes |
 | [📄 Fiche technique FT-201 — MTL et ACP 127](doc/FICHE_TECHNIQUE_TCQws_MTL_ACP127.pdf) | Le métalangage de script et le radiogramme ACP 127 OTAN en JTTY : commandes, variables, scripts prêts à l'emploi, fiches réflexes |
 | [📄 Fiche technique FT-202 — Le RTTY classique et le JTTY](doc/FICHE_TECHNIQUE_TCQws_RTTY_vs_JTTY.pdf) | Étude comparative : signal, sensibilité, débit utile, intégrité du message, radiogramme, automatisation — et ce que le RTTY fait mieux |
+| [📐 Spécification TCQ-RG — radiogrammes et alertes FLASH](doc/TCQ-RG_specification_radiogrammes_FLASH.pdf) | Format complet des radiogrammes FT4/FT8, des alertes FLASH et du radiogramme Packet de TCQ : de quoi écrire un décodeur indépendant ([corpus V1](doc/TCQ-RG_corpus_V1.txt)) |
 | [📜 Historique des versions](HISTORIQUE.md) | Les nouveautés de chaque version, de la plus récente à la plus ancienne |
 | [📱 TCQws Android](android/README.md) | La version téléphone et tablette : installation, raccordement de la radio, réglages |
 

@@ -1,0 +1,31 @@
+Point de situation à 14h30 : la crue de la Marne se poursuit. Le niveau atteint 4,20 m à l'échelle de Meaux et continue de monter lentement. Plusieurs routes sont coupées dans le secteur nord du département.
+Situation générale : tempête en cours sur la zone, rafales de vent jusqu'à 110 km/h. Nombreux arbres tombés sur les voies. Coupure d'électricité sur une dizaine de communes, environ 3 500 foyers privés de courant.
+Moyens engagés : 4 engins de secours, 12 sapeurs-pompiers, 2 équipes de la protection civile, 1 relais radio ADRASEC sur point haut.
+Besoins : un groupe électrogène pour la mairie, du carburant pour le relais, des lits de camp pour le centre d'hébergement.
+Victimes : 2 blessés légers pris en charge sur place, 1 blessé grave évacué vers le centre hospitalier. Pas de décès signalé. Une personne recherchée.
+Le réseau téléphonique fixe et mobile est hors service dans la zone sinistrée. Liaison radio établie avec le PC de la préfecture et le CODIS.
+Demande de renforts : deux équipes de reconnaissance et une station radio portable pour la commune de Coulommiers.
+Évacuation en cours de l'école et de la maison de retraite. Les familles sont accueillies au gymnase municipal. Hébergement prévu pour 150 personnes.
+Incendie de forêt : environ 40 hectares parcourus, le feu progresse vers le nord-est. Fumées importantes, la route départementale est fermée à la circulation.
+Accident de la circulation sur l'autoroute A4 dans le sens Paris vers province, plusieurs véhicules impliqués, bouchon de 8 km.
+Pollution de la rivière signalée par la mairie, distribution d'eau potable interrompue, bouteilles d'eau distribuées à la population.
+Effondrement partiel d'un bâtiment rue de la Gare, périmètre de sécurité mis en place, habitants relogés chez des proches.
+Évolution : situation stable, amélioration attendue dans la nuit. Prochain point de situation à 18h00.
+Évolution : aggravation, la montée des eaux se poursuit, vigilance rouge crues sur la Seine et la Marne.
+Recommandations : rester chez soi, éviter les déplacements, ne pas s'approcher des berges, suivre les consignes des autorités.
+Coordonnées du lieu : latitude 48.8566 nord, longitude 2.3522 est, locator JN18EU, altitude 35 m.
+Station relais installée sur le château d'eau, alimentation sur batterie, autonomie de 12 heures environ.
+Message reçu, merci. Nous transmettons au préfet et au directeur des opérations de secours.
+Réseau de secours activé à 08h15. Stations fixes et mobiles en veille sur les fréquences habituelles. Rendez-vous radio toutes les heures.
+Pas de changement depuis le dernier message. RAS sur le secteur sud. QRV sur 3,643 MHz et 145,500 MHz.
+Le poste de commandement opérationnel est installé à la caserne. Le COS demande un point toutes les 30 minutes.
+Recherche d'une personne disparue : homme de 72 ans, vu pour la dernière fois ce matin près du pont. Les équipes cynophiles sont engagées.
+Balise de détresse 406 MHz détectée, triangulation en cours avec les équipes SATER. Relèvement 215 degrés depuis le point haut.
+Glissement de terrain sur la voie ferrée, circulation des trains interrompue entre les deux gares. Navettes de bus mises en place.
+Chute de neige importante, 30 cm au sol, routes impraticables sans équipement, poids lourds bloqués sur l'aire de repos.
+Vague de chaleur : ouverture des salles rafraîchies, appels à la vigilance pour les personnes âgées et isolées.
+EXERCICE EXERCICE EXERCICE. CECI EST UN MESSAGE D'EXERCICE. FIN DE L'EXERCICE.
+POINT DE SITUATION. SITUATION STABLE. MOYENS ENGAGES. BESOINS EN RENFORTS. VICTIMES : NEANT. ROUTE COUPEE. COUPURE ELECTRICITE.
+URGENT : DEMANDE D'EVACUATION SANITAIRE POUR UN BLESSE GRAVE. CONFIRMER LA RECEPTION DU MESSAGE.
+Station F1GBD à PC Melun, message pour F4JHW. Heure du rapport : 2026-09-17 14:05. Niveau d'alerte : ROUTINE.
+Origine : Mairie de Provins, Seine-et-Marne (77). Destinataire : préfecture, cellule de crise. Transmis par ADRASEC 77.
