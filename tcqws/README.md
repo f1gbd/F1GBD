@@ -12,7 +12,7 @@
 [![Architecture](https://img.shields.io/badge/arch-x86__64-orange.svg)]()
 [![Modes](https://img.shields.io/badge/modes-FT4%20%7C%20FT8%20%7C%20JTTY%20%7C%20RTTY-blueviolet.svg)]()
 [![Compatibilité](https://img.shields.io/badge/compatible-WSJT--X%20(ADIF%2C%20ALL.TXT)-teal.svg)]()
-[![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt)
+[![Licence](https://img.shields.io/badge/licence-PolyForm%20Noncommercial%201.0.0-green.svg)](LICENSE)
 [![Code civil](https://img.shields.io/badge/code%20civil-CHAPPE--26-b01818.svg)](doc/Chappe26_Livret_B5.pdf)
 [![Version TCQws](https://img.shields.io/badge/version-tcqws--v0.8.0-blue)](HISTORIQUE.md)
 
@@ -582,7 +582,8 @@ Windows 10/11 64 bits ; TCQws Android : Android 7 ou plus récent, 64 bits (arm6
 
 ## Licences et crédits
 
-- **TCQws** © 2026 F1GBD — ADRASEC 77 / FNRASEC. Licence : voir `LICENSE`.
+- **TCQws** © 2026 F1GBD — ADRASEC 77 / FNRASEC. Logiciel gratuit, licence **[PolyForm Noncommercial 1.0.0](LICENSE)** : utilisation, copie et modification libres pour tout usage non commercial ; toute utilisation commerciale est exclue. Depuis la v0.8.1, TCQws n'embarque plus aucune bibliothèque GPL.
+- **Clé RTL-SDR** : TCQws lance l'outil officiel osmocom `rtl_tcp.exe`, livré sans modification dans `sdr-gpl\` sous sa propre licence (GNU GPL v2 ; libusb : LGPL 2.1). Détail des composants tiers : [`THIRD-PARTY-NOTICES.txt`](THIRD-PARTY-NOTICES.txt).
 - **Protocoles FT4 et FT8** : Joe Taylor K1JT, Steve Franke K9AN, Bill Somerville G4WJS et l'équipe WSJT-X. TCQws est une réalisation indépendante, **non affiliée au projet WSJT-X**, et ne reprend aucun de ses codes.
 - **ft8_lib** : Kārlis Goba, YL3JG — licence MIT.
 - **Contours de la carte** : **Natural Earth** 110 m (admin_0_countries), jeu de données du **domaine public** — [naturalearthdata.com](https://www.naturalearthdata.com/). Embarqués dans l'exécutable : la carte n'accède jamais au réseau.

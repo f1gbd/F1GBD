@@ -1,0 +1,64 @@
+================================================================================
+ MeshFederator — COMPOSANTS TIERS
+================================================================================
+MeshFederator est distribué sous PolyForm Noncommercial 1.0.0 (voir LICENSE).
+Les composants ci-dessous restent sous leurs propres licences. Aucun n'impose
+la publication du code source de MeshFederator.
+
+--------------------------------------------------------------------------------
+ 1. BIBLIOTHÈQUES EMBARQUÉES (non modifiées)
+--------------------------------------------------------------------------------
+  Python ................. PSF License                https://www.python.org
+  Tcl/Tk (tkinter) ....... licence BSD de Tcl/Tk      https://www.tcl.tk
+  meshcore ............... MIT                        https://github.com/meshcore-dev/meshcore_py
+  pycayennelpp ........... MIT                        https://github.com/smlng/pycayennelpp
+  pycryptodome ........... BSD-2-Clause / domaine public  https://www.pycryptodome.org
+  bleak .................. MIT                        https://github.com/hbldh/bleak
+    Windows : pywinrt (winrt-*) ........ MIT          https://github.com/pywinrt/pywinrt
+    Linux   : dbus-fast ................ MIT          https://github.com/Bluetooth-Devices/dbus-fast
+  pyserial ............... BSD-3-Clause               https://github.com/pyserial/pyserial
+  pyserial-asyncio-fast .. BSD-3-Clause               https://github.com/home-assistant-libs/pyserial-asyncio-fast
+  certifi ................ MPL-2.0 (fichier non modifié)  https://github.com/certifi/python-certifi
+
+  Le dialogue avec les nœuds Meshtastic est assuré par mt_client, écrit pour
+  MeshFederator (aucune reprise de code de la bibliothèque Python meshtastic).
+
+--------------------------------------------------------------------------------
+ 2. PROGRAMMES SÉPARÉS LIVRÉS AVEC MeshFederator (lancés comme processus distincts)
+--------------------------------------------------------------------------------
+  esptool-gpl\ .......... esptool.exe v5.5.0 (Espressif) — GNU GPL v2
+                           (MeshFederator Pi : app/esptool-gpl/, esptool 5.5.0
+                           et ses bibliothèques, lancés par un script séparé)
+                           Voir esptool-gpl\LISEZMOI.txt.
+                           Source : https://github.com/espressif/esptool/tree/v5.5.0
+
+--------------------------------------------------------------------------------
+ 3. FIRMWARES DE LA BIBLIOTHÈQUE HORS LIGNE (firmware\, non modifiés)
+--------------------------------------------------------------------------------
+  firmware\meshtastic\ .. Meshtastic firmware 2.7.26.54e0d8d (Heltec V3 / V4,
+                           image factory, système de fichiers littlefs, chargeur
+                           OTA) — GNU GPL v3
+                           Source : https://github.com/meshtastic/firmware/tree/v2.7.26.54e0d8d
+  firmware\meshcore\ .... MeshCore companion radio USB v1.17.1 (d929643) — MIT
+                           Source : https://github.com/meshcore-dev/MeshCore
+  Ces firmwares sont les fichiers officiels publiés par leurs projets ; ils
+  sont seulement écrits dans les modules Heltec par MeshFederator Setup.
+
+  Les programmes et firmwares des sections 2 et 3 ne sont pas modifiés. Leurs
+  licences ne s'appliquent pas à MeshFederator, et la licence de MeshFederator
+  ne s'applique pas à eux. Sur simple demande à F1GBD, une copie de leur code
+  source correspondant peut être fournie pendant au moins trois ans.
+
+--------------------------------------------------------------------------------
+ 4. FLASHEUR WEB (webflasher\index.html)
+--------------------------------------------------------------------------------
+  Charge depuis Internet, au moment de l'utilisation (non livrés) :
+  esptool-js 0.5.7 ...... Apache-2.0                 https://github.com/espressif/esptool-js
+  fflate 0.8.2 .......... MIT                        https://github.com/101arrowz/fflate
+
+--------------------------------------------------------------------------------
+ 5. MARQUES
+--------------------------------------------------------------------------------
+  Meshtastic® est une marque déposée de Meshtastic LLC. MeshCore est un
+  projet open source indépendant. MeshFederator n'est affilié à aucun des deux.
+================================================================================

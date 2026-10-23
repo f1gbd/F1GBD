@@ -1,0 +1,48 @@
+================================================================================
+ TCQws — COMPOSANTS TIERS
+================================================================================
+TCQws est distribué sous PolyForm Noncommercial 1.0.0 (voir LICENSE).
+Les composants ci-dessous restent sous leurs propres licences. Aucun n'impose
+la publication du code source de TCQws.
+
+--------------------------------------------------------------------------------
+ 1. BIBLIOTHÈQUES EMBARQUÉES DANS TCQws.exe (non modifiées)
+--------------------------------------------------------------------------------
+  Python ................. PSF License                https://www.python.org
+  Tcl/Tk (tkinter) ....... licence BSD de Tcl/Tk      https://www.tcl.tk
+  numpy .................. BSD-3-Clause               https://numpy.org
+  scipy .................. BSD-3-Clause               https://scipy.org
+  Pillow ................. MIT-CMU (HPND)             https://python-pillow.org
+  pyserial ............... BSD-3-Clause               https://github.com/pyserial/pyserial
+  sounddevice ............ MIT (PortAudio : MIT)      https://python-sounddevice.readthedocs.io
+  certifi ................ MPL-2.0 (fichier non modifié)  https://github.com/certifi/python-certifi
+  ft8_lib (tcqftx_x64.dll) MIT                        https://github.com/kgoba/ft8_lib
+      Copyright (c) 2018 Kārlis Goba (YL3JG) — texte de la licence dans
+      _internal\ftx_native\bin\LICENSE_ft8_lib.txt
+  Contours de la carte ... Natural Earth 110 m — domaine public
+                                                      https://www.naturalearthdata.com
+
+  Protocoles FT4 et FT8 : K1JT, K9AN, G4WJS et l'équipe WSJT-X. TCQws est une
+  réalisation indépendante, écrite d'après la description publique des
+  protocoles : aucun code de WSJT-X n'est repris.
+
+--------------------------------------------------------------------------------
+ 2. PROGRAMMES SÉPARÉS LIVRÉS AVEC TCQws (lancés comme processus distincts)
+--------------------------------------------------------------------------------
+  sdr-gpl\rtl-sdr\ ....... rtl_tcp.exe, librtlsdr.dll (osmocom) — GNU GPL v2
+                           libusb-1.0.dll — GNU LGPL 2.1
+                           libwinpthread-1.dll (MinGW-w64) — MIT / ZPL
+                           Voir sdr-gpl\LISEZMOI.txt et sdr-gpl\rtl-sdr\SOURCE.txt.
+  Ces programmes ne sont pas modifiés. Leurs licences ne s'appliquent pas à
+  TCQws, et la licence de TCQws ne s'applique pas à eux. Sur simple demande à
+  F1GBD, une copie de leur code source correspondant peut être fournie
+  pendant au moins trois ans.
+
+--------------------------------------------------------------------------------
+ 3. ÉDITION ANDROID (TCQws Android)
+--------------------------------------------------------------------------------
+  Chaquopy ............... MIT                        https://chaquo.com/chaquopy
+  ft8_lib ................ MIT                        https://github.com/kgoba/ft8_lib
+  numpy .................. BSD-3-Clause               https://numpy.org
+  certifi ................ MPL-2.0 (fichier non modifié)  https://github.com/certifi/python-certifi
+================================================================================

@@ -25,7 +25,7 @@
   <img src="https://img.shields.io/badge/mode-off--grid-1e90ff">
   <img src="https://img.shields.io/badge/plateforme-Windows-2b6cb0">
   <img src="https://img.shields.io/badge/matériel-ESP32%20LoRa-263238">
-  <img src="https://img.shields.io/badge/licence-GPLv3-blue">
+  <img src="https://img.shields.io/badge/licence-PolyForm%20Noncommercial%201.0.0-green">
   <img src="https://img.shields.io/badge/auteur-F1GBD-000000">
 </p>
 
@@ -242,6 +242,14 @@ seul responsable de vos transmissions.
 - Interopère avec l'écosystème **[TinyGS](https://tinygs.com)** et s'appuie sur les éphémérides
   **[SGP4](https://pypi.org/project/sgp4/)** / **[Celestrak](https://celestrak.org)**.
 
-Distribué sous licence **GNU GPLv3** — voir le fichier [`LICENSE`](LICENSE).
+L'application **GSLoRaSat** est gratuite, distribuée sous licence **PolyForm Noncommercial 1.0.0**
+(fichier [`LICENSE.txt`](LICENSE.txt)) : utilisation, copie et modification libres pour tout usage non
+commercial ; toute utilisation commerciale est exclue.
+
+Le **firmware de la station** est un **TinyGS modifié** et reste, comme TinyGS, sous **GNU GPL v3** :
+son code source correspondant est le commit `0890fb1` de [TinyGS](https://github.com/tinygs/tinyGS) plus le
+correctif [`firmware/gslorasat-tinygs-offgrid-1.1.0.patch`](firmware/gslorasat-tinygs-offgrid-1.1.0.patch),
+également joint à chaque release. Le flasheur intégré lance l'outil officiel `esptool.exe` (GNU GPL v2),
+livré à part dans `esptool-gpl\`. Composants tiers : [`THIRD-PARTY-NOTICES.txt`](THIRD-PARTY-NOTICES.txt).
 
 <p align="center"><i>73 de F1GBD 🛰️📡</i></p>

@@ -1,0 +1,48 @@
+================================================================================
+ IAbrain — COMPOSANTS TIERS
+================================================================================
+IAbrain est distribué sous PolyForm Noncommercial 1.0.0 (voir LICENSE).
+Les composants ci-dessous restent sous leurs propres licences. Aucun n'impose
+la publication du code source d'IAbrain.
+
+--------------------------------------------------------------------------------
+ 1. BIBLIOTHÈQUES EMBARQUÉES (non modifiées ; selon l'environnement de build)
+--------------------------------------------------------------------------------
+  Python ................. PSF License                https://www.python.org
+  Tcl/Tk (tkinter) ....... licence BSD de Tcl/Tk      https://www.tcl.tk
+  numpy .................. BSD-3-Clause               https://numpy.org
+  pandas ................. BSD-3-Clause               https://pandas.pydata.org
+  requests ............... Apache-2.0                 https://github.com/psf/requests
+    urllib3 (MIT), idna (BSD-3-Clause), charset-normalizer (MIT)
+  certifi ................ MPL-2.0 (fichier non modifié)  https://github.com/certifi/python-certifi
+  pypdf .................. BSD-3-Clause               https://github.com/py-pdf/pypdf
+  pypdfium2 + PDFium ..... Apache-2.0 / BSD-3-Clause  https://github.com/pypdfium2-team/pypdfium2
+  python-docx ............ MIT                        https://github.com/python-openxml/python-docx
+  openpyxl ............... MIT                        https://openpyxl.readthedocs.io
+    et_xmlfile (MIT)
+  ReportLab .............. BSD                        https://www.reportlab.com
+  Pillow ................. MIT-CMU (HPND)             https://python-pillow.org
+  staticmap .............. Apache-2.0                 https://github.com/komoot/staticmap
+  pytesseract ............ Apache-2.0                 https://github.com/madmaze/pytesseract
+  vosk ................... Apache-2.0                 https://alphacephei.com/vosk
+  faster-whisper ......... MIT                        https://github.com/SYSTRAN/faster-whisper
+  sounddevice ............ MIT (PortAudio : MIT)      https://python-sounddevice.readthedocs.io
+  cffi ................... MIT                        https://cffi.readthedocs.io
+  pyttsx3 ................ MPL-2.0 (non modifié)      https://github.com/nateshmbhat/pyttsx3
+  pywin32 ................ PSF                        https://github.com/mhammond/pywin32
+  psutil ................. BSD-3-Clause               https://github.com/giampaolo/psutil
+
+  PyMuPDF (AGPL), pdf2image / poppler (GPL) et Piper (GPL) ne sont pas
+  embarqués : le rendu des pages PDF pour l'OCR passe par pypdfium2.
+
+--------------------------------------------------------------------------------
+ 2. LOGICIELS ET DONNÉES À INSTALLER À PART (non livrés)
+--------------------------------------------------------------------------------
+  Tesseract OCR .......... Apache-2.0                 https://github.com/tesseract-ocr/tesseract
+  Ollama (modèles locaux)  MIT (modèles : licences propres à chaque modèle)
+                                                      https://ollama.com
+  Modèles vocaux Vosk .... licences propres à chaque modèle
+                                                      https://alphacephei.com/vosk/models
+  Cartes OpenStreetMap ... © les contributeurs d'OpenStreetMap, ODbL
+                                                      https://www.openstreetmap.org/copyright
+================================================================================

@@ -1,0 +1,82 @@
+================================================================================
+ ADRAlink — COMPOSANTS TIERS
+================================================================================
+ADRAlink (console ADRAlink_serveur, client ADRAlink_client) est distribué sous
+PolyForm Noncommercial 1.0.0 (voir LICENSE). Les composants ci-dessous restent
+sous leurs propres licences. Aucun n'impose la publication du code source
+d'ADRAlink.
+
+--------------------------------------------------------------------------------
+ 1. BIBLIOTHÈQUES EMBARQUÉES DANS LES EXE
+--------------------------------------------------------------------------------
+  Python ................. PSF License                https://www.python.org
+  Tcl/Tk (tkinter) ....... licence BSD de Tcl/Tk      https://www.tcl.tk
+  Reticulum (RNS) 1.0.4 .. Reticulum License (texte complet en section 4)
+                           version adaptée par F1GBD  https://github.com/markqvist/Reticulum
+  LXMF 0.9.3 ............. Reticulum License (texte complet en section 4)
+                                                      https://github.com/markqvist/LXMF
+  cryptography ........... Apache-2.0 OU BSD-3-Clause https://cryptography.io
+  pyserial ............... BSD-3-Clause               https://github.com/pyserial/pyserial
+
+--------------------------------------------------------------------------------
+ 2. PROGRAMMES SÉPARÉS LIVRÉS AVEC ADRAlink (lancés comme processus distincts)
+--------------------------------------------------------------------------------
+  esptool-gpl\ .......... esptool.exe v5.5.0 (Espressif) — GNU GPL v2
+                           Lancé par le bouton « Firmware ». Voir esptool-gpl\LISEZMOI.txt.
+                           Source : https://github.com/espressif/esptool/tree/v5.5.0
+  firmware\rnode_firmware_heltec32v3.zip, rnode_firmware_heltec32v4pa.zip
+                           Firmware RNode officiel (Mark Qvist), avec son esptool.py
+                           — GNU GPL v3 (esptool.py : GNU GPL v2)
+                           Source : https://github.com/markqvist/RNode_Firmware
+  firmware\rsdeck-mail-adralink-*.bin
+                           Firmware T-Deck rsDeck adapté ADRASEC (F1GBD), dérivé de
+                           rsDeck (Ratspeak) et microReticulum — GNU AGPL v3
+                           Origine : https://github.com/ratspeak/rsDeck
+                           Code source correspondant : sur demande à F1GBD.
+  Ces programmes et firmwares ne sont pas liés à ADRAlink : ils sont seulement
+  écrits dans les cartes. Leurs licences ne s'appliquent pas à ADRAlink, et
+  la licence d'ADRAlink ne s'applique pas à eux. Sur simple demande à F1GBD,
+  une copie de leur code source correspondant peut être fournie pendant au
+  moins trois ans.
+
+--------------------------------------------------------------------------------
+ 3. LOGICIELS PILOTÉS, NON LIVRÉS
+--------------------------------------------------------------------------------
+  Pat (client Winlink, version adaptée ADRAlink) — MIT
+      Copyright (c) Martin Hebnes Pedersen (LA5NTA) et contributeurs
+      https://github.com/la5nta/pat
+  VARA FM (EA5HVK) — logiciel propriétaire, à installer et licencier à part.
+
+--------------------------------------------------------------------------------
+ 4. TEXTE DE LA RETICULUM LICENSE (RNS et LXMF)
+--------------------------------------------------------------------------------
+Reticulum License
+
+Copyright (c) 2016-2026 Mark Qvist
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+- The Software shall not be used in any kind of system which includes amongst
+  its functions the ability to purposefully do harm to human beings.
+
+- The Software shall not be used, directly or indirectly, in the creation of
+  an artificial intelligence, machine learning or language model training
+  dataset, including but not limited to any use that contributes to the
+  training or development of such a model or algorithm.
+
+- The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+================================================================================

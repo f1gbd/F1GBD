@@ -122,7 +122,7 @@ Pour une passerelle fixe avec une bonne antenne, le **V3 suffit largement** ; sa
 
 ## Installation
 
-1. Lancez **`MeshFederator-1.1.0-setup.exe`** : installation par utilisateur (dans `%LOCALAPPDATA%\Programs\MeshFederator`, sans droits administrateur), licence GNU GPL, raccourcis *MeshFederator*, *MeshFederator Setup*, *Flasheur web* et *Bibliothèque de firmwares*. *(Ou décompressez l'archive `MeshFederator-v1.1.0-win64.7z`.)*
+1. Lancez **`MeshFederator-1.1.0-setup.exe`** : installation par utilisateur (dans `%LOCALAPPDATA%\Programs\MeshFederator`, sans droits administrateur), licence PolyForm Noncommercial, raccourcis *MeshFederator*, *MeshFederator Setup*, *Flasheur web* et *Bibliothèque de firmwares*. *(Ou décompressez l'archive `MeshFederator-v1.1.0-win64.7z`.)*
    La **bibliothèque de firmwares Heltec V3 et V4** (Meshtastic + MeshCore companion USB) est incluse : aucun accès Internet n'est nécessaire pour flasher.
 2. Branchez le **premier** module Heltec, lancez **`MeshFederatorSetup.exe`**, choisissez son port, sélectionnez **Meshtastic** dans la bibliothèque et cliquez **FLASHER**. Onglet *Paramétrage Meshtastic* → **Preset passerelle** → nom long (indicatif) → **Appliquer**.
 3. Branchez le **second** module, flashez **MeshCore companion USB**. Onglet *Paramétrage MeshCore* → nom, preset **EU/UK Narrow**, canaux → **Appliquer**.
@@ -202,7 +202,9 @@ Créé automatiquement au premier lancement, à côté de l'exécutable.
 
 ## Licence & auteur
 
-**MeshFederator** — *a Meshtastic ⇄ MeshCore federation gateway for Heltec LoRa V4/V3* — par **F1GBD** (c) 2026 — **ADRASEC 77 / FNRASEC**. Licence GNU GPL v3.
+**MeshFederator** — *a Meshtastic ⇄ MeshCore federation gateway for Heltec LoRa V4/V3* — par **F1GBD** (c) 2026 — **ADRASEC 77 / FNRASEC**.
+
+MeshFederator est gratuit, distribué sous licence **[PolyForm Noncommercial 1.0.0](LICENSE)** : utilisation, copie et modification libres pour tout usage non commercial (radioamateurs, associations, ADRASEC, enseignement, recherche) ; toute utilisation commerciale est exclue. Depuis la v1.2.0, MeshFederator dialogue avec Meshtastic par son propre client (`mt_client`) et n'embarque plus de composant GPL. Les programmes tiers livrés sans modification gardent leurs licences ([`THIRD-PARTY-NOTICES.txt`](THIRD-PARTY-NOTICES.txt)) : esptool (GPL v2, dossier `esptool-gpl`), firmwares Meshtastic (GPL v3) et MeshCore (MIT) de la bibliothèque hors ligne.
 
 Meshtastic® est une marque déposée de Meshtastic LLC. MeshCore est un projet open source indépendant. MeshFederator n'est affilié à aucun des deux projets.
 

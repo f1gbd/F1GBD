@@ -1,0 +1,20 @@
+================================================================================
+ EPIRBdecoder Android — COMPOSANTS TIERS
+================================================================================
+EPIRBdecoder Android est distribué sous PolyForm Noncommercial 1.0.0 (voir
+LICENSE). Les composants ci-dessous restent sous leurs propres licences. Aucun
+n'impose la publication du code source de l'application.
+
+Bibliothèques embarquées dans l'APK (non modifiées) :
+  Chaquopy (Python pour Android) ... MIT        https://chaquo.com/chaquopy
+  Python ........................... PSF License https://www.python.org
+  numpy ............................ BSD-3-Clause https://numpy.org
+  certifi .......................... MPL-2.0 (fichier non modifié)
+                                                 https://github.com/certifi/python-certifi
+  usb-serial-for-android 3.8.1 ..... MIT        https://github.com/mik3y/usb-serial-for-android
+
+Application séparée, NON livrée :
+  Pilote de la clé RTL-SDR (application « SDR driver » / rtl_tcp_andro,
+  installée à part depuis le Play Store) : EPIRBdecoder lit son flux IQ par le
+  protocole rtl_tcp en TCP local. Elle reste sous sa propre licence.
+================================================================================

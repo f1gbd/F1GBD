@@ -1,0 +1,27 @@
+================================================================================
+ EPIRBdecoder (Linux / Raspberry Pi) — COMPOSANTS TIERS
+================================================================================
+EPIRBdecoder est distribué sous PolyForm Noncommercial 1.0.0 (voir LICENSE).
+Les composants ci-dessous restent sous leurs propres licences. Aucun n'impose
+la publication du code source d'EPIRBdecoder.
+
+Bibliothèques embarquées (non modifiées) :
+  Python ............ PSF License            https://www.python.org
+  Tcl/Tk (tkinter) .. licence BSD de Tcl/Tk  https://www.tcl.tk
+  numpy ............. BSD-3-Clause           https://numpy.org
+  scipy ............. BSD-3-Clause           https://scipy.org
+  Pillow ............ MIT-CMU (HPND)         https://python-pillow.org
+  ReportLab ......... BSD                    https://www.reportlab.com
+  pyserial .......... BSD-3-Clause           https://github.com/pyserial/pyserial
+  soundfile ......... BSD-3-Clause (libsndfile : GNU LGPL 2.1, bibliothèque
+                      partagée séparée et remplaçable)  https://libsndfile.github.io
+  PyAudio ........... MIT (PortAudio : MIT)  https://people.csail.mit.edu/hubert/pyaudio
+  pydub ............. MIT                    https://github.com/jiaaro/pydub
+
+Programmes séparés, NON livrés, fournis par le système (paquets Debian/Ubuntu) :
+  rtl_tcp ........... paquet « rtl-sdr » (osmocom, GNU GPL v2) — pilote la clé
+                      RTL-SDR ; EPIRBdecoder le lance et lit son flux IQ en TCP
+                      local (127.0.0.1).   sudo apt install rtl-sdr
+  ffmpeg ............ paquet « ffmpeg » (facultatif, lecture de fichiers audio
+                      compressés via pydub).   sudo apt install ffmpeg
+================================================================================

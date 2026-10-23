@@ -1,0 +1,46 @@
+================================================================================
+ GSLoRaSat — COMPOSANTS TIERS
+================================================================================
+L'application GSLoRaSat est distribuée sous PolyForm Noncommercial 1.0.0 (voir
+LICENSE.txt). Les composants ci-dessous restent sous leurs propres licences.
+Aucun n'impose la publication du code source de l'application GSLoRaSat.
+
+--------------------------------------------------------------------------------
+ 1. BIBLIOTHÈQUES EMBARQUÉES (non modifiées)
+--------------------------------------------------------------------------------
+  Python ................. PSF License                https://www.python.org
+  pyserial ............... BSD-3-Clause               https://github.com/pyserial/pyserial
+  sgp4 ................... MIT                        https://github.com/brandon-rhodes/python-sgp4
+  certifi ................ MPL-2.0 (fichier non modifié)  https://github.com/certifi/python-certifi
+
+--------------------------------------------------------------------------------
+ 2. BIBLIOTHÈQUES LGPL CHARGÉES DYNAMIQUEMENT (remplaçables)
+--------------------------------------------------------------------------------
+  PySide6 / Qt 6 ......... GNU LGPL v3                https://www.qt.io/qt-for-python
+      Livrés en DLL et modules séparés dans _internal\ (application en
+      dossier, non en fichier unique) ; ils peuvent être remplacés par une
+      autre version compatible.
+
+--------------------------------------------------------------------------------
+ 3. PROGRAMMES SÉPARÉS LIVRÉS AVEC GSLoRaSat
+--------------------------------------------------------------------------------
+  esptool-gpl\ .......... esptool.exe v5.5.0 (Espressif) — GNU GPL v2
+                           Flasheur intégré, lancé comme programme séparé.
+                           Voir esptool-gpl\LISEZMOI.txt.
+                           Source : https://github.com/espressif/esptool/tree/v5.5.0
+  firmware\gslorasat-firmware-heltec-v3.bin, gslorasat-firmware-tbeam-433.bin
+                           Firmware de la station : TinyGS modifié par F1GBD
+                           (mode off-grid, pont série / Wi-Fi, journal flash)
+                           — GNU GPL v3, comme TinyGS.
+                           Code source correspondant :
+                             TinyGS https://github.com/tinygs/tinyGS
+                             commit 0890fb1c73dd29e5a88972d1d59348e4c8c7122e
+                           + correctif firmware\gslorasat-tinygs-offgrid-1.1.0.patch,
+                             livré à côté des images et joint à chaque release.
+  Ces programmes ne sont pas liés à l'application GSLoRaSat : esptool est lancé
+  à part et le firmware est écrit dans la carte. Leurs licences ne s'appliquent
+  pas à l'application, et la licence de l'application ne s'applique pas à eux.
+  Sur simple demande à F1GBD, une copie de leur code source correspondant peut
+  être fournie pendant au moins trois ans.
+
+================================================================================

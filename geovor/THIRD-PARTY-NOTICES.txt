@@ -1,0 +1,59 @@
+================================================================================
+ GeoVOR — COMPOSANTS TIERS
+================================================================================
+GeoVOR est distribué sous PolyForm Noncommercial 1.0.0 (voir LICENSE).
+Les composants ci-dessous restent sous leurs propres licences. Aucun n'impose
+la publication du code source de GeoVOR.
+
+--------------------------------------------------------------------------------
+ 1. BIBLIOTHÈQUES EMBARQUÉES DANS GeoVOR.exe (non modifiées)
+--------------------------------------------------------------------------------
+  Python ................. PSF License                https://www.python.org
+  Tcl/Tk (tkinter) ....... licence BSD de Tcl/Tk      https://www.tcl.tk
+  numpy .................. BSD-3-Clause               https://numpy.org
+  scipy .................. BSD-3-Clause               https://scipy.org
+  matplotlib ............. licence matplotlib (PSF)   https://matplotlib.org
+  Pillow ................. MIT-CMU (HPND)             https://python-pillow.org
+  tkintermapview ......... CC0 1.0                    https://github.com/TomSchimansky/TkinterMapView
+  sgp4 ................... MIT                        https://github.com/brandon-rhodes/python-sgp4
+  pyserial ............... BSD-3-Clause               https://github.com/pyserial/pyserial
+
+--------------------------------------------------------------------------------
+ 2. ALGORITHMES REPRIS D'AUTRES PROJETS (code réécrit en Python)
+--------------------------------------------------------------------------------
+  Détection du préambule ADS-B (adsb_lib) — test de forme de dump1090
+      Copyright (c) 2012 Salvatore Sanfilippo — licence BSD 3 clauses
+      https://github.com/antirez/dump1090
+      Le décodage Mode S lui-même (CRC, CPR, altitude, vitesse) est écrit
+      d'après la spécification publique, sans reprise de code tiers.
+
+--------------------------------------------------------------------------------
+ 3. PROGRAMMES SÉPARÉS LIVRÉS AVEC GeoVOR (lancés comme processus distincts)
+--------------------------------------------------------------------------------
+  sdr-gpl\rtl-sdr\ ....... rtl_tcp.exe, librtlsdr.dll (osmocom) — GNU GPL v2
+                           libusb-1.0.dll — GNU LGPL 2.1
+                           Voir sdr-gpl\LISEZMOI.txt et sdr-gpl\rtl-sdr\SOURCE.txt.
+  esptool-gpl\ .......... esptool.exe v5.5.0 (Espressif) — GNU GPL v2
+                           Onglet « Firmware ». Voir esptool-gpl\LISEZMOI.txt.
+                           Source : https://github.com/espressif/esptool/tree/v5.5.0
+  firmware\gslorasat-firmware-*.bin
+                           Firmware de station GSLoRaSAT : TinyGS modifié par
+                           F1GBD — GNU GPL v3. Source : TinyGS
+                           (https://github.com/tinygs/tinyGS, commit 0890fb1c73dd)
+                           + correctif firmware\gslorasat-tinygs-offgrid-*.patch,
+                           livré à côté des images.
+  Ces programmes ne sont pas liés à GeoVOR. Leurs licences ne s'appliquent pas
+  à GeoVOR, et la licence de GeoVOR ne s'applique pas à eux. Sur simple
+  demande à F1GBD, une copie de leur code source correspondant peut être
+  fournie pendant au moins trois ans.
+
+--------------------------------------------------------------------------------
+ 4. DONNÉES
+--------------------------------------------------------------------------------
+  navaids.csv ............ OurAirports — domaine public  https://ourairports.com/data/
+  Fonds de carte (téléchargés à l'usage) :
+    OpenStreetMap — © les contributeurs d'OpenStreetMap, ODbL
+                    https://www.openstreetmap.org/copyright
+    OpenTopoMap   — © OpenTopoMap (CC-BY-SA), données © OpenStreetMap
+  Éléments orbitaux (TLE) : CelesTrak / NORAD.
+================================================================================

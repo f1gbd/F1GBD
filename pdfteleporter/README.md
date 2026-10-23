@@ -128,7 +128,7 @@ format d'archive et sont interopérables dans les deux sens.
 > **Format `.psdi` inchangé** : interopérabilité totale avec TCQ et toutes les
 > versions précédentes, dans les deux sens. [Détails →](CHANGELOG.md#v220)
 
-**🐧 v1.2.0 Linux** — même moteur et même interface que la v2.2.0 Windows.
+**🐧 v1.2.1 Linux** — même moteur et même interface que la v2.2.0 Windows.
 [README Linux](linux/)
 
 > ### ⚠️ v2.1.0 — correctif du texte saisi corrompu (Okular)
@@ -201,7 +201,7 @@ Le détail complet est dans le **[CHANGELOG](CHANGELOG.md)**.
 | Version | Date | En bref | |
 |---|---|---|:---:|
 | **v2.2.0** | oct. 2026 | Moteur PDF libre (pages plus fidèles), interface PySide6, licence PolyForm Noncommercial | [détails](CHANGELOG.md#v220) · [release](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-v2.2.0) |
-| **v1.2.0** Linux | oct. 2026 | Même moteur et même interface que la v2.2.0 | [linux/](linux/) · [release](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-linux-v1.2.0) |
+| **v1.2.1** Linux | oct. 2026 | Même moteur et même interface que la v2.2.0 | [linux/](linux/) · [release](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-linux-v1.2.1) |
 | v2.1.0 | sept. 2026 | Correctif : texte saisi corrompu sur les PDF annotés (Okular) | [détails](CHANGELOG.md#v210) |
 | v1.1.0 Linux | sept. 2026 | Version Linux reconstruite sur les sources communes PyQt6 | [détails](CHANGELOG.md#v110) · [linux/](linux/) |
 | v2.0.1 | sept. 2026 | Mise en page corrigée sur 1360×768, journal en fenêtre séparée | [détails](CHANGELOG.md#v201) |

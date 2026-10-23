@@ -10,16 +10,17 @@ Usage libre et gratuit à titre personnel ou radioamateur, et par les associatio
 (ADRASEC, FNRASEC…), les organismes de sécurité civile et les services publics.
 Texte : <https://polyformproject.org/licenses/noncommercial/1.0.0>
 
-`tcq` · `pdfteleporter` · `photerix` · `winkiss-tnc` · `meshrns` · `meshvara` · `meshpacket` · `homer` · `dia` · `aero-spectrix` · `epirb` (suite Windows : EPIRBdecoder et EPIRB-generator)
+`tcq` · `tcqws` · `pdfteleporter` · `photerix` · `winkiss-tnc` · `meshrns` · `meshvara` · `meshpacket` · `homer` · `dia` · `aero-spectrix` · `ADRAlink` · `meshfederator` · `geovor` · `gslorasat` · `iabrain` · `xerulith` · `epirb` (suite Windows : EPIRBdecoder et EPIRB-generator) · `epirb/linux` · `epirb/raspberry` · `epirb/android`
 
-TCQ et la suite EPIRB Windows livrent à part, dans un dossier `sdr-gpl\`, des outils SDR tiers (rtl-sdr, HackRF) qui restent sous leurs propres licences (GPL v2, LGPL 2.1, BSD). TCQ livre aussi à part, dans `ffmpeg-lgpl\`, le programme FFmpeg (LGPL v3).
+TCQ, TCQws, GeoVOR et la suite EPIRB Windows livrent à part, dans un dossier `sdr-gpl\`, des outils SDR tiers (rtl-sdr, HackRF) qui restent sous leurs propres licences (GPL v2, LGPL 2.1, BSD) ; les éditions Linux et Raspberry Pi d'EPIRB utilisent le `rtl_tcp` du paquet système `rtl-sdr`. TCQ livre aussi à part, dans `ffmpeg-lgpl\`, le programme FFmpeg (LGPL v3).
+
+ADRAlink, MeshFederator, GeoVOR, GSLoRaSat et XERULITH livrent à part, dans un dossier `esptool-gpl\`, l'outil officiel `esptool.exe` d'Espressif (GPL v2), lancé comme programme séparé. Les firmwares tiers écrits dans les cartes restent sous leur licence : Meshtastic (GPL v3), RNode (GPL v3), rsDeck (AGPL v3), et le **TinyGS modifié** de GSLoRaSat et GeoVOR (GPL v3), dont le correctif source est publié dans [`gslorasat/firmware/`](gslorasat/firmware/) et joint aux releases. XERULITH livre à part les simulateurs ArduPilot SITL (GPL v3) ; **Mission Planner OFF-GRID** (GPL v3) est publié dans sa propre release avec son correctif source.
+
+Chaque dossier concerné contient un fichier `THIRD-PARTY-NOTICES.txt` qui détaille ces composants.
 
 ## GNU GPL v3 (fichier `LICENSE.txt` à la racine, ou `LICENSE` du dossier)
 
-Ces logiciels intègrent des bibliothèques sous GPL ou AGPL (esptool, meshtastic,
-PyMuPDF, pyModeS, pyrtlsdr, PyQt6…), ce qui impose la GPL à l'ensemble :
-
-`tcqws` · `ADRAlink` · `meshfederator` · `geovor` · `gslorasat` · `iabrain` · `epirb/linux` · `epirb/raspberry` · `epirb/android` · `epirb/saterfinder` · `TML` · `xerulith`
+`epirb/saterfinder` · `TML`
 
 Également sous GPL v3 par défaut : `satersim` et tout autre dossier sans fichier `LICENSE` propre.
 

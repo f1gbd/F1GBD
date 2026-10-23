@@ -326,6 +326,18 @@ procédures de terrain, calibration, fichiers IQ, tuiles hors-ligne, ADS-B, reli
   navigation certifié, et sans valeur réglementaire.
 * Vérifier l'état des balises (NOTAM, eAIP) avant de s'y fier.
 
+## ⚖️ Licence
+
+GeoVOR est gratuit, distribué sous licence **[PolyForm Noncommercial 1.0.0](LICENSE)** : utilisation,
+copie et modification libres pour tout usage non commercial (radioamateurs, ADRASEC, FNRASEC,
+associations, enseignement) ; toute utilisation commerciale est exclue.
+
+Depuis la v1.5.0, GeoVOR n'embarque plus de bibliothèque GPL : la clé RTL-SDR est pilotée par l'outil
+officiel osmocom `rtl_tcp.exe` (dossier `sdr-gpl\`), le flashage par `esptool.exe` d'Espressif
+(dossier `esptool-gpl\`), deux programmes séparés livrés sans modification sous leurs propres licences.
+Les images de la station GSLoRaSAT (`firmware\`) sont un TinyGS modifié (GNU GPL v3), accompagné de
+son correctif source. Détail : [`THIRD-PARTY-NOTICES.txt`](THIRD-PARTY-NOTICES.txt).
+
 ---
 
 <div align="center">

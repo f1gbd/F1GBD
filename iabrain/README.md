@@ -9,7 +9,7 @@
 [![Version](https://img.shields.io/badge/version-iabrain--v1.51.00-blue)](https://github.com/f1gbd/F1GBD/releases/tag/iabrain-v1.51.00)
 [![Téléchargements](https://img.shields.io/badge/téléchargements-200%2B-brightgreen?logo=github)](https://github.com/f1gbd/F1GBD/releases)
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
-[![Licence](https://img.shields.io/badge/usage-ADRASEC%2FFNRASEC-green.svg)]()
+[![Licence](https://img.shields.io/badge/licence-PolyForm%20Noncommercial%201.0.0-green.svg)](LICENSE)
 [![100% local](https://img.shields.io/badge/local%20%2F%20cloud-hybride-brightgreen.svg)]()
 [![Accessibilité](https://img.shields.io/badge/accessibilité-voix%20%F0%9F%8E%A4%20%F0%9F%94%8A-purple.svg)]()
 

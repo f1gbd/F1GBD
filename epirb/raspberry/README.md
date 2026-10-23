@@ -15,7 +15,7 @@
 
 ---
 
-> ⚠️ **Téléchargement temporairement retiré (octobre 2026).** Cette édition est en cours de mise en conformité avec la nouvelle séparation des licences de la suite EPIRB (logiciel sous PolyForm Noncommercial, composants GPL livrés à part). Les liens de téléchargement ci-dessous ne sont plus actifs ; la version Windows [EPIRB Suite](https://github.com/f1gbd/F1GBD/tree/master/epirb) reste disponible.
+> ⚖️ **v5.20.1 — licence PolyForm Noncommercial 1.0.0** (gratuit, usage commercial interdit). EPIRBpi-decoder-lite n'embarque plus aucun composant GPL : la clé RTL-SDR est pilotée par l'outil officiel **`rtl_tcp`** du paquet système `rtl-sdr` (installé par `install-lite.sh`), programme séparé dont l'application lit le flux IQ en TCP local. Composants tiers : `THIRD-PARTY-NOTICES.txt`.
 
 ## Sommaire
 
@@ -49,7 +49,7 @@ Deux usages complémentaires :
 - **Temps réel** : réception directe sur les canaux 406 MHz via la clé RTL-SDR.
 - **Relecture** : ouverture de fichiers IQ `.npy` enregistrés (utile pour l'entraînement et la vérification, sans antenne).
 
-L'application est livrée sous forme de **binaire autonome** : Python, numpy, scipy, Tkinter, Pillow et la bibliothèque RTL-SDR sont embarqués. **Rien à installer côté Python.**
+L'application est livrée sous forme de **binaire autonome** : Python, numpy, scipy, Tkinter et Pillow sont embarqués. **Rien à installer côté Python.** La clé RTL-SDR passe par `rtl_tcp` (paquet système `rtl-sdr`, installé par `install-lite.sh`).
 
 ---
 
@@ -111,9 +111,9 @@ Téléchargez l'archive `EPIRBpi-decoder-lite-X.Y.Z-linux-aarch64.tar.gz` depuis
 ```bash
 # 1. Télécharger et extraire (sur le Pi)
 cd ~
-wget https://github.com/f1gbd/F1GBD/releases/download/epirb-pi-lite-arm64-v5.20.0/EPIRBpi-decoder-lite-5.20.0-linux-aarch64.tar.gz
-tar xzf EPIRBpi-decoder-lite-5.20.0-linux-aarch64.tar.gz
-cd EPIRBpi-decoder-lite-5.20.0-linux-aarch64
+wget https://github.com/f1gbd/F1GBD/releases/download/epirb-pi-lite-arm64-v5.20.1/EPIRBpi-decoder-lite-5.20.1-linux-aarch64.tar.gz
+tar xzf EPIRBpi-decoder-lite-5.20.1-linux-aarch64.tar.gz
+cd EPIRBpi-decoder-lite-5.20.1-linux-aarch64
 
 # 2. (optionnel) Vérifier l'intégrité
 sha256sum -c EPIRBpi-decoder-lite-linux-aarch64.tar.gz.sha256
@@ -142,7 +142,7 @@ Après installation :
 ./EPIRBpi-decoder-lite.sh
 ```
 
-> 💡 Lancez toujours via **`EPIRBpi-decoder-lite.sh`** (ou la commande/menu installé), **jamais** le binaire brut : le lanceur règle `LD_LIBRARY_PATH` pour que la librtlsdr embarquée soit trouvée.
+> 💡 Lancez toujours via **`EPIRBpi-decoder-lite.sh`** (ou la commande/menu installé), **jamais** le binaire brut.
 
 ### Étape 4 — Configurer la clé RTL-SDR
 
@@ -272,8 +272,8 @@ device = 0
 
 ## Dépannage
 
-**« Module pyrtlsdr non disponible »**
-La clé n'est pas accessible. Vérifiez `lsusb | grep -i realtek`, lancez `sudo ./install-lite.sh --rtlsdr`, puis **débranchez/rebranchez** la clé. Lancez via `EPIRBpi-decoder-lite.sh` (pas le binaire brut).
+**« rtl_tcp introuvable » ou clé non détectée**
+Installez le paquet : `sudo apt install rtl-sdr`. Si la clé n'est pas accessible : Vérifiez `lsusb | grep -i realtek`, lancez `sudo ./install-lite.sh --rtlsdr`, puis **débranchez/rebranchez** la clé. Lancez via `EPIRBpi-decoder-lite.sh` (pas le binaire brut).
 
 **`LIBUSB_ERROR_ACCESS` / `LIBUSB_ERROR_BUSY`**
 Le pilote DVB-T tient la clé, ou les droits ne sont pas appliqués. Relancez `sudo ./install-lite.sh --rtlsdr` et rebranchez la clé. Assurez-vous qu'aucun autre logiciel SDR n'utilise le dongle.
@@ -290,6 +290,8 @@ Appuyez sur **Échap** pour passer en mode fenêtré.
 ---
 
 ## Licence et crédits
+
+EPIRBpi-decoder-lite est gratuit, distribué sous licence **PolyForm Noncommercial 1.0.0** (fichier [`LICENSE`](LICENSE)) : utilisation, copie et modification libres pour tout usage non commercial ; toute utilisation commerciale est exclue. Composants tiers et licences : [`THIRD-PARTY-NOTICES.txt`](THIRD-PARTY-NOTICES.txt).
 
 Développé pour la communauté **ADRASEC** et la **FNRASEC**, dans la continuité des outils TCQ, IAbrain, d-IA et PDFteleporter.
 

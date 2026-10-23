@@ -19,7 +19,7 @@
   <img src="https://img.shields.io/badge/simulation-Arma%203%20%7C%20ArduPilot%20SITL-6b4f1d">
   <img src="https://img.shields.io/badge/IA-Ollama%20local%20ou%20cloud-1e90ff">
   <img src="https://img.shields.io/badge/hors%20ligne-oui-2e7d32">
-  <img src="https://img.shields.io/badge/licence-GNU%20GPL%20v3-555555">
+  <img src="https://img.shields.io/badge/licence-PolyForm%20Noncommercial%201.0.0-2e7d32">
 </p>
 
 <p align="center">
@@ -578,5 +578,9 @@ guide pas à pas les essais au simulateur, l'exercice SATER et l'entraînement e
 
 ## Licence
 
-XERULITH est un logiciel libre distribué sous licence **GNU GPL v3** (fichier `LICENSE`).
-Le projet Commander, utilisé sans modification, reste sous licence MIT (compatible).
+XERULITH est gratuit, distribué sous licence **PolyForm Noncommercial 1.0.0** (fichier [`LICENSE`](LICENSE)) :
+utilisation, copie et modification libres pour tout usage non commercial ; toute utilisation commerciale est exclue.
+Les composants tiers gardent leurs propres licences ([`THIRD-PARTY-NOTICES.txt`](THIRD-PARTY-NOTICES.txt)) :
+Commander (MIT), PySide6 et pymavlink (LGPL v3, remplaçables), et les programmes séparés livrés sans
+modification — esptool (GPL v2, dossier `esptool-gpl`) et les simulateurs ArduPilot SITL (GPL v3,
+dossier `ardupilot\sitl`). Mission Planner OFF-GRID (GPL v3) est publié à part, avec son correctif source.

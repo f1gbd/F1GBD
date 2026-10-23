@@ -423,3 +423,9 @@ au service des recherches SATER de la Sécurité Civile.
 - Spécifications des balises : documents **COSPAS-SARSAT** C/S T.001.
 
 © 2026 F1GBD — ADRASEC 77 / FNRASEC.
+
+## Licence
+
+EPIRBdecoder Android est gratuit, distribué sous licence **PolyForm Noncommercial 1.0.0** (fichier [`LICENSE`](LICENSE)) : utilisation, copie et modification libres pour tout usage non commercial ; toute utilisation commerciale est exclue. Il n'embarque aucun composant GPL ; le pilote de la clé RTL-SDR (*SDR Driver*) est une application séparée, installée à part, sous sa propre licence. Composants tiers : [`THIRD-PARTY-NOTICES.txt`](THIRD-PARTY-NOTICES.txt).
+
+*Les versions publiées jusqu'à la v0.4.0 restent régies par la licence qui les accompagnait (GNU GPL v3).*

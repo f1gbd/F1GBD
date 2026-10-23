@@ -6,22 +6,22 @@
 
 **Décodeur de balises de détresse COSPAS-SARSAT 406 MHz**
 
-*Version 5.20.0 Linux — par F1GBD / ADRASEC 77 / FNRASEC*
+*Version 5.20.1 Linux — par F1GBD / ADRASEC 77 / FNRASEC*
 
-[![Version](https://img.shields.io/badge/version-5.20.0--linux-blue)]()
+[![Version](https://img.shields.io/badge/version-5.20.1--linux-blue)]()
 [![Platform](https://img.shields.io/badge/platform-Linux%20x86__64-orange)]()
 [![Python](https://img.shields.io/badge/python-3.12%20embarqu%C3%A9-yellow)]()
-[![License](https://img.shields.io/badge/license-GPL--3.0-green)]()
+[![Licence](https://img.shields.io/badge/licence-PolyForm%20Noncommercial%201.0.0-green)](LICENSE)
 
 ---
 
-> ⚠️ **Téléchargement temporairement retiré (octobre 2026).** Cette édition est en cours de mise en conformité avec la nouvelle séparation des licences de la suite EPIRB (logiciel sous PolyForm Noncommercial, composants GPL livrés à part). Les liens de téléchargement ci-dessous ne sont plus actifs ; la version Windows [EPIRB Suite](https://github.com/f1gbd/F1GBD/tree/master/epirb) reste disponible.
+> ⚖️ **v5.20.1 — licence PolyForm Noncommercial 1.0.0** (gratuit, usage commercial interdit). EPIRBdecoder Linux n'embarque plus aucun composant GPL : la clé RTL-SDR est pilotée par l'outil officiel **`rtl_tcp`** du paquet système `rtl-sdr` (`sudo apt install rtl-sdr`, fait par `install.sh`), programme séparé dont EPIRBdecoder lit le flux IQ en TCP local. Composants tiers : `THIRD-PARTY-NOTICES.txt`.
 
 ## 🎯 Qu'est-ce qu'EPIRBdecoder ?
 
 **EPIRBdecoder** décode les balises de détresse **COSPAS-SARSAT 406 MHz** (EPIRB maritimes, ELT aéronautiques, PLB personnelles) à partir d'une clé **RTL-SDR**, d'une **entrée audio**, ou d'un **fichier**. Il extrait l'identifiant de la balise, le pays, le protocole et la position GPS encodée, puis affiche le tout sur une **carte OSM** avec relèvements goniométriques pour la triangulation.
 
-Cette version Linux est la **transposition fidèle** de la version Windows. **Aucune dépendance Python à installer** : le binaire embarque tout (Python 3.12 + numpy + scipy + Tkinter + Pillow + PortAudio + la bibliothèque RTL-SDR) via PyInstaller.
+Cette version Linux est la **transposition fidèle** de la version Windows. **Aucune dépendance Python à installer** : le binaire embarque tout (Python 3.12 + numpy + scipy + Tkinter + Pillow + PortAudio) via PyInstaller. La clé RTL-SDR passe par `rtl_tcp`, du paquet système `rtl-sdr`.
 
 ### Cas d'usage typiques
 
@@ -79,7 +79,7 @@ Cette version Linux est la **transposition fidèle** de la version Windows. **Au
 ### Clé RTL-SDR — pour le mode SDR Direct (optionnel)
 
 - Dongle RTL-SDR à tuner **R820T2 / R828D** : **Nooelec RTL-SDR v5** (recommandé, TCXO), RTL-SDR Blog V3/V4, génériques RTL2832U
-- La bibliothèque **librtlsdr est embarquée** dans le bundle (aucun paquet à installer)
+- Paquet système **`rtl-sdr`** (outil `rtl_tcp`) : `sudo apt install rtl-sdr` — `install.sh` l'installe pour vous
 - Il faut en revanche **neutraliser le pilote DVB-T du noyau** et autoriser l'accès au dongle (voir [Installation › RTL-SDR](#rtl-sdr--activation-du-dongle))
 
 > Les modes **Audio Live** et **Fichier audio** fonctionnent **sans clé SDR**.
@@ -92,35 +92,35 @@ Cette version Linux est la **transposition fidèle** de la version Windows. **Au
 
 ```bash
 # Téléchargement de l'archive et de sa somme de contrôle
-wget https://github.com/f1gbd/F1GBD/releases/download/epirb-linux-v5.20.0/EPIRBdecoder-5.20.0-linux-x86_64.tar.gz
-wget https://github.com/f1gbd/F1GBD/releases/download/epirb-linux-v5.20.0/EPIRBdecoder-linux-x86_64.tar.gz.sha256
+wget https://github.com/f1gbd/F1GBD/releases/download/epirb-linux-v5.20.1/EPIRBdecoder-5.20.1-linux-x86_64.tar.gz
+wget https://github.com/f1gbd/F1GBD/releases/download/epirb-linux-v5.20.1/EPIRBdecoder-linux-x86_64.tar.gz.sha256
 
 # Vérification de l'intégrité (recommandée)
 sha256sum -c EPIRBdecoder-linux-x86_64.tar.gz.sha256
-# Doit afficher : EPIRBdecoder-5.20.0-linux-x86_64.tar.gz: OK
+# Doit afficher : EPIRBdecoder-5.20.1-linux-x86_64.tar.gz: OK
 ```
 
 ### Étape 2 — Extraction
 
 ```bash
-tar xzf EPIRBdecoder-5.20.0-linux-x86_64.tar.gz
-cd EPIRBdecoder-5.20.0-linux-x86_64
+tar xzf EPIRBdecoder-5.20.1-linux-x86_64.tar.gz
+cd EPIRBdecoder-5.20.1-linux-x86_64
 ```
 
 L'archive (≈ 117 Mo compressé, ≈ 291 Mo extrait) contient :
 
 ```
-EPIRBdecoder-5.20.0-linux-x86_64/
+EPIRBdecoder-5.20.1-linux-x86_64/
 ├── EPIRBdecoder          Binaire principal (ELF 64-bit)
 ├── EPIRBdecoder.sh       Lanceur (règle l'environnement RTL-SDR / Tk / audio)
 ├── EPIRBdecoder.png      Icône de l'application (fenêtre + menu)
-├── _internal/            Python 3.12 + numpy + scipy + Tk + PIL + librtlsdr…
+├── _internal/            Python 3.12 + numpy + scipy + Tk + PIL…
 ├── install.sh            Script d'installation (utilisateur / système / désinstall)
 ├── EPIRBdecoder.desktop  Modèle d'entrée de menu
 └── LISEZ-MOI.txt         Notice d'installation
 ```
 
-> ⚠️ Lancez de préférence via **`EPIRBdecoder.sh`** (et non `EPIRBdecoder` directement) : le lanceur règle `LD_LIBRARY_PATH` pour que la bibliothèque RTL-SDR embarquée soit trouvée.
+> ⚠️ Lancez de préférence via **`EPIRBdecoder.sh`** (et non `EPIRBdecoder` directement).
 
 ### Étape 3 — Choix du mode d'utilisation
 
@@ -226,14 +226,14 @@ EPIRBdecoder maintient ses fichiers (`decoder_setup.json`, cache de tuiles OSM) 
 
 | Fonctionnalité | Statut | Détail |
 |---|---|---|
-| SDR Direct (IQ brut MLSE) | ✅ | librtlsdr embarquée ; nécessite le blacklist DVB-T (voir Installation) |
+| SDR Direct (IQ brut MLSE) | ✅ | via `rtl_tcp` (paquet `rtl-sdr`) ; nécessite le blacklist DVB-T (voir Installation) |
 | Audio Live / Fichier audio | ✅ | PortAudio embarqué |
 | Carte OSM / triangulation | ✅ | Identique Windows (accès Internet requis pour les tuiles) |
 | APRS-IS | ✅ | Identique Windows |
 | SITREP SATER PDF | ✅ | Identique Windows |
 | Décodage CLI `--json` | ✅ | Spécifique à cette version, pratique en script |
 
-> **Robustesse RTL-SDR** : sous Linux, une `librtlsdr` système incompatible peut empêcher le chargement du pilote. Le décodeur le détecte désormais proprement et **désactive le SDR sans planter** ; les autres modes (Audio, Fichier, Hex) restent disponibles. La bibliothèque embarquée évite ce cas dans la majorité des installations.
+> **Robustesse RTL-SDR** : si `rtl_tcp` est absent ou ne trouve pas la clé, le décodeur l'indique clairement (« sudo apt install rtl-sdr ») et **désactive le SDR sans planter** ; les autres modes (Audio, Fichier, Hex) restent disponibles.
 
 ---
 
@@ -278,7 +278,7 @@ Vérifier dans l'ordre :
 
 Ce message apparaît si le binaire a été compilé avec NumPy 2.x (baseline **x86-64-v2**) et que le **CPU n'expose pas** ces instructions — typiquement une **machine virtuelle** au modèle de processeur générique (`qemu64`) ou un CPU ancien. Cette édition est compilée avec **NumPy 1.26 (baseline x86-64-v1)** et tourne sur tout processeur x86-64, VM comprises. Si vous rencontrez encore ce message :
 
-- Vérifiez que vous utilisez bien la dernière archive `EPIRBdecoder-5.20.0-linux-x86_64.tar.gz`
+- Vérifiez que vous utilisez bien la dernière archive `EPIRBdecoder-5.20.1-linux-x86_64.tar.gz`
 - Sur une VM (VirtualBox, QEMU/KVM, VMware), vous pouvez aussi activer le **passage du CPU hôte** (« host-passthrough » / « Copier la configuration du processeur hôte ») pour exposer toutes les instructions
 
 ### La clé RTL-SDR n'est pas détectée
@@ -286,7 +286,7 @@ Ce message apparaît si le binaire a été compilé avec NumPy 2.x (baseline **x
 1. Le pilote DVB-T est-il neutralisé ? (voir [Installation › RTL-SDR](#rtl-sdr--activation-du-dongle))
 2. Tester l'accès : `lsusb | grep -i RTL` doit lister le dongle (`Realtek … RTL2838`)
 3. Accès non-root : `sudo ./install.sh --rtlsdr`, puis rebrancher la clé
-4. Lancer **via `EPIRBdecoder.sh`** (et non le binaire directement) pour que la librtlsdr embarquée soit trouvée
+4. Vérifier que `rtl_tcp` est installé : `rtl_tcp -h` (sinon `sudo apt install rtl-sdr`)
 
 ### Erreur « LIBUSB_ERROR_ACCESS (-3) : Access denied » à l'ouverture du SDR
 
@@ -328,7 +328,13 @@ cp /chemin/vers/windows/decoder_setup.json ~/.local/share/EPIRBdecoder/
 
 ## 📜 Historique des versions
 
-### v5.20.0-linux (juin 2026) — version actuelle
+### v5.20.1-linux (octobre 2026) — version actuelle
+
+- **Licence PolyForm Noncommercial 1.0.0** (gratuit, usage commercial interdit)
+- Clé RTL-SDR par **`rtl_tcp`** (paquet système `rtl-sdr`), programme séparé : plus de `librtlsdr` / `pyrtlsdr` (GPL) dans le paquet
+- `install.sh` installe le paquet `rtl-sdr` ; fichier `THIRD-PARTY-NOTICES.txt`
+
+### v5.20.0-linux (juin 2026)
 
 - **Première version officielle Linux** (x86_64), build autonome PyInstaller
 - Décodage **IQ brut MLSE** prioritaire en SDR Direct (repli FM + biphase)

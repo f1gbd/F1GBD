@@ -1,0 +1,99 @@
+================================================================================
+ XERULITH — COMPOSANTS TIERS
+================================================================================
+XERULITH est distribué sous PolyForm Noncommercial 1.0.0 (voir LICENSE).
+Les composants ci-dessous restent sous leurs propres licences. Aucun n'impose
+la publication du code source de XERULITH.
+
+--------------------------------------------------------------------------------
+ 1. BIBLIOTHÈQUES EMBARQUÉES DANS XERULITH.exe (non modifiées)
+--------------------------------------------------------------------------------
+  Python ................. PSF License                https://www.python.org
+  Commander .............. MIT                        https://github.com/drhalto/commander
+      Copyright (c) 2026 Dustin Hightower
+      Protocole EZ-B v4, mouvements du JD, vision, simulateur ; utilisé sans
+      modification (texte de la licence dans _internal\licences\commander\).
+  numpy .................. BSD-3-Clause               https://numpy.org
+  Pillow ................. MIT-CMU (HPND)             https://python-pillow.org
+  opencv-contrib-python .. Apache-2.0                 https://opencv.org
+  pyserial ............... BSD-3-Clause               https://github.com/pyserial/pyserial
+  websockets ............. BSD-3-Clause               https://github.com/python-websockets/websockets
+  sounddevice ............ MIT (PortAudio : MIT)      https://python-sounddevice.readthedocs.io
+  faster-whisper ......... MIT                        https://github.com/SYSTRAN/faster-whisper
+  CTranslate2 ............ MIT                        https://github.com/OpenNMT/CTranslate2
+  tokenizers ............. Apache-2.0                 https://github.com/huggingface/tokenizers
+  onnxruntime ............ MIT                        https://onnxruntime.ai
+  Modèle ssd_mobilenet_v1_12.onnx (ONNX Model Zoo) ... Apache-2.0
+  (les modules facultatifs ne sont présents que s'ils étaient installés au
+  moment du build)
+
+--------------------------------------------------------------------------------
+ 2. BIBLIOTHÈQUES LGPL CHARGÉES DYNAMIQUEMENT (remplaçables)
+--------------------------------------------------------------------------------
+  PySide6 / Qt 6 ......... GNU LGPL v3                https://www.qt.io/qt-for-python
+      Livrés en DLL et modules séparés dans _internal\PySide6\ ; ils peuvent
+      être remplacés par une autre version compatible.
+  pymavlink .............. GNU LGPL v3                https://github.com/ArduPilot/pymavlink
+      Livré en fichiers sources .py dans _internal\pymavlink\, remplaçables.
+  OpenCV embarque opencv_videoio_ffmpeg*.dll (FFmpeg, GNU LGPL 2.1), livrée
+  sous forme de DLL séparée et remplaçable. Source : https://ffmpeg.org
+
+--------------------------------------------------------------------------------
+ 3. PROGRAMMES SÉPARÉS LIVRÉS AVEC XERULITH (lancés comme processus distincts)
+--------------------------------------------------------------------------------
+  esptool-gpl\ .......... esptool.exe v5.5.0 (Espressif) — GNU GPL v2
+                           Flasheur du pont radio LoRa. Voir esptool-gpl\LISEZMOI.txt.
+                           Source : https://github.com/espressif/esptool/tree/v5.5.0
+  ardupilot\sitl\ ....... ArduCopter.exe V4.8.0-dev (commit 1f1251a6)
+                           ArduRover.exe  V4.8.0-dev (commit 181cd0b4)
+                           Simulateurs ArduPilot SITL — GNU GPL v3
+                           Source : https://github.com/ArduPilot/ardupilot
+                           (commits indiqués ci-dessus)
+                           Bibliothèques Cygwin livrées avec eux :
+                           cygwin1.dll (Cygwin 3.6.11) — GNU LGPL v3,
+                           source https://cygwin.com/git/newlib-cygwin.git ;
+                           cyggcc_s, cygstdc++, cyggomp, cygatomic, cygquadmath,
+                           cygssp — GCC, GNU GPL v3 avec exception de bibliothèque
+                           d'exécution GCC ; cygiconv-2, cygintl-8 — GNU LGPL.
+                           Source : https://cygwin.com/packages/
+  Ces programmes ne sont pas modifiés. Leurs licences ne s'appliquent pas à
+  XERULITH, et la licence de XERULITH ne s'applique pas à eux. Sur simple
+  demande à F1GBD, une copie de leur code source correspondant peut être
+  fournie pendant au moins trois ans.
+
+--------------------------------------------------------------------------------
+ 4. MISSION PLANNER OFF-GRID (publié séparément)
+--------------------------------------------------------------------------------
+  Mission Planner (ArduPilot) — GNU GPL v3
+  https://github.com/ArduPilot/MissionPlanner
+  La version « OFF-GRID » (sans accès Internet) n'est pas incluse dans
+  XERULITH. Elle est publiée à part, en release « missionplanner-offgrid-v… »,
+  avec son code source correspondant :
+    - sources officielles de Mission Planner au commit
+      5dbb2b048485688da6427a532d426df2c045f566 ;
+    - correctif MissionPlanner_OffGrid.patch, joint à la même release.
+
+--------------------------------------------------------------------------------
+ 5. FIRMWARE DU PONT RADIO LoRa (xerulith-mavlora-heltec-v3.bin)
+--------------------------------------------------------------------------------
+  Programme de F1GBD (PolyForm Noncommercial 1.0.0), compilé avec :
+  RadioLib 7.1.2 ......... MIT                        https://github.com/jgromes/RadioLib
+  ESP8266 and ESP32 OLED driver for SSD1306 4.6.1 ... MIT
+                                                      https://github.com/ThingPulse/esp8266-oled-ssd1306
+  ESP-IDF (Espressif) .... Apache-2.0                 https://github.com/espressif/esp-idf
+  Arduino-ESP32 2.0.17 ... GNU LGPL 2.1               https://github.com/espressif/arduino-esp32/tree/2.0.17
+      Liée statiquement dans le firmware. Conformément à la LGPL 2.1
+      (section 6), F1GBD fournit sur simple demande, pendant au moins trois
+      ans, les fichiers objets du firmware permettant de le relier avec une
+      version modifiée d'Arduino-ESP32.
+
+--------------------------------------------------------------------------------
+ 6. NON LIVRÉS
+--------------------------------------------------------------------------------
+  Piper (synthèse vocale neuronale, GPL via espeak-ng) et le mod Pythia
+  d'Arma 3 ne sont pas livrés avec XERULITH. La voix de l'exécutable est
+  la voix Windows (SAPI) ; Pythia s'installe à part depuis le Steam
+  Workshop ou https://github.com/overfl0/Pythia.
+  EZ-Robot, ARC et JD-Humanoid sont des marques d'EZ-Robot Inc. ;
+  Arma 3 est une marque de Bohemia Interactive. XERULITH n'y est pas affilié.
+================================================================================

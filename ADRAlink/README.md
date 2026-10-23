@@ -65,8 +65,10 @@ le **client Windows** que depuis l'**APK Android** (RNode Heltec connecté en
 > **Config LoRa**). Voir
 > [Flashage de firmware & config LoRa](#flashage-de-firmware-rnode--config-lora-off-grid-v140).
 
-> ADRAlink est publié sous [licence GNU GPL v3.0](https://github.com/f1gbd/F1GBD/blob/master/LICENSE.txt),
-> imposée par les composants GPL qu'il intègre. Il est destiné à un usage personnel, associatif et de sécurité civile.
+> ADRAlink est gratuit, publié sous licence **[PolyForm Noncommercial 1.0.0](LICENSE)** (usage commercial interdit).
+> Il est destiné à un usage personnel, radioamateur, associatif et de sécurité civile. Depuis la v1.4.5, esptool
+> (GNU GPL v2) n'est plus embarqué : il est livré à part, sans modification, dans `esptool-gpl\`. Composants tiers :
+> [`THIRD-PARTY-NOTICES.txt`](THIRD-PARTY-NOTICES.txt).
 
 ---
 
@@ -327,4 +329,4 @@ Basé sur **[PAT](https://github.com/la5nta/pat)** (client Winlink open source,
 LA5NTA) pour le transport radio Winlink, et sur **[Reticulum / LXMF](https://reticulum.network/)**
 pour le transport LoRa.
 
-*ADRAlink v1.4.4 — © 2026 F1GBD / ADRASEC 77. Licence GNU GPL v3.0.*
+*ADRAlink v1.4.4 — © 2026 F1GBD / ADRASEC 77. Licence PolyForm Noncommercial 1.0.0.*

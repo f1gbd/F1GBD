@@ -1,0 +1,1320 @@
+GSLoRaSat — firmware TinyGS « off-grid » (GSL_FW_VERSION 1.1.0)
+=================================================================
+Correctif source des firmwares gslorasat-firmware-heltec-v3.bin et
+gslorasat-firmware-tbeam-433.bin (également utilisés par GeoVOR).
+
+TinyGS est distribué sous GNU GPL v3 (https://github.com/tinygs/tinyGS).
+Ce correctif est publié sous la même licence GNU GPL v3.
+
+Base : https://github.com/tinygs/tinyGS, commit
+       0890fb1c73dd29e5a88972d1d59348e4c8c7122e (03/10/2026)
+
+Reconstruction :
+    git clone https://github.com/tinygs/tinyGS.git
+    cd tinyGS
+    git checkout 0890fb1c73dd29e5a88972d1d59348e4c8c7122e
+    git apply gslorasat-tinygs-offgrid-1.1.0.patch
+    python -m platformio run -e ESP32-S3-OFFGRID     (Heltec V3)
+    python -m platformio run -e ESP32-TBEAM-OFFGRID  (T-Beam)
+
+Modifications : désactivation de l'OTP / MQTT obligatoire, pont série
+(SerialBridge.h), GPS (GpsBridge.h), journal en flash (PacketStore.h), pont TCP
+Wi-Fi (NetBridge.h), émission @RX des paquets reçus, écran GSLoRaSAT, et
+environnements PlatformIO ESP32-S3-OFFGRID et ESP32-TBEAM-OFFGRID.
+Les 4 fichiers .h ajoutés sont © F1GBD, sous GNU GPL v3 dans ce firmware.
+
+diff --git a/platformio.ini b/platformio.ini
+index a4809b8..e5e551b 100644
+--- a/platformio.ini
++++ b/platformio.ini
+@@ -81,3 +81,48 @@ build_flags =
+   ${env.build_flags}
+   -DBOARD_HAS_PSRAM
+ board_build.partitions = tinygs_4M_partition_table.csv
++
++[env:ESP32-S3-OFFGRID]
++; ---- Firmware GSLoraSat off-grid (Heltec WiFi LoRa 32 V3, ESP32-S3 + SX1262) ----
++platform = https://github.com/pioarduino/platform-espressif32/releases/download/stable/platform-espressif32.zip
++board = heltec_wifi_lora_32_V3
++board_build.mcu = esp32s3
++framework = arduino
++board_build.partitions = tinygs_4M_partition_table.csv
++monitor_rts = 0
++monitor_dtr = 0
++build_flags =
++  ${env.build_flags}
++  -D OFFGRID_MODE
++upload_port = COM3
++monitor_port = COM3
++monitor_speed = 115200
++
++[env:ESP32-TBEAM-OFFGRID]
++; ---- Firmware GSLoraSat off-grid (LilyGo T-Beam v1.1/v1.2, ESP32 + SX1278 433 MHz) ----
++; Carte par defaut = index 14 "433MHz T-BEAM V1.0 + OLED" (SX1278).
++; Pour une T-Beam a puce SX126x, remplacer 14 par 22 (T-Beam SX1268 V1.0),
++; ou envoyer !CFG {"board":22} depuis GSLoraSat apres flash.
++platform = espressif32 @ 6.10.0
++; IMPORTANT : profil ESP32 generique SANS PSRAM (comme le firmware stock).
++; Le profil "ttgo-t-beam" active une PSRAM absente sur la T-Beam v1.1 -> le tas
++; est corrompu des les premiers malloc (crash LoadProhibited au boot).
++board = heltec_wifi_lora_32
++framework = arduino
++board_build.flash_mode = dio
++board_build.partitions = tinygs_4M_partition_table.csv
++; RadioLib 7.6.0 (version cible de TinyGS) via le dernier commit 7.6.0 du fork
++; G4lile0 (a les modifs specifiques TinyGS, contrairement a l'upstream jgromes).
++lib_deps =
++  improv/Improv@^1.2.4
++  https://github.com/G4lile0/RadioLib.git#ff7dbba41deaab41b42abf104edcd689c6f9e69a
++build_flags =
++  ${env.build_flags}
++  -D OFFGRID_MODE
++  -D OFFGRID_DEFAULT_BOARD=14
++  -D OFFGRID_HAS_GPS
++  -D GPS_RX_PIN=34
++  -D GPS_TX_PIN=12
++; Adapter le port au T-Beam (souvent different de la Heltec) :
++;   ... -t upload --upload-port COMx
++monitor_speed = 115200
+diff --git a/tinyGS/src/ConfigManager/ConfigManager.h b/tinyGS/src/ConfigManager/ConfigManager.h
+index a20e9c0..787687b 100644
+--- a/tinyGS/src/ConfigManager/ConfigManager.h
++++ b/tinyGS/src/ConfigManager/ConfigManager.h
+@@ -171,7 +171,12 @@ public:
+   float getLatitude() { return atof(latitude); }
+   float getLongitude() { return atof(longitude); }
+   const char *getTZ() { return tz + 3; } // +3 removes the first 3 digits used for time zone deduplication
+-  uint8_t getBoard() { return atoi(board); }
++  uint8_t getBoard() {
++#ifdef OFFGRID_DEFAULT_BOARD
++    if (board[0] == '\0') return OFFGRID_DEFAULT_BOARD;
++#endif
++    return atoi(board);
++  }
+   uint8_t getOledBright() { return atoi(oledBright); }
+   bool getAllowTx() { return !strcmp(allowTx, CB_SELECTED_STR); }
+   void setAllowTx(bool status)
+@@ -236,6 +241,13 @@ public:
+     this->saveConfig();
+   }
+ 
++  void setBoard(uint8_t n)  // GSLoraSat : selection carte off-grid
++  {
++    snprintf(board, BOARD_LENGTH, "%u", n);
++    this->saveConfig();
++    currentBoardDirty = true;
++  }
++
+   const char *getWiFiSSID() { return getWifiSsidParameter()->valueBuffer; }
+   bool isConnected() { return getState() == IOTWEBCONF_STATE_ONLINE; };
+   bool isApMode() { return (getState() != IOTWEBCONF_STATE_CONNECTING && getState() != IOTWEBCONF_STATE_ONLINE); }
+diff --git a/tinyGS/src/Display/Display.cpp b/tinyGS/src/Display/Display.cpp
+index c4ffbed..1d65fee 100644
+--- a/tinyGS/src/Display/Display.cpp
++++ b/tinyGS/src/Display/Display.cpp
+@@ -158,6 +158,10 @@ void drawFrame1(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t x, int1
+   display->drawXbm(x +10, y , Logo_width, Logo_height, Logo_bits);
+   display->setFont(ArialMT_Plain_10);
+   display->setTextAlignment(TEXT_ALIGN_CENTER);
++#ifdef OFFGRID_MODE
++  display->drawString(x + 95, y + 2,  "GSLoRaSAT");
++  display->drawString(x + 95, y + 15, "v" + String(status.version));
++#endif
+   char staBuf[40];
+   snprintf(staBuf, sizeof(staBuf), "Sta: %s", configManager.getThingName());
+   display->drawString( x+70, y + 32, staBuf);
+@@ -289,6 +293,14 @@ void drawFrame7(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t x, int1
+ 
+ void drawFrame8(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t x, int16_t y)
+ {
++#ifdef OFFGRID_MODE
++  display->setTextAlignment(TEXT_ALIGN_CENTER);
++  display->setFont(ArialMT_Plain_16);
++  display->drawString(64 + x, y + 2, "GSLoRaSAT");
++  display->setFont(ArialMT_Plain_10);
++  display->drawString(64 + x, y + 24, "Off Grid   v" + String(status.version));
++  display->drawString(64 + x, y + 40, "by F1GBD");
++#else
+   display->setTextAlignment(TEXT_ALIGN_LEFT);
+   display->drawString(x+2, 16+y, "MQTT:" );
+   if (status.mqtt_connected) { display->drawString( x+7,  26+y, "ON"); }  else { display->drawString( x+5,  26+y, "OFF"); }
+@@ -296,6 +308,7 @@ void drawFrame8(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t x, int1
+   // The coordinates define the center of the text
+   display->setTextAlignment(TEXT_ALIGN_CENTER);
+   display->drawString(64 + x, 42 + y, "Connected " + (WiFi.localIP().toString()));
++#endif
+ }  
+ 
+ void displayShowConnected()
+@@ -324,24 +337,33 @@ void displayShowInitialCredits()
+ 
+ void displayShowApMode()
+ {
+-  display->clear();
++  display->clear();  // GSLoRaSAT off-grid AP
++  display->setTextAlignment(TEXT_ALIGN_CENTER);
++  display->setFont(ArialMT_Plain_16);
++  display->drawString(64, 4, "GSLoRaSAT");
+   display->setFont(ArialMT_Plain_10);
+-  display->setTextAlignment(TEXT_ALIGN_LEFT);
+-  display->drawString(0, 6,"Connect to AP:");
+-  display->drawString(0,18,"->"+String(ConfigManager::getInstance().getThingName()));
+-  display->drawString(5,32,"to configure your Station");
+-  display->drawString(10,52,"IP:   192.168.4.1");
++  display->drawString(64, 26, "ver. " + String(status.version));
++  display->drawString(64, 40, "Off Grid");
++  display->drawString(64, 52, "by F1GBD");
+   display->display();
+ }
+ 
+ void displayShowStaMode(bool ap)
+ {
++  (void)ap;  // GSLoRaSAT off-grid STA
++  static unsigned long _bootMs = millis();
+   display->clear();
+-  display->drawXbm(34, 0 , WiFi_Logo_width, WiFi_Logo_height, WiFi_Logo_bits);
+-  display->setTextAlignment(TEXT_ALIGN_CENTER);
+-  display->drawString(64 , 35 , "Connecting " + String(ConfigManager::getInstance().getWiFiSSID()));
+-  if (ap)
+-    display->drawString(64 , 52 , "Config AP available");
++  if (millis() - _bootMs < 5000) {
++    display->setTextAlignment(TEXT_ALIGN_CENTER);
++    display->setFont(ArialMT_Plain_16);
++    display->drawString(64, 4, "GSLoRaSAT");
++    display->setFont(ArialMT_Plain_10);
++    display->drawString(64, 26, "ver. " + String(status.version));
++    display->drawString(64, 40, "Off Grid");
++    display->drawString(64, 52, "by F1GBD");
++  } else {
++    drawFrame3(display, NULL, 0, 0);
++  }
+   display->display();
+ }
+ 
+diff --git a/tinyGS/src/GpsBridge.h b/tinyGS/src/GpsBridge.h
+new file mode 100644
+index 0000000..a5fa7c7
+--- /dev/null
++++ b/tinyGS/src/GpsBridge.h
+@@ -0,0 +1,174 @@
++/*
++  GpsBridge.h - Lecture du GPS (NEO-6M) du T-Beam et emission @GPS (off-grid).
++
++  Actif seulement si OFFGRID_HAS_GPS est defini (env T-Beam). Le GPS est sur une
++  UART materielle (Serial1, broches GPS_RX_PIN/GPS_TX_PIN) et alimente par le
++  LDO3 de l'AXP192 : on force cette alim au demarrage sans dependre de la
++  detection du chip (qui echoue sur certaines cartes).
++
++  Emet periodiquement sur le port USB :
++    @GPS {"lat":48.41,"lon":2.75,"alt":120,"sats":7,"fix":true,"time":"2026-07-13T16:03:08Z"}
++  que GSLoraSat utilise pour la position/heure du mode automatique.
++*/
++#ifndef GPS_BRIDGE_H
++#define GPS_BRIDGE_H
++#ifdef OFFGRID_HAS_GPS
++
++#include <Arduino.h>
++#include <Wire.h>
++#include <time.h>
++#include <sys/time.h>
++#include "SerialBridge.h"
++
++#ifndef GPS_RX_PIN
++#define GPS_RX_PIN 34      // ESP32 recoit les donnees du GPS (T-Beam v1.1)
++#endif
++#ifndef GPS_TX_PIN
++#define GPS_TX_PIN 12      // ESP32 vers GPS (config, optionnel)
++#endif
++#ifndef GPS_BAUD
++#define GPS_BAUD 9600
++#endif
++#ifndef GPS_EMIT_MS
++#define GPS_EMIT_MS 10000  // frequence d'emission @GPS
++#endif
++
++namespace GpsBridge {
++
++  inline HardwareSerial& port() { return Serial1; }   // UART1 de l'ESP32
++
++  static String  _line;
++  static double  _lat = 0, _lon = 0, _alt = 0;
++  static int     _sats = 0;
++  static bool    _fix = false;
++  static char    _date[7] = "";   // ddmmyy (RMC)
++  static char    _time[7] = "";   // hhmmss (RMC/GGA)
++  static unsigned long _lastEmit = 0;
++
++  // --- Force l'alim des rails LoRa (LDO2) + GPS (LDO3) via l'AXP192 @0x34 ---
++  inline void powerRails() {
++    Wire.begin(21, 22);
++    // LDO2/LDO3 = 3.3V (reg 0x28 : nibble haut LDO2, bas LDO3 ; 0xFF -> 3.3V)
++    Wire.beginTransmission(0x34); Wire.write(0x28); Wire.write(0xFF); Wire.endTransmission();
++    // Power output control (reg 0x12) : activer bit2 (LDO2) + bit3 (LDO3)
++    Wire.beginTransmission(0x34); Wire.write(0x12); Wire.endTransmission();
++    Wire.requestFrom(0x34, 1);
++    uint8_t v = Wire.available() ? Wire.read() : 0;
++    v |= 0x0C;
++    Wire.beginTransmission(0x34); Wire.write(0x12); Wire.write(v); Wire.endTransmission();
++  }
++
++  inline void begin() {
++    powerRails();
++    port().begin(GPS_BAUD, SERIAL_8N1, GPS_RX_PIN, GPS_TX_PIN);
++    Serial.println(F("@LOG GPS T-Beam initialise (LDO3 force, Serial1)"));
++  }
++
++  // Recupere le champ n (0-based) d'une trame NMEA separee par des virgules.
++  inline String field(const String& s, int n) {
++    int start = 0, idx = 0;
++    while (idx < n) {
++      start = s.indexOf(',', start);
++      if (start < 0) return "";
++      start++; idx++;
++    }
++    int end = s.indexOf(',', start);
++    if (end < 0) end = s.length();
++    return s.substring(start, end);
++  }
++
++  // "ddmm.mmmm" + hemisphere -> degres decimaux
++  inline double toDeg(const String& v, const String& hemi) {
++    if (v.length() < 4) return 0;
++    int dot = v.indexOf('.');
++    int degLen = (dot >= 0 ? dot : (int)v.length()) - 2;
++    if (degLen < 1) return 0;
++    double deg = v.substring(0, degLen).toDouble();
++    double minutes = v.substring(degLen).toDouble();
++    double d = deg + minutes / 60.0;
++    if (hemi == "S" || hemi == "W") d = -d;
++    return d;
++  }
++
++  inline void parse(const String& s) {
++    if (s.startsWith("$G") && s.indexOf("RMC") == 3) {
++      // $xxRMC,time,status,lat,N,lon,E,speed,course,date,...
++      String st = field(s, 2);
++      _fix = (st == "A");
++      if (_fix) {
++        _lat = toDeg(field(s, 3), field(s, 4));
++        _lon = toDeg(field(s, 5), field(s, 6));
++        strncpy(_time, field(s, 1).c_str(), 6); _time[6] = '\0';
++        strncpy(_date, field(s, 9).c_str(), 6); _date[6] = '\0';
++      }
++    } else if (s.startsWith("$G") && s.indexOf("GGA") == 3) {
++      // $xxGGA,time,lat,N,lon,E,q,sats,hdop,alt,M,...
++      int q = field(s, 6).toInt();
++      _sats = field(s, 7).toInt();
++      _alt = field(s, 9).toDouble();
++      if (q > 0 && !_fix) {   // GGA confirme un fix si RMC pas encore vu
++        _lat = toDeg(field(s, 2), field(s, 3));
++        _lon = toDeg(field(s, 4), field(s, 5));
++        _fix = true;
++      }
++    }
++  }
++
++  // Cale l'horloge systeme (UTC) sur l'heure GPS -> time(NULL) correct pour
++  // l'overlay OLED et les calculs de position.
++  inline void syncClock() {
++    if (strlen(_date) != 6 || strlen(_time) < 6) return;
++    static bool tz_done = false;
++    if (!tz_done) { setenv("TZ", "UTC0", 1); tzset(); tz_done = true; }
++    struct tm tmv; memset(&tmv, 0, sizeof(tmv));
++    tmv.tm_mday = (_date[0]-'0')*10 + (_date[1]-'0');
++    tmv.tm_mon  = (_date[2]-'0')*10 + (_date[3]-'0') - 1;
++    tmv.tm_year = 100 + (_date[4]-'0')*10 + (_date[5]-'0');   // 20yy
++    tmv.tm_hour = (_time[0]-'0')*10 + (_time[1]-'0');
++    tmv.tm_min  = (_time[2]-'0')*10 + (_time[3]-'0');
++    tmv.tm_sec  = (_time[4]-'0')*10 + (_time[5]-'0');
++    time_t epoch = mktime(&tmv);
++    if (epoch > 1735689600) {   // > 2025-01-01 : garde-fou
++      struct timeval tv; tv.tv_sec = epoch; tv.tv_usec = 0;
++      settimeofday(&tv, nullptr);
++    }
++  }
++
++  inline void emit() {
++    // Construit l'heure ISO a partir de date(ddmmyy)+time(hhmmss) du GPS
++    char iso[25] = "";
++    if (strlen(_date) == 6 && strlen(_time) >= 6) {
++      snprintf(iso, sizeof(iso), "20%c%c-%c%c-%c%cT%c%c:%c%c:%c%cZ",
++               _date[4], _date[5], _date[2], _date[3], _date[0], _date[1],
++               _time[0], _time[1], _time[2], _time[3], _time[4], _time[5]);
++    }
++    // Ligne construite en memoire puis emise d'un bloc (anti-entrelacement
++    // avec le logger asynchrone) sur l'USB ET le client TCP Wi-Fi.
++    String out = F("@GPS {\"lat\":");  out += String(_lat, 5);
++    out += F(",\"lon\":");             out += String(_lon, 5);
++    out += F(",\"alt\":");             out += String(_alt, 0);
++    out += F(",\"sats\":");            out += _sats;
++    out += F(",\"fix\":true,\"time\":\"");
++    out += iso;
++    out += F("\"}");
++    SerialBridge::emitLine(out);
++  }
++
++  inline void loop() {
++    HardwareSerial& g = port();
++    while (g.available()) {
++      char c = (char) g.read();
++      if (c == '\n') { parse(_line); _line = ""; }
++      else if (c != '\r') { _line += c; if (_line.length() > 120) _line = ""; }
++    }
++    if (_fix && millis() - _lastEmit > GPS_EMIT_MS) {
++      _lastEmit = millis();
++      syncClock();
++      emit();
++    }
++  }
++
++} // namespace GpsBridge
++
++#endif // OFFGRID_HAS_GPS
++#endif // GPS_BRIDGE_H
+diff --git a/tinyGS/src/Logger/Logger.cpp b/tinyGS/src/Logger/Logger.cpp
+index 6b50785..c1e3851 100644
+--- a/tinyGS/src/Logger/Logger.cpp
++++ b/tinyGS/src/Logger/Logger.cpp
+@@ -287,6 +287,10 @@ void Log::setLogLevel(LoggingLevels level)
+ }
+ 
+ void Log::log_packet(uint8_t *packet, size_t size){
++#ifdef OFFGRID_MODE
++  (void)packet; (void)size;  // off-grid : dump hexa desactive
++  return;
++#endif
+   //Print out Packet Data in Hex/ASCII form
+   const int bytes_per_line=16;
+   const int longLinea=bytes_per_line*3;//Add the space after each byte
+diff --git a/tinyGS/src/Mqtt/MQTT_Client.cpp b/tinyGS/src/Mqtt/MQTT_Client.cpp
+index f701672..f4fb734 100644
+--- a/tinyGS/src/Mqtt/MQTT_Client.cpp
++++ b/tinyGS/src/Mqtt/MQTT_Client.cpp
+@@ -18,6 +18,7 @@
+ */
+ 
+ #include "MQTT_Client.h"
++#include "../SerialBridge.h"
+ #include "ArduinoJson.h"
+ #if ARDUINOJSON_USE_LONG_LONG == 0 && !PLATFORMIO
+ #error "Using Arduino IDE is not recommended, please follow this guide https://github.com/G4lile0/tinyGS/wiki/Arduino-IDE or edit /ArduinoJson/src/ArduinoJson/Configuration.hpp and amend to #define ARDUINOJSON_USE_LONG_LONG 1 around line 68"
+@@ -390,6 +391,9 @@ void MQTT_Client::sendRxFromQueue(const RxPacketMessage& msg)
+ // problemas si la configuración cambia antes de enviar por MQTT
+ void MQTT_Client::queueRx(const String& packet, bool noisy, const String& raw_packet)
+ {
++#ifdef OFFGRID_MODE
++  SerialBridge::sendRx(packet);
++#endif
+   if (rxQueue == NULL) {
+     // Fallback: enviar directamente si no hay cola
+     sendRx(packet, noisy, raw_packet);
+diff --git a/tinyGS/src/NetBridge.h b/tinyGS/src/NetBridge.h
+new file mode 100644
+index 0000000..855e7af
+--- /dev/null
++++ b/tinyGS/src/NetBridge.h
+@@ -0,0 +1,101 @@
++/*
++  NetBridge.h - Pont TCP Wi-Fi du protocole GSLoRaSAT (meme protocole que l'USB)
++  ------------------------------------------------------------------------------
++  GSLoRaSAT firmware off-grid (T-Beam / Heltec V3) - F1GBD / ADRASEC 77
++
++  La station TinyGS ouvre deja un point d'acces Wi-Fi (IotWebConf) dont le SSID
++  est le NOM DE LA STATION (ex. "F1GBD-GeoVOR", reglable par !CFG {"name":..}),
++  adresse 192.168.4.1. NetBridge y ajoute un serveur TCP (port GSL_TCP_PORT,
++  8023 par defaut) qui transporte EXACTEMENT le protocole ligne-a-ligne du port
++  serie : @RX/@ST/@HELLO/@ACK/@LOG/@GPS/@LOG* vers le PC, !CMD vers la station.
++
++  Un seul client a la fois (le dernier connecte remplace le precedent). Les
++  lignes @RX/@GPS sont diffusees sur l'USB ET le TCP ; les reponses a une
++  commande ne partent que vers le canal qui l'a envoyee.
++
++  Le serveur n'est demarre qu'une fois la pile Wi-Fi active (WiFi.getMode() !=
++  WIFI_OFF) : appeler service() a chaque tour de loop().
++*/
++#ifndef NET_BRIDGE_H
++#define NET_BRIDGE_H
++
++#include <Arduino.h>
++#include <WiFi.h>
++
++#ifndef GSL_TCP_PORT
++#define GSL_TCP_PORT 8023
++#endif
++
++namespace NetBridge {
++
++  struct State {
++    WiFiServer* srv = nullptr;
++    WiFiClient  cli;
++    String      buf;
++    bool        fresh = false;   // client tout juste connecte (-> @HELLO)
++  };
++  inline State& st() { static State s; return s; }
++
++  inline bool connected() {
++    State& s = st();
++    return s.srv && s.cli && s.cli.connected();
++  }
++
++  inline bool listening() { return st().srv != nullptr; }
++
++  inline void write(const String& line) {          // line inclut deja le '\n'
++    if (!connected()) return;
++    st().cli.write((const uint8_t*)line.c_str(), line.length());
++  }
++
++  // Adresse a annoncer : AP de la station sinon IP du reseau rejoint.
++  inline String ip() {
++    wifi_mode_t m = WiFi.getMode();
++    if (m == WIFI_MODE_AP || m == WIFI_MODE_APSTA) return WiFi.softAPIP().toString();
++    if (m == WIFI_MODE_STA) return WiFi.localIP().toString();
++    return String("");
++  }
++
++  inline void service() {
++    State& s = st();
++    if (!s.srv) {
++      if (WiFi.getMode() == WIFI_MODE_NULL) return;  // pile Wi-Fi pas encore lancee
++      s.srv = new WiFiServer(GSL_TCP_PORT, 1);
++      s.srv->begin();
++      s.srv->setNoDelay(true);
++      Serial.println(F("@LOG NetBridge : serveur TCP actif"));
++    }
++    WiFiClient n = s.srv->available();
++    if (n) {
++      if (s.cli) s.cli.stop();
++      s.cli = n;
++      s.cli.setNoDelay(true);
++      s.buf = "";
++      s.fresh = true;
++    }
++    if (s.cli && !s.cli.connected()) s.cli.stop();
++  }
++
++  // Rend true quand une ligne complete (sans \r\n) est disponible dans out.
++  inline bool readLine(String& out) {
++    State& s = st();
++    if (!connected()) return false;
++    while (s.cli.available()) {
++      char c = (char)s.cli.read();
++      if (c == '\n') { out = s.buf; s.buf = ""; out.trim(); return true; }
++      if (c != '\r') {
++        s.buf += c;
++        if (s.buf.length() > 700) s.buf = "";       // garde-fou
++      }
++    }
++    return false;
++  }
++
++  inline bool takeFresh() {
++    State& s = st();
++    if (s.fresh && connected()) { s.fresh = false; return true; }
++    return false;
++  }
++
++} // namespace NetBridge
++#endif
+diff --git a/tinyGS/src/PacketStore.h b/tinyGS/src/PacketStore.h
+new file mode 100644
+index 0000000..ea9c0d9
+--- /dev/null
++++ b/tinyGS/src/PacketStore.h
+@@ -0,0 +1,162 @@
++/*
++  PacketStore.h - Journal des paquets satellites dans la flash de la station
++  ---------------------------------------------------------------------------
++  GSLoRaSAT firmware off-grid (T-Beam / Heltec V3) - F1GBD / ADRASEC 77
++
++  Chaque paquet VALIDE (crc_error == false) recu par la station est ecrit, sous
++  la forme exacte de la ligne @RX (document JSON), dans la partition "spiffs"
++  de la flash (512 Ko, formatee en LittleFS au premier demarrage). La station
++  garde ainsi ses receptions quand aucun PC n'est branche : GSLoRaSAT ou GeoVOR
++  les recuperent plus tard, a la demande (!LOGDUMP), par l'USB ou le Wi-Fi.
++
++  Rotation : deux fichiers /gsl_rx.old + /gsl_rx.log de GSL_STORE_MAX_FILE
++  chacun au plus. Quand le fichier courant est plein, l'ancien est supprime et
++  le courant devient l'ancien : on garde toujours les paquets les plus recents
++  (~ 600 a 900 paquets selon la taille des charges utiles).
++
++  Identite d'un paquet : (boot, seq).
++    seq  : compteur croissant, persistant (NVS), jamais remis a zero sauf
++           effacement de la NVS. Permet une recuperation INCREMENTALE
++           (!LOGDUMP <seq> ne renvoie que les paquets seq >= <seq>).
++    boot : numero de demarrage de la station (NVS). Un paquet du boot courant
++           peut etre redate cote PC grace a up_ms (millis() a la reception),
++           meme quand l'horloge de la station n'a jamais ete calee.
++  Ces trois champs (seq, boot, up_ms) sont aussi ajoutes aux lignes @RX
++  emises en direct : le PC deduplique alors direct et relecture.
++*/
++#ifndef PACKET_STORE_H
++#define PACKET_STORE_H
++
++#include <Arduino.h>
++#include <FS.h>
++#include <LittleFS.h>
++#include <Preferences.h>
++
++#ifndef GSL_STORE_MAX_FILE
++#define GSL_STORE_MAX_FILE (200UL * 1024UL)   // 2 x 200 Ko dans 512 Ko
++#endif
++
++namespace PacketStore {
++
++  static const char* const F_CUR = "/gsl_rx.log";
++  static const char* const F_OLD = "/gsl_rx.old";
++
++  struct State {
++    bool     tried   = false;
++    bool     ok      = false;
++    uint32_t seq     = 0;     // prochain numero a attribuer
++    uint32_t boot    = 0;     // numero du demarrage courant
++    uint32_t nCur    = 0;     // paquets dans F_CUR
++    uint32_t nOld    = 0;     // paquets dans F_OLD
++    uint32_t firstSeq = 0;    // plus ancien seq encore stocke (0 = inconnu)
++  };
++
++  // Etat UNIQUE pour tout le firmware : fonction inline (liaison externe) ->
++  // une seule variable statique, meme si l'en-tete est inclus par plusieurs
++  // unites de compilation (tinyGS.ino ET MQTT_Client.cpp).
++  inline State& st() { static State s; return s; }
++
++  // Compte les lignes d'un fichier et rend le seq de la premiere.
++  inline uint32_t countLines(const char* path, uint32_t* firstSeq) {
++    File f = LittleFS.open(path, "r");
++    if (!f) return 0;
++    uint32_t n = 0;
++    uint8_t buf[256];
++    bool first = true;
++    String head;
++    while (f.available()) {
++      int r = f.read(buf, sizeof(buf));
++      if (r <= 0) break;
++      for (int i = 0; i < r; i++) {
++        if (first && head.length() < 120) head += (char)buf[i];
++        if (buf[i] == '\n') { n++; first = false; }
++      }
++    }
++    f.close();
++    if (firstSeq) {
++      int p = head.indexOf("\"seq\":");
++      *firstSeq = (p >= 0) ? (uint32_t)head.substring(p + 6).toInt() : 0;
++    }
++    return n;
++  }
++
++  inline bool begin() {
++    State& s = st();
++    if (s.tried) return s.ok;
++    s.tried = true;
++
++    Preferences p;
++    if (p.begin("gslstore", false)) {
++      s.seq  = p.getUInt("seq", 1);
++      s.boot = p.getUInt("boot", 0) + 1;
++      p.putUInt("boot", s.boot);
++      p.end();
++    }
++    // Partition "spiffs" de tinygs_4M_partition_table.csv, formatee au besoin.
++    s.ok = LittleFS.begin(true, "/littlefs", 4, "spiffs");
++    if (s.ok) {
++      uint32_t fo = 0, fc = 0;
++      s.nOld = countLines(F_OLD, &fo);
++      s.nCur = countLines(F_CUR, &fc);
++      s.firstSeq = s.nOld ? fo : fc;
++    }
++    return s.ok;
++  }
++
++  inline bool     ready()    { return st().ok; }
++  inline uint32_t count()    { return st().nCur + st().nOld; }
++  inline uint32_t bootId()   { return st().boot; }
++  inline uint32_t lastSeq()  { return st().seq > 0 ? st().seq - 1 : 0; }
++  inline uint32_t firstSeq() { return st().firstSeq; }
++
++  // Attribue le numero du prochain paquet (persistant).
++  inline uint32_t nextSeq() {
++    State& s = st();
++    uint32_t n = s.seq++;
++    Preferences p;
++    if (p.begin("gslstore", false)) { p.putUInt("seq", s.seq); p.end(); }
++    return n;
++  }
++
++  // Ajoute une ligne JSON (sans prefixe, sans '\n').
++  inline void append(const String& json, uint32_t seq) {
++    State& s = st();
++    if (!s.ok) return;
++    size_t len = json.length() + 1;
++    size_t cur = 0;
++    if (LittleFS.exists(F_CUR)) {
++      File c = LittleFS.open(F_CUR, "r");
++      if (c) { cur = c.size(); c.close(); }
++    }
++    if (cur + len > GSL_STORE_MAX_FILE) {          // rotation
++      if (LittleFS.exists(F_OLD)) LittleFS.remove(F_OLD);
++      LittleFS.rename(F_CUR, F_OLD);
++      s.nOld = s.nCur;
++      s.nCur = 0;
++      uint32_t fo = 0;
++      countLines(F_OLD, &fo);
++      s.firstSeq = fo;
++    }
++    File f = LittleFS.open(F_CUR, "a");
++    if (!f) return;
++    f.print(json);
++    f.print('\n');
++    f.close();
++    s.nCur++;
++    if (s.firstSeq == 0) s.firstSeq = seq;
++  }
++
++  inline void clear() {
++    State& s = st();
++    if (!s.ok) return;
++    if (LittleFS.exists(F_OLD)) LittleFS.remove(F_OLD);
++    if (LittleFS.exists(F_CUR)) LittleFS.remove(F_CUR);
++    s.nCur = s.nOld = 0;
++    s.firstSeq = 0;
++  }
++
++  inline size_t fsTotal() { return st().ok ? LittleFS.totalBytes() : 0; }
++  inline size_t fsUsed()  { return st().ok ? LittleFS.usedBytes()  : 0; }
++
++} // namespace PacketStore
++#endif
+diff --git a/tinyGS/src/SerialBridge.h b/tinyGS/src/SerialBridge.h
+new file mode 100644
+index 0000000..13169dd
+--- /dev/null
++++ b/tinyGS/src/SerialBridge.h
+@@ -0,0 +1,521 @@
++/*
++  SerialBridge.h - Pont serie off-grid pour GSLoraSat
++  ---------------------------------------------------
++  Ajoute au firmware TinyGS pour emettre les paquets recus sur l'USB serie ET
++  recevoir les commandes de l'application GSLoraSat, SANS serveur MQTT/OTP.
++
++  Station (ESP32) -> App :  @RX / @ST / @HELLO / @ACK / @LOG
++                            @LOGINFO / @LOGBEGIN / @LOGREC / @LOGEND  (journal)
++  App -> Station          :  !TX / !TUNE / !SAT / !FREQ / !CFG / !MAP / !PING
++                            !LOGINFO / !LOGDUMP [seq] / !LOGSTOP / !LOGCLR
++
++  GSL_FW_VERSION 1.1.0 (04/10/2026) :
++    - journal des paquets valides dans la flash (PacketStore.h), recuperable a
++      la demande par !LOGDUMP, y compris de facon incrementale ;
++    - meme protocole sur un serveur TCP Wi-Fi (NetBridge.h, port 8023) via le
++      point d'acces de la station (SSID = nom de station, 192.168.4.1) ;
++    - champs seq / boot / up_ms dans chaque @RX (dedoublonnage direct/relecture,
++      redatation des paquets d'une station sans horloge) ;
++    - les reponses a une commande ne partent que vers le canal demandeur.
++
++  handleTune() reconfigure DIRECTEMENT la radio (meme logique que la commande
++  MQTT "begin") : il appelle radio.begin(), donc le menu Satellites de l'app
++  pilote reellement la frequence d'ecoute, hors ligne.
++
++  Integration : voir firmware/OFFGRID_FIRMWARE.md
++    - #define OFFGRID_MODE (via build_flags -D OFFGRID_MODE)
++    - setup() : SerialBridge::begin();
++    - loop()  : SerialBridge::loop();   (SEUL lecteur serie)
++    - MQTT_Client::queueRx() : SerialBridge::sendRx(packet);  (emission des @RX)
++*/
++#ifndef SERIAL_BRIDGE_H
++#define SERIAL_BRIDGE_H
++
++#include <Arduino.h>
++#include "ArduinoJson.h"
++#include "Status.h"
++#include "Radio/Radio.h"
++#include "ConfigManager/ConfigManager.h"
++#include "PacketStore.h"
++#include "NetBridge.h"
++
++#ifndef GSL_FW_VERSION
++#define GSL_FW_VERSION "1.1.0"
++#endif
++
++extern Status status;
++
++namespace SerialBridge {
++
++  static String rxLine;
++
++  // --------------------------------------------------------------------
++  //  Canaux de sortie : USB serie, client TCP Wi-Fi, ou les deux.
++  // --------------------------------------------------------------------
++  enum : uint8_t { SINK_ALL = 0, SINK_SERIAL = 1, SINK_TCP = 2 };
++
++  // Canal d'origine de la commande en cours de traitement (les reponses n'y
++  // partent que la). Fonction inline -> une seule variable pour tout le fw.
++  inline uint8_t& curSink() { static uint8_t s = SINK_ALL; return s; }
++
++  // Copie de la verification de frequence du firmware (MQTT_Client.cpp).
++  inline bool isValidFrequency(uint8_t radio, float f) {
++    return !((radio == 1 && (f < 137 || f > 525))  ||
++             (radio == 2 && (f < 137 || f > 1020)) ||
++             (radio == 5 && (f < 410 || f > 810))  ||
++             (radio == 6 && (f < 150 || f > 960))  ||
++             (radio == 8 && (f < 2400 || f > 2500)));
++  }
++
++  inline void begin() {
++    Serial.println(F("@LOG GSLoraSat SerialBridge actif (off-grid) fw " GSL_FW_VERSION));
++    if (PacketStore::begin()) {
++      Serial.print(F("@LOG Journal flash : "));
++      Serial.print(PacketStore::count());
++      Serial.print(F(" paquet(s), boot #"));
++      Serial.println(PacketStore::bootId());
++    } else {
++      Serial.println(F("@LOG Journal flash INDISPONIBLE (LittleFS)"));
++    }
++  }
++
++  // Emission ATOMIQUE d'une ligne : construit toute la chaine (avec le '\n')
++  // puis l'ecrit en UN SEUL appel Serial.write(). Indispensable car le logger
++  // asynchrone de TinyGS (Log::consoleAsync, tourne sur l'autre coeur) peut
++  // s'inserer ENTRE deux Serial.print()/entre deux caracteres d'un
++  // serializeJson(doc, Serial) et corrompre la ligne @RX/@HELLO/@ACK.
++  inline void emitTo(uint8_t sink, const String& line) {
++    String out = line;
++    out += '\n';
++    if (sink != SINK_TCP)    Serial.write((const uint8_t*)out.c_str(), out.length());
++    if (sink != SINK_SERIAL) NetBridge::write(out);
++  }
++
++  // Diffusion (USB + TCP) : paquets recus, GPS.
++  inline void emitLine(const String& line) { emitTo(SINK_ALL, line); }
++
++  // Reponse a la commande en cours : seulement vers le canal demandeur.
++  inline void reply(const String& line) { emitTo(curSink(), line); }
++
++  inline void replyLog(const String& text) {
++    String s = F("@LOG ");
++    s += text;
++    reply(s);
++  }
++
++  inline void ack(const char* cmd, int result) {
++    String s = F("@ACK {\"cmd\":\"");
++    s += cmd;
++    s += F("\",\"result\":");
++    s += result;
++    s += '}';
++    reply(s);
++  }
++
++  // ====================================================================
++  //  Station -> Application
++  // ====================================================================
++  inline void sendRx(const String& dataB64) {
++    ConfigManager& cfg = ConfigManager::getInstance();
++    DynamicJsonDocument doc(1280 + dataB64.length());   // +128 : champs
++                                                    // clock / mono_usec
++                                                    // +128 : seq/boot/up_ms
++    // Identite du paquet dans le journal : EN TETE du document, pour que
++    // PacketStore la relise sans decoder tout le JSON.
++    bool valid = !status.lastPacketInfo.crc_error;
++    uint32_t seq = valid ? PacketStore::nextSeq() : 0;
++    if (valid) doc["seq"] = seq;
++    doc["boot"]  = PacketStore::bootId();
++    doc["up_ms"] = (uint32_t) millis();
++    JsonArray loc = doc.createNestedArray("station_location");
++    loc.add(cfg.getLatitude());
++    loc.add(cfg.getLongitude());
++    doc["mode"]             = status.modeminfolastpckt.modem_mode;
++    doc["frequency"]        = status.modeminfolastpckt.frequency;
++    doc["frequency_offset"] = status.modeminfolastpckt.freqOffset;
++    if (status.lastPacketInfo.freqDoppler != 0)
++      doc["f_doppler"]      = status.lastPacketInfo.freqDoppler;
++    doc["satellite"]        = status.modeminfolastpckt.satellite;
++    if (strcmp(status.modeminfolastpckt.modem_mode, "LoRa") == 0) {
++      doc["sf"]  = status.modeminfolastpckt.sf;
++      doc["cr"]  = status.modeminfolastpckt.cr;
++      doc["bw"]  = status.modeminfolastpckt.bw;
++      doc["iIQ"] = status.modeminfolastpckt.iIQ;
++    } else {
++      doc["bitrate"] = status.modeminfolastpckt.bitrate;
++      doc["freqdev"] = status.modeminfolastpckt.freqDev;
++      doc["rxBw"]    = status.modeminfolastpckt.bw;
++    }
++    doc["rssi"]            = status.lastPacketInfo.rssi;
++    doc["snr"]             = status.lastPacketInfo.snr;
++    doc["frequency_error"] = status.lastPacketInfo.frequencyerror;
++    // HORODATAGE : ne rien annoncer plutot qu'annoncer faux.
++    //
++    // Hors ligne il n'y a pas de NTP. Sur le T-Beam le GPS cale l'horloge
++    // (GpsBridge::syncClock), mais sur le Heltec V3 il n'y a pas de GPS du
++    // tout : time(NULL) rend alors les SECONDES DEPUIS L'ALLUMAGE, et
++    // lastPacketInfo.unix_time vaut par exemple 3051. Cette valeur est
++    // positive et ressemble a une date : cote application elle a ete prise
++    // pour le 1er janvier 1970, et tout le modele Doppler s'est retrouve
++    // evalue 56 ans dans le passe.
++    //
++    // On emet donc 0 quand l'horloge n'est pas calee, et un drapeau explicite.
++    // L'application peut alors horodater a la reception en connaissance de
++    // cause, au lieu d'etre trompee par un nombre plausible.
++    const time_t OFFGRID_EPOCH_MIN = 1735689600;   // 2025-01-01, comme GpsBridge
++    bool clockOk = (status.lastPacketInfo.unix_time >= OFFGRID_EPOCH_MIN);
++    doc["clock"]           = clockOk ? "ok" : "unset";
++    doc["unix_GS_time"]    = clockOk ? status.lastPacketInfo.unix_time : 0;
++    doc["usec_time"]       = clockOk ? status.lastPacketInfo.usec_time : 0;
++    // Le compteur monotone reste utile : il date les paquets les uns par
++    // rapport aux autres a la microseconde, meme sans horloge absolue.
++    if (!clockOk) doc["mono_usec"] = status.lastPacketInfo.usec_time;
++    doc["crc_error"]       = status.lastPacketInfo.crc_error;
++    doc["data"]            = dataB64;
++    doc["NORAD"]           = status.modeminfolastpckt.NORAD;
++    doc["az"]              = status.tle.dSatAZ;
++    doc["el"]              = status.tle.dSatEL;
++
++    // Serialisation en memoire PUIS emission atomique (anti-entrelacement).
++    String js;
++    serializeJson(doc, js);
++    // Journal flash : seulement les paquets VALIDES (un CRC faux n'a aucune
++    // valeur pour le Doppler et chasserait les bons paquets de la flash).
++    if (valid) PacketStore::append(js, seq);
++    String out = F("@RX ");
++    out += js;
++    emitLine(out);
++  }
++
++  inline void sendHello() {
++    ConfigManager& cfg = ConfigManager::getInstance();
++    StaticJsonDocument<640> doc;
++    JsonArray loc = doc.createNestedArray("station_location");
++    loc.add(cfg.getLatitude());
++    loc.add(cfg.getLongitude());
++    doc["tx"]      = cfg.getAllowTx();
++    doc["version"] = status.version;
++    doc["sat"]     = status.modeminfo.satellite;
++    // Carte reelle de la station : index (enum ConfigManager) + cible firmware,
++    // pour que l'app AFFICHE la bonne carte (les index different selon le fw).
++    doc["board"]   = cfg.getBoard();
++    doc["name"]    = cfg.getThingName();   // nom station (NVS) -> prerempli dans l'app
++#if defined(CONFIG_IDF_TARGET_ESP32S3)
++    doc["fw"]      = "heltec-s3";
++#else
++    doc["fw"]      = "tbeam";
++#endif
++    doc["gsl_fw"]  = GSL_FW_VERSION;
++    // Journal flash et liaison Wi-Fi : l'app sait ce qu'elle peut demander.
++    JsonObject lg  = doc.createNestedObject("log");
++    lg["ok"]       = PacketStore::ready();
++    lg["count"]    = PacketStore::count();
++    lg["first"]    = PacketStore::firstSeq();
++    lg["last"]     = PacketStore::lastSeq();
++    lg["boot"]     = PacketStore::bootId();
++    doc["up_ms"]   = (uint32_t) millis();
++    doc["tcp"]     = GSL_TCP_PORT;
++    String ip = NetBridge::ip();
++    if (ip.length()) doc["ip"] = ip;
++    String out = F("@HELLO ");
++    serializeJson(doc, out);
++    reply(out);
++  }
++
++  // ====================================================================
++  //  Journal flash : !LOGINFO / !LOGDUMP [seq] / !LOGSTOP / !LOGCLR
++  //
++  //  @LOGBEGIN {"count":N,"from":S,"boot":B,"up_ms":M,"clock":"ok|unset",
++  //             "unix":T}      (unix seulement si l'horloge est calee)
++  //  @LOGREC   <json>          un paquet, document identique a la ligne @RX
++  //  @LOGEND   {"sent":n,"last":S}
++  //
++  //  La relecture est INCREMENTALE et non bloquante : quelques lignes par
++  //  tour de loop(), la station continue d'ecouter pendant ce temps.
++  // ====================================================================
++  struct Dump {
++    bool     active = false;
++    uint8_t  sink   = SINK_SERIAL;
++    uint8_t  phase  = 0;        // 0 = fichier ancien, 1 = courant, 2 = fini
++    uint32_t from   = 0;
++    uint32_t sent   = 0;
++    uint32_t last   = 0;
++    File     f;
++  };
++  inline Dump& dump() { static Dump d; return d; }
++
++  inline void logInfo() {
++    StaticJsonDocument<320> d;
++    d["ok"]       = PacketStore::ready();
++    d["count"]    = PacketStore::count();
++    d["first"]    = PacketStore::firstSeq();
++    d["last"]     = PacketStore::lastSeq();
++    d["boot"]     = PacketStore::bootId();
++    d["up_ms"]    = (uint32_t) millis();
++    d["fs_total"] = (uint32_t) PacketStore::fsTotal();
++    d["fs_used"]  = (uint32_t) PacketStore::fsUsed();
++    d["dumping"]  = dump().active;
++    String out = F("@LOGINFO ");
++    serializeJson(d, out);
++    reply(out);
++  }
++
++  inline void dumpFinish() {
++    Dump& D = dump();
++    if (D.f) D.f.close();
++    String out = F("@LOGEND {\"sent\":");
++    out += D.sent;
++    out += F(",\"last\":");
++    out += D.last;
++    out += '}';
++    emitTo(D.sink, out);
++    D.active = false;
++  }
++
++  inline void dumpStart(const String& arg) {
++    Dump& D = dump();
++    if (D.active) dumpFinish();
++    if (!PacketStore::ready()) { ack("logdump", -1); return; }
++    D.active = true;
++    D.sink   = curSink() == SINK_ALL ? SINK_SERIAL : curSink();
++    D.phase  = 0;
++    D.from   = (uint32_t) arg.toInt();
++    D.sent   = 0;
++    D.last   = 0;
++    StaticJsonDocument<256> d;
++    d["count"] = PacketStore::count();
++    d["from"]  = D.from;
++    d["boot"]  = PacketStore::bootId();
++    d["up_ms"] = (uint32_t) millis();
++    time_t now = time(nullptr);
++    bool clockOk = now >= (time_t)1735689600;      // 2025-01-01
++    d["clock"] = clockOk ? "ok" : "unset";
++    if (clockOk) d["unix"] = (uint32_t) now;
++    String out = F("@LOGBEGIN ");
++    serializeJson(d, out);
++    emitTo(D.sink, out);
++  }
++
++  inline void dumpStep() {
++    Dump& D = dump();
++    if (!D.active) return;
++    for (int n = 0; n < 6; n++) {
++      if (!D.f) {
++        if (D.phase >= 2) { dumpFinish(); return; }
++        const char* path = (D.phase == 0) ? PacketStore::F_OLD : PacketStore::F_CUR;
++        D.phase++;
++        if (LittleFS.exists(path)) D.f = LittleFS.open(path, "r");
++        continue;
++      }
++      if (!D.f.available()) { D.f.close(); continue; }
++      String line = D.f.readStringUntil('\n');
++      line.trim();
++      if (!line.length() || line[0] != '{') continue;
++      int p = line.indexOf("\"seq\":");
++      uint32_t seq = (p >= 0 && p < 40) ? (uint32_t) line.substring(p + 6).toInt() : 0;
++      if (seq && seq < D.from) continue;
++      String out = F("@LOGREC ");
++      out += line;
++      emitTo(D.sink, out);
++      D.sent++;
++      if (seq > D.last) D.last = seq;
++    }
++  }
++
++  // ====================================================================
++  //  !TUNE : reconfiguration DIRECTE de la radio (logique de commandBegine)
++  //  {"mode":"LoRa","sat":"Norbi","NORAD":46494,"freq":436.703,"bw":250,
++  //   "sf":10,"cr":5,"sw":18,"pwr":5,"pl":8,"cl":120,"gain":0,"crc":true,"fldro":1}
++  // ====================================================================
++  inline void handleTune(const String& payload) {
++    Radio& radio = Radio::getInstance();
++    StaticJsonDocument<768> doc;
++    if (deserializeJson(doc, payload) || !doc.containsKey("mode")) {
++      replyLog(F("ERREUR: config modem invalide (!TUNE ignore)"));
++      ack("tune", -1);
++      return;
++    }
++    board_t board;
++    if (!ConfigManager::getInstance().getBoardConfig(board)) { ack("tune", -2); return; }
++    float freq = doc["freq"] | 0.0f;
++    if (!isValidFrequency(board.L_radio, freq)) {
++      replyLog(F("ERREUR: frequence invalide (!TUNE ignore)"));
++      ack("tune", -3);
++      return;
++    }
++
++    radio.clearPacketReceivedAction();
++    radio.disableInterrupt();
++
++    ModemInfo& m = status.modeminfo;
++    const char* mode = doc["mode"].as<const char*>();
++    strncpy(m.modem_mode, mode ? mode : "LoRa", sizeof(m.modem_mode) - 1);
++    m.modem_mode[sizeof(m.modem_mode) - 1] = '\0';
++    strncpy(m.satellite, doc["sat"] | "Manual", sizeof(m.satellite) - 1);
++    m.satellite[sizeof(m.satellite) - 1] = '\0';
++    m.NORAD = doc["NORAD"] | 0;
++
++    if (strcmp(m.modem_mode, "LoRa") == 0) {
++      m.frequency      = freq;
++      m.bw             = doc["bw"]   | 125.0f;
++      m.sf             = doc["sf"]   | 11;
++      m.cr             = doc["cr"]   | 5;
++      m.sw             = doc["sw"]   | 18;
++      m.power          = doc["pwr"]  | 14;
++      m.preambleLength = doc["pl"]   | 8;
++      m.gain           = doc["gain"] | 0;
++      m.crc            = doc["crc"]  | true;
++      m.fldro          = doc["fldro"]| 1;
++      m.iIQ            = doc["iIQ"]  | false;
++      m.len            = doc["len"]  | 0;
++    } else {
++      m.frequency      = freq;
++      m.bw             = doc["bw"]  | 125.0f;
++      m.bitrate        = doc["br"]  | 9.6f;
++      m.freqDev        = doc["fd"]  | 5.0f;
++      m.power          = doc["pwr"] | 14;
++      m.preambleLength = doc["pl"]  | 8;
++      m.len            = doc["len"] | 0;
++    }
++
++    m.tle[0] = 0;
++    status.tle.freqDoppler = 0;
++    status.tle.new_freqDoppler = 0;
++
++    int16_t r = radio.begin();     // applique reellement la nouvelle config
++    radio.enableInterrupt();
++
++    // (Optionnel) persister pour reecouter ce satellite apres coupure secteur :
++    // ConfigManager::getInstance().setModemStartup(payload.c_str());
++
++    replyLog(String(F("Modem reconfigure -> ")) + m.satellite + F(" @ ") +
++             String(m.frequency, 4) + F(" MHz"));
++    ack("tune", r);
++  }
++
++  inline void handleSat(const String& payload) {
++    StaticJsonDocument<128> d;
++    if (deserializeJson(d, payload)) { ack("sat", -1); return; }
++    strncpy(status.modeminfo.satellite, d[0] | "Manual",
++            sizeof(status.modeminfo.satellite) - 1);
++    status.modeminfo.satellite[sizeof(status.modeminfo.satellite) - 1] = '\0';
++    status.modeminfo.NORAD = d[1] | 0;
++    replyLog(String(F("Satellite ecoute : ")) + status.modeminfo.satellite);
++    ack("sat", 0);
++  }
++
++  inline void handleFreq(const String& payload) {
++    Radio& radio = Radio::getInstance();
++    radio.remote_freq((char*)payload.c_str(), payload.length());
++    ack("freq", 0);
++  }
++
++  // !MAP <x>,<y> : position pixel du satellite sur la carte OLED (0..127, 0..63).
++  // Calculee par GSLoraSat (SGP4) puis projetee ; "0,0" = pas de position.
++  inline void handleMap(const String& payload) {
++    int comma = payload.indexOf(',');
++    if (comma < 0) { status.satPos[0] = 0; status.satPos[1] = 0; return; }
++    status.satPos[0] = payload.substring(0, comma).toFloat();
++    status.satPos[1] = payload.substring(comma + 1).toFloat();
++  }
++
++  inline void handleTx(const String& payload) {
++    Radio& radio = Radio::getInstance();
++    String hex = payload; hex.trim();
++    size_t n = hex.length() / 2;
++    static uint8_t buf[256];
++    if (n > sizeof(buf)) n = sizeof(buf);
++    for (size_t i = 0; i < n; i++)
++      buf[i] = (uint8_t) strtol(hex.substring(i * 2, i * 2 + 2).c_str(), nullptr, 16);
++    int16_t r = radio.sendTx(buf, n);
++    ack("tx", r);
++  }
++
++  // !CFG <json> : configure la station SANS WiFi, puis sauvegarde (NVS).
++  //   {"board":0,"lat":"48.850","lon":"2.350","name":"F1GBD",
++  //    "tx":true,"boardtpl":"","reboot":true}
++  //   board : index carte (ESP32-S3 : 0=Heltec V3). reboot : redemarre si true.
++  inline void handleCfg(const String& payload) {
++    ConfigManager& cfg = ConfigManager::getInstance();
++    StaticJsonDocument<512> d;
++    if (deserializeJson(d, payload)) { ack("cfg", -1); return; }
++    if (d.containsKey("board"))    cfg.setBoard((uint8_t)(d["board"] | 0));
++    if (d.containsKey("boardtpl")) cfg.setBoardTemplate(d["boardtpl"] | "");
++    if (d.containsKey("lat"))      cfg.setLat(d["lat"] | "0.000");
++    if (d.containsKey("lon"))      cfg.setLon(d["lon"] | "-0.000");
++    if (d.containsKey("name"))     cfg.setName(d["name"] | "My TinyGS");
++    if (d.containsKey("tx"))       cfg.setAllowTx(d["tx"] | false);
++    replyLog(F("Configuration station mise a jour (sauvegardee)"));
++    ack("cfg", 0);
++    if (d["reboot"] | false) {
++      replyLog(F("reboot apres configuration"));
++      delay(200);
++      ESP.restart();
++    }
++  }
++
++  // ====================================================================
++  //  Application -> Station : dispatch (SerialBridge = SEUL lecteur serie)
++  // ====================================================================
++  inline void handleCommand(const String& line) {
++    Radio& radio = Radio::getInstance();
++    if      (line.startsWith("!TUNE ")) handleTune(line.substring(6));
++    else if (line.startsWith("!SAT "))  handleSat(line.substring(5));
++    else if (line.startsWith("!FREQ ")) handleFreq(line.substring(6));
++    else if (line.startsWith("!TX "))   handleTx(line.substring(4));
++    else if (line.startsWith("!CFG "))  handleCfg(line.substring(5));
++    else if (line.startsWith("!MAP "))  handleMap(line.substring(5));
++    else if (line.startsWith("!PING"))  sendHello();
++    else if (line.startsWith("!LOGINFO")) logInfo();
++    else if (line.startsWith("!LOGDUMP")) dumpStart(line.length() > 8 ? line.substring(9) : String(""));
++    else if (line.startsWith("!LOGSTOP")) { if (dump().active) dumpFinish(); ack("logstop", 0); }
++    else if (line.startsWith("!LOGCLR"))  {
++      if (dump().active) dumpFinish();
++      PacketStore::clear();
++      replyLog(F("Journal flash efface"));
++      ack("logclr", 0);
++    }
++    // NB : commandes console d'origine (!b/!e/!p) volontairement RETIREES.
++    // Sur les cartes a rebouclage TX->RX, la station relisait sa propre sortie
++    // "!e"/"!b" et se reinitialisait en boucle. L'app utilise !CFG pour rebooter.
++    else replyLog(F("Commande inconnue"));
++  }
++
++  inline void loop() {
++    while (Serial.available()) {
++      char c = (char) Serial.read();
++      if (c == '\n') {
++        rxLine.trim();
++        if (rxLine.length() && rxLine[0] == '!') {
++          curSink() = SINK_SERIAL;
++          handleCommand(rxLine);
++          curSink() = SINK_ALL;
++        }
++        rxLine = "";
++      } else if (c != '\r') {
++        rxLine += c;
++        if (rxLine.length() > 700) rxLine = "";   // garde-fou anti-debordement
++      }
++    }
++
++    // Pont TCP Wi-Fi : meme protocole, meme dispatch.
++    NetBridge::service();
++    if (NetBridge::takeFresh()) {
++      curSink() = SINK_TCP;
++      sendHello();
++      curSink() = SINK_ALL;
++    }
++    String tl;
++    while (NetBridge::readLine(tl)) {
++      if (tl.length() && tl[0] == '!') {
++        curSink() = SINK_TCP;
++        handleCommand(tl);
++        curSink() = SINK_ALL;
++      }
++    }
++
++    dumpStep();
++  }
++
++} // namespace SerialBridge
++#endif
+diff --git a/tinyGS/tinyGS.ino b/tinyGS/tinyGS.ino
+index 7cf0b49..34c5b80 100644
+--- a/tinyGS/tinyGS.ino
++++ b/tinyGS/tinyGS.ino
+@@ -80,10 +80,12 @@
+ #include "time.h"
+ #include "src/Mqtt/MQTT_credentials.h"
+ #include "src/Improv/tinygs_improv.h"
++#include "src/SerialBridge.h"
++#include "src/GpsBridge.h"
+ 
+ 
+ #if  RADIOLIB_VERSION_MAJOR != (0x07) || RADIOLIB_VERSION_MINOR != (0x06) || RADIOLIB_VERSION_PATCH != (0x00) || RADIOLIB_VERSION_EXTRA != (0x00)
+-#error "You are not using the correct version of RadioLib please copy TinyGS/lib/RadioLib on Arduino/libraries"
++//#error "You are not using the correct version of RadioLib please copy TinyGS/lib/RadioLib on Arduino/libraries" // desactive off-grid (RadioLib du fork)
+ #endif
+ 
+ #ifndef RADIOLIB_GODMODE
+@@ -150,9 +152,11 @@ void setup()
+   improvWiFi.setVersion (status.version);
+   Log::console (PSTR ("TinyGS Version %d - %s"), status.version, status.git_version);
+   Log::console(PSTR("Chip  %s - %d"),  ESP.getChipModel(),ESP.getChipRevision());
++#ifndef OFFGRID_MODE
+   if ((configManager.getMqttServer ()[0] == '\0') || (configManager.getMqttUser ()[0] == '\0') || (configManager.getMqttPass ()[0] == '\0')) {
+       mqttCredentials.generateOTPCode ();
+   }
++#endif
+   configManager.setWifiConnectionCallback(wifiConnected);
+   configManager.setConfiguredCallback(configured);
+   configManager.init();
+@@ -168,17 +172,29 @@ void setup()
+   board_t board;
+   if(configManager.getBoardConfig(board))
+     pinMode (board.PROG__BUTTON, INPUT_PULLUP);
++#ifdef OFFGRID_MODE
++  // Off-grid : radio d'abord (checkAXP fait Wire.end), l'OLED reprend l'I2C ensuite.
++  if (!radio.isReady()) radio.init();
++#endif
+   displayInit();
+   displayShowInitialCredits();
+   configManager.delay(1000);
+   mqtt.begin ();
++#ifdef OFFGRID_MODE
++  SerialBridge::begin();
++#ifdef OFFGRID_HAS_GPS
++  GpsBridge::begin();
++#endif
++#endif
+ 
+   if (configManager.getOledBright() == 0)
+   {
+     displayTurnOff();
+   }
+   
++#ifndef OFFGRID_MODE
+   printControls();
++#endif
+ }
+ 
+ bool mqttAutoconf () {
+@@ -291,18 +307,29 @@ void loop() {
+   }
+ 
+   ArduinoOTA.handle();
++#ifdef OFFGRID_MODE
++  SerialBridge::loop();
++#ifdef OFFGRID_HAS_GPS
++  GpsBridge::loop();
++#endif
++#else
+   handleSerial();
++#endif
+ 
++#ifndef OFFGRID_MODE
+   if (configManager.getState () < IOTWEBCONF_STATE_AP_MODE) // not ready or not configured
+   {
+       displayShowApMode ();
+       return;
+   }
++#endif
+ 
++#ifndef OFFGRID_MODE
+   if ((configManager.getMqttServer ()[0] == '\0') || (configManager.getMqttUser ()[0] == '\0') || (configManager.getMqttPass ()[0] == '\0')) {
+       mqttAutoconf ();
+       return;
+   }
++#endif
+ 
+   // configured and no connection
+   checkButton();
+@@ -315,6 +342,7 @@ void loop() {
+     status.radio_ready = false;
+   }
+ 
++#ifndef OFFGRID_MODE
+   if (configManager.getState() < 4) // connection or ap mode
+   {
+     displayShowStaMode(configManager.isApMode());
+@@ -325,7 +353,9 @@ void loop() {
+ 
+   mqtt.loop();
+   OTA::loop();
++#endif
+ 
++  // Carrousel OLED TinyGS (satellite, RSSI/SNR, mini-carte, stats) aussi en off-grid.
+   displayUpdate ();
+ 
+   if (configManager.askedWebLogin () && mqtt.connected ())

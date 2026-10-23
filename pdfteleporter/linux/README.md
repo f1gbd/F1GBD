@@ -8,7 +8,7 @@
 
 *Pour les opérateurs ADRASEC / FNRASEC — TNC Packet, VARA HF/FM/SAT, Winlink Express*
 
-[![Version](https://img.shields.io/badge/paquet-v1.2.0-blue)](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-linux-v1.2.0)
+[![Version](https://img.shields.io/badge/paquet-v1.2.1-blue)](https://github.com/f1gbd/F1GBD/releases/tag/pdfteleporter-linux-v1.2.1)
 [![Application](https://img.shields.io/badge/application-v2.1.0-blueviolet.svg)]()
 [![Plateforme](https://img.shields.io/badge/Linux-x86__64-orange.svg)]()
 [![glibc](https://img.shields.io/badge/glibc-%E2%89%A5%202.39-critical.svg)]()
@@ -17,7 +17,7 @@
 
 ### 🐧 Télécharger
 
-**[⬇ PDFteleporter-1.2.0-linux-x86_64.tar.gz (78 Mo)](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.2.0/PDFteleporter-1.2.0-linux-x86_64.tar.gz)**
+**[⬇ PDFteleporter-1.2.1-linux-x86_64.tar.gz (81 Mo)](https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.2.1/PDFteleporter-1.2.1-linux-x86_64.tar.gz)**
 
 [Version Windows](../README.md) · [Toutes les versions](https://github.com/f1gbd/F1GBD/releases?q=pdfteleporter)
 
@@ -42,7 +42,11 @@
 
 <a id="correctif-okular"></a>
 
-## 🆕 v1.2.0 — moteur PDF libre et licence PolyForm Noncommercial
+## 🆕 v1.2.1 — paquet sans GNU readline
+
+Le paquet v1.2.1 corrige la v1.2.0 : la bibliothèque GNU readline (GPL v3), embarquée par erreur avec un module Python inutile, n'est plus livrée. L'application est identique.
+
+## v1.2.0 — moteur PDF libre et licence PolyForm Noncommercial
 
 Même moteur et même interface que la **v2.2.0 Windows** : bibliothèques PDF à
 licence permissive à la place de PyMuPDF, interface PySide6 à la place de
@@ -97,8 +101,8 @@ vaut désormais pour les deux plateformes**.
 ## 🚀 Installation
 
 ```bash
-wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.2.0/PDFteleporter-1.2.0-linux-x86_64.tar.gz
-tar xzf PDFteleporter-1.2.0-linux-x86_64.tar.gz
+wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.2.1/PDFteleporter-1.2.1-linux-x86_64.tar.gz
+tar xzf PDFteleporter-1.2.1-linux-x86_64.tar.gz
 cd PDFteleporter
 ./pdfteleporter.sh
 ```
@@ -140,8 +144,8 @@ bibliothèque absente.
 ### Vérification d'intégrité
 
 ```bash
-wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.2.0/PDFteleporter-1.2.0-linux-x86_64.tar.gz.sha256
-sha256sum -c PDFteleporter-1.2.0-linux-x86_64.tar.gz.sha256
+wget https://github.com/f1gbd/F1GBD/releases/download/pdfteleporter-linux-v1.2.1/PDFteleporter-1.2.1-linux-x86_64.tar.gz.sha256
+sha256sum -c PDFteleporter-1.2.1-linux-x86_64.tar.gz.sha256
 ```
 
 ---
@@ -149,7 +153,7 @@ sha256sum -c PDFteleporter-1.2.0-linux-x86_64.tar.gz.sha256
 ## 📦 Contenu de l'archive
 
 ```
-PDFteleporter-1.2.0-linux-x86_64.tar.gz        78 Mo compressé / 187 Mo extrait
+PDFteleporter-1.2.1-linux-x86_64.tar.gz        81 Mo compressé / 197 Mo extrait
 └── PDFteleporter/
     ├── PDFteleporter            binaire ELF 64 bits autonome
     ├── pdfteleporter.sh         lanceur recommandé (nettoie LD_LIBRARY_PATH)
@@ -196,7 +200,7 @@ ce que vous déployez.
 ```bash
 # Sources : dossier PDFteleporter_v2 du projet
 chmod +x Build-PDFteleporter-linux.sh
-./Build-PDFteleporter-linux.sh -p 1.2.0 -c -s
+./Build-PDFteleporter-linux.sh -p 1.2.1 -c -s
 ```
 
 Le script crée un environnement virtuel **dédié** (PySide6, pypdfium2, pdfminer.six, pypdf, reportlab, Pillow,
@@ -206,7 +210,7 @@ démarrage, et produit l'archive `.tar.gz` avec son SHA-256.
 
 | Option | Effet |
 |---|---|
-| `-p <version>` | numéro du paquet (défaut 1.1.0, passer -p 1.2.0) |
+| `-p <version>` | numéro du paquet (défaut 1.2.1) |
 | `-c` | repart de zéro |
 | `-s` | supprime aussi les bibliothèques devenues orphelines (~10 Mo) |
 | `-d <chemin>` | dossier de sortie |
@@ -350,7 +354,7 @@ Retours d'expérience et propositions sont bienvenus via les *Issues* du dépôt
 **Jean-Louis Naudin (F1GBD)**
 *ADRASEC 77 — FNRASEC*
 
-**Paquet Linux v1.2.0 — Octobre 2026** · *application v2.2.0* · licence [PolyForm Noncommercial 1.0.0](../LICENSE)
+**Paquet Linux v1.2.1 — Octobre 2026** · *application v2.2.0* · licence [PolyForm Noncommercial 1.0.0](../LICENSE)
 
 *Pour toute question, contactez votre référent ADRASEC départemental.*
 
