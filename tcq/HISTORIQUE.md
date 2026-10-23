@@ -9,6 +9,28 @@
 
 ---
 
+## 🆕 v15.0.1 — correctif : réglages de la station préservés à la mise à jour
+
+L'installeur de la v15.0 vidait entièrement le dossier `_internal` pour retirer les
+anciennes bibliothèques GPL. Or `TCQ.exe` et `TCQconfig.exe` y rangent les réglages
+de la station : `setup.json`, `annuaire.json`, `annuaire_meshcore.json`,
+`meshcore_chat.json`, `zone_alerte.json`, `bbs_data.db`, `credentials.json`. Une
+mise à jour depuis la 14.x, y compris lancée depuis *À propos → Vérifier les mises à
+jour*, effaçait donc ces réglages.
+
+- **Installeur** : il ne retire plus que les bibliothèques abandonnées en 15.0
+  (PyMuPDF, pyModeS, pyrtlsdr/librtlsdr, libusb, imageio-ffmpeg). Avant toute
+  copie, il recopie les `.json`, `.db`, `.bak` et `.txt` de `_internal` dans
+  `sauvegarde_reglages\`, à côté de `TCQ.exe`.
+- **TCQ et TCQconfig** : chaque enregistrement de `setup.json` est recopié dans
+  `sauvegarde_reglages\` ; au démarrage, un fichier de réglages absent de
+  `_internal` y est repris automatiquement.
+- **Réglages déjà perdus avec la v15.0** : restaurez votre ancien `setup.json` dans
+  `C:\TCQ\_internal\` (*Propriétés* du dossier → *Versions précédentes*, si
+  l'historique des fichiers Windows est actif), ou refaites-les avec TCQconfig.
+
+---
+
 ## 🆕 Nouveautés v15.0 — licence PolyForm Noncommercial, moteurs libres
 
 **Licence.** TCQ passe de la GNU GPL v3 à **PolyForm Noncommercial 1.0.0** : usage

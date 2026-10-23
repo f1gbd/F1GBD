@@ -11,14 +11,14 @@
 [![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-lightgrey.svg)]()
 [![Architecture](https://img.shields.io/badge/arch-x86__64%20%7C%20ARM64-orange.svg)]()
 [![Licence](https://img.shields.io/badge/licence-PolyForm%20Noncommercial%201.0.0-green.svg)](LICENSE)
-[![Version TCQ](https://img.shields.io/badge/version-tcq--v15.0-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
+[![Version TCQ](https://img.shields.io/badge/version-tcq--v15.0.1-blue)](https://github.com/f1gbd/F1GBD/releases?q=tcq)
 
-## 📥 [Télécharger l'installeur Windows](https://github.com/f1gbd/F1GBD/releases/download/tcq-v15.0/TCQ-15.0-setup.exe)
+## 📥 [Télécharger l'installeur Windows](https://github.com/f1gbd/F1GBD/releases/download/tcq-v15.0.1/TCQ-15.0.1-setup.exe)
 
 *Double-clic, aucun droit administrateur. Binaire autonome — aucune installation Python.*
 *Ensuite, TCQ se met à jour tout seul : **ℹ À propos → 🔄 VÉRIFIER LES MISES À JOUR**.*
 
-Autres formats : [archive `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v15.0/TCQ.7z) · commande PowerShell *(en administrateur)* :
+Autres formats : [archive `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v15.0.1/TCQ.7z) · commande PowerShell *(en administrateur)* :
 
 ```powershell
 iwr https://github.com/f1gbd/F1GBD/raw/master/tcq/Install-TCQ.ps1 -OutFile $env:TEMP\Install-TCQ.ps1; & $env:TEMP\Install-TCQ.ps1
@@ -144,7 +144,7 @@ indicatif et par adresse ICAO.
 
 ### Programme d'installation Windows *(recommandé)*
 
-1. [Téléchargez `TCQ-15.0-setup.exe`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v15.0/TCQ-15.0-setup.exe)
+1. [Téléchargez `TCQ-15.0.1-setup.exe`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v15.0.1/TCQ-15.0.1-setup.exe)
 2. Double-cliquez — **aucun droit administrateur requis**
 3. Lancez TCQ depuis le menu Démarrer ou le Bureau
 
@@ -179,7 +179,7 @@ raccourcis. Relancez la même commande pour mettre à jour.
 
 ### À la main
 
-1. [Téléchargez `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v15.0/TCQ.7z)
+1. [Téléchargez `TCQ.7z`](https://github.com/f1gbd/F1GBD/releases/download/tcq-v15.0.1/TCQ.7z)
 2. Vérifiez l'empreinte : `Get-FileHash -Algorithm SHA256 TCQ.7z` — elle est publiée avec la release
 3. Décompressez dans `C:\` *(clic droit → 7-Zip → Extraire vers `C:\`)*
 4. Lancez `C:\TCQ\TCQ.exe`
@@ -206,7 +206,25 @@ raccourcis. Relancez la même commande pour mettre à jour.
 
 ## 🆕 Dernières mises à jour
 
-### Version courante : **v15.0** — *23 octobre 2026*
+### Version courante : **v15.0.1** — *23 octobre 2026*
+
+**🛟 Correctif : réglages de la station préservés à la mise à jour.** L'installeur
+de la v15.0 vidait le dossier `_internal`, où TCQ range `setup.json`, les annuaires,
+`zone_alerte.json`, `bbs_data.db`… : une mise à jour depuis la 14.x effaçait ces
+réglages. **Installez la v15.0.1 à la place de la v15.0.**
+
+- L'installeur ne retire plus que les anciennes bibliothèques abandonnées en 15.0,
+  et recopie d'abord les fichiers de la station dans **`sauvegarde_reglages\`**
+  (à côté de `TCQ.exe`).
+- TCQ et TCQconfig recopient `setup.json` dans `sauvegarde_reglages\` à chaque
+  enregistrement, et reprennent au démarrage tout fichier de réglages absent de
+  `_internal`.
+- Réglages déjà perdus avec la v15.0 : restaurez votre ancien `setup.json` dans
+  `C:\TCQ\_internal\` (clic droit sur le dossier → *Propriétés* → *Versions
+  précédentes*, si l'historique des fichiers Windows est actif), ou refaites-les
+  avec TCQconfig.
+
+### v15.0 — *23 octobre 2026*
 
 **⚖️ Licence PolyForm Noncommercial 1.0.0.** TCQ reste gratuit pour l'usage
 personnel, radioamateur, associatif et sécurité civile ; **tout usage commercial
@@ -375,7 +393,8 @@ tient pas.
 
 | Version | Date | Ce qui change |
 |---|---|---|
-| **v15.0** | 23/10/2026 | Licence PolyForm Noncommercial ; moteur PDF libre (pages plus fidèles) ; ADS-B décodé dans TCQ via rtl_tcp séparé (correctif position > 180 NM) ; ffmpeg LGPL pour JVFT |
+| **v15.0.1** | 23/10/2026 | Correctif : l'installeur ne vide plus `_internal` (réglages de la station préservés) ; copie de secours `sauvegarde_reglages\` et reprise automatique au démarrage (TCQ et TCQconfig) |
+| v15.0 | 23/10/2026 | Licence PolyForm Noncommercial ; moteur PDF libre (pages plus fidèles) ; ADS-B décodé dans TCQ via rtl_tcp séparé (correctif position > 180 NM) ; ffmpeg LGPL pour JVFT |
 | v14.3.4 | 22/10/2026 | Livret et fiches CHAPPE26 livrés sans aucun chiffrement par clé (code public d'abréviation, décodage en clair inchangé) |
 | v14.3.3 | 16/10/2026 | Accusés de réception retardés (3 s mini) et étalés (créneau au hasard, canal libre) : plusieurs stations à l'écoute ne se brouillent plus ; radiogrammes accusés par leur seul destinataire ; TCQconfig v14.3.3 |
 | v14.3.2 | 14/10/2026 | TNC Packet en mode série : paramètres KISS convertis en nombres et toujours envoyés au TNC (TXDELAY 800 ms), affichés à la connexion |
@@ -418,7 +437,7 @@ tient pas.
 **Jean-Louis — F1GBD / F4JHW**
 *ADRASEC 77 — FNRASEC*
 
-**TCQ v15.0 — 23/10/2026**
+**TCQ v15.0.1 — 23/10/2026**
 
 Distribué sous licence [PolyForm Noncommercial 1.0.0](LICENSE) — usage commercial interdit.
 Les composants tiers restent sous leurs propres licences ([THIRD-PARTY-NOTICES.txt](THIRD-PARTY-NOTICES.txt)).
