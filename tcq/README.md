@@ -422,7 +422,6 @@ tient pas.
 
 Distribué sous licence [PolyForm Noncommercial 1.0.0](LICENSE) — usage commercial interdit.
 Les composants tiers restent sous leurs propres licences ([THIRD-PARTY-NOTICES.txt](THIRD-PARTY-NOTICES.txt)).
-Les versions publiées jusqu'à la v14.3.4 restent régies par la licence qui les accompagnait (GNU GPL v3).
 
 *Pour toute question, contactez votre référent ADRASEC départemental.*
 
