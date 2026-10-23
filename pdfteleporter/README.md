@@ -240,9 +240,7 @@ usage libre et gratuit à titre personnel ou radioamateur, et par les associatio
 
 Les bibliothèques et polices tierces embarquées restent sous leurs propres licences
 permissives (Apache-2.0, BSD, MIT, LGPL-3.0 pour Qt/PySide6, OFL pour les polices) :
-voir [THIRD-PARTY-NOTICES.txt](THIRD-PARTY-NOTICES.txt). Les versions publiées
-jusqu'à la v2.1.0 (Windows) et v1.1.0 (Linux) restent régies par la licence qui les
-accompagnait.
+voir [THIRD-PARTY-NOTICES.txt](THIRD-PARTY-NOTICES.txt). 
 
 ---
 
